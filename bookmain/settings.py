@@ -397,5 +397,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # USE_L10N = False
 # DATE_FORMAT = '%m/%d/%Y'
 
-# import django_heroku
-# django_heroku.settings(locals())
+import django_heroku
+django_heroku.settings(locals())
