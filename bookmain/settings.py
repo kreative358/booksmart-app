@@ -58,7 +58,7 @@ elif not IS_HEROKU_APP:
 
 if IS_HEROKU_APP:
     # ALLOWED_HOSTS = ["booksmartapp-d4d06d34cc80.herokuapp.com"]
-    ALLOWED_HOSTS = ["booksmartapp-d4d06d34cc80.herokuapp.com"]
+    ALLOWED_HOSTS = ["booksmart-app-bd32a8932ff0.herokuapp.com"]
 elif not IS_HEROKU_APP:
     ALLOWED_HOSTS = ['127.0.0.1']
 else:
