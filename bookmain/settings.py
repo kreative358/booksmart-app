@@ -341,8 +341,9 @@ if IS_HEROKU_APP:
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 elif not IS_HEROKU_APP:
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),) 
     
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),) 
+
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)  # new
 
 # STATIC_ROOT = "/var/www/booksmartapp/static/css"
