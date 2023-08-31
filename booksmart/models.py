@@ -397,22 +397,22 @@ except:
     context_bm['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
     context_bm['music_type_2'] = "mp3"
 
-def get_user(request):
-    user=request.user
-    if user:
-        print('models user.username', user.username)
-    elif not user:
-        print('models Anonymus')
-    global context_gm
-    context_gm = {}
-    if user.is_authenicated:
-        context_bm['person_id'] = user.id
-        context_bm['person_name'] = user.username
-        return context_gm
-    else:
-        context_bm['person_id'] = None
-        context_bm['person_name'] = "Anonymus"
-        return context_gm
+# def get_user(request):
+#     user=request.user
+#     if user:
+#         print('models user.username', user.username)
+#     elif not user:
+#         print('models Anonymus')
+#     global context_gm
+#     context_gm = {}
+#     if user.is_authenicated:
+#         context_bm['person_id'] = user.id
+#         context_bm['person_name'] = user.username
+#         return context_gm
+#     else:
+#         context_bm['person_id'] = None
+#         context_bm['person_name'] = "Anonymus"
+#         return context_gm
 
 
 

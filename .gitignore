@@ -6,4 +6,5 @@ venv/
 # Django files
 staticfiles/
 db.sqlite3
-*/tmp
+**/tmp/
+tmp/**/manage.py
