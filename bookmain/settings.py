@@ -337,8 +337,8 @@ STATIC_URL = "/static/"
 # MEDIA_ROOT = '/mymedia/'
 
 if IS_HEROKU_APP:
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 elif not IS_HEROKU_APP:
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     
