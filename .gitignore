@@ -6,3 +6,4 @@ venv/
 # Django files
 staticfiles/
 db.sqlite3
+/tmp/build_0fdc5db6/*
