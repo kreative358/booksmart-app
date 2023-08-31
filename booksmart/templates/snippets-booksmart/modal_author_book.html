@@ -1,0 +1,47 @@
+
+
+
+    <div class="mymodal_uni" id="mymodalauthor_bookOverlay_{{book.google_id}}">
+    </div>
+
+<div class="container_mymodal_uni" id="mymodalauthor_bookCont_{{book.google_id}}">
+<div class="column_mymodal_uni" id="mymodalauthor_bookCol">
+
+    <div class="mymodal_header_uni" id="mymodalauthor_bookHeader" >
+    <p id="close_m_uni" class="close_m">✖</p>
+    <p style="font-size:26px; color:blue; margin:10px auto 0px auto;">AUTHOR INFO</p>
+    </div>
+
+    
+    {% if book.author_c%}
+    <div class="mymodal_body_uni" id="mymodalauthor_bookBody" >
+      {% include 'snippets-booksmart/author_book.html' %}
+    </div>
+  
+      {% else %}
+      <div class="mymodal_body_uni" id="mymodalauthor_bookBody" >
+      <div class="text-center" style="padding-top:4px;"><h6 style="margin-top:8px;"> IN DATABASE NO DETAILS ABOUT THIS AUTHOR TRY THIS </h6></div>
+    </div>
+  
+    <div class="mymodal_body_uni" id="mymodalauthor_bookBody" >
+    <div style="width:100%;" ><iframe src="https://{{ book.language }}.wikipedia.org/wiki/{{ book.author }}" style="width:100%; height:300px;">
+    </iframe></div></div>
+    {% endif %}
+          
+<div class="mymodal_footer_uni" id="mymodalauthor_bookFooter">
+    
+    
+    <span class="close_mb">
+    <button id="close_mb_uni" type="button" class="btn btn-outline-primary text-danger float-right" style="position:relative; width:110px; margin: 10px 10px 10px auto; border: 4px solid; font-size: 20px; font-weight: bold; padding:4px auto 4px auto; box-shadow: 0px 0px 4px 4px rgba(180, 180, 220, 0.6);">CLOSE</button> 
+    </span>
+    <br>
+<p style="font-variant: small-caps;"> booksmart </p>
+</div>
+
+</div>
+</div>
+
+
+
+
+    

@@ -1,0 +1,58 @@
+<style type="text/css"> 
+    #search_column_gb {
+      position:relative;
+      z-index:1;
+      margin: 3vw auto 20px auto;
+      width: 580px;
+      max-width: 90%;
+      left:0.8%;
+      }
+      
+    #search_ba_gb {
+      background-color: rgb(100, 160, 220,); 
+      background-color: rgba(100, 160, 220, 0.2); 
+      border-radius: 5px;
+      font-size: 18px;
+      color: white;
+      font-weight: bold;
+      border: 5px solid rgba(100, 160, 220, 0.2);
+      padding-left:20px;
+      padding-right: 20px;
+      text-align: center;
+      box-shadow: 0px 0px 6px 6px rgba(120, 120, 120, 0.3); 
+      }
+    
+    #title {
+    margin-top:20px
+    }
+    
+    #button_sm:focus {
+    border:none;
+    outline:none;
+    }
+    </style>
+    
+    <div>
+    <div class="mycontainer"  id="cont_page_input">
+      <div class="myrow" id="row_page_input">
+        <div class="mycolumn" id="column_page_input">
+
+        <h4 class="card-title" id="title">PAGE NUMBER</h4>
+
+        <form action="{% url 'booksmart:readpage' %}" method="post" enctype="multipart/form-data" target="_blank">
+        {% csrf_token %}
+     
+        <div >
+        <input type="hidden" id="book_google_id" name="book_google_id" value="{{book.google_id}}">
+        </div>
+        <div>
+        <input type="number" name="page_number" id="inputPage" class="form-control" placeholder="page number"  autofocus>
+        </div>
+          <button type="button" id="button_sm" href="{% url 'booksmart:allrecords' %}" class="btn btn-outline-primary text-danger float-left" style="margin: 20px 20px 10px 30px; border: 4px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 18px; font-weight: bold;font-family: Helvetica; padding:auto;" > Back </button>
+          <button type="submit" id="button_sm" class="btn btn-outline-danger text-primary float-right" style="margin: 20px 30px 10px 20px; border: 4px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 18px; font-weight: bold;font-family: Helvetica; padding:auto;"> Send </button>
+        </form>
+      </div>
+
+    </div>
+    </div>
+    </div>

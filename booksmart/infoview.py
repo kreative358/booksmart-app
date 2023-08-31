@@ -1,0 +1,354 @@
+from accounts.models import Account
+from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo
+from django.contrib.auth import login, authenticate, logout
+from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm #, UrlPathForm
+from booksmart.forms import PdfReader, BackgroundFormPoster, BackgroundFormVideo #, BackgroundFormMusic
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
+from accounts.views import *
+from booksmart.models import context_bm
+import os, requests, json, re, datetime, requests.api
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import resolve, reverse, translate_url
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import *
+from booksmart.models import context_bm
+# from internetarchive import configure, download
+
+# download(identifier: str, files: files.File | list[files.File] | None = None, formats: str | list[str] | None = None, glob_pattern: str | None = None, dry_run: bool = False, verbose: bool = False, ignore_existing: bool = False, checksum: bool = False, destdir: str | None = None, no_directory: bool = False, retries: int | None = None, item_index: int | None = None, ignore_errors: bool = False, on_the_fly: bool = False, return_responses: bool = False, no_change_timestamp: bool = False, **get_item_kwargs) → list[requests.Request | requests.Response][source]
+
+# from internetarchive import get_item, get_username
+# from internetarchive import item
+# from bookmain.settings import config_ar
+# # http://127.0.0.1:8000/
+
+# import internetarchive
+# from internetarchive import ArchiveSession
+
+# try:
+# 	configure('kreative358@hotmail.com', 'Bonum12o')
+# 	arsesion = ArchiveSession()
+# 	print('arsesion', arsesion)
+
+# 	username = get_username('ZA2XJs2aXBt6OQLq', 'M1PEtZXOrXZhVsAG')
+# 	print('infoview username', username)
+# except Exception as e:
+# 	print(f"Exception infoview line 35 error: {e}")
+# 	pass
+
+# def background(request):
+# 	context = {}
+# 	background_form = BackgroundForm()
+#     if request.GET:
+# 		background_form = BackgroundForm(request.GET)
+# 		if background_form.is_valid():
+# 			poster_url = background_form.cleaned_data['link_poster_1']
+# 			context['poster'] = poster_url
+# 			video_url = pbackground_form.cleaned_data['link_video']
+# 			context['video'] = video_url
+# 			return render(request, "background_view.html", context)
+			# return render(request, "allrecord.html", context)
+    # if request.POST:
+	# 	background_form = BackgroundForm(request.POST, or None, request.FILES or None)
+	# 	if background_form.is_valid():
+	# 		poster_url = background_form.cleaned_data['link_poster_1']
+	# 		video_url = pbackground_form.cleaned_data['link_video']
+	# return render(request, "background_view.html", context)
+
+from booksmart.forms import PageForm
+@api_view(['POST', 'GET'])
+# @authentication_classes([])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+@permission_classes([permissions.IsAuthenticated, ])
+def read_page(request):
+    context = context_bm
+    r_user = request.user
+
+    if not r_user.is_authenticated:
+        return redirect('index')
+
+    if request.GET:
+        page_form = PageForm()
+		
+    if request.POST:
+        page_form = PageForm(request.POST or None, request.FILES or None)
+        if page_form.is_valid():
+            needed_page = page_form.cleaned_data['page_number']
+            book_id = page_form.cleaned_data['book_google_id']
+            book_page_link = f"https://books.google.com/books?id={book_id}&amp;pg=PA{needed_page}&amp;hl=tw&amp;source=gbs_toc_r&amp;output=embed#%257B%257D" 
+            print("book_page_link", book_page_link)
+            context['page_form']=book_page_link
+            return render(request, 'read_page.html', context)
+
+    return render(request, 'read_page.html', context)
+
+# from rest_framework import permissions
+# permissions.IsAdminUser
+@api_view(['GET', 'POST'])
+# @authentication_classes([])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+@permission_classes([permissions.IsAdminUser, ])
+def background_poster(request):
+    context = context_bm
+    if request.GET:
+        poster_form = BackgroundFormPoster()
+		
+    if request.POST:
+        poster_form = BackgroundFormPoster(request.POST or None, request.FILES or None)
+        if poster_form.is_valid():
+            poster = poster_form.save()
+            return redirect('booksmart:allrecords')
+
+    context['poster'] = poster_form
+    context['new'] = True
+    return render(request, 'new_poster.html', context)
+
+
+def background_video(request):
+    context = context_bm
+    video_form = BackgroundFormVideo()
+
+    if request.POST:
+        video_form = BackgroundFormVideo(request.POST or None, request.FILES or None)
+        if video_form.is_valid():
+            video_url = video_form.save()
+            return redirect('booksmart:allrecords')
+
+    context['video'] = video_form
+    context['new'] = True
+
+    return render(request, 'new_video.html', context)
+
+# def background_music(request):
+#     context = context_bm
+#     video_form = BackgroundFormMusic()
+
+#     if request.POST:
+#         video_form = BackgroundFormMusic(request.POST or None, request.FILES or None)
+#         if video_form.is_valid():
+#             video_url = video_form.save()
+#             return redirect('booksmart:allrecords')
+
+#     context['video'] = video_form
+#     context['new'] = True
+
+#     return render(request, 'new_video.html', context)
+
+		
+
+
+def pdf_reader(request):
+	context = context_bm
+
+	# books = Book.objects.all()
+	# authors = Author.objects.all()
+	pdf_form = PdfReader()
+	# context['books'] = books
+	# context['authors'] = authors
+	context['pdf_form'] = pdf_form
+	book_link_h='https://drive.google.com/file/d/1MG3P-Tdr5iR9zJTE4SeWpBLqO380hbEm/preview?usp=sharing'
+	context['book_link_h'] = book_link_h
+	if request.POST:
+		pdf_form = PdfReader(request.POST)
+		if pdf_form.is_valid():
+			book_to_read = pdf_form.cleaned_data['link_book']
+			print('book_to_read', book_to_read)
+			try:
+
+				if re.findall("/d/.+?[/]", book_to_read):
+					# if re.findall("/d/.+?[/]", book_to_read)[0][3:6]=='151':
+					x = book_to_read.rfind("/")
+					print('x', x)
+					book_link = book_to_read[:x+1] + "preview"
+					print('book_link', book_link)
+					context['book_link'] = book_link
+
+					return render(request, "pdf_reader.html", context)
+
+				elif not re.findall("/d/.+?[/]", book_to_read):
+					context['message'] = f'This is not standard google drive pdf link'
+					context['book_link'] = book_link
+					return render(request, "pdf_reader.html", context)
+				
+				else:
+					context['message'] = f'Incorrect link not pdf'
+					return render(request, "pdf_reader.html", context)
+
+			except Exception as e:
+				context['message'] = f'Incorrect link, error description: {e}'
+				return render(request, "pdf_reader.html", context )
+
+
+	return render(request, "pdf_reader.html", context )
+
+def app_users(request):
+	# home_screen_view,
+	# urlObject = request.get_host() + request.path
+	# print("app_users urlObject", urlObject)
+	# urlObject1 = request._current_scheme_host + request.path
+	# print("app_users urlObject1", urlObject1)
+	# print("app_users urlObject2", "request.path:", request.path, "request.get_full_path",request.get_full_path, "request.build_absolute_uri", request.build_absolute_uri)
+	# print("app_users request.get_host()", request.get_host())
+	# print("app_users request.resolver_match.url_name", request.resolver_match.url_name)
+	# print("app_users get_current_site:", get_current_site )
+	# print("resolve, reverse, translate_url:", resolve, reverse, translate_url )
+	context = {}
+	accounts = Account.objects.all()
+	books = Book.objects.all()
+	authors = Author.objects.all()
+	identity = 'hobbitortherebac0000tolk_t0g2'
+	# item_ar = get_item(identity)
+	# print('infoview: item.exists', item_ar.exists)
+	# print('item.item_metadata', item_ar.item_metadata)
+	# item_file = item_ar.get_file('lccn_078073006991')
+	# configure_ar = config_ar
+	# try:
+	# 	download_ar = download('lccn_078073006991_0050', formats='EPUB', on_the_fly=True) ## return_responses
+	# # epub_ar = download('harrypotterdeath0000rowl_n2u6', verbose=True, formats='EPUB', on_the_fly=True)
+	# except Exception as e:
+	# 	print(f'error with download is: {e}')
+	
+	login_name = {"username": "kreative358@hotmail.com"}
+	login_pass = {"password": "Bonum12o"}
+	login_form = {"username": "kreative358@hotmail.com", "password": "Bonum12o"}
+	app_users_login = 'snippets/app_users_login.html'
+	# print('download_ar', download_ar)
+	context['info'] = 'info'
+	context['accounts'] = accounts
+	context['allbooks'] = books
+	#context['download_ar'] = download_ar
+	context['login_form'] = login_form
+	context['login_name'] = "kreative358@hotmail.com"
+	context['login_pass'] = "Bonum12o"
+	context['app_users_login'] = app_users_login
+	i = 50
+	# page = f'https://ia902307.us.archive.org/BookReader/BookReaderImages.php?zip=/18/items/{identity}/{identity}_jp2.zip&file={identity}_jp2/{identity}_00{i}.jp2&id={identity}crossorigin="anonymous|use-credentials%22"'
+	# print('page', page)
+	# context['page'] = page
+	
+	return render(request, "app_users.html", context )
+
+# app_users urlObject 127.0.0.1:8001/booksmart-app/booksmart-app/app_users/
+# app_users urlObject1 http://127.0.0.1:8001/booksmart-app/booksmart-app/app_users/
+# app_users urlObject2 request.path: /booksmart-app/booksmart-app/app_users/ request.get_full_path <bound method HttpRequest.get_full_path of <WSGIRequest: GET '/booksmart-app/booksmart-app/app_users/'>> request.build_absolute_uri <bound method HttpRequest.build_absolute_uri of <WSGIRequest: GET '/booksmart-app/booksmart-app/app_users/'>>
+# app_users request.get_host() 127.0.0.1:8001
+# app_users request.resolver_match.url_name app_users
+
+def must_authenticate_view(request):
+	return render(request, 'registration/must_authenticate.html', {})
+
+
+def search_open(request, parameters):
+	context = context_bm
+	context['message_no_ol'] = ""
+	parameters = f'{title_plus}+{book.surname}'
+	search_url = f'https://openlibrary.org/search/inside.json?q={title_plus}'
+	r = requests.get(url=search_url)
+	if r.status_code != 200:
+		context['message_no_ol'] = f'Sorry, probably something went wrong, r.status_code = {r.status_code}'
+		return Response(context, template_name='read_book.html', )
+
+	data = r.json()
+	# data = r
+	# records = json.loads(data)
+	records = data
+	links = []
+
+	# url = 'https://openlibrary.org/account/login'
+	# context['searching'] = url
+
+	# url = 'https://archive.org/account/login'
+	# url = 'https://openlibrary.org/account/login'
+	# searching = f'{url}'
+	
+	# idents = []
+	# idents_title = []
+	# idents_author = []
+	# titles_jsplit = []
+	# titles_jshort = []
+	# authors_jname = []
+	# authors_jsurname = []
+	
+	if records['hits']['hits']:
+		recs = records['hits']['hits']
+		print('len(recs)', len(recs))
+		n_records = len(recs)
+		print('titles_short[0]', titles_short[0])
+		for i in range(n_records-1):
+			try:
+				if recs[i]['edition']['ocaid']:
+					ident = recs[i]['edition']['ocaid']
+					idents.append(ident)
+			except Exception as e:
+				print(f"151 {e}, i: {i}")
+			try:
+				if recs[i]['edition']['title']:
+					title_jshort = recs[i]['edition']['title'].lower()
+					print('title_jshort', title_jshort)
+					# print('titles_short[0]', titles_short[0])
+					titles_jshort.append(title_jshort)
+					title_jsplit = recs[i]['edition']['title'].lower().split()
+					titles_jsplit.append(title_jsplit)
+
+					if title_jshort==titles_short[0] or set(title_jsplit).issubset(set(titles_split[0])) or set(titles_split[0]).issubset(set(title_jsplit)):
+						idents_title.append(idents[-1])
+
+					else:
+						pass
+			except Exception as e:
+				print(f"168 {e}, i: {i}")
+			try:
+				if recs[i]['edition']['authors'][0]['name']:
+					author_jname = recs[i]['edition']['authors'][0]['name']
+					authors_jname.append(author_jname)
+					author_jsurname = str(author_jname.split()[-1])
+					authors_jsurname.append(author_jsurname)
+					if author_jname == author_to_search or author_jsurname == author_surname:
+						idents_author.append(idents[-1])
+					else:
+						print('1. no author')
+						pass
+				else:
+					print('2. no author')
+					pass
+			except Exception as e:
+				print(f"180 {e}, i: {i}")
+
+		# print('idents', idents)
+		# print('idents_title', idents_title)
+		# print('idents_author', idents_author)
+		
+
+		if idents and idents_title and idents_author:
+			identities_list_1 = list(set(idents).intersection(set(idents_title).intersection(set(idents_author))))
+			# identities.extend(identities_list_1)
+			if len(identities_list_1) > 0:
+				identities.extend(identities_list_1)
+				print('identities_list_1', identities_list_1)
+			else:
+				print('1. no links')
+
+
+		elif idents and idents_title and not idents_author:
+			identities_list_2 = list(set(idents).intersection(set(idents_title)))
+			# identities.extend(identities_list_2)
+			if len(identities_list_2) > 0:
+				identities.extend(identities_list_2)
+				print('identities_list_2', identities_list_2)
+			else:
+				print('2. no links')
+
+		elif idents and idents_author and not idents_title:
+			identities_list_3 = list(set(idents).intersection(set(idents_title)))
+			# identities.extend(identities_list_3)
+			if len(identities_list_3) > 0:
+				identities.extend(identities_list_3)
+				print('identities_list_3', identities_list_3)
+			else:
+				print('3. no links')
+
+		elif not idents:
+			print('4 no links')
+			context['message_no_ol'] = 'Sorry, probably no free ebook on this title'
+			return Response(context, template_name='read_book.html', )
+

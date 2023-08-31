@@ -1,0 +1,194 @@
+{% extends 'base_ds.html' %}
+{% load booksmart_extras %}
+{% load bootstrap4 %}
+{% block title %} found-records {% endblock%}
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+<style>
+#btn_door_hello {
+  cursor: not-allowed;
+  /*visibility:hidden;*/
+}
+</style>
+<script>
+  $(document).ready(function(){
+    $("#btn_door_hello").mouseenter(function(){
+      alert("NAME OR EMAIL CHANGE IS NOT POSSIBLE ON THIS SITE");
+      alert("THIS CAN BE DONE ON THE OTHER SITES");
+    });
+  $("#btn_door_hello").mouseleave(function(){
+  $("#btn_door_hello").css("background-color", "red");
+});
+})
+  </script>
+
+  {% include 'snippets/jumbotron.html' %}
+  {% include 'snippets/marquee.html' %}
+
+{% include 'snippets-booksmart/top_cards_records.html' %}
+<div class="container-fluid col-lg-10 mb-4" >
+    <div class="row">
+    <div class="col-lg-12">   
+      
+      
+</div>
+</div>
+</div>
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% include 'snippets/authentication.html' %}
+{% endblock content_2 %}
+
+
+{% block content_3 %}
+
+
+<div class="container-fluid col-lg-10"  style="position:relative;z-index:1; margin-top:120px">
+  <div class="row">
+  <div class="col-lg-12 ">   
+
+    
+</div>
+</div>
+</div>
+{% include 'snippets-booksmart/sort_book.html' %}
+{% include 'snippets-booksmart/filter_books_q.html' %}
+{% include 'snippets-booksmart/search_panel.html' %}
+
+{% if author_objects %}
+{% if author_objects|length == 0 %}
+{% include 'snippets-booksmart/authors_bar_no.html' %}
+
+{% elif author_objects|length > 0 %}
+{% include 'snippets-booksmart/authors_bar.html' %}
+    {% for author_c in author_objects %}
+          {% include 'snippets-booksmart/author.html' %}
+
+          {% endfor %}
+ 
+    {% endif %}
+{% endif %}
+
+{% if authors_result_set %}
+{% if authors_result_set|length == 0 %}
+{% include 'snippets-booksmart/authors_bar_no.html' %}
+
+{% elif authors_result_set|length > 0 %}
+{% include 'snippets-booksmart/authors_bar.html' %}
+          {% for author_c in authors_result_set %}
+          {% include 'snippets-booksmart/author.html' %}
+
+          {% endfor %}
+ 
+          {% endif %}
+{% endif %}          
+<style>
+  #margin_books {
+    margin-bottom: 10vw;
+  }
+</style>
+      <div id="margin_books">
+        </div>
+
+        {% endblock content_3 %}
+
+        {% block content_4 %}
+
+  <style>
+    #margin_authors {
+      margin-top: 14vw;
+    }
+
+    @media only screen and (max-width: 1700px) {
+      #margin_authors {
+        margin-top: -70px;
+      }    
+  }
+  </style>
+  {% if book_obj %}
+       
+  <div id="margin_authors">
+    </div>
+{% include 'snippets-booksmart/books_bar.html' %}
+
+{% for book in book_obj %}
+{% include 'snippets-booksmart/book.html' %}
+
+{% endfor %}
+{% include 'snippets-booksmart/pagination.html' %}
+{% endif %}
+
+
+
+       {% if book_page_obj %}
+       
+            <div id="margin_authors">
+              </div>
+       {% include 'snippets-booksmart/books_bar.html' %}
+
+       {% for book in book_page_obj %}
+       {% include 'snippets-booksmart/book.html' %}
+
+       {% endfor %}
+
+
+<style type="text/css">
+
+#cont_pag {
+  float:right;
+  margin-right:8vw;
+  border: 2px;
+  margin-top: 10px;
+}
+
+</style>
+
+<div class="container col-lg-8" id="cont_pag">
+        
+    <div class="row">
+      <div class="col-lg-12"  >
+        <div class="pagination justify-content-end">
+
+          <span class="step-links"><h3>
+              {% if book_page_obj.has_previous %}
+                  <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+                  <a href="{% my_url book_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+                  
+              {% endif %}
+      
+              <span class="current">
+                  Page {{ book_page_obj.number }} of {{ book_page_obj.paginator.num_pages }}.
+              </span>
+      
+              {% if book_page_obj.has_next %}
+                  <a href="{% my_url book_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+                  <a href="{% my_url book_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+              {% endif %}</h3>
+          </span>      
+        </div>       
+      </div>
+   </div>
+ </div>
+{% endif %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+
+{% endblock content_5 %}
+
+</div>
+    {% endblock page %}
+
+

@@ -1,0 +1,219 @@
+{% extends 'base_ds.html' %}
+{% load bootstrap4 %}
+{% load booksmart_extras %}
+
+
+{% block title %} books from google  {% endblock%}
+
+{% block page %}
+{% include 'snippets/scrollbars.html' %}
+<div id="glass_id_main" class="glass_class_main"> 
+
+  
+  <script>
+  
+    window.onload = function() {
+    localStorage.clear();
+    }
+  
+  
+
+  document.body.onbeforeunload = function() {
+  let searches =  document.querySelectorAll("[id^='middle_message_'")
+  for (let search of searches) {
+    search.innerText = "";
+  }
+  }
+</script>
+
+{% block content_1 %}
+<style>
+  #btn_door_hello {
+    cursor: not-allowed;
+    /*visibility:hidden;*/
+  }
+  </style>
+  <script>
+    $(document).ready(function(){
+      $("#btn_door_hello").mouseenter(function(){
+        alert("NAME OR EMAIL CHANGE IS NOT POSSIBLE ON THIS SITE");
+        alert("THIS CAN BE DONE ON THE OTHER SITES");
+      });
+    $("#btn_door_hello").mouseleave(function(){
+    $("#btn_door_hello").css("background-color", "red");
+  });
+  })
+    </script>
+
+{% endblock content_1 %}
+
+
+{% block content_2 %} 
+
+{% include 'snippets/jumbotron.html' %}
+{% include 'snippets/marquee.html' %}
+
+{% include 'snippets-booksearch/addx_top_cards.html' %}
+
+{% endblock content_2 %}
+
+{% block content_3 %} 
+
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_3 %}
+
+{% block content_4 %}
+
+<div class="container-fluid col-lg-10 mb-4"  >
+    <div class="row">
+    <div class="col-lg-12  ">   
+
+      
+</div>
+</div>
+</div>
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+
+<style type="text/css">
+  #cont_main_t {
+    position:relative;
+    z-index:1;
+      margin: 3vw auto auto auto;
+      min-width:600px;
+      width: 1280px;
+      max-width: 96%;
+      /*max-width: 96%;*/
+      background-color: rgb(200, 210, 220); 
+      background-color: rgba(200, 210, 220, 0.4); 
+      border-radius: 4px;
+      border: 4px solid rgba(100, 160, 220, 0.6);
+      box-shadow: 0px 0px 6px 6px rgba(120, 120, 120, 0.3);  
+      justify-content:center;
+      padding:0px;
+    }
+  
+    #cont_main_ba {
+      position:relative;
+      z-index:1;
+        margin: 2vw auto 2vw auto;
+        min-width:600px;
+        width: 1280px;
+        max-width: 96%;
+        background-color: rgb(240, 240, 240); 
+        background-color: rgba(240, 240, 240, 0.6); 
+        border-radius: 4px;
+        border: 4px solid rgba(100, 160, 220, 0.6);
+        box-shadow: 0px 0px 6px 6px rgba(120, 120, 120, 0.3); 
+        justify-content:center; 
+        padding:0px;
+        
+    }
+  
+    #col_main_ba {
+         text-align:center;
+         margin:auto;
+       }
+  
+    #col_main_t {
+      text-align:center;
+      padding-top:10px;
+      margin:auto;
+     }
+  
+  </style>
+
+{% if filtered_books %}
+
+          <br>
+   
+          <div class="container"  id="cont_main_t" >
+            <div class="row">
+            <div class="mycolumn" id="col_main_t">
+              
+
+              
+           <p class="h2p" id="p_rb">the number of all items found in google books 
+              <br> with the entered parameters: <span class="h2p" id="a_submit_t">{{ val_total }} </span> </p>
+            </div>
+          </div>
+        </div>
+      <br>
+          
+          <div class="container" id="cont_main_ba" >
+            <div class="row">
+            <div class="mycolumn" id="col_main_ba">
+            <p></p>
+            <p class="h2p" id="p_rb">BOOKS FOUND</p>
+            <p></p>
+        
+            </div>
+          </div>
+        </div>
+      
+      {% for book in book_page_obj %}
+
+{% include 'snippets-booksearch/base_gbook_book.html' %}
+
+{% endfor %}
+
+<style>
+    /*#cont_pag {
+    margin-right:8vw;
+    text-align: right;
+    align-content: right;
+    justify-content: flex-end;
+    text-align-last: right;
+    }
+    #col_pag {
+        text-align: right;
+    }
+    #pag {
+        text-align: right; 
+    }*/
+    #cont_pag {
+      float:right;
+      margin-right:8vw;
+      border: 2px;
+      margin-top: 10px;
+}
+</style>
+
+<div class="container col-lg-8" id="cont_pag">
+  <div class="row">
+      <div class="col-lg-12"  >
+         <div class="pagination justify-content-end">
+      
+        <span class="step-links"><h3>
+            {% if book_page_obj.has_previous %}
+                <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+                <a href="{% my_url book_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+                
+            {% endif %}
+    
+            <span class="current">
+                Page {{ book_page_obj.number }} of {{ book_page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if book_page_obj.has_next %}
+                <a href="{% my_url book_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+                <a href="{% my_url book_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+            {% endif %}</h3>
+        </span>   
+
+      </div>
+    </div>
+  </div>
+</div>
+    
+{% endif %}    
+
+
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

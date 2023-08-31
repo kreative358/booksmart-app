@@ -1,0 +1,53 @@
+<style>
+
+/* #inputUsername {
+	font-size: 16px;
+	font-weight: bold;
+	color: darkblue;
+	padding:auto;
+} */
+
+#input-username input[type=text] {
+	font-size: 16px;
+	font-weight: bold;
+	color: darkblue;
+	padding:auto;
+	background: rgba(220, 220, 230, 0.6);
+}
+
+#input-username input[type=text]:focus, #input-username input[type=text]:active,#input-username input[type=text]:valid {
+	background: rgba(220, 220, 230, 0.8);
+	color: darkblue;
+}
+
+
+#input-username input:-webkit-autofill,
+#input-username input:-webkit-autofill:hover,
+#input-username input:-webkit-autofill:focus,
+#input-username input:-webkit-autofill:active {
+transition: background-color 5000s ease-in-out 0s;
+-webkit-text-fill-color: blue;
+-webkit-animation: autofill 0s forwards;
+outline: none;
+border:none;
+}
+
+</style>
+
+	<div class="form-group" id="input-username">
+		<label class="label_serializer" id="id_label_username" for="username">  </label>
+		{% if request.user.is_authenticated %}
+		<input type="text" name="username" id="inputUsername" placeholder="username" class="form-control" required autofocus title="Must have at least 3 characters" minlength="3" value="{{ request.user.username }}" >
+		{% elif not request.user.is_authenticated %}
+		<input type="text" name="username" id="inputUsername" placeholder="username" class="form-control" required autofocus title="Must have at least 3 characters" minlength="3" value="">
+		{% endif %}
+		<div class="valid-feedback"  style="text-align:center; margin: auto;">Username field is filled out.</div>
+	<div class="invalid-feedback"   style="text-align:center; margin: auto;"> Please fill out this field.</div>
+	  </div>
+
+
+
+	<!---	<div class="valid-feedback" id="valid">Username field is filled out.</div>
+	<div class="invalid-feedback" id="valid">Please fill out this field.</div>
+	  </div>-->
+	

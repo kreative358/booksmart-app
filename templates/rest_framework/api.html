@@ -1,0 +1,46 @@
+{% extends "rest_framework/base_rest_api.html" %}
+
+{% block bootstrap_theme %}
+
+
+    <link rel="stylesheet" href="https://bootswatch.com/3/darkly/bootstrap.min.css" type="text/css">
+    <meta charset="utf-8">
+{% endblock %}
+
+{% block bootstrap_navbar_variant %}navbar-default{% endblock %}
+{% block branding %}
+
+<ul class="nav navbar-nav">
+
+    <li  id="bs_input"><a href="{% url 'index' %}">BookSmart-APP</a>
+    </li>
+    
+    <li class="active" id="bs_input"><a href="/api/" >BookSmart-API</a><span class="visually-hidden"></span>
+    </li>
+    
+    {% if user.is_authenticated %}
+    <li class="dropdown" id="bs_input">
+        <a  class="dropdown-toggle" data-toggle="dropdown" href="#">account - {{request.user}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li id="bs_input"><a href="{% url 'rest_user_details' %}">account details</a></li>
+          <li id="bs_input"><a  href="#">change account</a></li>
+          <li id="bs_input"><a href="#">change password</a></li>
+        </ul>
+      </li>
+    
+    {% else %}
+    <li class="dropdown" id="bs_input">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">account - noname
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{% url 'rest_user_details' %}">account details</a></li>
+          <li><a href="{% url 'rest_register' %}">register account</a></li>
+          <li><a href="#">reset password</a></li>
+        </ul>
+      </li>
+  
+    {% endif %}
+  </ul>
+ 
+{% endblock %}

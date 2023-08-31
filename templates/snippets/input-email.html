@@ -1,0 +1,47 @@
+<style>
+
+/* #inputEmail {
+	font-size: 16px;
+	font-weight: bold;
+	color: darkblue;
+	padding:auto;
+	} */
+
+#input-email input[type=text] {
+	font-size: 16px;
+	font-weight: bold;
+	color: darkblue;
+	padding:auto;
+	background: rgba(220, 220, 230, 0.6);
+}
+
+#input-email input[type=text]:focus, #input-email input[type=text]:active, #input-email input[type=text]:valid {
+	background: rgba(220, 220, 230, 0.8);
+	color: darkblue;
+}
+
+#input-email input:-webkit-autofill,
+#input-email input:-webkit-autofill:hover,
+#input-email input:-webkit-autofill:focus,
+#input-email input:-webkit-autofill:active {
+transition: background-color 5000s ease-in-out 0s;
+-webkit-text-fill-color: blue;
+-webkit-animation: autofill 0s forwards;
+outline: none;
+border:none;
+
+}
+
+</style>
+	
+	<div class="form-group" id="input-email">
+        <label class="label_serializer" id="id_label_email" for="email">  </label>
+		{% if user.is_authenticated %}
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="must contain @" value="{{ user_email }}">
+		{% else %}
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="must contain @" value="">
+		{% endif %}
+        <div class="valid-feedback"  style="text-align:center; margin: auto;">Email field is filled out.</div>
+      <div class="invalid-feedback"  style="text-align:center; margin: auto;">Please fill out this field.</div>
+    </div>
+	

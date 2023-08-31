@@ -1,0 +1,62 @@
+{% extends 'base_d.html' %}
+{% load bootstrap4 %}
+{% block title %} authors-last {% endblock%}
+
+{% block page %}
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+{% block content_1 %} 
+
+{% include 'snippets/jumbotron.html' %}
+{% include 'snippets/marquee.html' %}
+
+{% include 'snippets-booksmart/top_cards.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %}
+
+	{% if message_info %}
+	{% include 'snippets-booksmart/modal_message.html' %}
+		   {% endif %}
+	
+       {% endblock content_3 %}
+
+
+       {% block content_4 %}
+
+{% include 'snippets-booksmart/filter_books_q.html' %}
+{% include 'snippets-booksmart/search_panel.html' %}
+
+{% if page_obj %}
+{% include 'snippets-booksmart/authors_bar.html' %}
+
+
+{% for author_c in page_obj %}
+
+{% include 'snippets-booksmart/author.html' %}
+
+{% endfor %}
+
+  {% endif %}
+  
+  {% include 'snippets-booksmart/pagination.html' %}
+
+  {% endblock content_4 %}
+
+{% block content_5 %}
+
+      
+</div>
+{% endblock page %}
+
+  

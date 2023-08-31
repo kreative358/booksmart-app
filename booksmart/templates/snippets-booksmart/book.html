@@ -1,0 +1,991 @@
+{% load bootstrap4 %}
+
+<style>
+
+[id^="row_book"] {
+  background: rgba(180, 217, 240, 0.2);
+  border-radius:4px;
+  border: 2px solid rgba(180, 217, 240, 0.1);
+  /*outline: 2px solid rgba(180, 217, 240, 0.2);*/
+  position:relative;
+  z-index:1;
+  width:94%;
+  margin: 10px auto auto auto;
+  /*padding: -2px -1px -1px -1px;*/
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  transition-duration: 0.6s;
+  text-shadow: 
+  -0.015em 0.015em 0.0em rgb(211, 211, 211), 
+  -0.03em 0.03em 0.015em rgb(211, 211, 211), 
+  0.04em 0.0em 0.02em rgb(128, 128, 128), 
+  0.02em 0.02em 0.01em rgb(128, 128, 128);
+  box-shadow:
+  1px 2px 10px 8px rgba(119, 130, 143, 0.6); 
+   display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  [id^="row_book"]:hover {
+  background: rgba(180, 217, 240, 0.4);
+  border: 2px solid rgba(220, 230, 240, 0.2);
+  backdrop-filter:none;
+  -webkit-backdrop-filter: none;
+  box-shadow:
+  1px 2px 6px 10px rgba(229, 230, 243, 0.6);
+  scale:1.02;
+}
+
+/* [id^="col_img_book"] */
+  .mycolumn_book {
+  float: left;
+  width: 50%;
+  }
+
+.glass_book {
+  background-color: rgba(100, 160, 220, 0.1);
+  width: 100%;
+  height: 100%;
+  }
+
+  [id^="col_img_book"] {
+  background-color: rgb(100, 160, 220); 
+  background-color: rgba(100, 160, 220, 0.6); 
+  border-radius: 2px;
+  border: 2px solid rgba(220, 230, 240, 0.4);
+  outline: 2px solid rgba(220, 230, 240, 0.4);
+  box-shadow: 
+  -1px -1px 1px 0px rgba(151, 191, 231, 0.2), 
+  1px 2px 2px 0px rgba(151, 191, 231, 0.4),
+  -2px 3px 2px 0px rgba(151, 191, 231, 0.4), 
+  2px 4px 2px 0px rgba(151, 191, 231, 0.4),
+  
+  0px 5px 3px 0px rgba(90, 150, 210, 0.4),
+  0px 6px 4px 0px rgba(90, 150, 210, 0.4), 
+  1px 7px 4px 0px rgba(80, 140, 200, 0.6),
+  -1px 8px 5px 0px rgba(80, 140, 200, 0.6);
+  padding:10px;
+  }
+
+  [id^="col_img_book"]:hover {
+
+}
+
+[id^="col_img_book"]:active {
+  }
+
+.cont_img_book {
+  position:relative;
+  width: 184px;
+  height: 100%;
+  margin: auto 10px auto auto;
+  float:left;
+  display: flex;
+  align-items:center;
+  } 
+
+[id^="img_book"] {
+  float:left;
+  width: 180px;
+  height: 276px;
+  object-fit: cover;  
+  margin: auto 10px auto 6px;
+  }  
+
+[id^="column_book"] {
+  margin:-2px 1px -1px -1px;
+
+  background-color: rgb(230, 230, 240); 
+  background-color: rgba(230, 230, 240, 0.6); 
+  border-radius: 2px;
+  border: 2px solid rgba(100, 160, 240, 0.4);
+  outline: 2px solid rgba(100, 160, 240, 0.4);
+  box-shadow: 
+  -1px -1px 1px 0px rgba(219, 220, 222, 0.2), 
+  1px 2px 2px 0px rgba(219, 220, 222, 0.4),
+  -2px 3px 2px 0px rgba(219, 220, 222, 0.4), 
+  2px 4px 2px 0px rgba(209, 210, 212, 0.4),
+  
+  0px 5px 3px 0px rgba(199, 200, 202, 0.4),
+  0px 6px 4px 0px rgba(199, 200, 202, 0.4), 
+  1px 7px 4px 0px rgba(177, 179, 182, 0.6),
+  -1px 8px 5px 0px rgba(177, 179, 182, 0.6);
+    
+  padding: 10px 10px 10px 10px;
+
+  }
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
+
+.language {
+  padding-top: 42px;
+  }
+
+#a_submit_m {
+  animation-name: anime_submit_t;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  }
+
+#button_sm {
+  width: 90%;
+  height: 40%;
+  }
+
+#button_sm:focus {
+  border:none;
+  outline:none;
+  }
+
+button:focus {
+  border:none;
+  outline:none;
+  }
+
+  [id^="button_1"] {
+  margin: 5px;
+  padding: 4px;
+  float: right;
+  color: rgb(240, 248, 255);
+  background: rgb(119, 136, 153);
+  background: rgba(119, 136, 153, 0.8);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6 );
+  text-align: center;
+  min-width: 60px;
+  max-width: 70px;
+  font-size: 14px;
+  font-weight: bold;
+  }
+
+  [id^="button_1"]:hover {
+  color: rgb(30, 144, 255);
+  background:rgb(211, 211, 211);
+  background:rgba(211, 211, 211, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  }
+
+  [id^="button_1"]:active {
+  transform: translateY(2px);
+  scale: 0.96;
+}
+
+.button_1 {
+  margin: 5px;
+  padding: 4px;
+  float: right;
+  color: rgb(240, 248, 255);
+  background: rgb(119, 136, 153);
+  background: rgba(119, 136, 153, 0.8);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6 );
+  text-align: center;
+  min-width: 60px;
+  max-width: 70px;
+  font-size: 14px;
+  font-weight: bold;
+  }
+
+.button_1:hover {
+  color: rgb(30, 80, 240);
+  background:rgb(194, 61, 61);
+  background:rgba(194, 61, 61, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  }
+
+.button_1:active {
+  transform: translateY(2px);
+  scale: 0.96;
+}
+
+[id^="button_2_"] {
+  float: right;
+  margin: 5px;
+  padding: 4px;
+  color: rgb(240, 248, 255);
+  background-color:rgb(30, 144, 255);
+  background-color:rgba(30, 144, 255, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  text-align: center;
+  min-width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+  }
+
+  [id^="button_2_"]:hover {
+  color: rgb(30, 144, 255);
+  background-color: rgb(211, 211, 211);
+  background-color: rgba(211, 211, 211, 0.6);
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
+  }
+
+  [id^="button_2_"]:active {
+    transform: translateY(2px);
+    scale: 0.96;
+  }
+
+.button_2 {
+  float: right;
+  margin: 5px;
+  padding: 4px;
+  color: rgb(240, 248, 255);
+  background-color:rgb(30, 144, 255);
+  background-color:rgba(30, 144, 255, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  text-align: center;
+  min-width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+  }
+    
+.button_2:hover {
+  color: rgb(30, 144, 255);
+  background-color: rgb(211, 211, 211);
+  background-color: rgba(211, 211, 211, 0.6);
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
+  }
+
+.button_2:active {
+  transform: translateY(2px);
+  scale: 0.96;
+  }
+
+.button_3 {
+  margin: 5px;
+  padding: 4px;
+  float: right;
+  color: rgb(240, 248, 255);
+  background-color:rgb(178, 34, 34);
+  background-color:rgba(178, 34, 34, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  text-align: center;
+  min-width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+  }
+
+.button_3:hover {
+  color: rgb(112, 128, 144);
+  background-color: rgb(135, 206, 250);
+  background-color: rgba(135, 206, 250, 0.6);
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
+  }
+
+.button_3:active {
+  transform: translateY(2px);
+  scale: 0.96;
+  }
+
+[id^="button_3"] {
+  margin: 5px;
+  padding: 4px;
+  float: right;
+  color: rgb(240, 248, 255);
+  background-color:rgb(178, 34, 34);
+  background-color:rgba(178, 34, 34, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  text-align: center;
+  min-width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+  }
+
+  [id^="button_3"]:hover {
+  color: rgb(112, 128, 144);
+  background-color: rgb(135, 206, 250);
+  background-color: rgba(135, 206, 250, 0.6);
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
+  }
+
+  [id^="button_3"]:active {
+  transform: translateY(2px);
+  scale: 0.96;
+  }
+
+  [id^="button_4"] {
+  margin: 5px;
+  padding: 4px;
+  float: right;
+  color: rgb(240, 248, 255);
+  background-color:rgb(0, 0, 205);
+  background-color:rgba(0, 0, 205, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  text-align: center;
+  min-width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+  }
+
+  [id^="button_4"]:hover {
+  color: rgb(120, 120, 140);
+  background-color: rgb(135, 206, 250);
+  background-color: rgba(135, 206, 250, 0.6);
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
+  }
+
+  [id^="button_4"]:active {
+  transform: translateY(2px);
+  scale: 0.96;
+  }
+
+.button_4 {
+  margin: 5px;
+  padding: 4px;
+  float: right;
+  color: rgb(240, 248, 255);
+  background-color:rgb(0, 0, 205);
+  background-color:rgba(0, 0, 205, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  text-align: center;
+  min-width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+  }
+
+.button_4:hover {
+  color: rgb(120, 120, 135);
+  background-color: rgb(135, 206, 250);
+  background-color: rgba(135, 206, 250, 0.6);
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
+  }
+
+.button_4:active {
+  transform: translateY(2px);
+  scale: 0.96;
+  }
+
+.modal-dialog {
+  display:none;
+  position:relative;
+  margin: 100px auto auto auto;
+  font-family: Times;
+  padding: 5px;
+  width: 90%;
+  max-width: 90%;
+  font-size: 18px;
+  border-radius: 3px;
+  border: 5px solid rgba(240, 240, 240, 0.6);
+  box-shadow:   
+  -8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
+  -8px -8px 10px 0px rgba(229, 230, 243, 0.6),
+  8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
+  8px -8px 10px 0px rgba(229, 230, 243, 0.6),
+  
+  18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
+  18px -18px 20px 0px rgba(209, 210, 223, 0.4),
+  -18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
+  -18px -18px 20px 0px rgba(209, 210, 223, 0.4); 
+
+  background: rgba(51, 153, 255, 0.4);
+  top: 20px;  
+  animation-name: zoom_modal;
+  animation-duration: 2s;
+  z-index:2;
+  }
+
+#modal_content_author {
+  background-color: var(--bg-color);
+  background-color: rgb(220, 220, 220); 
+  background-color: rgba(220, 220, 220, 0.8);
+}
+
+#modal_header_author {
+  background-color: rgb(120, 160, 220); 
+  background-color: rgba(120, 160, 220, 0.2);
+  font-weight: bold;
+  }
+
+#textarea_b {
+  padding: 2px 4px 2px 4px;
+  resize: none;
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.2); 
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 3px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.3);  
+  font-size: 16px;
+  text-align: justify;
+  text-justify: inter-word;
+  /*width:inherit;*/
+  max-width: auto;
+  width: auto;
+  min-height: 92px;
+  max-height: 92px;
+  overflow: auto;
+  margin: 6px 10px 14px 10px;
+  color: darkblue;
+  }
+
+  .textarea_b {
+    padding: 2px 4px 2px 4px;
+    resize: none;
+    background-color: rgb(240, 240, 240); 
+    background-color: rgba(240, 240, 240, 0.2); 
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 3px solid rgba(240, 240, 240, 0.6);
+    box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.3);  
+    font-size: 16px;
+    text-align: justify;
+    text-justify: inter-word;
+    /*width:inherit;*/
+    max-width: auto;
+    width: auto;
+    min-height: 92px;
+    max-height: 92px;
+    overflow: auto;
+    margin: 6px 10px 14px 10px;
+    color: darkblue;
+    }
+
+#textarea_link_b {
+  padding: 2px 4px 4px 4px;
+  resize: none;
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.2); 
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 3px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.3);  
+  font-size: 16px;
+  text-align: justify;
+  text-justify: inter-word;
+  /*width:inherit;*/
+  max-width: auto;
+  width: auto;
+  min-height: 30px;
+  max-height: 30px;
+  overflow: auto;
+  margin: 10px 10px 10px 10px;
+  color: darkblue;
+  }
+
+.textarea_link_b {
+  padding: 2px 4px 4px 4px;
+  resize: none;
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.2); 
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 3px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.3);  
+  font-size: 16px;
+  text-align: justify;
+  text-justify: inter-word;
+  /*width:inherit;*/
+  max-width: auto;
+  width: auto;
+  min-height: 30px;
+  max-height: 30px;
+  overflow: auto;
+  margin: 10px 10px 10px 10px;
+  color: darkblue;
+  }
+
+@keyframes anime_submit_t {
+  50% {
+  color: red;}
+  }
+
+@media screen and (max-width: 1280px) {
+  .myrow_book {
+    width: 90%;
+  }
+  .mycolumn_book {
+    width: 100%;
+  }
+  }
+
+@media screen and (max-width: 640px) {
+  .myrow_book {
+    width: 94%;
+  }
+  .mycolumn_book {
+    width: 100%;
+    min-width: 620px;
+  }
+  }
+
+.modal {
+  position:fixed;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  display:none;
+  background-color: rgb(153, 204, 255); 
+  background-color: rgba(153, 204, 255, 0.2); 
+  background-image: repeating-conic-gradient(rgba(120, 120, 140, 0.4) 0%, rgba(120, 120, 140, 0.4) 1%, rgba(20, 140, 240, 0.4) 2%, rgba(120, 120, 140, 0.4) 3%);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  transition:0.4s;
+}
+
+.modal:hover {
+  background-color: rgba(153, 204, 255, 0.4); 
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.close {
+  font-size: 26px;
+  font-weight: bold;
+  color:blue;
+  padding:4px 4px 4px auto;
+}
+
+.close:hover {
+  color: rgba(176, 196, 222, 0.8);
+  background: rgba(51, 101, 255, 0.6);
+}
+
+.close:active {
+  color:rgba(220, 20, 60, 0.6);
+  background:rgba(179, 179, 199);
+}
+
+</style>
+<style>
+
+@keyframes opacityanime {
+  from {opacity:1;} 
+  to {opacity:0;}
+  }
+  
+@keyframes modalfadeout {
+  from {background-color: rgba(20, 100, 200, 0.4);} 
+  to {background-color: rgba(20, 100, 200, 0.0);}
+  }
+  
+@keyframes modalfadein {
+  from {background-color: rgba(20, 100, 200, 0.0);} 
+  to {background-color: rgba(20, 100, 200, 0.4);}
+  }
+  
+@keyframes noconic {
+  from {-webkit-backdrop-filter: blur(4px);}
+  to {backdrop-filter: blur(4px);}
+  }
+  
+[id^="mymodalauthor_bookOverlay"] {
+  position: fixed;
+  display:none;
+  z-index:5;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  /*overflow: auto; */
+  animation:noname;
+  transition:0.4s;
+  background-color: rgb(20, 100, 200); 
+  background-color: rgba(20, 100, 200, 0.4); 
+  /*background-image: repeating-conic-gradient(rgba(120, 120, 140, 0.4) 0%, rgba(120, 120, 140, 0.4) 1%, rgba(20, 140, 240, 0.4) 2%, rgba(120, 120, 140, 0.4) 3%);*/
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  }
+  
+[id^="mymodalauthor_bookOverlay"]:hover {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background-color: rgba(20, 100, 200, 0.6); 
+  }
+  
+[id^="mymodalauthor_bookCont"] {
+  position: fixed;
+  z-index:6;
+  display:none;
+  left:5%;
+  margin: auto auto auto auto;
+  top:5%;
+  font-family: Times;
+  padding: 5px;
+  width: 90%;
+  max-width: 90%;
+  font-size: 18px;
+  border-radius: 4px;
+  border: 6px solid rgba(240, 240, 240, 0.6);
+  box-shadow:   
+  /*-8px 8px 10px 0px rgba(229, 230, 243, 0.6), */
+  0px 0px 18px 14px rgba(209, 210, 223, 0.4); 
+
+  background:rgba(51, 153, 255, 0.4);
+  animation: noname2;
+  transition: 0.4s;
+  }
+  
+[id^="mymodalauthor_bookCont"]:hover {
+  scale: 1.01;
+  box-shadow:
+ /*-8px 8px 10px 0px rgba(229, 230, 243, 0.6), */
+ 0px 0px 18px 14px rgba(209, 210, 223, 0.8); 
+  } 
+  
+@keyframes unzoomrotate {
+  from {transform:scale(1); rotate:360deg;} 
+  to {transform:scale(0); rotate: 0deg;}
+  } 
+  
+@keyframes zoomrotate {
+  from {transform:scale(0); rotate:0deg;} 
+  to {transform:scale(1); rotate: 360deg;}
+  } 
+  
+@keyframes unzoom {
+  from {transform:scale(1);} 
+  to {transform:scale(0);}
+  }
+  
+@keyframes zoom {
+  from {transform:scale(0);} 
+  to {transform:scale(1);}
+  }
+  
+@keyframes animatetopback {
+  from {top: 0px; }
+  to {top:-1000px; }
+  }
+  
+.column_mymodal_uni {
+  border-radius: 4px;
+  margin: auto;
+  border: 6px solid rgba(240, 240, 240, 0.6);
+  padding:10px;
+  }
+  
+.mymodal_header_uni {
+  background-color: rgb(140, 140, 180); 
+  background-color: rgba(140, 140, 180, 0.6);
+  border-radius: 4px;
+  border: 6px solid rgba(240, 240, 240, 0.6);
+  margin: auto;
+  padding:0px 5px auto auto;
+  }
+  
+.mymodal_body_uni {
+  background-color: rgb(140, 140, 160); 
+  background-color: rgba(140, 140, 160, 0.6);
+  border-radius: 4px;
+  border: 6px solid rgba(240, 240, 240, 0.6);
+  margin: 10px auto 10px auto;
+  padding: auto auto auto auto;
+  overflow: auto;
+  max-height: 440px;
+  }
+  
+.mymodal_footer_uni {
+  background-color: rgb(140, 140, 180); 
+  background-color: rgba(140, 140, 180, 0.6);
+  border-radius: 4px;
+  border: 6px solid rgba(240, 240, 240, 0.6);
+  margin: auto;
+  padding: 5px auto 5px auto;
+  justify-content:center;
+  text-align:center;
+  }
+  
+.close_m {
+  font-family:helvetica;
+  color: rgba(200, 210, 220, 0.6);
+  float: right;
+  font-size: 22px;
+  font-weight: bold;
+  margin: -2px 4px 20px auto;
+  transition: 0.4s;
+  cursor: pointer;
+  }
+  
+.close_m:hover {
+    color: rgba(0, 0, 220, 0.8);
+  }
+
+  .close_m:active {
+    color: rgba(0, 0, 220, 0.8);
+    scale: 0.98;
+  }
+
+.close_m:focus {
+  text-decoration: none;
+  }
+  
+.close_mb {
+  color: rgba(200, 210, 220, 0.8);
+  font-size: 28px;
+  font-weight: bold;
+  transition: 0.2s;
+  cursor: pointer;
+  }
+  
+.close_mb:hover {
+    color: rgba(200, 210, 220, 0.8);
+  }
+
+.close_mb:focus {
+  text-decoration: none;
+  }
+  
+.close_mb:active {
+  transform: translateY(2px);
+  scale: 0.96;
+  }
+  
+#a_submit_t {
+  animation-name: anime_submit_t;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  }
+  
+  .btn_img_new {
+    width: 170px;
+    height: 270px;
+    max-width: 170px;
+    max-height: 270px;
+    margin-left: -184px;
+    /* margin-right: 20px; */
+    border: 4px solid rgba(160, 160, 240, 0.6);
+    text-align: center;
+    padding-top: 20px;
+    color: blue;
+    font-size: 18px;
+    word-wrap: break-word;
+    padding-left: 6px;
+    padding-right: 6px;
+    background-color: rgba(60, 160, 240, 0.4);
+    border-radius: 2px;
+  }
+
+  [id^="span_title"] {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  [id^="span_author"] {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+</style>
+
+
+<div class="myrow_book" id="row_book_{{book.google_id}}">
+
+  <div class="mycolumn_book" id="col_img_book_{{book.google_id}}">
+ <div class="glass_book">
+  <div>
+
+  <a type="button" class="button_1"  id="button_1_{{book.google_id}}" > Author <br> details </a>
+
+  <a type="button" id="button_2_{{book.google_id}}" href="{% url 'booksmart:readbook' book.id %}" target="_blank" class='tooltip_'>Read <br> Book <span class="tooltiptext_"> REMEMBER THAT BOOKS WITH:  EPUB: NO or embeddable: no, AND MANY OTHERS ARE NOT TO READ BECAUSE OF "COPYRIGHT"</span></a>
+
+
+  {% if request.user.id == book.user_num_b %}
+  <a type="button" id="button_3_{{book.google_id}}" href="{% url 'booksmart:deletebook' book.id %}" target="_blank">Delete<br>Book</a>
+  {% else %}
+  <a type="button" id="button_3_{{book.google_id}}" class='tooltip' > Delete Book <span class="tooltiptext"> REMEMBER THAT YOU CAN REMOVE ONLY YOUR OWN RECORDS </span></a>
+
+  {% endif %}
+
+
+  {% if request.user.id == book.user_num_b%}
+  <a type="button"  id="button_4_{{book.google_id}}" href="{% url 'booksmart:editbook' book.id %}" target="_blank">Edit<br>Book</a>
+  {% else %}
+  <a type="button"  id="button_4_{{book.google_id}}" class='tooltip' > Edit Book <span class="tooltiptext"> REMEMBER THAT YOU CAN CHANGE ONLY YOUR OWN RECORDS </span></a>
+
+  {% endif %}
+
+  </div>
+  <div class="cont_img_book">
+  <img  src="{{ book.imageLinks }}" id="img_book_{{ book.google_id }}" class="img-fluid rounded" >
+  </div>
+
+  <div class="book_left_content">
+      <br>
+     <p class="h6l_b_db_c"class="language" style="padding-top:48px;" > LANGUAGE: <span  style="color: Maroon; font-weight: bold;"> {{ book.language}} </span></p>
+     <p class="h6l_b_db_c" style="margin-top:-2px;"> EPUB: <span class="h6l" style="color: Maroon; font-weight: bold;"> {{ book.epub }} </span></p> 
+     {% if book.published == no_date %}
+     <p class="h6l_b_dba_c" style="margin-top:-8px;"> PUBLISHED DATE: <span class="h6l06_b" style="color: Indigo; font-weight: bold;"> no info </span></p>
+    {% else %}
+     <p class="h6l_b_dba_c" style="margin-top:-8px;">PUBLISHED DATE: <span class="h6l06_b" style="color: Indigo; font-weight: bold;">  {{ book.published }} </span></p>
+     {% endif %}
+     <p class="h6l_b_dba_c" style="margin-top:-10px;"> CREATED AT: <span class="h6l06_b" style="color: Indigo; font-weight: bold;"> {{ book.created_at}} </span> </p>
+     
+     <p class="h6l_b_db_c" style="margin-top:-6px;"> ISBN: <span style="color: DarkSlateGrey; font-weight: bold;"> {{ book.isbn}} </span> </p>
+     <p class="h6l_b_db_c" style="margin-top:-4px;"> google_id: <span style="color: DarkSlateGrey; font-weight: bold;"> {{ book.google_id}} </span> </p>
+     <p class="h6l_b_db_c" style="margin-top:-2px; padding-bottom:30px;"> embeddable: <span  style="color: DarkSlateGrey; font-weight: bold;"> {{book.embeddable }}</span> </p>
+     
+       </div>
+    </div>
+  </div>
+  
+  <div class="column" id="column_book_{{book.google_id}}">
+    <div class="glass_book">
+   <p class="h3_l1_c" style="margin: 10px auto 10px 10px; padding-left: 60px; text-indent: -60px;"> title: <a  href="{{ book.preview_link }}" target="_blank" ><span id="book_title_{{ book.google_id }}" class="p_m_b"> "{{ book.title }}"</span></a></p>
+
+    <p id="" class="h4_l02" style="margin: 10px auto 10px 10px; padding-left: 80px; text-indent: -80px;"> author: <a  href="https://{{ book.language}}.wikipedia.org/wiki/{{ book.author }}" target="_blank"><span id="book_author_{{ book.google_id }}" class="p_i_b"> {{ book.author }} </span></a></p>
+    <p class="h5_l08" style="margin: 12px auto 10px 10px;"> category: <span class="p_i_b" >{{ book.category }}</span> </p>
+  
+    <p class="h6_l04b" style="margin: 12px auto 12px 10px;"> description:</p>
+    <div class="textarea_b"  > {{ book.summary }} </div>
+
+    <p class="h6_l04b" style="margin: 10px auto 10px 10px;"> important links:</p>
+    <div class="textarea_link_b"  > {{ book.selfLink }} </div>
+      </div>
+        </div>
+          </div>
+
+     <br>
+
+      <div class="mymodal_uni" id="mymodalauthor_bookOverlay_{{book.google_id}}">
+    </div>
+
+<div class="container_mymodal_uni" id="mymodalauthor_bookCont_{{book.google_id}}">
+<div class="column_mymodal_uni" id="mymodalauthor_bookCol">
+
+    <div class="mymodal_header_uni" id="mymodalauthor_bookHeader" >
+    <p id="close_m_uni_{{book.google_id}}" class="close_m"> ✖ </p>
+    <p style="font-size:26px; color:blue; margin:10px auto 0px 10px;"> AUTHOR INFO </p>
+    </div>
+
+    
+    {% if book.author_c%}
+    <div class="mymodal_body_uni" id="mymodalauthor_bookBody" >
+      {% include 'snippets-booksmart/author_book.html' %}
+    </div>
+  
+      {% else %}
+      <div class="mymodal_body_uni" id="mymodalauthor_bookBody" >
+      <div class="text-center" style="padding-top:2px;"><h6 style="margin-top:6px;"> IN DATABASE NO DETAILS ABOUT THIS AUTHOR TRY THIS </h6></div>
+    </div>
+  
+    <div class="mymodal_body_uni" id="mymodalauthor_bookBody" >
+    <div style="width:100%;" ><iframe src="https://{{ book.language }}.wikipedia.org/wiki/{{ book.author }}" style="width:100%; height:400px;">
+    </iframe></div></div>
+    {% endif %}
+          
+<div class="mymodal_footer_uni" id="mymodalauthor_bookFooter_">
+    
+    <span class="close_mb">
+    <button id="close_mb_uni_{{ book.google_id }}" type="button" class="btn btn-outline-primary text-danger" style="position:relative; width:110px; margin: 10px auto 10px auto; border: 4px solid; font-size: 20px; font-weight: bold; padding:4px auto 4px auto;">CLOSE</button> 
+    </span>
+   
+</div>
+
+<p style="font-variant: small-caps; margin:auto auto -10px auto;"> booksmart </p>
+</div>
+</div>
+
+
+<script>
+  console.clear();
+  var_name = {}
+  
+var title_{{ book.google_id }} = document.getElementById("book_title_{{ book.google_id }}").innerText; 
+
+var author_{{ book.google_id }} = document.getElementById("book_author_{{ book.google_id }}").innerText;  
+
+var empty_img = "http://books.google.com/books/content?id=YS7eSh0hbDEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api";
+
+var img_{{ book.google_id }} = document.getElementById("img_book_{{ book.google_id }}");
+
+img_{{ book.google_id }}.addEventListener("load", FuncNoImg);
+
+  function FuncNoImg() {
+   
+      if (img_{{ book.google_id }}.src === empty_img) {
+        var html_{{ book.google_id }} = '<div class="btn_img_new"><span id="span_author_{{ book.google_id }}"></span><br><br><span id="span_title_{{ book.google_id }}"</span></div>';
+        img_{{ book.google_id }}.insertAdjacentHTML("afterend", html_{{ book.google_id }});
+        document.getElementById("span_author_{{ book.google_id }}").innerText = author_{{ book.google_id }};
+        document.getElementById("span_title_{{ book.google_id }}").innerText = title_{{ book.google_id }};
+      }
+    } 
+
+/*
+ // var container_book = document.getElementById('row_book{{book.google_id}}');
+var img{{ book.google_id }} = document.getElementById('img_book{{ book.google_id }}');
+ // var img_src{{ book.google_id }} = img{{ book.google_id }}.src;
+ var no_img = "http://books.google.com/books/content?id=YS7eSh0hbDEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api";
+ img{{ book.google_id }}.onload = function() {
+  
+  if (img{{ book.google_id }}.src === no_img) {
+  let  html = '<div class="btn_img_new">{{ book.author }}<br><br>"{{ book.title }}"</div>';
+ 
+  img{{ book.google_id }}.insertAdjacentHTML("afterend", html); 
+  }
+  } */
+
+  var modal_{{ book.google_id }}  = document.getElementById("mymodalauthor_bookOverlay_{{ book.google_id }}");
+
+  var cont_{{ book.google_id }}  = document.getElementById("mymodalauthor_bookCont_{{book.google_id}}");
+
+ 
+var btn_{{ book.google_id }} = document.getElementById("button_1_{{ book.google_id }}");
+ 
+  //var btn_authorbook = document.getElementById("button_1_{{book.google_id}}");
+  btn_{{ book.google_id }}.onclick = function(){
+    modal_{{ book.google_id }}.style.display = "block";
+      //my_modal_authorbook.style.display = "block";
+      modal_{{ book.google_id }}.style.animation = "modalfadein 1s 1";
+      //my_modal_authorbook.src = this.src;
+      cont_{{ book.google_id }}.style.display = "block"; 
+      cont_{{ book.google_id }}.style.animation = "zoom 2s 1";
+     // my_modal_authorbookCont.src = this.src;
+  }
+  
+      var close_x_{{ book.google_id }} = document.getElementById("close_m_uni_{{ book.google_id }}");  
+      var close_btn_{{ book.google_id }} = document.getElementById("close_mb_uni_{{ book.google_id }}");
+      
+  
+      close_x_{{ book.google_id }}.onclick = function() {
+        cont_{{ book.google_id }}.style.animation = "unzoom 2s 1";
+        modal{{ book.google_id }}.style.animation = "modalfadeout 1s 1 1s";
+      setTimeout(()=> {
+        cont_{{ book.google_id }}.style.display = "none";
+          modal_{{ book.google_id }}.style.display = "none";
+          }
+          , 1900);
+      }
+  
+      close_btn_{{ book.google_id }}.onclick = function() {
+        cont_{{ book.google_id }}.style.animation = "animatetopback 2s 1";
+        modal_{{ book.google_id }}.style.animation = "modalfadeout 1s 1 1s";
+        setTimeout(()=> {
+          cont_{{ book.google_id }}.style.display = "none";
+            modal_{{ book.google_id }}.style.display = "none";
+            }
+            , 1900);
+      }
+  
+      modal_{{  book.google_id }}.onclick = function() {  
+        cont_{{ book.google_id }}.style.animation = "unzoomrotate 2s 1";
+        modal_{{ book.google_id }}.style.animation = "modalfadeout 1s 1 1s";
+          setTimeout(()=> {
+            cont_{{ book.google_id }}.style.display = "none";
+            modal_{{ book.google_id }}.style.display = "none";
+          }
+          , 1900);   
+      }
+  
+
+      </script>

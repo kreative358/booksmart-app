@@ -1,0 +1,1660 @@
+
+
+<script src="https://books.google.com/books/javascript/search_6e417bce8849a9b8a0e005dae4fc4f40__en.js"></script>
+<script>
+    function setFocus() {document.f.as_q.focus(); }
+    function daterange_is(i) {document.f.as_drrb_is[i].checked = true; }
+    
+    document.body.onload = setFocus();
+    </script>
+
+    
+
+<style>
+@keyframes opacityanime {
+from {opacity:1;} 
+to {opacity:0;}
+}
+
+@keyframes modalfadeout {
+from {background-color: rgba(20, 100, 200, 0.4);} 
+to {background-color: rgba(20, 100, 200, 0.0);}
+}
+
+@keyframes modalfadein {
+from {background-color: rgba(20, 100, 200, 0.0);} 
+to {background-color: rgba(20, 100, 200, 0.4);}
+}   
+
+td {
+    padding:6px;
+    margin:4px;
+    font-size:16px;
+    font-variant: small-caps;
+}
+
+input {
+    text-align:left
+}
+
+table {
+    margin:auto; 
+    align-content:left; 
+    justify-content:left; 
+    align-items:left; 
+    text-align: left;
+}
+
+
+
+#modal_body_advance_gb input {
+font-size: 16px; 
+color:darkblue; 
+width:300px;
+
+display: inline;
+border-radius: 2px;    
+box-shadow:
+0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+background:rgb(240, 248, 255);
+background:rgba(240, 248, 255, 0.2);
+transition: 0.4s;
+border:none;
+outline:none;
+padding-left: 4px;
+}
+
+#modal_body_advance_gb input[type=text], 
+#modal_body_advance_gb input[type=email], 
+#modal_body_advance_gb input[type=password], 
+#modal_body_advance_gb input[type=date], 
+#modal_body_advance_gb input[type=number], 
+#modal_body_advance_gb input[type=url], 
+#modal_body_advance_gb input[type=search] {
+font-size: 16px; 
+color:darkblue; 
+width:300px; 
+padding-left: 4px;
+padding-top: 4px;
+display: inline;
+border-radius: 2px;    
+box-shadow:
+0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+background:rgb(240, 248, 255);
+background:rgba(240, 248, 255, 0.2);
+transition: 0.4s;
+}
+
+/* #modal_body_advance_gb select,
+#modal_body_advance_gb option, */
+#bs_input_c, 
+#bs_input_o {
+font-size: 16px; 
+color:darkblue; 
+width:40%; 
+margin: 4px auto 2px auto;
+padding-top: 4px ;
+padding-bottom:4px;
+padding-left: 4px;
+display: block;
+border-radius: 2px;    
+box-shadow:
+0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+background:rgb(240, 248, 255);
+background:rgba(240, 248, 255, 0.2);
+transition: 0.4s;
+}
+
+#modal_body_advance_gb textarea {
+font-size: 16px; 
+color:darkblue; 
+width:90%; 
+max-width: 90%;
+margin: 4px auto 2px auto;
+padding-top: 6px;
+display: inline-block;
+border-radius: 2px;    
+box-shadow:
+0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+background-color:rgb(240, 248, 255);
+background-color:rgba(240, 248, 255, 0.2);  
+text-align: justify;
+text-justify: inter-word;
+height: 92px;
+max-height: 138px;
+overflow: auto;
+resize: none;
+transition: 0.4s;
+}
+
+#modal_body_advance_gb input[type=text]:hover, 
+#modal_body_advance_gb input[type=email]:hover, 
+#modal_body_advance_gb input[type=password]:hover, 
+#modal_body_advance_gb input[type=date]:hover, 
+#modal_body_advance_gb input[type=number]:hover, 
+#modal_body_advance_gb input[type=url]:hover, 
+#modal_body_advance_gb input[type=search]:hover {
+background:rgb(240, 248, 255);
+background:rgba(240, 248, 255, 0.6);
+box-shadow:
+0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
+0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+
+}
+
+#modal_body_advance_gb textarea:hover {
+background-color:rgb(240, 248, 255);
+background-color:rgba(240, 248, 255, 0.6);
+box-shadow:
+0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
+0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+color:darkblue;
+}
+
+/* #modal_body_advance_gb select:hover, 
+#modal_body_advance_gb option:hover {
+background:rgb(240, 248, 255);
+background:rgba(240, 248, 255, 0.6);
+box-shadow:
+0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
+0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+} */
+
+#modal_body_advance_gb input:focus  {
+background-color:rgb(240, 248, 255);
+background-color:rgba(240, 248, 255, 0.8);
+box-shadow:
+0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
+0px 0px 0px 2px rgba(220, 220, 240, 0.6);
+border:none;
+outline: none;
+}
+
+/*#modal_body_advance_gb option:active,  */
+#bs_input_c:active, 
+#bs_input_o:focus:active {
+background-color:rgb(10, 115, 230);
+background-color:rgba(10, 115, 230, 0.8);
+box-shadow:220, 220, 240, 0.6
+0px 0px 0px 2px rgba(220, 220, 240, 0.8) inset,
+0px 0px 0px 2px rgba(10, 115, 230, 0.8);
+color:rgba(220, 230, 240, 0.8);
+border:none;
+outline: none; 
+}
+
+#modal_body_advance_gb input[type="checkbox"], 
+#modal_body_advance_gb input[type="radio"] {
+width: 12px;
+height:12px;
+accent-color:blue;
+box-shadow: 
+0px 0px 0px 6px rgba(120,130,140, 0.2) inset,
+0px 0px 0px 1px blue inset,
+0px 0px 0px 1px blue,
+0px 0px 4px 3px rgba(220,30,40, 0.4);
+margin-right:14px;
+/*vertical-align: sub;
+outline:1px solid blue;*/
+}
+
+#modal_body_advance_gb input[type="checkbox"]:hover,
+#modal_body_advance_gb input[type="radio"]:hover {
+box-shadow: 
+0px 0px 0px 1px blue inset,
+0px 0px 0px 1px blue,
+0px 0px 0px 9px rgba(120,130,140, 0.4) inset,
+0px 0px 5px 4px rgba(220,30,40, 0.6);
+/*vertical-align: sub;
+outline:1px solid blue;*/
+}
+
+#modal_body_advance_gb input[type="checkbox"]:checked, 
+#modal_body_advance_gb input[type="radio"]:checked  {
+box-shadow: 
+/*0px 0px 0px 2px blue inset,*/
+0px 0px 0px 1px blue ,
+0px 0px 0px 1px blue inset,
+0px 0px 6px 5px rgba(220,230,240, 0.6);
+/*outline:2px solid green;*/
+
+}
+
+#modal_body_advance_gb input[type="checkbox"]:checked:hover {
+box-shadow: 
+0px 0px 0px 1px blue inset,
+0px 0px 0px 1px blue,
+0px 0px 7px 6px rgba(220,230,240, 0.8);
+}
+
+#modal_advance_gb {
+position: fixed;
+display:none;
+z-index:32;
+/*
+display:none;padding-top: 100px;  Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(20, 100, 200); 
+background-color: rgba(20, 100, 200, 0.4); 
+-webkit-backdrop-filter: blur(4px);
+backdrop-filter: blur(4px);
+animation:noname;
+}
+
+#modal_cont_advance_gb {
+font-family:Times;
+position: absolute;
+z-index:33;
+display:none;
+min-width: 800px;
+width:800px;
+left:50%;
+margin-left: -400px;
+top:60px;
+max-width: 98%;
+background-color: rgba(220, 220, 220, 0.2);
+top:56px;
+padding: 8px;
+border: 6px solid rgba(20, 120, 220, 0.6);
+border-radius:4px;
+box-shadow: 
+0px 4px 16px 10px rgba(160, 170, 180, 0.4);
+/*animation-delay: 2s;
+margin-bottom:60px;*/
+animation: noname2;
+transition: 0.4s;
+}
+
+#modal_cont_advance_gb:hover {
+background-color: rgba(220, 220, 220, 0.6);
+
+box-shadow: 
+0px 4px 16px 10px rgba(220, 230, 240, 0.4),
+0px 0px 30px 420px rgba(220, 230, 240, 0.4) inset;
+}
+
+#modal_cont_advance_gb:active {
+background: rgba(60, 160, 240, 0.6);
+
+box-shadow: 
+0px 4px 16px 10px rgba(230, 240, 250, 0.6),
+0px 0px 30px 410px rgba(230, 240, 250, 0.6) inset;
+}    
+
+@keyframes unzoomrotate {
+from {transform:scale(1); rotate:360deg;} 
+to {transform:scale(0); rotate: 0deg;}
+} 
+@keyframes zoomrotate {
+from {transform:scale(0); rotate:0deg;} 
+to {transform:scale(1); rotate: 360deg;}
+} 
+
+/* Add Animation */
+@keyframes unzoom {
+from {transform:scale(1);} 
+to {transform:scale(0);
+}
+}
+
+@keyframes zoom {
+from {transform:scale(0);} 
+to {transform:scale(1);
+}
+}
+
+@keyframes animatetopback {
+from {top: 0px; }
+to {top:-1000px; }
+}
+
+#modal_row_advance_gb {
+margin: auto;
+padding:0px;
+}
+
+#modal_col_advance_gb {
+margin:auto; 
+padding: 8px;
+border: 6px solid rgba(20, 120, 220, 0.6);
+border-radius:4px;
+
+position: relative;
+z-index: 34; 
+}
+
+#modal_header_advance_gb {
+background-color: rgba(20, 120, 240, 0.2); 
+border: 6px solid rgba(20, 120, 220, 0.6);
+border-radius:4px;
+margin-bottom: 8px;
+}
+
+#modal_header_advance_gb:hover { 
+background-color: rgba(20, 120, 240, 0.4);
+
+}
+
+#modal_header_advance_gb:active {
+background-color: rgba(20, 120, 240, 0.6);
+
+}   
+
+#mymodal_header_advance_gb {
+padding:0px;
+text-align:center;
+margin-bottom:-8px;
+justify-content:center;
+}
+
+#mymodal_header_second_advance_gb {
+padding:10px;
+text-align:center;
+margin-bottom:-8px;
+justify-content:center;
+}
+
+#modal_body_advance_gb  {
+border: 6px solid rgba(20, 120, 220, 0.6);
+border-radius:4px;
+background-color: rgba(220, 220, 220, 0.6); 
+color:MediumBlue; 
+justify-content:left; 
+align-items:left; 
+text-align: left; 
+max-height:440px; 
+overflow:auto;
+padding:auto;
+}
+
+#modal_body_advance_gb:hover {
+background-color: rgb(220, 220, 220,); 
+background-color: rgba(220, 220, 220, 0.4); 
+
+}
+
+#modal_body_advance_gb:active {
+background-color: rgb(180, 180, 180); 
+background-color: rgba(180, 180, 180, 0.8);
+
+}
+
+#modal_footer_advance_gb {
+background-color: rgba(20, 120, 240, 0.2);
+border: 6px solid rgba(20, 120, 220, 0.6);
+border-radius:4px;
+
+justify-content:center;
+margin-top:8px;
+padding:10px;
+width:100%;
+height:76px;
+transition: 0.4s;
+}
+
+#modal_footer_advance_gb:hover {
+background-color: rgba(20, 120, 240, 0.4);
+
+}
+
+#modal_footer_advance_gb:active {
+background-color: rgba(20, 120, 240, 0.6);
+
+}
+
+
+.cellpadding {
+background-color: rgba(60, 160, 240, 0.2); 
+}
+
+.cellpadding:hover {
+background-color: rgba(60, 160, 240, 0.4); 
+}
+
+.colspan {
+background-color: rgba(60, 160, 240, 0.2); 
+}
+
+.colspan:hover {
+ background-color: rgba(60, 160, 240, 0.4); 
+ }
+
+/*
+input{
+background-color: rgba(240, 240, 240, 0.8); 
+border: 2px solid rgba(120, 180, 240, 0.6);
+border-radius:2px;
+color: DarkBlue;
+}
+
+input:focus {
+border:none;
+outline:none;
+}
+
+*/
+
+/*
+select .select_month {
+display:block;
+background-color: rgba(240, 240, 240, 0.8); 
+color: DarkBlue;
+border: 2px solid rgba(120, 180, 240, 0.6);
+}
+
+.select_month option {
+background-color: rgba(240, 240, 240, 0.6); 
+border: 2px rgba(120, 180, 240, 0.6);
+border-radius:2px;
+display:block;
+}
+
+.select_month option:focus {
+border:none;
+outline:none;
+}
+
+.select_month select:focus {
+border:none;
+outline:none;
+} */
+
+#btn_closegb_x {
+color:  rgba(220, 230, 240, 0.6);
+float: right;
+font-size: 22px;
+font-weight: bold;
+cursor: pointer;
+transition: 0.2s;
+font-family:helvetica;
+color: rgba(220, 230, 240, 0.6);
+text-shadow:
+-0.06em 0.06em 0.04em rgba(0, 0, 209, 0.6);
+box-shadow: 0px 0px 1px  (20,20,240, 0.4);
+padding: -4px 5px 5px 5px;
+}
+
+#btn_closegb_x:hover {
+text-shadow:
+-0.06em 0.06em 0.04em rgba(9, 109, 209, 0.8);
+color:  rgba(230, 240, 250, 0.8);
+}
+
+#btn_closegb_x:active {
+transform: scale(0.98);
+color: rgba(20, 20, 220, 0.9);
+text-shadow:
+-0.03em 0.03em 0.02em rgba(220, 230, 240, 0.8);
+border:none;
+outline: none;
+}
+
+.btn_close_mb {
+position:relative;
+text-shadow: 0px 1px 1px #fff, 0 -1px 1px #000;
+float:left;
+margin-left: 22px;
+transition-duration: 0.2s;
+background-color: rgba(10, 20, 210, 0.4);
+/*rgba(10, 80, 240, 0.6);*/ 
+color: rgba(160, 170, 180, 0.8); 
+border: 4px outset rgba(160, 170, 180, 0.6);
+border-radius:2px;
+padding-top: 2px;
+padding-bottom:4px;
+font-weight:bold;
+font-family:Times;
+font-variant:small-caps;
+font-size:20px;
+min-width: 120px;  
+box-shadow: 0px 0px 6px 4px rgba(76, 76, 210, 0.6);
+}
+
+.btn_close_mb:hover {
+background-color: rgba(210, 20, 10, 0.8); 
+color: rgba(230, 240, 250, 0.8);
+box-shadow: 0px 0px 6px 4px rgba(230, 240, 240, 0.6);
+}
+
+.btn_close_mb:active {
+
+box-shadow: 0px 0px 3px 3px rgba(230, 240, 240, 0.8);
+} 
+
+.btn_submitgb {
+    transition-duration: 0.2s;
+    background-color: rgba(210, 210, 210, 0.4);
+    /*rgba(10, 80, 240, 0.6);*/
+    box-shadow: 0px 0px 0px 1px rgba(60, 160, 240, 0.6);
+    color: rgba(0, 0, 210, 0.8); 
+    border: 2px solid rgba(60, 160, 240, 0.6);
+    border-radius:2px;
+    font-weight:bold;
+    font-family:Times;
+    font-variant:small-caps;
+    font-size:16px;
+    padding: auto 4px auto 4px aut;
+    margin-left: 4px;
+    }
+
+
+.btn_submitgb:hover {
+    background-color: rgba(0, 0, 210, 0.6);
+    color: rgba(230, 230, 240, 0.8);
+    font-weight: bold;
+    box-shadow: 0px 0px 2px 2px rgba(60, 160, 240, 0.8);
+    border: 2px solid rgba(60, 160, 240, 0.8);
+}
+
+.btn_submitgb:active {
+    background-color: rgba(0, 0, 210, 0.8);
+    color: rgba(230, 230, 240, 0.9);
+    font-weight: bold;
+    box-shadow: 0px 0px 2px 2px rgba(60, 160, 240, 0.8);
+    border: 2px solid rgba(60, 160, 240, 0.8);
+    }
+
+ /* #btn_submit_gb_mb, #btn_no_submit_gb_mb, */
+.btn_submit_mb {
+    transition-duration: 0.2s;
+    background-color: rgba(160, 170, 180, 0.4);
+    /*rgba(10, 80, 240, 0.6);*/
+    box-shadow: 0px 0px 6px 4px rgba(160, 170, 180, 0.6);
+    color: rgba(0, 0, 210, 0.8); 
+    border: 4px outset rgba(10, 20, 210, 0.4);
+    border-radius:2px;
+    font-weight:bold;
+    font-family:Times;
+    font-variant:small-caps;
+    font-size:22px;
+    padding-top:2px;
+    margin-right: 20px;
+    padding-bottom:4px;
+    width:120px;
+    float:right;
+    }
+
+/* #btn_submit_gb_mb:hover, #btn_no_submit_gb_mb:hover, */
+.btn_submit_mb:hover {
+background-color: rgba(0, 0, 210, 0.6);
+color: rgba(230, 230, 240, 0.8);
+font-weight: bold;
+box-shadow: 0px 0px 6px 4px rgba(60, 160, 240, 0.8);
+border: 4px outset rgba(60, 160, 240, 0.8);
+/*rgba(10, 80, 240, 0.6);*/ 
+}
+
+/* #btn_submit_gb:active, #btn_no_submit_gb_mb:active,*/
+.btn_submit_mb:active {
+background-color: rgba(0, 0, 210, 0.8);
+box-shadow: 0px 0px 2px 2px rgba(220, 220, 240, 0.8);
+border: 4px outset rgba(60, 160, 240, 0.8);
+font-weight: bold;
+color: rgba(230, 230, 240, 0.8);
+transform: scale(0.98);
+
+/*rgba(10, 80, 240, 0.6);*/ 
+/*rgba(10, 80, 240, 0.6);*/ 
+}
+
+/*.btn_submit {
+    position:relative;
+    float:right;
+text-shadow: 0px 1px 1px #fff, 0 -1px 1px #000;
+
+margin: 10px 20px 10px auto;
+transition-duration: 0.2s;
+background-color: rgba(210, 20, 10, 0.8);
+
+color: rgba(160, 170, 180, 0.8); 
+border: 4px solid  rgba(160, 170, 180, 0.8);
+border-radius:2px;
+padding: 0px;
+font-weight:bold;
+font-family:Times;
+font-variant:small-caps;
+font-size:22px;
+min-width: 140px;
+box-shadow: 0px 0px 6px 4px rgba(201, 76, 76, 0.6);
+}
+
+.btn_submit:hover {
+    background-color: rgba(20, 20, 210, 0.8); 
+color: rgba(230, 240, 250, 0.8);
+box-shadow: 0px 0px 6px 4px rgba(230, 240, 240, 0.6);
+}
+
+.btn_submit.active {
+    scale:0.98;
+    box-shadow: 0px 0px 3px 3px rgba(230, 240, 240, 0.8);
+    } */
+
+
+#a_submit_t {
+animation-name: anime_submit_t;
+animation-duration: 6s;
+animation-iteration-count: infinite;
+}
+
+@keyframes anime_submit_t {
+50% {color: red;}
+}  
+
+.title_header {
+font-size: 30px; 
+font-family:Times;
+font-variant: small-caps;
+margin: -14px auto -20px auto;
+font-weight:bold;
+color:rgba(0, 0, 209, 0.9);
+}
+
+.header_text {
+font-size: 24px; 
+font-family:Times;
+margin: 4px 10px 4px 10px;
+color:rgba(0, 0, 229, 0.9);
+font-weight:bold;
+font-variant: small-caps;
+line-height:1;
+}
+
+#class_label {
+color: rgba(0, 0, 209, 0.9); 
+font-size: 26px; 
+font-weight:bold;
+font-family:Times;
+margin: 14px auto -6px auto;
+font-variant: small-caps;
+text-align:center;
+}
+
+.class_label {
+color: rgba(0, 0, 209, 0.9); 
+font-size: 26px; 
+font-weight:bold;
+font-family:Times;
+margin: 14px auto -6px auto;
+font-variant: small-caps;
+text-align:center;
+}
+
+.p-size {}
+
+input, button {
+border:none;
+outline:none;
+text-decoration: none;
+}
+
+::-webkit-input-placeholder { /* Edge */
+    color: rgba(0, 0, 204, 0.8); 
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer */
+      color: rgba(0, 0, 204, 0.8);
+  }
+  
+  ::placeholder {
+      color: rgba(0, 0, 204, 0.8);
+  }
+
+
+td label {
+    margin-top: 2px;
+    margin-bottom:2px;
+}
+
+
+</style>
+
+<style>
+/*
+  .select_month_published select {
+    -webkit-text-fill-color: blue;
+    background-color: rgba(60, 160, 240, 0.0); 
+  }
+  
+  .select_month_published select {
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  display: block;
+  border-radius: 4px;    
+  box-shadow:
+  0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+  0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+  background:rgb(240, 248, 255);
+  background:rgba(240, 248, 255, 0.6); 
+  transition: 0.4s;
+  margin: -24px 0px 2px 46px; 
+  border: none;
+  outline: none;
+  padding: 4px;
+  }
+  
+  .select_month_published select:hover {
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  padding: 4px;
+  border: none;
+  outline: none;
+  }
+   
+  .select_month_published select  {
+  position:relative;
+  z-index: 32;
+  background-color: rgba(60, 160, 240, 0.0); 
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  
+  border-radius: 4px;
+  transition: 2s;
+  padding: 4px;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  margin-top: 4px;
+  }
+  
+  .select_month_published select:focus {
+  background: transparent;
+  background-color: rgba(60, 160, 240, 0.0);
+  background: rgba(60, 160, 240, 0.0);
+  outline: none;
+  border: none;
+  position: fixed;
+  z-index: 34;
+  transition: 0.4s;
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+    
+  .select_month_published select,
+  .select_month_published select:hover {
+  position: relative;
+  z-index: 32;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+    font-size: 16px;
+  }
+  
+  .select_month_published select:focus {
+    position: fixed;
+    z-index: 34;
+    width: 240px;
+    max-width: 240px;
+    min-width: 240px;
+    margin: -24px 0px 2px 46px; 
+    padding: 4px;
+    }
+  
+  .select_class_month {
+  background-color: rgba(220, 220, 240, 0.4);
+  box-shadow: 0px 0px 0px 2px rgba(60, 160, 240, 0.6);
+    width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+    transition: 0.6s;
+    opacity: 1;
+  }
+
+  .select_month_published select option:first-child {
+  background-color: rgba(60, 160, 240, 0.2);
+  box-shadow: 
+  0px 0px 0px 2px rgba(60, 160, 240, 0.2) inset,
+  0px 0px 0px 2px rgba(60, 160, 240, 0.6);
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.4s;
+  font-size: 16px;
+  padding: 4px;
+  
+  }
+
+  .select_month_published select option:first-child:hover,
+  .select_month_published select option:first-child:focus {
+  background-color: rgba(60, 160, 240, 0.2);
+  box-shadow: 
+  0px 0px 0px 2px rgba(220, 220, 240, 0.6) inset,
+  0px 0px 0px 2px rgba(60, 160, 240, 0.6);
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.4s;
+  font-size: 16px;
+  padding: 4px;
+  }
+
+  .select_month_published select option:first-child:after {
+  content:"";
+  border: solid blue;
+  border-width: 0 2px 2px 0;
+  display: block;
+  transform: rotate(-135deg);
+  padding: 4px;
+  float: right;
+  margin-right: 6px;
+  margin-top: 9px;
+  font-weight: bold;
+  }
+  
+  .select_month_published option, 
+  .select_month_published option:focus {
+  background-color:rgb(240, 248, 255);
+  background-color:rgba(240, 248, 255, 0.8);
+  box-shadow:
+  0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
+  0px 0px 0px 2px rgba(220, 220, 240, 0.6);
+  font-size: 18px; 
+  color: rgba(0, 0, 210, 0.8); 
+  padding: 6px 4px 6px 6px;
+  border:none;
+  outline: none;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+  
+  .select_month_published option:hover {
+  background:rgb(240, 248, 255);
+  background:rgba(240, 248, 255, 0.6);
+  box-shadow:
+  0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
+  0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+
+  .select_month_published option:focus:active {
+  background-color:rgb(10, 115, 230);
+  background-color:rgba(10, 115, 230, 0.8);
+  box-shadow:
+  0px 0px 0px 2px rgba(220, 220, 240, 0.8) inset,
+  0px 0px 0px 2px rgba(10, 115, 230, 0.8);
+  color:rgba(220, 230, 240, 0.8);
+  border:none;
+  outline: none; 
+  padding: 4px;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+  
+  .select_month_published select option {
+  background-color: rgba(60, 160, 240, 0.2); 
+  border-radius: 4px;
+  margin-top: 6px;
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  padding: 4px;
+  transition: 0.4s;
+  box-shadow:
+  0px 0px 0px 2px rgba(220, 220, 240, 0.4) inset,
+  0px 0px 0px 2px rgba(10, 115, 230, 0.4);
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+  
+  .select_month_published select option:not(option:first-child) {
+  box-shadow: 
+  0px 0px 0px 2px rgba(60, 160, 240, 0.4),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.4) inset;
+  transition: 0.4s;
+  animation: opacityup 2s;
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 4px;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+  
+  .select_month_published select option:first-of-type:hover {
+  box-shadow: 
+  0px 0px 0px 2px rgba(60, 160, 240, 0.6),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.6) inset; 
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 4px;
+  transition: 0.4s;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+  
+  .select_month_published select option:not(option:first-child):hover {
+  box-shadow: 
+  0px 0px 0px 2px rgba(220, 220, 240, 0.6),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.6) inset; 
+  color:rgba(230, 230, 240, 0.9);
+  font-weight: bold;
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 4px;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+  
+ 
+  .select_month_published select option:not(option:first-child):focus,
+  .select_month_published select option:not(option:first-child):active {
+  box-shadow: 
+  0px 0px 0px 2px rgba(220, 220, 240, 0.8),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.8) inset;
+  color:rgba(230, 230, 240, 1);
+  font-weight: bold;
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 4px;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+  
+  .select_month_published select option:first-of-type:focus {
+  background-color: rgba(60, 160, 240, 0.2);
+  box-shadow: 
+  0px 0px 0px 2px rgba(220, 220, 240, 0.8),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.8) inset; 
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 4px;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+
+  .select_month_published select:invalid,
+  .select_month_published select:disabled {
+  background:rgba(60, 160, 240, 0.0);
+  background-color:rgba(60, 160, 240, 0.0);
+  }
+  
+  .select_month_published select[disabled] > option {
+    color: rgba(120, 120, 160, 0.6);
+    background:rgba(160, 160, 240, 0.6);
+     background-color:rgba(160, 160, 240, 0.6);
+   box-shadow: 
+   0px 0px 0px 2px rgba(220, 220, 240, 0.8),
+  0px 0px 0px 0px rgba(230, 230, 240, 0.0) inset; 
+  font-size: 16px;
+  padding: 4px;
+  
+  margin-left:auto;
+  margin-right:auto;
+  z-index: 36;
+  }
+  
+    @keyframes opacityup {
+      from {opacity: 0;} 
+      to {opacity: 1;}
+    } 
+    
+      @keyframes opacitydown {
+      from {opacity: 1;} 
+      to {opacity: 0;}
+    } 
+    
+      @keyframes heightdown {
+      from {height: 100%;} 
+      to {height: 28px;}
+    } 
+   
+  .select_month_published select:focus option:first-of-type:checked {
+   -webkit-text-fill-color: rgba(220, 220, 240, 0.8); 
+   background-color: rgba(60, 160, 240, 0.1) !important;
+   background-color: rgba(60, 160, 240, 0.8);
+  background: rgba(600, 160, 240, 0.8);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6));
+  box-shadow: 0px 0px 0px 2px rgba(220, 220, 240, 0.8);
+  margin-left:auto;
+  margin-right:auto;
+  z-index: 36;
+  padding: 4px;
+  font-size: 16px;
+  margin-bottom: 4px;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+ 
+  }  
+  
+  .select_month_published select:focus option:first-of-type:checked:hover {
+   -webkit-text-fill-color: rgba(230, 230, 240, 0.9); 
+   background: rgba(20, 20, 240, 0.1) !important;
+   background-color: rgba(20, 20, 240, 0.1) !important;
+   background-color: rgba(60, 160, 240, 0.8);
+  background: rgba(60, 160, 240, 0.8);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6));
+  box-shadow: 0px 0px 0px 2px rgba(220, 220, 240, 0.8);
+  margin-left:auto;
+  margin-right:auto;
+  z-index: 36;
+  color: rgba(220, 220, 240, 0.9);
+  padding: 4px;
+  font-size: 16px;
+  font-weight: bold;
+   width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+ 
+  }  
+   
+  .select_month_published select:hover option:not(option:first-child):checked {
+  -webkit-text-fill-color: rgba(230, 230, 240, 0.9);
+  background-color: rgba(60, 160, 240, 0.6);
+  background: rgba(60, 160, 240, 0.6);
+  box-shadow: 0px 0px 0px 2px rgba(60, 160, 240, 0.8);
+  background-color: rgba(60, 160, 240, 0.6);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6));
+  margin-left:auto;
+  margin-right: auto;
+  z-index: 36;
+  padding: 4px;
+  }
+  
+  .select_month_published select:focus option:not(option:first-child):checked {
+  -webkit-text-fill-color: rgba(230, 230, 240, 0.9);
+  background-color: rgba(220, 220, 240, 0.8);
+  background: rgba(220, 220, 240, 0.8);
+  box-shadow: 0px 0px 0px 2px rgba(60, 160, 240, 0.8);
+  margin-left:auto;
+  margin-right: auto;
+  padding: 4px;
+  }
+  
+  .select_month_published select {
+  }
+  
+  .select_month_published option, 
+  .select_month_published option:hover, 
+  .select_month_published option:focus,
+  .select_month_published option:focus:hover,
+  .select_month_published select option,
+  .select_month_published select option:hover,
+  .select_month_published select option:focus,
+  .select_month_published select option:focus:hover,
+  .select_month_published select:focus option,
+  .select_month_published select:focus:hover option {
+  margin-left:auto;
+  margin-right: auto;
+  background-color: rgba(220, 220, 240, 0.8);
+  background: rgba(220, 220, 240, 0.8);
+  box-shadow: 
+  0px 0px 0px 2px rgba(60, 160, 240, 0.8);
+  z-index: 36;
+  margin-top: 4px;
+  border-radius: 4px;
+  padding: 4px;
+  transition: 0.4s;
+  transform: scale(1.01);
+  opacity: 1;
+  width: 240px;
+  max-width: 240px;
+  min-width: 240px;
+  }
+
+.select_month_published select:focus option:nth-child(1),
+.select_month_published select:focus:hover option:nth-child(1) {
+    width: 240px;
+    max-width: 240px;
+    min-width: 240px;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: 4px;
+  transform: scale(1.01);
+  transition: 0.4s; 
+  background-color: rgba(60, 160, 240, 0.6);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6));
+} rgb(200, 30, 30)*/
+
+
+</style>
+
+
+    
+    <div class="mymodal"  id="modal_advance_gb" ></div>
+       
+            <div class="mycontainer" id="modal_cont_advance_gb">
+               <div class="myrow" id="modal_row_advance_gb">
+               <div class="mycolumn" id="modal_col_advance_gb">
+             <!-- Modal Header 
+            background: rgba(200, 30, 30, 0.8);
+background-color: rgba(200, 30, 30, 0.8);-->
+             
+             
+             <div id="modal_header_advance_gb">
+
+             <div class="mymodal_header" id="mymodal_header_advance_gb">
+                <span  id="btn_closegb_x" type="button" class="close_x" >✖</span><br>
+                <p class="title_header" id="title_advanced">Advanced Search Panel</p>
+            
+             
+
+                    </div>
+                    
+                    
+                       <div class="mymodal_header_second" id="mymodal_header_second_advance_gb" >
+                        
+                       <p class="header_text">First you can try to find free book using short form and If you find the right book, copy the link and paste it into the last field of search panel. Enter for example...</p>
+                    <form action="https://www.google.com/search?tbm=bks&amp;tbs=bkv:r" target="_blank" style="margin:10px">
+                    
+               
+                <div class="input-group">
+                  
+                  <input name="tbm" type="hidden" value="bks" >
+                  <input name="tbs" type="hidden" value="bkv:r" >
+                  <input  name="q" placeholder="Shakespeare"  value="Shakespeare" style="box-shadow: 0px 0px 0px 1px rgba(60,160,240, 0.8) inset, 0px 0px 0px 1px rgba(60,160,240, 0.8)">
+             {% if request.user.is_authenticated %} 
+                  <div class="input-group-append">
+                  <button action="submit" id="btn_submit_gb" type="submit" class="btn_submitgb ">search</button></div>
+         {% else %} 
+                  <div class="input-group-append">
+                    <button  class="btn_submitgb" disabled id='tooltip'>SEARCH <span id="tooltiptext">Hello, you must be logged in to use this function</span></button>  </div>     
+                  {% endif %}
+                
+             </div>
+                </form>
+                   </div>
+             
+              </div>  
+                
+                    <!-- Modal body -->
+                <div class="modal_body" id="modal_body_advance_gb" >
+                
+                
+                <form method="GET" action="https://books.google.com/books" target="_blank" name="f" id="gb_search"><!--https://books.google.com/books-->
+                <input type="hidden" name="bm" value="1">
+               
+                <table class="cellpadding" cellspacing="0" cellpadding="3" width="100%" style="background-color: rgba(100, 160, 220, 0.4); border-radius:3px;">
+                
+     <tbody >
+                
+    <td > 
+   <div>
+ <!--   <label id="label_select" style="font-size: 20px; color: rgba(0, 0, 209, 0.9); margin-right: 30px;" >Choose number of result</label>
+    <select name="num" style="font-size: 16px; padding:0px auto 2px 5px; border:4px solid darkgrey;  width:300px">
+    <option selected="" value="10">10 results</option>
+    <option value="20">20 results</option>
+    <option value="30">30 results</option>
+    <option value="50">50 results</option>
+    <option value="100">100 results</option>
+    </select> -->
+
+
+{% include 'snippets-booksearch/sort_row_num.html' %}
+</div>
+    </td>
+            
+    <tr>
+    <td>
+    <table class="cellpadding" width="100%" cellspacing="0" cellpadding="5" border="0">
+    
+          <tbody>
+          
+          <tr bgcolor="">
+          <td valign="center" width="15%"><b>Find<br>results </b>
+          </td>
+    
+          <td colspan="2">
+          <table class="cellpadding" width="100%" cellpadding="2" cellspacing="1">
+          <tbody>
+          <tr>
+          <td>
+         
+          <label for="as_q" style="font-size: 14px"> with <b>all</b> of the words </label>
+          </td>
+          <td>
+          <input type="text" value="" name="as_q" id="as_q" size="25" dir="ltr" class="with-auto-dir-text" placeholder="with all of the words">
+                <script>
+                    _OC_autoDir('as_q');
+                     <!--
+                    document.f.as_q.focus();
+                     // -->
+                </script>
+          </td>
+    
+          </tr>
+          <tr>
+          <td nowrap="">
+         
+          <label for="as_epq" style="font-size: 14px"> with the <b>exact phrase</b> </label>
+          
+          </td>
+    
+           <td>
+          <input type="text" value="" name="as_epq" id="as_epq" dir="ltr" class="with-auto-dir-text" placeholder="with the exact phrase">
+           </td>
+                    <script type="text/javascript">
+                              _OC_autoDir('as_epq');
+                    </script>
+          </tr>
+    
+          <tr>
+    
+          <td nowrap=""><label style="font-size: 14px" for="as_oq">with <b>at least one</b> of the words </label>
+          </td>
+    
+          <td>
+          <input type="text"  name="as_oq" id="as_oq" dir="ltr" class="with-auto-dir-text" placeholder="with at least one of the words" value="">
+          </td>
+                    <script type="text/javascript">
+                    _OC_autoDir('as_oq');
+                    </script>
+          </tr>
+          <tr>
+          <td nowrap="">
+         
+          <label style="font-size: 14px" for="as_eq"><b>without</b> the words</label>
+         
+           </td>
+    
+           <td>
+           <input type="text" name="as_eq" id="as_eq" dir="ltr" class="with-auto-dir-text" placeholder="without the words" value="" >
+          </td>
+                  <script type="text/javascript">
+                      _OC_autoDir('as_eq');
+                  </script>
+    
+          </tr>
+          </tbody>
+         
+    </table>
+    </td>
+    </tr>
+                <tr style="background-color: rgba(220, 230, 240, 0.6); border-radius:3px;">
+                <td  ><b>Search:</b></td>
+                <td colspan="2" >
+                <input id="rr1" name="as_brr" type="radio" value="0" checked="1">
+                <label style="font-size: 14px" for="rr1">all books</label>
+                
+                <input id="rr4" name="as_brr" type="radio" value="3" style="margin-left:64px;">
+                <label style="font-size: 14px" for="rr4">limited preview and full view</label>&nbsp;&nbsp;<br>
+                <input style="font-size: 14px" id="rr2" name="as_brr" type="radio" value="1">
+                <label style="font-size: 14px" for="rr2">full view only</label>
+                <input id="rr6" name="as_brr" type="radio" value="5" style="margin-left:33px;">
+                <label style="font-size: 14px" for="rr6">google ebooks only</label>&nbsp;&nbsp;</td>
+                </tr>
+                
+                <tr style="">
+                <td ><b>Content:</b></td>
+                <td colspan="2" >
+                <input id="all" name="as_pt" type="radio" value="ALLTYPES" checked="1">
+                <label style="font-size: 14px" for="all">all content</label>&nbsp;&nbsp;
+                <input id="books" name="as_pt" type="radio" value="BOOKS" style="margin-left:40px;">
+                <label style="font-size: 14px" for="books">books</label>&nbsp;&nbsp;
+                <input id="magazines" name="as_pt" type="radio" value="MAGAZINES" style="margin-left:40px;">
+                <label style="font-size: 14px" for="magazines">magazines</label>&nbsp;&nbsp;
+                <input id="newspapers" name="as_pt" type="radio" value="NEWSPAPERS_SANTORINI" style="margin-left:40px;">
+                <label style="font-size: 14px" for="newspapers">newspapers</label>&nbsp;&nbsp;</td>
+                </tr>
+                
+                <tr style="background-color: rgba(220, 230, 240, 0.6); border-radius:3px;">
+                <td ><b>Language</b>
+                </td>
+                <td width="40%"><label style="font-size: 14px" for="lr">return pages written in</label>
+                </td>
+                <td>
+                    {% include 'snippets-booksearch/sort_row_lr.html' %}
+             <!--   <select name="lr" id="lr">
+                <option value="">any language</option>
+                <option value="lang_af">Afrikaans</option>
+                <option value="lang_ar">Arabic</option>
+                <option value="lang_hy">Armenian</option>
+                <option value="lang_be">Belarusian</option>
+                <option value="lang_bg">Bulgarian</option>
+                <option value="lang_ca">Catalan</option>
+                <option value="lang_zh-CN">Chinese&nbsp;(Simplified)</option>
+                <option value="lang_zh-TW">Chinese&nbsp;(Traditional)</option>
+                <option value="lang_hr">Croatian</option>
+                <option value="lang_cs">Czech</option>
+                <option value="lang_da">Danish</option>
+                <option value="lang_nl">Dutch</option>
+                <option value="lang_en">English</option>
+                <option value="lang_eo">Esperanto</option>
+                <option value="lang_et">Estonian</option>
+                <option value="lang_tl">Filipino</option>
+                <option value="lang_fi">Finnish</option>
+                <option value="lang_fr">French</option>
+                <option value="lang_de">German</option>
+                <option value="lang_el">Greek</option>
+                <option value="lang_iw">Hebrew</option>
+                <option value="lang_hi">Hindi</option>
+                <option value="lang_hu">Hungarian</option>
+                <option value="lang_is">Icelandic</option>
+                <option value="lang_id">Indonesian</option>
+                <option value="lang_it">Italian</option>
+                <option value="lang_ja">Japanese</option>
+                <option value="lang_ko">Korean</option>
+                <option value="lang_lv">Latvian</option>
+                <option value="lang_lt">Lithuanian</option>
+                <option value="lang_no">Norwegian</option>
+                <option value="lang_fa">Persian</option>
+                <option value="lang_pl">Polish</option>
+                <option value="lang_pt">Portuguese</option>
+                <option value="lang_ro">Romanian</option>
+                <option value="lang_ru">Russian</option>
+                <option value="lang_sr">Serbian</option>
+                <option value="lang_sk">Slovak</option>
+                <option value="lang_sl">Slovenian</option>
+                <option value="lang_es">Spanish</option>
+                <option value="lang_sw">Swahili</option>
+                <option value="lang_sv">Swedish</option>
+                <option value="lang_th">Thai</option>
+                <option value="lang_tr">Turkish</option>
+                <option value="lang_uk">Ukrainian</option>
+                <option value="lang_vi">Vietnamese</option>
+                </select>-->
+                </td>
+                </tr>
+                
+                <tr bgcolor="" >
+                <td ><b>Title</b>
+                </td>
+                <td width="40%"><label style="font-size: 14px" for="as_vt" >return books with the title</label>
+                </td>
+                <td>
+                <input type="text" size="36" name="as_vt" id="as_vt" value="" dir="ltr" class="with-auto-dir-text"  placeholder='e.g. Books and Culture'>
+                <script type="text/javascript">
+                _OC_autoDir('as_vt');
+                </script>
+                <br><span class="eg"></span>
+                </td>
+                </tr>
+                
+                <tr bgcolor="" >
+                <td ><b>Author</b>
+                </td>
+                <td width="40%"><label style="font-size: 14px" for="as_auth" >return books written by</label>
+                </td>
+                <td>
+                <input type="text" size="36" name="as_auth" id="as_auth" value="" dir="ltr" class="with-auto-dir-text" placeholder='e.g. Hamilton Mabie or "Hamilton Mabie"'>
+                <script type="text/javascript">
+                _OC_autoDir('as_auth');
+                </script>
+                <br><span class="eg"></span>
+                </td>
+                </tr>
+                
+                <tr style="background-color: rgba(240, 240, 240, 0.6); border-radius:3px;">
+                <td ><b> Publisher </b>
+                </td>
+                <td width="40%"><label style="font-size: 14px" for="as_pub">return books published by</label>
+                </td>
+                <td>
+                <input type="text" size="36" name="as_pub" id="as_pub" value="" dir="ltr" class="with-auto-dir-text"  placeholder="e.g. O'Reilly">
+                <script type="text/javascript">
+                _OC_autoDir('as_pub');
+                </script>
+                <br><span class="eg"></span>
+                </td>
+                </tr>
+                
+                <tr bgcolor="">
+                <td ><b>Subject</b>
+                </td>
+                <td width="40%"><label style="font-size: 14px" for="as_sub">return books on subject</label>
+                </td>
+                <td>
+                <input type="text" size="36" name="as_sub" id="as_sub" value="" dir="ltr" class="with-auto-dir-text"  placeholder='e.g. Medieval History or "Medieval History"'>
+                <script type="text/javascript">
+                _OC_autoDir('as_sub');
+                </script>
+                <br><span class="eg"></span>
+                </td>
+                </tr>
+                
+                <tr style="background-color: rgba(240, 240, 240, 0.6); border-radius:3px;">
+                <td><b>Publication<br>Date</b>
+                </td>
+                <td style="font-size:14px">
+                <input id="qc_is" name="as_drrb_is" type="radio" value="q" checked="">&nbsp;return content published anytime
+                <br><br>
+                <input id="bc_is" name="as_drrb_is" type="radio" value="b">&nbsp;return content published between
+                </td>
+                
+                <td style="padding-top:10px" >
+                  {% include 'snippets-booksearch/select_month_from.html' %}
+                <!-- <div class="select_month_published" style=" width: 300px; height: 28px; border: 2px solid red;"> <label> from </label>
+                 <select class="select_month" id="select_month_from" name="as_minm_is" onchange="daterange_is(1)" size=1>
+                 <option value="0">select month</option>
+                 <option value="1">Jan</option>
+                 <option value="2">Feb</option>
+                 <option value="3">Mar</option>
+                 <option value="4">Apr</option>
+                 <option value="5">May</option>
+                 <option value="6">Jun</option>
+                 <option value="7">Jul</option>
+                 <option value="8">Aug</option>
+                 <option value="9">Sep</option>
+                 <option value="10">Oct</option>
+                 <option value="11">Nov</option>
+                 <option value="12">Dec</option>
+                 </select> 
+                </div> -->
+
+                 <input size="4" maxlength="4" type="text" name="as_miny_is" onchange="daterange_is(1)"><br>
+                 
+                <span class="eg" style="font-size:14px">e.g. 1999 & 2000, or Jan 1999 & Dec 2000</span><br>
+
+                {% include 'snippets-booksearch/select_month_to.html' %}
+               <!-- <div class="select_month_published" style=" width: 300px;  height: 28px; border: 2px solid red;"> <label> to </label>
+                <select class="select_month" id="select_month_to" name="as_maxm_is" onchange="daterange_is(1)" size=1>
+                  <option value="0">select month</option>
+                  <option value="1">Jan</option>
+                  <option value="2">Feb</option>
+                  <option value="3">Mar</option>
+                  <option value="4">Apr</option>
+                  <option value="5">May</option>
+                  <option value="6">Jun</option>
+                  <option value="7">Jul</option>
+                  <option value="8">Aug</option>
+                  <option value="9">Sep</option>
+                  <option value="10">Oct</option>
+                  <option value="11">Nov</option>
+                  <option value="12">Dec</option>
+                </select>
+              </div> -->
+
+                 <input size="4" maxlength="4" type="text" name="as_maxy_is" onchange="daterange_is(1)" style="margin-bottom:10px;">
+                
+                <br>
+                </td>
+                </tr>
+                
+                <tr bgcolor="">
+                <td ><b>ISBN</b>
+                </td>
+                <td width="40%" ><label style="font-size: 14px" for="as_isbn" >return books with the <b>isbn</b></label>
+                </td>
+                <td>
+                <input type="text" size="maxlength=" maxlength="14" name="as_isbn" id="as_isbn" placeholder="e.g. 0060930314" value="" >
+                <br><span class="eg" ></span>
+                </td>
+                </tr>
+                <tr bgcolor="">
+                <td ><b>ISSN</b>
+                </td>
+                <td width="40%" ><label style="font-size: 14px" for="as_issn">return serials with the <b>issn</b></label>
+                </td>
+                <td>
+                <input type="text" size="maxlength=" maxlength="9" name="as_issn" id="as_issn" placeholder="e.g. 0161-7370" value="" >
+                <br><span class="eg"></span>
+                </td>
+                </tr>
+                
+                </tbody>
+           
+                </table>
+                </td>
+                </tr>
+                </tbody>
+                
+            
+                </table>
+                <br>
+                
+                </form>
+                </div>
+                
+              <!--  </div>-->
+                
+                
+                <div class="modal_footer" id="modal_footer_advance_gb" >
+                  
+                <button type="button" id="btn_closegb_mb" class="btn_close_mb">close</button>
+                
+                {% if request.user.is_authenticated %}
+                <button id="btn_submit_gb_mb" type="submit" class="btn_submit_mb" form="gb_search"> search </button>
+                
+                {% else %}
+                <button id="btn_no_submit_gb_mb"  class="btn_submit_mb" name="btnG"  disabled id='tooltip'>search <span  id="tooltiptext"> Hello, you must be logged in to use this app </span></button>
+                {% endif %}
+             <!-- </form>-->
+              </div>
+
+                </div>
+                </div>
+            </div>
+
+
+
+<script>
+// console.clear()
+/*
+const select_months = document.querySelectorAll(".select_month_published select");
+for (const select_month of select_months) {
+    // select_month.setAttribute("size", "1");
+    select_month.addEventListener('mousemove', (event) => {
+    let x = event.target.options.length;
+    event.target.setAttribute('data-title', x);
+   });
+   
+   select_month.addEventListener('focus', (event) => {
+     event.target.classList.remove('select_class_month');
+     let y = event.target.getAttribute('data-title');
+     event.target.size = y * 1.1 + 1;
+     });
+   
+     select_month.addEventListener('blur', (event) => {
+     event.target.classList.remove('select_class_month');
+     event.target.size="1";
+     });
+   
+     select_month.addEventListener('change', (event) => {
+     event.target.size="1";
+     event.target.blur();
+     event.target.classList.add('select_class_month');
+     });
+   
+     select_month.addEventListener('click', (event) => {
+       if (event.target === select_month.children[0]) {
+    //   alert("option without value")
+      //  select_month.blur();
+      select_month.blur();
+    }
+    });  
+     
+   } */
+
+var my_modalGb = document.getElementById("modal_advance_gb");
+// var my_modalAccount = document.getElementsByClassName("mymodal_Account")[0];
+var my_modalGb_cont = document.getElementById("modal_cont_advance_gb");
+//  my_modalLogintCont = document.getElementsByClassName("container_mymodalAccount")[0];
+var btn_openGb = document.getElementById("modal_gb_advance");
+//var captionText = document.getElementById("caption");
+
+
+btn_openGb.onclick = function(){
+my_modalGb.style.display = "block";
+my_modalGb.style.animation = "modalfadein 1s 1";
+my_modalGb.src = this.src;
+    
+my_modalGb_cont.style.display = "block"; 
+my_modalGb_cont.style.animation = "zoom 2s 1";
+my_modalGb_cont.src = this.src;
+    //captionText.innerHTML = this.alt;
+}
+
+    //var close_x = document.getElementsByClassName("close_m")[0];
+    var close_xGb = document.getElementById("btn_closegb_x");
+    //var close_btn = document.getElementsByClassName("close_mb")[0];  
+    var close_mbGb = document.getElementById("btn_closegb_mb");         
+    
+
+    close_xGb.onclick = function() {
+    my_modalGb_cont.style.animation = "unzoom 2s 1";
+    my_modalGb.style.animation = "modalfadeout 1s 1 1s";
+    setTimeout(()=> {
+        my_modalGb_cont.style.display = "none";
+        my_modalGb.style.display = "none"
+        }
+        , 1900);
+    }
+
+    close_mbGb.onclick = function() {
+    my_modalGb_cont.style.animation = "animatetopback 2s 1";
+    my_modalGb.style.animation = "modalfadeout 1s 1 1s";
+    setTimeout(()=> {
+        my_modalGb_cont.style.display = "none";
+        my_modalGb.style.display = "none"
+        }
+        , 1900);
+    }
+
+    //my_modalLoginCont.onmouseenter = function() {
+    //  my_modalLogin.style.background-image  = "rgba(20, 100, 200, 0.//4)";
+    // }
+    
+    //window.onclick = function(even) {
+        //if (even.target == my_modalLogin) {
+        my_modalGb.onclick = function() {  
+        //mymodal_cont.style.animation = "unzoomrotate 2s 1";
+        my_modalGb_cont.style.animation = "unzoomrotate 2s 1";
+        my_modalGb.style.animation = "modalfadeout 1s 1 1s";
+        setTimeout(()=> {
+        my_modalGb_cont.style.display = "none";
+        my_modalGb.style.display = "none"
+        }
+        , 1900);
+        
+        
+        // mymodal.style.animation = "modalfadeout 1s 1 1s";
+        // setTimeout(function(){ mymodal.style.display = "none"; }, 1900);
+    // mymodal.style.animation = "modalfadein 1s 1 2s";
+
+        // mymodal_cont.style.animation = "zoomrotate 2s 1";
+    }
+// }
+//document.querySelector("#select_month_from")
+// const select_months = document.querySelectorAll("select .select_month");
+
+
+    </script>    
+   
+        
+
+                          

@@ -1,0 +1,197 @@
+{% extends 'base_ds.html' %}
+{% load booksmart_extras %}
+{% load bootstrap4 %}
+{% block title %} {{ request.user }}'s records {% endblock%}
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+{% include 'snippets/jumbotron.html' %}
+{% include 'snippets/marquee.html' %}
+
+{% include 'snippets-booksmart/top_cards.html' %}
+<div class="container-fluid col-lg-10 mb-4"  >
+    <div class="row">
+    <div class="col-lg-12">   
+
+      
+</div>
+</div>
+</div>
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %}
+
+<div class="container-fluid col-lg-10 border rounded"  style="position:relative;z-index:1; margin-top:120px">
+  <div class="row">
+  <div class="col-lg-12 ">   
+
+    
+</div>
+</div>
+</div>
+{% include 'snippets-booksmart/filter_books_q.html' %}
+{% include 'snippets-booksmart/search_panel.html' %}
+
+
+<style type="text/css">
+
+#list_of_authors {  
+  position:relative; 
+  z-index:1;    
+  padding-top:15px;
+  margin-right:8vw;
+  padding-left: 4.2vw;
+  }
+
+#h2bb   {color: MediumBlue; font-family: Georgia; font-weight: bold; font-size: 36px; text-shadow: 1px 1px 6px AliceBlue; }
+         
+@media screen and (max-width: 1700px) {
+  #list_of_authors {
+  margin: auto;
+  text-align: center;
+  padding-left: 0px;
+  padding-top:20px
+}
+  #h2bb { 
+  }
+  }
+   
+  </style>
+{% if authors_add %}
+    <div class="container col-lg-7 border rounded" id="list_of_authors" > 
+          
+    <p id="h2bb" >YOU HAVE ENTERED THESE AUTHORS </p>
+    
+  
+    </div>
+
+
+{% for author_c in authors_add %}
+
+{% include 'snippets/author.html' %}
+
+{% endfor %}
+
+{% elif not authors_add %}
+<div class="container col-lg-7 border rounded" id="list_of_authors" >
+  <div class="row">
+  <div class="col-lg-12  ">   
+
+    
+<p id="h2bb" > YOU HAVE NOT ENTERED ANY AUTHORS </p>
+
+
+</div>
+</div>
+</div>
+  {% endif %}
+
+  {% endblock content_3 %}
+
+
+  {% block content_4 %}
+
+<style type="text/css">
+
+#margin_authors {
+  position:relative; 
+  z-index:1;
+  margin-top: 14vw;
+  z-index:0;
+  }
+
+
+@media only screen and (max-width: 1700px) {
+  #margin_authors {
+  margin-top: -70px;
+  }    
+#list_of_books {
+  margin: auto;
+  text-align: center;
+  padding-left: 0px;
+  padding-top:20px}
+#h2bb {
+  padding-left: 2vw;
+}
+}
+
+#list_of_books {
+  position:relative;
+  z-index:1;
+  margin-right:8vw;
+  padding-left: 4.2vw;
+  z-index:0;
+  margin-top: 20px;
+  padding-top: 20px;
+  }
+
+#h2bb   {color: MediumBlue; font-family: Georgia; font-weight: bold; font-size: 36px; text-shadow: 1px 1px 6px AliceBlue; padding-top:15px }
+    
+
+#margin_authors {
+margin-top: 14vw;
+}
+
+@media only screen and (max-width: 1700px) {
+  #margin_authors {
+  margin-top: -70px;
+  }    
+  }
+
+</style>
+
+<div id="margin_authors" >
+</div>
+
+{% if page_obj %}
+
+
+<div class="container col-xl-7" id="list_of_books" >
+  <p id="h2bb" ><br> YOU HAVE ENTERED THESE BOOKS  </p>
+  
+  </div>
+
+{% for book in page_obj %}
+
+{% include 'snippets/book.html' %}
+
+{% endfor %}
+
+{% else %}
+
+
+
+<div class="container col-xl-7" id="list_of_books" >
+  <p id="h2bb" > YOU HAVE NOT ENTERED ANY BOOKS  </p>
+  
+  </div>
+
+
+{% endif %}
+
+
+{% include 'snippets/pagination.html' %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

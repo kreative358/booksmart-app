@@ -1,0 +1,502 @@
+<script> 
+    const months_1 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+const buttons_1 = months_1.map((month) => { 
+  return { label: month.substr(0, 3) }; 
+});
+
+var btn_opendate_1 = document.getElementById("btn_open_date_1");
+var cont_date_1 = document.getElementById("container_date_1");
+var input_date_1 = document.getElementById("input_date_start");
+var btn_closedate_1 = document.getElementById("btn_close_date_1");
+// var cont_months_outside_1 = document.querySelector("#container_date_1 > div > :nth-child(4)");
+var max_width = window.matchMedia("(max-width: 960px)");
+
+var btn_cleardate_1 = document.getElementById("btn_clear_date_1");
+btn_cleardate_1.onclick = function() {
+input_date_1.value = "";
+// cont_date_1.style.top = "initial";
+// cont_date_1.style.left = "initial";
+}
+
+
+
+var flatpickr_start_options = {  
+inline:true,
+// defaultDate: book_publ,
+altFormat: "m/d/Y",
+dateFormat: "m/d/Y",
+monthSelectorType: "static",
+animate: true,
+
+appendTo: cont_date_1,
+allowInput: true,
+onOpen: function(selectedDates, dateStr, instance) {   
+ // btn_opendate_1.innerText = "CLOSE";
+},
+onChange: function(selectedDates, dateStr, instance) {
+  my_calendar_picker_end.set('minDate', selectedDates[0]);
+  btn_opendate_1.innerText = "OPEN";
+  cont_months_outside_1.style.animation = "opacitydown 0.7s 0.2s";
+  setTimeout(function(){
+    cont_months_outside_1.style.display = "none";
+   }, 800);
+  cont_date_1.style.animation = "heightdown 2s 1 0.2s ease-out";
+  setTimeout(function(){ 
+ cont_date_1.style.display = "none"; 
+   }, 2100); 
+ },
+  onClose: function(selectedDates, dateStr, instance) {   
+
+},
+     plugins: [
+    ShortcutButtonsPlugin({
+      button: buttons_1,
+      onClick: (index, fp) => {
+        const date = new Date();
+        date.setDate(1);
+        date.setMonth(index);
+        date.setYear(fp.currentYear);
+        fp.setDate(date);
+      }
+    }),
+  
+   ShortcutButtonsPlugin({
+      button: [
+       { label: "clear" },
+        { label: "today" },
+      ],
+
+      onClick: (index, fp) => {
+        let execute;
+        switch (index) {
+        case 0:
+        execute = fp.clear();
+        break;
+        case 1:
+        execute = new Date();
+        fp.setDate(execute);
+        break;    
+      }
+    }
+  }),
+] 
+};
+
+let my_calendar_picker_start = new flatpickr(input_date_1, flatpickr_start_options)
+
+var cont_months_outside_1 = document.querySelector("#container_date_1 > div > div:nth-child(4)");
+  
+  btn_opendate_1.onclick = function() {
+  if (cont_date_1.style.display === "block") {
+      btn_opendate_1.innerText = "OPEN";
+      cont_months_outside_1.style.animation = "opacitydown 0.7s 0.2s"
+      setTimeout(function(){cont_months_outside_1.style.display = "none";
+   }, 800);
+      cont_date_1.style.animation = "unzoomrotate 2s 1";
+      setTimeout(function(){ 
+      cont_date_1.style.animation = "none";}, 1900);
+    } else  {
+      btn_opendate_1.innerText = "CLOSE";
+        cont_date_1.style.animation = "zoomrotate 2s 1";
+        cont_date_1.style.display = "block"; 
+    }
+  }
+  
+  input_date_1.onclick = function() {
+  if (cont_date_1.style.display === "block") {
+      btn_opendate_1.innerText = "OPEN";
+      cont_months_outside_1.style.animation = "opacitydown 0.7s 0.2s"
+      setTimeout(function(){cont_months_outside_1.style.display = "none";
+   }, 800);
+      cont_date_1.style.animation = "opacitydown 1.5s 1";         
+      setTimeout(function(){ 
+      cont_date_1.style.display = "none";}, 1400);
+    } else  {
+        btn_opendate_1.innerText = "CLOSE";
+        cont_date_1.style.animation = "opacityup 1.4s 1";
+        cont_date_1.style.display = "block"; 
+    }
+  }
+  
+  btn_closedate_1.onclick = function() {
+      btn_opendate_1.innerText = "OPEN";
+       cont_months_outside_1.style.animation = "opacitydown 0.7s 0.2s"
+      setTimeout(function(){cont_months_outside_1.style.display = "none";
+   }, 800);
+      cont_date_1.style.animation = "heightdown 2s 1";   
+      setTimeout(function(){ 
+      cont_date_1.style.display = "none"; }, 1900);
+  }
+
+   const month_btn_1 = document.querySelector("#container_date_1 > div > div.flatpickr-months > div > div > span")
+  month_btn_1.onclick = function() {
+  if (cont_months_outside_1.style.display === "block") {
+      cont_months_outside_1.style.animation = "opacitydown 1.2s ease-in-out";
+      setTimeout(function(){cont_months_outside_1.style.display = "none";}, 1100);
+    } else  {
+      // cont_date_1.style.animation = "zoomrotate 2s 1";
+      cont_months_outside_1.style.animation = "opacityup 1.2s ease-in-out";
+      cont_months_outside_1.style.display = "block"; 
+    }
+  }  
+
+  const nodeList_1 = document.querySelectorAll("#container_date_1 > div > div:nth-child(4) > div > button:nth-child(n)")
+  for (let i = 0; i < nodeList_1.length; i++) {
+   nodeList_1[i].onclick = function() {
+   cont_months_outside_1.style.animation = "opacitydown 1.2s ease-in-out";
+   setTimeout(function(){ cont_months_outside_1.style.display = "none";}, 1100);
+  }
+  }
+  
+  btn_opendate_1.onclick = function() {
+    //  // container_publ.classList.toggle("mycontainer_publ");
+     if (cont_date_1.style.display === "block") {
+       btn_opendate_1.innerText = "OPEN";
+       cont_months_outside_1.style.animation = "opacitydown 0.7s 0.2s"
+       setTimeout(function(){cont_months_outside_1.style.display = "none";
+   }, 800);
+        cont_date_1.style.animation = "unzoomrotate 2s 1 ease-in-out";
+        setTimeout(function(){ 
+        cont_date_1.style.display = "none"; }, 1900);
+      } else  {
+         btn_opendate_1.innerText = "CLOSE";
+          cont_date_1.style.animation = "zoomrotate 2s 1 ease-in-out";
+          cont_date_1.style.display = "block"; 
+       }
+      }
+
+input_date_1.onclick = function() {
+  if (cont_date_1.style.display === "block") {
+      btn_opendate_1.innerText = "OPEN";
+      cont_months_outside_1.style.animation = "opacitydown 0.7s";
+      cont_date_1.style.animation = "opacitydown 2s ease-in-out";
+      
+      setTimeout(function(){ 
+      cont_months_outside_1.style.display = "none";
+      cont_date_1.style.display = "none"; }, 1900);
+    } else  {
+        btn_opendate_1.innerText = "CLOSE";
+        cont_date_1.style.animation = "opacityup 2s ease-in-out";
+        cont_date_1.style.display = "block"; 
+    }
+  }; 
+
+  
+  btn_closedate_1.onclick = function() {
+      btn_opendate_1.innerText = "OPEN";
+      cont_months_outside_1.style.animation = "opacitydown 0.7s 0.2s"
+      setTimeout(function(){cont_months_outside_1.style.display = "none";
+   }, 800);
+      cont_date_1.style.animation = "heightdown 2s ease-in-out"; 
+      setTimeout(function(){ 
+      cont_date_1.style.display = "none"; }, 1900);
+    }
+
+   // dragElement(cont_date_1);
+
+    function dragElement(elmnt) {
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    //  if (document.getElementById(elmnt.id)) {
+      if (elmnt) {
+        /* if present, the header is where you move the DIV from:*/
+     //    document.getElementById(elmnt.id).onmousedown = dragMouseDown;
+        elmnt.onmousedown = dragMouseDown;
+      } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        elmnt.onmousedown = dragMouseDown;
+      }
+    
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+    
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+    
+      function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
+
+// document.body.addEventListener("click", event => {
+// if (event.target == btn_opendate_1) {
+//    if (event.target == btn_opendate_1) {
+//      alert("Clicked", event.target.textContent);
+//    }
+//  });
+const months_2 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        const buttons_2 = months_2.map((month) => { 
+          return { label: month.substr(0, 3) }; 
+        });
+        
+        // const book_publ = '{{ bookpubl }}'
+        var btn_opendate_2 = document.getElementById("btn_open_date_2");
+        var cont_date_2 = document.getElementById("container_date_2");
+        var input_date_2 = document.getElementById("input_date_end");
+        var btn_closedate_2 = document.getElementById("btn_close_date_2");
+        // var cont_months_outside_2 = document.querySelector("#container_date_2 > div > div:nth-child(4)");
+        var max_width_2 = window.matchMedia("(max-width: 960px)");
+        
+      var btn_cleardate_2 = document.getElementById("btn_clear_date_2");
+      btn_cleardate_2.onclick = function() {
+        input_date_2.value = "";
+      // cont_date_2.style.top = "initial";
+      // cont_date_2.style.left = "initial";
+      }
+  
+  
+  
+      var flatpickr_end_options = {  
+        inline:true,
+       // defaultDate: book_publ,
+        altFormat: "m/d/Y",
+        dateFormat: "m/d/Y",
+        monthSelectorType: "static",
+        animate: true,
+        
+        appendTo: cont_date_2,
+        allowInput: true,
+        onOpen: function(selectedDates, dateStr, instance) {   
+         // btn_opendate_2.innerText = "CLOSE";
+        },
+        onChange: function(selectedDates, dateStr, instance) {
+        //  my_calendar_picker_2.set('minDate', selectedDates[0]);
+          btn_opendate_2.innerText = "OPEN";
+          cont_months_outside_2.style.animation = "opacitydown 0.7s 0.2s"
+          setTimeout(function(){cont_months_outside_2.style.display = "none";
+           }, 800);
+          cont_date_2.style.animation = "heightdown 2s 1 0.2s ease-out";
+          setTimeout(function(){ 
+         cont_date_2.style.display = "none"; 
+           }, 2100); 
+         },
+          onClose: function(selectedDates, dateStr, instance) {   
+       
+        },
+             plugins: [
+            ShortcutButtonsPlugin({
+              button: buttons_2,
+              onClick: (index, fp) => {
+                const date = new Date();
+                date.setDate(1);
+                date.setMonth(index);
+                date.setYear(fp.currentYear);
+                fp.setDate(date);
+              }
+            }),
+          
+           ShortcutButtonsPlugin({
+              button: [
+               { label: "clear" },
+                { label: "today" },
+              ],
+        
+              onClick: (index, fp) => {
+                let execute;
+                switch (index) {
+                case 0:
+                execute = fp.clear();
+                break;
+                case 1:
+                execute = new Date();
+                fp.setDate(execute);
+                break;    
+              }
+            }
+          }),
+        ] 
+        };
+    
+     let my_calendar_picker_end = new flatpickr(input_date_2, flatpickr_end_options)
+        
+     var cont_months_outside_2 = document.querySelector("#container_date_2 > div > div:nth-child(4)");
+          
+          btn_opendate_2.onclick = function() {
+          if (cont_date_2.style.display === "block") {
+              btn_opendate_2.innerText = "OPEN";
+              cont_months_outside_2.style.animation = "opacitydown 0.7s 0.2s"
+              setTimeout(function(){cont_months_outside_2.style.display = "none";
+           }, 800);
+              cont_date_2.style.animation = "unzoomrotate 2s 1";
+              setTimeout(function(){ 
+              cont_date_2.style.animation = "none";}, 1900);
+            } else  {
+              btn_opendate_2.innerText = "CLOSE";
+                cont_date_2.style.animation = "zoomrotate 2s 1";
+                cont_date_2.style.display = "block"; 
+            }
+          }
+          
+          input_date_2.onclick = function() {
+          if (cont_date_2.style.display === "block") {
+              btn_opendate_2.innerText = "OPEN";
+              cont_months_outside_2.style.animation = "opacitydown 0.7s 0.2s"
+              setTimeout(function(){cont_months_outside_2.style.display = "none";
+           }, 800);
+              cont_date_2.style.animation = "opacitydown 1.5s 1";         
+              setTimeout(function(){ 
+              cont_date_2.style.display = "none";}, 1400);
+            } else  {
+                btn_opendate_2.innerText = "CLOSE";
+                cont_date_2.style.animation = "opacityup 1.4s 1";
+                cont_date_2.style.display = "block"; 
+            }
+          }
+          
+          btn_closedate_2.onclick = function() {
+              btn_opendate_2.innerText = "OPEN";
+               cont_months_outside_2.style.animation = "opacitydown 0.7s 0.2s"
+              setTimeout(function(){cont_months_outside_2.style.display = "none";
+           }, 800);
+              cont_date_2.style.animation = "heightdown 2s 1";   
+              setTimeout(function(){ 
+              cont_date_2.style.display = "none"; }, 1900);
+          }
+        
+           const month_btn_2 = document.querySelector("#container_date_2 > div > div.flatpickr-months > div > div > span")
+          month_btn_2.onclick = function() {
+          if (cont_months_outside_2.style.display === "block") {
+              cont_months_outside_2.style.animation = "opacitydown 1.2s ease-in-out";
+              setTimeout(function(){cont_months_outside_2.style.display = "none";}, 1100);
+            } else  {
+              // cont_date_2.style.animation = "zoomrotate 2s 1";
+              cont_months_outside_2.style.animation = "opacityup 1.2s ease-in-out";
+              cont_months_outside_2.style.display = "block"; 
+            }
+          }  
+        
+          const nodeList_2 = document.querySelectorAll("#container_date_2 > div > div:nth-child(4) > div > button:nth-child(n)")
+          for (let i = 0; i < nodeList_2.length; i++) {
+           nodeList_2[i].onclick = function() {
+           cont_months_outside_2.style.animation = "opacitydown 1.2s ease-in-out";
+           setTimeout(function(){ cont_months_outside_2.style.display = "none";}, 1100);
+          }
+          }
+          
+          btn_opendate_2.onclick = function() {
+            //  // container_publ.classList.toggle("mycontainer_publ");
+             if (cont_date_2.style.display === "block") {
+               btn_opendate_2.innerText = "OPEN";
+               cont_months_outside_2.style.animation = "opacitydown 0.7s 0.2s"
+               setTimeout(function(){cont_months_outside_2.style.display = "none";
+           }, 800);
+                cont_date_2.style.animation = "unzoomrotate 2s 1 ease-in-out";
+                setTimeout(function(){ 
+                cont_date_2.style.display = "none"; }, 1900);
+              } else  {
+                 btn_opendate_2.innerText = "CLOSE";
+                  cont_date_2.style.animation = "zoomrotate 2s 1 ease-in-out";
+                  cont_date_2.style.display = "block"; 
+               }
+              }
+        
+        input_date_2.onclick = function() {
+          if (cont_date_2.style.display === "block") {
+              btn_opendate_2.innerText = "OPEN";
+              cont_months_outside_2.style.animation = "opacitydown 0.7s";
+              cont_date_2.style.animation = "opacitydown 2s ease-in-out";
+              
+              setTimeout(function(){ 
+              cont_months_outside_2.style.display = "none";
+              cont_date_2.style.display = "none"; }, 1900);
+            } else  {
+                btn_opendate_2.innerText = "CLOSE";
+                cont_date_2.style.animation = "opacityup 2s ease-in-out";
+                cont_date_2.style.display = "block"; 
+            }
+          }; 
+        
+          
+          btn_closedate_2.onclick = function() {
+              btn_opendate_2.innerText = "OPEN";
+              cont_months_outside_2.style.animation = "opacitydown 0.7s 0.2s"
+              setTimeout(function(){cont_months_outside_2.style.display = "none";
+           }, 800);
+              cont_date_2.style.animation = "heightdown 2s ease-in-out"; 
+              setTimeout(function(){ 
+              cont_date_2.style.display = "none"; }, 1900);
+            }
+        
+           // dragElement(cont_date_2);
+        
+            function dragElement(elmnt) {
+              var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            //  if (document.getElementById(elmnt.id)) {
+              if (elmnt) {
+                /* if present, the header is where you move the DIV from:*/
+             //    document.getElementById(elmnt.id).onmousedown = dragMouseDown;
+                elmnt.onmousedown = dragMouseDown;
+              } else {
+                /* otherwise, move the DIV from anywhere inside the DIV:*/
+                elmnt.onmousedown = dragMouseDown;
+              }
+            
+              function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+              }
+            
+              function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+              }
+            
+              function closeDragElement() {
+                /* stop moving when mouse button is released:*/
+                document.onmouseup = null;
+                document.onmousemove = null;
+              }
+            }
+       
+    
+    // document.body.addEventListener("click", event => {
+        // if (event.target == btn_opendate_2) {
+    //    if (event.target == btn_opendate_2) {
+    //      alert("Clicked", event.target.textContent);
+    //    }
+    //  });
+    /* my_calendar_picker_start.set("onChange", function(d) {
+      my_calendar_picker_end.set("minDate", d.fp_incr(1)); 
+    }); 
+     my_calendar_picker_end.set("onChange", function(d) {
+      my_calendar_picker_start.set("maxDate", d);
+     });  */
+  </script>
+
+  

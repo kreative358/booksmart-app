@@ -1,0 +1,41 @@
+<style type="text/css">
+
+#cont_pag {
+    position:relative;
+    z-index:1;
+    margin: 0px 1vw 1vw auto;
+    text-align:right;
+    width:680px;
+    float:right;
+    font-size:32px;
+    }
+
+</style>
+
+<div class="container-fluid" id="cont_pag">
+
+<div class="row">
+<div class="column"  >
+<div class="pagination justify-content-end">
+<span class="step-links"><h3>
+{% if page_obj.has_previous %}
+<a href="?page=1">&laquo; first</a>
+<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+{% endif %}
+
+<span class="current">
+Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+</span>
+
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">next</a>
+<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+{% endif %}</h3>
+</span>
+</div>       
+</div>
+</div>
+</div>
+
+
+

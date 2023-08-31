@@ -1,0 +1,527 @@
+{% extends 'base_ds.html' %}
+{% load static %}
+{% block title %} edit-author {% endblock%}
+{% load bootstrap4 %}
+
+{% block page %}
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/rangePlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/labelPlugin/labelPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.4.0/dist/shortcut-buttons-flatpickr.min.js"></script> 
+{% include 'snippets-booksmart/my_flatpickr_pure_css.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.4.0/dist/shortcut-buttons-flatpickr.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css
+" rel="stylesheet">
+-->
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/rangePlugin.js"></script>
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %} 
+
+<style>
+
+#mycontainer_jumbotron {
+    margin-top: 40px;
+  }
+
+#h2j {
+  margin-bottom: 10px;
+}
+
+#mycontainer_marque {
+
+}
+
+#col_edit_author ::-webkit-scrollbar {
+  width: 16px;
+  background: rgba(60, 160, 240, 0.1);
+background-color: rgba(60, 160, 240, 0.1);
+background-image: radial-gradient;
+}
+
+#col_edit_author ::-webkit-scrollbar-button {
+
+  background-color: rgba(60, 160, 240, 0.6);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6))
+
+}
+/* ::-webkit-resizer {
+height:100px;}
+Track */
+#col_edit_author ::-webkit-scrollbar-track {
+  background: rgba(232, 233, 245, 0.4);
+  background-color: rgba(232, 233, 245, 0.4);
+  box-shadow: 
+  0px 0px 4px 8px rgba(120, 120, 140, 0.0) inset,
+  0px 0px 0px 2px rgba(60, 160, 240, 0.4); 
+  border-radius: 4px;
+/*  background-image: url({% static 'tekst.png' %});*/
+width: 16px;
+border-style: groove ridge ridge groove;
+border-width: 2px;
+border-color: rgba(60, 160, 240, 0.4);
+/*background-image: url({% static 'tekst.png' %});
+background-size: 20px 240px;
+ background-repeat: space;
+ background-position: center; */
+/*url('/static/text.png')*/
+
+transition: 0.4s;
+}
+
+#col_edit_author ::-webkit-scrollbar-track:hover {
+  background: rgba(232, 233, 245, 0.8);
+  background-color: rgba(232, 233, 245, 0.8);
+  box-shadow: 0px 0px 4px 8px rgba(120, 120, 140, 0.0 ) inset,
+  0px 0px 0px 2px rgba(60, 160, 240, 0.8); 
+  border-radius: 4px;
+/*  background-image: url({% static 'tekst.png' %});*/
+  width: 16px;
+  border-style: groove ridge ridge groove;
+border-width: 2px;
+border-color: rgba(60, 160, 240, 0.8);
+/*background-image: url({% static 'tekst.png' %});
+background-size: 20px 240px;
+ background-repeat: space;
+background-position: center; */
+/*url('/static/text.png')*/
+transition: 0.4s;
+
+}
+  
+/* Handle */
+#col_edit_author ::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: rgba(202, 203, 225, 1.0) ;
+  background-color: rgba(202, 203, 225, 1.0);
+  border-style: groove ridge ridge groove;
+  border-width: 2px;
+  border-color: rgba(60, 160, 240, 0.4); 
+  /*background-image: url({% static 'tekst.png' %});
+  background-size: 18px 220px;
+  background-position: center;
+background-repeat: no-repeat; */
+  
+box-shadow: 0px 0px 0px 2px rgba(0, 0, 210, 0.6);
+/*url('/static/text.png')*/
+/*min-height: 540px;*/
+height: 540px;
+max-height: 540px;
+width: 14px;
+margin: 1px;
+transition: 0.4s;
+}
+
+/* Handle on hover */
+#col_edit_author ::-webkit-scrollbar-thumb:hover {
+  background:rgba(50, 151, 254, 1.0); 
+  background-color:rgba(200, 201, 254, 1.0); 
+  border-style: groove ridge ridge groove;
+  border-width: 2px;
+  border-color: rgba(60, 160, 240, 0.4); 
+  /*  background-image: url({% static 'tekst.png' %});
+  background-size: 18px 220px; 
+  background-position: center;
+background-repeat: no-repeat; */
+/*min-height: 540px;*/
+height: 540px;
+max-height: 540px;
+width: 14px;
+margin: 1px;
+transition: 0.4s;
+}
+
+  </style>
+{% include 'snippets/jumbotron.html' %}
+{% include 'snippets/marquee.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+  
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+  <script>
+
+
+    flatpickr("#input_date_start",{
+        altFormat: "m/d/Y",
+        dateFormat: "m/d/Y",
+        allowInput: true,
+        // altInputClass: date_start,
+        // monthSelectorType: "static",
+        // animate: true,
+        onChange: function(selectedDates, dateStr, instance) {
+          flatpickr("#input_date_end", {
+            altFormat: "m/d/Y",
+            dateFormat: "m/d/Y",
+            allowInput: true,
+            // altInputClass: date_end,
+          //  monthSelectorType: "static",
+          //  animate: true,
+          }).set('minDate', selectedDates[0]);
+        }
+      });
+    
+    
+    </script>
+
+  <div class="mycontainer" id="cont_edit_author">
+    <div class="myrow"  id="row_edit_author">
+      <div class="mycolumn " id="col_edit_author">
+
+       <div class="header_card" id="header_edit_author">
+        <p class="header_text" id="header_text_author"> AUTHOR CARD </p>
+       </div>
+
+<div class="body_card"  id="body_edit_author" >
+<form method="post" enctype="multipart/form-data" id="edit_author">
+{% csrf_token %}
+{% bootstrap_form form_editauthor %}
+
+
+</form>
+</div>
+
+<div class="footer_card" id="footer_edit_author" >
+<button type="button" id="button_back_editauthor" href="{% url 'booksmart:allauthors' %}" class="btn btn-outline-primary text-danger float-left" > Back </button>
+
+{% if request.user.id == author_c.user_num_a %}
+<button form="edit_author" type="submit" id="button_save_author" class="btn btn-outline-danger text-primary float-right" > Save </button>
+
+ {% elif request.user.id != author_c.user_num_a %}
+<button type="button" id="button_save_not_author" class="btn btn-outline-danger text-primary float-right" data-target="#modal_edit_not_author"> Save </button>
+{% endif %}
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="modal_edit_not_author" >
+  <div class="modal-dialog">
+  <div class="modal-content">
+  
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h4 class="modal-title" id="a_submit_m">WORRNING</h4>
+      <button type="button" class="close" data-dismiss="modal">✖</button>
+    </div>
+    
+    <!-- Modal body -->
+    <div class="modal-body">
+      <h6>You didn't entered this record <br> You cannot change this record</h6>
+      <h6>If you try this again... <br>  your account may be deleted </h6>
+      <h6>this time you will only be LOGGED OUT</h6>
+    </div>
+    
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      
+    </div>
+    
+  </div>
+  </div>
+  </div>
+
+  
+
+
+<script>
+  /*
+  const months_1a = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+  const buttons_1a = months_1a.map((month) => { 
+    return { label: month.substr(0, 3) }; 
+  });
+  
+
+const btns_open_1 = document.getElementById("btn_open_date_1");
+const btns_close_i1 = document.getElementById("btn_close_date_i1");
+// const inputs_date_1 = document.querySelector("#input_date_pure_start");
+const inputs_date_1 = document.querySelector("#input_date_start");
+const btns_cleardate_1 = document.getElementById("btn_clear_date_1");
+btns_cleardate_1.onclick = function() {
+inputs_date_1.value = "";
+ };
+
+let calendar_start_config = {
+  allowInput: true,
+  altFormat: "m/d/Y",
+ dateFormat: "m/d/Y",
+ altInputClass: "date_picker",
+  monthSelectorType: "static",
+  animate: true,
+  onOpen: function(selectedDates, dateStr, instance) {
+  //btns_open_2.innerText = "CLOSE";
+      btns_open_1.style.display="none";
+      btns_close_i1.style.display="inline-block";
+      },
+  onClose: function(selectedDates, dateStr, instance) {
+    //btns_open_2.innerText = "OPEN";
+    btns_close_i1.style.display="none";
+    btns_open_1.style.display="inline-block";
+    cont_months_outside_1.style.display="none";
+   // calendar_start.style.animation="opacitydown 2s";
+    },
+  onChange: function(selectedDates, dateStr, instance) {
+    calendar_end.set('minDate', selectedDates[0]);
+    calendar_end.open();
+    calendar_end.style.animation="opacityup 2s forwards";
+      },
+ plugins: [
+  // new rangePlugin({ input: inputs_date_2}), 
+  ShortcutButtonsPlugin({
+         button: buttons_1a,
+         onClick: (index, fp) => {
+           const date = new Date();
+           date.setDate(1);
+           date.setMonth(index);
+           date.setYear(fp.currentYear);
+           fp.setDate(date);
+         }
+       }),  
+  ShortcutButtonsPlugin({
+     button: [
+      { label: "clear" },        
+       { label: "today" },
+        { label: "close" },
+     ],
+
+     onClick: (index, fp) => {
+       let execute;
+       switch (index) {
+         case 0:
+           execute = fp.clear();
+           break;
+         case 1:
+           execute = new Date();
+           fp.setDate(execute);
+           break; 
+         case 2:
+         execute = fp.close();
+           break;
+     }
+   }
+ }),
+]   
+};
+
+let calendar_start = flatpickr(inputs_date_1, calendar_start_config);
+
+btns_open_1.onclick = function() {
+calendar_start.open();
+    };
+
+btns_close_i1.onclick = function() {
+calendar_start.close();
+    };
+    
+const cont_months_outside_1 = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4)")[0];
+const cont_months_outside_1a = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4)> div")[0];
+// const nodeList_1 = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(n)")[0];
+
+const nodeList_1 = [
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(1)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(2)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(3)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(4)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(5)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(6)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(7)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(8)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(9)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(10)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(11)")[0],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(12)")[0],
+] 
+
+// const month_btn_2 = document.querySelectorAll("div.flatpickr-calendar.animate.arrowTop.arrowLeft.open > div.flatpickr-months > div > div > span")[1];
+//div.flatpickr-calendar.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > span
+const month_btn_1 = document.querySelectorAll(".flatpickr-current-month span.cur-month")[0];
+month_btn_1.onclick = function() {
+// container.classList.toggle("mycontainer");
+if (cont_months_outside_1.style.display === "block") {
+    cont_months_outside_1.style.animation = "opacitydown 1.2s 1 ease-in-out";
+    setTimeout(function(){cont_months_outside_1.style.display = "none";}, 1100);
+  } else  {
+      // cont_date_1.style.animation = "zoomrotate 2s 1";
+    cont_months_outside_1.style.animation = "opacityup 1.2s 1 ease-in-out";
+    cont_months_outside_1.style.display = "block"; 
+  }
+};
+
+for (let i = 0; i < nodeList_1.length; i++) {
+  nodeList_1[i].onclick = function() {
+  cont_months_outside_1.style.animation = "opacitydown 1.5s 1 ease-in-out";
+  setTimeout(function(){cont_months_outside_1.style.display = "none";
+  }, 1400);
+ }
+ };
+
+
+ 
+// {{ book.google_id }}
+// let inputs_date = document.querySelectorAll("input[type=date]");
+
+const months_2a = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+const buttons_2a = months_2a.map((month) => { 
+return { label: month.substr(0, 3) }; 
+});
+
+const btns_open_2 = document.getElementById("btn_open_date_2");
+const btns_close_i2 = document.getElementById("btn_close_date_i2");
+const inputs_date_2 = document.querySelector("#input_date_pure_end");
+
+const btns_cleardate_2 = document.getElementById("btn_clear_date_2");
+btns_cleardate_2.onclick = function() {
+inputs_date_2.value = "";
+};
+
+let calendar_end_config = {
+//  altInput: true,
+allowInput: true,
+//appendTo: calendar_frame_2,
+// static:true,
+altFormat: "m/d/Y",
+dateFormat: "m/d/Y",
+altInputClass: "date_picker",
+monthSelectorType: "static",
+animate: true,
+// minDate: selectedDates[0],
+clickOpens: true,
+onOpen: function(selectedDates, dateStr, instance) {
+//btns_open_2.innerText = "CLOSE";
+btns_open_2.style.display="none";
+btns_close_i2.style.display="block";
+},
+onClose: function(selectedDates, dateStr, instance) {
+//btns_open_2.innerText = "OPEN";
+btns_close_i2.style.display="none";
+btns_open_2.style.display="block";
+cont_months_outside_2.style.display="none";
+},
+plugins: [
+ShortcutButtonsPlugin({
+       button: buttons_2a,
+       onClick: (index, fp) => {
+         const date = new Date();
+         date.setDate(1);
+         date.setMonth(index);
+         date.setYear(fp.currentYear);
+         fp.setDate(date);
+       }
+     }),
+ShortcutButtonsPlugin({
+   button: [
+    { label: "clear" },        
+     { label: "today" },
+      { label: "close" },
+   ],
+
+   onClick: (index, fp) => {
+     let execute;
+     switch (index) {
+       case 0:
+         execute = fp.clear();
+         break;
+       case 1:
+         execute = new Date();
+         fp.setDate(execute);
+         break; 
+       case 2:
+       execute = fp.close();
+         break;
+   }
+ }
+}),
+]   
+};   
+
+let calendar_end = flatpickr(inputs_date_2, calendar_end_config);
+
+const cont_months_outside_2 = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4)")[1];
+const cont_months_outside_2a = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div")[1];
+// const nodeList_2 = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(n)")[1];
+const nodeList_2 = [
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(1)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(2)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(3)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(4)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(5)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(6)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(7)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(8)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(9)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(10)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(11)")[1],
+document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(12)")[1],
+] 
+
+btns_open_2.onclick = function() {
+calendar_end.open();
+  };
+
+btns_close_i2.onclick = function() {
+calendar_end.close();
+  };
+  
+// const cont_months_outside_2 = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4)")[1];
+const month_btn_2 = document.querySelectorAll(".flatpickr-current-month span.cur-month")[1];
+month_btn_2.onclick = function() {
+if (cont_months_outside_2.style.display === "block") {
+cont_months_outside_2.style.animation = "opacitydown 1.2s 1 ease-in-out";
+  setTimeout(function(){cont_months_outside_2.style.display = "none";}, 1100);
+} else  {
+  // cont_date_1.style.animation = "zoomrotate 2s 1";
+  cont_months_outside_2.style.animation = "opacityup 1.2s 1 ease-in-out";
+  cont_months_outside_2.style.display = "block"; 
+}
+};
+
+for (let i = 0; i < nodeList_2.length; i++) {
+nodeList_2[i].onclick = function() {
+cont_months_outside_2.style.animation = "opacitydown 1.5s 1 ease-in-out";
+setTimeout(function(){ cont_months_outside_2.style.display = "none";
+}, 1400);
+}
+};
+
+// calendar_start.set("onChange", function(d) {
+//	calendar_end.set("minDate", d.fp_incr(1)); //increment by one day
+//});
+// calendar_end.set("onChange", function(d) {
+//	calendar_start.set("maxDate", d);
+// });
+*/
+</script>
+
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

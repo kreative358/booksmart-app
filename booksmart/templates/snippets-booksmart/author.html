@@ -1,0 +1,484 @@
+{% load bootstrap4 %}
+
+<style>
+
+.myrow_author {
+  background: rgba(210, 217, 220, 0.2);
+  border: 2px solid rgba(180, 217, 240, 0.1);
+  border-radius:4px;
+  position:relative;
+  z-index:1;
+  width:90%;
+  margin: 10px auto auto auto;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  transition-duration: 0.6s;
+  text-shadow: 
+  -0.015em 0.015em 0.0em rgb(211, 211, 211),
+  -0.03em 0.03em 0.015em rgb(211, 211, 211), 
+  0.04em 0.0em 0.02em rgb(128, 128, 128),
+  0.02em 0.02em 0.01em rgb(128, 128, 128);
+  box-shadow:
+  1px 2px 6px 10px rgba(119, 130, 143, 0.6); 
+   display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .myrow_author:hover {
+  background: rgba(180, 217, 240, 0.4);
+  border: 2px solid rgba(220, 230, 240, 0.2);
+  backdrop-filter:none;
+  -webkit-backdrop-filter: none;
+  box-shadow:
+  1px 2px 6px 10px rgba(229, 230, 243, 0.6);
+  scale:1.02;
+}
+
+.mycolumn_author {
+  float: left;
+  width: 50%;
+  }
+
+.glass_author {
+  background-color: rgba(100, 160, 220, 0.1);
+  width: 100%;
+  height: 100%;
+  }
+
+[id^="col_img_author"] {
+  background-color: rgb(100, 160, 240); 
+  background-color: rgba(100, 160, 240, 0.6); 
+  border-radius: 2px;
+  border: 2px solid rgba(240, 240, 240, 0.4);
+  outline: 2px solid rgba(240, 240, 240, 0.4);
+  box-shadow: 
+  -1px -1px 1px 0px rgba(151, 191, 231, 0.2), 
+  1px 2px 2px 0px rgba(151, 191, 231, 0.4),
+  -2px 3px 2px 0px rgba(151, 191, 231, 0.4), 
+  2px 4px 2px 0px rgba(151, 191, 231, 0.4),
+  
+  0px 5px 3px 0px rgba(90, 150, 210, 0.4),
+  0px 6px 4px 0px rgba(90, 150, 210, 0.4), 
+  1px 7px 4px 0px rgba(80, 140, 200, 0.6),
+  -1px 8px 5px 0px rgba(80, 140, 200, 0.6);
+  padding:10px;
+  }
+
+
+.cont_img_author {
+position:relative;
+width: 168px;
+height: 100%;
+margin: auto 10px auto auto;
+float:left;
+display: flex;
+align-items:center;
+}
+
+[id^="img_author"] {
+  float:left;
+  width: 164px;
+  height: 230px;
+  object-fit: cover;
+  margin: auto 10px auto 6px;  
+  }
+
+[id^="col_author"] {
+  margin:-2px 1px -1px -1px;
+
+  background-color: rgb(220, 220, 220); 
+  background-color: rgba(220, 220, 220, 0.6); 
+  border-radius: 2px;
+  border: 2px solid rgba(240, 240, 240, 0.4);
+  outline: 2px solid rgba(240, 240, 240, 0.4);
+  box-shadow: 
+  -1px -1px 1px 0px rgba(219, 220, 222, 0.2), 
+  1px 2px 2px 0px rgba(219, 220, 222, 0.4),
+  -2px 3px 2px 0px rgba(219, 220, 222, 0.4), 
+  2px 4px 2px 0px rgba(209, 210, 212, 0.4),
+  
+  0px 5px 3px 0px rgba(199, 200, 202, 0.4),
+  0px 6px 4px 0px rgba(199, 200, 202, 0.4), 
+  1px 7px 4px 0px rgba(177, 179, 182, 0.6),
+  -1px 8px 5px 0px rgba(177, 179, 182, 0.6);
+
+  padding: 10px;
+  }
+
+.myrow_author:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
+
+#a_submit_m {
+  animation-name: anime_submit_t;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  }
+
+@keyframes anime_submit_t {
+  50% {
+  color: red;}
+  }  
+
+@keyframes anime_red_text {
+    50% {
+    color: red;}
+    } 
+
+#button_sm {
+  width: 90%;
+  height: 40%;
+  }
+
+button:focus {
+  border:none;
+  outline:none;
+  }
+
+.button_1a {
+  float:right;
+  padding: 4px;
+  
+  color: rgb(240, 248, 255);
+  background: rgb(119, 136, 153);
+  background: rgba(119, 136, 153, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6 );
+  text-align: center;
+  min-width: 60px;
+  width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+  }
+
+.button_1a:hover {
+  color: rgb(30, 144, 255);
+  background:rgb(211, 211, 211);
+  background:rgba(211, 211, 211, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  }
+
+.button_1a:active {
+    transform: translateY(2px);
+    scale: 0.96;
+    }
+
+.button_2a {
+  float: right;
+ margin-left: 10px;
+ margin-right: 10px;
+ margin-top: 5px;
+  padding: 4px;
+  color: rgb(240, 248, 255);
+  background-color:rgb(30, 144, 255);
+  background-color:rgba(30, 144, 255, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  text-align: center;
+  min-width: 74px;
+  width: 74px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+  }
+
+.button_2a:hover {
+  color: rgb(30, 144, 255);
+  background-color: rgb(211, 211, 211);
+  background-color: rgba(211, 211, 211, 0.6);
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
+  }
+
+.button_2a:active {
+  transform: translateY(2px);
+  scale: 0.96; 
+}
+
+.button_3a {
+  float:right;
+  padding: 4px;
+  color: rgb(240, 248, 255);
+  background-color:rgb(178, 34, 34);
+  background-color:rgba(178, 34, 34, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6);
+  text-align: center;
+  min-width: 60px;
+  width: 60px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+  }
+
+.button_3a:hover {
+  color: rgb(112, 128, 144);
+  background-color: rgb(135, 206, 250);
+  background-color: rgba(135, 206, 250, 0.6);
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
+  }
+
+.button_3a:active {
+  transform: translateY(2px);
+  scale: 0.96; 
+}
+
+.textarea_a {
+  padding: 2px 4px 2px 4px;
+  resize: none;
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.2); 
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 3px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.3);  
+  font-size: 16px;
+  text-align: justify;
+  text-justify: inter-word;
+  /*width:inherit;*/
+  max-width: auto;
+  width: auto;
+  min-height: 110px;
+  max-height: 110px;
+  overflow: auto;
+  margin: 4px 10px 12px 10px;
+  color: darkblue;
+  }
+
+@media screen and (max-width: 1280px) {
+  .myrow_author {
+    width: 90%;
+  }
+  .mycolumn_author {
+    width: 100%;
+  }
+  }
+
+@media screen and (max-width: 640px) {
+  .myrow_author {
+    width: 90%;
+  }
+  .mycolumn_author {
+    width: 100%;
+    min-width: 620px;
+  }
+  }
+
+#h6l {
+  font-size: 18px;
+  line-height: 0.8;
+  margin-left: 170px;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  }
+
+.h6l {
+  font-size: 16px;
+  line-height: 0.2;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  }
+
+#h6x {
+  font-size: 18px;
+  line-height: 0.8;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  }
+
+#h6lb {
+  font-size: 18px;
+  line-height: 0.8;
+  margin-left: 190px;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  }
+
+.h6lb {
+  font-size: 16px;
+  line-height: 0.2;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  }
+
+#h4l {
+  font-size: 24px;
+  line-height: 0.8;  
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  }
+
+.h4l {
+  font-size: 26px;
+  line-height: 0.2;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  }
+
+#h3l {
+  font-size: 26px;
+  line-height: 0.8;  
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  font-weight: bold;
+  }
+
+.h3l {
+  font-size: 24px;
+  line-height: 0.2;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  font-weight: bold;
+  }
+
+#h5l {
+  font-size: 20px;
+  line-height: 0.8;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  }
+
+.h5l {
+  font-size: 20px;
+  line-height: 0.2;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  }
+      
+</style>
+   <!--modal author warning-->
+<div class="modal" id="M_del_ae{{author_c.id}}" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title" id="a_submit_m">INFO</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body text-center">
+        <h6>You can only modify and change the records <br>that you have entered yourself.</h6>
+        <h6>You can check which ones are in your <br><a href="{% url 'booksmart:account-records' %}" target="_blank"> account panel </a></h6>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> 
+    </div>
+  </div>
+  </div>
+
+
+<div class="modal" id="M_del_ad{{author_c.id}}" >
+<div class="modal-dialog">
+<div class="modal-content">
+
+  <!-- Modal Header -->
+  <div class="modal-header">
+    <h4 class="modal-title" id="a_submit_m"> INFO </h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+  </div>
+  
+  <!-- Modal body -->
+  <div class="modal-body text-center">
+    <h6>You can only modify and change the records <br>that you have entered yourself.</h6>
+    <h6>You can check which ones are in your <br> <a href="{% url 'booksmart:account-records' %}" target="_blank"> account panel </a></h6>
+  </div>
+  
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+  </div>
+  
+</div>
+</div>
+</div>
+
+
+
+<div class="myrow_author" id="row_author_{{author_c.id}}">
+  <div class="mycolumn_author" id="col_img_author_{{author_c.id}}">
+     <div class="glass_author">
+    <div>
+        
+{% if request.user.id == author_c.user_num_a%}
+<a type="button" class="button_1a"  id="button_1a_{{author_c.id}}" href="{% url 'booksmart:editauthor' author_c.id %}" target="_blank">Edit<br>Author</a>
+{% else %}
+<a type="button" class="button_1a" id="button_1a_{{author_c.id}}" data-toggle="modal" data-target="#M_del_ae{{author_c.id}}" data-backdrop="false">Edit<br>Author</a>
+
+{% endif %}
+
+  <form action="{% url 'booksmart:booksauthor' %}"  method="get" target="_blank">
+  {{ search_author }}
+  <input type="hidden" class="author_hidden" id="author_hidden_input_{{author_c.id}}" name="author_name_hidden" value="{{author_c.author_name}}">
+  <button type="submit" class="button_2a"  id="button_2a_{{author_c.id}}">
+    Author's <br> Books
+</button>
+</form>
+{% if request.user.id == author_c.user_num_a %}
+<a type="button" class="button_3a"  id="button_3a_{{author_c.id}}" href="{% url 'booksmart:deleteauthor' author_c.id %}" target="_blank"> Delete <br> Author </a>
+{% elif request.user.id != author_c.user_num_a  %}
+<a type="button"  class="button_3a"  id="button_3a_{{author_c.id}}" data-toggle="modal" data-target="#M_del_ad{{author_c.id}}" data-backdrop="false"> Delete Author </a>
+<!--place after modal-->
+{% endif %}
+</div>
+
+    <div class="cont_img_author">
+     
+      <img src="{{ author_c.author_wiki_img }}" id="img_author_{{author_c.id}}" class="img-fluid rounded">
+  
+  </div>
+           
+     <div><br>
+     <p class="h6l_a_c" style="padding-top:44px"> First name: <span  class="p_m_b"> {{ author_c.first_name }} </span> </p>
+     {% if author_c.middle_name %}
+     <p class="h6l_a_c" > other name: <span class="p_m_b"> {{ author_c.middle_name }} </span> </p>
+     {% endif %}
+     <p class="h6l_a_c" style="margin-top:-2px;"> Surname: <span class="p_m_b"> {{ author_c.last_name }} </span> </p> 
+
+     {% if author_c.date_of_birth == no_date %}
+     <p class="h6l_a_c"> Date of birth: <span  class="p_i_b">  no info </span></p>
+      {% else %}
+     <p class="h6l_a_c"> Date of birth: <span  class="p_i_b">  {{ author_c.date_of_birth }} </span></p>
+     {% endif %}
+
+     {% if author_c.date_of_death == no_date %}
+     <p class="h6l_a_c" style="margin-top:-2px;"> Date of death: <span class="p_i_b"> - </p>
+      {% else %}
+     <p class="h6l_a_c" style="margin-top:-2px;"> Date of death: <span class="p_i_b"> {{ author_c.date_of_death }} </p>
+      {% endif %}
+       
+     <p class="h6l_a_c"> wikidata id: <span  style="color: SlateGrey;"> {{ author_c.wiki_idx}} </span> </p>
+
+     <p class="h6l_a_c" style="padding-bottom:14px">wikipedia english <span  style="color: SteelBlue;"> <a href="https://en.wikipedia.org/wiki/{{ author_c.first_name }}_{{ author_c.last_name }}" target="_blank" > link: </a></span> </p>
+     
+      </div>
+     </div>
+    </div>
+     
+     <div class="mycolumn_author" id="col_author_{{author_c.id}}">
+      <div class="glass_author">
+      <p class="h4_l1b" style="margin: 10px auto 10px 10px;"> author: <a  href="https://pl.wikipedia.org/wiki/{{author_c.author_name}}" target="_blank" ><span class="p_i_b"> {{ author_c.author_name}} </span></a></p>
+    <p class="h5_l08b" style="margin: 12px auto 10px 10px;"> short info: <span style="color: DarkSlateGrey; font-size: 20px; line-height: 1;" > {{ author_c.author_wiki_link_d }} </span></p>
+    <p style="margin: 12px 10px 10px 10px; font-size: 20px; color: maroon;" >details about author: </p>
+
+    <div class="textarea_a" > {{ author_c.author_wiki_link }} </div>
+</div>
+</div>
+  </div>
+
+     <br>
+
+     
+  
+   

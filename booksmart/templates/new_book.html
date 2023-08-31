@@ -1,0 +1,70 @@
+{% extends 'base_ds.html' %}
+{% load bootstrap4 %}
+{% block title %} new-book {% endblock %}
+
+{% block page %}
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css">  -->
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %} 
+
+{% include 'snippets/jumbotron.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+<div class="mycontainer" id="cont_new_book">
+  <div class="myrow"  id="row_new_book">
+    <div class="mycolumn " id="col_new_book">
+  
+      <div class="header_card" id="header_new_book">
+
+      <p class="header_text" id="header_text_book" > NEW BOOK CARD </p>
+    </div>
+
+    <div class="body_card"  id="body_new_book" >      
+      <form method="post" enctype="multipart/form-data" id="new_book_form">
+      {% csrf_token %}
+      {% bootstrap_form form_newbook %}
+      </form>
+</div>
+      
+<div class="footer_card" id="footer_new_book" >
+  <button type="button" id="button_back_newbook" href="{% url 'booksmart:allrecords' %}" class="btn btn-outline-primary text-danger float-left" > Back </button>
+
+  <button form="new_book_form" type="submit" id="button_save_newbook" class="btn btn-outline-danger text-primary float-right" > Save </button>
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}
+      

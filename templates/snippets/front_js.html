@@ -1,0 +1,269 @@
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+  var fr_js = $.noConflict(); 
+  fr_js(document).ready(function(){
+    fr_js("#btn_door").click(function(){ 
+      fr_js("#left_div").animate({ width: 'toggle' },5000);
+      fr_js("#right_div").animate({ width: 'toggle' },5000);
+      });
+    }); 
+    
+    </script> -->
+
+
+<style>
+/*
+#left_div {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.8vw;
+  color: MediumBlue; 
+  font-family: Georgia; 
+  font-weight: bold;  
+  text-shadow: 2px 2px 8px MintCream; 
+  background-color: rgb(100, 160, 230); 
+  background-color: rgba(100, 160, 230, 0.9); 
+  border: 10px solid rgba(60, 120, 240, 0.6);
+  box-shadow: 0px 0px 6px 6px rgba(120, 180, 240, 0.4);  
+  border-radius: 5px; 
+  z-index: 22;
+  top: 0;
+  left: 0;
+  delay:6s;
+  animation-name: anime_door;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  }
+    
+#right_div {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  font-size: 3vw;
+  color: MediumBlue; 
+  font-family: Georgia; 
+  font-weight: bold;  
+  text-shadow: 2px 2px 8px AliceBlue; 
+  background-color: rgb(100, 160, 230);
+  background-color: rgba(100, 160, 230, 0.9); 
+  border: 10px solid rgba(60, 120, 240, 0.6);
+  box-shadow: 0px 0px 6px 6px rgba(120, 180, 240, 0.4);  
+  border-radius: 5px; 
+  z-index: 22;
+  top: 0;
+  right: 0;
+  delay:6s;
+  animation-name: anime_door;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  }#left_div, #right_div, */
+
+  .left_d {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    height: 100%;
+    width: 50%;
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(100, 160, 220);
+    background-color: rgba(100, 160, 220, 0.8); 
+    box-shadow: -2px 1px 2px 0px rgba(119, 120, 123, 0.2), 0px -1px 2px 0px rgba(119, 120, 123, 0.2) inset, -4px 2px 4px 0px rgb(151, 152, 155, 0.2) inset, 1px -2px 4px 0px rgb(151, 152, 155, 0.2) inset, -6px 4px 1px 0px rgb(135, 206, 250, 0.2) inset, 4px -4px 1px 0px rgb(135, 206, 250, 0.2) inset, -8px -5px 1px 2px rgb(206, 235, 253, 0.2) inset, 5px 5px 1px 2px rgb(206, 235, 253, 0.2) inset, 10px 12px 0px 5px rgba(206, 235, 253, 0.8) inset, -10px -10px 0px 5px rgba(206, 235, 253, 0.8) inset;
+    border-radius:4px; 
+    z-index: 39;
+    top: 0;
+    left: 0;
+    animation: anime_left 5s linear 1.5s infinite;
+    }
+  
+  .right_d {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    height: 100%;
+    width: 50%;
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    
+    background: rgb(100, 160, 220); 
+    background: rgba(100, 160, 220, 0.8);
+    
+    box-shadow: -2px 1px 2px 0px rgba(119, 120, 123, 0.2), 0px -1px 2px 0px rgba(119, 120, 123, 0.2) inset, -4px 2px 4px 0px rgb(151, 152, 155, 0.2) inset, 1px -2px 4px 0px rgb(151, 152, 155, 0.2) inset, -6px 4px 1px 0px rgb(135, 206, 250, 0.2) inset, 4px -4px 1px 0px rgb(135, 206, 250, 0.2) inset, -8px -5px 1px 2px rgb(206, 235, 253, 0.2) inset, 5px 5px 1px 2px rgb(206, 235, 253, 0.2) inset, 10px 12px 0px 5px rgba(206, 235, 253, 0.8) inset, -10px -10px 0px 5px rgba(206, 235, 253, 0.8) inset;
+    border-radius: 4px; 
+    z-index: 39;
+    top: 0;
+    right: 0;
+    animation: anime_right 5s linear infinite;
+
+    /* 
+    animation: anime_door 6s;
+    animation-iteration-count: infinite; */
+    }
+
+#left_div::before {
+  content: "BOOKSMART";
+  font-size: 3vw;
+  color: MediumBlue;
+  font-family: Georgia;
+  font-weight: bold;  
+  position: absolute;
+  z-index: 39;
+  top: 45%;
+  padding: 10px;
+  text-shadow: 2px 2px 8px AliceBlue; 
+  text-align: center;
+  right: 25%;}
+  
+  #right_div::before {
+  content: "APPLICATION";
+  font-size: 3vw;
+  color: MediumBlue;
+  font-family: Georgia;
+  font-weight: bold;  
+  position: absolute;
+  z-index: 39;
+  top: 45%;
+  padding: 10px;
+  text-shadow: 2px 2px 8px AliceBlue; 
+  text-align: center;
+  left: 25%;
+  }
+  
+  
+
+  #text_l {
+    font-size: 3vw;
+    color: MediumBlue;
+    font-family: Georgia;
+    font-weight: bold;  
+    position: absolute;
+    z-index: 39;
+    top: 55%;
+    padding: 10px;
+    text-shadow: 2px 2px 8px AliceBlue; 
+    text-align: center;
+    width: 100%;
+    }
+    
+    #text_r {
+    font-size: 3vw;
+    color: MediumBlue;
+    font-family: Georgia;
+    font-weight: bold;  
+    position: absolute;
+    z-index: 39;
+    top: 55%;
+    padding: 10px;
+    text-shadow: 2px 2px 8px AliceBlue; 
+    text-align: center;
+    width: 100%;
+    }
+
+@media only screen and (max-width: 1280px) {
+  #text_l { 
+    font-size: 36px;
+  }
+  #text_r { 
+    font-size: 36px;
+  }
+  #right_div {
+  }
+}
+    
+
+@keyframes door_left_open {
+  from {left: 0%;}
+  to {left: -50%;}
+  }
+  
+  @keyframes door_left_close {
+  from {left: -50%;}
+  to {left: 0%;}
+  }
+  
+  @keyframes door_right_open {
+  from {right: 0%;}
+  to {right: -50%;}
+  }
+  
+  @keyframes door_right_close {
+  from {right: -50%;}
+  to {right: 0%;}
+  }
+  
+
+
+    @keyframes anime_left {
+      16% {
+            background-image: linear-gradient(to left top, rgba(160, 200, 240, 0.6), rgba(220, 220, 240, 0.6), rgba(60, 160, 240, 0.6));
+      }
+      49% {
+        
+            background-image: linear-gradient(to left top, rgba(160, 200, 240, 0.6), rgba(60, 160, 240, 0.6), rgba(160, 200, 240, 0.6), rgba(220, 220, 240, 0.6), rgba(160, 200, 240, 0.6));
+      }
+      79% {
+        
+            background-image: linear-gradient(to left top, rgba(220, 220, 240, 0.6), rgba(160, 200, 240, 0.6),  rgba(60, 160, 240, 0.6), rgba(160, 200, 240, 0.6));
+      }
+    }
+    
+    
+    @keyframes anime_right {
+      16% {
+            background-image: linear-gradient(to left top, rgba(160, 200, 240, 0.6), rgba(220, 220, 240, 0.6), rgba(60, 160, 240, 0.6));
+      }
+      49% {
+        
+            background-image: linear-gradient(to left top, rgba(160, 200, 240, 0.6), rgba(60, 160, 240, 0.6), rgba(160, 200, 240, 0.6), rgba(220, 220, 240, 0.6), rgba(160, 200, 240, 0.6));
+      }
+      79% {
+        
+            background-image: linear-gradient(to left top, rgba(220, 220, 240, 0.6), rgba(160, 200, 240, 0.6),  rgba(60, 160, 240, 0.6), rgba(160, 200, 240, 0.6));
+      }
+    }
+</style>
+
+  
+    {% include 'snippets/out_acc.html' %}
+      
+    
+     
+     <div id="left_div" class="left_d">
+      <div id="text_l" class="text"><p style="font-size: 20px" id="p_left"><span style="font-style: italic;"> "People stop thinking when<br>they cease to read" </span><br> --Denis Diderot </p></div> 
+       </div>
+       
+     <div id="right_div" class="right_d"> 
+     <div id="text_r" class="text"><p style="font-size: 20px" id="p_right"><span style="font-style: italic;"> “The person who doesn't read<br>lives only one life”</span><br> --Umberto Eco </p></div>  
+     </div>
+ 
+ <script>
+     var btn_door = document.getElementById("btn_door");
+     var left_div = document.getElementById("left_div");
+     var right_div = document.getElementById("right_div");
+     btn_door.onclick = function() {
+     if (left_div.style.left == "-50%") {
+     left_div.style.animation = "door_left_close 4s ease-in-out";
+     right_div.style.animation = "door_right_close 4s ease-in-out";
+     left_div.style.left = "0%";
+     right_div.style.right = "0%";
+  
+     } 
+     else  {
+     // left_div.style.animation = "door_left_close 4s ease-in-out";
+     // right_div.style.animation = "door_right_close 4s ease-in-out";
+         left_div.style.animation = "door_left_open 4s  ease-in-out";
+     right_div.style.animation = "door_right_open 4s ease-in-out";
+        left_div.style.left = "-50%";
+     right_div.style.right = "-50%";
+     } 
+     }
+ </script>

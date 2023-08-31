@@ -1,0 +1,132 @@
+{% extends 'base_ds.html' %}
+{% load bootstrap4 %}
+{% load booksmart_extras %}
+{% block title %} all-books  {% endblock%}
+
+{% block page %}
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+{% block content_1 %} 
+
+{% include 'snippets/jumbotron.html' %}
+{% include 'snippets/marquee.html' %}
+
+{% include 'snippets-booksmart/top_cards.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+
+{% include 'snippets/authentication.html' %}
+
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+<div class="my_container"  style="position: relative; z-index:12; margin-top:60px, float:left; margin-left: 7.4vw;">
+    <div class="my_row_user">
+    <div class="my_column_user ">   
+        <h4 style="z-index: 14;">user {{request.user}}</h4>
+      
+</div>
+</div>
+</div>
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% include 'snippets-booksmart/sort_book.html' %}
+{% include 'snippets-booksmart/filter_books_q.html' %}
+{% include 'snippets-booksmart/search_panel.html' %}
+
+{% if book_page_obj %}
+{% include 'snippets-booksmart/books_bar.html' %}
+
+{% for book in book_page_obj %}
+
+{% include 'snippets-booksmart/book.html' %}
+
+{% endfor %}
+
+
+<style type="text/css">
+
+#cont_pag {
+position:relative;
+z-index:1;
+margin: -10px 5% 2vw auto;
+width: 600px;
+max-width:90%;
+float:right;
+display: flex;
+align-content: right;
+padding: auto;
+color: blue;
+}
+
+.pagination {
+text-align:right;
+display: inline-block; 
+font-size:30px;
+font-weight: bold;
+padding:10px;
+text-align-last: right;
+justify-content:right;
+width:580px;
+}
+
+</style>
+
+<div class="container-fluid" id="cont_pag">      
+<div class="row">
+<div class="column"  >
+  <div class="pagination"><!-- justify-content-end-->
+
+    <span class="step-links">   <!--<p>-->
+        {% if book_page_obj.has_previous %}
+            <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+            <a href="{% my_url book_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+            
+        {% endif %}
+
+        <span class="current">
+            Page {{ book_page_obj.number }} of {{ book_page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if book_page_obj.has_next %}
+            <a href="{% my_url book_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+            <a href="{% my_url book_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+        {% endif %}<!--</p>-->
+    </span>  
+
+  </div>       
+</div>
+</div>
+</div>
+
+{% endif %}
+
+{% endblock content_4 %}
+
+{% block content_5 %}
+
+<!--
+{{request.path}}
+<br>
+<p id="demo"></p>
+<script>
+document.getElementById("demo").innerHTML = 
+"The full URL of this page is:<br>" + window.location.pathname;
+</script>-->
+
+{% endblock content_5 %}
+
+</div>
+{% endblock page %}

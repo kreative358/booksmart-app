@@ -1,0 +1,98 @@
+{% extends 'base_ds.html' %}
+{% load booksmart_extras %}
+{% load bootstrap4 %}
+
+{% block title %} author's info  {% endblock%}
+
+{% block page %}
+{% include 'snippets/scrollbars.html' %}
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+  <style>
+    #btn_door_hello {
+      cursor: not-allowed;
+      /*visibility:hidden;*/
+    }
+    </style>
+
+    <script>
+    $(document).ready(function(){
+      $("#btn_door_hello").mouseenter(function(){
+        alert("NAME OR EMAIL CHANGE IS NOT POSSIBLE ON THIS SITE");
+        alert("THIS CAN BE DONE ON THE OTHER SITES");
+      });
+    $("#btn_door_hello").mouseleave(function(){
+    $("#btn_door_hello").css("background-color", "red");
+  });
+  })
+    </script>
+
+  {% endblock content_1 %}
+
+
+  {% block content_2 %} 
+ 
+    {% include 'snippets/jumbotron.html' %}
+    {% include 'snippets/marquee.html' %}
+{% include 'snippets-booksearch/addx_top_cards_author.html' %}
+
+{% endblock content_2 %}
+
+{% block content_3 %} 
+
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_3 %}
+
+{% block content_4 %}
+
+<div class="container-fluid col-lg-10"  >
+    <div class="row">
+    <div class="col-lg-12  ">   
+
+      
+</div>
+</div>
+</div>
+
+{% endblock content_4 %}
+   
+{% block content_5 %}
+
+<style type="text/css">
+  
+#cont_main_ba {
+position: relative;
+z-index:1;
+margin:6vw auto 2vw auto;
+text-align:center;
+padding:auto;
+width: 560px;
+max-width: 96%;
+border-radius:2px;
+box-shadow: 
+0px 0px 6px 6px rgba(151, 191, 231, 0.6) inset,
+0px 0px 10px 10px rgba(229, 230, 243, 0.6); 
+-webkit-backdrop-filter: blur(2px);
+backdrop-filter: blur(2px);
+padding:10px auto 10px auto;
+color: MediumBlue; 
+font-family: Georgia; 
+font-weight: bold; 
+font-size: 36px; 
+}
+
+</style>
+          
+          
+  <div class="container" id="cont_main_ba" >
+   AUTHOR FOUND </div>
+      
+{% include 'snippets-booksearch/base_gbook_author.html' %}
+
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

@@ -1,0 +1,93 @@
+{% extends 'base_account.html' %}
+{% load bootstrap4 %}
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+  {% endblock content_1 %}
+
+  {% block content_2 %}
+
+<style type="text/css">
+
+#main_cont_auth {
+	position:relative;
+	z-index:1;
+	background-color: rgb(240, 240, 240); 
+	background-color: rgba(240, 240, 240, 0.6); 
+	text-align: center;
+	justify-content: center;
+	align-items: center;  
+	border-radius:5px;
+	box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+	margin:20px auto auto auto;
+	padding: 10px auto 10px auto;
+	width: 620px;
+	}
+
+</style>
+
+<div class="container-fluid"  id="main_cont_auth" >
+    <h3>Registered users:</h3>
+    {% for account in accounts %}
+        <h5>{{account.email}} - {{account.username}} <br>| {{ account.last_login }} |</h5>
+    {% endfor %}
+    </div>
+
+	{% endblock content_2 %}
+
+
+	{% block content_3 %}
+
+<style type="text/css">
+
+#mcont_main_list {
+	position:relative;
+	z-index:1;
+	background-color: rgb(240, 240, 240); 
+	background-color: rgba(240, 240, 240, 0.6); 
+	text-align: center;
+	justify-content: center;
+	align-items: center;  
+	border-radius:5px;
+	box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+	margin:20px auto auto auto;
+	padding: 10px auto 10px auto;
+	width: 620px;
+	}
+
+#col_main_list {
+	margin: auto;
+	padding: auto;
+}
+	
+</style>
+
+<div class="container-fluid" id="cont_main_list">
+	<div class="column" id= "col_main_list">   
+  {% for book in allbooks %}
+  {% include 'snippets-accounts/books_list.html' with value=book %}
+  {% endfor %}
+  
+  </div>
+  </div>
+
+  {% endblock content_3 %}
+
+
+  {% block content_4 %}
+
+  {% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

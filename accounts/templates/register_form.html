@@ -1,0 +1,153 @@
+{% extends 'base_account.html' %}
+{% load bootstrap4 %}
+{% load rest_framework %}
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+
+{% block page1 %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+
+{% endblock content_2 %}
+
+
+{% block content_3 %}
+
+<style type="text/css">
+
+#main_cont_form {
+  position:relative;
+  z-index:1;
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.6); 
+  text-align: center;
+  justify-content: center;
+  align-items: center;  
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+	width: 560px;
+	padding: 10px;
+	margin: 40px auto 20px auto;
+  }
+
+#row_form {
+  /* margin: 10px 20px 10px 20px;
+  padding: 10px 20px 10px 20px; */
+  margin: 0px;
+  padding: 0px; 
+  background-color: rgb(100, 160, 220);
+  background-color: rgba(100, 160, 220, 0.6); 
+  }
+
+#col_form {
+  width:540px;
+  margin: 10px;
+  padding: 10px;
+  }
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  }
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+.form-signin .form-control:focus {
+    z-index: 2;
+  }
+
+.form-signin input[type="email"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+.form-signin input[type="text"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+.form-signin input[type="password"] {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+.h3{
+    text-align: center;
+  }
+
+</style>
+
+<div class="container-fluid" id="main_cont_form">
+  <div class="row border rounded" id="row_form">
+    <div class="column border rounded" id="col_form">
+
+<form class="form-signin" method="post">
+  {% csrf_token %}
+
+  <h1 class="h3 mb-3 font-weight-normal">Register an account</h1>
+
+  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+  <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
+  
+  <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password" required>
+
+  <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm password" required>
+
+  {% for field in registration_form %}
+      <p>
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+  {% endfor %}
+  {% if registration_form.non_field_errors %}
+    <div style="color: red">
+      <p>{{registration_form.non_field_errors}}</p>
+    </div>
+      
+  {% endif %}
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+
+</form>
+</div>
+</div>
+</div>
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}
+

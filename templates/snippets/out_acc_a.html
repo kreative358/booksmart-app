@@ -1,0 +1,230 @@
+<style type="text/css">
+
+#cont_acc {
+  position: relative;
+  z-index:44;
+  top:0px;
+  margin-bottom: 20px;
+  width:620px;
+  max-width:90%;
+  padding:auto;
+}
+
+.form-signin {
+  width: 90%;
+  
+  margin: auto;
+}
+    
+label {
+  color: MediumBlue;
+  font-size: 20px;
+  font-family: Times;
+  padding-left: 20px;
+  padding-top: 10px;
+  font-weight: bold;
+  padding-bottom: -10px;
+}
+
+   /* input {
+      margin: auto;
+      box-sizing: border-box;
+      height: auto;
+      padding:auto;
+      font-size: 16px;
+      color: DarkBlue;
+      background-color: rgb(220, 220, 220);
+      background-color: rgba(220, 220, 220, 0.8);
+      border-radius: 3px;
+      border: 3px solid rgba(120, 180, 240, 0.6);
+      }*/
+ 
+#p {
+  color:red;
+  font-size: 18px;
+}
+
+#id_email {
+  font-size: 16px;
+  color: DarkBlue;
+  width: 90%;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 5px;
+  padding-left:2px;
+  box-sizing: border-box;
+  height: 40px;
+  justify-content: center;
+  background-color: rgb(220, 220, 220); /* Fallback color */
+  background-color: rgba(220, 220, 220, 0.8);
+  border-radius: 3px;
+  border: 3px solid rgba(120, 180, 240, 0.6);
+}
+
+#id_password {
+  font-size: 16px;
+  color: DarkBlue;
+  width: 90%;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 5px;
+  padding-left:2px;
+  box-sizing: border-box;
+  height: 40px;
+  justify-content: center;
+  background-color: rgb(220, 220, 220); /* Fallback color */
+  background-color: rgba(220, 220, 220, 0.8);
+  border-radius: 3px;
+  border: 3px solid rgba(120, 180, 240, 0.6);
+}
+      /*input:focus {
+        z-index: 2;}*/
+#id_username {
+  font-size: 16px;
+  color: DarkBlue;
+  width: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom:0px;
+  padding-left:2px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  height: 40px;
+  justify-content: center;
+  background-color: rgb(220, 220, 220); /* Fallback color */
+  background-color: rgba(220, 220, 220, 0.8);
+  border-radius: 3px;
+  border: 3px solid rgba(120, 180, 240, 0.6);
+}    
+
+#id_password1 {
+  font-size: 16px;
+  color: DarkBlue;
+  width: 90%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  padding-left:2px;
+  box-sizing: border-box;
+  height: 40px;
+  justify-content: center;
+  background-color: rgb(220, 220, 220); /* Fallback color */
+  background-color: rgba(220, 220, 220, 0.8);
+  border-radius: 3px;
+  border: 3px solid rgba(120, 180, 240, 0.6);
+}      
+    
+#id_password2 {
+  font-size: 16px;
+  color: DarkBlue;
+  width:9%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  padding-left:2px;
+  margin-top:0px;
+  box-sizing: border-box;
+  height: 40px;
+  justify-content: center;
+  background-color: rgb(220, 220, 220); /* Fallback color */
+  background-color: rgba(220, 220, 220, 0.8);
+  border-radius: 3px;
+  border: 3px solid rgba(120, 180, 240, 0.6); 
+}
+
+.helptext {
+  color:Indigo ;
+  font-size: 14px;
+  font-family: Times;
+  font-weight: bold;
+  margin-top: 5px;
+  margin
+}
+
+.errorlist {
+  color: red;
+  width: 90%;
+  font-size: 18px;
+  font-family: Times;
+  font-weight: bold;
+  margin-bottom:0px;
+  line-height: 1;  
+}
+
+.h3{
+  text-align: center;
+}
+
+.btn-block {
+  margin-top:20px;
+  margin-bottom:20px;
+  width: 90%;
+  height: 50px;
+  color: white;
+  background-color: rgb(60, 120, 240); 
+  background-color: rgba(60, 120, 240, 0.8);
+  border-radius: 3px;
+  border: 3px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-family: Times;
+}
+
+</style>
+    
+    <div class="container-fluid" id="cont_acc">
+      <div class="row">
+        <div class="col-lg-6">
+          
+    <form class="form-signin" method="post">
+      {% csrf_token %}
+    
+    <h1 class="h3 mb-1 font-weight-normal">Account</h1>
+    
+    {% autoescape off %}
+    {{ a_account}}
+    {% endautoescape %}
+      
+    {% for field in account_form %}
+      
+        {% for error in field.errors %}
+        <p id="p"> {% autoescape off %} {{ error }} {% endautoescape %}</p>
+        {% endfor %} 
+      
+    {% endfor %}
+    {% if account_form.non_field_errors %}
+      
+      <p> {% autoescape off %} {{account_form.non_field_errors}} {% endautoescape %} </p>
+      
+    {% endif %}
+
+    
+    {% if success_message %}
+      <p style="color:green; text-align: center;"> {% autoescape off %} {{success_message}} {% endautoescape %} </p>
+    {% endif  %}
+      
+    <button class="btn-block" type="submit">Save changes</button>
+    
+    </form>
+
+</div>
+</div>
+</div>
+
+
+<div class="col-lg-6" id="cont_log">
+    <div>
+      <h3> Logged in </h3>
+      <button class="btn-block" > <a href="{% url 'account:logout' %}" >Logout</a></button>
+    </div>
+
+    
+    
+  </div>
+</div>
+</div>

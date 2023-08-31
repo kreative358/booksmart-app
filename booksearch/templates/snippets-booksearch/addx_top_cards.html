@@ -1,0 +1,71 @@
+{% include 'snippets-booksearch/css_booksearch.html' %}
+
+<script>
+  
+    window.onload = function() {
+    localStorage.clear();
+    }
+  
+  localStorage.clear();
+
+  document.body.onbeforeunload = function() {
+  let searches =  document.querySelectorAll("[id^='middle_message_'")
+  for (let search of searches) {
+    search.innerText = "";
+  }
+  }
+</script>
+
+<style type="text/css">
+
+.my_container_top_cards {
+position: relative;
+z-index: 1;
+margin: -18px 7.2vw 40px 7.2vw;
+}
+
+#mycard_addx_book_top_cards_middle {
+  padding-bottom:10px;
+}       
+  </style>
+
+  
+  <div class="my_container_top_cards" id="my_container_addx_book_top_cards">
+
+    <div class="my_card_top_cards" id="mycard_addx_book_top_cards_left">
+          <p><a href="{% url 'booksmart:allrecords' %}" target="_blank">
+            <p class="h3vw_l_b"  >Number of all books in <br> database:</p> 
+            <p class="h2vw_l_b" style="animation: anime_submit_t 6s infinite;"> {{ num_books }}</p></a>
+            <p>
+      </div>
+
+      <div class="my_card_top_cards" id="mycard_top_cards_middle_addx_book">
+          {% if message %}
+          <p id="middle_message_1" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"> {{ message }}: </p> 
+          {% autoescape off %}
+          <p id="middle_message_2" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"> "{{ parameters }}" </p>
+          {% endautoescape %}
+          {% endif %}
+          
+          {% if filtered_books %}
+          {% if num_books_result == 0 %}
+          <p id="middle_message_3" class="h4vw_l"> No books found for query: <span id="middle_message_3a" class="" style="animation: anime_submit_t 6s infinite;"><br> "{{parameters}}" </span></p>
+          {% elif num_books_result > 0 %} 
+          <p  class="h3vw_l_b" style="padding-bottom:10px; color: MediumBlue;"> FOR QUERY: 
+            {% autoescape off %}
+            <span id="middle_message_4" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"><br> "{{parameters}}" </span></p> {% endautoescape %}
+          
+            <p id="middle_message_5" class="h3vw_l" style="margin-bottom: -6px; margin-top: -18px"> number of found books <span id="middle_message_5a" class="h3vw_l_b" style="animation: anime_submit_t 6s infinite;"> {{ num_books_result }} </span> </p>
+            
+          {% endif %}  
+          {% endif %} 
+    </div>
+   
+    <div class="my_card_top_cards">
+        <p><a href="{% url 'booksmart:allauthors' %}" target="_blank">
+          <p class="h3vw_l_b"> Number of all authors in database: </p> 
+          <p class="h2vw_l_b" style="animation: anime_submit_t 6s infinite;"> {{ num_authors }}</p></a>
+          <p>
+      </div>
+
+  </div>

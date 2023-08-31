@@ -1,0 +1,273 @@
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+  <title>Read API Demo</title>
+
+  <!-- The 'readapi_automator.js' script requires jQuery -->
+  <script src="http://www.archive.org/includes/jquery-1.6.1.min.js"></script>
+
+  <!-- link outlines are ugly -->
+  <style type="text/css">
+    a {outline:none;}
+    a img {outline:none;}
+    img {border:0;}
+  </style>
+
+</head>
+<body>
+  <h2>Read API demo</h2>
+  <p>This is a simple demo of the Open Library
+  <a href="http://openlibrary.org/dev/docs/api/read">Read API</a>.  See the <a href="https://github.com/internetarchive/read_api_extras/blob/gh-pages/readapi_demo.html">page code</a> for how it works.
+
+It demonstrates how use a <a href="https://github.com/internetarchive/read_api_extras/blob/gh-pages/readapi_automator.js">helper script</a> to add links to readable Open Library books.</p>
+
+  <h2>Sample books</h2>
+  <p>Below is a table of books and library identifiers.  In the third
+  column are (empty) html &lt;div&gt; elements, like this:
+  <p><code>&lt;div class="ol_readapi_book"
+  isbn="0914845462"&gt;</code>
+  <table cellspacing="10" width="100%">
+    <tr>
+      <th align="left" width="40%">Title</th>
+      <th align="left" width="20%">Identifiers</th>
+      <th align="left" width="40%">Open Library Result</th>
+    </tr>
+    <tr>
+      <td>The Log of a Cowboy - Andy Adams, 1903</td>
+      <td>lccn:03012817 oclc:03544699</td>
+      <!-- Here's the div that the Read API helper replaces -->
+      <td><div class="ol_readapi_book"
+               lccn="03012817" oclc="03544699"></div></td>
+    </tr>
+    <tr>
+      <td>The Montessori Method - Maria Montessori, 1912</td>
+      <td>oclc:1181252</td>
+      <!-- And here... -->
+      <td><div class="ol_readapi_book" oclc="1181252"></div></td>
+    </tr>
+    <tr>
+      <td>Little Wars - H. G. Wells, 1913</td>
+      <td>olid:OL7142194M</td>
+      <!-- And so on -->
+      <td><div class="ol_readapi_book" olid="OL7142194M"></div></td>
+    </tr>
+    <tr>
+      <td>olid:OL32639025M</td>
+      <!-- And so on -->
+      <td><div class="ol_readapi_book" olid="OL32639025M"></div></td>
+    </tr>
+    <tr>
+      <td>This Side of Paradise - F. Scott Fitzgerald, 1920</td>
+      <td>lccn:20006430 oclc:2340134</td>
+      <td><div class="ol_readapi_book"
+               lccn="20006430" oclc="2340134"></div></td>
+    </tr>
+    <tr>
+      <td>For Victory in Peaceful Competition with Capitalism - Nikita Khrushchev, 1960</td>
+      <td>lccn:60006004</td>
+      <td><div class="ol_readapi_book"
+               lccn="60006004"></div></td>
+    </tr>
+    <tr>
+      <td>The Media Lab: Inventing the Future at M.I.T. - Stewart Brand, 1988</td>
+      <td>oclc:17618551</td>
+      <td><div class="ol_readapi_book" oclc="17618551"></div></td>
+    </tr>
+    <tr>
+      <td>Confessions of an Economic Hitman - John Perkins, 2004</td>
+      <td>isbn:9781576755129</td>
+      <td><div class="ol_readapi_book" isbn="9781576755129"></div></td>
+    </tr>
+    <tr>
+      <td>A Romance on Three Legs - Katie Hafner, 2009</td>
+      <td>olid:OL24218576M</td>
+      <td><div class="ol_readapi_book" olid="OL24218576M"></div></td>
+    </tr>
+    <tr>
+      <td><center><b>In Library</b> books below - available to <a href="http://openlibrary.org/libraries">partner libraries</a></center></td>
+    </tr>
+    <tr>
+      <td>The Great Gatsby - F. Scott Fitzgerald, 1925</td>
+      <td>lccn:58014791</td>
+      <td><div class="ol_readapi_book"
+               lccn="58014791"></div></td>
+    </tr>
+    <tr>
+      <td>James and the Giant Peach - Roald Dahl, 1961</td>
+      <td>isbn:0140328718 oclc:429574805</td>
+      <td><div class="ol_readapi_book"
+               isbn="0140328718" oclc="429574805"></div></td>
+    </tr>
+    <tr>
+      <td>Catch-22 - Joseph Heller, 1961</td>
+      <td>oclc:19602226</td>
+      <td><div class="ol_readapi_book" oclc="19602226"></div></td>
+    </tr>
+    <tr>
+      <td>Of Mice and Men - John Steinbeck, 1967 ed.</td>
+      <td>oclc:17523982</td>
+      <td><div class="ol_readapi_book" oclc="17523982"></div></td>
+    </tr>
+    <tr>
+      <td>Fahrenheit 451 - Ray Bradbury, 1953</td>
+      <td>lccn:53011280</td>
+      <td><div class="ol_readapi_book" lccn="53011280"></div></td>
+    </tr>
+    <tr>
+      <td>Anecdotes of Destiny - Isak Dinesen, 1974 ed. (In Library only)</td>
+      <td>isbn:0394711777</td>
+      <td><div class="ol_readapi_book" isbn="0394711777"></div></td>
+    </tr>
+    <tr>
+      <td>Lolita - Valdimir Nabokov, 1989 ed.</td>
+      <td>lccn:88040511</td>
+      <td><div class="ol_readapi_book" lccn="88040511"></div></td>
+    </tr>
+    <tr>
+      <td>Into Thin Air - Jon Krakauer, 1997</td>
+      <td>isbn:0679457526</td>
+      <td><div class="ol_readapi_book" isbn="0679457526"></div></td>
+    </tr>
+    <tr>
+      <td>The Moor's Last Sigh - Salman Rushdie, 1997</td>
+      <td>isbn:0679744665</td>
+      <td><div class="ol_readapi_book" isbn="0679744665"></div></td>
+    </tr>
+  </table>
+
+  <h2>Calling the script</h2>
+  <p>When the helper script loads, it searches through the document
+  for any "ol_readapi_book" &lt;div&gt; books, collects identifiers
+  from them, and makes a call to the Read API to check Open Library
+  for readable links.  When this returns, it creates read links for
+  any books it has found.</p>
+
+  <script>
+    // Script config vars go here, if any
+  </script>
+  
+  <!-- And here's the call to the Read Api helper script.  That's it! -->
+  <script>
+    var ol_readapi_automator =
+    (function () { // open anonymous scope for tidiness
+    
+    // 'constants'
+    var readapi_bibids = ['isbn', 'lccn', 'oclc', 'olid', 'iaid', 'bibkeys'];
+    var magic_classname = 'ol_readapi_book';
+    
+    // added to book divs to correlate with API results
+    var magic_bookid = 'ol_bookid';
+    var ol_button_classname = 'ol_readapi_button';
+    
+    // Find all book divs and concatenate ids from them to create a read
+    // API query url
+    function create_query() {
+        var q = 'http://openlibrary.org/api/volumes/brief/json/';
+    
+        function add_el(i, el) {
+            // tag with number found so it's easy to discover later
+            // (necessary?  just go by index?)
+            // (choose better name?)
+            $(el).attr(magic_bookid, i);
+    
+            if (i > 0) {
+                q += '|';
+            }
+            q += 'id:' + i;
+    
+            for (bi in readapi_bibids) {
+                bibid = readapi_bibids[bi];
+                if ($(el).attr(bibid)) {
+                    q += ';' + bibid + ':' + $(el).attr(bibid);
+                }
+            }
+        }
+    
+        $('.' + magic_classname).each(add_el);
+        return q;
+    }
+    
+    function make_read_button(bookdata) {
+        buttons = {
+            'full access':
+            "http://openlibrary.org/images/button-read-open-library.png",
+            'lendable':
+            "http://openlibrary.org/images/button-borrow-open-library.png",
+            'checked out':
+            "http://openlibrary.org/images/button-checked-out-open-library.png"
+        };
+        if (bookdata.items.length == 0) {
+            return false;
+        }
+        first = bookdata.items[0];
+        if (!(first.status in buttons)) {
+            return false;
+        }
+        result = '<a href="' + first.itemURL + '">' +
+          '<img class="' + ol_button_classname +
+          '" src="' + buttons[first.status] + '"/></a>';
+        return result;
+    }
+    
+    // Default function for decorating document elements with read API data
+    function default_decorate_el_fn(el, bookdata) {
+        // Note that 'bookdata' may be undefined, if the Read API call
+        // didn't return results for this book
+        if (!bookdata) {
+            decoration = 'Not found';
+        } else {
+            decoration = make_read_button(bookdata);
+        }
+        if (decoration) {
+            el.innerHTML += decoration;
+        }
+    }
+    
+    function do_query(q, decorate_el_fn) {
+        if (!decorate_el_fn) {
+            decorate_el_fn = default_decorate_el_fn;
+        }
+        var starttime = (new Date()).getTime();
+    
+        // Call a function on each <div class="ol_readapi_book"> element
+        // with the target element and the data found for that element.
+        // Use decorate_el_fn if supplied, falling back to
+        // default_decorate_el_fn, above.
+        function query_callback(data, textStatus, jqXHR) {
+            var endtime = (new Date()).getTime();
+            var duration = (endtime - starttime) / 1000;
+            // console.log('took ' + duration + ' seconds');
+    
+            $('.' + magic_classname).each(function(i, el) {
+                    var bookid = $(el).attr(magic_bookid);
+                    if (bookid && bookid in data) {
+                        decorate_el_fn(el, data[bookid]);
+                    } else {
+                        decorate_el_fn(el);
+                    }
+                });
+        }
+    
+        // console.log('calling ' + q);
+        $.ajax({ url: q,
+                    data: { 'show_all_items': 'true' },
+                    dataType: 'jsonp',
+                    success: query_callback
+                    });
+    }
+    
+    // Do stuff
+    var q = create_query();
+    do_query(q);
+    
+    result = {
+        do_query: do_query,
+        create_query: create_query,
+        make_read_button: make_read_button
+    };
+    
+    return result;
+})(); // close anonymous scope
+  </script>
+
+</body>
+</html>

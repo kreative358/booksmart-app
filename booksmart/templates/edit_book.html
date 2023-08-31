@@ -1,0 +1,107 @@
+{% extends 'base_ds.html' %}
+
+{% load bootstrap4 %}
+{% block title %} edit-book {% endblock %}
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %} 
+
+{% include 'snippets/jumbotron.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+<div class="mycontainer" id="cont_edit_book">
+<div class="myrow"  id="row_edit_book">
+  <div class="mycolumn " id="col_edit_book">
+
+    <div class="header_card" id="header_edit_book">
+      <p class="header_text" id="header_text_book"> BOOK CARD - "{{ book.user_num_b }} - {{ book_published }}" </p>
+      </div>
+
+      <div class="body_card"  id="body_edit_book" >      
+    <form method="post" enctype="multipart/form-data" id="edit_book" >
+  {% csrf_token %}
+
+  {% bootstrap_form form_editbook %}
+</form>
+</div>
+
+<div class="footer_card" id="footer_edit_book" >
+  <a href="{% url 'booksmart:allrecords' %}">
+  <button type="button" id="button_back_editbook" class="btn btn-outline-primary text-danger float-left" > Back </button></a>
+
+  {% if request.user.id == book.user_num_b %}
+  <button form=edit_book type="submit" id="button_save_editbook" class="btn btn-outline-danger text-primary float-right" > Save </button>
+  
+  {% elif request.user.id != book.user_num_b %}
+  <button type="button" id="button_save_not_editbook" class="btn btn-outline-danger text-primary float-right" data-toggle="modal" data-target="#modal_edit_not_book"> Save </button>
+  {% endif %}
+</div>
+  
+</div>
+</div>
+</div>
+
+<div class="modal" id="modal_edit_not_book" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title" id="a_submit_m">WORRNING</h4>
+        <button type="button" class="close" data-dismiss="modal">✖</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        <br>
+        <h6 id="p_r_b">If you did not enter this record <br> You can not changed this record<br><br>
+        <br><br>
+        And you will be LOGGED OUT</h6><br>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+<script>
+  //  const btn_closedate_1 = document.getElementById("btn_close_date_1");
+  //  btn_closedate_1.onclick = function() {
+    // container.classList.toggle("mycontainer");
+   //   //  btn_opendate_1.innerText = "OPEN";
+  //      cont_date_1.style.animation = "heightdown 2s 1";
+   //     setTimeout(function(){ cont_date_1.style.display = "none"; }, 1900);
+  //  }
+    
+    </script>   
+    {% endblock content_4 %}
+
+
+    {% block content_5 %}
+      
+    {% endblock content_5 %}
+    
+    </div>
+          {% endblock page %}

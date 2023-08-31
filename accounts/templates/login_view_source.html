@@ -1,0 +1,190 @@
+{% extends 'base_b.html' %}
+{% load bootstrap4 %}
+{% load rest_framework %}
+{% block title %} login-view  {% endblock%}
+
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+{% include 'snippets-accounts/header.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %}
+
+<style type="text/css">
+
+#main_cont_account_login {
+	position: relative;
+	z-index :1;
+	background-color: rgb(240, 240, 240);
+	background-color: rgba(240, 240, 240, 0.2);
+	text-align: center;
+	justify-content: center;
+	align-items: center;  
+	border-radius:4px;
+	box-shadow: 0px 0px 6px 6px rgba(180, 180, 180, 0.4);
+	width:560px;
+	padding:10px;
+	margin:40px auto 20px auto;
+	}
+
+#row_account_login {
+	/* margin: 10px 20px 10px 20px;
+	padding: 10px 20px 10px 20px; */
+	margin: 0px;
+	padding: 0px; 
+    background-color: rgb(100, 160, 220);
+    background-color: rgba(100, 160, 220, 0.6); 
+	}
+
+#col_account_login {
+	width:540px;
+	margin: 10px;
+	padding: 10px;
+	}
+	
+#bs_input_account_login {
+	background-color: rgb(240, 240, 240); 
+	background-color: rgba(240, 240, 240, 0.2); 
+	border-radius: 3px;
+	border: 3px solid rgba(240, 240, 240, 0.6);
+	box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Helvetica;
+	color: blue;
+	text-align: justify;
+	text-justify: inter-word;
+	padding:5px 20px -5px 20px;
+	margin:10px;
+	}	
+
+.bs_input_account_login_ {
+	background-color: rgb(240, 240, 240); 
+	background-color: rgba(240, 240, 240, 0.2); 
+	border-radius: 3px;
+	border: 3px solid rgba(240, 240, 240, 0.6);
+	box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Helvetica;
+	color: blue;
+	text-align: justify;
+	text-justify: inter-word;
+	padding:5px 20px -5px 20px;
+	margin:10px;
+	}	
+
+#bs_input_account_login_m {
+	background-color: rgb(240, 240, 240); 
+	background-color: rgba(240, 240, 240, 0.4); 
+	border-radius: 3px;
+	border: 3px solid rgba(240, 240, 240, 0.6);
+	box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6);  
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Helvetica;
+	color: red;
+	padding:auto;
+	margin:10px;
+	text-align: left;
+}		
+
+#bs_input_account_login_r {
+	width:160px;
+	margin:10px auto -14px auto;
+}
+
+.h3 {
+	text-align: center;
+	}
+
+</style>  
+
+<div class="container-fluid" id="main_cont_account_login">
+  <div class="row border rounded" id="row_account_login">
+	<div class="column border rounded" id="col_account_login">
+
+	<form  action="" method="post" class="was-validated" novalidate>
+	{% csrf_token %}
+	<h4 style="font-size: 32px; margin: auto auto 10px auto;"> LOGIN </h4>
+
+	<div class="bs_input_account_login">	{% render_field serializer.username style=style  %} </div>
+	<div class="bs_input_account_login">{% render_field serializer.password style=style  %}  </div>
+
+	<div id="bs_input_account_login" > 
+		<div id="bs_input_account_login_r">
+		 {% render_field serializer.remember_me style=style %}
+		</div>
+		</div>
+<br>
+
+<div>
+	{% if errors %}
+	<div id="bs_input_account_login_m" class="alert alert-dismissible fade show">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+	{% for error in errors %}
+	
+	<h5 id='p_r_b'  class="p_remove">
+		{% autoescape off %} {{ error }} {% endautoescape %}</h5>
+  
+	{% endfor %}
+	<h4> You try login with:
+		<br> username: {{ username }},
+		<br> password: {{ password }},</h4>
+	</div>
+	{% endif %}
+	
+	{% if msgs_info %}
+	<div id="bs_input_account_login_m" class="alert alert-dismissible fade show">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+	{% for msg_info in msgs_info %}
+	
+	<h5 id='p_r_b' class="p_remove">
+		{% autoescape off %} {{ msg_info }} {% endautoescape %}</h5>
+  
+	{% endfor %}
+	</div>
+	{% endif %}
+</div>
+
+<a href="{% url 'index' %}">
+<button type="button" id="btn_back" class="btn btn-outline-danger text-primary float-left" style="width:110px; margin: 10px auto 10px 40px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 18px; font-weight: bold;font-family: Helvetica; padding:auto;" >BACK</button>   </a>
+
+<button type="submit" id="btn_login" class="btn btn-outline-primary text-danger float-right" style="width:110px; margin: 10px 40px 10px auto; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 18px; font-weight: bold;font-family: Helvetica; padding:auto;"> LOGIN </button>
+  
+		  </form>
+		</div>
+	  </div><!-- /.row-fluid -->
+	</div>
+
+	{% endblock content_3 %}
+
+
+	{% block content_4 %}
+
+{% if messages %}
+{% include 'snippets-accounts/modal_messages_accounts.html' %}
+{% endif %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

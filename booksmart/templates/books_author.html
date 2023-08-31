@@ -1,0 +1,110 @@
+{% extends 'base_d.html' %}
+{% load bootstrap4 %}
+{% load booksmart_extras %}
+{% block title %} author's books {% endblock%}
+
+{% block page %}
+{% include 'snippets-booksmart/css_booksmart.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+{% block content_1 %} 
+
+{% include 'snippets/jumbotron.html' %}
+{% include 'snippets/marquee.html' %}
+
+{% include 'snippets-booksmart/top_cards_records.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+{% include 'snippets-booksmart/sort_book.html' %}
+{% include 'snippets-booksmart/filter_books_q.html' %}
+{% include 'snippets-booksmart/search_panel.html' %}
+
+
+{% if author_result %}
+{% if author_result|length == 0 %}
+{% include 'snippets-booksmart/authors_bar_no.html' %}
+
+{% elif author_result|length > 0 %}
+{% include 'snippets-booksmart/authors_bar.html' %}
+{% for author_c in author_result %}
+
+{% include 'snippets-booksmart/author.html' %}
+
+{% endfor %}
+    {% endif %}
+    {% endif %}
+
+
+    {% endblock content_3 %}
+
+
+    {% block content_4 %}
+
+       {% if book_page_obj %}
+       
+  
+       {% include 'snippets-booksmart/books_bar.html' %}
+
+       {% for book in book_page_obj %}
+       {% include 'snippets-booksmart/book.html' %}
+
+       {% endfor %}
+
+{% endif %}
+<style type="text/css">
+
+#cont_pag {
+  float:right;
+  margin-right:8vw;
+  border: 2px;
+  margin-top: 10px;
+}
+
+</style>
+<div class="container col-lg-8" id="cont_pag">
+      
+  <div class="row">
+    <div class="column"  >
+      <div class="pagination justify-content-end">
+
+<span class="step-links"><h3>
+{% if book_page_obj.has_previous %}
+    <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+    <a href="{% my_url book_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+    
+{% endif %}
+
+<span class="current">
+    Page {{ book_page_obj.number }} of {{ book_page_obj.paginator.num_pages }}.
+</span>
+
+{% if book_page_obj.has_next %}
+    <a href="{% my_url book_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+    <a href="{% my_url book_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+{% endif %}</h3>
+</span>      
+</div>       
+</div>
+</div>
+</div>
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

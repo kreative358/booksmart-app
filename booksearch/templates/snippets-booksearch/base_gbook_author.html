@@ -1,0 +1,365 @@
+<style type="text/css">
+
+#row_author_gb {
+  background: rgba(210, 217, 220, 0.2);
+  border: 2px solid rgba(180, 217, 240, 0.1);
+  border-radius:4px;
+  position:relative;
+  z-index:1;
+  width:90%;
+  margin: 10px auto auto auto;
+  /*padding: -2px -2px -1px -1px;*/
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  transition-duration: 0.2s;
+  text-shadow: 
+  -0.015em 0.015em 0.0em rgb(211, 211, 211),
+  -0.03em 0.03em 0.015em rgb(211, 211, 211), 
+  0.04em 0.0em 0.02em rgb(128, 128, 128),
+  0.02em 0.02em 0.01em rgb(128, 128, 128);
+  box-shadow:
+  1px 2px 6px 10px rgba(119, 130, 143, 0.6); 
+
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  }
+
+#row_author_gb:hover {
+  background: rgba(180, 217, 240, 0.4);
+  border: 2px solid rgba(220, 230, 240, 0.2);
+  box-shadow:
+  1px 2px 6px 10px rgba(229, 230, 243, 0.6);
+  scale:1.01;
+}
+
+.glass_book_gb {
+  background-color: rgba(100, 160, 220, 0.1);
+  width: 100%;
+  height: 100%;
+  }
+
+.mycolumn_author_gb {
+  float: left;
+  width: 50%;
+  }
+
+#col_img_author_gb {
+  background-color: rgb(100, 160, 240); 
+  background-color: rgba(100, 160, 240, 0.6); 
+  border-radius: 2px;
+  border: 2px solid rgba(240, 240, 240, 0.4);
+  outline: 2px solid rgba(240, 240, 240, 0.4);
+  box-shadow: 
+  -1px -1px 1px 0px rgba(151, 191, 231, 0.2), 
+  1px 2px 2px 0px rgba(151, 191, 231, 0.4),
+  -2px 3px 2px 0px rgba(151, 191, 231, 0.4), 
+  2px 4px 2px 0px rgba(151, 191, 231, 0.4),
+  
+  0px 5px 3px 0px rgba(90, 150, 210, 0.4),
+  0px 6px 4px 0px rgba(90, 150, 210, 0.4), 
+  1px 7px 4px 0px rgba(80, 140, 200, 0.6),
+  -1px 8px 5px 0px rgba(80, 140, 200, 0.6);
+  padding:10px;
+  }
+
+#cont_img_author {
+  position:relative;
+  width: 168px;
+  height: 100%;
+  margin: auto 10px auto auto;
+  float:left;
+  display: flex;
+  align-items:center;
+  }
+
+#img_author_gb {
+  float:left;
+  width: 164px;
+  height: 230px;
+  object-fit: cover;
+  margin: auto 10px auto 6px; 
+  }
+
+#col_author_gb {
+  background-color: rgb(220, 220, 220); 
+  background-color: rgba(220, 220, 220, 0.4); 
+  border-radius: 2px;
+  border: 2px solid rgba(240, 240, 240, 0.4);
+  outline: 2px solid rgba(240, 240, 240, 0.4);
+  box-shadow: 
+  -1px -1px 1px 0px rgba(219, 220, 222, 0.2), 
+  1px 2px 2px 0px rgba(219, 220, 222, 0.4),
+  -2px 3px 2px 0px rgba(219, 220, 222, 0.4), 
+  2px 4px 2px 0px rgba(209, 210, 212, 0.4),
+  
+  0px 5px 3px 0px rgba(199, 200, 202, 0.4),
+  0px 6px 4px 0px rgba(199, 200, 202, 0.4), 
+  1px 7px 4px 0px rgba(177, 179, 182, 0.6),
+  -1px 8px 5px 0px rgba(177, 179, 182, 0.6);
+  padding: 10px;
+  }
+
+  #col_author_gb:hover {
+    background-color: rgba(220, 220, 220, 0.6);  
+  }
+  
+.myrow_author_gb:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
+
+#textarea_gb_a {
+  padding: 2px 4px 2px 4px;
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.2); 
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.3);  
+  font-size: 16px;
+  text-align: justify;
+  text-justify: inter-word;
+  max-width: auto;
+  width: auto;
+  min-height: 92px;
+  max-height: 92px;
+  overflow: auto;
+  resize: none;
+  margin: 6px 10px 12px 10px;
+  color: darkblue;
+  }
+  
+#bs_input {
+background-color: rgb(240, 240, 240); /* Fallback color */
+background-color: rgba(240, 240, 240, 0.6); /* Black w/opacity/see-through */
+border-radius: 3px;
+border: 3px solid rgba(240, 240, 240, 0.6);
+box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+padding: 10px;
+font-size: 16x;
+font-family: Times;
+}
+
+#a_submit_t {
+animation-name: anime_submit_t;
+animation-duration: 6s;
+animation-iteration-count: infinite;
+}
+  
+@keyframes anime_submit_t {
+50% {
+color: red;}
+  }
+
+@keyframes anime_red_text {
+    25% {
+    color: red;}
+      }
+
+#h6l {
+  font-size: 18px;
+  line-height: 0.8;
+  margin-left: 170px;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  text-shadow: 0px 0px 2px AliceBlue;
+  }
+
+.h6l {
+  font-size: 18px;
+  line-height: 1.4;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  text-shadow: 0px 0px 2px AliceBlue;}
+
+#h6x {
+  font-size: 18px;
+  line-height: 0.8;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  text-shadow: 0px 0px 2px AliceBlue;}
+
+#h6lb {
+  font-size: 18px;
+  line-height: 0.8;
+  margin-left: 190px;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  text-shadow: 0px 0px 2px AliceBlue;
+  }
+
+.h6lb {
+  font-size: 16px;
+  line-height: 0.2;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  text-shadow: 0px 0px 2px AliceBlue;}
+
+#h4l {
+  font-size: 24px;
+  line-height: 0.8;  
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  text-shadow: 0px 0px 2px AliceBlue;
+  }
+  
+  .h4l {
+  font-size: 26px;
+  line-height: 0.2;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  text-shadow: 0px 0px 2px AliceBlue;}
+
+#h3l {
+  font-size: 26px;
+  line-height: 0.8;  
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  text-shadow: 0px 0px 2px AliceBlue;
+  font-weight: bold;
+  }
+  
+.h3l {
+  font-size: 24px;
+  line-height: 0.2;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  text-shadow: 0px 0px 2px AliceBlue;
+  font-weight: bold}
+
+.h3vw_l {color: RoyalBlue;  font-family: Times; font-weight: bold;  font-size: 1.6vw; text-shadow: 1px 1px 4px AliceBlue; line-height: 0.8vw;  }
+#h3vw_l {color: RoyalBlue;  font-family: Times; font-weight: bold;  font-size: 1.6vw; text-shadow: 1px 1px 4px AliceBlue; line-height: 0.8vw;  }
+
+#h5l {
+  font-size: 20px;
+  line-height: 0.8;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+text-shadow: 0px 0px 2px AliceBlue;
+  }
+  .h5l {
+  font-size: 20px;
+  line-height: 0.2;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+text-shadow: 0px 0px 2px AliceBlue;}
+  
+  /*textarea {
+    resize: none; 
+    rows: 4;
+    
+  }*/
+
+  #button_m { 
+    border: 4px solid; 
+    background-color: rgb(100, 160, 220);
+    background-color: rgba(100, 160, 220, 0.6);
+    margin-top: 10px;
+    font-size: 16px; 
+    font-weight: bold;
+    font-family: Helvetica;
+    box-shadow: 0px  0px 2px 2px rgba(2, 117, 216, 0.9);
+    padding: 4px;
+   }
+  
+  button:focus {
+    border:none;
+    outline:none;
+   }
+ 
+@media screen and (max-width: 1280px) {
+  .mycrow_author_gb {
+    width: 90%;
+  }
+  .mycolumn_author_gb {
+    width: 100%;
+  }
+  }
+
+@media screen and (max-width: 640px) {
+  .myrow_author_gb {
+    width: 94%;
+  }
+  .mycolumn_author_gb {
+    width: 100%;
+    min-width: 620px;
+  }
+  }
+
+
+#bs_label {
+  margin-top: -14px;
+  margin-bottom: -16px;
+}
+
+#bs_label_d {
+  margin-top: -10px;
+  margin-bottom: 0px;
+}
+
+#bs_label_t {
+  margin-top: -4px;
+  margin-bottom: 0px;
+}
+
+</style>
+         
+<div class="myrow_author_gb" id="row_author_gb">
+
+  <div class="mycolumn_author_gb" id="col_img_author_gb">
+    <div class="glass_book_gb">
+    <div>
+
+    <button type="button" id="btn_wiki_author{{book_dict.author_c.wiki_idx}}" class="btn btn-outline-primary btn-lg text-primary float-right"  style="border: 4px solid; margin:24px 5px 0px 0px; font-size: 22px; font-weight: bold; padding:2px 0px 2px 0px; width:146px; min-width:146px;">edit &nbsp;&&nbsp; save</button>
+      
+  <!-- The Modal -->
+ 
+<div id="cont_img_author">   
+{% if book_dict.author_c.author_wiki_img == "no img" %}
+<img src="{{ url_img_author }}" id="img_author_gb" class="img-fluid rounded" >
+{% else %}
+  <img src="{{ book_dict.author_c.author_wiki_img }}" id="img_author_gb" class="img-fluid rounded" >
+  {% endif %}
+</div>
+         
+<div><br>
+    <p id="h6l_a" style="padding-top:10px"> First name: <span  id="p_m_b"> {{book_dict.author_c.first_name }} </span> </p>
+    {% if book_dict.author_c.middle_name %}
+    <p id="h6l_a"> other names: <span  id="p_m_b"> {{ book_dict.author_c.middle_name }} </span> </p>
+    {% endif %}
+   <p id="h6l_a"> Surname: <span  id="p_m_b"> {{ book_dict.author_c.last_name }} </span> </p> 
+   <p id="h6l_a">Date of birth: <span  id="p_i_b">  {{ book_dict.author_c.date_of_birth }} </span></p>
+
+   {% if book_dict.author_c.date_of_death == no_date %}
+   <p id="h6l_a"> Date of death: <span  id="p_i_b"> - </span> </p>
+   {% else %}
+   <p id="h6l_a"> Date of death: <span  id="p_i_b"> {{ book_dict.author_c.date_of_death }} </span> </p>
+   {% endif %}
+   
+   <p id="h6l_a"> wikidata id: <span  id="p_sg_b"> {{ book_dict.author_c.wiki_idx }} </span> </p>
+   <p id="h6l_a" class="pb-2">special <span  id="p_sb-b"> <a href="https://en.wikipedia.org/wiki/{{book_dict.author_c.full_name}}" target="_blank" > link: </a></span> </p>
+     
+  </div>       
+</div>
+</div>
+</div>
+
+<div class="mycolumn_author_gb" id="col_author_gb">
+  <div class="glass_book_gb">
+        <p id="h4_l1" style="margin: 10px auto 10px 10px;"> about author: <a href="https://{{book_dict.language}}.wikipedia.org/wiki/{{book_dict.author}}" target="_blank" ><span  id="p_m_b"> {{book_dict.author}}</span></a></p>
+          <p class="h5_l02b"  style="margin: 10px auto 10px 10px;"> short info: 
+        <span class="h6_l1" id="p_i"> {{ book_dict.author_c.author_wiki_link_d }} </span></p>
+    
+        <p class="h6_l04b" style="margin: 12px auto 10px 10px;">details about author: </p>
+        <div id="textarea_gb_a" style="margin: 10px 10px 10px 10px;">{{ book_dict.author_c.author_wiki_link }} </div>
+        
+      <p class="p_mb_b16" style="margin: 10px auto 6px 10px; font-size: 18px; animation: anime_submit_t 1s infinite;"><span class="author_avaliable" id="author_avaliable{{ book_dict.author_c.wiki_idx }}"> This author is:  {{ book_dict.author_c.avaliable }}  in the inventory </span></p>
+    
+  </div>
+</div>
+</div>
+<br>
+{% include 'snippets-booksearch/modal_edit_wikiauthor.html' %}

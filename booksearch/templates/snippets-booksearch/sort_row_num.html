@@ -1,0 +1,522 @@
+<style>
+  
+  #selectback_num  {
+  display: none; 
+  position: fixed; 
+  z-index: 35;
+  overflow: auto; 
+  background-color: rgb(20,60,240); 
+  opacity:0.1;
+  background-color: rgba(20,60,240,0.6); 
+  height: 100%;
+  width: 100%;
+  margin:0%;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  border: 2px solid orange;
+  }
+  
+  /* #containter_sort_num {
+  z-index:34; 
+  position:relative; 
+  margin:5px; 
+  width:260px;
+  } */
+  
+
+  
+.span_tringle_left {
+  float: left;
+  padding-left: 6px;
+  transform: rotate(0deg);
+  transition: all 0.6s;
+  left: 4px;
+  top: 3px;
+  }
+  
+.span_tringle_right {
+  float: right;
+  padding-right: 6px;
+  transform: rotate(0deg);
+  transition: 0.6s;
+  right: 4px;
+  top: 3px;
+  }
+  
+.span_tringle_left,
+.span_tringle_right {
+  color: rgba(0, 102, 255, 0.2);
+  text-shadow: 
+  -1px 0 rgba(0, 102, 255, 0.8),
+  1px 1px rgba(255, 255, 255, 0.9),
+  -1px -1px rgba(255, 255, 255, 0.9),
+  -1px 1px rgba(255, 255, 255, 0.9),
+  2px 1px 1px rgba(0, 102, 255, 0.9),
+  0px -1px 1px rgba(0, 102, 255, 0.9);
+  z-index: 38;
+  position: absolute;
+  }
+  
+  .span_tringle_rotate {
+  transform: rotate(180deg);
+  }
+  
+  
+  #myrow_select_pass_num {
+  box-shadow: 0px 0px 4px 4px rgba(0, 102, 255, 0.4);
+  background-color: rgba(230, 230, 240, 0.4);
+  outline: none;
+  z-index: 35;
+  position: relative;
+  border-radius: 4px;
+  padding-top: 6px;
+  color: blue;
+  width: 256px;
+  font-size: 16px;
+  transition: 0.4s;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 4px;
+  max-height: 30px;
+  height: 30px;
+  min-height: 30px;
+  }
+  
+  #modal_body_advance_gb #input_pass_select_num {
+  background-color: rgba(240, 230, 220, 0.0);
+  position: absolute;
+  left: 0px;
+  border: none;
+ outline: none;
+ text-align: center;
+ color: blue;
+ font-weight: bold;
+ font-size: 16px;
+ margin-top: -8px;
+  }
+  
+  #myrow_select_list_num {
+    display:none;
+    outline:none;
+    background-color: rgba(240, 230, 220, 0.0);
+    z-index: 36;
+    position: fixed;
+    margin-left: 5%;
+    margin-bottom: 0px;
+    width: 240px;
+    margin-left: 354px;
+    /*border-radius:10px;
+    box-shadow: 0px -2px 2px 0px rgba(60, 160, 240, 0.4) inset;
+    border-bottom: 4px solid rgba(60, 160, 240, 0.4);*/
+    box-shadow: 0px 0px 4px 6px rgba(0, 102, 255, 0.0);
+    padding: auto;
+    animation: noname;
+    }
+
+  #myrow_select_list_num:hover {
+  background-color: rgba(230, 230, 240, 0.0);
+  }
+  
+  #myrow_select_list_num:active {
+  box-shadow: 0px 0px 2px 4px rgba(0, 102, 255, 0.0);
+  background-color: rgba(230, 230, 240, 0.0);
+  }
+
+ 
+#modal_body_advance_gb #select_num, 
+#modal_body_advance_gb #num {
+  overflow: hidden;
+  background-color: rgba(240, 230, 220, 0.0);
+  color: blue;
+  border-radius: 4px;
+  z-index: 38;
+ display: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  margin-top: 4px;
+/*  position: fixed; 
+  margin-left: 304px; */
+  min-width: 240px;
+  max-width: 240px;
+  width: 240px;
+  animation: noname;
+  position: absolute;
+  margin-left: 314px;
+
+  }
+
+#modal_body_advance_gb #select_num:active,
+#modal_body_advance_gb #num:active {
+  border: none;
+  outline: none;
+  }
+
+#modal_body_advance_gb #select_num:focus,
+#modal_body_advance_gb #num:focus {
+  box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.0);
+  border: none;
+  outline: none;
+  }
+  /*.custom-select {
+  box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6); 
+  border-radius: 4px;
+  border:none;
+  outline:none;⇓⇑⇧⇩√▲▼➤➪
+  }*/
+  
+#modal_body_advance_gb #select_num option,
+/* #modal_body_advance_gb #select_num option:hover,
+#modal_body_advance_gb #select_num option:active, */
+#modal_body_advance_gb #num option {
+  text-align: center;
+  border-radius: 2px;
+  display: block;
+  z-index: 37;
+  color: blue;
+  border: none;
+  outline: none;
+  background-color: rgba(230, 230, 240, 0.8);
+  box-shadow: 
+  0px 0px 0px 2px rgba(100, 160, 220, 0.6) inset, 
+  0px 0px 2px 2px rgba(100, 160, 220, 0.6); 
+  line-height: 24px;
+  font-size:16px;
+  min-height: 26px;
+  max-height: 26px;
+  height:26px;
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  cursor:pointer;
+  margin-top:4px;
+margin-left: 10px;
+  margin-bottom:4px;
+  transition: 0.2s;
+  line-height: 24px;
+  }
+  
+/* #modal_body_advance_gb #select_num option:active,
+#modal_body_advance_gb #select_num option:checked {
+background-color: rgba(0, 0, 210, 0.8) !important;
+box-shadow: 
+0px 0px 2px 2px rgba(100, 160, 220, 0.8),
+0px 0px 2px 2px rgba(230, 230, 240, 0.8) inset;
+font-weight: bold;
+border: none;
+outline: none;
+box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.6); 
+min-height: 26px;
+max-height: 26px;
+height:26px;
+line-height: 24px;
+font-size: 16px;
+transition: 0.2s;
+} */
+#modal_body_advance_gb #select_num option[selected] {
+  -webkit-text-fill-color: aliceblue;
+  background-color: blue;
+  color: aliceblue;
+      box-shadow: 
+    0px 0px 0px 14px rgba(200, 200, 240, 0.8) inset,
+    0px 0px 0px 1px rgba(0, 0, 210, 0.8) inset,
+    0px 0px 0px 1px rgba(0, 0, 210, 0.8);
+  }
+  
+  #modal_body_advance_gb #select_num option:checked {
+    background-color: aliceblue;
+    color: rgba(200, 30, 30, 0.9);
+    box-shadow: 
+    0px 0px 0px 14px rgba(200, 200, 240, 0.8) inset,
+    0px 0px 0px 1px rgba(0, 0, 210, 0.8) inset,
+    0px 0px 0px 1px rgba(0, 0, 210, 0.8);
+  }
+
+#modal_body_advance_gb #select_num option:checked:hover,
+#modal_body_advance_gb #select_num option[selected]:hover,
+#modal_body_advance_gb #select_num option:hover,
+#modal_body_advance_gb #num option:hover {
+-webkit-text-fill-color: aliceblue;
+background: rgba(20, 60, 240, 0.8);
+color: aliceblue;
+transform: matrix(1.02, 0, 0, 1.02, 0, -1);
+background: rgba(0, 0, 210, 0.8);
+background-color: rgba(0, 0, 210, 0.8);
+box-shadow:
+0px 0px 0px 1px rgba(200, 30, 30, 0.8) inset,
+0px 0px 0px 1px rgba(200, 30, 30, 0.8);
+}
+
+#modal_body_advance_gb #select_num option:checked:hover,
+#modal_body_advance_gb #select_num option[selected]:hover {
+  background-color: aliceblue;
+  color: rgba(200, 30, 30, 0.9);
+  box-shadow: 
+  0px 0px 0px 14px rgba(200, 200, 240, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8);
+}
+
+#modal_body_advance_gb #select_num option:active {
+  transform: matrix(0.98, 0, 0, 0.98, 0, 1);
+  background-color: aliceblue;
+  color: rgba(200, 30, 30, 0.9);
+  box-shadow:
+  0px 0px 0px 1px rgba(200, 30, 30, 0.8) inset,
+  0px 0px 0px 1px rgba(200, 30, 30, 0.8);
+  transition: 0.2s;
+}
+
+  select, .form-group, .form-control {
+  border:none;
+  outline:none;
+  }
+  
+  select:focus, .form-group:focus, .form-control:focus {
+  border:none;
+  outline:none;
+  }
+  
+  .form-group {
+   /* width: 300px; 
+    height: 200px; 
+    outline:2px solid grey;*/
+  }
+  
+  #modal_body_advance_gb select,
+  #modal_body_advance_gb option,
+  #modal_body_advance_gb select:focus,
+  #modal_body_advance_gb select option,
+  #modal_body_advance_gb select option:hover,
+  #modal_body_advance_gb select option:checked,
+  #modal_body_advance_gb select option:active {
+    border:none;
+    outline:none;
+  }
+  
+  #myrow_select_list_num select::-webkit-scrollbar {
+    display: none;
+    /* width: 16px;*/
+   }  
+   
+      @keyframes roll_open {
+      from {height:0px;}
+      to {height: 200px;}
+    }
+    
+    @keyframes roll_close {
+      from {height: 200px;}
+      to {height: 0px;}
+    }
+    
+    @keyframes opacity_up {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    
+    @keyframes opacity_down {
+      from {opacity: 1;}
+      to {opacity: 0;}
+    }
+    
+    @keyframes slideJumptOpen {
+	0% {
+		transform: translateY(0%);
+	}
+	50%{
+		transform: translateY(8%);
+	}
+	65%{
+		transform: translateY(-4%);
+	}
+	80%{
+		transform: translateY(4%);
+	}
+	95%{
+		transform: translateY(-2%);
+	}			
+	100% {
+		transform: translateY(0%);
+	}		
+}
+
+@-webkit-keyframes slideJumptOpen {
+	0% {
+		-webkit-transform: translateY(0%);
+	}
+	50%{
+		-webkit-transform: translateY(8%);
+	}
+	65%{
+		-webkit-transform: translateY(-4%);
+	}
+	80%{
+		-webkit-transform: translateY(4%);
+	}
+	95%{
+		-webkit-transform: translateY(-2%);
+	}			
+	100% {
+		-webkit-transform: translateY(0%);
+	}	
+}
+
+@keyframes slideJumptClose {
+	0% {opacity: 1;
+    height: 100%;
+		transform: translateY(20%);
+	}
+	50%{
+		transform: translateY(8%);
+	}
+	65%{
+		transform: translateY(-4%);
+	}
+	80%{
+		transform: translateY(4%);
+	}
+	95%{
+		transform: translateY(-2%);
+	}			
+	100% {opacity: 0;
+    height: 0%;
+		transform: translateY(20%);
+	}		
+}
+
+#mycont_select_num {
+  width: 80%;
+  padding-left: 0px;
+  position: relative;
+  z-index: 34;
+  margin:10px 10px auto 50px;
+}
+
+#modal_body_advance_gb #input_pass_select_num {
+  box-shadow: 0px 0px 0px 0px white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#modal_body_advance_gb #input_pass_select_num:hover {
+  background-color: rgba(60, 160, 240, 0.8);
+  color: darkblue;
+  font-weight: bold;
+  box-shadow: 0px 0px 0px 2px rgba(200, 200, 240, 0.6),
+  0px 0px 0px 2px rgba(200, 200, 240, 0.6) inset;
+  transition: 0.2s;
+}
+
+#modal_body_advance_gb #input_pass_select_num:active {
+  background-color: rgba(20, 120, 240, 0.8);
+  color: darkblue; 
+  box-shadow: 0px 0px 0px 2px rgba(220, 220, 240, 0.9);
+} 
+
+#modal_body_advance_gb #myrow_select_pass_num:hover {
+  transform: matrix(1.02, 0,  0, 1.02, 0, -2);
+}
+
+#modal_body_advance_gb #myrow_select_pass_num:active { 
+  transform: matrix(0.98, 0,  0, 0.98, 0, 2);
+}
+  </style>
+  
+  <!--
+  <div class="mycontainer" id="container_sort_num" > -->
+  <div class="select_back" id="selectback_num"></div>
+  
+   
+  <div class="mycont_select" id="mycont_select_num" > 
+    
+   
+      <label id="mylabel_select_num" style="font-size: 16px; font-weight: bold;"> Choose number of results </label>
+ 
+ 
+   <div   class="myrow_select_pass"  id="myrow_select_pass_num" style="float:right">
+    
+     <span class="span_tringle_left" id="span_tringle_left_num">▼</span>
+    <input class="input_pass_select" id="input_pass_select_num" type="text" readonly value="number results" style="width:100%;">
+    <!-- <span class="span_text" id="spantext_num" disabled> 10 results </span>-->
+    <span class="span_tringle_right" id="span_tringle_right_num">▲</span></div>
+  <!--<br> style="position:fixed;  z-index:8;"
+   <div class="myrow_select_list"  id="myrow_select_list_num" name='number' > -->
+   
+     
+      <select class="select_advanced_sn" id="select_num" name="num" size="8">
+      <option >number results</option>
+      <option selected="" value="10">10 results</option>
+      <option value="20">20 results</option>
+      <option value="30">30 results</option>
+      <option value="50">50 results</option>
+      <option value="100">100 results</option>
+      </select> 
+  </div>
+
+ 
+  
+<script>
+      var span_tringle_left_num = document.getElementById("span_tringle_left_num");
+       var span_tringle_right_num = document.getElementById("span_tringle_right_num");
+
+      // var dropdown_options_num = document.getElementById("myrow_select_list_num");
+     
+      var input_pass_select_num = document.getElementById("input_pass_select_num");
+
+     // var mycont_select = document.getElementById("mycont_select_num");
+      var select_num = document.getElementById("select_num");
+      
+  
+    
+      input_pass_select_num.onclick = function() {
+      if (select_num.style.display === "block" ) {
+      span_tringle_left_num.classList.toggle("span_tringle_rotate");
+      span_tringle_right_num.classList.toggle("span_tringle_rotate");
+      select_num.style.animation = "roll_close 1.4s";
+      setTimeout(function(){
+      select_num.style.display = "none";},
+      1200);
+      } else {
+     span_tringle_left_num.classList.toggle("span_tringle_rotate");
+      span_tringle_right_num.classList.toggle("span_tringle_rotate");
+       select_num.style.animation = "slideJumptOpen 1.4s";
+      select_num.style.display = "block";
+      }
+      }
+
+      
+      select_num.onchange = function() {
+        var i_num = select_num.selectedIndex;
+          input_pass_select_num.value = select_num[i_num].text;
+          span_tringle_left_num.classList.toggle("span_tringle_rotate");
+          span_tringle_right_num.classList.toggle("span_tringle_rotate");
+          select_num.style.animation = "roll_close 1.4s";
+          setTimeout(function(){
+          select_num.style.display = "none";},
+          1200);
+      }
+ 
+   
+      document.addEventListener("click", function(event) {
+        // If user clicks inside the element, do nothing
+      //  if (event.target.closest(".myrow_select_pass")) return;
+        if (event.target.closest("#myrow_select_pass_num")) return;
+        // If user clicks outside the element, hide it!
+        span_tringle_left_num.classList.toggle("span_tringle_rotate");
+        span_tringle_right_num.classList.toggle("span_tringle_rotate");
+        select_num.style.animation = "opacity_down 1.2s";
+          setTimeout(function(){
+      select_num.style.display = "none";},
+      1000);
+      })
+     
+      </script>
+      
+
+  
+  
+      
+    

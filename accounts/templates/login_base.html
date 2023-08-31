@@ -1,0 +1,81 @@
+{% extends 'base_account.html' %}
+{% load crispy_forms_tags %}
+{% load rest_framework %}
+
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+
+  {% endblock content_1 %}
+
+  {% block content_2 %}
+
+
+  {% endblock content_2 %}
+
+
+  {% block content_3 %}
+<style type="text/css">
+
+#main_cont {
+	position:relative;
+	z-index:1;
+	background-color: rgb(240, 240, 240); /* Fallback color */
+	background-color: rgba(240, 240, 240, 0.6); /* Black w/
+	opacity/see-through */
+	text-align: center;
+	justify-content: center;
+	align-items: center;  
+	padding:auto;
+	border-radius:5px;
+	box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+	margin-top:20px;
+	padding-top:10px;
+	padding-bottom:10px;
+	}
+		
+
+.h3{
+	text-align: center;
+	}
+
+  </style>
+  
+  <div class="container-fluid col-lg-2" id="main_cont">
+  
+	<div class="row-fluid">
+		<div>
+		  <form action="{% url 'accounts:login' %}" method="post">
+			{% csrf_token %}
+			{% render_form serializer %}
+
+			
+			
+			<button type="submit" class="btn btn-default">Sign in</button>
+			
+			
+		  </form>
+		</div>
+	  </div><!-- /.row-fluid -->
+</div>
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

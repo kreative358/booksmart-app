@@ -1,0 +1,329 @@
+<style>
+
+    @keyframes opacityanime {
+    from {opacity:1;} 
+    to {opacity:0;}
+    }
+    
+    @keyframes modalfadeout {
+    from {background-color: rgba(176, 196, 222, 0.4);} 
+    to {background-color: rgba(176, 196, 222, 0.0);}
+    }
+    
+    @keyframes modalfadein {
+    from {background-color: rgba(176, 196, 222, 0.0);} 
+    to {background-color: rgba(176, 196, 222, 0.4);}
+    }
+    
+    #mymodal_prevent {
+    position: fixed;
+    display:none;
+    z-index:8;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgb(176, 196, 222); 
+    background-color: rgba(176, 196, 222, 0.4); 
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    animation:noname;
+    }
+    
+    #modal_cont_prevent {
+    position: fixed;
+    z-index:8;
+    display:none;
+    left:50%;
+    margin-left:-280px;
+    top:100px;
+    width: 560px;
+    font-family: Times;
+    padding: 5px;
+    font-size:18px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(60,60,60,60.2),0 6px 20px 0 rgba(60,60,60,0.2);
+    padding: 10px;
+    animation-delay: 2s;
+    animation: noname2;
+    }
+    
+    @keyframes unzoomrotate {
+      from {transform:scale(1); rotate:360deg;} 
+      to {transform:scale(0); rotate: 0deg;}
+    } 
+    
+    @keyframes zoomrotate {
+      from {transform:scale(0); rotate:0deg;} 
+      to {transform:scale(1); rotate: 360deg;}
+    } 
+    
+    @keyframes unzoom {
+      from {transform:scale(1);} 
+      to {transform:scale(0);}
+    }
+    
+    @keyframes zoom {
+      from {transform:scale(0);} 
+      to {transform:scale(1);
+      }
+    }
+    
+    @keyframes animatetopback {
+      from {top: 0px; }
+      to {top:-1000px; }
+    }
+    
+    @keyframes onlyrotate {
+      from {rotate: 0deg; }
+      to {rotate:360deg; }
+    }
+    
+    .rotateclass {
+    animation: onlyrotate 1s;
+    }
+    
+    
+    #modal_col_prevent {
+    background-color: rgb(160, 160, 180); 
+    background-color: rgba(160, 160, 180, 0.4);
+    border-radius: 4px;
+    width:100%;
+    }
+      
+    #modal_header_prevent {
+    background-color: rgb(140, 140, 140); 
+    background-color: rgba(140, 140, 140, 0.4);
+    border-radius: 4px;
+    border: 6px solid rgba(240, 240, 240, 0.6);
+    margin: auto 10px auto 10px auto;
+    }
+    
+    #modal_body_prevent {
+    border-radius: 4px;
+    border: 6px solid rgba(240, 240, 240, 0.6);
+    padding: 10px;
+    }
+      
+    #modal_footer_prevent {
+    background-color: rgb(140, 140, 140); 
+    background-color: rgba(140, 140, 140, 0.4);
+    border-radius: 4px;
+    border: 6px solid rgba(240, 240, 240, 0.6);
+    }
+    
+    .close_m {
+    color: white;
+    float: right;
+    font-family: verdana;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0px 10px 20px auto;
+    }
+    
+    .close_m:hover,
+    .close_m:focus {
+    color: darkblue;
+    text-decoration: none;
+    cursor: pointer;
+    }
+    
+    .close_mb {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    }
+    
+    .close_mb:hover,
+    .close_mb:focus {
+    color: darkblue;
+    text-decoration: none;
+    cursor: pointer;
+    }
+    
+    .close_mb:active {
+    transform: translateY(2px);
+    scale: 0.96;
+    }
+    
+    #a_submit_t {
+    animation-name: anime_submit_t;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    }
+    
+    @keyframes anime_submit_t {
+    50% {
+    color: red;}
+      }  
+      
+    #solution {
+    font-size: 50px;
+    color:darkblue;
+    animation-name: anime_submit_t;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    }  
+    
+    #info_msg {
+    font-size: 30px;
+    color:darkblue;
+    margin-bottom: 10px;
+    }
+      </style>
+         
+         <div class="my_modal_prevent" id="mymodal_prevent">
+        </div>
+          <!-- Modal content -->
+          <div class="container-fluid" id="modal_cont_prevent">
+            <div class="column" id="modal_col_prevent">
+            
+            <div id="modal_header_prevent" >
+              <span class="close_m">x</span><br>
+              <p id="info_msg">INFO MESSAGES</p>
+            </div>
+            <div id="modal_body_prevent">
+             <input type="text" size="40">
+         
+            
+            <div id="a_submit_t"> <p id="solution">
+            TRY TO FIND SOLUTION YOURSELF ;)
+            </p></div>
+         
+            </div> 
+             <div id="modal_footer_prevent">
+             
+              <button id="myBtn_messages" type="button"  class="close_mb btn-primary btn-text-danger" style="min-width: 100px; margin: 20px auto 20px auto; border: 4px solid; box-shadow: 0px 0px 3px 3px rgba(201, 76, 76, 0.6); font-size: 18px; font-weight: bold; font-family: Helvetica; padding:4px;" >CLOSE</button>
+             
+            </div>
+          </div>
+        </div>
+      
+      
+         
+        <script>
+        
+        var mymodal = document.getElementById("mymodal_prevent");
+        var mymodal_cont = document.getElementById("modal_cont_prevent");
+       // var btnLogin = document.getElementById("btn_login");
+        // var body_color = document.querySelector("body");
+        var text_solution = document.getElementById("a_submit_t");
+        
+    
+    window.addEventListener("contextmenu", (e) => {e.preventDefault()});
+    window.addEventListener("contextmenu", function() {
+    
+            // btnLogin.onclick = function(){
+            // body_color.style.backgroundColor = "red";
+            mymodal.style.display = "block";
+            mymodal.style.animation = "modalfadein 1s 1";
+              mymodal.src = this.src;
+              mymodal_cont.style.display = "block"; 
+              mymodal_cont.style.animation = "zoom 2s 1";
+              mymodal_cont.src = this.src;
+            
+              //captionText.innerHTML = this.alt;
+            //}
+    });
+        
+          var span1 = document.getElementsByClassName("close_m")[0];
+          var span2 = document.getElementsByClassName("close_mb")[0];        
+          span1.onclick = function() {
+           // body_color.style.backgroundColor = "lightsteelblue"; 
+            mymodal_cont.style.animation = "animatetopback 2s 1";
+            mymodal.style.animation = "modalfadeout 1s 1 1s";
+            setTimeout(()=> {
+              mymodal_cont.style.display = "none";
+              mymodal.style.display = "none"
+                }
+                , 1900);    
+                }
+        
+          span2.onclick = function() {
+            // body_color.style.backgroundColor = "lightsteelblue"; 
+            mymodal_cont.style.animation = "unzoom 2s 1";
+            mymodal.style.animation = "modalfadeout 1s 1 1s";
+            setTimeout(()=> {
+              mymodal_cont.style.display = "none";
+              mymodal.style.display = "none"
+                }
+                , 1900);  
+          }
+          
+          window.onclick = function(event) {
+            if (event.target == mymodal) {
+              // body_color.style.backgroundColor = "lightsteelblue";
+              mymodal_cont.style.animation = "unzoomrotate 2s 1";
+              mymodal.style.animation = "modalfadeout 1s 1 1s";
+              setTimeout(()=> {
+              mymodal_cont.style.display = "none";
+              mymodal.style.display = "none"
+                }
+                , 1900); 
+              }
+              }
+     
+              document.addEventListener('keydown', (event) => {
+                var name_1 = event.key;
+                var name_2 = event.key;
+                var name_3 = event.key;
+                var code_1 = event.code;
+                var code_2 = event.code;
+                var code_3 = event.code;
+                
+                if (name_1 === 'Control' && name_2 === 'Shift') {
+                  // Do nothing when only the Control key is pressed.
+                  event.preventDefault();
+                  alert("ctrl + shift");
+                  return;
+                }
+                if (event.ctrlKey && event.shiftKey && code_3 === "KeyI") {
+                  event.preventDefault();
+                  alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
+                } 
+                if (event.ctrlKey && event.shiftKey && code_3 === "KeyU") {
+                  event.preventDefault();
+                  alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
+                } 
+                if (event.ctrlKey && event.shiftKey && code_3 === "KeyC") {
+                  event.preventDefault();
+                  alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
+                } 
+              
+                if (event.ctrlKey && code_3 === "KeyU") {
+                  event.preventDefault();
+                  alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
+                }
+                if (code_3 === "F12") {
+                  event.preventDefault();
+                  mymodal.style.display = "block";
+                  mymodal.style.animation = "modalfadein 1s 1";
+                    
+                    mymodal.src = this.src;
+                    mymodal_cont.style.display = "block"; 
+                    mymodal_cont.style.animation = "zoom 2s 1";  
+                  mymodal_cont.src = this.src;
+                }  
+                
+              }, false);
+
+/*      document.addEventListener("keydown", function(event) {
+      if (event.key === "F12") {
+        event.preventDefault();
+              
+            mymodal.style.display = "block";
+            mymodal.style.animation = "modalfadein 1s 1";
+              
+              mymodal.src = this.src;
+              mymodal_cont.style.display = "block"; 
+              mymodal_cont.style.animation = "zoom 2s 1";  
+            mymodal_cont.src = this.src;
+          }
+      }); */
+    
+          </script>
+      
+    

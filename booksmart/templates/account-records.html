@@ -1,0 +1,185 @@
+{% extends 'base_ds.html' %}
+{% load booksmart_extras %}
+{% load bootstrap4 %}
+{% block title %} {{ request.user }}'s records {% endblock%}
+
+{% block page %}
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %} 
+{% include 'snippets/jumbotron.html' %}
+{% include 'snippets/marquee.html' %}
+
+{% include 'snippets-booksmart/top_cards.html' %}
+<style>
+
+.my_container_empty {
+  position: relative;
+  z-index:1;
+  width: 800px;
+  max-width: 90%;
+  margin: auto;
+}
+
+.my_row_empty {
+  text-align: center;
+}
+
+.my_column_empty {
+  text-align: center;
+}
+
+#my_container_empty_1 {
+
+}
+
+#my_container_empty_2 {
+  margin-top:120px
+  
+}
+
+#list_of_authors {
+margin-top: 20px;
+padding: 10px auto 10px auto;
+text-align: center;
+}
+
+#margin_authors {
+  margin-top: 40px;
+  }
+
+
+#h2bb   {
+  color: MediumBlue; 
+  font-weight: bold; 
+  font-size: 36px; 
+  text-shadow: 1px 1px 6px AliceBlue; 
+}
+
+</style>
+
+<div class="my_container_empty" id="my_container_empty_1" >
+    <div class="my_row_empty">
+    <div class="my_column_empty">   
+
+      
+</div>
+</div>
+</div>
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+<div class="my_container_empty" id="my_container_empty_2">
+  <div class="my_row_empty">
+    <div class="my_column_empty">    
+
+    
+</div>
+</div>
+</div>
+{% include 'snippets-booksmart/filter_books_q.html' %}
+{% include 'snippets-booksmart/search_panel.html' %}
+
+
+<style type="text/css">
+
+
+   
+  </style>
+
+  {% if authors_add %}
+    <div class="my_container_empty" id="list_of_authors" > 
+      <div class="my_row_empty">
+        <div class="my_column_empty">    
+  
+    <p id="h2bb" >YOU HAVE ENTERED THESE AUTHORS </p>
+    
+  </div>
+</div>
+    </div>
+
+
+{% for author_c in authors_add %}
+
+{% include 'snippets-booksmart/author.html' %}
+
+{% endfor %}
+
+{% elif not authors_add %}
+<div class="my_container_empty" id="list_of_authors" >
+  <div class="my_row_empty">
+    <div class="my_column_empty">   
+  
+<p id="h2bb" > YOU HAVE NOT ENTERED ANY AUTHORS </p>
+
+</div>
+</div>
+</div>
+  {% endif %}
+
+  {% endblock content_3 %}
+
+
+
+  {% block content_4 %}
+
+<style type="text/css">
+
+
+</style>
+
+<div class="my_container_empty" id="margin_authors">
+     <div class="my_row_empty">
+      <div class="my_column_empty">
+</div>
+</div>
+</div>
+{% if page_obj %}
+
+  <div class="my_container_empty" id="list_of_books" >
+    <div class="my_row_empty">
+      <div class="my_column_empty">  
+  <p id="h2bb" > YOU HAVE ENTERED THESE BOOKS  </p>
+  
+  </div>
+</div>
+</div>
+{% for book in page_obj %}
+
+{% include 'snippets-booksmart/book.html' %}
+
+{% endfor %}
+
+{% else %}
+
+<div class="my_container_empty" id="list_of_books" >
+  <div class="my_row_empty">
+    <div class="my_column_empty"> 
+  <p id="h2bb" > YOU HAVE NOT ENTERED ANY BOOKS  </p>
+  
+  </div>
+</div>
+</div>
+
+{% endif %}
+
+
+{% include 'snippets-booksmart/pagination.html' %}
+
+{% endblock content_4 %}
+{% block content_5 %}
+
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

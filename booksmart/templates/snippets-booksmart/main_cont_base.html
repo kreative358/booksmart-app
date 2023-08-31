@@ -1,0 +1,40 @@
+<style type="text/css">
+
+#main_cont_base {
+    position:relative;
+    background-color: rgb(240, 240, 240); 
+    background-color: rgba(240, 240, 240, 0.2); 
+    border-radius: 4px;
+    border: 4px solid rgba(100, 160, 220, 0.2);
+    box-shadow: 0px 0px 6px 6px rgba(120, 120, 120, 0.3); 
+    text-align: center;
+    justify-content: center;
+    align-items: center;  
+    padding:auto;
+    margin:20px auto 20px auto;
+    padding:10px auto 10px auto;
+    border: 4px solid RoyalBlue;
+    width:630px;
+    max-width:630px;  
+    left:10px;
+    }
+    
+    </style>
+    
+    <div class="container-fluid" id="main_cont_base">
+    <h4 class="mt-2"> VERYFICATION </h4>
+    {% if request.user.is_authenticated %}
+    <h4>
+        <a href="{% url 'booksmart:index' %}">Home</a> |
+        <a href="{% url 'accounts:account' %}">Account</a> |
+        <a href="{% url 'accounts:logout' %}">Logout</a>
+    </h4>
+    <h3>Hello, {{request.user.username}}</h3>
+    {% else %}
+    <h5>
+    <a href="{% url 'booksmart:index' %}">Home</a> |
+    <a href="{% url 'accounts:register' %}">Register</a> | 
+    <a href="{% url 'accounts:login' %}">Login</a>
+    </h5>
+    {% endif %}
+    </div>

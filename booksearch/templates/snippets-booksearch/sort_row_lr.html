@@ -1,0 +1,574 @@
+<style>
+
+  /*
+html {
+    scroll-behavior: smooth;
+  }
+
+body {
+  font-family: Times;
+  }*/
+  
+  #selectback_lr  {
+  display: none; 
+  position: fixed; 
+  z-index: 35;
+  overflow: auto; 
+  background-color: rgb(20,60,240); 
+  opacity:0.1;
+  background-color: rgba(20,60,240,0.6); 
+  height: 100%;
+  width: 100%;
+  margin:0%;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  }
+  
+  /* #containter_sort_lr {
+  z-index:34; 
+  position:relative; 
+  margin:5px; 
+  width:260px;
+  } */
+  
+
+  
+.span_tringle_left {
+  float: left;
+  padding-left: 6px;
+  transform: rotate(0deg);
+  transition: all 0.6s;
+  left: 4px;
+  top: 3px;
+  }
+  
+.span_tringle_right {
+  float: right;
+  padding-right: 6px;
+  transform: rotate(0deg);
+  transition: 0.6s;
+  right: 4px;
+  top: 3px;
+  }
+  
+.span_tringle_left,
+.span_tringle_right {
+  color: rgba(0, 102, 255, 0.2);
+  text-shadow: 
+  -1px 0 rgba(0, 102, 255, 0.8),
+  1px 1px rgba(255, 255, 255, 0.9),
+  -1px -1px rgba(255, 255, 255, 0.9),
+  -1px 1px rgba(255, 255, 255, 0.9),
+  2px 1px 1px rgba(0, 102, 255, 0.9),
+  0px -1px 1px rgba(0, 102, 255, 0.9);
+  z-index: 37;
+  position: absolute;
+  }
+  
+  .span_tringle_rotate {
+  transform: rotate(180deg);
+  }
+  
+  
+  #myrow_select_pass_lr {
+  box-shadow: 0px 0px 4px 4px rgba(0, 102, 255, 0.4);
+  background-color: rgba(230, 230, 240, 0.4);
+  outline: none;
+  z-index: 34;
+  position: relative;
+  border-radius: 4px;
+  padding-top: 6px;
+  padding-bottom: 4px;
+  color: blue;
+  width: 256px;
+  font-size: 16px;
+  transition: 0.4s;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 4px;
+  max-height: 30px;
+  height: 30px;
+  min-height: 30px;
+  }
+  
+  #modal_body_advance_gb #input_pass_select_lr {
+  background-color: rgba(240, 230, 220, 0.0);
+  position: absolute;
+  left: 0px;
+  border: none;
+ outline: none;
+ text-align: center;
+ color: blue;
+ font-weight: bold;
+ font-size: 16px;
+ margin-top: -8px;
+  }
+  
+  #myrow_select_list_lr {
+    display:none;
+    outline:none;
+    background-color: rgba(240, 230, 220, 0.0);
+    z-index: 35;
+    position: fixed;
+    margin-left: 5%;
+    margin-bottom: 0px;
+    width: 240px;
+    margin-left: 354px;
+    /*border-radius:10px;
+    box-shadow: 0px -2px 2px 0px rgba(60, 160, 240, 0.4) inset;
+    border-bottom: 4px solid rgba(60, 160, 240, 0.4);*/
+    box-shadow: 0px 0px 4px 6px rgba(0, 102, 255, 0.0);
+    padding: auto;
+    animation: noname;
+    }
+
+  #myrow_select_list_lr:hover {
+  background-color: rgba(230, 230, 240, 0.0);
+  }
+  
+  #myrow_select_list_lr:active {
+  box-shadow: 0px 0px 2px 4px rgba(0, 102, 255, 0.0);
+  background-color: rgba(230, 230, 240, 0.0);
+  }
+
+ 
+#modal_body_advance_gb #select_lr,
+#modal_body_advance_gb #lr {
+  overflow-y: scroll;
+  background-color: rgba(240, 230, 220, 0.0);
+  color: blue;
+  border-radius: 4px;
+  z-index: 35;
+ display: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  margin-top: 8px;
+  position: absolute;
+  min-width: 240px;
+  max-width: 240px;
+  width: 240px;
+
+  margin-left: 10px;
+  animation: noname;
+  /*border: 2px solid red; */
+  }
+
+
+
+#modal_body_advance_gb #select_lr:active,
+#modal_body_advance_gb #lr:active {
+  border: none;
+  outline: none;
+  }
+
+#modal_body_advance_gb #select_lr:focus,
+#modal_body_advance_gb #lr:focus {
+  box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.0);
+  border: none;
+  outline: none;
+  }
+  /*.custom-select {
+  box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6); 
+  border-radius: 4px;
+  border:none;
+  outline:none;⇓⇑⇧⇩√▲▼➤➪
+  }*/
+
+#modal_body_advance_gb #select_lr::-webkit-scrollbar {
+  display: none;
+}
+
+#modal_body_advance_gb #select_lr {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
+}
+
+#modal_body_advance_gb #lr option,
+#modal_body_advance_gb #select_lr option {
+  text-align: center;
+  border-radius: 2px;
+  display: block;
+  z-index: 36;
+  color: blue;
+  border: none;
+  outline: none;
+  background-color: rgba(230, 230, 240, 0.8);
+  box-shadow: 
+  0px 0px 0px 2px rgba(100, 160, 220, 0.6) inset, 
+  0px 0px 2px 2px rgba(100, 160, 220, 0.6); 
+  /* padding-top: 6px;
+  padding-bottom: 2px; */
+  font-size:16px;
+  height:26px;
+min-height: 26px;
+max-height: 26px;
+line-height: 24px;
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  cursor: pointer;
+  margin-top:4px;
+  margin-bottom:4px;
+  transition: 0.2s;
+
+  }
+  
+#modal_body_advance_gb #select_lr option[selected] {
+-webkit-text-fill-color: aliceblue;
+background-color: blue;
+color: aliceblue;
+  background-color: aliceblue;
+  color: rgba(200, 30, 30, 0.9);
+  box-shadow: 
+  0px 0px 0px 14px rgba(200, 200, 240, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8);
+}
+
+
+/*
+#modal_body_advance_gb #select_lr option:active,
+#modal_body_advance_gb #select_lr option:checked {
+background-color: rgba(0, 0, 210, 0.8) !important;
+box-shadow: 
+0px 0px 2px 2px rgba(100, 160, 220, 0.8),
+0px 0px 2px 2px rgba(230, 230, 240, 0.8) inset;
+font-weight: bold;
+border: none;
+outline: none;
+box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.6); 
+min-height: 26px;
+max-height: 26px;
+height:26px;
+line-height: 24px;
+font-size: 16px;
+transition: 0.2s; 
+} */
+
+#modal_body_advance_gb #select_lr option:checked {
+  background-color: aliceblue;
+  color: rgba(200, 30, 30, 0.9);
+  box-shadow: 
+  0px 0px 0px 14px rgba(200, 200, 240, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8);
+}
+
+#modal_body_advance_gb #select_lr option:hover,
+#modal_body_advance_gb #lr option:hover {
+-webkit-text-fill-color: aliceblue;
+background: rgba(20, 60, 240, 0.8);
+color: aliceblue;
+transform: matrix(1.02, 0, 0, 1.02, 0, -1);
+background: rgba(0, 0, 210, 0.8);
+background-color: rgba(0, 0, 210, 0.8);
+box-shadow:
+0px 0px 0px 1px rgba(200, 30, 30, 0.8) inset,
+0px 0px 0px 1px rgba(200, 30, 30, 0.8);
+}
+
+#modal_body_advance_gb #select_lr option:checked:hover,
+#modal_body_advance_gb #select_lr option[selected]:hover {
+  background-color: aliceblue;
+  color: rgba(200, 30, 30, 0.9);
+  box-shadow: 
+  0px 0px 0px 14px rgba(160, 160, 240, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8);
+}
+
+#modal_body_advance_gb #select_lr option:active {
+  transform: matrix(0.98, 0, 0, 0.98, 0, 1);
+  background-color: aliceblue;
+  color: rgba(200, 30, 30, 0.9);
+  box-shadow:
+  0px 0px 0px 1px rgba(200, 30, 30, 0.8) inset,
+  0px 0px 0px 1px rgba(200, 30, 30, 0.8);
+  transition: 0.2s;
+}
+
+
+  
+  select, .form-group, .form-control {
+  border:none;
+  outline:none;
+  }
+  
+  select:focus, .form-group:focus, .form-control:focus {
+  border:none;
+  outline:none;
+  }
+  
+  .form-group {
+   /* width: 300px; 
+    height: 200px; 
+    outline:2px solid grey;*/
+  }
+  
+  .form-inline {  
+  }
+  
+  option::selected {
+
+  }
+  
+  #myrow_select_list_lr select::-webkit-scrollbar {
+    display: none;
+    /* width: 16px;*/
+   }  
+   
+      @keyframes roll_open {
+      from {height:0px;}
+      to {height: 200px;}
+    }
+    
+    @keyframes roll_close {
+      from {height: 200px;}
+      to {height: 0px;}
+    }
+    
+    @keyframes opacity_up {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    
+    @keyframes opacity_down {
+      from {opacity: 1;}
+      to {opacity: 0;}
+    }
+    
+    @keyframes slideJumptOpen {
+	0% {
+		transform: translateY(0%);
+	}
+	50%{
+		transform: translateY(8%);
+	}
+	65%{
+		transform: translateY(-4%);
+	}
+	80%{
+		transform: translateY(4%);
+	}
+	95%{
+		transform: translateY(-2%);
+	}			
+	100% {
+		transform: translateY(0%);
+	}		
+}
+
+@-webkit-keyframes slideJumptOpen {
+	0% {
+		-webkit-transform: translateY(0%);
+	}
+	50%{
+		-webkit-transform: translateY(8%);
+	}
+	65%{
+		-webkit-transform: translateY(-4%);
+	}
+	80%{
+		-webkit-transform: translateY(4%);
+	}
+	95%{
+		-webkit-transform: translateY(-2%);
+	}			
+	100% {
+		-webkit-transform: translateY(0%);
+	}	
+}
+
+@keyframes slideJumptClose {
+	0% {opacity: 1;
+    height: 100%;
+		transform: translateY(20%);
+	}
+	50%{
+		transform: translateY(8%);
+	}
+	65%{
+		transform: translateY(-4%);
+	}
+	80%{
+		transform: translateY(4%);
+	}
+	95%{
+		transform: translateY(-2%);
+	}			
+	100% {opacity: 0;
+    height: 0%;
+		transform: translateY(20%);
+	}		
+}
+
+
+#mycont_select_lr {
+  padding-left: 0px;
+  position: relative;
+  z-index: 33;
+  margin:10px 10px 10px 40px;
+}
+
+#modal_body_advance_gb #input_pass_select_lr {
+  box-shadow: 0px 0px 0px 0px white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#modal_body_advance_gb #input_pass_select_lr:hover {
+  background-color: rgba(60, 160, 240, 0.8);
+  color: darkblue;
+  font-weight: bold;
+  box-shadow: 0px 0px 0px 2px rgba(200, 200, 240, 0.6),
+  0px 0px 0px 2px rgba(200, 200, 240, 0.6) inset;
+  transition: 0.2s;
+}
+
+#modal_body_advance_gb #input_pass_select_lr:active {
+  background-color: rgba(20, 120, 240, 0.8);
+  color: darkblue; 
+  box-shadow: 0px 0px 0px 2px rgba(220, 220, 240, 0.9);
+} 
+
+#modal_body_advance_gb #myrow_select_pass_lr:hover {
+  transform: matrix(1.02, 0,  0, 1.02, 0, -2);
+}
+
+#modal_body_advance_gb #myrow_select_pass_lr:active { 
+  transform: matrix(0.98, 0,  0, 0.98, 0, 2);
+}
+</style>
+  <!--
+  <div class="mycontainer" id="container_sort_lr" >
+   width:600px; margin:0px 30px auto 20px; padding-top: 10px; padding-left: 20px; font-size: 20px;  -->
+   <div class="select_back" id="selectback_lr"></div>
+  
+   
+  <div class="mycont_select" id="mycont_select_lr" > 
+    
+   
+      <label id="mylabel_select_lr" style="font-size: 16px; font-weight: bold;">  </label>
+ 
+ 
+   <div   class="myrow_select_pass"  id="myrow_select_pass_lr" style="float:right">
+    
+     <span class="span_tringle_left" id="span_tringle_left_lr">▼</span>
+    <input class="input_pass_select" id="input_pass_select_lr" type="text" readonly value="select language" style="width:100%;">
+    <!-- <span class="span_text" id="spantext_lr" disabled> 10 results </span>-->
+    <span class="span_tringle_right" id="span_tringle_right_lr">▲</span></div>
+  <!--<br>style="position:fixed;  z-index:8;"
+   <div class="select_list"  id="selectlist_lr" name='lang' >-->
+   
+      <select class="select_advanced_sn"  name="lr" id="select_lr" size="16">  
+                <option value="">select language</option>
+                <option value="lang_af">Afrikaans</option>
+                <option value="lang_ar">Arabic</option>
+                <option value="lang_hy">Armenian</option>
+                <option value="lang_be">Belarusian</option>
+                <option value="lang_bg">Bulgarian</option>
+                <option value="lang_ca">Catalan</option>
+                <option value="lang_zh-CN">Chinese&nbsp;(Simplified)</option>
+                <option value="lang_zh-TW">Chinese&nbsp;(Traditional)</option>
+                <option value="lang_hr">Croatian</option>
+                <option value="lang_cs">Czech</option>
+                <option value="lang_da">Danish</option>
+                <option value="lang_nl">Dutch</option>
+                <option value="lang_en">English</option>
+                <option value="lang_eo">Esperanto</option>
+                <option value="lang_et">Estonian</option>
+                <option value="lang_tl">Filipino</option>
+                <option value="lang_fi">Finnish</option>
+                <option value="lang_fr">French</option>
+                <option value="lang_de">German</option>
+                <option value="lang_el">Greek</option>
+                <option value="lang_iw">Hebrew</option>
+                <option value="lang_hi">Hindi</option>
+                <option value="lang_hu">Hungarian</option>
+                <option value="lang_is">Icelandic</option>
+                <option value="lang_id">Indonesian</option>
+                <option value="lang_it">Italian</option>
+                <option value="lang_ja">Japanese</option>
+                <option value="lang_ko">Korean</option>
+                <option value="lang_lv">Latvian</option>
+                <option value="lang_lt">Lithuanian</option>
+                <option value="lang_no">Norwegian</option>
+                <option value="lang_fa">Persian</option>
+                <option value="lang_pl">Polish</option>
+                <option value="lang_pt">Portuguese</option>
+                <option value="lang_ro">Romanian</option>
+                <option value="lang_ru">Russian</option>
+                <option value="lang_sr">Serbian</option>
+                <option value="lang_sk">Slovak</option>
+                <option value="lang_sl">Slovenian</option>
+                <option value="lang_es">Spanish</option>
+                <option value="lang_sw">Swahili</option>
+                <option value="lang_sv">Swedish</option>
+                <option value="lang_th">Thai</option>
+                <option value="lang_tr">Turkish</option>
+                <option value="lang_uk">Ukrainian</option>
+                <option value="lang_vi">Vietnamese</option>
+                </select>
+    
+  </div>
+  
+  <script>
+    var span_tringle_left_lr = document.getElementById("span_tringle_left_lr");
+     var span_tringle_right_lr = document.getElementById("span_tringle_right_lr");
+
+    // var dropdown_options_lr = document.getElementById("myrow_select_list_lr");
+   
+    var input_pass_select_lr = document.getElementById("input_pass_select_lr");
+
+    // var mycont_select_lr = document.getElementById("mycont_select_lr");
+    var select_lr = document.getElementById("select_lr");
+    
+       
+    input_pass_select_lr.onclick = function() {
+    if (select_lr.style.display === "block" ) {
+    span_tringle_left_lr.classList.toggle("span_tringle_rotate");
+    span_tringle_right_lr.classList.toggle("span_tringle_rotate");
+    select_lr.style.animation = "roll_close 1.4s";
+    setTimeout(function(){
+    select_lr.style.display = "none";},
+    1200);
+    } else {
+   span_tringle_left_lr.classList.toggle("span_tringle_rotate");
+    span_tringle_right_lr.classList.toggle("span_tringle_rotate");
+     select_lr.style.animation = "slideJumptOpen 1.4s";
+    select_lr.style.display = "block";
+    }
+    }
+
+    select_lr.onchange = function() {
+      var i_lr = select_lr.selectedIndex;
+        input_pass_select_lr.value = select_lr[i_lr].text;
+        span_tringle_left_lr.classList.toggle("span_tringle_rotate");
+        span_tringle_right_lr.classList.toggle("span_tringle_rotate");
+        select_lr.style.animation = "roll_close 1.4s linear 0.2s";
+        setTimeout(function(){
+        select_lr.style.display = "none";},
+        1200);
+    }
+
+    document.addEventListener("click", function(event) {
+      // If user clicks inside the element, do nothing
+    //  if (event.target.closest("#myrow_select_pass_lr")) return;
+    if (event.target.closest("#myrow_select_pass_lr")) return;
+      // If user clicks outside the element, hide it!
+      span_tringle_left_lr.classList.toggle("span_tringle_rotate");
+      span_tringle_right_lr.classList.toggle("span_tringle_rotate");
+      select_lr.style.animation = "opacity_down 1.2s";
+        setTimeout(function(){
+    select_lr.style.display = "none";},
+    1000);
+    })
+   
+    </script>
+  
+  
+

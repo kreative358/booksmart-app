@@ -1,0 +1,511 @@
+
+
+<style>
+
+  @keyframes opacityanime {
+  from {opacity:1;} 
+  to {opacity:0;}
+  }
+  
+  @keyframes modalfadeout {
+  from {background-color: rgba(20, 100, 200, 0.4);} 
+  to {background-color: rgba(20, 100, 200, 0.0);}
+  }
+  
+  @keyframes modalfadein {
+  from {background-color: rgba(20, 100, 200, 0.0);} 
+  to {background-color: rgba(20, 100, 200, 0.4);}
+  }
+  
+  #mymodal_messages,
+    [id^="mymodal_messages_"] {
+  position: fixed;
+  display:none;
+  z-index:77;
+  /*
+  display:none;padding-top: 100px;  Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(20, 100, 200); 
+  background-color: rgba(20, 100, 200, 0.4); 
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation:noname;
+  }
+  
+  /* Modal Content */
+  #modal_cont_messages,
+  [id^="modal_cont_messages_"] {
+  position: fixed;
+  z-index:88;
+  display:none;
+  left: 50%;
+  top:60px;
+  margin-left: -280px;
+  width: 560px;
+  background: rgba(60, 160, 240, 0.4);
+  /*
+  display:none;
+  font-family: Times;
+  padding: 5px;
+  font-size:18px;
+  text-align: center;
+  font-weight: bold;*/
+  border-radius: 4px;
+  box-shadow: 
+  
+  0px 0px 10px 10px rgba(160, 170, 180, 0.4),
+  0px 10px 20px 0px rgba(160, 170, 180, 0.4),
+  -6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+  6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+  0px 10px 16px 0px rgba(160, 170, 180, 0.4),
+  0px -6px 16px 0px rgba(160, 170, 180, 0.4);
+  /*border: 6px solid rgba(60, 160, 240, 0.8);*/
+  padding: 0px;
+  animation-delay: 2s;
+  animation: nonname2;
+  transition: 0.2s;
+  }
+  
+  #modal_cont_messages:hover,
+  [id^="modal_cont_messages_"]:hover {
+  background: rgba(60, 160, 240, 0.6);
+  box-shadow: 
+  0px 4px 16px 10px rgba(220, 230, 240, 0.4),
+  0px 0px 30px 290px rgba(220, 230, 240, 0.4) inset;
+  }
+  
+  #modal_cont_messages:active,
+  [id^="modal_cont_messages_"]:active {
+  background: rgba(60, 160, 240, 0.6);
+  box-shadow: 
+  0px 4px 16px 10px rgba(230, 240, 250, 0.6),
+  0px 0px 30px 290px rgba(230, 240, 250, 0.6) inset;
+  }
+  
+  @keyframes unzoomrotate {
+  from {transform:scale(1); rotate:360deg;} 
+  to {transform:scale(0); rotate: 0deg;}
+  } 
+  @keyframes zoomrotate {
+  from {transform:scale(0); rotate:0deg;} 
+  to {transform:scale(1); rotate: 360deg;}
+  } 
+  
+  /* Add Animation */
+  @keyframes unzoom {
+  from {transform:scale(1);} 
+  to {transform:scale(0);
+  }
+  }
+  
+  @keyframes zoom {
+  from {transform:scale(0);} 
+  to {transform:scale(1);
+  }
+  }
+  
+  @keyframes animatetopback {
+  from {top: 0px; }
+  to {top:-1000px; }
+  }
+  
+  /* Modal Content 
+  #modal-cont_messages {
+  border-radius: 4px;
+  border: 6px solid rgba(240, 240, 240, 0.6);
+  margin: 120px auto auto auto;*/
+  /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  }*/
+  
+  [id^="modal_cont_border_"] {
+  background-color: rgb(60, 160, 240); 
+  background-color: rgba(60, 160, 240, 0.0);
+  border: 6px solid rgba(60, 160, 240, 0.8);
+  box-shadow: 
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0) inset,
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0);
+  border-radius: 4px;
+  padding: 10px;
+  margin:auto;
+  animation: anime_red_border 2s 12 14s;
+  }
+  
+ [id^="modal_cont_border_"]:hover {
+  background: rgba(60, 160, 240, 0.6);
+  box-shadow: 
+  0px 4px 16px 10px rgba(220, 230, 240, 0.4),
+  0px 0px 30px 290px rgba(220, 230, 240, 0.4) inset;
+  }
+  
+ [id^="modal_cont_border_"]:active {
+  background: rgba(60, 160, 240, 0.6);
+  box-shadow: 
+  0px 4px 16px 10px rgba(230, 240, 250, 0.6),
+  0px 0px 30px 290px rgba(230, 240, 250, 0.6) inset;
+  }
+  
+  
+  [id^="modal_row_messages_"] {
+  background-color: rgb(60, 160, 240); 
+  background-color: rgba(60, 160, 240, 0.0);
+  border: 6px solid rgba(60, 160, 240, 0.8);
+  box-shadow: 
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0) inset,
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0);
+  border-radius: 4px;
+  padding: 10px;
+  margin:auto;
+  animation: anime_red_border 2s 14 12s;
+  }
+  
+  [id^="modal_col_messages_"] {
+  background-color: rgb(60, 160, 240); 
+  background-color: rgba(60, 160, 240, 0.0);
+  border: 6px solid rgba(60, 160, 240, 0.8);
+  box-shadow: 
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0) inset,
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0);
+  border-radius: 4px;
+  padding: 10px;
+  margin:auto;
+  animation: anime_red_border 2s 16 10s;
+  }
+  
+  [id^="modal_header_messages_"] {
+  background-color: rgb(140, 140, 140); 
+  background-color: rgba(140, 140, 140, 0.4);
+  border-radius: 4px;
+  border: 6px solid rgba(60, 160, 240, 0.8);
+  margin: auto;
+  padding:4px 6px 4px 6px;
+  transition: 0.1s;
+  text-align: center;
+  animation: anime_red_border 2s 18 8s;
+  box-shadow: 
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0) inset,
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0);
+  }
+  
+  [id^="modal_header_messages_"]:hover {
+  background-color: rgb(180, 180, 180); 
+  background-color: rgba(180, 180, 180, 0.8);
+  }
+  
+  [id^="modal_header_messages_"]:active {
+  background-color: rgb(180, 180, 180); 
+  background-color: rgba(180, 180, 180, 0.8);
+  
+  }
+  
+  [id^="modal_body_messages_"] {
+  background-color: rgb(140, 140, 140); 
+  background-color: rgba(140, 140, 140, 0.4);    
+  border-radius: 4px;
+  border: 6px solid rgba(60, 160, 240, 0.8);
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px auto 10px auto;
+  max-height: 460px;
+  transition: 0.1s;
+  overflow:auto;
+  text-align:center;
+  animation: anime_red_border 2s 20 6s;
+  box-shadow: 
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0) inset,
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0);
+  }
+  
+  [id^="modal_body_messages_"]:hover {
+  background-color: rgb(180, 180, 180); 
+  background-color: rgba(180, 180, 180, 0.6);
+  }
+  
+  [id^="modal_body_messages_"]:active {
+  background-color: rgb(180, 180, 180); 
+  background-color: rgba(180, 180, 180, 0.8);
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+  }
+  
+  
+   [id^="modal_footer_messages"] {
+  justify-content:center;
+  text-align:center;
+  background-color: rgb(140, 140, 140); 
+  background-color: rgba(140, 140, 140, 0.4);
+  border-radius: 4px;
+  border: 6px solid rgba(60, 160, 240, 0.8);
+  margin:auto;
+  padding:10px auto 10px auto;
+  transition: 0.1s;
+  animation: anime_red_border 2s 18 8s;
+  box-shadow: 
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0) inset,
+  0px 0px 4px 2px rgba(240, 0, 0, 0.0);
+  }
+  
+  [id^="modal_footer_messages"]:hover {
+  background-color: rgb(180, 180, 180); 
+  background-color: rgba(180, 180, 180, 0.6);
+  }
+  
+  [id^="modal_footer_messages"]:active {
+  background-color: rgb(180, 180, 180); 
+  background-color: rgba(180, 180, 180, 0.8);
+  
+  }
+  
+  .close_m {
+  color: rgba(40, 160, 240, 0.4);
+  float: right;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family:helvetica;
+  color: rgba(40, 160, 240, 0.4);
+  text-shadow:
+  0.04em 0.06em 0.04em rgba(220, 220, 230, 0.4);
+  padding-top: 0px;
+  line-height: 26px;
+  }
+  
+  .close_m:hover {
+  text-shadow:
+  0.04em 0.06em 0.04em rgba(230, 240, 240, 0.6);
+  color: rgba(40, 160, 240, 0.6); 
+  }
+  
+  .close_m:active {
+  transform: matrix(0.98, 0, 0, 0.98, 0, -2);
+  color: rgba(40, 160, 240, 0.8);
+  text-shadow:
+  -0.04em 0.06em 0.04em rgba(230, 240, 240, 0.8);
+  }
+  
+  .close_m:focus {
+  border:none;
+  outline:none;
+  text-decoration: none;
+  }
+  
+  /*.close_mb {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  } */
+  .close_mb {
+  text-shadow:
+  0.04em 0.06em 0.04em rgba(60, 80, 100, 0.6);
+  position:relative;
+  transition-duration: 0.2s;
+  background-color: rgba(40, 160, 240, 0.4);
+  border-width: 6px;
+  border-style: solid;
+  /*rgba(10, 80, 240, 0.6);
+  text-shadow: 0px 1px 1px #fff, 0 -1px 1px #000;*/ 
+  color: rgba(160, 170, 180, 0.8); 
+  border-color: rgba(80, 180, 240, 0.8) rgba(40, 140, 220, 0.8) rgba(20, 120, 180, 0.8) rgba(40, 140, 220, 0.8);
+  border-radius:2px;
+  font-weight:bold;
+  font-family:Times;
+  font-variant: small-caps;
+  font-size: 18px;
+  height: 30px;
+  line-height: 30px;
+  min-width: 140px;
+  width: 140px;
+  margin: 14px auto 14px auto;  
+  box-shadow:
+  0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+  0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+  0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  transition: 0.2s
+  }
+  
+  .close_mb:hover {
+  background-color: rgba(40, 160, 240, 0.6); 
+  color: rgba(190, 200, 210, 0.8);
+  border-color: rgba(80, 180, 240, 0.6) rgba(40, 140, 220, 0.6) rgba(20, 120, 180, 0.6) rgba(40, 140, 220, 0.6);
+  box-shadow: 
+  0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+  0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+  0px 0px 4px 4px rgba(230, 240, 240, 0.6);
+  }
+  
+  .close_mb:active {
+  color: rgba(210, 220, 230, 0.8);
+  transform: matrix(0.98, 0, 0, 0.98, 0, -2);
+  box-shadow: 
+  0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+  0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+  0px 0px 2px 2px rgba(230, 240, 240, 0.8);
+  background-color: rgba(40, 160, 240, 0.8);
+  border-color: rgba(80, 180, 240, 0.6) rgba(40, 140, 220, 0.6) rgba(20, 120, 180, 0.6) rgba(40, 140, 220, 0.6);
+  }
+  
+  
+  @keyframes anime_red_text {
+  50% {color: red;}
+  }  
+  
+  @keyframes anime_red_border {
+  50% {border-color: rgba(240, 0, 0, 0.6);
+    box-shadow: 
+  0px 0px 4px 2px rgba(240, 0, 0, 0.3) inset,
+  0px 0px 4px 2px rgba(240, 0, 0, 0.3);}
+  } 
+  
+  
+  .title_header {
+  font-size: 30px; 
+  font-family:Times;
+  font-variant: small-caps;
+  margin: 5px auto 5px auto;
+  font-weight:bold;
+  color: rgba(0, 0, 200, 0.8);
+  text-shadow:
+  0.04em 0.04em 0.04em rgba(60, 80, 100, 0.6);
+  }
+  
+  .header_text {
+  font-size: 24px; 
+  font-family:Times;
+  margin: 5px auto 5px auto;
+  color:rgba(0, 0, 229, 0.9);
+  font-weight:bold;
+  font-variant: small-caps;
+  }
+  
+  #class_label {
+  color: rgba(0, 0, 209, 0.9); 
+  font-size: 26px; 
+  font-weight:bold;
+  font-family:Times;
+  margin: 14px auto -6px auto;
+  font-variant: small-caps;
+  text-align:center;
+  }
+  
+  .class_label {
+  color: rgba(0, 0, 209, 0.9); 
+  font-size: 26px; 
+  font-weight:bold;
+  font-family:Times;
+  margin: 14px auto -6px auto;
+  font-variant: small-caps;
+  text-align:center;
+  }
+  
+  </style>
+    
+       
+       <div class="my_modal_messages" id="mymodal_messages_main">  </div>
+      
+        <!-- Modal content -->
+        
+        <div class="mycontainer" id="modal_cont_messages_main">
+          <div class="mycontainer_border" id="modal_cont_border_messages">
+          <div class="myrow" id="modal_row_messages_main">
+          <div class="mycolumn" id="modal_col_messages_main">
+          
+          <div class="modal_content" id="modal_header_messages_main" >
+            <span id="close_m_modal_snippets" class="close_m">✖</span><br>
+            <p class="title_account">INFO MESSAGES</p>
+          </div>
+
+          <div class="modal_content" id="modal_body_messages_main">
+          
+       <div>
+          {% for message in messages %}
+          <p class="header_text" style="animation: 2s anime_red_text infinite"> {% autoescape off %} 
+          {{ message }} {% endautoescape %}
+          </p>
+          {% endfor %}
+        </div> 
+  
+     <br>
+  
+      <div> 
+        {% if errors and oldpass == "no_oldpass" %}
+        <p class="header_text"> You try register with:<br>username: {{ user_name }}, <br>  email: {{ e_mail }}, <br>  password: {{ pass }}, <br> password 2 - "{{ pass2}} </p>
+        {% elif errors and e_mail == "no_email" %}
+        <p class="header_text"> You try login with:<br>username: {{ user_name }}, <br>  password: {{ pass }},  </p>
+        {% elif errors and pass1 == "no_pass1" %}
+        <p class="header_text"> You try change with:<br>username - {{ user_name }}, <br>  email - {{ e_mail }},  </p>
+        {% endif %}
+      </div>
+    <br>  
+    <div class="header_text">
+      <p> MESSAGE </p>  
+      <p id="information_message" style="animation: anime_red_text 2s infinite"></p>
+    </div>
+
+  </div> 
+
+        <div class="modal_content" id="modal_footer_messages_main" style="margin-top:20px">
+            <div id="myBtn_messages" type="button"  class="close_mb" >CLOSE</div>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+    
+   <br>
+       
+      <script>
+      console.clear()
+        // Get the modal
+      var mymodal_main = document.getElementById("mymodal_messages_main");
+      var mymodal_cont_main = document.getElementById("modal_cont_messages_main");
+
+      var span1 = document.getElementById("close_m_modal_snippets");
+      var span2 = document.getElementById("myBtn_messages"); 
+  
+        // var captionText = document.getElementById("caption");
+        // btnLogin.onclick = function(){
+        mymodal_main.style.display = "block";
+        mymodal_main.style.animation = "modalfadein 1s 1";
+        
+        // mymodal_main.src = this.src;
+        mymodal_cont_main.style.display = "block"; 
+        mymodal_cont_main.style.animation = "zoom 2s 1 ease-in";
+           
+        span1.onclick = function() {
+          mymodal_cont_main.style.animation = "unzoom 2s 1";
+          mymodal_main.style.animation = "modalfadeout 1s 1 1s";
+          setTimeout(()=> {
+            mymodal_cont_main.style.display = "none";
+            mymodal_main.style.display = "none"
+              }
+              , 1900);
+        }        
+        
+        
+        span2.onclick = function() {
+          mymodal_cont_main.style.animation = "animatetopback 2s 1";
+          mymodal_main.style.animation = "modalfadeout 1s 1 1s";
+          setTimeout(()=> {
+            mymodal_cont_main.style.display = "none";
+            mymodal_main.style.display = "none"
+              }
+              , 1900);
+        }
+      
+        
+            mymodal_main.onclick = function() {
+            //mymodal_cont.style.animation = "unzoomrotate 2s 1";
+            mymodal_cont_main.style.animation = "unzoomrotate 2s 1";
+            mymodal_main.style.animation = "modalfadeout 1s 1 1s";
+            setTimeout(()=> {
+            mymodal_cont_main.style.display = "none";
+            mymodal_main.style.display = "none"
+              }, 1900);
+            
+
+          }
+       // }
+        </script>

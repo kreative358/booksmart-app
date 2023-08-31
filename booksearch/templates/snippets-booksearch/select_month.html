@@ -1,0 +1,476 @@
+{% load bootstrap4 %}
+
+{% include "snippets/modal_message_part.html" %}
+<style type="text/css">
+
+input,
+select,
+option {
+outline: none;
+border: none;
+background: transparent;
+overflow: hidden;
+}
+
+#input_select::placeholder { 
+  color: white;
+  opacity: 0.9;
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#input_select::-ms-input-placeholder { 
+  color: white;
+  opacity: 0.9;
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+
+.my_card_sort,
+.my_card_month {
+background-color: rgb(100, 160, 220,); 
+background-color: rgba(100, 160, 220, 0.4); 
+font-size: 16px;
+color: white;
+font-weight: bold;
+padding: 10px 30px 6px 30px;
+text-align: center;
+transition: 0.4s;
+justify-content:center;
+margin: -24px 0px 2px 46px; 
+position:relative;
+z-index:32;
+height: 34px;
+}
+
+.my_card_sort:hover,
+.my_card_month:hover {
+background-color: rgb(100, 160, 220,); 
+background-color: rgba(100, 160, 220, 0.6); 
+} 
+
+
+.bs_input_sort,
+.my_card_month {
+overflow: auto;
+}
+
+#span1,
+#span1_start {
+background-color: rgba(240, 230, 220, 0.0);
+}
+
+#span2a,
+#span2a_start {
+display:inline-block;
+margin-right: -30px;
+position:relative;
+z-index: 33;
+}
+
+#span2b,
+#span2b_start {
+display:inline-block;
+margin-left: -30px;
+position:relative;
+z-index: 33;       
+}
+
+.span2 {
+color:rgba(0, 102, 255, 0.2);
+text-shadow: 
+-1px 0 rgba(0, 102, 255, 0.8),
+1px 1px rgba(255, 255, 255, 0.9),
+-1px -1px rgba(255, 255, 255, 0.9),
+-1px 1px rgba(255, 255, 255, 0.9),
+2px 1px 1px rgba(0, 102, 255, 0.9),
+0px -1px 1px rgba(0, 102, 255, 0.9);
+rotate: 0deg;
+transition: rotate 0.8s;
+}
+
+.span20 {
+rotate:180deg;
+transition: rotate 0.8s;
+/*animation:mymove 0.2s;*/
+/*transform: rotate(180deg);*/
+}
+
+@keyframes btnmove {
+from {margin-top:50px;}
+to {margin-top:200px;}
+}
+
+
+#input_select,
+#input_month_start {
+box-shadow: 
+0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset, 
+0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+background-color: rgba(230, 230, 240, 0.4);
+outline:none;
+z-index:32;
+position:relative;
+border-radius: 2px;
+display:inline-block;
+width: 240px;
+margin: 10px auto 4px auto;
+color:blue;
+height: 32px;
+font-size: 16px;
+font-weight: bold;
+transition:0.4s;
+text-align:center;
+cursor:pointer;
+
+
+}
+
+#input_select:hover,
+#input_month_start:hover {
+box-shadow: 0px 0px 4px 6px rgba(0, 102, 255, 0.6);
+background-color: rgba(230, 230, 240, 0.6);
+}
+
+#span1_start:focus,
+#span1_start:focus {
+font-weight:bold;
+}
+
+#input_select:active,
+#input_month_start:active {
+box-shadow: 0px 0px 2px 4px rgba(0, 102, 255, 0.8);
+background-color: rgba(230, 230, 240, 0.8);
+transform: translateY(2px);
+scale: 0.98;
+}
+
+.opacity {
+opacity:0;
+transition-duration:0.5s;}
+
+
+#input_choice_sorting,
+#select_month_from {
+background-color: rgba(220, 230, 240, 0.0);
+border-radius: 2px;
+left:50%;
+width:240px;
+margin-left: -120px;
+margin-top: -20px;
+box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.0);  
+font-size: 16px;
+font-weight: bold;
+overflow: hidden;
+color: blue;
+text-align:center;
+border:none;
+outline:none;
+position:absolute;
+z-index:33;
+display: none;
+}
+
+#input_choice_sorting:hover,
+#select_month_from:hover {
+border:none;
+outline:none;
+}
+
+#input_choice_sorting:active,
+#select_month_from:active {
+border:none;
+outline:none;
+}
+
+#bs_input_sort:focus,
+#select_month_from:focus {
+border:none;
+outline:none;
+}
+
+#input_choice_sorting option,
+#select_month_from option {
+text-align:center;
+border-radius: 2px;
+z-index:32;
+color:blue;
+border:none;
+outline:none;
+background-color: rgba(230, 230, 240, 0.8);
+box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.6); 
+padding:6px 4px 6px 8px;
+font-size:16px;
+width: 220px;
+margin-left: 0px;
+margin-bottom: 6px;
+display: block;
+transition: 0.2s;
+cursor:pointer;
+font-variant: small-caps;
+}
+
+
+
+
+#sortlist:active,
+#sortlist_start:active {
+border:none;
+outline:none;
+}
+
+#sortlist:focus,
+#sortlist_start:focus {
+box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.0);
+border:none;
+outline:none;
+}
+
+#input_choice_sorting option:hover,
+#select_month_from option:hover {
+box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6);
+background: rgba(20, 60, 240, 0.8);
+color: rgba(230, 230, 240, 0.8);
+font-weight: bold;
+}
+
+#input_choice_sorting option:focus,
+#select_month_from option:focus {
+box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.8);
+background: rgba(20, 60, 240, 0.8);
+color: rgba(230, 230, 240, 0.8);
+font-weight: bold;
+}
+
+/* select:focus option:checked, */
+#input_choice_sorting option:checked,
+#input_choice_sorting option:checked:hover,
+#input_choice_sorting option:checked:focus,
+#input_choice_sorting option:checked:active,
+#select_month_from option:checked,
+#select_month_from option:checked:hover,
+#select_month_from option:checked:focus,
+#select_month_from option:checked:active {
+  box-shadow: 0px 0px 4px 6px rgba(100, 160, 220, 0.6);
+background: rgba(20, 60, 240, 0.6);
+color: rgba(230, 230, 240, 0.8);
+}
+
+/* select:-internal-list-box option:checked:hover */
+
+#input_choice_sorting option:default,
+#input_choice_sorting option:default:hover,
+#input_choice_sorting option:default:focus,
+#input_choice_sorting option:default:active,
+#select_month_from option:default,
+#select_month_from option:default:hover,
+#select_month_from option:default:focus,
+#select_month_from option:default:active {
+  box-shadow: 0px 0px 4px 6px rgba(100, 160, 220, 0.6);
+background: rgba(20, 60, 240, 0.6);
+color: rgba(230, 230, 240, 0.8);
+}
+
+#input_choice_sorting option:active,
+#select_month_from option:active {
+box-shadow: 
+0px 0px 2px 2px rgba(100, 160, 220, 0.8),
+0px 0px 2px 2px rgba(230, 230, 240, 0.8) inset;
+transform: translateY(2px);
+scale: 0.98;
+border:none;
+outline:none;
+}
+
+select {
+border:none;
+outline:none;
+}
+
+select:focus {
+border:none;
+outline:none;
+}
+
+  @keyframes roll_open {
+    from {height:0px;}
+    to {height: 100%;}
+  }
+  
+  @keyframes roll_close {
+    from {height: 100%;}
+    to {height: 0px;}
+  }
+  
+  @keyframes opacity_up {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  
+  @keyframes opacity_down {
+    from {opacity: 1;}
+    to {opacity: 0;}
+  }
+  
+  
+  #search_card_gb select:focus option:not(option:first-child):checked,
+  #search_card_gb select:focus option:not(option:first-of-type):checked,
+  #mycard_start_month select:focus option:not(option:first-child):checked,
+  #mycard_start_month select:focus option:not(option:first-of-type):checked {
+           
+           -webkit-text-fill-color: gold;
+             background-color: #ff000080 !important;
+            background-image: radial-gradient(rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2));
+            color: darkblue;
+       }
+       
+  #search_card_gb select:focus option:first-child:hover,   	
+  #search_card_gb select:focus option:first-child:checked,
+  #search_card_gb select:focus option:first-child:checked:hover,
+  #search_card_gb select:focus option:first-of-type,
+  #search_card_gb select:focus option:first-of-type:hover,
+  #mycard_start_month select:focus option:first-child:hover,   	
+  #mycard_start_month select:focus option:first-child:checked,
+  #mycard_start_month select:focus option:first-child:checked:hover,
+  #mycard_start_month select:focus option:first-of-type,
+  #mycard_start_month select:focus option:first-of-type:hover {
+           -webkit-text-fill-color: gold;
+         background-color: #ff000080 !important;
+            background-image: radial-gradient(rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2));
+            color: rgba(230, 230, 240, 0.9);
+       }
+
+
+  </style>
+
+
+ <!-- <div class="my_container_sort" id="mycontainer_sort" > -->
+ <!-- <div class="my_card_month" id="mycard_start_month" > -->
+    <div class="my_card_sort" id="mycard_sort" > 
+      <label> to </label>
+<!--<div id="input_field_month_start" class="input_field_month"> -->
+    <div id="input_field">
+ <!-- <div class="span2" id="span2a_start">▼</div> -->     
+<div class="span2" id="span2a">▼</div>
+<!-- <input id="input_month_start" type="text"  class="my_month"  placeholder="select month" readonly> -->
+<input id="input_select" type="text" value="" class="my_select"  placeholder="select sort option" readonly> 
+<!-- <div class="span2" id="span2b"_start>▲</div> --> 
+<div class="span2" id="span2b">▲</div>
+</div>
+<select class="select_month" id="select_month_from" name="as_minm_is" onchange="daterange_is(1)" size=1>
+  <option value="0">select month</option>
+  <option value="1">Jan</option>
+  <option value="2">Feb</option>
+  <option value="3">Mar</option>
+  <option value="4">Apr</option>
+  <option value="5">May</option>
+  <option value="6">Jun</option>
+  <option value="7">Jul</option>
+  <option value="8">Aug</option>
+  <option value="9">Sep</option>
+  <option value="10">Oct</option>
+  <option value="11">Nov</option>
+  <option value="12">Dec</option>
+</select>
+
+    </div>           
+  <!--     </div>     -->      
+
+
+   
+    <script>
+     // var span_2a_start = document.getElementById("span2a_start");
+      // var span_2b_start = document.getElementById("span2b_start");
+      var span_2a = document.getElementById("span2a");
+      var span_2b = document.getElementById("span2b");
+      // var dropdown_options_start = document.getElementById("select_month_from");
+      var dropdown_options = document.getElementById("input_choice_sorting");
+      // var select_input_start = document.getElementById("input_month_start");
+      var select_input = document.getElementById("input_select");
+      // var cont_sort_start = document.getElementById("mycard_start_month");
+      var cont_sort = document.getElementById("mycard_sort");
+         
+      select_input.onclick = function() {
+      if (dropdown_options.style.display === "block" ) {
+      span_2a.classList.toggle("span20");
+      span_2b.classList.toggle("span20");
+      dropdown_options.style.animation = "roll_close 1.4s";
+      setTimeout(function(){
+      dropdown_options.style.display = "none";},
+      1200);
+      } else {
+      span_2a.classList.toggle("span20");
+      span_2b.classList.toggle("span20");
+       dropdown_options.style.animation = "roll_open 1.4s";
+      dropdown_options.style.display = "block";
+      }
+      }
+
+      /*
+            select_input_start.onclick = function() {
+      if (dropdown_options_start.style.display === "block" ) {
+      span_2a_start.classList.toggle("span20");
+      span_2b_start.classList.toggle("span20");
+      dropdown_options_start.style.animation = "roll_close 1.4s";
+      setTimeout(function(){
+      dropdown_options_start.style.display = "none";},
+      1200);
+      } else {
+      span_2a_start.classList.toggle("span20");
+      span_2b_start.classList.toggle("span20");
+       dropdown_options_start.style.animation = "roll_open 1.4s";
+      dropdown_options_start.style.display = "block";
+      }
+      }
+      */
+      
+      const nodeList_1 = document.getElementsByTagName('option');
+      for (let i = 0; i < nodeList_1.length; i++) {
+       nodeList_1[i].onclick = function() {
+      select_input.value = nodeList_1[i].textContent;
+      dropdown_options.style.animation = "roll_close 1.4s";
+          setTimeout(function(){
+      dropdown_options.style.display = "none";},
+      1200);
+      }
+      }
+
+      /*
+      const nodeList_1_start = document.getElementsByTagName('option');
+      for (let i = 0; i < nodeList_1_start.length; i++) {
+       nodeList_1_start[i].onclick = function() {
+      select_input_start.value = nodeList_1_start[i].textContent;
+      dropdown_options_start.style.animation = "roll_close 1.4s";
+          setTimeout(function(){
+      dropdown_options_start.style.display = "none";},
+      1200);
+      }
+      }
+      */
+      
+      document.addEventListener("click", function(event) {
+        // If user clicks inside the element, do nothing
+        if (event.target.closest(".my_select")) return;
+        // If user clicks outside the element, hide it!
+        dropdown_options.style.animation = "opacity_down 1.2s";
+          setTimeout(function(){
+      dropdown_options.style.display = "none";},
+      1000);
+      })
+   
+     /* 
+      document.addEventListener("click", function(event) {
+        // If user clicks inside the element, do nothing
+        if (event.target.closest(".my_month")) return;
+        // If user clicks outside the element, hide it!
+        dropdown_options_start.style.animation = "opacity_down 1.2s";
+          setTimeout(function(){
+      dropdown_options_start.style.display = "none";},
+      1000);
+      })
+      */
+      </script>
+      

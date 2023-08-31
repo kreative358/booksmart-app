@@ -1,0 +1,108 @@
+<style>
+.modal {
+  position:fixed;
+  z-index:4;
+  background-color: rgb(20, 400, 220); 
+  background-color: rgba(20, 400, 220, 0.2);
+  left: 0;
+  top: 0;    
+  }
+
+   /* .modal {
+  position:fixed;
+   background-color: rgb(120, 120, 120); 
+       background-color: rgba(120, 120, 120, 0.2);
+ } */
+
+#modal_dialog_m {
+  position:relative;
+  z-index: 6;
+  max-width::620px;
+  width: 620px;
+  margin: 140px auto auto auto;
+}
+
+
+#modal_cont {
+    /* margin: 0;
+  position: fixed;
+  top: 200px;
+  left: 50%;*/
+  margin: 10px;
+  font-family: Times;
+  padding: 5px;
+  font-size:18px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 3px;
+  border: 5px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 4px 0px 8px 0 rgba(120, 120, 120, 0.3);    
+    }
+
+#modal_content {
+  width: 600px;
+  background-color: rgb(220, 220, 220); 
+  background-color: rgba(220, 220, 220, 0.8);
+  }
+
+#modal_header {
+background-color: rgb(120, 160, 220); 
+background-color: rgba(120, 160, 220, 0.2);
+}
+
+</style>
+
+<!-- Modal -->
+<div class="modal" id="myModal_m" data-backdrop="false" >
+  <div class="modal-dialog" id="modal_dialog_m">
+    <div class="container-fluid" id="modal_cont">
+    <!-- Modal content-->
+    <div class="modal-content" id="modal_content" >
+    
+      <div class="modal-header" id="modal_header">
+
+      <div> <h4>INFO MESSAGES</h4>  </div>
+      
+        <button type="button" class="close" data-dismiss="modal">✖</button>
+    
+      </div>
+      
+      <div class="modal-body">
+      {% for message in messages %}
+      <div> <h4> {% autoescape off %} {{ message }} {% endautoescape %}</h4><br></div>
+      {% endfor %}
+  
+      <div>
+    <h4> {% autoescape off %} {{ message }} {% endautoescape %}</h4><br></div>
+
+      {% for msg_info in message_info %}
+      <div  > 
+        <h5>{% autoescape off %} {{ msg_info }} {% endautoescape %}</h5> 
+      {% endfor %}
+      <h4> You try login with:<br>username-{{ username }}, password: {{ password }}</h4>
+    </div>
+
+{% for msg_info in messages %}
+  <div>
+    <h5>{% autoescape off %} {{ msg_info }} {% endautoescape %}</h5> 
+</div>
+  {% endfor %}
+
+</div>
+</div>
+      </div>
+    </div>
+</div> 
+
+
+  <script>
+    var modal_m = $.noConflict();
+    modal_m(document).ready(function(){
+      modal_m("#myModal_m").modal("show");
+        
+      modal_m("#myBtn").click(function(){
+        modal_m("#myModal_m").modal("hide");
+      });
+    
+    });
+    </script>

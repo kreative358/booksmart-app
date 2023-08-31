@@ -1,0 +1,392 @@
+
+<style>
+
+#nobtn_s {
+  width:0px;
+  height:0px;
+  cursor: default;
+  visibility: hidden; 
+}
+  
+#nobtn_l {
+  width:0px;
+  height:0px;
+  right:0;
+  cursor: default;
+  visibility: hidden;
+}
+  
+#cont_error_1  {
+  position: fixed;
+  left: 8%;
+  top: 10%;
+  z-index: 3;
+  width: 360px;
+  max-width: 90%;
+}
+  
+ /* #error_1 {
+      z-index: 3;
+      width: 340px;
+      max-width: 340px;
+      justify-content: center;
+      align-items: center;  
+      text-align: center; 
+      font-size: 22px;
+      font-family: Times;
+      font-weight:bold;
+      text-shadow: 0 0 4px AliceBlue;
+      background:  rgb(100, 160, 220);
+      background:  rgba(100, 160, 220, 0.6);
+      color: rgb(178, 34, 34);
+         
+      border-radius: 3px;
+      border: 2px solid rgba(176, 196, 222, 0.6);
+      margin:0px 10px 0px 10px;
+      outline: 4px solid  rgba(176, 196, 222, 0.6);
+      box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+      z-index: 3;
+      }*/
+  
+#cont_error_2 {
+  position: fixed;
+  right: 8%;
+  top: 10%;
+  z-index: 3;
+  width: 360px;
+  max-width: 90%;
+}
+  
+  /* #error_2  {
+      
+      z-index: 3;   
+      
+      margin:auto;width: 340px;
+      max-width: 340px;          
+      justify-content: center;
+      align-items: center;  
+      font-size: 22px;
+      font-family: Times;
+      font-weight:bold;
+      text-shadow: 0 0 4px AliceBlue;
+      background:  rgb(100, 160, 220);
+      background:  rgba(100, 160, 220, 0.6);
+      color: rgb(178, 34, 34);
+      text-align: center;     
+      border-radius: 3px;
+      border: 2px solid rgba(176, 196, 222, 0.6);
+      margin-top:0px;
+      outline: 4px solid  rgba(176, 196, 222, 0.6);
+      box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+      z-index: 3;
+    }*/
+@media only screen and (max-width: 960px) {
+#cont_error_1 {
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#cont_error_2 {
+  margin-top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  }  
+}
+
+</style>
+
+  <script>
+  $(document).ready(function(){
+    $(".p_remove").mouseenter(function(){
+      $(".p_remove").remove();  
+    });
+  });
+</script>
+
+
+<script>
+  $(document).ready(function(){
+    $(".alert").mouseenter(function(){
+      $(".alert").remove();  
+    });
+  });
+  </script>
+
+              {% if messages or message_info %}
+              {% include 'snippets/modal_message.html' %}
+    
+              {% endif %}
+
+          
+             
+
+  <div class="container-fluid col-lg-3 " style="z-index:3; position:fixed;  justify-content:center; align-items:center;" id="cont_error_1">
+  <div class="d-flex flex-column" style="z-index:3; position:center; justify-content:center; align-items:center;" id="error_1">
+    
+    {% if request.user.is_authenticated %}
+      
+      <form action='' method="post" >
+          {% csrf_token %}
+      
+        <input type="hidden" name="email" id="inputEmail" class="form-control" placeholder="Email address" value="{{account_form.initial.email}}">
+        
+        <input type="hidden" name="username" id="inputUsername" class="form-control" placeholder="Username" value="{{account_form.initial.username}}">
+
+
+        {% for field in account_form %}
+              {% for error in field.errors %}
+              <h5 id="p_r_b" class="p_remove"> {% autoescape off %} {{ error }} {% endautoescape %} </h5>
+              {% endfor %}  
+        {% endfor %}
+        {% if account_form.non_field_errors %}
+            <h5 id="p_i_b" class="p_remove">{% autoescape off %}{{account_form.non_field_errors}} {% endautoescape %}</h5>
+        {% endif %}
+
+        {% if messages %}
+      {% for message in messages %}
+      {% if message.tags == 'info'%}
+      <div id="bs_input" class="alert alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+    </div>
+    {% endif %}
+      {% endfor %}
+      
+      {% endif %}
+        
+      
+        {% if success_message %}
+          <h5 id="p_i_b" class="p_remove">{% autoescape off %} {{success_message}} {% endautoescape %}</h5>
+        {% endif  %}
+      
+        <button aria-hidden="true" name="account_f" type="hidden" id="nobtn_s"></button>
+      </form>
+
+      {% else %}
+      <p></p>
+      {% endif  %}
+
+      {% if message_info %}
+      {% for msg_info in message_info %}
+      <div  > 
+        <h5>{% autoescape off %} {{ msg_info }} {% endautoescape %}</h5> </div>
+      {% endfor %}
+         {% endif %}
+
+         {% if messages %}
+      {% for message in messages %}
+      {% if message.tags == 'info'%}
+      <div id="bs_input" class="alert alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+    </div>
+     {% endif %}
+      {% endfor %}
+      
+      {% endif %}
+    </div>
+    </div>
+  
+  
+  <div class="container-fluid col-lg-3" style="z-index:3; position:fixed;  justify-content:center; align-items:center; " id="cont_error_1">
+    <div class="d-flex flex-column" style="z-index:3; position:center; justify-content:center; align-items:center; " id="error_1">
+      {% if request.user.is_authenticated %}
+        <p></p>
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'info'%}
+        <div id="bs_input" class="alert alert-dismissible fade show">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+      </div>
+       {% endif %}
+        {% endfor %}
+        
+        {% endif %}
+      {% else %}
+  
+  
+  <form action='' method="post" >
+    {% csrf_token %}
+  
+  
+    <input type="hidden" name="email" id="inputEmail" class="form-control" placeholder="Email address">
+  
+    <input type="hidden" name="username" id="inputUsername" class="form-control" placeholder="Username">
+    
+    <input type="hidden" name="password1" id="inputPassword1" class="form-control" placeholder="password">
+  
+    <input type="hidden" name="password2" id="inputPassword2" class="form-control" placeholder="confirm password">
+  
+    {% if messages %}
+    {% for message in messages %}
+    {% elif message.tags == 'info'%}
+    <div id="bs_input" class="alert alert-dismissible fade show">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+  </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% for field in registration_form %}
+        
+          {% for error in field.errors %}
+            <h5 id="p_r_b" class="p_remove"> {% autoescape off %} {{ error }} {% endautoescape %} </h5>
+          {% endfor %}
+        
+    {% endfor %}
+    {% if registration_form.non_field_errors %}
+      
+        <h5 id="p_r_b" class="p_remove"> {% autoescape off %} {{registration_form.non_field_errors}} {% endautoescape %} </h5>
+        
+    {% endif %}
+
+    <button id="nobtn_s"  name="registration_f"> </button>
+  
+    <p ></p>
+  </form>
+  <!--</div>-->
+  
+  {% endif %}
+
+  {% if message_info %}
+  {% for msg_info in message_info %}
+  <div  > 
+    <h5>{% autoescape off %} {{ msg_info }} {% endautoescape %}</h5> </div>
+  {% endfor %}
+     {% endif %}
+
+     {% if messages %}
+      {% for message in messages %}
+      {% elif message.tags == 'info'%}   
+      <div id="bs_input" class="alert alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+    </div>
+    {% endif %}
+      {% endfor %}
+      
+      {% endif %}
+  </div>
+  </div><!---->
+  
+  <div class="container-fluid col-lg-3 " style="z-index:3; position:fixed;  justify-content:center; align-items:center; " id="cont_error_2">
+    <div class="d-flex flex-column" style="z-index:3; position:center; justify-content:center; align-items:center;" id="error_2" >
+
+      {% if request.user.is_authenticated %}
+      {% if messages %}
+      {% for message in messages %}
+      {% if message.tags == 'warning'%}
+      <div id="bs_input" class="alert alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+    </div>
+    {% endif %}
+      {% endfor %}
+      
+      {% endif %}
+
+      {% else %}
+      <p></p>
+      <br>
+      {% endif %}
+    </div>
+    </div><!---->
+
+  
+  <div class="container-fluid col-lg-3" style="z-index:3; position:fixed;  justify-content:center; align-items:center; " id="cont_error_2">
+      <div class="d-flex flex-column" style="z-index:3; position:center; justify-content:center; align-items:center;" id="error_2">
+        {% if request.user.is_authenticated %}
+          <p></p>
+          {% if messages %}
+          {% for message in messages %}
+          {% elif message.tags == 'info'%}
+
+          <div id="bs_input" class="alert alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+        </div>
+        {% endif %}
+          {% endfor %}
+          
+          {% endif %}
+  
+        {% else %}
+
+        {% if messages %}
+      {% for message in messages %}
+      {% elif message.tags == 'info'%}  
+      <div id="bs_input" class="alert alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+    </div>
+    {% endif %}
+      {% endfor %}
+      
+      {% endif %}
+          <form action=''  method="post">
+          {% csrf_token %}
+        
+        <div class="form-group">
+        <input type="hidden" name="username" id="inputUsername" class="form-control" placeholder="username" required>
+        <div class="valid-feedback" >Email field is filled out.</div>
+          <div class="invalid-feedback" >Please fill out the email field corectly.</div>
+        </div>
+  
+        <div class="form-group">
+        <input type="hidden" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="valid-feedback" id="valid">Password field is filled out.</div>
+      <div class="invalid-feedback" id="valid"><span>Please fill out the password field corectly.</span></div>
+        </div>
+  {% if messages %}
+  {% elif message.tags == 'info'%}
+      {% for message in messages %}
+      <div id="bs_input" class="alert alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+    </div>
+    {% endif %}
+      {% endfor %}
+      
+      {% endif %}
+
+        {% for field in login_form %}
+        
+            {% for error in field.errors %}
+            <h5 id='p_r_b' class="p_remove"> {% autoescape off %} {{ error }} {% endautoescape %} </h5>
+            {% endfor %}
+          
+        {% endfor %}
+        {% if login_form.non_field_errors %}
+          
+          <h5 id='p_r_b' class="p_remove"> {% autoescape off %} {{login_form.non_field_errors}} {% endautoescape %}</h5>
+          
+          
+        {% endif %}
+        <button id="nobtn_l" style="float:right;" name="login_f"></button>
+        <p ></p>
+        </form>
+        
+      {% endif %}
+      
+{% if messages %}
+      {% for message in messages %}
+      {% elif message.tags == 'info'%}
+      <div id="bs_input" class="alert alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+    </div>
+    {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+    </div><!---->
+  
+  
+  
+  
+  
+  
+  

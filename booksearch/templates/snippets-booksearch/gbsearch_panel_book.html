@@ -1,0 +1,957 @@
+
+{% load bootstrap4 %}
+
+<style >
+  /*type="text/css"*/
+  .mycontainer_search_gb {
+    width:100%;
+    position:relative;
+    width:560px; 
+    margin: 40px auto 20px auto;
+    left: 2px; 
+    max-width: 90%;
+    z-index:1;
+    box-shadow: 
+    0px 2px 2px 0px rgba(110, 170, 230, 0.2), 
+    0px 3px 3px 0px rgba(100, 160, 220, 0.6), 
+    0px 5px 4px 0px rgba(90, 150, 210, 0.4), 
+    0px 6px 5px 0px rgba(80, 140, 200, 0.6), 
+    /*-2px 8px 6px 0px rgba(119, 120, 123, 0.2), 
+    2px 9px 7px 0px rgba(119, 120, 123, 0.2), 
+    0px 10px 8px 0px rgba(77, 77, 79, 0.4), 
+    0px 11px 9px 0px rgba(43, 53, 63, 0.6);*/
+    0px 4px 6px 10px rgba(119, 130, 143, 0.6);
+
+    background-color: rgb(60, 160, 220);
+    background-color: rgba(60, 160, 220, 0.2); 
+    border-radius: 4px;
+    border: 6px solid rgba(100, 160, 220, 0.6);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    transition: 0.4s;
+    padding: 10px;
+  }
+  
+  .mycontainer_search_gb:hover {
+  transform: scale(1);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: rgb(60, 160, 220); 
+    background-color: rgba(60, 160, 220, 0.2); 
+    border: 6px solid rgba(100, 160, 220, 0.8);
+    box-shadow: 
+    0px 2px 2px 2px rgba(110, 170, 230, 0.2), 
+    0px 3px 2px 0px rgba(100, 160, 220, 0.4), 
+    0px 5px 0px -2px rgba(90, 150, 210, 0.6), 
+    0px 6px 0px 1px rgba(80, 140, 200, 0.6), 
+    /*-6px 8px 8px 4px rgba(229, 230, 243, 0.2),
+    8px 10px 6px -4px rgba(229, 230, 243, 0.2),
+    0px 4px 6px 12px rgba(229, 230, 243, 0.6);*/
+    0px 4px 6px 10px rgba(229, 230, 243, 0.6);
+  }
+
+
+  
+  #search_card_gb ::-webkit-input-placeholder { /* Edge */
+    color: rgba(0, 0, 204, 0.6); 
+  }
+  
+  #search_card_gb  :-ms-input-placeholder { /* Internet Explorer */
+    color: rgba(0, 0, 204, 0.6);
+  }
+  
+  #search_card_gb ::placeholder {
+    color: rgba(0, 0, 204, 0.6);
+  }
+
+
+  
+  #body_spgb {
+  border-radius: 4px;
+  }
+  
+  /*
+  input, select {
+    font-size:16px;
+    color:darkblue;
+    box-shadow: 
+    0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+    background: rgba(230, 255, 255, 0.4);
+    border-radius:2px;
+    box-sizing: border-box;
+  }
+  
+  input:hover, select:hover {
+    scale:1.02;
+    box-shadow: 
+    0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.6);
+    background: rgba(230, 255, 255, 0.6);
+  }
+  
+  input:focus, select:focus {
+    scale:1.02;
+    box-shadow: 
+    0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.8);
+    background: rgba(204, 255, 255, 0.8);
+    border:none;
+    outline:none;
+  }  */
+  #btn_collapsible_gbsp {
+    padding: 0px;
+   border-radius: 4px;
+    position: relative;
+    margin: auto;
+  }
+  
+  .collapsible_gbsp  {
+    width:100%;
+    cursor: pointer;
+    border: 6px solid rgba(210, 0, 0, 0.9);
+    border-radius: 4px;
+    background-color: rgb(60, 160, 220);
+    background-color: rgba(60, 160, 220, 0.2); 
+    color: rgba(210, 0, 0, 0.9);
+    font-size: 28px;  
+    display: block;
+    font-weight: bold;
+    padding:10px;
+    box-shadow: 
+    /*0px 0px 0px 4px rgba(240, 20, 20, 0.6) inset,*/
+    0px 0px 6px 4px rgba(220, 220, 240, 0.4);
+    margin: 0px;
+    font-variant: small-caps;
+    font-size: 26px;
+    transition: 0.4s;
+  }
+  
+.collapsible_gbsp:hover {
+  border: 6px solid rgba(0, 0, 210, 0.9);
+  background-color: rgb(60, 160, 220); 
+  background-color: rgba(60, 160, 220, 0.6); 
+  color: rgba(0, 0, 210, 0.9);
+  box-shadow: 
+  0px 0px 6px 6px rgba(220, 220, 240, 0.6);
+}
+
+.collapsible_gbsp:active {
+  border: 6px solid rgba(0, 0, 210, 0.9);
+  background-color: rgb(60, 160, 220); 
+  background-color: rgba(60, 160, 220, 0.8); 
+  color: rgba(0, 0, 210, 0.9);
+  box-shadow: 
+  0px 0px 4px 4px rgba(220, 220, 240, 0.8);
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+}
+
+  
+  .btn_border {
+    box-shadow: 
+  0px 0px 6px 4px rgba(220, 220, 240, 0.4);
+    width:100%; 
+    }
+  
+  .btn_gb_advance {
+    width:100%;
+    padding:10px;
+    font-variant: small-caps;
+    cursor: pointer;
+    border: 6px solid rgba(0, 0, 210, 0.9);
+    border-radius: 4px;
+    background: rgba(210, 0, 0,  0.0);
+    color: rgba(0, 0, 210, 0.9);
+    font-size: 26px;  
+    display: block;
+    font-weight: bold;
+     
+  }
+  
+  .collapsible:hover {
+    background: rgba(0, 0, 210,  0.9);
+  box-shadow: 
+  0px 0px 6px 4px rgba(220, 220, 240, 0.6);
+  }
+  
+  .btn_gb_advance:hover {
+    
+    background: rgba(210, 0, 0, 0.9);
+    box-shadow:
+  
+  }
+  
+  .btn_border:hover {
+    box-shadow: 
+    0px 0px 10px 20px rgba(220, 220, 240, 0.6) inset,
+    0px 0px 6px 4px rgba(220, 220, 240, 0.6);
+  }
+  
+  .btn_border:active {
+   
+    box-shadow:
+    0px 0px 10px 20px rgba(230, 240, 240, 0.8) inset, 
+    0px 0px 3px 3px rgba(230, 240, 240, 0.8);
+  }
+  
+  .btn_gb_advance:active {
+    
+    background: rgba(210, 0, 0, 0.9);
+  }
+  
+  
+  .collapsible:focus, .btn_gb_advance:focus {
+    border: none;
+    outline:none;
+    
+  } 
+  
+  .mycard_gb {
+    background-color: rgb(100, 160, 220);
+    background-color: rgba(100, 160, 220, 0.4); 
+    font-family: Times;
+   border-radius: 4px;
+    text-align: center;
+    /*text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
+     font-variant: small-caps;*/
+    text-shadow: 
+    -0.015em 0.015em 0.0em rgb(211, 211, 211), 
+    -0.03em 0.03em 0.015em rgb(211, 211, 211), 
+    0.04em 0.0em 0.02em rgb(128, 128, 128) ,
+    0.02em 0.02em 0.01em rgb(128, 128, 128);
+    text-align:center;
+    padding: 20px 10px 20px 10px;
+    transition-duration: 0.6s;
+    }
+    
+    .mycard_gb:hover {
+      background-color: rgba(100, 160, 220, 0.8); 
+    }
+  
+    #search_card_gb:hover,
+    #search_card_gb_a:hover {}
+   
+    .collapse1 {
+      width: 90%;
+      max-width:90%;
+      
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 1.6s;
+    }
+    
+    .h4_id_gb {
+      font-size: 26px;
+      font-weight:bold;
+    color: rgba(0, 20, 210, 0.8);
+    line-height: 1;
+    }
+  
+  #search_card_gb input[type=text], 
+  #search_card_gb input[type=email], 
+  #search_card_gb input[type=password], 
+  #search_card_gb input[type=date], 
+  #search_card_gb input[type=number], 
+  #search_card_gb input[type=url], 
+  #search_card_gb input[type=search] {
+      font-size: 16px; 
+      color:darkblue; 
+      width:90%; 
+      margin-left: auto;
+      display: inline-block;
+      border-radius: 2px;    
+      box-shadow:
+      0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+      0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+      background:rgb(240, 248, 255);
+      background:rgba(240, 248, 255, 0.2);
+      transition: 0.4s;
+      padding: 6px;
+      border: none;
+      outline: none;
+      }
+  
+    
+    #search_card_gb textarea {
+    font-size: 16px; 
+    color:darkblue; 
+    width:90%; 
+    max-width: 90%;
+    margin: 4px auto 2px auto;
+    padding-top: 4px;
+    display: inline-block;
+    border-radius: 2px;    
+    box-shadow:
+    0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+    background-color:rgb(240, 248, 255);
+    background-color:rgba(240, 248, 255, 0.2);  
+    text-align: justify;
+    text-justify: inter-word;
+    height: 92px;
+    max-height: 138px;
+    overflow: auto;
+    resize: none;
+    transition: 0.4s;
+  }
+      
+  #search_card_gbb input[type=text]:hover, 
+  #search_card_gb input[type=email]:hover, 
+  #search_card_gb input[type=password]:hover, 
+  #search_card_gb input[type=date]:hover, 
+  #search_card_gb input[type=number]:hover, 
+  #search_card_gb input[type=url]:hover, 
+  #search_card_gb input[type=search]:hover {
+      background:rgb(240, 248, 255);
+      background:rgba(240, 248, 255, 0.6);
+      box-shadow:
+      0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
+      0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+      color:darkblue;
+      }
+  
+  /* textarea:hover {
+    background-color:rgb(240, 248, 255);
+    background-color:rgba(240, 248, 255, 0.6);
+    box-shadow:
+    0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+    color:darkblue;
+    } */
+  
+  #search_card_gb input[type=text]:focus, 
+  #search_card_gb input[type=email]:focus , 
+  #search_card_gb input[type=password]:focus, 
+  #search_card_gb input[type=date]:focus, 
+  #search_card_gb input[type=number]:focus, 
+  #search_card_gb input[type=url]:focus, 
+  #search_card_gb input[type=search]:focus  {
+      background-color:rgb(240, 248, 255);
+      background-color:rgba(240, 248, 255, 0.8);
+      box-shadow:
+      0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
+      0px 0px 0px 2px rgba(220, 220, 240, 0.6);
+      border:none;
+      outline: none;
+      color:darkblue;
+      }
+  
+  #search_card_gb textarea:focus {
+    background-color:rgb(240, 248, 255);
+    background-color:rgba(240, 248, 255, 0.8);
+    box-shadow:
+    0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.6);
+    color:darkblue;
+    border:none;
+    outline: none;
+    color:darkblue;
+    }
+  
+  #body_spgb {
+    margin-top: 14px;
+    display: none;
+  }
+  
+  #search_card_gb label {
+    font-size: 18px;
+    margin-bottom: -6px;
+    text-shadow: -1px 0 rgba(230, 230, 230, 0.8), 0 1px rgba(230, 230, 230, 0.8), 1px 0 rgba(230, 230, 230, 0.8), 0 -1px rgba(230, 230, 230, 0.8);
+    color: rgba(0, 0, 210, 0.8)
+  }
+  
+  
+    
+    /* select:focus, option:focus, #bs_input_c:focus, #bs_input_o:focus 
+    .flatpickr-current-month input.cur-year*/
+   #search_card_gb .form-group,
+   #search_card_gb .form-group-select {
+    height: 66px;
+    margin-bottom: 2px;
+    }
+  
+  select::-webkit-scrollbar {
+    display: none;
+  }
+  
+  select {
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+    padding: 6px;
+  }
+  
+
+  /* select, */
+  #search_card_gb select {
+    -webkit-text-fill-color: blue;
+    background-color: rgba(60, 160, 240, 0.0); 
+  /*  appearance: none; */
+  }
+
+/* 
+  select:after,
+  #search_card_gb select:after {
+    content:"";
+    position: absolute;
+    border: solid blue;
+    border-width: 0 3px 3px 0;
+    display: block;
+    transform: rotate(45deg);
+    padding: 2px;
+    float: right;
+    margin-right: 6px;
+    margin-top: 9px;
+    font-weight: bold;
+    } */
+
+  .arrow-down {
+    border: solid blue;
+    border-width: 0 3px 3px 0;
+    display: block;
+    transform: rotate(45deg);
+    padding: 2px;
+    float: right;
+    margin-right: 6px;
+    margin-top: 9px;
+    font-weight: bold;
+  }
+  
+  /* select, */
+  #search_card_gb select {
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  max-width: 90%;
+  display: block;
+  border-radius: 4px;    
+  box-shadow:
+  0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+  0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+  background:rgb(240, 248, 255);
+  background:rgba(240, 248, 255, 0.6); 
+  transition: 0.4s;
+  width:90%; 
+  margin-left: auto;
+  border: none;
+  outline: none;
+  padding: 6px;
+  }
+  
+  /* select, */
+  #search_card_gb select:hover {
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border: none;
+  outline: none;
+  }
+   
+  /* select, */
+  #search_card_gb select  {
+  position:relative;
+  z-index: 1;
+  background-color: rgba(60, 160, 240, 0.0); 
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  margin-top: 4px;
+  border-radius: 4px;
+  transition: 2s;
+  /* padding: 6px 4px 6px 6px; */
+  padding: 6px;
+  width: 90%;
+  max-width: 90%;
+  margin-left: auto;
+  }
+  
+  /* select:focus, */
+  #search_card_gb select:focus {
+  background: transparent;
+  background-color: rgba(60, 160, 240, 0.0);
+  background: rgba(60, 160, 240, 0.0);
+  outline: none;
+  border: none;
+  position: fixed;
+  z-index: 3;
+  transition: 0.4s;
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  width: 90%;
+  max-width: 90%;
+  margin-left: 8px;
+  box-shadow: none;
+  margin-top: -6px;
+  }
+    
+
+  /* select,
+  select:hover, */
+  #search_card_gb select,
+  #search_card_gb select:hover {
+  position: relative;
+  z-index: 1;
+    width: 92%;
+    max-width: 92%;
+    margin-left: 4%;
+    padding: 7px 6px 7px 6px;
+    font-size: 16px;
+  }
+  
+  /* select:focus, */
+  #search_card_gb select:focus {
+    position: fixed;
+    z-index: 3;
+    min-width: 88%;
+    width: 88%;
+    max-width: 88%;
+    margin-left: 16px;
+    padding: 1%; 
+    }
+  
+  .select_class {
+  background-color: rgba(220, 220, 240, 0.4);
+  box-shadow: 0px 0px 0px 2px rgba(60, 160, 240, 0.6);
+    min-width: 88%;
+    width: 88%;
+    max-width: 88%; 
+    transition: 0.6s;
+    opacity: 1;
+  }
+
+  /* select option:first-child, */
+  #search_card_gb select option:first-child {
+  background-color: rgba(60, 160, 240, 0.2);
+  box-shadow: 
+  0px 0px 0px 2px rgba(60, 160, 240, 0.2) inset,
+  0px 0px 0px 2px rgba(60, 160, 240, 0.6);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.4s;
+  font-size: 16px;
+  padding: 6px 4px 6px 6px;
+  
+  }
+
+  /* select option:first-child:hover,
+  select option:first-child:focus, */
+  #search_card_gb select option:first-child:hover,
+  #search_card_gb select option:first-child:focus {
+  background-color: rgba(60, 160, 240, 0.2);
+  box-shadow: 
+  0px 0px 0px 2px rgba(220, 220, 240, 0.6) inset,
+  0px 0px 0px 2px rgba(60, 160, 240, 0.6);
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.4s;
+  font-size: 16px;
+  padding: 6px 4px 6px 6px;
+  }
+
+  /* select option:first-child:after, 
+   appearance: none;*/
+  #search_card_gb select option:first-child:after {
+  content:"";
+  border: solid blue;
+  border-width: 0 3px 3px 0;
+  display: block;
+  transform: rotate(-135deg);
+  padding: 2px;
+  float: right;
+  margin-right: 6px;
+  margin-top: 9px;
+  font-weight: bold;
+  }
+  
+  /* option,
+  option:focus, */
+  #search_card_gb option, 
+  #search_card_gb option:focus {
+  background-color:rgb(240, 248, 255);
+  background-color:rgba(240, 248, 255, 0.8);
+  box-shadow:
+  0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
+  0px 0px 0px 2px rgba(220, 220, 240, 0.6);
+  font-size: 18px; 
+  color: rgba(0, 0, 210, 0.8); 
+  padding: 6px 4px 6px 6px;
+  border:none;
+  outline: none;
+  min-width: 90%;
+  }
+  
+  /* option:hover, */
+  #search_card_gb option:hover {
+  background:rgb(240, 248, 255);
+  background:rgba(240, 248, 255, 0.6);
+  box-shadow:
+  0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
+  0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+  min-width: 90%;
+  }
+  
+  /* #search_card_gb option:active, */
+  #search_card_gb option:focus:active {
+  background-color:rgb(10, 115, 230);
+  background-color:rgba(10, 115, 230, 0.8);
+  box-shadow:
+  0px 0px 0px 2px rgba(220, 220, 240, 0.8) inset,
+  0px 0px 0px 2px rgba(10, 115, 230, 0.8);
+  color:rgba(220, 230, 240, 0.8);
+  border:none;
+  outline: none; 
+  padding: 6px 4px 6px 6px;
+  min-width: 90%;
+  }
+  
+  /* select option, */
+  #search_card_gb select option {
+  background-color: rgba(60, 160, 240, 0.2); 
+  border-radius: 4px;
+  margin-top: 6px;
+  font-size: 16px; 
+  color: rgba(0, 0, 210, 0.8); 
+  padding: 6px 4px 6px 6px;
+  transition: 0.4s;
+  box-shadow:
+  0px 0px 0px 2px rgba(220, 220, 240, 0.4) inset,
+  0px 0px 0px 2px rgba(10, 115, 230, 0.4);
+  min-width: 90%;
+  }
+  
+  
+  /* select option:not(option:first-child), */
+  #search_card_gb select option:not(option:first-child) {
+  box-shadow: 
+  0px 0px 0px 2px rgba(60, 160, 240, 0.4),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.4) inset;
+  transition: 0.4s;
+  animation: opacityup 2s;
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 6px 4px 6px 6px;
+  min-width: 90%;
+  }
+  
+  /* select option:first-of-type:hover, */
+  #search_card_gb select option:first-of-type:hover {
+  box-shadow: 
+  0px 0px 0px 2px rgba(60, 160, 240, 0.6),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.6) inset; 
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 6px 4px 6px 6px;
+  transition: 0.4s;
+  min-width: 90%;
+  }
+  
+  /* option:not(option:first-child):hover, */
+  #search_card_gb select option:not(option:first-child):hover {
+  box-shadow: 
+  0px 0px 0px 2px rgba(220, 220, 240, 0.6),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.6) inset; 
+  /*border: 2px solid rgba(230, 230, 240, 0.6); */
+  color:rgba(230, 230, 240, 0.9);
+  font-weight: bold;
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 6px 4px 6px 6px;
+  min-width: 90%;
+  }
+  
+  /* select option:not(option:first-child):focus,
+  select option:not(option:first-child):active, */
+  #search_card_gb select option:not(option:first-child):focus,
+  #search_card_gb select option:not(option:first-child):active {
+  /* border: 2px solid rgba(230, 230, 240, 0.8);
+  outline: 2px solid rgba(230, 230, 240, 0.8);
+  outline-offset: 2px; */
+  box-shadow: 
+  0px 0px 0px 2px rgba(220, 220, 240, 0.8),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.8) inset;
+  color:rgba(230, 230, 240, 1);
+  font-weight: bold;
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 6px 4px 6px 6px;
+  min-width: 90%;
+  }
+  
+  /* select option:first-of-type:focus, */
+  #search_card_gb select option:first-of-type:focus {
+  background-color: rgba(60, 160, 240, 0.2);
+  box-shadow: 
+  0px 0px 0px 2px rgba(220, 220, 240, 0.8),
+  0px 0px 0px 20px rgba(60, 160, 240, 0.8) inset; 
+  color: rgba(0, 0, 210, 0.8); 
+  font-size: 16px;
+  padding: 6px 4px 6px 6px;
+  min-width: 90%;
+  }
+
+  /* select:invalid,
+  select:disabled, */
+  #search_card_gb select:invalid,
+  #search_card_gb select:disabled {
+  background:rgba(60, 160, 240, 0.0);
+  background-color:rgba(60, 160, 240, 0.0);
+  }
+  
+  /* select[disabled] > option, */
+  #search_card_gb select[disabled] > option {
+    color: rgba(120, 120, 160, 0.6);
+    background:rgba(160, 160, 240, 0.6);
+     background-color:rgba(160, 160, 240, 0.6);
+   box-shadow: 
+   0px 0px 0px 2px rgba(220, 220, 240, 0.8),
+  0px 0px 0px 0px rgba(230, 230, 240, 0.0) inset; 
+  font-size: 16px;
+  padding: 6px 4px 6px 6px;
+  
+  margin-left:auto;
+  margin-right:auto;
+  z-index: 4;
+  }
+  
+    @keyframes opacityup {
+      from {opacity: 0;} 
+      to {opacity: 1;}
+    } 
+    
+      @keyframes opacitydown {
+      from {opacity: 1;} 
+      to {opacity: 0;}
+    } 
+    
+      @keyframes heightdown {
+      from {height: 100%;} 
+      to {height: 28px;}
+    } 
+   
+    
+  /* select:focus option:first-of-type:checked,  */
+  #search_card_gb select:focus option:first-of-type:checked {
+   -webkit-text-fill-color: rgba(220, 220, 240, 0.8); 
+   background-color: rgba(60, 160, 240, 0.1) !important;
+   background-color: rgba(60, 160, 240, 0.8);
+  background: rgba(600, 160, 240, 0.8);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6));
+  box-shadow: 0px 0px 0px 2px rgba(220, 220, 240, 0.8);
+  margin-left:auto;
+  margin-right:auto;
+  z-index: 4;
+  padding: 6px 4px 6px 6px;
+  font-size: 16px;
+  margin-bottom: 4px;
+  width: 500px;
+  }  
+  
+  /* select:focus option:first-of-type:checked:hover, */
+  #search_card_gb select:focus option:first-of-type:checked:hover {
+   -webkit-text-fill-color: rgba(230, 230, 240, 0.9); 
+   background: rgba(20, 20, 240, 0.1) !important;
+   background-color: rgba(20, 20, 240, 0.1) !important;
+   background-color: rgba(60, 160, 240, 0.8);
+  background: rgba(60, 160, 240, 0.8);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6));
+  box-shadow: 0px 0px 0px 2px rgba(220, 220, 240, 0.8);
+  margin-left:auto;
+  margin-right:auto;
+  z-index: 4;
+  color: rgba(220, 220, 240, 0.9);
+  padding: 6px 4px 6px 6px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 500px;
+  }  
+   
+  /* select:hover option:not(option:first-child):checked, */
+  #search_card_gb select:hover option:not(option:first-child):checked {
+  -webkit-text-fill-color: rgba(230, 230, 240, 0.9);
+  background-color: rgba(60, 160, 240, 0.6);
+  background: rgba(60, 160, 240, 0.6);
+  box-shadow: 0px 0px 0px 2px rgba(60, 160, 240, 0.8);
+/*  background-color: rgba(60, 160, 240, 0.1) !important; */
+  background-color: rgba(60, 160, 240, 0.6);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6));
+  margin-left:auto;
+  margin-right: auto;
+  z-index: 4;
+  padding: 6px 4px 6px 6px;
+  }
+  
+  /* select:focus option:not(option:first-child):checked, */
+  #search_card_gb select:focus option:not(option:first-child):checked {
+  -webkit-text-fill-color: rgba(230, 230, 240, 0.9);
+  background-color: rgba(220, 220, 240, 0.8);
+  background: rgba(220, 220, 240, 0.8);
+  box-shadow: 0px 0px 0px 2px rgba(60, 160, 240, 0.8);
+  margin-left:auto;
+  margin-right: auto;
+  padding: 6px 4px 6px 6px;
+  }
+  
+  #search_card_gb select {
+  }
+  
+  /* option, option:hover, option:focus, option:focus:hover, select option, select option:hover, select option:focus, select option:focus:hover, select:focus option, select:focus:hover option, */
+  #search_card_gb option, 
+  #search_card_gb option:hover, 
+  #search_card_gb option:focus,
+  #search_card_gb option:focus:hover,
+  #search_card_gb select option,
+  #search_card_gb select option:hover,
+  #search_card_gb select option:focus,
+  #search_card_gb select option:focus:hover,
+  #search_card_gb select:focus option,
+  #search_card_gb select:focus:hover option {
+  margin-left:auto;
+  margin-right: auto;
+  background-color: rgba(220, 220, 240, 0.8);
+  background: rgba(220, 220, 240, 0.8);
+  box-shadow: 
+  0px 0px 0px 2px rgba(60, 160, 240, 0.8);
+  z-index: 4;
+  margin-top: 6px;
+  border-radius: 4px;
+  padding: 6px 4px 6px 6px;
+  transition: 0.4s;
+  transform: scale(1.01);
+  opacity: 1;
+  min-width:90%;
+  width: 90%;
+  }
+
+/*
+  select > option:nth-child(1),
+  select > option:checked:nth-child(1),
+  select:focus > option:checked:nth-child(1),
+  select:focus:hover option,
+  select option:focus:hover {
+  min-width: 480px;
+  width: 480px;
+    margin-left:auto;
+  margin-right: auto;
+} */
+
+
+/* #search_card_gb select:focus option:nth-child(1),
+#search_card_gb select:focus:hover option:nth-child(1) {
+  min-width: 472px;
+  width: 472px;
+  margin-left:auto;
+  margin-right: auto;
+} */
+
+#search_card_gb select:focus option:nth-child(1),
+#search_card_gb select:focus:hover option:nth-child(1) {
+  min-width: 98%;
+  width: 98%;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: 4px;
+  transform: scale(1.01);
+  transition: 0.4s; 
+  background-color: rgba(60, 160, 240, 0.6);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6))
+}
+
+  </style>
+
+<div class="mycontainer_search_gb"  id="search_cont_gb">
+    <div class="mycard_gb" id="search_card_gb">
+
+<div id="btn_collapsible_gbsp">      
+<div class="collapsible_gbsp" id="tooltip" >
+  SEARCH PANEL for GOOGLE BOOKS<span id="tooltiptext">SEARCH BOOKS IN GOOGLE BOOKS USING DETAILS PRESS TO EXPAND OR UNEXPAND PANEL</span></div>
+</div>
+<div id="body_spgb" class="collapse_search_panel">
+
+     <form action="{% url 'booksearch:addx_book' %}" method="GET" target="_blank">
+      {% csrf_token %}
+      {% if form %}
+      {% bootstrap_form form %}
+  
+
+   <button id="submit_find" type="submit" class="btn btn-outline-danger btn-lg text-primary" style="min-width: 120px; margin-top: 20px; margin-bottom:6px; border: 4px solid; box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6); font-size: 18px; font-weight: bold;"> FIND BOOKS </button>
+  {% endif %}
+  </form>
+  </div>
+      </div>
+      </div>
+
+
+
+                       
+
+      <script>
+     
+    
+
+
+        let btn_collapse_gbsp = document.getElementById("btn_collapsible_gbsp");
+        let container_collapse_gbsp = document.getElementById("body_spgb");
+        
+        btn_collapse_gbsp.onclick = function() {
+          if (container_collapse_gbsp.style.display==="block") {
+              container_collapse_gbsp.style.animation = "anime_roll_close 1.6s 0.2s easy-in-out";
+              setTimeout(function(){
+                container_collapse_gbsp.style.display = "none";
+               }, 1700);
+        
+            //   window.onload = function() {
+                       //   }
+        
+              
+          } else {
+            container_collapse_gbsp.style.animation = "anime_roll_open 1.6s 0.2s easy-in-out";
+            container_collapse_gbsp.style.display = "block";
+              
+           /* if (document.querySelectorAll("[id^='input_select']").length === 0) {
+              alert("NOT True !!!");
+            } */
+            // btn_selectes_number.innerText = selectes_onload.length;
+        
+          }
+        }
+
+
+// const selectes = document.getElementsByTagName('select'); #search_card_gb
+const selectes = document.querySelectorAll("#search_card_gb select");
+ for (const selekt of selectes) {
+let arrow_down = "<span class='arrow-down'> </span>";
+ selekt.addEventListener('mousemove', (event) => {
+ let x = event.target.options.length;
+ event.target.setAttribute('data-title', x);
+});
+
+  selekt.addEventListener('focus', (event) => {
+  event.target.classList.remove('select_class');
+  let y = event.target.getAttribute('data-title');
+  event.target.size = y * 1.1 + 1;
+  });
+
+  selekt.addEventListener('blur', (event) => {
+  event.target.classList.remove('select_class');
+  event.target.size="1";
+  });
+
+  selekt.addEventListener('change', (event) => {
+  event.target.size="1";
+  event.target.blur();
+  event.target.classList.add('select_class');
+  });
+
+  selekt.addEventListener('click', (event) => {
+    if (event.target === selekt.children[0]) {
+ //   alert("option without value")
+      selekt.blur();
+ }
+ });  
+  
+}
+
+//  include "snippets-booksearch/my_select_widget_new.html" 
+        </script>
+
+   

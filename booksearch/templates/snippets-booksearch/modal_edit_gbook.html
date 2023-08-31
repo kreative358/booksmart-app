@@ -1,0 +1,679 @@
+<!--  <script src="https://flatpickr.js.org/javascripts/application.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://flatpickr.js.org/init.js"></script> -->
+ <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/themes/light.min.css"> -->
+
+<!--  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/shortcut-buttons-flatpickr.min.js"></script>-->
+
+<!--  <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+  <script src="https://unpkg.com/flatpickr"></script> 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/shortcut-buttons-flatpickr.min.js"></script>
+
+
+<link href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css
+" rel="stylesheet">
+-->
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/rangePlugin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.4.0/dist/shortcut-buttons-flatpickr.min.js"></script>
+  
+{% include 'snippets-booksearch/pure_flatpickr_css.html' %}
+
+<style>
+
+  /* width */
+  ::-webkit-scrollbar {
+  width: 14px;
+  
+  }
+  ::-webkit-scrollbar-button {
+  height:100%;
+  
+  }
+  /* ::-webkit-resizer {
+  height:100px;}
+  Track */
+  ::-webkit-scrollbar-track {
+  box-shadow:inset  0px 0px 4px 2px rgba(120, 120, 120, 0.4) ; 
+  border-radius: 4px;
+  background:rgba(241, 243, 244, 0.6);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+  background: rgba(102, 153, 255, 0.6) ; 
+  border-radius: 4px;
+  box-shadow:inset  0px 0px 4px 2px rgba(120, 120, 120, 0.4) ; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+  background:rgba(0, 51, 204, 0.6); 
+  }
+  
+  @keyframes opacityanime {
+  from {opacity:1;} 
+  to {opacity:0;}
+  }
+  
+  @keyframes modalfadeout {
+  from {background-color: rgba(20, 100, 200, 0.4);} 
+  to {background-color: rgba(20, 100, 200, 0.0);}
+  }
+  
+  @keyframes modalfadein {
+  from {background-color: rgba(20, 100, 200, 0.0);} 
+  to {background-color: rgba(20, 100, 200, 0.4);}
+  }
+  
+  @keyframes noconic {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  }
+  
+  [id^="mymodal_gbOver"] {
+  position: fixed;
+  display:none;
+  z-index: 22;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  /*overflow: auto; */
+  animation:noname;
+  transition-duration: 0.2s;
+  background-color: rgb(20, 100, 200); 
+  background-color: rgba(20, 100, 200, 0.4); 
+  /*background-image: repeating-conic-gradient(rgba(120, 120, 140, 0.4) 0%, rgba(120, 120, 140, 0.4) 1%, rgba(20, 140, 240, 0.4) 2%, rgba(120, 120, 140, 0.4) 3%);*/
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  }
+  
+  [id^="mymodal_gbOverlay"]:hover {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  }
+  
+  [id^="mymodal_gbCont"] {
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-self: center;
+  position: fixed;
+  z-index: 23;
+  display:none;
+  vertical-align: middle;
+  left: 50%;
+  top: 60px;
+  margin-left: -280px;
+  
+  font-family: Times;
+  padding: 10px;
+  width: 560px;
+  min-width: 560px;
+  max-width: 90%;
+  font-size: 18px;
+  border-radius: 2px;
+  border: 4px solid rgba(240, 240, 240, 0.6);
+  background:rgba(0, 70, 204, 0.4);
+  animation: noname2;
+  transition-duration: 0.2s;
+  box-shadow: 
+  0px 2px 10px 10px rgba(229, 230, 243, 0.4); 
+  
+  }
+  
+  [id^="mymodal_gbCont"]:hover {
+  
+  background:rgba(0, 70, 204, 0.6);
+  box-shadow:
+  0px 2px 10px 14px rgba(229, 230, 243, 0.8);
+  /*-8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
+  -8px -8px 10px 0px rgba(229, 230, 243, 0.6),
+  8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
+  8px -8px 10px 0px rgba(229, 230, 243, 0.6),
+  
+  18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
+  18px -18px 20px 0px rgba(209, 210, 223, 0.4),
+  -18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
+  -18px -18px 20px 0px rgba(209, 210, 223, 0.4);*/
+  } 
+  
+  @keyframes unzoomrotate {
+  from {transform:scale(1); rotate:360deg;} 
+  to {transform:scale(0); rotate: 0deg;}
+  } 
+  
+  @keyframes zoomrotate {
+  from {transform:scale(0); rotate:0deg; top:auto;} 
+  to {transform:scale(1); rotate: 360deg; top:50%;}
+  } 
+  
+  @keyframes unzoom {
+  from {transform:scale(1);} 
+  to {transform:scale(0);
+  }
+  }
+  
+  @keyframes zoom {
+  from {transform:scale(0);} 
+  to {transform:scale(1);
+  }
+  }
+  
+  @keyframes animatetopback {
+  from {top: 0px; }
+  to {top:-1000px; }
+  }
+  
+  .column_mymodal_gb {
+  border-radius: 2px;
+  margin: auto;
+  border: 4px solid rgba(240, 240, 240, 0.6);
+  padding:10px;
+  transition-duration: 0.2s;
+  
+  }
+  
+  .column_mymodal_gb:hover {
+  
+  }
+  
+  .mymodal_header_gb {
+  background-color: rgb(140, 140, 180); 
+  background-color: rgba(140, 140, 180, 0.6);
+  border-radius: 2px;
+  border: 4px solid rgba(240, 240, 240, 0.6);
+  margin: auto;
+  padding:2px;
+  text-align:center;
+  transition-duration: 0.2s;
+  }
+  
+  .mymodal_header_gb:hover {
+  background-color: rgb(140, 140, 180); 
+  background-color: rgba(140, 140, 180, 0.8);
+  }
+  
+  .mymodal_body_gb {
+  justify-content:center;
+  text-align:center;
+  background-color: rgb(140, 140, 160); 
+  background-color: rgba(140, 140, 160, 0.6);
+  border-radius: 2px;
+  border: 4px solid rgba(240, 240, 240, 0.6);
+  margin: 10px auto 10px auto;
+  padding:10px 5% 0px 5%;
+  overflow: auto;
+  max-height: 440px;
+  }
+  
+  .mymodal_body_gb:hover {
+  background-color: rgb(140, 140, 160); 
+  background-color: rgba(140, 140, 160, 0.8);
+  }
+  
+  #mymodal_gbBody label {
+  
+  font-variant: small-caps;
+  font-size: 24px;
+  font-family:Times;
+  color:blue;
+  padding: 0px auto 0px auto;
+  font-weight: bold;
+  line-height: 16px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  }
+  
+  /*
+    .form-control {
+  padding:5px;
+  margin:-8px auto -10px auto;
+  
+  font-size: 16px;  
+  font-family:Times;
+    background-color: rgb(220, 230, 240,); 
+  
+  box-sizing: border-box;
+  border-radius: 2px;
+  box-shadow: 
+  0px 0px 2px 2px rgba(240, 240, 240, 0.4) inset,
+  0px 0px 2px 2px rgba(40, 120, 240, 0.4); 
+  
+  background-color: rgba(220, 230, 240, 0.2);
+  color:darkblue;
+  }
+    
+  .form-control:hover {
+  background-color: rgb(220, 230, 240,); 
+  background-color: rgba(220, 230, 240, 0.4);
+  box-shadow: 
+  0px 0px 2px 2px rgba(240, 240, 240, 0.6) inset,
+  0px 0px 2px 2px rgba(40, 120, 240, 0.6);
+  }
+  
+  .form-control:focus {
+  background-color: rgb(220, 230, 240,); 
+  background-color: rgba(220, 230, 240, 0.8);
+  box-shadow: 
+  0px 0px 2px 2px rgba(240, 240, 240, 0.8) inset,
+  0px 0px 2px 2px rgba(40, 120, 240, 0.8);
+  
+  }
+  
+  .form-control, .form-control:hover, .form-control:focus {
+  border:none;
+  outline:none;
+  
+  #mymodal_gbBody 
+  , #mymodal_gbBody input[type=image]}
+  */ 
+  
+  #mymodal_gbBody input[type=text] {
+    font-size:16px;
+    color:darkblue;
+    box-shadow: 
+    0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+    background: rgba(240, 255, 255, 0.4);
+    border-radius:2px;
+    box-sizing: border-box;
+  margin: -6px auto -28px auto;
+  padding: 2px 6px 4px auto;
+  width: 96%;
+  border: none;
+  outline: none;
+  }
+  
+  #mymodal_gbBody input[type=date],  #mymodal_gbBody input[type=url] {
+  font-size:16px;
+  color:darkblue;
+  box-shadow: 
+  0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+  0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+  background: rgba(240, 255, 255, 0.4);
+  border-radius:2px;
+  box-sizing: border-box;
+  margin: -6px auto -12px auto;
+  width:96%;
+   border: none;
+  outline: none;
+  }
+  
+  #mymodal_gbBody textarea {
+    font-size:16px;
+    color:darkblue;
+    box-shadow: 
+    0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+    background: rgba(240, 255, 255, 0.4);
+    border-radius:2px;
+    box-sizing: border-box;
+    margin: -6px auto -12px auto;
+    text-align: justify; 
+    text-justify: inter-word; 
+    resize:none;
+    width:96%;
+    }
+  
+  #mymodal_gbBody ::-webkit-input-placeholder { /* Edge */
+    color: lightblue;
+  }
+  
+  #mymodal_gbBody :-ms-input-placeholder { /* Internet Explorer */
+    color: lightblue;
+  }
+  
+  #mymodal_gbBody ::placeholder {
+    color: lightblue;
+  }
+  
+  #mymodal_wikiBody input:hover, #mymodal_wikiBody select:hover, #mymodal_wikiBody textarea:hover {
+    scale:1.02;
+    box-shadow: 
+    0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.6);
+    background: rgba(240, 255, 255, 0.6);
+  }
+  
+  #mymodal_wikiBody input:focus, #mymodal_wikiBody select:focus, #mymodal_wikiBody textarea:focus {
+    scale:1.02;
+    box-shadow: 
+    0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
+    0px 0px 0px 2px rgba(220, 220, 240, 0.8);
+    background: rgba(240, 255, 255, 0.8);
+    border:none;
+    outline:none;
+    color: darkblue;
+  }
+  
+  .mymodal_footer_gb {
+  background-color: rgb(140, 140, 180); 
+  background-color: rgba(140, 140, 180, 0.6);
+  border-radius: 2px;
+  border: 4px solid rgba(240, 240, 240, 0.6);
+  margin: auto;
+  padding: auto 10px auto 10px;
+  box-shadow: 0px 0px 2px 2px rgba(120, 120, 240, 0.6);
+  min-height:70px;
+max-height:70px;
+height:70px;
+  align-items:center;
+  }
+  
+  .mymodal_footer_gb:hover {
+  background-color: rgb(140, 140, 180); 
+  background-color: rgba(140, 140, 180, 0.8);
+  }
+  
+  .close_m {
+  color: white;
+  float: right;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0px 6px 20px auto;
+  transition: 0.2s;
+  }
+  
+  .close_m:hover,
+  .close_m:focus {
+  color: blue;
+  scale:1.02;
+  text-decoration: none;
+  cursor: pointer;
+  }
+  
+  .close_m:active {
+  transform: translateY(2px);
+  scale: 0.98;
+  }
+  
+  .btn_close {
+  float:left;
+  transition: 0.2s;
+  }
+  
+  .btn_close:hover,
+  .btn_close:focus {
+  text-decoration: none;
+  cursor: pointer;
+  }
+  
+  .close_mb:active {
+  transform: translateY(2px);
+  scale: 0.98;
+  }
+  
+  .btn_save {
+  float:right;
+  transition: 0.2s;
+  }
+  
+  #a_submit_t {
+  animation-name: anime_submit_t;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  }
+
+
+  
+  #mymodal_gbBody input.date_published,
+  #gb_published > input[class^="date_published"] {
+    background:rgba(240, 255, 255, 0.4) url(https://cdn2.iconfinder.com/data/icons/education-1-blue/64/calendar_month_schedule_date-64.png)  no-repeat ;
+    background-size: 26px 26px;
+    background-position: 99% 50%;
+    border:none;
+    outline:none;
+  }
+
+
+  [id^="published"],
+  [id^="mymodal_gbBody"] input.date_published,
+  #gb_published > input[class^="date_published"] {
+    background:rgba(240, 255, 255, 0.4) url(https://cdn2.iconfinder.com/data/icons/education-1-blue/64/calendar_month_schedule_date-64.png)   no-repeat ;
+    background-size: 26px 26px;
+    background-position: 99% 50%;
+    border:none;
+    outline:none;
+  }
+
+
+  </style>
+        
+      
+        
+        <div class="mymodal_gb" id="mymodal_gbOverlay_{{book.google_id}}">
+        </div>
+    
+    <div class="container_mymodal_gb" id="mymodal_gbCont_{{book.google_id}}">
+    <div class="column_mymodal_gb" id="mymodal_gbCol_{{book.google_id}}">
+    
+        <div class="mymodal_header_gb text-center" id="mymodal_gbHeader_{{book.google_id}}" >
+        <p id="close_m_gb_{{book.google_id}}" class="close_m">✖</p>
+        <p style="font-weight:bold; font-size:26px; color:blue; margin:10px auto 0px 10px;">BOOK CARD TO EDIT & SAVE</p>
+
+        <p id="flatpikr_date_{{book.google_id}}" style="font-weight:bold; font-size:26px; color:blue; margin:10px auto 0px 10px;"></p>
+        </div>
+    
+        
+        <div class="mymodal_body_gb" id="mymodal_gbBody_{{book.google_id}}" >
+          
+            
+      <form action="{% url 'booksearch:addbook' %}" method="post" enctype="multipart/form-data" target="{% url 'booksmart:allrecords' %}" id="form_gb_{{ book.google_id }}">
+        {% csrf_token %}
+        
+        <div class="form-group" id="gb_identity" >
+            <label class="label_1" id="bs_label_gb_id" for="google_id" style="">google books identity:</label>
+            <input type="text" class="form-control" name="google_id" id="google_id" minlength="12" maxlength="12" value="{{book.google_id}}" pattern='^[A-Za-z0-9._-]{12}$' title="12 characters">
+          </div>
+        
+          <div class="form-group" id="gb_title">
+            <label class="label_2" id="bs_label_title" for="title" >book title:</label>
+            <input type="text" class="form-control" name="title" id="title" value="{{book.title}}" required>
+          </div>
+          
+          <div class="form-group" id="gb_author">
+            <label class="label_2" id="bs_label_auth" for="author" >book author:</label>
+            <input type="text" class="form-control" name="author" id="author" pattern='^(\w.+\s).+$' title='must contain at least two words' value="{{book.author}}" required>
+          </div>
+          
+          <div class="form-group" id="gb_category">
+            <label class="label_2" id="bs_label_cat" for="category" > category: </label>
+            <input type="text" class="form-control" name="category" id="category" value="{{book.category}}" >
+          </div>
+          
+          <div class="form-group" id="gb_description">
+            <label class="label_2" id="bs_label_descript" for="summary" > description: </label>
+            <textarea class="form-control" name="summary" id="summary" rows='4' style="width:96%;" maxlength="1250"> {{book.summary}} </textarea>
+          </div>
+  
+          <div class="form-group" id="gb_published" style="margin-top: 12px;">
+            <label class="label_2" class="bs_label_published" for="published" > published date: </label>
+            <input type="date" class="form-control" name="published" placeholder="mm/dd/yyyy" id="published_{{ book.google_id }}" value='{{book.published}}'/>
+            
+          </div>
+    <!---->
+          <div class="form-group" id="gb_identyfier">
+            <label class="label_2" id="bs_label_identity" for="isbn" >identyfier number:</label>
+            {% autoescape off %} <input type="text" class="form-control" name="isbn" id="isbn"  value="{{book.isbn}}" > {% endautoescape %}
+          </div>
+          
+          <div class="form-group" id="gb_language">
+            <label class="label_2" id="bs_label_lang" for="language" >language:</label>
+            <input type="text" class="form-control" name="language" id="language" value="{{book.language}}" >
+          </div>
+          
+          <div class="form-group" id="gb_epub" >
+            <label class="label_2" id="bs_label_epub" for="epub"> epub: </label>
+            <input type="text" class="form-control" name="epub" id="epub" value="{{book.epub}}" >
+          </div>
+          
+          <div class="form-group" id="gb_embed">
+            <label id="bs_label_embed" for="embeddable"> embeddable: </label>
+            <input type="text" class="form-control" name="embeddable"  id="embeddable" value="{{book.embeddable}}" >
+          </div>
+          
+          <div class="form-group" id="gb_image" >
+            <label class="label_2" id="bs_label_img" for="imageLinks"> image link: </label>
+            <input type="url" class="form-control" name="imageLinks" id="imageLinks" pattern="^http:\/\/.+$" title="Include http://" value="{{book.imageLinks}}">
+          </div>
+          
+          <div class="form-group" id="gb_prev_link">
+            <label class="label_2" id="bs_label_prev_link" for="preview_link" >preview link: </label>
+            <input type="url" class="form-control" name="preview_link" id="preview_link" value="{{book.preview_link}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://">
+          </div>
+          
+          <div class="form-group" id="gb_self_link">
+            <label class="label_2" id="bs_label_self_link" for="selfLink" >self link:</label>
+            <input type="url" class="form-control" name="selfLink" id="selfLink" value="{{book.selfLink}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://">
+          </div>
+    
+          <div class="form-group" id="gb_prev_linkn">
+            <label class="label_2" for="bs_label_link_new" >preview link new: </label>
+            <input type="url" class="form-control" name="preview_link_new" id="preview_link_new" value="{{book.preview_link}}" pattern="http:\/\/.+" title="Include http://">
+          </div>
+          <br>
+        
+        </form>
+    
+        </div>
+        <div class="mymodal_footer_gb" id="mymodal_gbFooter_{{book.google_id}}">
+        
+        <button id="close_mb_gb_{{ book.google_id }}" type="button" class="btn_close btn btn-outline-primary text-danger" style=" min-width:110px; margin:10px auto auto 5%; border: 4px solid; font-size: 18px; font-weight: bold; padding:4px; box-shadow:0px 0px 4px 2px rgba(220,230,240, 0.6);"> CLOSE </button>
+      
+       
+      <button id="btn_save_bookgb_{{ book.google_id }}" form="form_gb_{{ book.google_id }}" type="submit" id="button_save_{{ book.google_id }}" class="btn_save btn btn-outline-danger text-primary" style="min-width:110px; margin:10px 5% auto auto; border: 4px solid; font-size: 18px; font-weight: bold; box-shadow:0px 0px 4px 2px rgba(220,230,240, 0.6); padding: 4px;"> SAVE </button>
+    
+    </div>
+    <p style="font-variant: small-caps; margin:auto auto -10px auto;"> booksmart </p>
+    </div>
+    </div>
+    
+    
+    <script>
+      console.clear();
+      var_name_gb = {}
+// {{ book.google_id }}
+// let inputs_date = document.querySelectorAll("input[type=date]");
+flatpickr("#published_{{ book.google_id }}", {
+  altInput: true,
+  allowInput: true,
+ // static:true,
+  altFormat: "m/d/Y",
+ dateFormat: "Y-m-d",
+ altInputClass: "date_published_",
+ plugins: [
+     
+  ShortcutButtonsPlugin({
+     button: [
+      { label: "clear" },        
+       { label: "today" },
+     ],
+
+     onClick: (index, fp) => {
+       let execute;
+       switch (index) {
+         case 0:
+           execute = fp.clear();
+           break;
+         case 1:
+           execute = new Date();
+           fp.setDate(execute);
+           break;    
+     }
+   }
+ }),
+]   
+  });
+    
+var modal_gb_{{ book.google_id }} = document.getElementById("mymodal_gbOverlay_{{book.google_id}}");
+    
+var cont_gb_{{ book.google_id }} = document.getElementById("mymodal_gbCont_{{book.google_id}}");
+     
+var btn_gb_{{ book.google_id }} = document.getElementById("btn_gbook_{{book.google_id}}");
+
+    // var book_date = document.getElementById("published_{{book.google_id}}");
+    // var book_date_inner{{ book.google_id }} = document.getElementById("flatpikr_date{{book.google_id}}");
+      //var btn_authorbook = document.getElementById("button_1{{book.google_id}}");
+      
+      btn_gb_{{ book.google_id }}.onclick = function(){
+        modal_gb_{{ book.google_id }}.style.display = "block";
+          //my_modal_authorbook.style.display = "block";
+          modal_gb_{{ book.google_id }}.style.animation = "modalfadein 1s 1";
+          //my_modal_authorbook.src = this.src;
+          
+          cont_gb_{{ book.google_id }}.style.display = "block"; 
+          cont_gb_{{ book.google_id }}.style.animation = "zoom 2s 1";
+
+         // my_modal_authorbookCont.src = this.src;
+        // let calendar_publ = new flatpickr(book_date, {static: true,});
+        // book_date_inner{{ book.google_id }}.innerHTML = '{{ book.published }}'
+      }
+      
+          var close_x_gb_{{ book.google_id }} = document.getElementById("close_m_gb_{{book.google_id}}");  
+          var close_btn_gb_{{ book.google_id }} = document.getElementById("close_mb_gb_{{ book.google_id }}");
+          var save_btn_gb_{{ book.google_id }} = document.getElementById("btn_save_bookgb_{{ book.google_id }}");
+
+          var avaliable_text_{{ book.google_id }} = document.getElementById("book_avaliable_{{ book.google_id }}");
+
+          var t_book_{{book.google_id}} = document.getElementById("t_book_{{book.google_id}}");
+          
+          close_btn_gb_{{ book.google_id }}.onclick = function() {
+          
+          cont_gb_{{ book.google_id }}.style.animation = "animatetopback 2s 1";
+          modal_gb_{{ book.google_id }}.style.animation = "modalfadeout 1s 1 1s";
+          setTimeout(()=> {
+            cont_gb_{{ book.google_id }}.style.display = "none";
+              modal_gb_{{ book.google_id }}.style.display = "none";
+              }
+              , 1900);
+          }
+      
+          close_x_gb_{{ book.google_id }}.onclick = function() {
+            cont_gb_{{ book.google_id }}.style.animation = "unzoom 2s 1";
+            modal_gb_{{ book.google_id }}.style.animation = "modalfadeout 1s 1 1s";
+          setTimeout(()=> {
+            cont_gb_{{ book.google_id }}.style.display = "none";
+              modal_gb_{{ book.google_id }}.style.display = "none";
+              }
+              , 1900);
+          }
+      
+          modal_gb_{{ book.google_id }}.onclick = function() {  
+            cont_gb_{{ book.google_id }}.style.animation = "unzoomrotate 2s 1";
+            modal_gb_{{ book.google_id }}.style.animation = "modalfadeout 1s 1 1s";
+              setTimeout(()=> {
+                cont_gb_{{ book.google_id }}.style.display = "none";
+                modal_gb_{{ book.google_id }}.style.display = "none";
+              }
+              , 1900);   
+          }
+
+          
+          save_btn_gb_{{ book.google_id }}.onclick = function() { 
+         avaliable_text_{{ book.google_id }}.innerHTML = "NOW this book is: avaliable in the inventory.";
+         t_book_{{book.google_id}}.innerHTML = "BECAUSE THIS BOOK IS IN DATABASE, IF YOU WANT TO ADD THIS BOOK AGAIN YOU HAVE TO CHANGE GOOGLE-ID BEFORE SAVE"; //
+          cont_gb_{{ book.google_id }}.style.animation = "modalfadeout 1.5s 1 1.5s" ;
+          modal_gb_{{ book.google_id }}.style.animation = "modalfadeout 1s 1 2.5s";
+            setTimeout(()=> {
+              cont_gb_{{ book.google_id }}.style.display = "none";
+              modal_gb_{{ book.google_id }}.style.display = "none";
+            } , 1900); 
+            
+          }
+
+ /*         avaliable_text_{{ book.google_id }}.addEventListener("change", myFunction);
+          function myFunction() {
+            if (avaliable_text_{{ book.google_id }}.innerHTML = "NOW this book is: avaliable in the inventory.") {
+
+            }
+          } */
+          </script>
+  
+

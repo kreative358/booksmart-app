@@ -1,0 +1,37 @@
+{% load booksmart_extras %}
+<style type="text/css">
+
+#cont_pag {
+position:relative;
+z-index:1;
+margin: 20px auto 20px auto;
+text-align:right;
+width:80%;
+}
+</style>
+<div class="container-fluid" id="cont_pag">
+
+<div class="row">
+<div class="column"  >
+<div class="pagination justify-content-end">
+
+<span class="step-links"><h3>
+{% if book_page_obj.has_previous %}
+    <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+    <a href="{% my_url book_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+    
+{% endif %}
+
+<span class="current">
+    Page {{ book_page_obj.number }} of {{ book_page_obj.paginator.num_pages }}.
+</span>
+
+{% if book_page_obj.has_next %}
+    <a href="{% my_url book_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+    <a href="{% my_url book_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+{% endif %}</h3>
+</span>      
+</div>       
+</div>
+</div>
+</div>

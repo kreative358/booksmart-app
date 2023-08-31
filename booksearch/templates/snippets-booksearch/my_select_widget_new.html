@@ -1,0 +1,750 @@
+
+<style type="text/css">
+    input,
+    select,
+    option {
+    outline: none;
+    border: none;
+    background: transparent;
+    overflow: hidden;
+    }
+    
+    #input_select::placeholder { 
+    color: white;
+    opacity: 1;
+    
+    font-weight: bold;
+    }
+    
+    #input_select::-ms-input-placeholder { 
+    color: white;
+    }
+    
+    #input_select::-ms-input-placeholder { 
+    color: white;
+    }
+    
+    .my_container_sort {
+    position:relative;
+    width: 480px; 
+    margin: 60px auto 0px auto;
+    max-width: 480px;
+    min-width: 480px;
+    z-index:2;
+    left: 2px;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    background-color: rgba(100, 160, 220, 0.2);
+    padding: 10px;
+    transition: 0.6s;
+    border-radius: 4px;
+    border: 6px solid rgba(100, 160, 220, 0.4);
+    box-shadow: 
+    0px 2px 2px 0px rgba(110, 170, 230, 0.4), 
+    0px 3px 3px 0px rgba(100, 160, 220, 0.6), 
+    0px 5px 4px 0px rgba(90, 150, 210, 0.4), 
+    0px 6px 5px 0px rgba(80, 140, 200, 0.6), 
+    -2px 8px 6px 0px rgba(119, 120, 123, 0.4), 
+    2px 9px 7px 0px rgba(119, 120, 123, 0.4), 
+    0px 10px 8px 0px rgba(77, 77, 79, 0.4), 
+    0px 11px 9px 0px rgba(43, 53, 63, 0.6);
+    }
+    
+    .my_container_sort:hover {
+    transform: scale(1.01);
+    backdrop-filter: none;
+    background-color: rgb(100, 160, 220,); 
+    background-color: rgba(100, 160, 220, 0.6); 
+    box-shadow: 
+    1px 2px 2px 0px rgba(110, 170, 230, 0.4), 
+    -1px 3px 3px 0px rgba(100, 160, 220, 0.6), 
+    0px 5px 4px 0px rgba(90, 150, 210, 0.4), 
+    0px 6px 5px 0px rgba(80, 140, 200, 0.6), 
+    0px 2px 5px 9px rgba(229, 230, 243, 0.4);
+    }
+    
+    .my_card_sort {
+    background-color: rgb(100, 160, 220,); 
+    background-color: rgba(100, 160, 220, 0.4); 
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    padding: 0px;
+    text-align: center;
+    transition: 0.4s;
+    justify-content:center;
+    margin:auto;
+    position:relative;
+    z-index: 1;
+    width: 560px;
+    max-width: 90%;
+    }
+    
+    .my_card_sort:hover {
+    background-color: rgb(100, 160, 220,); 
+    background-color: rgba(100, 160, 220, 0.6); 
+    } 
+    
+    
+    .bs_input_sort {
+    overflow: auto;
+    }
+    
+    .bs_input_sort select::-webkit-scrollbar {
+    /*display: none;*/
+    width: 16px;
+    }  
+    
+    .bs_input_sort select::-webkit-scrollbar {
+    width: 16px;
+    box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.1) inset; 
+    }
+    
+    .bs_input_sort select::-webkit-scrollbar-track {
+    box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.0) inset; 
+    border-radius: 4px;
+    margin-bottom:4px;
+    }  
+    
+    .bs_input_sort select::-webkit-scrollbar-track:hover {
+    box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.2) inset; 
+    }
+    
+    .bs_input_sort select::-webkit-scrollbar-track:active,
+    {
+    box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.3) inset; 
+    }
+    
+    .bs_input_sort select::-webkit-scrollbar-track:focus {
+    box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.4) inset; 
+    }
+    
+    .bs_input_sort select::-webkit-scrollbar-thumb {
+    background: rgba(100, 160, 220, 0.1); 
+    }
+    
+    .bs_input_sort select::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 160, 220, 0.4); 
+    }
+    
+    .bs_input_sort select::-webkit-scrollbar-thumb:active {
+    background: rgba(100, 160, 220, 0.6); 
+    }
+    
+    .bs_input_sort select::-webkit-scrollbar-thumb:focus {
+    background: rgba(100, 160, 220, 0.8); 
+    }
+    
+    #span1 {
+    background-color: rgba(240, 230, 220, 0.0);
+    }
+    
+    #span2a {
+    display:inline-block;
+    margin-right: -30px;
+    position:relative;
+    z-index: 3;
+    }
+    
+    #span2b {
+    display:inline-block;
+    margin-left: -30px;
+    position:relative;
+    z-index: 3;    
+    
+    }
+    
+    .span2 {
+    color:rgba(0, 102, 255, 0.2);
+    text-shadow: 
+    -1px 0 rgba(0, 102, 255, 0.8),
+    1px 1px rgba(255, 255, 255, 0.9),
+    -1px -1px rgba(255, 255, 255, 0.9),
+    -1px 1px rgba(255, 255, 255, 0.9),
+    2px 1px 1px rgba(0, 102, 255, 0.9),
+    0px -1px 1px rgba(0, 102, 255, 0.9);
+    rotate: 0deg;
+    transition: all 0.8s;
+    }
+    
+    .span20 {
+    rotate:180deg;
+    transition: all 0.8s;
+    /*animation:mymove 0.2s;*/
+    /*transform: rotate(180deg);*/
+    }
+    
+    @keyframes btnmove {
+    from {margin-top:50px;}
+    to {margin-top:200px;}
+    }
+    
+    .btn_margin {
+    transition-duration: 1s;
+    margin-top:200px;
+    }
+    
+    .my_select_input {
+    box-shadow: 0px 0px 4px 4px rgba(0, 102, 255, 0.6);
+    background-color: rgba(230, 230, 240, 0.4);
+    outline:none;
+    z-index:2;
+    position:relative;
+    border-radius: 2px;
+    display:inline-block;
+    width:98%;
+    margin: 10px auto 4px auto;
+    color:blue;
+    height: 34px;
+    font-size: 18px;
+    font-weight: bold;
+    transition:0.2s;
+    text-align:center;
+    cursor:pointer;
+    font-variant: small-caps;
+    }
+    
+    .my_select_input:hover {
+    box-shadow: 0px 0px 4px 6px rgba(0, 102, 255, 0.6);
+    background-color: rgba(230, 230, 240, 0.6);
+    }
+    
+    #span1:focus {
+    font-weight:bold;
+    }
+    
+    .my_select_input:active {
+    box-shadow: 0px 0px 2px 4px rgba(0, 102, 255, 0.8);
+    background-color: rgba(230, 230, 240, 0.8);
+    transform: translateY(2px);
+    scale: 0.98;
+    }
+    
+    .opacity {
+    opacity:0;
+    transition-duration:0.5s;}
+    
+    
+    .form-group select,
+    .form-group-select select {
+    background-color: rgba(220, 230, 240, 0.0);
+    border-radius: 2px;
+    left:50%;
+    width:400px;
+    max-width: 90%;
+    margin-left: -186px;
+    margin-top: 4px;
+    box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.0);  
+    font-size: 18px;
+    font-weight: bold;
+    color: blue;
+    text-align:center;
+    outline:none;
+    position:absolute;
+    z-index:4;
+    display: none;
+    padding-left: 6px;
+    padding-right: 2px;
+    max-height: 386px;
+    overflow: scroll;
+    
+     scroll-snap-type: y mandatory;
+    }
+    
+    .form-group select:hover,
+    .form-group-select select:hover {
+    border:none;
+    outline:none;
+    }
+    
+    .form-group select:active,
+    .form-group-select select:active {
+    border:none;
+    outline:none;
+    }
+    
+    .form-group select:focus,
+    .form-group-select select:focus {
+    border:none;
+    outline:none;
+    }
+    
+    .form-group select option,
+    .form-group-select select option {
+    text-align:center;
+    border-radius: 4px;
+    z-index:4;
+    color:blue;
+    border:none;
+    outline:none;
+    background-color: rgba(230, 230, 240, 0.8);
+    box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.6); 
+    padding:6px 4px 6px 8px;
+    font-size:18px;
+    width: 380px;
+    max-width: 94%;
+    margin-bottom: 4px;
+    display: block;
+    transition: 0.4s;
+    cursor:pointer;
+    font-variant: small-caps;
+    margin-top: 4px;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    }
+    
+    #btnsort {
+    border: 6px solid rgba(0, 0, 210, 0.6);
+    box-shadow: 0px 0px 4px 6px rgba(100, 160, 220, 0.6); 
+    font-size: 20px; 
+    font-weight: bold; 
+    text-align: center; 
+    text-justify: center; 
+    padding-top:2px; 
+    padding-bottom:2px; 
+    margin-top:6px;
+    width: 146px;
+    height: 46px; 
+    background: rgba(60, 160, 240, 0.6);
+    font-variant: small-caps;
+    position:relative; 
+    margin-top: 0px; 
+    z-index:1; 
+    color: rgba(0, 0, 210, 0.8);
+    border-radius: 2px;
+    }
+    
+    #btnsort:hover {
+    border: 6px solid rgba(210, 0, 0, 0.9);
+    color: rgba(210, 0, 0, 0.9);
+    background: rgba(0, 0, 210, 0.6);
+    box-shadow: 0px 0px 2px 6px rgba(220, 230, 240, 0.6);
+    }
+    
+    #sortlist:active {
+    border:none;
+    outline:none;
+    }
+    
+    #sortlist:focus {
+    box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.0);
+    border:none;
+    outline:none;
+    }
+    
+    select:focus option:checked,
+    .my_card_sort select option:checked,
+    .my_card_sort select option:checked:hover,
+    .my_card_sort select option:checked:focus,
+    .my_card_sort select option:checked:active {
+      box-shadow: 0px 0px 4px 6px rgba(100, 160, 220, 0.6);
+    background: rgba(20, 60, 240, 0.6);
+    color: rgba(230, 230, 240, 0.8);
+    }
+    
+    /* select:-internal-list-box option:checked:hover */
+    
+    
+     select option:default,
+     select option:default:hover,
+     select option:default:focus,
+     select option:default:active,
+    .my_card_sort select option:default,
+    .my_card_sort select option:default:hover,
+    .my_card_sort select option:default:focus,
+    .my_card_sort select option:default:active {
+      box-shadow: 0px 0px 4px 6px rgba(100, 160, 220, 0.6);
+    background: rgba(20, 60, 240, 0.6);
+    color: rgba(230, 230, 240, 0.8);
+    transition: 0.6s;
+    }
+    
+    
+    .form-group-select select option:hover {
+    box-shadow: 
+    0px 0px 4px 20px rgba(100, 160, 220, 0.6) inset,
+    0px 0px 4px 4px rgba(100, 160, 220, 0.6);
+    background: rgba(20, 60, 240, 0.8);
+    color: rgba(230, 230, 240, 0.8);
+    font-weight: bold;
+    transition: 0.6s;
+    }
+    
+    .form-group-select select option:focus {
+    box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.8);
+    background: rgba(20, 60, 240, 0.8);
+    color: rgba(230, 230, 240, 0.8);
+    font-weight: bold;
+    transition: 0.6s;
+    }
+    
+    select option:active,
+    .form-group-select select option:active {
+    box-shadow: 
+    0px 0px 2px 2px rgba(100, 160, 220, 0.8),
+    0px 0px 2px 2px rgba(230, 230, 240, 0.8) inset;
+    transform: matrix(0.98, 0, 0, 0.98, 2, 0);
+    transition: 0.6s;
+    border:none;
+    outline:none;
+    }
+    
+    select, .form-group, .form-control {
+    border:none;
+    outline:none;
+    }
+    
+    select:focus, .form-group:focus, .form-control:focus {
+    border:none;
+    outline:none;
+    }
+    
+      @keyframes roll_open {
+        from {transform: matrix(0, 0, 0, 0, 0, 0);}
+        to {transform: matrix(1, 0, 0, 1, 0, 0);}
+      }
+      
+      @keyframes roll_close {
+        from {height: auto;}
+        to {transform: matrix(0, 0, 0, 0, 0, 0);}
+      }
+      
+      @keyframes opacity_up {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+      
+      @keyframes opacity_down {
+        from {opacity: 1;}
+        to {opacity: 0;}
+      }
+     
+     
+    ::-webkit-input-placeholder { /* Edge */
+        color: rgba(0, 0, 204, 0.8); 
+      }
+      
+      :-ms-input-placeholder { /* Internet Explorer */
+          color: rgba(0, 0, 204, 0.8);
+      }
+      
+      ::placeholder {
+          color: rgba(0, 0, 204, 0.8);
+      } 
+    
+    /* select::-webkit-scrollbar {
+    
+      width: 16px;
+      border-radius: 2px;
+    }  */
+    
+     select::-webkit-scrollbar {
+      border-radius: 4px;
+      width: 16px;
+      box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.1) inset; 
+      height: 100%;
+    }
+    
+     select::-webkit-scrollbar-track {
+      box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.0) inset; 
+      border-radius: 4px;
+      margin-bottom:4px;
+    }  
+    
+     select::-webkit-scrollbar-track:hover {
+      box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.2) inset; 
+    }
+    
+     select::-webkit-scrollbar-track:active,
+     {
+      box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.3) inset; 
+    }
+    
+     select::-webkit-scrollbar-track:focus {
+      box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.4) inset; 
+    }
+    
+     select::-webkit-scrollbar-thumb {
+      background: rgba(100, 160, 220, 0.1); 
+    }
+    
+     select::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 160, 220, 0.4); 
+    }
+    
+     select::-webkit-scrollbar-thumb:active {
+      background: rgba(100, 160, 220,, 0.6); 
+    }
+    
+     select::-webkit-scrollbar-thumb:focus {
+      background: rgba(100, 160, 220, 0.8); 
+    } 
+    
+    
+    
+ 
+    
+    .form-group-select {
+    border:none;
+    height: 0px;}
+    
+    .class_roll_close {
+    height: 0px;
+    transition: 1.4s;
+    display: none;
+    }
+    
+    @keyframes slideDown {
+        0% {
+            transform: translateY(0%);
+        }
+        50%{
+            transform: translateY(8%);
+        }
+        65%{
+            transform: translateY(-4%);
+        }
+        80%{
+            transform: translateY(4%);
+        }
+        95%{
+            transform: translateY(-2%);
+        }			
+        100% {
+            transform: translateY(0%);
+        }		
+    }
+    
+    @-webkit-keyframes slideDown {
+        0% {
+            -webkit-transform: translateY(0%);
+        }
+        50%{
+            -webkit-transform: translateY(8%);
+        }
+        65%{
+            -webkit-transform: translateY(-4%);
+        }
+        80%{
+            -webkit-transform: translateY(4%);
+        }
+        95%{
+            -webkit-transform: translateY(-2%);
+        }			
+        100% {
+            -webkit-transform: translateY(0%);
+        }	
+    }
+    
+    @keyframes slideUp {
+        0% {opacity: 1;
+        height: 100%;
+            transform: translateY(20%);
+        }
+        50%{
+            transform: translateY(8%);
+        }
+        65%{
+            transform: translateY(-4%);
+        }
+        80%{
+            transform: translateY(4%);
+        }
+        95%{
+            transform: translateY(-2%);
+        }			
+        100% {opacity: 0;
+        height: 0%;
+            transform: translateY(20%);
+        }		
+    }
+
+    #info_tooltip:after {
+      content: "";
+      position: absolute;
+      top: 101%;
+      left: -6%;
+      
+      margin-left: -5px;
+      border-width: 10px;
+      border-style: solid;
+      border-color: rgba(60, 160, 240, 0.8) transparent transparent transparent;
+      rotate: 45deg;
+    }
+    
+    #info_tooltip:before {
+      content: "";
+      width: 20px;
+      height: 20px;
+     position: absolute;
+      margin-left: -20px;
+      top: 85%;
+     border: 4px solid;
+      border-color: blue transparent transparent blue;
+    background: transparent;
+      rotate: -90deg;
+    }
+    
+    body:active #info_tooltip {
+      opacity: 1;
+    }
+    
+  /*     .form-group {
+    height: 54px;
+   
+    width: 560px;
+    max-width: 560px;
+    justify-content: center;
+    text-align:center;
+    position: relative;
+    margin: auto;
+    }
+     */
+    
+    
+      </style>
+
+
+      <div class="my_card_sort" id="mycard_sort_">
+        <div class="input_field" id="input_field_">
+    <div class="span2" id="span2a">▼</div>
+    <input class="my_select_input" id="myselect_input_" type="text" value="" placeholder="select sort option" readonly > <div class="span2" id="span2b">▲</div>
+    </div>
+    </div>  
+        
+       
+           
+         
+
+            <script>  
+
+              var body = document.querySelector("body");
+              body.id = "body";
+              var info_tooltip = document.createElement("div");
+              info_tooltip.id = "info_tooltip";
+              document.body.appendChild(info_tooltip);
+              
+              body.onmousemove=function(event) {
+                 var x = event.clientX;
+                  var y = event.clientY;
+               
+                  info_tooltip.style.left = x + "px";
+                  info_tooltip.style.top = y + "px";
+                  info_tooltip.style.marginLeft =  "18px";
+                  info_tooltip.style.marginTop =  "-10%";
+                  info_tooltip.innerText = 
+                "id: " + event.target.id + "\n" +
+                "class: " + event.target.className + "\n" +
+                "tag: " + event.target.tagName + "\n";
+              }
+              
+              
+              const button_try_it = document.getElementById("button_try_it");
+              const btn_selectes_number = document.getElementById("btn_selectes");
+              
+              const selectes_onload = document.getElementsByTagName("select");
+              
+              // const html_card_select = "<div class='my_card_sort' id='mycard_sort_'><div class='input_field' id='input_field_'><div class='span2' id='span2a'>▼</div><input class='my_select_input' id='input_select_' type='text' value='' placeholder='select sort option' readonly > <div class='span2' id='span2b'>▲</div></div></div> ";
+              // const select_input = document.createElement("div");
+              // const html_card_select_1 = "<div class='input_field' id='input_field_'><div class='span2' id='span2a'>▼</div><input class='my_select_input' id='input_select_' type='text' value='' placeholder='select sort option' readonly > <div class='span2' id='span2b'>▲</div></div> ";
+              // my_select_input
+              /*window.onmousemove = function(event) {
+              let event_id = event.target.id;
+              value_info_1.innerText = event_id;
+              } */
+              
+              // button_try_it.onclick = function() {
+              window.onload = function() {
+                btn_selectes_number.innerText = selectes_onload.length;
+                  if (selectes_onload.length > 0) {
+                    // value_info_1.innerText = "True";
+                      let text_1 = "";
+                      let text_2 = "";
+                   for (let i = 0; i < selectes_onload.length; i++) {
+                     let parent_select = selectes_onload[i].previousElementSibling.parentNode;	
+                      parent_select.classList.remove("form-group");
+                      parent_select.classList.add("form-group-select");
+                      parent_select.id = "pN_select_" + selectes_onload[i].id;
+                     // selectes_onload[i].previousElementSibling.parentNode.insertAdjacentHTML("beforebegin", html_card_select);
+                     parent_select.previousElementSibling.id = "mycard_sort_" + selectes_onload[i].id;
+                    parent_select.previousElementSibling.children[0].id = "input_field_" + selectes_onload[i].id; 
+                     parent_select.previousElementSibling.children[0].children[1].id = "input_select_" + selectes_onload[i].id;    	parent_select.previousElementSibling.insertBefore(selectes_onload[i].previousElementSibling, parent_select.previousElementSibling.children[0]);
+               selectes_onload[i].setAttribute("size", selectes_onload[i].length * 1.2 + 1);    
+                      }
+                  }
+                    }
+                </script>
+                <script>
+                    const background = document.getElementById("background");
+                    const selektes = document.getElementsByClassName('my_select_input');
+                    const selectes = document.getElementsByTagName("select");
+                    
+                   for (const selekt of selektes) {
+               
+               /*       selekt.addEventListener('mouseover', (event) => {
+                    let parent = event.target.parentNode;
+                    let grandparent = parent.parentNode;
+                    let grandparent_next_select = grandparent.nextElementSibling.getElementsByTagName("select")[0];
+                    let select_length = grandparent_next_select.options.length;
+              //	  value_info_1.innerHTML = "1. value - select_length " + select_length;
+               //   value_info_3.innerHTML = "1. value - select_length " + event.target.id;
+                    event.target.setAttribute('data-title', select_length);
+                      
+                   const options_number = event.target.getAttribute('data-title');
+                   grandparent_next_select.size = options_number * 1.2 + 1;
+                     }); */
+                
+                 selekt.addEventListener('click', (event) => {
+                    let parent_click = event.target.parentNode;
+                    let grandparent_click = parent_click.parentNode;
+                    let grandparent_next_select_click = grandparent_click.nextElementSibling.getElementsByTagName("select")[0];
+              
+                  
+                if (grandparent_next_select_click.style.display === "block" ) {
+                   event.target.previousElementSibling.classList.toggle("span20"); 
+                   event.target.nextElementSibling.classList.toggle("span20");
+                   grandparent_next_select_click.style.animation = "slideUp 1.4s";
+                    setTimeout(function(){
+                    grandparent_next_select_click.style.display = "none";},
+                    1200);
+                 }
+                else {
+                      event.target.previousElementSibling.classList.toggle("span20");
+                      event.target.nextElementSibling.classList.toggle("span20");
+                      grandparent_next_select_click.style.display = "block";  
+                     grandparent_next_select_click.style.animation = "slideDown 1.4s";
+                    } 
+                }); 
+                
+              }
+              
+                document.addEventListener("click", function(event) {   
+               
+               for (const select of selectes) {
+                 const current_nodeList = select.children;
+                  const current_select_parent = select.closest(".form-group-select");
+                  const current_input_grandparent = current_select_parent.previousElementSibling;
+                  const current_input_select = current_input_grandparent.getElementsByTagName("input")[0];
+                  for (let i = 0; i < current_nodeList.length; i++) {
+                     current_nodeList[i].onclick = function() {
+                  //  value_info_2.innerHTML = current_nodeList[i].textContent;
+                   current_input_select.value = current_nodeList[i].textContent;  
+                  select.style.animation = "slideUp 1.4s";
+                      setTimeout(function(){
+                    select.style.display = "none";},
+                    1200);
+                }
+                } 
+                
+                    if (select.style.display==="block" && event.target.id !== select.id && event.target.id !== current_input_select.id) {
+                select.style.animation = "opacity_down 1.4s";
+              setTimeout(function(){
+                    select.style.display = "none";},
+                    1200);
+               
+                }  		
+                 }   
+                })  
+               
+                    </script>
+              

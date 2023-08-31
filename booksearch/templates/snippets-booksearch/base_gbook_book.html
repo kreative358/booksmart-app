@@ -1,0 +1,570 @@
+
+<style>
+
+
+.myrow_book_gb {
+width: 96%;
+z-index: 14;
+max-width: 96%;
+position: relative;
+margin: 20px auto 20px auto;
+display: flex;
+display: -ms-flexbox;
+justify-content: space-evenly;
+
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  transition-duration: 0.4s;
+  border-radius: 4px;
+  text-shadow: 
+  -0.015em 0.015em 0.0em rgb(211, 211, 211), 
+  -0.03em 0.03em 0.015em rgb(211, 211, 211), 
+  0.04em 0.0em 0.02em rgb(128, 128, 128), 
+  0.02em 0.02em 0.01em rgb(128, 128, 128);
+  box-shadow:
+  1px 2px 6px 10px rgba(119, 130, 143, 0.6);
+  padding: 0px;
+/*  -ms-flex-wrap: wrap;
+  flex-wrap: wrap; */
+}
+
+.myrow_book_gb:hover {
+  background: rgba(180, 217, 240, 0.4);
+  border: 2px solid rgba(220, 230, 240, 0.2);
+  box-shadow:
+  1px 2px 6px 10px rgba(229, 230, 243, 0.6);
+  transform: scale(1.01);
+    -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* .myrow_book_gb:after {
+  content: "";
+  display: table;
+  clear: both;
+  } */
+
+.mycolumn_book_gb {
+width: 50%;
+}
+
+.mycolumn_book_gb:hover {
+     -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* myglass_book {
+border: 3px solid grey;
+} */
+
+@keyframes anime_submit_text {
+  25% {
+  color: red;}
+    }
+
+#my_column_left,
+[id^="col_img_book_gb_"] {
+/* margin: 10px 5px 10px 10px; */
+display: flex;
+justify-content: space-evenly;
+
+background-color: rgb(100, 160, 220); 
+  background-color: rgba(100, 160, 220, 0.6); 
+  border-radius: 2px;
+  border: 2px solid rgba(220, 230, 240, 0.4);
+  outline: 2px solid rgba(220, 230, 240, 0.4);
+  box-shadow: 
+  -1px -1px 1px 0px rgba(151, 191, 231, 0.2), 
+  1px 2px 2px 0px rgba(151, 191, 231, 0.4),
+  -2px 3px 2px 0px rgba(151, 191, 231, 0.4), 
+  2px 4px 2px 0px rgba(151, 191, 231, 0.4),
+
+  0px 5px 3px 0px rgba(90, 150, 210, 0.4),
+  0px 6px 4px 0px rgba(90, 150, 210, 0.4), 
+  1px 7px 4px 0px rgba(80, 140, 200, 0.6),
+  -1px 8px 5px 0px rgba(80, 140, 200, 0.6);
+padding:10px;  
+}
+
+[id^="col_img_book_gb_"]:hover {
+background-color: rgba(100, 160, 220, 0.8); 
+}
+
+#my_column_right,
+[id^="col_book_gb_"] {
+  background-color: rgb(230, 230, 240); 
+  background-color: rgba(230, 230, 240, 0.4); 
+  border-radius: 4px;
+  border: 2px solid rgba(100, 160, 240, 0.4);
+  outline: 2px solid rgba(100, 160, 240, 0.4);
+  box-shadow: 
+  -1px -1px 1px 0px rgba(219, 220, 222, 0.2), 
+  1px 2px 2px 0px rgba(219, 220, 222, 0.4),
+  -2px 3px 2px 0px rgba(219, 220, 222, 0.4), 
+  2px 4px 2px 0px rgba(209, 210, 212, 0.4),
+  
+  0px 5px 3px 0px rgba(199, 200, 202, 0.4),
+  0px 6px 4px 0px rgba(199, 200, 202, 0.4), 
+  1px 7px 4px 0px rgba(177, 179, 182, 0.6),
+  -1px 8px 5px 0px rgba(177, 179, 182, 0.6);
+  padding: 10px;
+/*  margin: 10px 10px 10px 5px; */
+  }
+  
+[id^="col_book_gb_"]:hover {
+  background-color: rgba(230, 230, 240, 0.8); 
+}
+.cont_vertical {
+padding: 10px;
+padding: 10px;
+}
+
+.cont_horizontal {
+}
+
+#cont_left {
+width: 30%;
+max-width: 200px;
+text-align: center;
+display: flex;
+
+align-items: center;
+justify-content: center;
+justify-items: center;
+/*align-self: center;*/
+}
+
+
+#cont_middle {
+width: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+padding-left: 4px;
+padding-right: 4px;
+}
+
+#cont_right {
+width: 20%;
+max-width: 200px;
+text-align: center;
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding-left: 4px;
+padding-right: 4px;
+}
+
+#cont_1 {
+padding
+}
+
+#cont_2 {
+  
+}
+
+#cont_3 {
+}
+
+.image,
+.container_img_book_gb {
+  width: 188px;
+  height: 284px;
+  padding: 4px;
+/*  line-height: 284px; */ 
+}
+
+[id^="img_book_gb_"] {
+  width: 180px;
+  height: 276px;
+  object-fit: cover;  
+  margin: auto;
+  border-radius: 2px;
+  }  
+
+/* img {
+border-radius: 2px;
+} */
+
+.text_content {
+  width: 98%;
+  max-height: 284px;
+  height: 284px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.text_cont {
+width: 98%;
+height: 20px;
+padding-left: 10px;
+
+  font-size: 20px;
+  color: MediumBlue; 
+  font-family: Helvetica; 
+  font-weight:bold;
+  font-variant: small-caps;
+}
+
+.buttons_content {
+width: 98%;
+max-height: 284px;
+height: 284px;
+display: flex;
+flex-wrap: wrap;
+align-content: space-between;
+justify-content: center;
+padding-left: 4px;
+padding-right: 4px;
+  }
+
+
+  
+.cont_horizontal {
+padding: 0px;}
+
+#cont_1 {
+margin: auto;
+}
+
+#cont_2 {
+margin: auto;
+margin-top: 6px;
+margin-bottom: 6px;
+}
+
+#cont_3 {
+margin: auto;
+}
+
+@media screen and (max-width: 1340px) {
+  .myrow_book_gb {
+    width: 96%;
+    display: block;
+    padding: 0px; 
+  }
+  
+.mycolumn_book_gb {
+  width: auto;
+  padding: 10px;
+  margin: auto;
+  position: relative;
+  }
+  
+#my_column_left,
+[id^="col_img_book_gb_"] {
+  margin: auto;
+  margin-bottom: 10px;
+  }
+  
+#my_column_right,
+[id^="col_book_gb_"] {
+  margin: auto;
+  margin-top: 10px;
+  } 
+  }
+
+@media screen and (max-width: 720px) {
+  .myrow_book_gb {
+   width: 96%;
+  }
+  
+.mycolumn_book_gb {
+   width: 98%;
+   min-width: 620px;
+  }
+  }
+
+.p_m_b {color: Maroon; font-weight: bold;} 
+
+.textarea_gb {
+  padding: 2px 4px 2px 4px;
+  resize: none;
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.2); 
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4);  
+  font-size: 16px;
+  text-align: justify;
+  text-justify: inter-word;
+  /*width:inherit;*/
+  max-width: auto;
+  width: auto;
+  min-height: 92px;
+  max-height: 92px;
+  overflow: auto;
+  margin: 4px 10px 12px 10px;
+  color: darkblue;
+  }
+  
+.textarea_link_gb {
+  padding: 2px 4px 2px 4px;
+  resize: none;
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.2); 
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(120, 120, 120, 0.4);  
+  font-size: 16px;
+  text-align: justify;
+  text-justify: inter-word;
+  /*width:inherit;*/
+  max-width: auto;
+  width: auto;
+  min-height: 28px;
+  max-height: 28px;
+  overflow: auto;
+  margin: 4px 10px auto 10px;
+  color: darkblue;
+  }
+  
+.gb_book_author,
+.gb_book_title,
+.gb_book_category {
+
+}
+
+a {
+text-decoration: none;}
+
+a:hover {
+text-decoration: underline 1px solid;}
+
+</style>
+
+<style>
+
+.tooltip_gb,
+[id^="tooltip_"] {
+  position: relative;
+  display: block;
+  z-index: 115
+/*  z-index: 1; */  
+}
+  
+  .tooltip_gb .tooltiptext_gb,
+  [id^="tooltip_"] [id^="tooltiptext_"] {
+    visibility: hidden;
+    width: 240px;
+    background-color: rgb(60, 60, 240,); 
+    background-color:rgba(60, 60, 240, 0.8); 
+    border-radius: 1px;
+    outline: 4px solid rgba(60, 60, 240, 0.8);
+    outline-offset: 3px;
+    box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+    font-size: 15px;
+    color: rgba(220, 220, 230, 0.8);
+    position: absolute;
+ /*  z-index: 1; */ 
+    padding: 4px;
+    bottom: 100%;
+    margin-bottom: 26px;
+    line-height: 1.1;
+    left: 50%;
+    margin-left: -130px;
+    transition: opacity 0.6s;
+    z-index: 116;
+    text-align: center;
+  }
+
+.tooltip_gb .tooltiptext_gb::after,
+[id^="tooltip_"] [id^="tooltiptext_"]::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 8px;
+    margin-left: -6px;
+    border-width: 12px;
+    border-style: solid;
+    border-color: rgba(60, 60, 240, 0.8) transparent transparent transparent;
+    z-index: 117;
+  }
+
+.tooltip_gb:hover .tooltiptext_gb,
+[id^="tooltip_"]:hover [id^="tooltiptext_"] {
+    visibility: visible;
+    z-index: 118;
+  }
+
+ 
+[class^="btn_gb_"] {
+    width: 150px;
+    max-width: 150px;
+    height: 40px;
+    text-align: center;
+    border: 4px solid;
+    border-radius: 4px;
+    box-shadow: 0px 0px 4px 4px rgba(220, 220, 240, 0.4);
+    transition: 0.2s;
+    }
+
+[class^="btn_gb_"]:hover {
+  box-shadow: 0px 0px 2px 4px rgba(220, 220, 240, 0.6);
+}
+
+[class^="btn_gb_"]:active {
+  transform: matrix(0.98, 0, 0, 0.98, 0, -2);
+  box-shadow: 0px 0px 1px 2px rgba(220, 220, 240, 0.8);
+  }
+
+[class^="button_gb_"] {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  padding: auto;
+  font-size: 22px;
+  font-variant: small-caps; 
+  cursor: pointer;
+  border: transparent;
+  outline: transparent;
+  background-color: rgba(60, 160, 240, 0.4);
+  transition: 0.4s;
+}
+
+
+
+[class^="button_gb_"]:hover {
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 240, 0.8);
+  background-color: rgba(60, 160, 240, 0.8);
+}
+  
+.btn_gb_book_edit_book {
+border-color: rgba(240, 0, 0, 0.7); 
+margin: 0px;
+}
+
+.button_gb_book {
+color: rgba(240, 0, 0, 0.7); 
+}
+
+.button_gb_book:hover {
+  color: rgba(240, 0, 0, 0.9); 
+  }
+
+.btn_gb_book_edit_book:hover {  
+  border-color: rgba(240, 0, 0, 0.9); 
+} 
+
+
+.btn_gb_find_author {
+border-color: rgba(0, 0, 240, 0.7); 
+
+margin: 0px;
+}
+
+.button_gb_author {
+  color: rgba(0, 0, 240, 0.7); 
+}
+
+.button_gb_author:hover {
+  color: rgba(0, 0, 240, 0.9); 
+}
+
+.btn_gb_find_author:hover {
+
+}
+</style>
+
+<div class="myrow_book_gb" id="row_book_gb_{{book.google_id}}">
+
+<div class="mycolumn_book_gb" id="col_img_book_gb_{{book.google_id}}">
+<!-- <div class="myglass_book" id="my_glass_left"> -->
+
+<div class="cont_vertical" id="cont_left"> 
+<div class="cont_img_book_gb" id="cont_img_book_gb_{{book.google_id}}"> 
+ <img src="{{ book.imageLinks }}" id="img_book_gb_{{book.google_id}}">  </div>
+</div>
+
+<div class="cont_vertical" id="cont_middle">
+<div class="text_content" > 
+<div class="text_cont" id="text_cont_lng_{{ book.google_id }}"> language: <span style="color: maroon; font-weight: bold;"> {{ book.language}} </span></div>
+<div class="text_cont" id="text_cont_epub_{{ book.google_id }}"> epub: <span style="color: maroon; font-weight: bold;"> {{ book.epub }} </span> </div>
+<div class="text_cont" id="text_cont_emb_{{ book.google_id }}"> embeddable: <span style="color: MediumBlue; font-weight: bold;"> {{ book.embeddable }} </span></div>
+
+ {% if book.published == no_date %}
+<div class="text_cont" id="text_cont_pub_{{ book.google_id }}"> published date: <span style="color: Indigo; font-weight: bold;"> no info </span> </div>
+ {% else %}
+ <div class="text_cont" id="text_cont_pub_{{ book.google_id }}"> published date: <span style="color: Indigo; font-weight: bold;"> {{ book.published }} </span> </div>
+  {% endif %}
+
+<div class="text_cont" id="text_cont_gid_{{ book.google_id }}"> google_id: <span style="color: DarkSlateGrey; font-weight: bold;"> {{ book.google_id}} </span> </div>
+
+<span style="width: 99%">
+<div class="text_cont" id="text_cont_idnf_{{ book.google_id }}" style="padding-bottom: 2px"> industry ids: </div> 
+{% autoescape off %}
+{{ book.identyfiers }} 
+{% endautoescape %}
+</span>
+
+<div class="text_cont"> new google books: <span style="color: Indigo; font-weight: bold;"><a href="{{ book.preview_link_new }}" target="_blank" > link </a></span> </div>
+
+</div>
+</div>
+
+<div class="cont_vertical" id= "cont_right"> 
+<div class="buttons_content" > 
+
+<div class="tooltip_gb" style="padding: 0px; margin-top: 10px;"> 
+<div class="btn_gb_book_edit_book" id="btn_gbook_{{ book.google_id }}"><button class="button_gb_book"> edit & save </button></div> <span class="tooltiptext_gb" id="t_book_{{book.google_id}}"> PRESS TO GENERATE MODAL WITH BOOK DETAILS TO SAVE </span>
+</div>
+<!--<div> -->
+
+<div class="tooltip_gb" style="padding: 0px; margin-bottom: 10px;"> 
+ <form action="{% url 'booksearch:addx_author' %}" method="get" target="_blank" id="book_gb_form_{{ book.google_id }}">
+{{ search_author_form }}
+<input type="hidden" id="author_{{ book.google_id }}" name="author" value="{{book.author}}">
+<input type="hidden" id="language_{{ book.google_id }}" name="language" value="{{book.language}}">
+<div class="btn_gb_find_author" id="button_m_a_{{ book.google_id }}" ><button for="book_gb_form_{{ book.google_id }}" type="submit" class="button_gb_author"> find author </button></div>
+</form>
+<span class="tooltiptext_gb" id="t_book_{{book.google_id}}"> PRESS TO FIND AND SAVE DETAILS ABOUT AUTHOR OF THIS BOOK </span>
+</div>
+
+</div>
+<!-- </div> -->
+
+</div>
+</div>
+
+<div class="mycolumn_book_gb" id="col_book_gb_{{ book.google_id }}">
+<!-- <div class="myglass_book" id="my_glass_right"> -->
+
+<div class="cont_horizontal" id="cont_1"> 
+
+ <p class="gb_book_title" style="font-size: 26px; color: MediumBlue; font-weight: bold; margin: 4px auto 10px 10px; line-height: 24px; padding-left: 60px; text-indent: -60px;"> title: <a href="{{ book.preview_link }}" target="_blank"><span style="color: maroon; line-height: 0.8;"> "{{ book.title }}" </span></a></p>
+ 
+ <p class="gb_book_author" style="font-weight: bold; font-size: 24px; color: MediumBlue; margin: 0px auto 10px 10px; line-height: 22px; padding-left: 80px; text-indent: -80px;" > author: <a href="{{ book.author_link }}" target="_blank"><span class="p_i_b" style="line-height: 0.8;"> {{ book.author }} </span></a></p>
+  
+ <p class="gb_book_category" style="font-size: 22px; color: MediumBlue; margin: 0px auto auto 10px; line-height: 22px;"> category: <span class="p_i_b"> {{ book.category }} </span> </p>
+      
+</div>
+
+<div class="cont_horizontal" id="cont_2">
+
+ <p style="color: MediumBlue; font-size: 20px; margin: auto 10px 10px 10px; line-height: 20px; font-weight: bold;"> description:</p>
+ <div class="textarea_gb"> {{ book.summary }} </div>
+
+ <p style="font-weight: bold; color: MediumBlue; font-size: 20px; margin: 10px 10px 10px 10px; line-height: 20px;"> important links:</p>
+ <div class="textarea_link_gb"> {{ book.selfLink }} </div>
+    
+ </div>
+
+
+<div class="cont_horizontal" id="cont_3">
+  <p style="color: DarkGrey; animation: anime_submit_text 2s infinite; margin: 10px auto auto 10px; font-size: 20px; font-weight: bold; "><span class="book_avaliable" id="book_avaliable_{{ book.google_id }}" > This book is: {{ book.avaliable }} in the inventory. </span> </p>
+</div>
+
+</div>
+</div>
+
+  <!--</div>-->   
+  <!--</div>-->   
+  <br>
+  {% include 'snippets-booksearch/modal_edit_gbook.html' %}

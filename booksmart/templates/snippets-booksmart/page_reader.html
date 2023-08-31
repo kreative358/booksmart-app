@@ -1,0 +1,338 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+
+ 
+  <script>
+
+  var size_vh = $.noConflict();
+  size_vh(document).ready(function(){
+
+      size_vh("#800x600px").click(function(){
+      size_vh("iframe, .card_book_i").height(800).width(600);
+      });
+      size_vh("#640x480px").click(function(){
+      size_vh("iframe, .card_book_i").height(640).width(480);
+      });
+    size_vh("#width_down").click(function(){
+      size_vh("iframe, .card_book_i").width(function(n, v){
+        return v - 20;
+      });
+  });
+    size_vh("#width_up").click(function(){
+      size_vh("iframe, .card_book_i").width(function(n, v){
+        return v + 20;
+      });
+  });
+    size_vh("#height_down").click(function(){
+      size_vh("iframe, .card_book_i").height(function(n, h){
+        return h - 20;
+      });
+      });
+      size_vh("#height_up").click(function(){
+      size_vh("iframe, .card_book_i").height(function(n, h){
+        return h + 20; 
+    });
+  });
+  });
+  </script> 
+  <script>
+    var display_gb = $.noConflict();
+    display_gb(document).ready(function(){
+    display_gb("#viewport > div > div:nth-child(2)").css("display":"none");
+  });
+
+  </script>
+ 
+<style type="text/css">
+
+.card_book_i {
+border-radius:4px;
+border:10px solid  rgb(177, 179, 182);
+position:relative;
+margin: 10px auto 20px auto;
+height: 640px;
+max-height: 1280px;
+min-width:480px;
+width:480px;
+max-width:960px;
+position: relative;
+padding:10px auto 10px auto;
+ overflow: hidden;
+ background: rgba(100 160, 220, 0.2);
+box-shadow: -1px -1px 0px 0px rgb(199, 200, 202), 
+1px 1px 0px 0px rgb(199, 200, 202),
+-2px 2px 0px 0px rgb(199, 200, 202), 
+2px 2px 0px 0px rgb(199, 200, 202),
+0px 2px 0px 0px rgb(177, 179, 182), 
+0px 3px 0px 0px rgb(157, 159, 162), 
+-1px 6px 6px 0px rgb(138, 140, 142), 
+1px 8px 8px 0px rgb(119, 120, 123), 
+0px 10px 8px 0px rgb(77, 77, 79), 
+0px 12px 8px 0px rgb(51, 51, 53),
+0px -32px 0px 0px rgb(199, 200, 202) inset;
+} 
+ 
+#iframe_book_gb {
+height: 636px;
+max-height: 1280px;
+min-width:480px;
+width:480px;
+max-width:960px;
+background:rgb(199, 200, 202);
+background:rgba(199, 200, 202, 0.6);
+overflow: hidden; 
+resize:both;
+min-width: 476px;
+min-height: 636px;
+border-radius:2px;
+outline: 2px solid rgba(199, 200, 202, 0.8);
+}
+  
+
+.card-title {
+margin: 10px auto 10px auto;
+position:relative;
+width: 480px;
+min-width: 480px;
+text-align: center;
+color: mediumblue;
+}
+
+
+#read_column_o1 {  
+position:relative;
+z-index:1;
+justify-content: center;
+align-items: center;
+border: 4px solid rgba(90, 150, 210, 0.4);
+border-radius:4px;
+background: rgba(90, 150, 210, 0.4);
+box-shadow:
+0px 0px 6px 6px rgba(90, 150, 210, 0.4) inset,
+-1px -1px 0px 0px rgb(151, 191, 231), 
+1px 1px 0px 0px rgb(151, 191, 231),
+-2px 2px 0px 0px rgb(151, 191, 231), 
+2px 2px 0px 0px rgb(151, 191, 231),
+0px 2px 4px 3px rgb(110, 170, 210),
+0px 3px 0px 0px rgb(90, 150, 210), 
+-1px 6px 6px 0px rgba(80, 140, 200, 0.8), 
+1px 8px 8px 0px rgb(119, 120, 123), 
+0px 10px 8px 0px rgb(77, 77, 79), 
+0px 12px 8px 0px rgb(51, 51, 53);
+color: white;
+font-weight: bold;
+padding-top: 2px;
+text-align: center;
+margin:40px auto 10px auto;
+width:640px;
+min-width:580px;
+  }
+
+#read_card_o1 {
+  background: rgba(90, 150, 210, 0.4);
+}
+
+#read_column_o2 {  
+  position:relative;
+  z-index:1;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid rgba(90, 150, 210, 0.2);
+  border-radius:4px;
+  background: rgba(90, 150, 210, 0.4);
+  box-shadow:-1px -1px 0px 0px rgb(151, 191, 231), 
+  1px 1px 0px 0px rgb(151, 191, 231),
+  -2px 2px 0px 0px rgb(151, 191, 231), 
+  2px 2px 0px 0px rgb(151, 191, 231),
+  0px 2px 4px 3px rgb(110, 170, 210),
+  0px 3px 0px 0px rgb(90, 150, 210), 
+  -1px 6px 6px 0px rgba(80, 140, 200, 0.8), 
+  1px 8px 8px 0px rgb(119, 120, 123), 
+  0px 10px 8px 0px rgb(77, 77, 79), 
+  0px 12px 8px 0px rgb(51, 51, 53);
+  color: white;
+  font-weight: bold;
+  padding-top: 2px;
+  text-align: center;
+  margin:20px auto 40px auto;
+  min-width:580px;
+ width:640px;
+    }
+
+  #read_card_o2 {
+      background: rgba(90, 150, 210, 0.4);
+    }
+
+#a_submit_t {
+animation-name: anime_submit_t_id;
+animation-duration: 8s;
+animation-iteration-count: infinite;
+}
+
+.card_column:hover {
+  color: darkblue;
+  background-color: rgb(100, 160, 220); 
+  background-color: rgba(100, 160, 220, 0.6); 
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  box-shadow: -1px 2px 1px 1px rgba(110, 170, 230, 0.4), 1px -1px 1px 1px rgba(110, 170, 230, 0.4), 0px 4px 0px 0px rgba(47, 128, 208, 0.4), 0px 8px 0px 0px rgba(38, 102, 166, 0.4), -4px 10px 8px 2px rgba(229, 230, 243, 0.4), 4px 0px 8px 2px rgba(219, 220, 233, 0.4),  0px 12px 6px 2px rgba(209, 210, 222, 0.4), 0px 14px 8px 0px rgba(199, 200, 212, 0.4), 0 16px 20px 0 rgba(190, 190, 201, 0.4);
+}
+
+.card_column:active {
+  color: LightSteelBlue;
+  background-color: rgb(200, 200, 240); 
+  background-color: rgba(200, 200, 240, 0.6); 
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  transform: translateY(2px);
+  scale: 0.96;
+  box-shadow: 
+  -3px 4px 4px 2px rgba(29, 130, 243, 0.6), 
+  -3px -2px 4px 1px rgba(29, 130, 243, 0.6),
+  3px 4px 4px 2px rgba(29, 130, 243, 0.6), 
+  3px -2px 4px 1px rgba(29, 130, 243, 0.6),
+}
+
+
+@keyframes anime_submit_t_id {
+50% {
+color: red;}
+}  
+
+.a_submit_t {
+animation-name: anime_submit_t_class;
+animation-duration: 8s;
+animation-iteration-count: infinite;
+}
+
+@keyframes anime_submit_t_class {
+50% {
+color: red;}
+}  
+
+.no_gb {	
+z-index:1;
+width: 100%; 
+height: 30px; 
+position: absolute; 
+left: 0px; 
+bottom: 0px; 
+background-color: rgb(199, 200, 202); 
+}
+
+#mySidenav a {
+  position: fixed;
+  z-index:1;
+  left: -84px;
+  transition: 0.3s;
+  padding: 2px 2px 2px 10px;
+  width: 120px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  border-radius: 0 2px 2px 0;
+  border:2px solid lightgrey;
+}
+
+#mySidenav a:hover {
+  left: 0;
+}
+
+#resize {
+  top: 128px;
+  background-color: rgb(100,160,220);
+  background-color: rgba(100,160,220, 0.6);
+}
+
+#width {
+  top: 220px;
+  background-color: rgb(100,160,220);
+  background-color: rgba(100,160,220, 0.6);
+}
+
+#height {
+  top: 300px;
+  background-color: rgb(100,160,220);
+  background-color: rgba(100,160,220, 0.6);
+}
+
+#resize_px {
+  top: 380px;
+  background-color: rgb(100,160,220);
+  background-color: rgba(100,160,220, 0.6);
+}
+
+
+button {
+width:114px;
+  background-color: rgb(100,160,220);
+  background-color: rgba(100,160,220, 0.6);
+color:white;
+font-size:18px;
+font-weight: bold;
+margin: 2px 2px 2px 2px;
+border-radius: 2px;
+border:2px solid lightgrey;
+/*resize:both;*/
+}
+button:hover {
+ background-color: rgb(40,40,220);
+  background-color: rgba(40,40,220, 0.6);
+color:lightgrey;
+
+}
+
+button:focus{
+border:none;
+outline:none;
+}
+
+</style>
+
+<div id="mySidenav" class="sidenav">
+
+  <a href="#" id="width">
+  <button id="width_down"> width &nbsp<i class="fa fa-minus" style="font-size:20px; color:white; margin:2px -12px auto 8px;"></i></button>
+
+<button id="width_up"> width &nbsp<i class="fa fa-plus" style="font-size:20px; color:white; margin:3px -12px -2px 8px"></i></button></a>
+
+  <a href="#" id="height"><button id="height_down"> height &nbsp<i class="fa fa-minus" style="font-size:20px; color:white; margin:2px -6px auto 8px"></i></button>
+<button id="height_up"> height &nbsp<i class="fa fa-plus" style="font-size:20px; color:white; margin:3px -6px -2px 8px"></i></button></a>
+
+ <a href="#" id="resize_px">
+ <button id="800x600px"> 800 &nbspx&nbsp 600 </button>
+  <button id="640x480px"> 640 &nbspx&nbsp 480 </button>
+ </a>
+
+</div>
+
+
+
+<script>
+  function loadBook() {
+    
+    document.getElementById("iframe_book_gb").style.display="block";
+  }
+  
+  function noloadBook() {
+          var text_alert = '<br><h4 id="p_mb" class="a_submit_t">' + 'COULD NOT EMBED THE BOOK TITLE' + '<br>' + '"{{book.title}}"' + '</h4>'
+          document.getElementById("textalert").innerHTML = text;
+          document.getElementById("iframe_book_gb").style.display="none";
+  }
+  
+  </script>
+
+  <div class="card-title">
+    <div><h3 style="margin-bottom:-10px; font-weight:bold; font-size:24px;"> PAGE READER </h3></div>
+    
+ </div>
+
+  <div class="card_book_i" id="card_book_gb_i" >
+        <div id="textalert">
+        <iframe width="480px" height="640px"  frameborder="0" src="{{page_form}}" class="iframe_book" id="iframe_book_gb" ></iframe>
+  <div class="no_gb" id="no_gb"></div>
+        </div>
+       </div>
+  
+
+      

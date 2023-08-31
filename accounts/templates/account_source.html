@@ -1,0 +1,333 @@
+{% extends 'base_account.html' %}
+{% load rest_framework %}
+{% load bootstrap4 %}
+{% block title %} account {% endblock%}
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+{% include 'snippets-accounts/header.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %}
+
+<style type="text/css">
+
+#cont_accounts_account {
+	position: relative;
+	z-index :1;
+	background-color: rgb(60, 160, 240);
+	background-color: rgba(60, 160, 240, 0.2);
+	text-align: center;
+	justify-content: center;
+	align-items: center;  
+	border-radius:4px;
+	border: 4px solid rgba(60, 160, 240, 0.8);
+	box-shadow: 0px 0px 6px 6px rgba(180, 180, 180, 0.4);
+	width:560px;
+	padding:10px;
+	margin:40px auto 40px auto;
+	}
+
+#row_accounts_account {
+	background-color: rgb(60, 160, 240);
+	background-color: rgba(60, 160, 240, 0.2);
+	text-align: center;
+	justify-content: center;
+	align-items: center;  
+	border-radius:4px;
+	border: 4px solid rgba(60, 160, 240, 0.8);
+	box-shadow: 0px 0px 6px 6px rgba(180, 180, 180, 0.4);
+	margin: auto;
+	padding: 10px; 
+	}
+
+#col_accounts_account {
+	background-color: rgb(60, 160, 240);
+	background-color: rgba(60, 160, 240, 0.2);
+	text-align: center;
+	justify-content: center;
+	align-items: center;  
+	border-radius:4px;
+	border: 4px solid rgba(60, 160, 240, 0.8);
+	box-shadow: 0px 0px 6px 6px rgba(180, 180, 180, 0.4);
+	margin: auto;
+	padding: 10px  10px 70px 10px;
+	}	
+
+.bs_input_accounts_account {
+	background-color: rgb(100, 160, 220); 
+	background-color: rgba(100, 160, 220, 0.2); 
+	border-radius: 2px;
+	border: 2px solid rgba(100, 160, 220, 0.6);
+	box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);  
+	justify-content: center;
+	text-align: justify;
+	text-justify: inter-word;
+	padding:10px auto 10px auto;
+	margin:auto;
+	}
+
+#bs_input_accounts_account {	
+	background-color: rgb(100, 160, 220); 
+	background-color: rgba(100, 160, 220, 0.2); 
+	border-radius: 2px;
+	border: 2px solid rgba(100, 160, 220, 0.6);
+	box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);  
+	justify-content: center;
+	text-align: justify;
+	text-justify: inter-word;
+	padding:10px auto 10px auto;
+	margin:auto;}
+
+#bs_input_accounts_first {
+	margin-top:-40px;
+	}
+
+#bs_input_accounts_account_m {
+	background-color: rgb(240, 240, 240); 
+	background-color: rgba(240, 240, 240, 0.4); 
+	border-radius: 3px;
+	border: 3px solid rgba(240, 240, 240, 0.6);
+	box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6);  
+	font-size: 18px;
+	font-weight: bold;
+	color: red;
+	padding:auto;
+	margin:10px;
+	text-align: left;
+}		
+
+
+.title_account {
+	font-size: 30px; 
+	font-family:Times;
+	font-variant: small-caps;
+	margin: 10px auto 10px auto;
+	font-weight:bold;
+	color:rgba(0, 0, 209, 0.9);
+	}
+  
+  #class_label {
+	color: rgba(0, 0, 209, 0.9); 
+	font-size: 24px; 
+	font-weight:bold;
+	font-family:Times;
+	margin: 14px auto -6px auto;
+	font-variant: small-caps;
+	text-align:center;
+  }
+  
+  .class_label {
+	color: rgba(0, 0, 209, 0.9); 
+	font-size: 24px; 
+	font-weight:bold;
+	font-family:Times;
+	margin: 14px auto -6px auto;
+	font-variant: small-caps;
+	text-align:center;
+  }
+  
+  .class_text_info {
+	color: rgba(0, 0, 209, 0.9); 
+	font-size: 22px; 
+	font-weight:bold;
+  }
+  
+
+#closebtn {
+float:right;
+color: white;
+font-weight: bold;
+float: right;
+font-size: 30px;
+padding: 5px;
+cursor: pointer;
+transition: 1s;
+}
+
+#closebtn:hover {
+color: blue;
+}
+
+.closebtn {
+float:right;
+color: white;
+font-weight: bold;
+float: right;
+font-size: 30px;
+padding: 5px;
+cursor: pointer;
+transition: 1s;
+}
+
+.closebtn:hover {
+color: blue;
+}
+
+.button_blue_grey {
+	transition-duration: 0.2s;
+	background-color: rgba(160, 170, 180, 0.8); 
+	color: rgba(10, 20, 209, 0.8); 
+	border: 6px outset  rgba(10, 20, 210, 0.8);
+	border-radius:2px;
+	padding: 4px;
+	font-weight:bold;
+	font-family:Times;
+	font-variant:small-caps;
+	font-size:20px;
+	min-width: 120px;
+	float:left;
+	margin: 0px auto 10px 10px;
+	box-shadow: 0px 0px 5px 5px rgba(20, 40, 220, 0.6);
+}
+
+.button_blue_grey:hover {
+	background-color: rgba(210, 20, 10, 0.8); 
+	color: rgba(230, 240, 250, 0.8);
+	box-shadow: 0px 0px 5px 5px rgba(200, 210, 220, 0.6);
+  }
+
+.button_blue_grey:active {
+	scale:0.98;
+	 border: 6px outset  rgba(10, 20, 210, 0.8);
+	 box-shadow: 0px 0px 2px 2px rgba(220, 230, 240, 0.8);
+   }
+
+   .button_red_grey {
+	  transition-duration: 0.2s;
+	  background-color: rgba(160, 170, 180, 0.8);
+	  color: rgba(220, 10, 10, 0.8); 
+	  border: 6px outset  rgba(220, 10, 10, 0.8); 
+	  border-radius:2px;
+	  padding: 4px;
+	  font-weight:bold;
+	  font-family:Times;
+	  font-variant:small-caps;
+	  font-size:20px;
+	  min-width: 120px;
+	  float:right;
+	  box-shadow: 0px 0px 5px 5px rgba(220, 40, 20, 0.6);
+	  margin: 0px 10px 10px auto;
+	}
+
+	.button_red_grey:hover {
+		background-color: rgba(10, 20, 210, 0.8);
+		color:rgba(230, 240, 250, 0.8);
+		box-shadow: 0px 0px 5px 5px rgba(200, 210, 220, 0.6);
+	  }
+
+	.button_red_grey:active {
+	   scale:0.98;
+	   border: 6px outset  rgba(220, 10, 10, 0.8);
+	   box-shadow: 0px 0px 2px 2px rgba(220, 230, 240, 0.8);
+	   }
+
+</style>
+
+<div class="container" id="cont_accounts_account">
+	<div class="myrow" id="row_accounts_account">
+	  <div class="mycolumn" id="col_accounts_account">
+
+<form  action="" method="post" class="was-validated" novalidate>
+{% csrf_token %}
+<p class="title_account" > ACCOUNT UPDATE </p>
+
+<div style="margin-left:7.5%">
+	{% render_field serializer.current_url style=style  %} 
+</div>
+
+<div id="bs_input_accounts_first" class="bs_input_accounts_account"> 
+	<p class="class_label"> Username </p>
+	<div style="margin: 0px auto 0px 7.5%;">
+	{% render_field serializer.username style=style  %}  
+</div>
+</div>
+
+<div class="bs_input_accounts_account">	
+	<p class="class_label"> Email </p>
+	<div style="margin: 0px auto 0px 7.5%;">
+	{% render_field serializer.email style=style  %} 
+</div>
+</div>
+
+
+<br>
+	
+<div>
+	{% if errors %}
+	<span class="p_remove">
+		<p type="button" id="btnclose_x"  >✖</p><br>
+	{% for error in errors %}
+	<p id='p_r_b' class="class_text_info">
+	
+		{% autoescape off %} {{ error }} {% endautoescape %}
+  
+	{% endfor %}
+</p>
+</span>
+
+<span class="class_text_info"><p> You try register with:</p>
+    <br> username: {{ user_name }},
+    <br> email: {{ e_mail }},
+    <br> password : {{ pass1 }},
+    <br> password repeat: {{ pass2 }},
+  </span>
+	</div>
+	{% endif %}
+	
+	{% if msgs_info %}
+	<div id="bs_input_accounts_account_m" class="info-rmove">
+		<span>
+			<p type="button" class="btnclose_x"  >✖</p><br>
+	{% for msg_info in msgs_info %}
+	
+	<p id='p_r_b' class="class_text_info">
+		{% autoescape off %} {{ msg_info }} {% endautoescape %}</h5>
+	</p>
+</span>
+	{% endfor %}
+	</div>
+	{% endif %}
+</div>
+
+<a href="{% url 'index' %}">
+<button type="button" class="button_blue_grey" >BACK</button>   </a>
+<!-- name="registration_f" -->
+<button type="submit" id="button_sm" class="button_red_grey" > SAVE </button>
+
+	</form>
+</div>
+</div>
+</div>
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% if messages %}
+{% include 'snippets-accounts/modal_messages_accounts.html' %}
+{% endif %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}
+

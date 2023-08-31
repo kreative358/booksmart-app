@@ -1,0 +1,29 @@
+
+<form action="https://openlibrary.org/account/login" method="post">
+	{% csrf_token %}
+    <div class="formElement"> 
+        
+          <input type="email" class="required" id="username" name="username" value="kreative358@hotmail.com" placeholder="Email" autocapitalize="off" autocorrect="off" >
+          <span class="invalid clearfix" htmlfor="username"></span>
+        </div>
+   
+        <div class="label"><label for="password">Password</label> <span class="smaller lighter"></span></div>
+        <div class="input">
+            <input type="password" class="required" placeholder="Password" id="password" name="password" value='Bonum12o'>       
+    </div>
+  
+        <div class="input">
+            <input name="remember" type="checkbox" id="remember">
+            <label for="remember" class="small">Remember me</label>
+        </div>
+
+    <input type="hidden" id="redirect" value="https://openlibrary.org/borrow/ia/hobbitortherebac0000tolk_t0g2?ref=ol/" name="redirect">
+    
+    <div class="formElement bottom">
+        <br>
+        <button type="submit" value="Log In" name="login" title="Log In"   class="btn btn-outline-primary btn-lg text-danger" style="width:340px; padding:auto; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold;font-family: Helvetica;">Log In</button>
+    </div>
+    </form>
+
+
+

@@ -1,0 +1,173 @@
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple"> -->
+<style>
+  #btn_door_hello {
+    cursor: not-allowed;}
+
+#top_jumb {
+  position: relative;
+  margin-top:0px;
+  z-index:1;
+  }   
+
+  #myModal_bdh1 {
+    display: none;
+    position: fixed; 
+    padding-top: 160px; 
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgb(0,0,240); 
+    background-color: rgba(0,0,240, 0.2); 
+    animation-name: animate1;
+    animation-duration: 1s;
+    }
+  
+  #myModal_bdh2 {
+    position: fixed;  
+    display: none;
+    padding-top: 160px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgb(0,0,240); 
+    background-color: rgba(0,0,240, 0.2); 
+  }
+  
+  #modal_content_bdh {
+  position: relative;
+  z-index:3;
+  background:red;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop1;
+  animation-duration: 1s;
+    }
+      
+  #closebtn_bdh1 {
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 30px;
+  padding: 10px 10px 10px auto;
+  cursor: pointer;
+  transition: 1s;
+  }
+  
+  #closebtn_bdh2 {
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 30px;
+  padding: 10px 10px 10px auto;
+  cursor: pointer;
+  transition: 1s;
+  }
+  
+  @keyframes animatetop1 {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  } 
+  
+  @keyframes animate1 {
+    from {opacity:0}
+    to {opacity:1}
+  } 
+  
+  #closebtn_bdh1:hover {
+  color: blue;
+  }
+  
+  #closebtn_bdh2:hover {
+  color: blue;
+  }
+  
+  #info {
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 1s;
+  padding:10px 10px 10px auto;
+  text-align: center;
+  font-family: Georgia;
+  }
+  
+  button:focus {
+    border:none;
+    outline:none;
+  }
+      
+</style>
+
+<script>
+var rb = $.noConflict();
+rb(document).ready(function(){
+  rb("#btn_door_hello").mouseenter(function(){
+    rb("#myModal_bdh1").modal("toggle");
+  
+    rb("#closebtn_bdh1").click(function(){
+      rb("#myModal_bdh2").modal("toggle");
+    
+        });
+      });
+      rb("#btn_door_hello").mouseleave(function(){
+        rb("#btn_door_hello").css("background-color", "red");
+});
+})
+  </script>
+
+<!-- Modal -->
+<div class="modal" id="myModal_bdh1" role="dialog"  data-toggle="modal" onclick="openModal()">
+<div class="modal-dialog" id="modal_dialog_bdh" >
+
+  <!-- Modal content-->
+  <div class="modal-content" id="modal_content_bdh"  >
+    <div class="modal-header" id="modal_header_bdh">
+      <button type="button"  id="closebtn_bdh1" class="close" data-dismiss="modal">✖</button>
+      
+    </div>
+    <div class="modal-body" >
+      <p id="info"> NAME OR EMAIL CHANGE IS NOT POSSIBLE ON THIS SITE </p>
+
+    </div>
+  </div>
+  
+</div>
+</div> 
+
+<!-- Modal -->
+<div class="modal" id="myModal_bdh2"  data-backdrop="true" onclick="closeModal()" >
+<div class="modal-dialog" id="modal_dialog_bdh" >
+
+  <!-- Modal content-->
+  <div class="modal-content" id="modal_content_bdh" >
+    <div class="modal-header" id="modal_header_bdh">
+      <button type="button" onclick="closeModal()"  id="closebtn_bdh2" class="close" data-dismiss="modal">X</button>
+      
+    </div>
+    <div class="modal-body" >
+      <p id="info">THIS CAN BE DONE ON THE OTHER SITES </p>
+      
+    </div>
+  </div>
+  
+</div>
+</div> 
+
+
+<script>
+function openModal() {
+  document.getElementById("myModal_bdh2").style.display = "block";
+}
+function closeModal() {
+  document.getElementById("myModal_bdh2").style.display = "none";
+}
+
+</script>

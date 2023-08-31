@@ -1,0 +1,146 @@
+{% extends 'base_account.html' %}
+{% load crispy_forms_tags %}
+{% load rest_framework %}
+
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+
+  {% endblock content_1 %}
+
+  {% block content_2 %}
+
+  {% endblock content_2 %}
+
+
+  {% block content_3 %}
+
+
+
+<style type="text/css">
+
+#main_cont_au {
+	position: relative;
+	z-index :1;
+	background-color: rgb(240, 240, 240);
+	background-color: rgba(240, 240, 240, 0.2);
+	text-align: center;
+	justify-content: center;
+	align-items: center;  
+	border-radius:4px;
+	box-shadow: 0px 0px 6px 6px rgba(180, 180, 180, 0.4);
+	width:560px;
+	padding:20px auto auto auto;
+	margin:40px auto 20px auto;
+	}
+
+#row_au {
+	/* margin: 10px 20px 10px 20px;
+	padding: 10px 20px 10px 20px; */
+	margin: 0px;
+	padding: 0px;
+	background-color: rgb(100, 160, 220);
+	background-color: rgba(100, 160, 220, 0.6); 
+}
+
+#col_au {
+	width:540px;
+	margin: 10px;
+	padding: 10px;
+}
+
+#bs_input {
+	background-color: rgb(240, 240, 240); /* Fallback color */
+	background-color: rgba(240, 240, 240, 0.6); /* Black w/opacity/see-through */
+	border-radius: 3px;
+	border: 3px solid rgba(240, 240, 240, 0.6);
+	box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Helvetica;
+	color: blue;
+	text-align: justify;
+	text-justify: inter-word;
+	padding:10px;
+	margin:10px 10px 10px 10px;
+	}		
+
+.h3{
+	text-align: center;
+	}
+
+  </style>
+  
+
+<div class="container-fluid" id="main_cont_au">
+	<div class="row border rounded" id="row_au">
+		<div class="column border rounded" id="col_au">
+      <form method="post" novalidate>
+        {% csrf_token %}
+            
+	<h1 class="h3 mb-3 font-weight-normal">Account Form</h1>
+	<div id="bs_input">
+		<label>Email</label>
+	<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus value="{{account_form.initial.email}}"></div>
+	<div id="bs_input">
+	<label>Username</label>
+	<input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required value="{{account_form.initial.username}}">
+<br>
+
+<div>
+{% if csrf_token %}
+token: {{ csrf_token }}
+{% endif %}
+
+	{% for field in account_form %}
+		<p>
+		{% for error in field.errors %}
+			<h4 style="color: red">{{ error }}</h4>
+		{% endfor %}
+		</p>
+	{% endfor %}
+	{% if account_form.non_field_errors %}
+	<div style="color: red">
+		<h4>{{account_form.non_field_errors}}</h4>
+	</div>
+		
+	{% endif %}
+
+	{% if success_message %}
+	<h4 style="color:green; text-align: center;">{{success_message}}</h4>
+	{% endif  %}
+</div>   
+
+<a href="{% url 'index' %}">
+  <button type="button" class="btn btn-outline-danger text-primary float-left" style="width:110px; margin: 10px auto 10px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 18px; font-weight: bold;font-family: Helvetica; padding:auto;" >BACK</button>   </a>
+
+<button name="button_account_submit" type="submit" id="button_sm" class="btn btn-outline-primary text-danger float-right" style="width:110px; margin: 10px 10px 10px auto; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 18px; font-weight: bold;font-family: Helvetica; padding:auto;"> UPDATE </button>
+
+</form>
+</div>
+</div><!-- /.row-fluid -->
+</div>
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}
+
+
+

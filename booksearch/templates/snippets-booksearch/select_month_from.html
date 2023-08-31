@@ -1,0 +1,497 @@
+<style type="text/css">
+
+#selectback_month_from  {
+display: none; 
+position: fixed; 
+z-index: 35;
+overflow: auto; 
+background-color: rgb(20,60,240); 
+opacity:0.1;
+background-color: rgba(20,60,240,0.6); 
+height: 100%;
+width: 100%;
+margin:0%;
+left:0;
+right:0;
+top:0;
+bottom:0;
+border: 2px solid orange;
+}
+
+input,
+select,
+option {
+outline: none;
+border: none;
+background: transparent;
+overflow: hidden;
+}
+
+.span_tringle_left {
+float: left;
+padding-left: 6px;
+transform: rotate(0deg);
+transition: all 0.6s;
+left: 4px;
+top: 3px;
+}
+
+.span_tringle_right {
+float: right;
+padding-right: 6px;
+transform: rotate(0deg);
+transition: 0.6s;
+right: 4px;
+top: 3px;
+}
+
+.span_tringle_left,
+.span_tringle_right {
+color: rgba(0, 102, 255, 0.2);
+text-shadow: 
+-1px 0 rgba(0, 102, 255, 0.8),
+1px 1px rgba(255, 255, 255, 0.9),
+-1px -1px rgba(255, 255, 255, 0.9),
+-1px 1px rgba(255, 255, 255, 0.9),
+2px 1px 1px rgba(0, 102, 255, 0.9),
+0px -1px 1px rgba(0, 102, 255, 0.9);
+z-index: 34;
+position: absolute;
+}
+
+.span_tringle_rotate {
+transform: rotate(180deg);
+}
+
+#myrow_select_pass_month_from {
+box-shadow: 0px 0px 4px 4px rgba(0, 102, 255, 0.4);
+background-color: rgba(230, 230, 240, 0.4);
+outline: none;
+z-index: 33;
+position: relative;
+border-radius: 4px;
+padding-top: 6px;
+color: blue;
+width: 220px;
+font-size: 16px;
+transition: 0.2s;
+text-align: center;
+font-weight: bold;
+cursor: pointer;
+margin-bottom: 4px;
+max-height: 30px;
+height: 30px;
+min-height: 30px;
+margin-left: 4px;
+margin-right: 10px;
+}
+
+.span2 {
+color:rgba(0, 102, 255, 0.2);
+text-shadow: 
+-1px 0 rgba(0, 102, 255, 0.8),
+1px 1px rgba(255, 255, 255, 0.9),
+-1px -1px rgba(255, 255, 255, 0.9),
+-1px 1px rgba(255, 255, 255, 0.9),
+2px 1px 1px rgba(0, 102, 255, 0.9),
+0px -1px 1px rgba(0, 102, 255, 0.9);
+rotate: 0deg;
+transition: rotate 0.8s;
+}
+
+.span20 {
+rotate:180deg;
+transition: rotate 0.8s;
+}
+
+@keyframes btnmove {
+from {margin-top:50px;}
+to {margin-top:200px;}
+}
+
+#modal_body_advance_gb #input_pass_select_month_from {
+background-color: rgba(240, 230, 220, 0.0);
+position: absolute;
+left: 0px;
+border: none;
+outline: none;
+text-align: center;
+color: blue;
+font-weight: bold;
+font-size: 16px;
+margin-top: -8px;
+}
+
+#myrow_select_list_month_from {
+display:none;
+outline:none;
+background-color: rgba(240, 230, 220, 0.0);
+z-index: 32;
+position: fixed;
+margin-left: 80px;
+margin-bottom: 0px;
+width: 220px;
+margin-left: 304px;
+/*border-radius:10px;
+box-shadow: 0px -2px 2px 0px rgba(60, 160, 240, 0.4) inset;
+border-bottom: 4px solid rgba(60, 160, 240, 0.4);*/
+box-shadow: 0px 0px 4px 6px rgba(0, 102, 255, 0.0);
+padding: auto;
+animation: noname;
+}
+
+#modal_body_advance_gb #select_month_from {
+overflow: hidden;
+background-color: rgba(240, 230, 220, 0.0);
+color: blue;
+border-radius: 4px;
+z-index: 34;
+display: none;
+border: none;
+outline: none;
+box-shadow: none;
+margin-top: 4px;
+position: absolute;
+min-width: 224px;
+max-width: 224px;
+width: 224px;
+animation: noname;
+/*padding-left: 8px;*/
+margin-left: 72px;
+justify-content: center;
+}
+
+#modal_body_advance_gb #select_month_from:active {
+border: none;
+outline: none;
+}
+
+#modal_body_advance_gb #select_month_from:focus {
+box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.0);
+border: none;
+outline: none;
+}
+
+
+/* #modal_body_advance_gb #select_month_from option:hover,
+#modal_body_advance_gb #select_month_from option */
+#modal_body_advance_gb #select_month_from option {
+text-align: center;
+border-radius: 4px;
+display: block;
+z-index: 34;
+color: blue;
+border: none;
+outline: none;
+background-color: rgba(230, 230, 240, 0.8);
+box-shadow: 
+0px 0px 0px 2px rgba(100, 160, 220, 0.6) inset, 
+0px 0px 2px 2px rgba(100, 160, 220, 0.6); 
+/* padding-top: 6px;
+padding-bottom: 6px;
+margin-left: 8px; */
+font-size:16px;
+height:26px;
+min-height: 26px;
+max-height: 26px;
+line-height: 24px;
+width: 200px;
+min-width: 200px;
+max-width: 200px;
+cursor:pointer;
+margin-top:4px;
+margin-bottom:4px;
+
+transition: 0.2s;
+
+}
+
+#modal_body_advance_gb #select_month_from option:active,
+#modal_body_advance_gb #select_month_from option:checked {
+background-color: rgba(0, 0, 210, 0.8) !important;
+box-shadow: 
+0px 0px 2px 2px rgba(100, 160, 220, 0.8),
+0px 0px 2px 2px rgba(230, 230, 240, 0.8) inset;
+font-weight: bold;
+border: none;
+outline: none;
+box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.6); 
+min-height: 26px;
+max-height: 26px;
+height:26px;
+line-height: 24px;
+font-size: 16px;
+transition: 0.2s;
+}
+
+#modal_body_advance_gb #select_month_from option:checked:hover,
+#modal_body_advance_gb #select_month_from option[selected]:hover,
+#modal_body_advance_gb #select_month_from option:hover {
+-webkit-text-fill-color: aliceblue;
+background: rgba(20, 60, 240, 0.8);
+color: aliceblue;
+transform: matrix(1.02, 0, 0, 1.02, 0, -1);
+background: rgba(0, 0, 210, 0.8);
+background-color: rgba(0, 0, 210, 0.8);
+box-shadow:
+0px 0px 0px 1px rgba(200, 30, 30, 0.8) inset,
+0px 0px 0px 1px rgba(200, 30, 30, 0.8);
+}
+
+#modal_body_advance_gb #select_month_from option:active {
+  transform: matrix(0.98, 0, 0, 0.98, 0, 1);
+  background-color: aliceblue;
+  color: rgba(200, 30, 30, 0.9);
+  box-shadow:
+  0px 0px 0px 1px rgba(200, 30, 30, 0.8) inset,
+  0px 0px 0px 1px rgba(200, 30, 30, 0.8);
+  transition: 0.2s;
+}
+
+#modal_body_advance_gb #select_month_from option[selected] {
+-webkit-text-fill-color: aliceblue;
+background-color: blue;
+color: aliceblue;
+}
+
+#modal_body_advance_gb #select_month_from option:checked {
+  background-color: aliceblue;
+  color: rgba(200, 30, 30, 0.9);
+  box-shadow: 
+  0px 0px 0px 14px rgba(200, 200, 240, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8) inset,
+  0px 0px 0px 1px rgba(0, 0, 210, 0.8);
+}
+
+select, .form-group, .form-control {
+border:none;
+outline:none;
+}
+
+select:focus, .form-group:focus, .form-control:focus {
+border:none;
+outline:none;
+}
+
+
+#myrow_select_list_month_from select::-webkit-scrollbar {
+display: none;
+/* width: 16px;*/
+}  
+
+@keyframes roll_open {
+from {height:0px;}
+to {height: 200px;}
+}
+
+@keyframes roll_close {
+from {height: 200px;}
+to {height: 0px;}
+}
+
+@keyframes opacity_up {
+from {opacity: 0;}
+to {opacity: 1;}
+}
+
+@keyframes opacity_down {
+from {opacity: 1;}
+to {opacity: 0;}
+}
+
+@keyframes slideJumptOpen {
+0% {
+transform: translateY(0%);
+}
+50%{
+transform: translateY(8%);
+}
+65%{
+transform: translateY(-4%);
+}
+80%{
+transform: translateY(4%);
+}
+95%{
+transform: translateY(-2%);
+}			
+100% {
+transform: translateY(0%);
+}		
+}
+
+@-webkit-keyframes slideJumptOpen {
+0% {
+-webkit-transform: translateY(0%);
+}
+50%{
+-webkit-transform: translateY(8%);
+}
+65%{
+-webkit-transform: translateY(-4%);
+}
+80%{
+-webkit-transform: translateY(4%);
+}
+95%{
+-webkit-transform: translateY(-2%);
+}			
+100% {
+-webkit-transform: translateY(0%);
+}	
+}
+
+@keyframes slideJumptClose {
+0% {opacity: 1;
+height: 100%;
+transform: translateY(20%);
+}
+50%{
+transform: translateY(8%);
+}
+65%{
+transform: translateY(-4%);
+}
+80%{
+transform: translateY(4%);
+}
+95%{
+transform: translateY(-2%);
+}			
+100% {opacity: 0;
+height: 0%;
+transform: translateY(20%);
+}		
+}
+
+#mycont_select_month_from {
+padding-left: 0px;
+position: relative;
+z-index: 32;
+margin:10px 2px 4px 2px;
+}
+
+#modal_body_advance_gb #input_pass_select_month_from {
+    box-shadow: 0px 0px 0px 0px white;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  #modal_body_advance_gb #input_pass_select_month_from:hover {
+    background-color: rgba(60, 160, 240, 0.8);
+    color: darkblue;
+    font-weight: bold;
+    box-shadow: 0px 0px 0px 2px rgba(200, 200, 240, 0.6),
+    0px 0px 0px 2px rgba(200, 200, 240, 0.6) inset;
+    transition: 0.2s;
+  }
+  
+  #modal_body_advance_gb #input_pass_select_month_from:active {
+    background-color: rgba(20, 120, 240, 0.8);
+    color: darkblue; 
+    box-shadow: 0px 0px 0px 2px rgba(220, 220, 240, 0.9);
+  } 
+
+  #modal_body_advance_gb #myrow_select_pass_month_from:hover {
+    transform: matrix(1.02, 0,  0, 1.02, 0, -2);
+  }
+  
+  #modal_body_advance_gb #myrow_select_pass_month_from:active { 
+    transform: matrix(0.98, 0,  0, 0.98, 0, 2);
+  }
+
+</style>
+
+<div class="select_back" id="selectback_month_from"></div>
+<div class="mycont_select" id="mycont_select_month_from" > 
+
+<label id="mylabel_select_month_from" style="font-size: 16px; font-weight: bold;"> From </label>
+
+<!-- <div class="mycolumn_select" id="mycolumn_select_pass_month_from" style="border: 2px solid red; padding: 5px; position: relative; z-index: 35"> -->
+
+<div class="myrow_select_pass" id="myrow_select_pass_month_from" style="float:right"> 
+<span class="span_tringle_left" id="span_tringle_left_month_from">▼</span>
+<input class="input_pass_select" id="input_pass_select_month_from" type="text" readonly value="select month" style="width:100%;">
+<span class="span_tringle_right" id="span_tringle_right_month_from">▲</span></div>
+
+<select class="select_advanced_sn" id="select_month_from" name="as_minm_is" onchange="daterange_is(1)" size=16>
+<option value="0">select month</option>
+<option value="1">Jan</option>
+<option value="2">Feb</option>
+<option value="3">Mar</option>
+<option value="4">Apr</option>
+<option value="5">May</option>
+<option value="6">Jun</option>
+<option value="7">Jul</option>
+<option value="8">Aug</option>
+<option value="9">Sep</option>
+<option value="10">Oct</option>
+<option value="11">Nov</option>
+<option value="12">Dec</option>
+</select>
+
+    </div>           
+<!--     </div>       
+      </div>   -->
+
+<script>
+var span_tringle_left_month_from = document.getElementById("span_tringle_left_month_from");
+var span_tringle_right_month_from = document.getElementById("span_tringle_right_month_from");
+
+// var dropdown_options_month_from = document.getElementById("myrow_select_list_month_from");
+
+// var select_month_from = document.getElementById("select_month_from");
+
+var input_pass_select_month_from = document.getElementById("input_pass_select_month_from");
+
+// var mycont_select_month_from = document.getElementById("mycont_select_month_from");
+
+var select_month_from = document.getElementById("select_month_from");
+
+// var mycolumn_select_pass_month_to = document.getElementById("mycolumn_select_pass_month_to");
+
+input_pass_select_month_from.onclick = function() {
+if (select_month_from.style.display === "block" ) {
+span_tringle_left_month_from.classList.toggle("span_tringle_rotate");
+span_tringle_right_month_from.classList.toggle("span_tringle_rotate");
+select_month_from.style.animation = "roll_close 1.4s";
+setTimeout(function(){
+select_month_from.style.display = "none";},
+1200);
+} else {
+span_tringle_left_month_from.classList.toggle("span_tringle_rotate");
+span_tringle_right_month_from.classList.toggle("span_tringle_rotate");
+select_month_from.style.animation = "slideJumptOpen 1.4s";
+select_month_from.style.display = "block";
+}
+}
+
+
+select_month_from.onchange = function() {
+  var i_from = select_month_from.selectedIndex;
+    input_pass_select_month_from.value = select_month_from[i_from].text;
+    span_tringle_left_month_from.classList.toggle("span_tringle_rotate");
+    span_tringle_right_month_from.classList.toggle("span_tringle_rotate");
+    select_month_from.style.animation = "roll_close 1.4s";
+    setTimeout(function(){
+    select_month_from.style.display = "none";},
+    1200);
+}
+
+
+document.addEventListener("click", function(event) {
+// If user clicks inside the element, do nothing
+// document.querySelector("#select_month_from > option:nth-child(6)")
+if (event.target.closest("#myrow_select_pass_month_from")) return;  
+    span_tringle_left_month_from.classList.toggle("span_tringle_rotate");
+    span_tringle_right_month_from.classList.toggle("span_tringle_rotate");
+    select_month_from.style.animation = "opacity_down 1.2s";
+    setTimeout(function(){
+    select_month_from.style.display = "none";},
+    1000);  
+
+}) 
+
+
+</script>
+

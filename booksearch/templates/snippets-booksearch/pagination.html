@@ -1,0 +1,52 @@
+<style>
+
+    /*#cont_pag {
+    margin-right:8vw;
+    text-align: right;
+    align-content: right;
+    justify-content: flex-end;
+    text-align-last: right;
+    }
+    #col_pag {
+        text-align: right;
+    }
+    #pag {
+        text-align: right; 
+    }*/
+#cont_pag {
+float:right;
+margin-right:8vw;
+border: 2px;
+margin-top: 10px;
+z-index:1;
+bottom:20px;
+}
+
+</style>
+
+<div class="container col-lg-8" id="cont_pag">
+    <div class="row">
+        <div class="col-lg-12"  >
+           <div class="pagination justify-content-end">
+          <span class="step-links"><h3>
+              {% if page_obj.has_previous %}
+                  <a href="?page=1">&laquo; first</a>
+                  <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+              {% endif %}
+      
+              <span class="current">
+                  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+              </span>
+      
+              {% if page_obj.has_next %}
+                  <a href="?page={{ page_obj.next_page_number }}">next</a>
+                  <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+              {% endif %}</h3>
+          </span>
+        </div>       
+ </div>
+</div>
+</div>
+
+
+

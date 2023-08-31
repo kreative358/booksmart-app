@@ -1,0 +1,22 @@
+{% load rest_framework %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+<div class="modal fade" id="filtersModal" tabindex="-1" role="dialog" aria-labelledby="filters" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Filters-API</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+      <div class="modal-body">
+          {% for element in elements %}
+          {% if not forloop.first %}<hr/>{% endif %}
+          {{ element }}
+          {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</div>

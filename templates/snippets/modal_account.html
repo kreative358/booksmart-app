@@ -1,0 +1,195 @@
+<div class="mymodal_Account" id="mymodalAccount">
+</div>
+    <!-- Modal content 
+    <div class="container-fluid" id="mymodalAccountCont">
+      <div class="column" id="mymodalAccountCol">-->
+      <div class="container_mymodalAccount" id="mymodalAccountCont">
+        <div class="column_mymodalAccount" id="mymodalAccountCol">
+      
+          <div class="mymodal_AccountHeader" id="mymodalAccountHeader" >
+            <p id="close_mAccount" class="close_m_acc">✖</p>
+            <p style="font-size:26px; font-weight:bold; color:blue; margin:10px auto 0px auto;">ACCOUNT</p>
+          </div>
+      
+          <div class="mymodal_AccountBody" id="mymodalAccountBody">
+            <p style="font-size:22px; color:blue; margin:0px auto 0px auto; font-variant: small-caps;">
+              Hello, {{account_form.initial.username}} <br>
+              Here, you can change email or username
+            </p>
+      
+              <div>
+                <form action="{% url 'accounts:account' %}" class="was-validated" method="post" enctype="multipart/form-data" id="account_form">   
+                  {% csrf_token %}
+    
+                  <input type="hidden" name="current_url" id="current_url" readonly value='{{ current_url }}'>  
+    
+                    <div class="form-group">
+                      <label class="label" for="username" style="font-size:24px; 
+                      color:blue; margin:4px auto auto auto; font-variant: small-caps;" > Username </label>
+                      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus value="{{request.user.username}}" minlength="3">
+                      <div class="valid-feedback" > username field is filled out.
+                      </div>
+                      <div class="invalid-feedback" > please fill out the username field.
+                      </div>
+                    </div> 
+
+                    <div style="height:10px;"> </div>
+
+                    <div class="form-group">
+                      <label class="label" for="email" style="font-size:24px; 
+                      color:blue; margin: -14px auto auto auto; "> Email </label>
+                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Must contain @" value="{{request.user.email}}">                      
+                      <div class="valid-feedback" > password field is filled out.
+                      </div>
+                      <div class="invalid-feedback" >please fill out the password field.
+                      </div>
+                    </div>
+
+                    <div style="height:4px;"> </div>
+
+                  <!--  <div>
+                      <label class="container-check"> 
+                      <input type="checkbox" checked="checked" name="remember"> 
+                      <span class="checkmark"></span> Remember me &nbsp;
+                      </label>
+                    </div> -->
+                    <div>
+                      <div class="container-check">
+                      <input type="checkbox" checked="checked" required="False"  name="remember"><label class="form-check-label"> remember me </label>
+                      </div>
+                    </div>
+          
+                </form> 
+          
+                <div>
+                  <p class="psw" style="margin-top: -4px"> Your <a href="{% url 'booksmart:account-records' %}" target="_blank"> records </a></p>
+                  <p class="psw" style="margin-top: -8px">forgot <a href="{% url 'accounts:password_reset_form' %}" target="_blank" >password?</a></p>
+                  <p class="psw" style="margin-top: -8px">change <a href="{% url 'accounts:password_change' %}" target="_blank" >password?</a></p>
+                </div>
+              
+          
+                <div> 
+                  {% if message_info %}
+                  {% for msg_info in message_info %}
+                  <p id="msg_id">{% autoescape off %} {{ msg_info }} {% endautoescape %}</p>
+                  {% endfor %}
+                  {% endif %}
+                </div>
+          
+                <div>
+                  {% for field in account_form %}
+                  {% for error in field.errors %}
+                  <p id="msg_red_id" class="m_remove">{% autoescape off %} {{ error }} {% endautoescape %} </p>
+                  {% endfor %}  
+                  {% endfor %}
+                </div>
+          
+                <div>
+                  {% if account_form.non_field_errors %}
+                  <p id="msg_red_id" class="m_remove"> {% autoescape off %} {{account_form.non_field_errors}} {% endautoescape %} </p>
+                  {% endif %}
+                </div>
+          
+                  {% if messages %}
+                  {% for message in messages %}
+                  {% if message.tags == 'info' %}
+                <div id="bs_input" class="alert alert-dismissible fade show">
+                  <button type="button" class="close" data-dismiss="alert">x</button>
+                  <p id="msg_red_id"  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</p>
+                </div>
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
+          
+              </div>
+            </div> 
+      
+            <div class="mymodal_AccountFooter" id="mymodalAccountFooter">
+              
+              <button name="account_f" form="account_form" type="submit" id="btn_submit_account" class="btn_submit"> confirm </button>
+                
+                
+                <button id="close_mbAccount" type="button" class="close_mb_acc" >close</button> 
+            
+            
+            </div>
+            <p style="font-variant: small-caps; float:left; margin:-16px auto auto 5px;"> booksmart </p>
+          </div>
+        </div>
+      
+
+
+      <script>
+    
+        var my_modalAccount = document.getElementById("mymodalAccount");
+        // var my_modalAccount = document.getElementsByClassName("mymodal_Account")[0];
+        var my_modalAccountCont = document.getElementById("mymodalAccountCont");
+        //  my_modalAccounttCont = document.getElementsByClassName("container_mymodalAccount")[0];
+        var btnAccount = document.getElementById("btn_account");
+      //var captionText = document.getElementById("caption");
+        
+        
+        btnAccount.onclick = function(){
+          my_modalAccount.style.display = "block";
+          my_modalAccount.style.animation = "modalfadein 1s 1";
+          my_modalAccount.src = this.src;
+            
+          my_modalAccountCont.style.display = "block"; 
+          my_modalAccountCont.style.animation = "zoom 2s 1";
+          my_modalAccountCont.src = this.src;
+          //captionText.innerHTML = this.alt;
+        }
+        
+          //var close_x = document.getElementsByClassName("close_m")[0];
+      var close_xAccount = document.getElementById("close_mAccount");
+          //var close_btn = document.getElementsByClassName("close_mb")[0];  
+      var close_btnAccount = document.getElementById("close_mbAccount");         
+          
+        
+          close_xAccount.onclick = function() {
+            my_modalAccountCont.style.animation = "unzoom 2s 1";
+            my_modalAccount.style.animation = "modalfadeout 1s 1 1s";
+            setTimeout(()=> {
+              my_modalAccountCont.style.display = "none";
+              my_modalAccount.style.display = "none"
+                }
+                , 1900);
+          }
+        
+          close_btnAccount.onclick = function() {
+            my_modalAccountCont.style.animation = "animatetopback 2s 1";
+            my_modalAccount.style.animation = "modalfadeout 1s 1 1s";
+            setTimeout(()=> {
+              my_modalAccountCont.style.display = "none";
+              my_modalAccount.style.display = "none"
+                }
+                , 1900);
+          }
+
+          //my_modalAccountCont.onmouseenter = function() {
+          //  my_modalAccount.style.background-image  = "rgba(20, 100, 200, 0.//4)";
+         // }
+          
+          //window.onclick = function(even) {
+             //if (even.target == my_modalAccount) {
+         my_modalAccount.onclick = function() {  
+              //mymodal_cont.style.animation = "unzoomrotate 2s 1";
+              my_modalAccountCont.style.animation = "unzoomrotate 2s 1";
+              my_modalAccount.style.animation = "modalfadeout 1s 1 1s";
+              setTimeout(()=> {
+              my_modalAccountCont.style.display = "none";
+              my_modalAccount.style.display = "none"
+                }
+                , 1900);
+              
+              
+              // mymodal.style.animation = "modalfadeout 1s 1 1s";
+              // setTimeout(function(){ mymodal.style.display = "none"; }, 1900);
+          // mymodal.style.animation = "modalfadein 1s 1 2s";
+        
+              // mymodal_cont.style.animation = "zoomrotate 2s 1";
+            }
+       // }
+      
+          </script>              
+                  

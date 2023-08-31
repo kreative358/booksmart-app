@@ -1,0 +1,9 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+
+<h2>{% trans "Field filters" %}</h2>
+<form class="form" action="" method="get">
+    {{ filter.form.as_p|crispy }}
+    <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+</form>

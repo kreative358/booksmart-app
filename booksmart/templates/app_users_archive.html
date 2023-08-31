@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <link rel="icon" href="https://archive.org/offshoot_assets/favicon.ico">
+    <link rel="preconnect" href="https://analytics.archive.org">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="google-site-verification" content="Q2YSouphkkgHkFNP7FgAkc4TmBs1Gmag3uGNndb53B8">
+    <meta name="google-site-verification" content="bpjKvUvsX0lxfmjg19TLblckWkDpnptZEYsBntApxUk">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <link rel="stylesheet" href="https://archive.org/offshoot_assets/index.34c417fd1d63.css">
+    <title>Internet Archive: Digital Library of Free &amp; Borrowable Books, Movies, Music &amp; Wayback Machine</title>
+    <script src="https://polyfill.archive.org/v3/polyfill.min.js?features=fetch%2CIntersectionObserver%2CResizeObserver%2CglobalThis%2CElement.prototype.getAttributeNames%2CString.prototype.startsWith%2CArray.prototype.flat%2CURL%2CURLSearchParams"></script>
+    <script src="https://archive.org/offshoot_assets/vendor/lit@2.0.2/polyfill-support.js"></script>
+    <script src="https://archive.org/offshoot_assets/vendor/@webcomponents/webcomponentsjs@2.6.0/webcomponents-loader.js"></script>
+    <script>
+        /* @licstart  The following is the entire license notice for the
+         * JavaScript code in this page.
+         *
+         * This program is free software: you can redistribute it and/or modify
+         * it under the terms of the GNU Affero General Public License as published by
+         * the Free Software Foundation, either version 3 of the License, or
+         * (at your option) any later version.
+         *
+         * This program is distributed in the hope that it will be useful,
+         * but WITHOUT ANY WARRANTY; without even the implied warranty of
+         * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+         * GNU Affero General Public License for more details.
+         *
+         * You should have received a copy of the GNU Affero General Public License
+         * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+         *
+         * @licend  The above is the entire license notice
+         * for the JavaScript code in this page.
+         */
+    </script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/commons.f0c6eb03bbaa275b6c69.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/psaBanners.09d1e65945050ed4aaf0.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/appServices.266a2dcfee809c5fe5c6.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/sentry.8097767f44f1497d64a0.js"></script>
+    <style type="text/css">
+        button.btn[data-v-5f0b9ba1] {
+            display: inline-block;
+            font-weight: 300;
+            line-height: 1.25;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all .15s ease
+        }
+        button.btn.btn-sm[data-v-5f0b9ba1] {
+            padding: .4rem .8rem;
+            font-size: .8rem;
+            border-radius: .2rem
+        }
+        button.btn.btn-primary[data-v-5f0b9ba1] {
+            color: #fff;
+            background-color: #45C8F1;
+            border-color: #45C8F1
+        }
+        button.btn.btn-outline-primary[data-v-5f0b9ba1] {
+            color: #45C8F1;
+            background-color: transparent;
+            border-color: #45C8F1
+        }
+        button.btn.btn-danger[data-v-5f0b9ba1] {
+            color: #fff;
+            background-color: #FF4949;
+            border-color: #FF4949
+        }
+        .text-muted[data-v-5f0b9ba1] {
+            color: #8492A6
+        }
+        .text-center[data-v-5f0b9ba1] {
+            text-align: center
+        }
+        .drop-down-enter[data-v-5f0b9ba1],
+        .drop-down-leave-to[data-v-5f0b9ba1] {
+            transform: translateX(0) translateY(-20px);
+            transition-timing-function: cubic-bezier(0.74, 0.04, 0.26, 1.05);
+            opacity: 0
+        }
+        .drop-down-enter-active[data-v-5f0b9ba1],
+        .drop-down-leave-active[data-v-5f0b9ba1] {
+            transition: all .15s
+        }
+        .move-left-enter[data-v-5f0b9ba1],
+        .move-left-leave-to[data-v-5f0b9ba1] {
+            transform: translateY(0) translateX(-80px);
+            transition-timing-function: cubic-bezier(0.74, 0.04, 0.26, 1.05);
+            opacity: 0
+        }
+        .move-left-enter-active[data-v-5f0b9ba1],
+        .move-left-leave-active[data-v-5f0b9ba1] {
+            transition: all .15s
+        }
+        .no-tr[data-v-5f0b9ba1] {
+            transition: none !important
+        }
+        .no-tr *[data-v-5f0b9ba1] {
+            transition: none !important
+        }
+        .overlay[data-v-5f0b9ba1] {
+            position: fixed;
+            background: rgba(220, 220, 220, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: all 0.2s ease;
+            opacity: 0;
+            visibility: hidden
+        }
+        .overlay .modal[data-v-5f0b9ba1] {
+            transition: all 0.2s ease;
+            opacity: 0;
+            transform: scale(0.6);
+            overflow: hidden
+        }
+        .overlay.show[data-v-5f0b9ba1] {
+            opacity: 1;
+            visibility: visible
+        }
+        .overlay.show .modal[data-v-5f0b9ba1] {
+            opacity: 1;
+            transform: scale(1)
+        }
+        .panel[data-v-5f0b9ba1] {
+            padding: 6px 10px;
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+            align-items: center;
+            border-radius: 4px;
+            position: relative;
+            border: 1px solid #eaf7ff;
+            background: #f7fcff;
+            outline: none;
+            transition: all 0.07s ease-in-out
+        }
+        .btn[data-v-5f0b9ba1] {
+            cursor: pointer;
+            box-sizing: border-box
+        }
+        .light-btn[data-v-5f0b9ba1] {
+            padding: 6px 10px;
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+            align-items: center;
+            border-radius: 4px;
+            position: relative;
+            border: 1px solid #eaf7ff;
+            background: #f7fcff;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.07s ease-in-out
+        }
+        .light-btn[data-v-5f0b9ba1]: hover {
+            background: #e0f4ff;
+            border-color: #8acfff
+        }
+        .shake[data-v-5f0b9ba1] {
+            animation: shake-data-v-5f0b9ba1 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+            transform: translate3d(0, 0, 0)
+        }
+        @keyframes shake-data-v-5f0b9ba1 {
+            10%,
+            90% {
+                transform: translate3d(-1px, 0, 0)
+            }
+            20%,
+            80% {
+                transform: translate3d(2px, 0, 0)
+            }
+            30%,
+            50%,
+            70% {
+                transform: translate3d(-4px, 0, 0)
+            }
+            40%,
+            60% {
+                transform: translate3d(4px, 0, 0)
+            }
+        }
+        .pulse[data-v-5f0b9ba1] {
+            animation: pulse-data-v-5f0b9ba1 2s ease infinite
+        }
+        @keyframes pulse-data-v-5f0b9ba1 {
+            0% {
+                opacity: .7
+            }
+            50% {
+                opacity: .4
+            }
+            100% {
+                opacity: .7
+            }
+        }
+        .flash-once[data-v-5f0b9ba1] {
+            animation: flash-once 3.5s ease 1
+        }
+        @keyframes fade-up-data-v-5f0b9ba1 {
+            0% {
+                transform: translate3d(0, 10px, 0);
+                opacity: 0
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1
+            }
+        }
+        .fade-in[data-v-5f0b9ba1] {
+            animation: fade-in-data-v-5f0b9ba1 .3s ease-in-out
+        }
+        @keyframes fade-in-data-v-5f0b9ba1 {
+            0% {
+                opacity: 0
+            }
+            100% {
+                opacity: 1
+            }
+        }
+        .spin[data-v-5f0b9ba1] {
+            animation-name: spin-data-v-5f0b9ba1;
+            animation-duration: 2000ms;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear
+        }
+        @keyframes spin-data-v-5f0b9ba1 {
+            from {
+                transform: rotate(0deg)
+            }
+            to {
+                transform: rotate(360deg)
+            }
+        }
+        .bounceIn[data-v-5f0b9ba1] {
+            animation-name: bounceIn-data-v-5f0b9ba1;
+            transform-origin: center bottom;
+            animation-duration: 1s;
+            animation-fill-mode: both;
+            animation-iteration-count: 1
+        }
+        @keyframes bounceIn-data-v-5f0b9ba1 {
+            0%,
+            20%,
+            40%,
+            60%,
+            80%,
+            100% {
+                -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+                transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1)
+            }
+            0% {
+                opacity: 1;
+                -webkit-transform: scale3d(0.8, 0.8, 0.8);
+                transform: scale3d(0.8, 0.8, 0.8)
+            }
+            20% {
+                -webkit-transform: scale3d(1.1, 1.1, 1.1);
+                transform: scale3d(1.1, 1.1, 1.1)
+            }
+            40% {
+                -webkit-transform: scale3d(0.9, 0.9, 0.9);
+                transform: scale3d(0.9, 0.9, 0.9)
+            }
+            60% {
+                opacity: 1;
+                -webkit-transform: scale3d(1.03, 1.03, 1.03);
+                transform: scale3d(1.03, 1.03, 1.03)
+            }
+            80% {
+                -webkit-transform: scale3d(0.97, 0.97, 0.97);
+                transform: scale3d(0.97, 0.97, 0.97)
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1)
+            }
+        }
+        @keyframes dots-data-v-5f0b9ba1 {
+            0%,
+            20% {
+                color: rgba(0, 0, 0, 0);
+                text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0)
+            }
+            40% {
+                color: #8492A6;
+                text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0)
+            }
+            60% {
+                text-shadow: 0.25em 0 0 #8492A6, 0.5em 0 0 rgba(0, 0, 0, 0)
+            }
+            80%,
+            100% {
+                text-shadow: .25em 0 0 #8492A6, .5em 0 0 #8492A6
+            }
+        }
+        @keyframes recording-data-v-5f0b9ba1 {
+            0% {
+                box-shadow: 0px 0px 5px 0px rgba(173, 0, 0, 0.3)
+            }
+            65% {
+                box-shadow: 0px 0px 5px 5px rgba(173, 0, 0, 0.3)
+            }
+            90% {
+                box-shadow: 0px 0px 5px 5px rgba(173, 0, 0, 0)
+            }
+        }
+        body[data-v-5f0b9ba1] {
+            margin: 0;
+            font-size: 100%;
+            color: #3C4858
+        }
+        a[data-v-5f0b9ba1] {
+            text-decoration: none;
+            color: #45C8F1
+        }
+        h1[data-v-5f0b9ba1],
+        h2[data-v-5f0b9ba1],
+        h3[data-v-5f0b9ba1],
+        h4[data-v-5f0b9ba1] {
+            margin-top: 0
+        }
+        svg[data-v-5f0b9ba1] {
+            outline: none
+        }
+        .container_selected_area[data-v-5f0b9ba1] {
+            display: none;
+            visibility: hidden;
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2147483647
+        }
+        .container_selected_area.active[data-v-5f0b9ba1] {
+            visibility: visible;
+            display: block
+        }
+        .container_selected_area .label[data-v-5f0b9ba1] {
+            font-family: "Didact Gothic Regular", sans-serif;
+            font-size: 22px;
+            text-align: center;
+            padding-top: 15px
+        }
+        .container_selected_area .area[data-v-5f0b9ba1] {
+            display: none;
+            position: fixed;
+            z-index: 2147483647;
+            border: 1px solid #1e83ff;
+            background: rgba(30, 131, 255, 0.1);
+            box-sizing: border-box
+        }
+        .container_selected_area .area.active[data-v-5f0b9ba1] {
+            display: block;
+            top: 0;
+            left: 0
+        }
+        .hide[data-v-5f0b9ba1] {
+            display: none
+        }
+    </style>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/fetchHandler.82cfc5a86491cb9fbd49.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/bannerService.f903e7ed4d10cf881369.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/keyValueStoreManager.f12d493872ee0347070e.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/configService.f56beeff40dd37e07239.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/themeManager.57d1b04453325231843d.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/userService.0ecfe3b32511f0d201e6.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/sharedResizeObserver.e93527b03d181734a015.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/localCache.acb080b86523ba7b3f70.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/appFooter.984dd11e89e758f23135.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/homePage.0b09b13a01f123e7af3a.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/pageMetadataService.1793cb6a36f25c9a6f6d.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/lightDomTunnel.b06a128c42b1163da104.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/mediaCountService.37ad25156768f5b72e81.js"></script>
+    <style data-manager="theme-manager">
+        <!----><!---->: root {
+            --ia-theme-primary-background-color: #F5F5F7;
+            --ia-theme-secondary-background-color: #fff;
+            --ia-theme-primary-text-color: #2c2c2c;
+            --ia-theme-secondary-text-color: #666;
+            --ia-theme-link-color: #4b64ff;
+        }
+        <!----><!---->: root {
+            --ia-theme-base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        <!---->
+    </style>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/themeLight.24e6da283a8d74ede8c0.js"></script>
+    <script data-owner="SchemaOrgJsonLDService" type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "name": "Internet Archive",
+            "alternateName": "Archive.org",
+            "url": "archive.org",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://archive.org/search.php?query={query}",
+                "query-input": "required name=query"
+            }
+        }
+    </script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/recaptchaManager.66e90eb26ed1a9f0cb6a.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/appRootController.002871af53fd551db3bd.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/abtestManager.9cb4db5fd18e1bc87b8a.js"></script>
+    <meta name="monetization" data-owner="pageMetadataService" content="$ilp.uphold.com/D7BwPKMQzBiD">
+    <meta name="description" data-owner="pageMetadataService" content="Internet Archive is a non-profit digital library offering free universal access to books, movies &amp; music, as well as 624 billion archived web pages.">
+    <link rel="alternate" type="application/xml" href="http://archive.org/services/collection-rss.php" title="RSS" data-owner="pageMetadataService">
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/homePageServices.e99b2ec4dc4e161a3584.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/waybackSearchHandler.60758d8b77975bc7ff7d.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/tvSearchHandler.eb3172154e51d9ee8f7a.js"></script>
+    <script charset="utf-8" src="https://archive.org/offshoot_assets/js/radioSearchHandler.e726e81b7b012ae81c2e.js"></script>
+</head>
+<body>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0000.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0001.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0002.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0003.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0004.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0005.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0006.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0007.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0008.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0009.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0010.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0011.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0012.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0013.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0014.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0015.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0016.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0017.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0018.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0019.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0020.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0021.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0022.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0023.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0024.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0025.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0026.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0027.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0028.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0029.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0030.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0031.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0032.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0033.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0034.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0035.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0036.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0037.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0038.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0039.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0040.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0041.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0042.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0043.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0044.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0045.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0046.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0047.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0048.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+	<img src='https://ia902309.us.archive.org/BookReader/BookReaderImages.php?zip=/9/items/hobbitortherebac0000tolk_t0g2/hobbitortherebac0000tolk_t0g2_jp2.zip&file=hobbitortherebac0000tolk_t0g2_jp2/hobbitortherebac0000tolk_t0g2_0049.jp2&id=hobbitortherebac0000tolk_t0g2crossorigin="anonymous|use-credentials"'><br>
+
+	<body>	
+</html>

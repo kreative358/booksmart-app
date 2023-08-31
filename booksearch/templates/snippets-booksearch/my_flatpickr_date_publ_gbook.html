@@ -1,0 +1,138 @@
+<!--  <script src="https://flatpickr.js.org/javascripts/application.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://flatpickr.js.org/init.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/themes/light.min.css"> -->
+  <script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/shortcut-buttons-flatpickr.min.js"></script>
+  
+ 
+  {% include 'snippets-booksmart/my_flatpickr_css.html' %}
+  <style>
+
+  </style>
+  
+
+    
+       
+  <div class="input_widget" id="input_widget_publ">
+    <input  class="form-control" name="published" id="published" value='{{book.published}}'/></div>
+      <div class="btn_clear_date" id="btn_clear_date_publ"> CLEAR <div>
+      <div class="btn_open_date" id="btn_open_date_publ"> OPEN </div>
+    
+      <div class="container_date" id="container_date_publ">
+      </div>
+  
+  
+   
+  <script> 
+   
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  
+  const buttons = months.map((month) => { 
+    return { label: month.substr(0, 3) }; 
+  });
+  
+  
+// const book_publ_gbook = '{{ book.published }}'
+const btn_opendate_publ = document.getElementById("btn_open_date_publ");
+ const cont_datepubl = document.getElementById("container_date_publ");
+ const input_datepubl = document.getElementById("published");
+ //  const btn_closedate_publ = document.getElementById("btn_close_date_publ");
+ 
+ const btn_cleardate_publ = document.getElementById("btn_clear_date_publ");
+ btn_cleardate_publ.onclick = function() {
+  input_datepubl.value = "";
+ }
+
+// let calendar_1 = new flatpickr("input[type=date]", {
+ let calendar_publ = new flatpickr(input_datepubl, {
+     inline:true,
+   
+   // dateFormat: "d M, Y",
+   altFormat: "m/d/Y",
+  dateFormat: "m/d/Y",
+  // defaultDate: book_publ_gbook,
+   // defaultDate: "02/02/2001",
+        animate: true,
+      appendTo: cont_datepubl,
+       allowInput: true,
+      // closeOnSelect: true,
+      // parseDate:true,
+      onChange: (selectedDates,) => {
+       cont_datepubl.style.animation = "heightdown 4s 1";
+       setTimeout(function(){ 
+        cont_datepubl.style.display = "none"; 
+       // fp.close();
+       }, 1900);
+    },
+
+        plugins: [
+       ShortcutButtonsPlugin({
+         button: buttons,
+         onClick: (index, fp) => {
+           const date = new Date();
+           date.setDate(1);
+           date.setMonth(index);
+           date.setYear(fp.currentYear);
+           fp.setDate(date);
+         }
+       }),
+     
+      ShortcutButtonsPlugin({
+         button: [
+          { label: "clear" },
+           { label: "today" },
+         ],
+ 
+         onClick: (index, fp) => {
+           let execute;
+           switch (index) {
+             case 0:
+               execute = fp.clear();
+               break;
+             case 1:
+               execute = new Date();
+               fp.setDate(execute);
+               break;    
+         }
+       }
+     }),
+   ]
+   
+ });
+ 
+  btn_opendate_publ.onclick = function() {
+//  // container_publ.classList.toggle("mycontainer_publ");
+ if (cont_datepubl.style.display === "block") {
+    btn_opendate_publ.innerText = "OPEN";
+    cont_datepubl.style.animation = "unzoomrotate 2s 1";
+    setTimeout(function(){ cont_datepubl.style.display = "none"; }, 1900);
+  } else  {
+      btn_opendate_publ.innerText = "CLOSE";
+      cont_datepubl.style.animation = "zoomrotate 2s 1";
+      cont_datepubl.style.display = "block"; 
+   }
+  }
+ 
+ input_datepubl.onclick = function() {
+ // container.classList.toggle("mycontainer_publ");
+ if (cont_datepubl.style.display === "block") {
+     btn_opendate_publ.innerText = "OPEN";
+     cont_datepubl.style.animation = "opacitydown 2s 1";
+     setTimeout(function(){ cont_datepubl.style.display = "none"; }, 1900);
+   } else  {
+      btn_opendate_publ.innerText = "CLOSE";
+      cont_datepubl.style.animation = "opacityup 2s 1";
+      cont_datepubl.style.display = "block"; 
+   }
+ };
+ 
+ // btn_closedate_publ.onclick = function() {
+//  // cont_datepubl.classList.toggle("mycontainer_publ");
+//      btn_opendate_publ.innerText = "OPEN";
+//      cont_datepubl.style.animation = "heightdown 2s 1";
+//     setTimeout(function(){ cont_datepubl.style.display = "none"; }, 1900);
+//  }
+ 
+  </script>

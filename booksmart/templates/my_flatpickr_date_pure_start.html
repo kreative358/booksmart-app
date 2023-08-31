@@ -1,0 +1,195 @@
+<!-- 
+https://www.jsdelivr.com/package/npm/flatpickr?tab=files
+https://www.jsdelivr.com/package/npm/shortcut-buttons-flatpickr
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.11/flatpickr.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/rangePlugin.js"></script>-->
+<!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/labelPlugin/labelPlugin.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/monthSelect/style.min.css"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/confirmDate/confirmDate.min.css"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/monthSelect/index.js"></script>
+<script src=""></script>
+
+<script src="
+https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css
+" rel="stylesheet">
+<script src="
+https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css
+" rel="stylesheet">
+
+https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/monthSelect/index.js
+https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/monthSelect/style.css
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/monthSelect/style.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/monthSelect/index.js"></script>
+-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/rangePlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/plugins/labelPlugin/labelPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.4.0/dist/shortcut-buttons-flatpickr.min.js"></script>
+
+
+{% include 'snippets-booksmart/my_flatpickr_pure_css.html' %}
+
+<div class="input_widget" id="input_widget_start">
+  <div class="my_row_date" id="my_row_date_1a">
+<div class="btns_clear_date" id="btn_clear_date_1"> CLEAR </div>
+         <a class="tooltip_date" id="tooltip_date_1" data-title="date format - mm/dd/yyyy month/day/year">
+       {% include "django/forms/widgets/input.html" %}</a>
+       <div class="btns_close_date_i" id="btn_close_date_i1">CLOSE</div> 
+         <div class="btns_open_date" id="btn_open_date_1"> OPEN </div>
+       </div>
+    </div>
+</div>
+       
+       <script>
+
+        console.clear();
+        var_name_gb = {}
+  // {{ book.google_id }}
+  // let inputs_date = document.querySelectorAll("input[type=date]");
+  
+    const months_1 = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    const buttons_1 = months_1.map((month) => { 
+      return { label: month.substr(0, 3) }; 
+    });
+    
+  
+  const btns_open_1 = document.getElementById("btn_open_date_1");
+  const btns_close_i1 = document.getElementById("btn_close_date_i1");
+  const inputs_date_1 = document.querySelector("#input_date_pure_start");
+  
+  const btns_cleardate_1 = document.getElementById("btn_clear_date_1");
+  btns_cleardate_1.onclick = function() {
+  inputs_date_1.value = "";
+   };
+  
+  let calendar_start_config = {
+    allowInput: true,
+    altFormat: "m/d/Y",
+   dateFormat: "m/d/Y",
+   altInputClass: "date_picker",
+    monthSelectorType: "static",
+    animate: true,
+    onOpen: function(selectedDates, dateStr, instance) {
+    //btns_open_2.innerText = "CLOSE";
+        btns_open_1.style.display="none";
+        btns_close_i1.style.display="inline-block";
+        },
+    onClose: function(selectedDates, dateStr, instance) {
+      //btns_open_2.innerText = "OPEN";
+      btns_close_i1.style.display="none";
+      btns_open_1.style.display="inline-block";
+      cont_months_outside_1.style.display="none";
+     // calendar_start.style.animation="opacitydown 2s";
+      },
+    onChange: function(selectedDates, dateStr, instance) {
+      calendar_end.set('minDate', selectedDates[0]);
+      calendar_end.open();
+      calendar_end.style.animation="opacityup 2s forwards";
+        },
+   plugins: [
+    // new rangePlugin({ input: inputs_date_2}), 
+    ShortcutButtonsPlugin({
+           button: buttons,
+           onClick: (index, fp) => {
+             const date = new Date();
+             date.setDate(1);
+             date.setMonth(index);
+             date.setYear(fp.currentYear);
+             fp.setDate(date);
+           }
+         }),  
+    ShortcutButtonsPlugin({
+       button: [
+        { label: "clear" },        
+         { label: "today" },
+          { label: "close" },
+       ],
+  
+       onClick: (index, fp) => {
+         let execute;
+         switch (index) {
+           case 0:
+             execute = fp.clear();
+             break;
+           case 1:
+             execute = new Date();
+             fp.setDate(execute);
+             break; 
+           case 2:
+           execute = fp.close();
+             break;
+       }
+     }
+   }),
+  ]   
+  };
+  
+  let calendar_start = flatpickr(inputs_date_1, calendar_start_config);
+
+  btns_open_1.onclick = function() {
+  calendar_start.open();
+      };
+  
+  btns_close_i1.onclick = function() {
+  calendar_start.close();
+      };
+      
+  const cont_months_outside_1 = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4)")[0];
+  const cont_months_outside_1a = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4)> div")[0];
+  // const nodeList_1 = document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(n)")[0];
+  
+  const nodeList_1 = [
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(1)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(2)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(3)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(4)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(5)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(6)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(7)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(8)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(9)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(10)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(11)")[0],
+  document.querySelectorAll("div.flatpickr-calendar > div:nth-child(4) > div > button:nth-child(12)")[0],
+  ] 
+  
+  // const month_btn_2 = document.querySelectorAll("div.flatpickr-calendar.animate.arrowTop.arrowLeft.open > div.flatpickr-months > div > div > span")[1];
+  //div.flatpickr-calendar.animate.open.arrowTop.arrowLeft > div.flatpickr-months > div > div > span
+  const month_btn_1 = document.querySelectorAll(".flatpickr-current-month span.cur-month")[0];
+  month_btn_1.onclick = function() {
+  // container.classList.toggle("mycontainer");
+  if (cont_months_outside_1.style.display === "block") {
+      cont_months_outside_1.style.animation = "opacitydown 1.2s 1 ease-in-out";
+      setTimeout(function(){cont_months_outside_1.style.display = "none";}, 1100);
+    } else  {
+        // cont_date_1.style.animation = "zoomrotate 2s 1";
+      cont_months_outside_1.style.animation = "opacityup 1.2s 1 ease-in-out";
+      cont_months_outside_1.style.display = "block"; 
+    }
+  };
+  
+  for (let i = 0; i < nodeList_1.length; i++) {
+    nodeList_1[i].onclick = function() {
+    cont_months_outside_1.style.animation = "opacitydown 1.5s 1 ease-in-out";
+    setTimeout(function(){cont_months_outside_1.style.display = "none";
+    }, 1400);
+   }
+   };
+  
+      
+  
+<script>

@@ -1,0 +1,240 @@
+{% extends 'base_d.html' %}
+{% load bootstrap4 %}
+{% block title %} delete-book {% endblock%}
+
+{% block page %}
+{% include 'snippets-booksmart/css_booksmart.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %} 
+
+{% include 'snippets/jumbotron.html' %}
+{% include 'snippets/marquee.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+<style>
+#cont_del_b {
+    /*align-content: center;
+    align-items: center;*/
+    position:relative;
+    justify-content: center;
+    
+    background-color: rgb(100, 160, 220);
+    background-color: rgba(100, 160, 220, 0.6); 
+    border-radius: 5px;
+    border: 8px solid rgba(240, 240, 240, 0.2);
+    box-shadow: 0px 0px 6px 6px rgba(220, 220, 230, 0.6); 
+    border-radius: 5px;
+    animation-name: anime_submit_c;
+    animation-duration: 12s;
+    animation-iteration-count: infinite;
+    
+    margin: 20px auto 20px auto;
+    z-index:1;
+    width:540px;
+    max-width:90%;
+    padding: 4px;
+    }
+
+#row_del_b {
+  margin: auto;
+  }
+
+#row_del_b:hover {
+  box-shadow: 
+  0px 0px 4px 4px rgba(220, 220, 230, 0.6), 
+  0px 0px 12px 270px rgba(220, 220, 230, 0.4) inset;
+}
+
+#col_del_b {
+  margin:auto;
+  padding: 10px;
+  text-align: center;
+  }
+
+
+  @keyframes anime_submit_c {
+    50% {background-color: rgba(120, 120, 120, 0.4); 
+      border: 8px solid rgba(240, 0, 0, 0.6);
+      }
+  } 
+
+#button_sm:focus {
+  border:none;
+  outline:none;
+}
+
+#a_submit_t {
+  animation-name: anime_submit_t;
+  animation-duration:0.8s;
+  animation-iteration-count:infinite;
+  animation-direction:alternate;
+  -webkit-animation-duration:0.8s;
+  -webkit-animation-name:anime_submit_t;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-direction:alternate;
+  color: #ffe;
+  }
+  
+  @keyframes anime_submit_t {
+    0% {
+      text-shadow: 0 -0.05em 0.2em #FFF, 0.01em -0.02em 0.15em #FE0, 0.01em -0.05em 0.15em #FC0, 0.02em -0.15em 0.2em #F90, 0.04em -0.20em 0.3em #F70,0.05em -0.25em 0.4em #F70, 0.06em -0.2em 0.9em #F50, 0.1em -0.1em 1.0em #F40;
+    }
+    25% {
+      text-shadow: 0 -0.05em 0.2em #FFF, 0 -0.05em 0.17em #FE0, 0.04em -0.12em 0.22em #FC0, 0.04em -0.13em 0.27em #F90, 0.05em -0.23em 0.33em #F70, 0.07em -0.28em 0.47em #F70, 0.1em -0.3em 0.8em #F50, 0.1em -0.3em 0.9em #F40;
+    }
+    50% {    
+      text-shadow: 0 -0.05em 0.2em #FFF, 0.01em -0.02em 0.15em #FE0, 0.01em -0.05em 0.15em #FC0, 0.02em -0.15em 0.2em #F90, 0.04em -0.20em 0.3em #F70,0.05em -0.25em 0.4em #F70, 0.06em -0.2em 0.9em #F50, 0.1em -0.1em 1.0em #F40;
+    }
+    75% {
+      text-shadow: 0 -0.05em 0.2em #FFF, 0 -0.06em 0.18em #FE0, 0.05em -0.15em 0.23em #FC0, 0.05em -0.15em 0.3em #F90, 0.07em -0.25em 0.4em #F70, 0.09em -0.3em 0.5em #F70, 0.1em -0.3em 0.9em #F50, 0.1em -0.3em 1.0em #F40;
+    }
+    100% {
+      text-shadow: 0 -0.05em 0.2em #FFF, 0.01em -0.02em 0.15em #FE0, 0.01em -0.05em 0.15em #FC0, 0.02em -0.15em 0.2em #F90, 0.04em -0.20em 0.3em #F70,0.05em -0.25em 0.4em #F70, 0.06em -0.2em 0.9em #F50, 0.1em -0.1em 1.0em #F40;
+    }
+    }
+  
+  @-webkit-keyframes anime_submit_t {
+  0% {
+    text-shadow: 0 -0.05em 0.2em #FFF, 0.01em -0.02em 0.15em #FE0, 0.01em -0.05em 0.15em #FC0, 0.02em -0.15em 0.2em #F90, 0.04em -0.20em 0.3em #F70,0.05em -0.25em 0.4em #F70, 0.06em -0.2em 0.9em #F50, 0.1em -0.1em 1.0em #F40;
+  }
+  25% {
+    text-shadow: 0 -0.05em 0.2em #FFF, 0 -0.05em 0.17em #FE0, 0.04em -0.12em 0.22em #FC0, 0.04em -0.13em 0.27em #F90, 0.05em -0.23em 0.33em #F70, 0.07em -0.28em 0.47em #F70, 0.1em -0.3em 0.8em #F50, 0.1em -0.3em 0.9em #F40;
+  }
+  50% {    
+    text-shadow: 0 -0.05em 0.2em #FFF, 0.01em -0.02em 0.15em #FE0, 0.01em -0.05em 0.15em #FC0, 0.02em -0.15em 0.2em #F90, 0.04em -0.20em 0.3em #F70,0.05em -0.25em 0.4em #F70, 0.06em -0.2em 0.9em #F50, 0.1em -0.1em 1.0em #F40;
+  }
+  75% {
+    text-shadow: 0 -0.05em 0.2em #FFF, 0 -0.06em 0.18em #FE0, 0.05em -0.15em 0.23em #FC0, 0.05em -0.15em 0.3em #F90, 0.07em -0.25em 0.4em #F70, 0.09em -0.3em 0.5em #F70, 0.1em -0.3em 0.9em #F50, 0.1em -0.3em 1.0em #F40;
+  }
+  100% {
+    text-shadow: 0 -0.05em 0.2em #FFF, 0.01em -0.02em 0.15em #FE0, 0.01em -0.05em 0.15em #FC0, 0.02em -0.15em 0.2em #F90, 0.04em -0.20em 0.3em #F70,0.05em -0.25em 0.4em #F70, 0.06em -0.2em 0.9em #F50, 0.1em -0.1em 1.0em #F40;
+  }
+  }
+    
+  #anime_submit_text_red {
+    font-weight: bold;
+    font-size: 32px;
+    color: rgba(0, 0, 210, 0.9);
+    animation: anime_submit_text_red 2s infinite;
+  }
+  
+  @keyframes anime_submit_text_red {
+      50% {color: rgba(220, 0, 0, 0.9); 
+      }
+  }
+  
+  .p_h3 {
+  font-size: 32px;
+  color: rgba(0, 0, 210, 0.8);
+  font-weight: bold;
+  line-height: 32px;
+  }
+  
+  #p_h3 {
+    font-size: 32px;
+    color: rgba(0, 0, 210, 0.8);
+    font-weight: bold;
+    line-height: 32px;
+    }
+  
+  .p_h5 {
+    font-size: 26px;
+    color: rgba(0, 0, 210, 0.8);
+    font-weight: bold;
+    line-height: 26px;
+    }
+  
+  #p_h5 {
+    font-size: 26px;
+    color: rgba(0, 0, 210, 0.8);
+    font-weight: bold;
+    line-height: 26px;
+    }
+   
+
+</style>
+
+<div class="my_container" id="cont_del_b">
+<div class="my_row" id="row_del_b">
+<div class="my_column" id="col_del_b">
+
+<div>
+<p class="p_h3">Are you sure you want to delete <br> book titled: </p>
+<p class="p_h3" id="a_submit_t">  "{{ book.title }}"? </p>
+<div style="height: 20px; "> </div>
+</div>
+
+<div style="padding: 10px;">
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<a href="{% url 'booksmart:allrecords' %}">
+  <button type="button" id="button_sm" class="btn btn-outline-primary text-danger float-left" style="min-width: 110px; margin: 4px; border: 5px solid; box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6); font-size: 20px; font-weight: bold; padding: 2px; margin-top:-28px;"> Back </button></a>
+
+{% if request.user.id == book.user_num_b%}
+<button type="submit" id="button_db" class="btn btn-outline-danger text-primary float-right" style="min-width: 110px; margin: 4px; border: 5px solid; box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6); font-size: 20px; font-weight: bold; padding: 2px; margin-top:-28px;"> Delete </button>
+
+{% else %}
+<button type="submit" id="button_not_db" class="btn btn-outline-danger text-primary float-right" style="min-width: 110px; margin: 4px; border: 5px solid; box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6); font-size: 20px; font-weight: bold; padding: 2px; margin-top:-28px;" data-toggle="modal" data-target="#M_del_b"> Delete </button>
+
+{% endif %}
+
+</form>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<div class="modal" id="M_del_b" >
+  <div class="modal-dialog">
+  <div class="modal-content">
+  
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <p class="modal-title" id="anime_submit_text_red"> WORRNING </p>
+      <button type="button" style="background: rgba(60, 160, 240, 0.4); padding:0px; font-size: 20px;" class="close" data-dismiss="modal">✖</button>
+    </div>
+    
+    <!-- Modal body -->
+    <div class="modal-body">
+      <br>
+      <h6 id="p_r_b">You did not enter this record <br> You can not delete it<br><br>
+      If you try this again... <br>  your account may be deleted <br><br>
+      This time you will only be LOGGED OUT</h6><br>
+    </div>
+    
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      
+    </div>
+    
+  </div>
+  </div>
+  </div>
+
+  {% endblock content_3 %}
+
+
+  {% block content_4 %}
+
+  {% endblock content_4 %}
+
+  {% block content_5 %}
+
+  {% endblock content_5 %}
+</div>
+  {% endblock page %}

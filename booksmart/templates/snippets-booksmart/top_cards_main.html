@@ -1,0 +1,36 @@
+{% include 'snippets-booksmart/css_booksmart.html' %}
+
+<style type="text/css">
+  .my_container_top_cards {
+  position: relative;
+  z-index: 1;
+  margin: 14px 7.2vw auto 7.2vw;
+    }
+  
+      
+  </style>
+
+  
+  <div class="my_container_top_cards">
+    
+    <div class="my_card_top_cards">
+        <a href="{% url 'booksmart:allrecords' %}" target="_blank">
+            <p id="h3vw_l_b"  >Number of all books in database:</p> 
+            <p class="h2vw_l_b" id="a_submit_t"> {{ num_books }}</p>
+        </a>
+      </div>
+
+      <div class="my_card_top_cards" id="mycard_2_top_cards">
+          <br>
+        <p class="h3vw_l_b" id="a_submit_t"> BELOW IS LIST OF <br> FUNCTIONS</p>
+      </div>
+ 
+   
+      <div class="my_card_top_cards">
+        <a href="{% url 'booksmart:allauthors' %}" target="_blank">
+          <p id="h3vw_l_b"  >Number of all authors in database:</p> 
+          <p class="h2vw_l_b" id="a_submit_t"> {{ num_authors }}</p>
+        </a>
+      </div>
+   
+  </div>
