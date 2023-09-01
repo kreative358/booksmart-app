@@ -235,7 +235,108 @@ width: 480px;
   display: inline; 
   flex-wrap: wrap;
   }*/
+  .btnclose_x {
+    float: right;
+    position: relative;
+    font-size: 18px;
+    line-height: 18px;
+  }
 
+  .button_blue_grey {
+    transition: 0.2s;
+    background-color: rgba(160, 170, 180, 0.8); 
+    color: rgba(20, 40, 220, 0.8); 
+    border-width: 6px;
+    border-style: solid;
+    border-radius:2px;
+    border-color: rgba(40, 80, 240, 0.6) rgba(20, 40, 220, 0.6) rgba(10, 20, 200, 0.6) rgba(20, 40, 220, 0.6);
+    border-radius:2px;
+    padding: 4px;
+    font-weight:bold;
+    font-family:Times;
+    font-variant:small-caps;
+    font-size:20px;
+    min-width: 120px;
+    float:left;
+    margin: 14px auto 4px 40px;
+    box-shadow:
+    0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+    0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+    0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+    
+    }
+    
+    .button_blue_grey:hover {
+    border-color: rgba(40, 80, 240, 0.8) rgba(20, 40, 220, 0.8) rgba(10, 20, 200, 0.8) rgba(20, 40, 220, 0.8);
+    background-color: rgba(210, 20, 10, 0.8); 
+    color: rgba(220, 220, 230, 0.8);
+    box-shadow: 
+    0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+    0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+    0px 0px 4px 4px rgba(230, 240, 240, 0.6);
+    border-width: 6px;
+    border-style: solid;
+    border-radius:2px;
+    }
+    
+    .button_blue_grey:active {
+    transform: matrix(0.98, 0, 0, 0.98, 0, -2);
+    border-color: rgba(40, 80, 240, 0.8) rgba(20, 40, 220, 0.8) rgba(10, 20, 200, 0.8) rgba(20, 40, 220, 0.8);    
+    box-shadow: 
+    0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+    0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+    0px 0px 2px 2px rgba(230, 240, 240, 0.8);
+    border-width: 6px;
+    border-style: solid;
+    border-radius:2px;
+    }
+    
+    .button_red_grey {
+    transition-duration: 0.2s;
+    background-color: rgba(160, 170, 180, 0.8);
+    color: rgba(220, 20, 20, 0.6); 
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(240, 40, 40, 0.6) rgba(220, 20, 20, 0.6) rgba(200, 10, 10, 0.6) rgba(220, 20, 20, 0.6);
+    border-radius:2px;
+    padding: 4px;
+    font-weight:bold;
+    font-family:Times;
+    font-variant:small-caps;
+    font-size:20px;
+    min-width: 120px;
+    float:right;
+    box-shadow:
+    0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+    0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+    0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+    margin: 14px 40px 4px auto;
+    }
+    
+    .button_red_grey:hover {
+    border-color: rgba(240, 40, 40, 0.8) rgba(220, 20, 20, 0.8) rgba(200, 10, 10, 0.8) rgba(220, 20, 20, 0.8);
+    background-color: rgba(10, 20, 210, 0.8);
+    color: rgba(220, 220, 230, 0.8);    
+    box-shadow: 
+    0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+    0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+    0px 0px 4px 4px rgba(230, 240, 240, 0.6);
+    border-width: 6px;
+    border-style: solid;
+    border-radius:2px;
+    }
+    
+    .button_red_grey:active {
+    border-color: rgba(240, 40, 40, 0.8) rgba(220, 20, 20, 0.8) rgba(200, 10, 10, 0.8) rgba(220, 20, 20, 0.8);
+    transform: matrix(0.98, 0, 0, 0.98, 0, -2);
+    box-shadow: 
+    0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+    0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+    0px 0px 2px 2px rgba(230, 240, 240, 0.8);
+    border-width: 6px;
+    border-style: solid;
+    border-radius:2px;
+    }
 </style>
 
 <div>
@@ -328,7 +429,7 @@ width: 480px;
   <div id="bs_input_accounts_register_m" class="info-remove">
 
     <span>
-      <p type="button" id="btnclose_x"  >✖</p><br>
+      <p type="button" class="btnclose_x"  >✖</p><br>
       {% for error in errors %}
       <p id='p_r_b' class="class_text_info">
       {% autoescape off %} {{ error }} {% endautoescape %}
@@ -337,12 +438,12 @@ width: 480px;
 
   {% endfor %}
 
-  <span class="class_text_info"><p> You try register with:</p>
-    <br> username: {{ user_name }},
+  <span class="class_text_info"><p style="font-weight: bold"> You try register with:</p>
+    <p> username: {{ user_name }},
     <br> email: {{ e_mail }},
     <br> password : {{ pass1 }},
     <br> password repeat: {{ pass2 }},
-  </span>
+    </p></span>
 
   </div>
   {% endif %}
@@ -365,9 +466,9 @@ width: 480px;
 </div>   
 
 <a href="{% url 'index' %}">
-<button type="button" class="btn btn-outline-danger text-primary float-left" style="width:110px; margin: 10px auto 10px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 18px; font-weight: bold;font-family: Helvetica; padding:auto;"> BACK </button> </a>
+<button type="button" class="button_blue_grey"> BACK </button> </a>
 
-<button name="button_account_submit" type="submit" id="button_sm" class="btn btn-outline-primary text-danger float-right" style="width:110px; margin: 10px 10px 10px auto; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 18px; font-weight: bold;font-family: Helvetica; padding:auto;"> SAVE </button>
+<button name="button_account_submit" type="submit" id="button_sm" class="button_red_grey"> SAVE </button>
  
       </form>
     </div>

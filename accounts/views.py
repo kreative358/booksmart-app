@@ -84,7 +84,7 @@ class RegistrationViewBase(APIView):
         initial_val = serializer.initial_data
         username_val = initial_val['username']
         email_val = initial_val['email']
-        pass_val = initial_val['password']
+        pass1_val = initial_val['password']
         pass2_val = initial_val['password2']
         oldpass_val = 'no_oldpass'
         # serializer = self.serializer_class(data=request.data, context={'request': request})
@@ -131,9 +131,9 @@ class RegistrationViewBase(APIView):
         else:
 
             errs = serializer.errors
-            message_errors = serializer_errors(errs) +  ["You try register with<br>:", f"username: {username_val},<br>email: {email_val}"]
-            print('accounts views RegistrationViewBase errs:', message_errors)
-            print('accounts views RegistrationViewBase errs:', serializer.errors)
+            message_errors = serializer_errors(errs) +  ["<p style='font-weight: bold'>You try register with:</p>", f"<p>username: {username_val},<br>email: {email_val}</p>"]
+            print('accounts views RegistrationViewBase m_errs:', message_errors)
+            print('accounts views RegistrationViewBase s_errs:', serializer.errors)
             # print('register message_errors:', message_errors)
             # if initial_val['current_url']!= "":
             if initial_val['current_url']!= "":
@@ -144,7 +144,7 @@ class RegistrationViewBase(APIView):
                 messages.info(request, "<br>".join(msg_error for msg_error in message_errors))
             # return messages_info
                 
-                context_serializer_post_else = {'serializer':serializer, 'errors': message_errors, 'style': self.style, 'user_name':username_val, 'e_mail': email_val, 'pass':pass_val, 'pass2':pass2_val, 'oldpass':oldpass_val, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
+                context_serializer_post_else = {'serializer':serializer, 'errors': message_errors, 'style': self.style, 'user_name':username_val, 'e_mail': email_val, 'pass1':pass1_val, 'pass2':pass2_val, 'oldpass':oldpass_val, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
                 
                 return Response(context_serializer_post_else , )
         
