@@ -11,7 +11,7 @@ from accounts.views_forms import *
 from rest_framework import viewsets
 
 from rest_framework.response import Response
-from booksmart.models import context_bm, Book, Author, BackgroundPoster, BackgroundVideo
+from booksmart.models import context_bm, Book, Author, BackgroundPoster, BackgroundVideo, url_img_author, url_img
 from accounts.models import Account
 from booksmart.api.serializers import BooksSerializer, AuthorsSerializer
 from rest_framework.settings import api_settings
@@ -57,17 +57,101 @@ from django_currentuser.middleware import (
     get_current_authenticated_user,
     )
 
-from django.utils.text import slugify
+# from django.utils.text import slugify
+# try:
+#     txt = "Cześć: .&перевод чего-либо"
+#     txt_slugify = txt.replace("-", "slugify")
+#     txt_to_search = slugify(txt_slugify).replace("-", " ").replace("slugify", "-")
+#     print("txt_to_search: ", txt_to_search)
+# except Exception as e:
+#     print("exception ", e)
 
+import datetime
+
+context_bm = {}
+context_list = []
+
+context_bm['no_date'] = datetime.date(3000, 1, 1)
+context_bm['url_img_book'] = url_img
+context_bm['url_img_author'] = url_img_author
+
+try:
+    if Book.objects.all():
+        Book.objects.update()
+    # if Book.objects.filter().all():
+        all_books = Book.objects.all()
+        context_list.append(all_books)
+        num_books = Book.objects.all().count()
+        context_bm['allbooks'] = all_books
+        context_bm['num_books'] = num_books
+    elif not Book.objects.all():
+    # elif not Book.objects.filter().all():
+        context_bm['allbooks'] = None
+        context_bm['num_books'] = 0
+except:
+    print("booksmart models 335 no Book.objects.all():")
+    pass
+
+try:
+    if Author.objects.all():
+        Author.objects.update()
+    # if Author.objects.filter().all():
+        all_authors = Author.objects.all()
+        context_list.append(all_authors)
+        num_authors = Author.objects.all().count()
+        context_bm['allauthors'] = all_authors
+        context_bm['num_authors'] = num_authors
+    elif not Author.objects.all():
+    #elif not Author.objects.filter().all():
+        context_bm['allauthors'] = None
+        context_bm['num_authors'] = 0
+except:
+    print("booksmart models 351 no Author.objects.all():")
+    pass
+
+try:
+    if BackgroundPoster.objects.filter().last():
+        poster = BackgroundPoster.objects.filter().last()
+        context_bm['poster_url_1'] = poster.link_poster_1
+        context_bm['poster_url_2'] = poster.link_poster_2
+    elif not BackgroundPoster.objects.filter().last():
+        context_bm['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+        context_bm['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+except:
+    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+    pass
+
+try:
+    if BackgroundVideo.objects.filter().last():   
+        video = BackgroundVideo.objects.filter().last()
+        context_bm['video_url'] = video.link_video
+        context_bm['video_type'] = video.type_video
+    elif not BackgroundVideo.objects.filter().last():
+        context_bm['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+
+        context_bm['video_type'] = "mp4"
+except:
+    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+    pass
 
 
 try:
-    txt = "Cześć: .&перевод чего-либо"
-    txt_slugify = txt.replace("-", "slugify")
-    txt_to_search = slugify(txt_slugify).replace("-", " ").replace("slugify", "-")
-    print("txt_to_search: ", txt_to_search)
-except Exception as e:
-    print("exception ", e)
+    if BackgroundMusic.objects.filter().last():   
+        music = BackgroundVideo.objects.filter().last()
+        context_bm['music_url_1'] = music.link_music_1
+        context_bm['music_type_1'] = music.type_music_1
+        context_bm['music_url_2'] = music.link_music_2
+        context_bm['music_type_2'] = music.type_music_2
+    elif not BackgroundMusic.objects.filter().last(): 
+        context_bm['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+        context_bm['music_type_1'] = "mp3"
+        context_bm['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+        context_bm['music_type_2'] = "mp3"
+except:
+    context_bm['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+    context_bm['music_type_1'] = "mp3"
+    context_bm['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+    context_bm['music_type_2'] = "mp3"
 
 
 # print(list(set(Book.objects.values_list('author', 'author'))))

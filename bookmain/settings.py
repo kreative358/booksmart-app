@@ -35,7 +35,7 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 # DEBUG = env('DEBUG')
 
 if IS_HEROKU_APP or ENVIRONMENT == 'production':
-    DEBUG = True
+    DEBUG = False
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
@@ -150,8 +150,12 @@ WSGI_APPLICATION = 'bookmain.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+
+
 if IS_HEROKU_APP:
     # heroku addons:create heroku-postgresql:mini
+    # db_from_env = dj_database_url.config(conn_max_age=500)
+    # DATABASES['default'].update(db_from_env)
     # DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
     DATABASES = {
         "default": dj_database_url.config(
@@ -274,6 +278,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
