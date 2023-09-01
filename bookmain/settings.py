@@ -8,7 +8,8 @@ import django.conf.global_settings
 
 env = environ.Env(
     # set casting, default value
-    DEBUG=(bool, True)
+    # DEBUG=(bool, True)
+    DEBUG=(bool, False)
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -35,8 +36,8 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 # DEBUG = env('DEBUG')
 
 if IS_HEROKU_APP or ENVIRONMENT == 'production':
-    # DEBUG = env('DEBUG')
-    DEBUG = True
+    DEBUG = env('DEBUG')
+    # DEBUG = True
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
