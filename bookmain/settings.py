@@ -35,7 +35,7 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 # DEBUG = env('DEBUG')
 
 if IS_HEROKU_APP or ENVIRONMENT == 'production':
-    DEBUG = False
+    DEBUG = True
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
