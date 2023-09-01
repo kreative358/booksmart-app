@@ -33,7 +33,7 @@ IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+# DEBUG = env('DEBUG')
 
 if IS_HEROKU_APP or ENVIRONMENT == 'production':
     # DEBUG = env('DEBUG')
@@ -47,10 +47,10 @@ if IS_HEROKU_APP or ENVIRONMENT == 'production':
     SECURE_REDIRECT_EXEMPT = []
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-else:
-# elif ENVIRONMENT == 'development':
-    DEBUG = True
-    # DEBUG = env('DEBUG')
+# else:
+elif ENVIRONMENT == 'development':
+    # DEBUG = True
+    DEBUG = env('DEBUG')
 
 # Assets Management
 # ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets') 
