@@ -38,8 +38,9 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 # if IS_HEROKU_APP or ENVIRONMENT == 'production':
 if IS_HEROKU_APP:
     # DEBUG = env('DEBUG')
-    DEBUG = True
-    CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
+    DEBUG = False
+    # CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
+    CSRF_TRUSTED_ORIGINS = ['https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
     ALLOWED_HOSTS = ["booksmart-app-bd32a8932ff0.herokuapp.com"]
     
     SECRET_KEY = os.getenv('SECRET_KEY')
@@ -52,14 +53,15 @@ if IS_HEROKU_APP:
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # else:
 elif not IS_HEROKU_APP and ENVIRONMENT == 'production':
     pass
 # elif ENVIRONMENT == 'development':
 elif ENVIRONMENT != 'production':
     DEBUG = True
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1']
     # DEBUG = env('DEBUG')
 
 # Assets Management
