@@ -37,9 +37,10 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 if IS_HEROKU_APP or ENVIRONMENT == 'production':
     # DEBUG = env('DEBUG')
+    DEBUG = False
     CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
     ALLOWED_HOSTS = ["booksmart-app-bd32a8932ff0.herokuapp.com"]
-    DEBUG = False
+    
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
