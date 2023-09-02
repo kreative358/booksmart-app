@@ -35,7 +35,8 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = env('DEBUG')
 
-if IS_HEROKU_APP or ENVIRONMENT == 'production':
+# if IS_HEROKU_APP or ENVIRONMENT == 'production':
+if IS_HEROKU_APP:
     # DEBUG = env('DEBUG')
     DEBUG = False
     CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
