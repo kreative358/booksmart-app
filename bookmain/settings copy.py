@@ -52,7 +52,7 @@ if IS_HEROKU_APP:
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # else:
 elif not IS_HEROKU_APP and ENVIRONMENT == 'production':
