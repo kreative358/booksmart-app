@@ -6,11 +6,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 import django.conf.global_settings
 
-env = environ.Env(
-    # set casting, default value
-    # DEBUG=(bool, True)
-    DEBUG=(bool, True)
-)
+# env = environ.Env(
+#     # set casting, default value
+#     # DEBUG=(bool, True)
+#     DEBUG=(bool, True)
+# )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -37,6 +37,8 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 
 if IS_HEROKU_APP or ENVIRONMENT == 'production':
     # DEBUG = env('DEBUG')
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
+    ALLOWED_HOSTS = ["booksmart-app-bd32a8932ff0.herokuapp.com"]
     DEBUG = True
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
@@ -48,16 +50,20 @@ if IS_HEROKU_APP or ENVIRONMENT == 'production':
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # else:
-elif ENVIRONMENT == 'development':
-    # DEBUG = True
-    DEBUG = env('DEBUG')
+elif not IS_HEROKU_APP and ENVIRONMENT == 'production':
+    pass
+# elif ENVIRONMENT == 'development':
+elif ENVIRONMENT != 'production':
+    DEBUG = True
+    # DEBUG = env('DEBUG')
 
 # Assets Management
 # ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets') 
 
 # load production server from .env
-ALLOWED_HOSTS        = ['localhost', 'localhost:80', '127.0.0.1', '.herokuapp.com', env('SERVER', default='127.0.0.1') ]
-CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
+# ALLOWED_HOSTS        = ['localhost', 'localhost:80', '127.0.0.1', '.herokuapp.com', env('SERVER', default='127.0.0.1') ]
+# ALLOWED_HOSTS = ["booksmart-app-bd32a8932ff0.herokuapp.com"]
+# CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
 
 # Application definition
 
