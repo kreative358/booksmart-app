@@ -273,6 +273,8 @@ def all_records(request):
     context['form_search'] = form_search
     context['search_author'] = author
     context['book_sort'] = book_sort
+    context['allbooks'] = all_books
+    context['num_books'] = num_books
 
     sort_kind = ['-created_at']
     if book_sort.is_valid():
