@@ -38,8 +38,9 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 # if IS_HEROKU_APP or ENVIRONMENT == 'production':
 if IS_HEROKU_APP:
     # DEBUG = env('DEBUG')
-    DEBUG = True
-    CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
+    DEBUG = False
+    # CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
+    CSRF_TRUSTED_ORIGINS = ['https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
     ALLOWED_HOSTS = ["booksmart-app-bd32a8932ff0.herokuapp.com"]
     
     SECRET_KEY = os.getenv('SECRET_KEY')
@@ -53,13 +54,15 @@ if IS_HEROKU_APP:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # else:
 elif not IS_HEROKU_APP and ENVIRONMENT == 'production':
     pass
-# elif ENVIRONMENT == 'development':
-elif ENVIRONMENT != 'production':
-    DEBUG = True
+elif ENVIRONMENT == 'development':
+# elif ENVIRONMENT != 'production':
+    DEBUG = False
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1']
+    ALLOWED_HOSTS = ['127.0.0.1']
     # DEBUG = env('DEBUG')
 
 # Assets Management
@@ -117,14 +120,22 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    # 'django_session_timeout.middleware.SessionTimeoutMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
 ]
+
+# SESSION_EXPIRE_SECONDS = 1200
+# SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+# SESSION_TIMEOUT_REDIRECT = 'index/'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -135,7 +146,7 @@ LOGIN_REDIRECT_URL = "/api"
 LOGOUT_REDIRECT_URL = "/api" 
 REGISTRATION_REDIRECT_URL = "/api"
 
-TEMPLATE_DIR = os.path.join(BASE_DIR,'templates') # ROOT dir for templates
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates') # ROOT dir for templates
 
 TEMPLATES = [
     {
