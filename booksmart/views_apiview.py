@@ -263,6 +263,11 @@ def all_records(request):
     context = context_bm
     r_user = request.user
 
+    all_books = Book.objects.all()
+    num_books = Book.objects.all().count()
+    context['allbooks'] = all_books
+    context['num_books'] = num_books
+
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
     author = BooksAuthor()
@@ -273,8 +278,6 @@ def all_records(request):
     context['form_search'] = form_search
     context['search_author'] = author
     context['book_sort'] = book_sort
-    context['allbooks'] = all_books
-    context['num_books'] = num_books
 
     sort_kind = ['-created_at']
     if book_sort.is_valid():

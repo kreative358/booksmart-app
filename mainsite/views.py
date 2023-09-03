@@ -180,7 +180,11 @@ def index_home(request):
     r_user = request.user
     context = context_bm
 
-
+    all_books = Book.objects.all()
+    num_books = Book.objects.all().count()
+    context['allbooks'] = all_books
+    context['num_books'] = num_books
+    
     try:
         if r_user.is_authenticated:
             context['person_name'] = r_user.username

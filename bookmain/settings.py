@@ -133,9 +133,6 @@ MIDDLEWARE = [
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
 ]
 
-SESSION_EXPIRE_SECONDS = 1200
-SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-SESSION_TIMEOUT_REDIRECT = '/'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -146,7 +143,7 @@ LOGIN_REDIRECT_URL = "/api"
 LOGOUT_REDIRECT_URL = "/api" 
 REGISTRATION_REDIRECT_URL = "/api"
 
-TEMPLATE_DIR = os.path.join(BASE_DIR,'templates') # ROOT dir for templates
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates') # ROOT dir for templates
 
 TEMPLATES = [
     {
@@ -326,5 +323,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 # import django_heroku
 # django_heroku.settings(locals())
+
+SESSION_EXPIRE_SECONDS = 1200
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_TIMEOUT_REDIRECT = 'index/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
