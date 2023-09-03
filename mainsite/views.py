@@ -288,3 +288,82 @@ def ajax_info_1(request):
 
 #     context_a['gb_books'] = r"https://books.google.com/"
 #     return Response(context_a, template_name='index_home.html', )
+
+# from django import template
+# # from django.contrib.auth.decorators import login_required
+# # from django.http import HttpResponse, HttpResponseRedirect
+# from django.template import loader
+# from django.urls import reverse
+
+# @api_view(['GET', 'POST'])
+# @permission_classes([])
+# # @authentication_classes([]) # TokenAuthentication
+# @renderer_classes([TemplateHTMLRenderer])
+# def error_pages(request):
+#     r_user = request.user
+#     context = context_bm
+#     # All resource paths end in .html.
+#     # Pick out the html file name from the url. And load that template.
+#     try:
+
+#         load_template = request.path.split('/')[-1]
+#         print('load_template:', load_template)
+#         if load_template == 'admin':
+#             # return HttpResponseRedirect(reverse('admin:index'))
+#             return Response(context, template_name='admin.html', )
+#         context['segment'] = load_template
+
+#         html_template = loader.get_template('booksmartapp/' + load_template)
+#         # return HttpResponse(html_template.render(context, request))
+#         return Response(context, template_name=html_template, )
+
+#     except template.TemplateDoesNotExist:
+
+#         # html_template = loader.get_template('page-404.html')
+#         # print('404 load_template:', load_template)
+#         # return HttpResponse(html_template.render(context, request))
+#         return Response(context, template_name='booksmartapp/page-404.html', )
+
+#     except:
+#         # html_template = loader.get_template('page-500.html')
+#         # print('500 load_template:', load_template)
+#         # return HttpResponse(html_template.render(context, request))
+#         return Response(context, template_name='page-500.html', )
+
+# @api_view(['GET', 'POST'])
+# @permission_classes([])
+# # @authentication_classes([]) # TokenAuthentication
+# @renderer_classes([TemplateHTMLRenderer])
+def custom_page_not_found_view(request, exception):
+    # return Response(context, template_name='page-500.html', )
+    context = context_bm
+    # return Response(context, template_name='page-404.html', )
+    return render(request, "page-404.html", context)
+
+# @api_view(['GET'])
+# @permission_classes([])
+# # @authentication_classes([]) # TokenAuthentication
+# @renderer_classes([TemplateHTMLRenderer,JSONRenderer])
+def custom_error_view(request, exception=None):
+    context = context_bm
+    # return Response(context, template_name='page-500.html', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return render(request, "page-500.html", context)
+
+
+# @api_view(['GET', 'POST'])
+# @permission_classes([])
+# # @authentication_classes([]) # TokenAuthentication
+# @renderer_classes([TemplateHTMLRenderer])
+def custom_permission_denied_view(request, exception=None):
+    context = context_bm
+    # return Response(context, template_name='page-403.html', )
+    return render(request, "page-403.html", context)
+
+# @api_view(['GET', 'POST'])
+# @permission_classes([])
+# # @authentication_classes([]) # TokenAuthentication
+# @renderer_classes([TemplateHTMLRenderer])
+def custom_bad_request_view(request, exception=None):
+    context = context_bm
+    # return Response(context, template_name='page-400.html', )
+    return render(request, "page-400.html", context)

@@ -58,10 +58,11 @@ if IS_HEROKU_APP:
 # else:
 elif not IS_HEROKU_APP and ENVIRONMENT == 'production':
     pass
-# elif ENVIRONMENT == 'development':
-elif ENVIRONMENT != 'production':
-    DEBUG = True
+elif ENVIRONMENT == 'development':
+# elif ENVIRONMENT != 'production':
+    DEBUG = False
     CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1']
+    ALLOWED_HOSTS = ['127.0.0.1']
     # DEBUG = env('DEBUG')
 
 # Assets Management
@@ -119,14 +120,22 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
 ]
+
+SESSION_EXPIRE_SECONDS = 1200
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_TIMEOUT_REDIRECT = '/'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 

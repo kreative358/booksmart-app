@@ -1,0 +1,139 @@
+{% extends 'base_nd.html' %}
+{% load bootstrap4 %}
+
+{% load static %}
+<!-- <link rel="preload" height="1090" width="1940"  type="media_type" href="{% static 'background_film_mp4_ok.mp4' %}">  preload-->
+
+{% block page %}
+
+<!-- <link rel="preload" height="1090" width="1940"  type="media_type" href="{% static 'background_film_mp4_ok.mp4' %}">  preload-->
+
+{% include 'snippets/scrollbars.html' %}
+{% include 'snippets-mainsite/css_mainsite.html' %}
+<div id="glass_id_main" class="glass_class_main"> 
+  <style>
+    button {
+      font-variant: small-caps;
+  }
+  </style>
+{% block content_1 %}  
+  <div class="container_fluid"  id="top_jumb" >
+    <a href="{% url 'index' %}" class="text_center"   role="button" ><span  class="" id="h1j">BOOKSMART</span><br><span id="h2j" >MAINPAGE-LINK</span></a>
+    </div>
+
+  <!-- style='font-family:Trirong , sans-serif; font-weight: bold; color: blue; font-size: 30px;' -->
+
+  <div class="container-fluid" id="marque" >
+        
+    <marquee marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"  > ☞ FEEL &nbsp; FREE &nbsp; TO &nbsp; USE &nbsp; WEB - APPLICATION &nbsp; THAT &nbsp; ALLOWS &nbsp; TO >>> SEARCH &nbsp; & &nbsp; FIND <<< &nbsp; ☼ &nbsp; >>> SAVE &nbsp; & &nbsp; READ <<< &nbsp; BOOKS &nbsp; FROM  &nbsp; AROUND &nbsp; THE &nbsp; WORLD ☜ </marquee>
+  
+</div>
+
+{% include 'snippets-mainsite/top_cards_main_n.html' %}
+
+{% endblock content_1 %}
+
+
+{% block content_2 %} 
+
+{% endblock content_2 %}
+
+{% block content_3 %} 
+
+
+
+
+<div class="mycontainer" style="margin-top: 140px;">
+  <div class="myrow" >
+  <div class="mycolumn" >
+  
+    <div>
+      <p class="" id="" style='font-weight: bold; color: blue; font-size: 34px; margin-bottom: 0px;'> INFORMATIONS </p>
+      <div style="">
+      <span style="animation: anime_red_text 2s infinite; font-weight: bold; color: blue; font-size: 32px; line-height: 1;" style="animation: anime_red_text 2s infinite;">Error 404</span>
+        <br>
+      <span style="font-weight: bold; color: blue; font-size: 32px; line-height: 1;" style="animation: anime_red_text">Page Not Found</span>
+      </div>
+    </div>
+
+    <div>
+      {% if messages %}
+      <ul class="messages"> <div style="color: red; font-weight: bold"  class="class_text_info">
+        <div class="bs_input_message" >
+        <p type="button" id="close_msg1" class="class_close"  >✖</p><br><p style="font-weight: bold; color: blue; font-size: 28px; line-height:1;">
+        
+        {% for message in messages %}
+         
+            {% autoescape off %} {{ message }} {% endautoescape %} <br>
+        {% endfor %}</p>
+      </div>
+      </div>
+      </ul>
+      {% endif %}
+
+      {% if messages and message.tags == 'info' %}
+      <div id="bs_input_message" class="alert alert-dismissible fade show" style="min-height: 60px;">
+        <button type="button" class="class_close" data-dismiss="alert" style="float:right; background: transparent; border: none; outline: none;">✖</button>
+        <p style="color: red; font-weight: bold; padding: 20px"  class="class_text_info">
+      {{ message }}</p> </div> 
+      {% endif %}
+
+</div>
+
+</div>
+  </div>
+</div>
+
+<script>
+	const infs = document.getElementsByClassName('class_text_info');
+	
+	for (const inf of infs) {
+	  inf.addEventListener('click', (event) => {
+		event.target.remove();
+	  });
+	}
+	
+	</script>
+
+{% if messages %}
+{% include 'snippets-mainsite/modal_message_mainpage.html' %}
+{% endif %}
+<br>
+
+   
+{% endblock content_3 %}
+
+{% block content_4 %}
+<div class="mycontainer" style="margin-top: 0px;">
+  <div class="myrow" style="padding: 0px">
+  <div class="mycolumn" style="border: 2px solid green; ">
+
+
+    <div style="padding: 6px 0px 0px 0px; margin:0px;">
+      <a href="{% url 'index' %}" class="text_center" role="button" ><span class="h2j" >MAINPAGE-LINK</span></a>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+  if (document.getElementById("msg_mainpage")) {
+  var msg_main = document.getElementById("msg_mainpage");
+  msg_main.onclick = function(){
+    msg_main.style.display = "none";
+    };}
+  </script>
+  
+
+<br>
+{% endblock content_4 %}
+
+{% block content_5 %}
+         
+{% endblock content_5 %}
+   
+
+    </div>
+          {% endblock page %}
+      

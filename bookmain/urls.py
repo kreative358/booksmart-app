@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls import url
 from django.conf.urls import include as urlinclude
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -33,7 +33,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import RedirectView
 from mainsite.views import (
-    index_home, 
+    index_home,
+    # error_pages,
     index_home_not,
     ajax_info_1
     )
@@ -158,10 +159,10 @@ path('api/', include(browserapi_patterns),),
 # path('booksmartapi/', include(router.urls)),
 # include((pattern_list, app_namespace), namespace=None)
 
-
 path('booksmartapp/', index_home, name="index"),
-path('booksmartapp-n/', index_home_not, name="index_not"),
-path('booksmartapp/ajax_info_1/', ajax_info_1, name="ajax_info_1"),
+
+# path('booksmartapp-n/', index_home_not, name="index_not"),
+# path('booksmartapp/ajax_info_1/', ajax_info_1, name="ajax_info_1"),
 path('booksmartapp/booksmart-app/', index_home, name="index-booksmart"),
 path('booksmartapp/booksearch-app/', index_home, name="index-booksearch"),
 path('booksmartapp/accounts-app/', index_home, name="index-accounts"),
@@ -197,5 +198,12 @@ if settings.DEBUG:
 #     urlpatterns += static(settings.MEDIA_URL,
 #                           document_root=settings.MEDIA_ROOT)
 
+from mainsite import views
+from django.conf.urls import (
+handler400, handler403, handler404, handler500
+)
 
-   
+handler404 = 'mainsite.views.custom_page_not_found_view'
+handler500 = 'mainsite.views.custom_error_view'
+handler403 = 'mainsite.views.custom_permission_denied_view'
+handler400 = 'mainsite.views.custom_bad_request_view'
