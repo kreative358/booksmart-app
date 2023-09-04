@@ -11,6 +11,7 @@
       {% block meta %}
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      {% include 'snippets/body_fonts_css.html' %}
       {% endblock %}
 
       <title>{% block title %}{% if name %}{{ name }} – {% endif %}Django-REST-framework{% endblock %}</title>

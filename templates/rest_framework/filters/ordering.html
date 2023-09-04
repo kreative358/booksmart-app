@@ -1,8 +1,7 @@
 {% load rest_framework %}
 {% load i18n %}
-{% load crispy_forms_tags %}
 {% load bootstrap4 %}
-
+{% include 'snippets/body_fonts_css.html' %}
 <h2>{% trans "Ordering" %}</h2>
 <div class="list-group">
     {% for key, label in options %}

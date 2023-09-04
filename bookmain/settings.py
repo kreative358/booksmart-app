@@ -138,7 +138,7 @@ MIDDLEWARE = [
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
 ]
 
-SESSION_EXPIRE_SECONDS = 1200
+SESSION_EXPIRE_SECONDS = 7200
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 # SESSION_TIMEOUT_REDIRECT = '/index'
 

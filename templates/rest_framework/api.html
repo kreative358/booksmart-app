@@ -1,10 +1,9 @@
 {% extends "rest_framework/base_rest_api.html" %}
-
+{% load bootstrap4 %}
 {% block bootstrap_theme %}
-
-
     <link rel="stylesheet" href="https://bootswatch.com/3/darkly/bootstrap.min.css" type="text/css">
     <meta charset="utf-8">
+    {% include 'snippets/body_fonts_css.html' %}
 {% endblock %}
 
 {% block bootstrap_navbar_variant %}navbar-default{% endblock %}

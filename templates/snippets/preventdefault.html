@@ -116,38 +116,83 @@
     }
     
     .close_m {
-    color: white;
+    color: rgba(60, 160, 240, 0.6);
     float: right;
     font-family: verdana;
-    font-size: 30px;
+    font-size: 26px;
     font-weight: bold;
     margin: 0px 10px 20px auto;
+    text-shadow: -0.03em 0.0em 0.02em rgba(20, 12, 220, 0.8), 0.0em 0.03em 0.02em rgba(20, 12, 220, 0.8), 0.03em 0.0em 0.02em rgba(20, 12, 220, 0.8), 0.0em -0.03em 0.02em rgba(20, 12, 220, 0.8) 0.14em rgba(220, 220, 240, 0.4);
     }
     
-    .close_m:hover,
-    .close_m:focus {
-    color: darkblue;
-    text-decoration: none;
-    cursor: pointer;
+    .close_m:hover, {
+      color: rgba(60, 160, 240, 0.8);
+      text-shadow: -0.03em 0.0em 0.02em rgba(20, 12, 220, 0.8), 0.0em 0.03em 0.02em rgba(20, 12, 220, 0.8), 0.03em 0.0em 0.02em rgba(20, 12, 220, 0.8), 0.0em -0.03em 0.02em rgba(20, 12, 220, 0.8) 0.0em 0.0em 0.16em rgba(220, 220, 240, 0.6);
+
+    }
+
+    .close_m:active {
+      text-shadow: -0.03em 0.0em 0.02em rgba(20, 12, 220, 0.8), 0.0em 0.03em 0.02em rgba(20, 12, 220, 0.8), 0.03em 0.0em 0.02em rgba(20, 12, 220, 0.8), 0.0em -0.03em 0.02em rgba(20, 12, 220, 0.8) 0.0em 0.0em 0.1em rgba(220, 220, 240, 0.8);
+        transform: matrix(0.98, 0, 0, 0.98, 0, 2);
     }
     
-    .close_mb {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    }
+    .close_mb,
+    [class^="close_mb_"] {
+      text-shadow:
+      0.04em 0.06em 0.04em rgba(60, 80, 100, 0.6);
+      position:relative;
+      background-color: rgba(40, 160, 240, 0.4);
+      border-width: 6px;
+      border-style: solid;
+      /*rgba(10, 80, 240, 0.6);
+      text-shadow: 0px 1px 1px #fff, 0 -1px 1px #000;*/ 
+      color: rgba(160, 170, 180, 0.8); 
+      border-color: rgba(80, 180, 240, 0.8) rgba(40, 140, 220, 0.8) rgba(20, 120, 180, 0.8) rgba(40, 140, 220, 0.8);
+      border-radius:2px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      font-weight:bold;
+      font-family:Times;
+      font-variant: small-caps;
+      font-size: 20px;
+      min-width: 140px;
+      width: 140px;
+      margin: 14px auto 14px auto;  
+      box-shadow:
+      0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+      0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+      0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+      transition: 0.2s;
+      min-height: 36px;
+      }
+      
+      .close_mb:hover
+      [class^="close_mb_"]:hover {
+      background-color: rgba(40, 160, 240, 0.6); 
+      color: rgba(190, 200, 210, 0.8);
+      border-color: rgba(80, 180, 240, 0.6) rgba(40, 140, 220, 0.6) rgba(20, 120, 180, 0.6) rgba(40, 140, 220, 0.6);
+      box-shadow: 
+      0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+      0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+      0px 0px 4px 4px rgba(230, 240, 240, 0.6);
+      border-width: 6px;
+      border-style: solid;
+      }
+      
+      .close_mb:active,
+      [class^="close_mb_"]:active {
+      color: rgba(210, 220, 230, 0.8);
+      transform: matrix(0.98, 0, 0, 0.98, 0, -2);
+      box-shadow: 
+      0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+      0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+      0px 0px 2px 2px rgba(230, 240, 240, 0.8);
+      background-color: rgba(40, 160, 240, 0.8);
+      border-width: 6px;
+      border-style: solid;
+      border-color: rgba(80, 180, 240, 0.6) rgba(40, 140, 220, 0.6) rgba(20, 120, 180, 0.6) rgba(40, 140, 220, 0.6);
+      }
     
-    .close_mb:hover,
-    .close_mb:focus {
-    color: darkblue;
-    text-decoration: none;
-    cursor: pointer;
-    }
-    
-    .close_mb:active {
-    transform: translateY(2px);
-    scale: 0.96;
-    }
     
     #a_submit_t {
     animation-name: anime_submit_t;
@@ -159,9 +204,14 @@
     50% {
     color: red;}
       }  
+
+      @keyframes anime_red_text {
+        50% {
+        color: red;}
+          } 
       
     #solution {
-    font-size: 50px;
+    font-size: 26px;
     color:darkblue;
     animation-name: anime_submit_t;
     animation-duration: 2s;
@@ -182,21 +232,21 @@
             <div class="column" id="modal_col_prevent">
             
             <div id="modal_header_prevent" >
-              <span class="close_m">x</span><br>
+              <span id="close_m_pd" class="close_m">x</span><br>
               <p id="info_msg">INFO MESSAGES</p>
             </div>
             <div id="modal_body_prevent">
-             <input type="text" size="40">
+      <!--    <input type="text" size="40">  -->
          
             
-            <div id="a_submit_t"> <p id="solution">
-            TRY TO FIND SOLUTION YOURSELF ;)
+            <div style="animation: anime_red_text 2s infinite;"> <p id="solution">
+              right mouse button and key combinations for page inspection and view page source have been disabled, try better ;)
             </p></div>
          
             </div> 
              <div id="modal_footer_prevent">
              
-              <button id="myBtn_messages" type="button"  class="close_mb btn-primary btn-text-danger" style="min-width: 100px; margin: 20px auto 20px auto; border: 4px solid; box-shadow: 0px 0px 3px 3px rgba(201, 76, 76, 0.6); font-size: 18px; font-weight: bold; font-family: Helvetica; padding:4px;" >CLOSE</button>
+              <button id="myBtn_messages_pd" type="button"  class="close_mb" >CLOSE</button>
              
             </div>
           </div>
@@ -229,8 +279,8 @@
             //}
     });
         
-          var span1 = document.getElementsByClassName("close_m")[0];
-          var span2 = document.getElementsByClassName("close_mb")[0];        
+          var span1 = document.getElementById("close_m_pd");
+          var span2 = document.getElementById("close_mb_pd");        
           span1.onclick = function() {
            // body_color.style.backgroundColor = "lightsteelblue"; 
             mymodal_cont.style.animation = "animatetopback 2s 1";

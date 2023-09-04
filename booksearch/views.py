@@ -29,6 +29,7 @@ context_bm['url_img_author'] = url_img_author
 
 try:
     if Book.objects.all():
+        Book.objects.all().update()
     # if Book.objects.filter().all():
         all_books = Book.objects.all()
         context_list.append(all_books)
@@ -46,6 +47,7 @@ except:
 try:
     if Author.objects.all():
     # if Author.objects.filter().all():
+        Author.objects.all().update()
         all_authors = Author.objects.all()
         context_list.append(all_authors)
         num_authors = Author.objects.all().count()
@@ -112,6 +114,17 @@ def gbsearch_book(request):
     context = context_bm
     form = BookSearch()
 
+    all_books = Book.objects.all()
+    num_books = Book.objects.all()
+    all_authors = Author.objects.all()
+    num_authors = Author.objects.all().count()
+    if BackgroundPoster.objects.filter().last():
+        poster = BackgroundPoster.objects.filter().last()
+        context_bm['poster_url_1'] = poster.link_poster_1
+    if BackgroundVideo.objects.filter().last():   
+        video = BackgroundVideo.objects.filter().last()
+        context_bm['video_url'] = video.link_video
+        context_bm['video_type'] = video.type_video
     # form_a = a_account_view(request)
     # #form_out = a_logout_view(request)
     # form_r = a_registration_view(request)
