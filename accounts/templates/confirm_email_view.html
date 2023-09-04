@@ -1,0 +1,158 @@
+{% extends 'base_b.html' %}
+
+{% load rest_framework %}
+{% load bootstrap4 %}
+{% block title %} confirm-email {% endblock %}
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %}
+
+{% include 'snippets-accounts/header.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+
+{% endblock content_2 %}
+
+
+{% block content_3 %}
+
+<style type="text/css">
+
+#main_cont_account_register {
+  position: relative;
+  z-index :1;
+  background-color: rgb(240, 240, 240);
+  background-color: rgba(240, 240, 240, 0.2);
+  text-align: center;
+  justify-content: center;
+  align-items: center;  
+  border-radius:4px;
+  box-shadow: 0px 0px 6px 6px rgba(180, 180, 180, 0.4);
+  width:560px;
+  padding:10px;
+  margin:40px auto 20px auto;
+  }
+
+#row_account_register {
+  /* margin: 10px 20px 10px 20px;
+  padding: 10px 20px 10px 20px; */
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(100, 160, 220);
+  background-color: rgba(100, 160, 220, 0.6); 
+  }
+
+#col_account_register {
+  width:540px;
+  margin: 10px;
+  padding: 10px;
+  }
+  
+#bs_input_account_register {
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.2); 
+  border-radius: 3px;
+  border: 3px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Helvetica;
+  color: blue;
+  text-align: justify;
+  text-justify: inter-word;
+  padding:5px 20px -5px 20px;
+  width:100%;
+  }	
+
+.bs_input_account_register_ {
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.2); 
+  border-radius: 3px;
+  border: 3px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Helvetica;
+  color: blue;
+  text-align: justify;
+  text-justify: inter-word;
+  padding:5px 20px -5px 20px;
+  margin:10px;
+  }	
+  
+#bs_input_account_register_m {
+  background-color: rgb(240, 240, 240); 
+  background-color: rgba(240, 240, 240, 0.4); 
+  border-radius: 3px;
+  border: 3px solid rgba(240, 240, 240, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6);  
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Helvetica;
+  color: red;
+  padding:auto;
+  margin:10px;
+  text-align: left;
+  }		
+   
+.h3{
+     text-align: center;
+     }
+
+</style>
+   
+  
+   <script>
+    function validateForm() {
+      let x = document.forms["register_v"]["password1"].value;
+      let y = document.forms["register_v"]["password2"].value;
+      if (x != y) {
+        alert("REMEMBER BOTH PASSWORDS MUST BE THE SAME");
+        return false;
+      }
+    }
+    </script>
+  
+  <div class="container-fluid" id="main_cont_account_register">
+    <div class="row border rounded" id="row_account_register">
+  <div class="column border rounded" id="col_account_register">
+  
+    {% if is_email_confirmed == True %}
+<div class="notification is-success">
+    <p>Your email is confirmed</p>
+</div>
+{% else %}
+<div class="notification is-danger">
+    <p>Your confirmation token is expired. Please request new one</p>
+</div>
+{% endif %}
+      </div>
+    </div>
+  </div>
+  
+
+ {% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% if messages %}
+{% include 'snippets-accounts/modal_messages_accounts.html' %}
+{% endif %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

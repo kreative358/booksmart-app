@@ -39,9 +39,9 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 if IS_HEROKU_APP:
     # DEBUG = env('DEBUG')
     DEBUG = False
-    CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
+    # CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1', 'https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
     ALLOWED_HOSTS = ["booksmart-app-bd32a8932ff0.herokuapp.com"]
-    
+    CSRF_TRUSTED_ORIGINS = ['https://' + 'booksmart-app-bd32a8932ff0.herokuapp.com']
     SECRET_KEY = os.getenv('SECRET_KEY')
     SESSION_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
@@ -52,6 +52,8 @@ if IS_HEROKU_APP:
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+    
+
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # else:
@@ -59,7 +61,12 @@ elif not IS_HEROKU_APP and ENVIRONMENT == 'production':
     pass
 # elif ENVIRONMENT == 'development':
 elif ENVIRONMENT != 'production':
-    DEBUG = True
+    DEBUG = False
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1']
+    ALLOWED_HOSTS = ['127.0.0.1']
+    # 
+    # CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1']
+    # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     # DEBUG = env('DEBUG')
 
 # Assets Management
@@ -115,14 +122,14 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
 ]
 
@@ -131,11 +138,16 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 ROOT_URLCONF = 'bookmain.urls'
 # LOGIN_REDIRECT_URL = "index"  # Route defined in mainsite/urls.py
 # LOGOUT_REDIRECT_URL = "index"  # Route defined in mainsite/urls.py
+
+AUTH_USER_MODEL = 'accounts.Account'
+ACCOUNT_EMAIL_REQUIRED = False
 LOGIN_REDIRECT_URL = "/api"
 LOGOUT_REDIRECT_URL = "/api" 
 REGISTRATION_REDIRECT_URL = "/api"
 
-TEMPLATE_DIR = os.path.join(BASE_DIR,'templates') # ROOT dir for templates
+# TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates') # ROOT dir for templates
+# TEMPLATE_DIR BASE_DIR / "templates"
 
 TEMPLATES = [
     {
@@ -291,29 +303,63 @@ USE_L10N = True
 
 USE_TZ = True
 
-TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = '/static/'
 
+# STATIC_ROOT = [
+#     # 'staticfiles',
+#     # BASE_DIR / 'staticfiles',
+#     os.path.join(BASE_DIR, 'staticfiles')
+#     # os.path.join(BASE_DIR, "static")
+#     ]
+
+
+
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+# STATICFILES_DIRS = [
+#     # '/static',
+#     # BASE_DIR / 'static',
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
-# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
-AUTH_USER_MODEL = 'accounts.Account'
-ACCOUNT_EMAIL_REQUIRED = False
+
+if IS_HEROKU_APP:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    WHITENOISE_KEEP_ONLY_HASHED_FILES = True
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+elif ENVIRONMENT == 'development':
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = [
+   
+    os.path.join(BASE_DIR, 'mediafiles')
+    
+    ]
+
+
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-# WHITENOISE_KEEP_ONLY_HASHED_FILES = True
+# 
 
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 # import django_heroku
 # django_heroku.settings(locals())
+
+if IS_HEROKU_APP:
+    # https://www.youtube.com/watch?v=ltHkALMK39c
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    import django_heroku
+    django_heroku.settings(locals())
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

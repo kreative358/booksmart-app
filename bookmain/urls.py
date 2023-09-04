@@ -190,13 +190,9 @@ path('docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
-    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # urlpatterns += staticfiles_urlpatterns()
-
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL,
-#                           document_root=settings.MEDIA_ROOT)
 
 from mainsite import views
 from django.conf.urls import (

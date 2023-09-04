@@ -528,3 +528,51 @@ class PasswordUpdateViewApi(APIView):
         # return Response(None, status=status.HTTP_202_ACCEPTED)
         context_serializer_Response = {'serializer':serializer, 'style': self.style, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
         return Response(context_serializer_Response,  template_name="password-update-api.html")
+
+
+
+from accounts.models import EmailConfirmationToken
+from accounts.utils import send_confirmation_email
+from rest_framework.parsers import (
+    MultiPartParser, 
+    FormParser
+    )
+from django.urls import reverse_lazy
+
+
+class UserInformationAPIVIew(APIView):
+
+    permission_classes = [IsAuthenticated,]
+
+    def get(self, request):
+        r_user = request.user
+        email = r_user.email
+        is_email_confirmed = r_user.is_email_confirmed
+        payload = {'email': email, 'is_email_confirmed': is_email_confirmed, 'id': r_user.pk}
+        return Response(data=payload, status=200)
+
+
+class SendEmailConfirmationTokenAPIView(APIView):
+
+    permission_classes = [IsAuthenticated,]
+
+    def post(self, request, format=None):
+        r_user = request.user
+        token = EmailConfirmationToken.objects.create(user=r_user)
+        send_confirmation_email(email=r_user.email, token_id=token.pk, user_id=r_user.pk)
+        return Response(data=None, status=201)
+    
+def confirm_email_view(request):
+    token_id = request.GET.get('token_id', None)
+    user_id = request.GET.get('user_id', None)
+    try:
+        token = EmailConfirmationToken.objects.get(pk=token_id)
+        user = token.user
+        user.is_email_confirmed = True
+        user.save()
+        data = {'is_email_confirmed': True}
+        return render(request, template_name='users/confirm_email_view.html', context=data)
+    except EmailConfirmationToken.DoesNotExist:
+        data = {'is_email_confirmed': False}
+        return render(request, template_name='users/confirm_email_view.html', context=data)
+
