@@ -334,7 +334,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 if IS_HEROKU_APP:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-    WHITENOISE_KEEP_ONLY_HASHED_FILES = True
+    # WHITENOISE_KEEP_ONLY_HASHED_FILES = True
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 elif ENVIRONMENT == 'development':
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
