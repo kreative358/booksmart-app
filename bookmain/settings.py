@@ -359,7 +359,7 @@ MEDIA_ROOT = [
 if IS_HEROKU_APP:
     # https://www.youtube.com/watch?v=ltHkALMK39c
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    import django_heroku
-    django_heroku.settings(locals())
+    # import django_heroku
+    # django_heroku.settings(locals())
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
