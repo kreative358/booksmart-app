@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 import django.conf.global_settings
 from decouple import config
+import django_heroku
 
 # env = environ.Env(
 #     # set casting, default value
@@ -343,12 +344,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 if IS_HEROKU_APP:
-    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
     # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
     # STATICFILES_DIRS = ['staticfiles']
     # WHITENOISE_KEEP_ONLY_HASHED_FILES = True
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    django_heroku.settings(locals())
 elif ENVIRONMENT == 'development':
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
