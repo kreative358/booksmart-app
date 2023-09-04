@@ -317,9 +317,10 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_URL = '/static/'
+
 
 # STATIC_ROOT = [
 #     # 'staticfiles',
@@ -348,7 +349,8 @@ if IS_HEROKU_APP:
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 elif ENVIRONMENT == 'development':
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+    # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = [  
     os.path.join(BASE_DIR, 'mediafiles')    
@@ -364,12 +366,12 @@ MEDIA_ROOT = [
 # import django_heroku
 # django_heroku.settings(locals())
 
-if IS_HEROKU_APP:
-    # https://www.youtube.com/watch?v=ltHkALMK39c
-    # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    # import django_heroku
-    # django_heroku.settings(locals())
-    pass
+# if IS_HEROKU_APP:
+#     # https://www.youtube.com/watch?v=ltHkALMK39c
+#     # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#     # import django_heroku
+#     # django_heroku.settings(locals())
+#     pass
 
 # RECAPTCHA_PUBLIC_KEY = '6LddA3kgAAAAAPf1mAJmEc7Ku0cssbD5QMha09NT'
 # RECAPTCHA_PRIVATE_KEY = '6LddA3kgAAAAAJY-2-Q0J3QX83DFJwFR1hXqmN8q'
