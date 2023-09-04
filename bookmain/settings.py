@@ -350,7 +350,7 @@ if IS_HEROKU_APP:
     # WHITENOISE_KEEP_ONLY_HASHED_FILES = True
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
-    django_heroku.settings(locals())
+    # django_heroku.settings(locals())
 elif ENVIRONMENT == 'development':
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
