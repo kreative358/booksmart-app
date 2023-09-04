@@ -25,8 +25,6 @@ from accounts.views import(
     SendEmailConfirmationTokenAPIView, 
     UserInformationAPIVIew,
     confirm_email_view,
-
-    activateAccount
     )
 
 # from accounts.views_email import activateAccount
