@@ -422,9 +422,13 @@ text-align:center;
     <div>
       {% for message in messages %}
       <p class="header_text" style="animation: 2s anime_red_text infinite"> {% autoescape off %} 
-      {{ message }} {% endautoescape %}
+      {{ message }} 
+
+      {% endautoescape %}
       </p>
       {% endfor %}
+
+      
     </div> 
 <br>
 <div> 

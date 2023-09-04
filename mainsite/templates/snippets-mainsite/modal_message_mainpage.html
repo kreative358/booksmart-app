@@ -346,7 +346,10 @@ line-height: 22px;
        <div>
           {% for message in messages %}
           <p class="header_text"  style="animation: anime_red_text 2s infinite"> {% autoescape off %} 
-          {{ message }} {% endautoescape %}
+          {{ message }}
+ 
+
+           {% endautoescape %}
           </p>
           {% endfor %}
         </div> 

@@ -64,43 +64,11 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
-from .tokens import account_activation_token
+from accounts.tokens import account_activation_token
 
-def activate(request, uidb64, token):
-    User = get_user_model()
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except:
-        user = None
+from accounts.views_email import *
 
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-
-        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
-        return redirect('login')
-    else:
-        messages.error(request, "Activation link is invalid!")
-
-    return redirect('homepage')
-
-def activateEmail(request, user, to_email):
-    mail_subject = "Activate your user account."
-    message = render_to_string("template_activate_account.html", {
-        'user': user.username,
-        'domain': get_current_site(request).domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': account_activation_token.make_token(user),
-        "protocol": 'https' if request.is_secure() else 'http'
-    })
-    email = EmailMessage(mail_subject, message, to=[to_email])
-    if email.send():
-        messages.success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
-                received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
-    else:
-        messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
-
+# views_email.py
 
 class RegistrationViewBase(APIView):
     authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
@@ -132,6 +100,7 @@ class RegistrationViewBase(APIView):
         pass1_val = initial_val['password']
         pass2_val = initial_val['password2']
         oldpass_val = 'no_oldpass'
+        r_user = request.user
         # serializer = self.serializer_class(data=request.data, context={'request': request})
         # initial_vals = serializer.initial_data
         print('registration initial_val accounts', initial_val)
@@ -143,37 +112,70 @@ class RegistrationViewBase(APIView):
         if serializer.is_valid():
             # serializer = serializer.data
             password = serializer.validated_data.get('password')
+            
             serializer.validated_data['password']=make_password(password)
 
+            # account = serializer.save()
+            account = serializer.validated_data
+            account.is_active=False
             account = serializer.save()
 
-            
             print("serializer.data", serializer.data)
             print('account:', account)
 
             if account:
-                login(request, account)
-                try:
-                    token = Token.objects.get(user=account)
-                except Token.DoesNotExist:
-                    token = Token.objects.create(user=account)
+                activateEmail(request, r_user, email_val)
+                if activate_email_message_send:
+                    print('activate_email_message_send:', activate_email_message_send)
+                    activateAccount(request, uidb64, token)
+                    if email_msessage_success:
+                        print("email_msessage_success:", email_msessage_success)
 
-                if token:
-                    print('token.key', token.key)
-                else:
-                    print('no token')
+                        login(request, account)
+                        try:
+                            token = Token.objects.get(user=account)
+                        except Token.DoesNotExist:
+                            token = Token.objects.create(user=account)
 
-                
-                # if initial_val['current_url']!= "":
-                msgs = ['INFORMATION:', 'Account created successfully']
-                
-                if initial_val['current_url']!= "":
-                    messages.info(request, "<br>".join(msg for msg in msgs))
-                    return redirect(f"{initial_val['current_url']}")
+                        if token:
+                            print('token.key', token.key)
+                        else:
+                            print('no token')
 
-                else:
-                    messages.info(request, "<br>".join(msg for msg in msgs))
-                    return redirect("index")
+                        
+                        # if initial_val['current_url']!= "":
+                        msgs = ['INFORMATION:', 'Account created successfully']
+                        
+                        if initial_val['current_url']!= "":
+                            messages.info(request, "<br>".join(msg for msg in msgs))
+                            return redirect(f"{initial_val['current_url']}")
+
+                        else:
+                            messages.info(request, "<br>".join(msg for msg in msgs))
+                            return redirect("index")
+                    
+                    elif email_msessage_error:
+                        print('email_msessage_error:', email_msessage_error)
+                        msgs = email_msessage_error
+                        if initial_val['current_url']!= "":
+                            
+                            messages.info(request, "<br>".join(msg for msg in msgs))
+                            return redirect(f"{initial_val['current_url']}")
+
+                        else:
+                            messages.info(request, "<br>".join(msg for msg in msgs))
+                            return redirect("index")
+
+                elif activate_email_message_send_not:
+                    print('tivate_email_message_send_not:', tivate_email_message_send_not)
+                    if initial_val['current_url']!= "":
+                            
+                        messages.info(request, "<br>".join(msg for msg in msgs))
+                        return redirect(f"{initial_val['current_url']}")
+
+                    else:
+                        messages.info(request, "<br>".join(msg for msg in msgs))
+                        return redirect("index")
 
         else:
 
@@ -597,7 +599,6 @@ class UserInformationAPIVIew(APIView):
         is_email_confirmed = r_user.is_email_confirmed
         payload = {'email': email, 'is_email_confirmed': is_email_confirmed, 'id': r_user.pk}
         return Response(data=payload, status=200)
-
 
 class SendEmailConfirmationTokenAPIView(APIView):
 

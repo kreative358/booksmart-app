@@ -5,6 +5,7 @@ import secrets
 from django.conf import settings
 from django.conf.urls.static import static
 import django.conf.global_settings
+from decouple import config
 
 # env = environ.Env(
 #     # set casting, default value
@@ -61,7 +62,7 @@ elif not IS_HEROKU_APP and ENVIRONMENT == 'production':
     pass
 # elif ENVIRONMENT == 'development':
 elif ENVIRONMENT != 'production':
-    DEBUG = False
+    DEBUG = True
     CSRF_TRUSTED_ORIGINS = ['http://localhost:80', 'http://127.0.0.1']
     ALLOWED_HOSTS = ['127.0.0.1']
     # 
@@ -337,21 +338,20 @@ STATIC_URL = '/static/'
 # ]
 
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 if IS_HEROKU_APP:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
+    # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
+    # STATICFILES_DIRS = ['staticfiles']
     # WHITENOISE_KEEP_ONLY_HASHED_FILES = True
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 elif ENVIRONMENT == 'development':
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = [
-   
-    os.path.join(BASE_DIR, 'mediafiles')
-    
+MEDIA_ROOT = [  
+    os.path.join(BASE_DIR, 'mediafiles')    
     ]
 
 
@@ -366,8 +366,28 @@ MEDIA_ROOT = [
 
 if IS_HEROKU_APP:
     # https://www.youtube.com/watch?v=ltHkALMK39c
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     # import django_heroku
     # django_heroku.settings(locals())
+    pass
+
+# RECAPTCHA_PUBLIC_KEY = '6LddA3kgAAAAAPf1mAJmEc7Ku0cssbD5QMha09NT'
+# RECAPTCHA_PRIVATE_KEY = '6LddA3kgAAAAAJY-2-Q0J3QX83DFJwFR1hXqmN8q'
+# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+
+# https://www.youtube.com/watch?v=ltHkALMK39c
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Emailing settings
+# https://www.youtube.com/watch?v=wB1qOExDsYY
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_FROM = 'booksmartapp3580@gmail.com'
+# EMAIL_HOST_USER = 'booksmartapp3580@gmail.com'
+# EMAIL_HOST_PASSWORD = 'ikzliaiijzdvbqlq'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
+# PASSWORD_RESET_TIMEOUT = 14400
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

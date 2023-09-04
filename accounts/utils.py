@@ -9,6 +9,6 @@ def send_confirmation_email(email, token_id, user_id):
     message = get_template('users/confirmation_email.txt').render(data)
     send_mail(subject='Please confirm email',
               message=message,
-              from_email='admin@ourapp.com',
+              from_email='booksmartapp358@gmail.com',
               recipient_list=[email],
               fail_silently=True)

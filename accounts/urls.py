@@ -24,8 +24,12 @@ from accounts.views import(
     
     SendEmailConfirmationTokenAPIView, 
     UserInformationAPIVIew,
-    confirm_email_view
+    confirm_email_view,
+
+    activateAccount
     )
+
+# from accounts.views_email import activateAccount
 
 from accounts.views_forms import (
     register_view_form, ## usunąć
@@ -96,8 +100,12 @@ urlpatterns = [
     path('account_update/', account_view_form, name="account_update"),
 
     path('user_info/', UserInformationAPIVIew.as_view(), name='user_information_api_view'),
+
+
     path('send-confirmation-email/', SendEmailConfirmationTokenAPIView.as_view(), name='send_email_confirmation_api_view'),
     path('confirm-email/', confirm_email_view, name='confirm_email_view'),
+
+    # path('activate/<uidb64>/<token>', activateAccount, name='activate'),
     # path('account_update/', UpdateProfileView.as_view(), name="account_update"),
     
     # path('password_change/', PasswordChangeView.as_view(template_name='registrations/password_change.html'), name='password_change'),
