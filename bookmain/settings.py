@@ -321,12 +321,17 @@ STATICFILES_FINDERS = [
 ]
 
 STATIC_ROOT =  BASE_DIR / 'staticfiles'
+
+STATIC_TMP = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+os.makedirs(STATIC_TMP, exist_ok=True)
+os.makedirs(STATIC_ROOT, exist_ok=True)
+
+
 # STATIC_URL = '/static/'
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 # STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
-
-
-
 
 # STATIC_ROOT = [
 #     # 'staticfiles',
@@ -334,8 +339,6 @@ STATIC_URL = 'static/'
 #     os.path.join(BASE_DIR, 'staticfiles')
 #     # os.path.join(BASE_DIR, "static")
 #     ]
-
-
 
 # Extra places for collectstatic to find static files.
 # STATICFILES_DIRS = [

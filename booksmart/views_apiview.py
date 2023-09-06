@@ -142,7 +142,7 @@ def all_records(request):
         context_allrecords['music_type_2'] = "mp3"
 
     context = context_allrecords
-    prnt("context allrecrods:", context)
+    print("context allrecords:", context)
 
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
