@@ -302,7 +302,9 @@
     <div class="valid-feedback" >Repeat password field is filled out.</div>
   <div class="invalid-feedback" >Please fill out this field with the same password.</div>
     </div> 
-
+    <div class="" style="margin-top: 8px;">
+    {% include 'snippets/mywidget_recaptcha_ms.html' %}
+  </div>
 
     <div>  <!-- <div class="form-check">   mb-3 mt-n1-->
       <div class="container-check" style="margin-top: 20px; margin-bottom: 0px;">
@@ -378,7 +380,7 @@
    
 <div class="mymodal_AccountFooter" id="mymodalSigninFooter">
 
-      <button name="registration_f" form="registration_v" type="submit" id="button_signin" class="btn_submit"  > sign in </button>
+      <button name="registration_f" form="registration_v" type="submit" id="button_signin" class="btn_submit"  disabled> sign in </button>
 
     
         <button id="close_mbSignin" type="button" class="close_mb_acc" >close</button> 

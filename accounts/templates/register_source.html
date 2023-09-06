@@ -337,6 +337,10 @@ width: 480px;
     border-style: solid;
     border-radius:2px;
     }
+
+    .bs_input_recaptcha {
+      align-items: center;
+    }
 </style>
 
 <div>
@@ -422,16 +426,21 @@ width: 480px;
     </div>
    </div>
 
+   <div class="bs_input_accounts_register">
+    <div class="bs_input_recaptcha"> 	
+   {% include 'snippets/mywidget_recaptcha_p.html' %}
+    </div>
+   </div>
 
-<div>
 
+  <div id="info-remove-all">
   {% if errors %}
-  <div id="bs_input_accounts_register_m" class="info-remove">
+  <div id="bs_input_accounts_register_e" class="info-remove">
 
     <span>
       <p type="button" class="btnclose_x"  >✖</p><br>
       {% for error in errors %}
-      <p id='p_r_b' class="class_text_info">
+      <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
       {% autoescape off %} {{ error }} {% endautoescape %}
       </p>
     </span>
@@ -455,7 +464,7 @@ width: 480px;
       <p type="button" class="btnclose_x"  >✖</p><br>
       {% for msg_info in msgs_info %}
   
-      <p id='p_r_b' class="class_text_info">
+      <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
       {% autoescape off %} {{ msg_info }} {% endautoescape %}
       </p>
     </span>
@@ -463,12 +472,14 @@ width: 480px;
   </div>
   {% endif %}
 
-</div>   
+</div>
+
+ 
 
 <a href="{% url 'index' %}">
 <button type="button" class="button_blue_grey"> BACK </button> </a>
 
-<button name="button_account_submit" type="submit" id="button_sm" class="button_red_grey"> SAVE </button>
+<button name="button_account_submit" type="submit" id="button_sm" class="button_red_grey" disabled> SAVE </button>
  
       </form>
     </div>
@@ -476,14 +487,18 @@ width: 480px;
 </div>
 
 <script>
-const infs = document.getElementsByClassName('class_text_info');
+/*const infs = document.getElementsByClassName('info-remove');
 
 for (const inf of infs) {
   inf.addEventListener('click', (event) => {
     event.target.remove();
   });
-}
+} */
 
+const infos = document.getElementById('info-remove-all');
+infos.addEventListener('click', (event) => {
+  event.target.remove();
+});
 </script>
 
 {% if messages %}

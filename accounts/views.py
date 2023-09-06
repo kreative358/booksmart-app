@@ -33,6 +33,8 @@ from django.contrib.auth.models import AnonymousUser
 from accounts.error import *
 from django.contrib.auth.hashers import make_password
 
+
+
 def get_user(request):
     r_user=request.user
     if r_user.is_authenicated:
@@ -622,4 +624,5 @@ def confirm_email_view(request):
     except EmailConfirmationToken.DoesNotExist:
         data = {'is_email_confirmed': False}
         return render(request, template_name='users/confirm_email_view.html', context=data)
+
 

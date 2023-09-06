@@ -26,6 +26,7 @@ from accounts.api.hyperlink import AuthorHyperlink, BookHyperlink
 from accounts.api.hyperlink import OwnAuthorSerializer, OwnBookSerializer
 from accounts.api.hyperlink import OwnAuthorField, OwnBookField
 
+
 # property errors
 # def errors(self): ret = super().errors if isinstance(ret, list) and len(ret) == 1 and getattr(ret[0], 'code', None) == 'null': detail = ErrorDetail('No data provided', code='null') ret = {api_settings.NON_FIELD_ERRORS_KEY: [detail]} return ReturnDict(ret, serializer=self)
 # Full name: rest_framework.serializers.Serializer.errors
@@ -81,7 +82,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
         style={'template':'snippets/input-password2.html', 'placeholder': 'confirm password', },
         )
 
-    # class BooleanField(*, read_only=False, write_only=False, required=None, default=empty, initial=empty, source=None, label=None, help_text=None, style=None, error_messages=None, validators=None, allow_null=False)
     remember_me = serializers.BooleanField(
         required=False, 
         style={'template':'snippets/input-checkbox-remember.html'}
@@ -95,7 +95,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
             print('attrs:', attrs)
             attrs.pop('password2')
             attrs.pop('remember_me')
-            # attrs.pop('recaptcha')
             # password = attrs.pop('password')
             # attrs['password'] = password
             # attrs.pop('current_url')
@@ -105,7 +104,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['current_url', 'username', 'email', 'password', 'password2', 'remember_me'] #, 'recaptcha'
+        fields = ['current_url', 'username', 'email', 'password', 'password2', 'remember_me']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     

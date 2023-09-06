@@ -113,7 +113,7 @@ INSTALLED_APPS = [
     'browserapi',
     'mainsite',
     'django_currentuser',
-
+    # "drf_recaptcha",
     #'crum'
 ]
 
@@ -140,7 +140,7 @@ MIDDLEWARE = [
 
 SESSION_EXPIRE_SECONDS = 7200
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-# SESSION_TIMEOUT_REDIRECT = '/index'
+SESSION_TIMEOUT_REDIRECT = '/'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -377,10 +377,9 @@ MEDIA_ROOT = [
 #     # django_heroku.settings(locals())
 #     pass
 
-# RECAPTCHA_PUBLIC_KEY = '6LddA3kgAAAAAPf1mAJmEc7Ku0cssbD5QMha09NT'
-# RECAPTCHA_PRIVATE_KEY = '6LddA3kgAAAAAJY-2-Q0J3QX83DFJwFR1hXqmN8q'
-# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+# 
 
+# DRF_RECAPTCHA_SECRET_KEY = '6Le3IP4nAAAAAH5J3uPYy4BPPEsS55k0RwCaYxeY'
 # https://www.youtube.com/watch?v=ltHkALMK39c
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Emailing settings

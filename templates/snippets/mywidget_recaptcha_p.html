@@ -1,0 +1,65 @@
+<style>
+
+    /*#inputValue {
+        background-color: rgb(240, 240, 240); 
+        background-color: rgba(240, 240, 240, 0.6); 
+        border-radius: 3px;
+        border: 3px solid rgba(240, 240, 240, 0.6);
+        box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+        font-size: 16px;
+        font-weight: bold;
+        font-family: Helvetica;
+        color: blue;
+        text-align: justify;
+        text-justify: inter-word;
+        margin:auto;
+        width:90%;
+        font-family:Times;
+        }		
+    
+     .bs_input {
+        background-color: rgb(240, 240, 240); 
+        background-color: rgba(240, 240, 240, 0.6); 
+        border-radius: 3px;
+        border: 3px solid rgba(240, 240, 240, 0.6);
+        box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+        font-size: 18px;
+        font-weight: bold;
+        font-family: Helvetica;
+        color: blue;
+        text-align: justify;
+        text-justify: inter-word;
+        padding:10px;
+        margin:auto;
+        }	
+    
+    #id_label_custom {
+        color: MediumBlue; 
+        font-size: 22px; 
+        font-family:Times;
+        margin:5px auto auto 5%
+    }	*/
+    
+    </style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>     
+    <div class="form-group" style="margin: 0px; padding:10px 0px 10px 0px;">
+
+    <div class="g-recaptcha" style="align-items: center; margin: 0px 0px 0px 43px; justify-content: center; width: 80%; padding-left: 36px;" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26"
+                data-callback="callback">
+    </div>
+               
+           
+
+            <div class="valid-feedback" id="valid"  style="text-align:center; margin: auto;">value field is filled out.</div>
+            <!--<div class="invalid-feedback" id="valid" style="margin:-1px auto -5x auto; padding-left: 20px;">please fill out this field.</div>-->
+        <div class="invalid-feedback" id="valid" style="text-align:center; margin: auto;" ><span>please fill out this field.</span></div>
+          </div>
+
+          <script type="text/javascript">
+            function callback() {
+              const submitButton = document.getElementById("button_sm");
+              submitButton.removeAttribute("disabled");
+            }
+          </script>
+          
+        
