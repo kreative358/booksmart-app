@@ -340,11 +340,13 @@ STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
 #     os.path.join(BASE_DIR, 'static'),
 # ]
 
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 if IS_HEROKU_APP:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
+    # STATICFILES_DIRS = 'booksmartapp/staticfiles'
     # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
     # STATICFILES_DIRS = ['staticfiles']
     # WHITENOISE_KEEP_ONLY_HASHED_FILES = True

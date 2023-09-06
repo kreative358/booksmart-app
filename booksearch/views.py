@@ -118,13 +118,51 @@ def gbsearch_book(request):
     num_books = Book.objects.all()
     all_authors = Author.objects.all()
     num_authors = Author.objects.all().count()
-    if BackgroundPoster.objects.filter().last():
-        poster = BackgroundPoster.objects.filter().last()
-        context_bm['poster_url_1'] = poster.link_poster_1
-    if BackgroundVideo.objects.filter().last():   
-        video = BackgroundVideo.objects.filter().last()
-        context_bm['video_url'] = video.link_video
-        context_bm['video_type'] = video.type_video
+    try:
+        if Book.objects.all():
+            Book.objects.all().update()
+        # if Book.objects.filter().all():
+            all_books = Book.objects.all()
+            context_list.append(all_books)
+            num_books = Book.objects.all().count()
+            context_bm['allbooks'] = all_books
+            context_bm['num_books'] = num_books
+        elif not Book.objects.all():
+        # elif not Book.objects.filter().all():
+            context_bm['allbooks'] = None
+            context_bm['num_books'] = 0
+    except:
+        print("booksmart models 335 no Book.objects.all():")
+        pass
+
+    try:
+        if Author.objects.all():
+        # if Author.objects.filter().all():
+            Author.objects.all().update()
+            all_authors = Author.objects.all()
+            context_list.append(all_authors)
+            num_authors = Author.objects.all().count()
+            context_bm['allauthors'] = all_authors
+            context_bm['num_authors'] = num_authors
+        elif not Author.objects.all():
+        #elif not Author.objects.filter().all():
+            context_bm['allauthors'] = None
+            context_bm['num_authors'] = 0
+    except:
+        print("booksmart models 351 no Author.objects.all():")
+        pass
+
+    try:
+        if BackgroundPoster.objects.filter().last():
+            poster = BackgroundPoster.objects.filter().last()
+            context_bm['poster_url_1'] = poster.link_poster_1
+            context_bm['poster_url_2'] = poster.link_poster_2
+        elif not BackgroundPoster.objects.filter().last():
+            context_bm['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+            context_bm['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+    except:
+        print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+        pass
     # form_a = a_account_view(request)
     # #form_out = a_logout_view(request)
     # form_r = a_registration_view(request)
