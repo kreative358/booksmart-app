@@ -28,7 +28,7 @@ from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticH
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny
 from rest_framework.authentication import TokenAuthentication
 from booksmart.views_apiview import context_allrecords
-from bookserach.views import context_bm_bs
+from booksearch.views import context_booksearch
 
 key=os.environ.get('API_KEY')
 
@@ -38,8 +38,10 @@ key=os.environ.get('API_KEY')
 @renderer_classes([TemplateHTMLRenderer])
 def addx_book(request): 
 
-    context = context_bm_bs
+    context = context_booksearch
     context = context.update(context_allrecords)
+    context['num_books'] = context_allrecords['num_books']
+    context['num_authors'] = context_allrecords['num_authors']
 
     r_user = request.user
     # context['current_url_name'] = current_url_name

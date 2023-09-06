@@ -11,7 +11,7 @@ from accounts.views_forms import *
 from rest_framework import viewsets
 
 from rest_framework.response import Response
-from booksmart.models import context_bm, Book, Author, BackgroundPoster, BackgroundVideo, url_img_author, url_img
+from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, url_img_author, url_img # ,context_bm, 
 from accounts.models import Account
 from booksmart.api.serializers import BooksSerializer, AuthorsSerializer
 from rest_framework.settings import api_settings
@@ -68,91 +68,12 @@ from django_currentuser.middleware import (
 
 import datetime
 
-context_bm = {}
+context_mainsite = {}
 context_list = []
 
-context_bm['no_date'] = datetime.date(3000, 1, 1)
-context_bm['url_img_book'] = url_img
-context_bm['url_img_author'] = url_img_author
-
-try:
-    if Book.objects.all():
-        Book.objects.update()
-    # if Book.objects.filter().all():
-        all_books = Book.objects.all()
-        context_list.append(all_books)
-        num_books = Book.objects.all().count()
-        context_bm['allbooks'] = all_books
-        context_bm['num_books'] = num_books
-    elif not Book.objects.all():
-    # elif not Book.objects.filter().all():
-        context_bm['allbooks'] = None
-        context_bm['num_books'] = 0
-except:
-    print("booksmart models 335 no Book.objects.all():")
-    pass
-
-try:
-    if Author.objects.all():
-        Author.objects.update()
-    # if Author.objects.filter().all():
-        all_authors = Author.objects.all()
-        context_list.append(all_authors)
-        num_authors = Author.objects.all().count()
-        context_bm['allauthors'] = all_authors
-        context_bm['num_authors'] = num_authors
-    elif not Author.objects.all():
-    #elif not Author.objects.filter().all():
-        context_bm['allauthors'] = None
-        context_bm['num_authors'] = 0
-except:
-    print("booksmart models 351 no Author.objects.all():")
-    pass
-
-try:
-    if BackgroundPoster.objects.filter().last():
-        poster = BackgroundPoster.objects.filter().last()
-        context_bm['poster_url_1'] = poster.link_poster_1
-        context_bm['poster_url_2'] = poster.link_poster_2
-    elif not BackgroundPoster.objects.filter().last():
-        context_bm['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-        context_bm['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-except:
-    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
-    pass
-
-try:
-    if BackgroundVideo.objects.filter().last():   
-        video = BackgroundVideo.objects.filter().last()
-        context_bm['video_url'] = video.link_video
-        context_bm['video_type'] = video.type_video
-    elif not BackgroundVideo.objects.filter().last():
-        context_bm['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
-
-        context_bm['video_type'] = "mp4"
-except:
-    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
-    pass
-
-
-try:
-    if BackgroundMusic.objects.filter().last():   
-        music = BackgroundVideo.objects.filter().last()
-        context_bm['music_url_1'] = music.link_music_1
-        context_bm['music_type_1'] = music.type_music_1
-        context_bm['music_url_2'] = music.link_music_2
-        context_bm['music_type_2'] = music.type_music_2
-    elif not BackgroundMusic.objects.filter().last(): 
-        context_bm['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-        context_bm['music_type_1'] = "mp3"
-        context_bm['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-        context_bm['music_type_2'] = "mp3"
-except:
-    context_bm['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-    context_bm['music_type_1'] = "mp3"
-    context_bm['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-    context_bm['music_type_2'] = "mp3"
-
+context_mainsite['no_date'] = datetime.date(3000, 1, 1)
+context_mainsite['url_img_book'] = url_img
+context_mainsite['url_img_author'] = url_img_author
 
 # print(list(set(Book.objects.values_list('author', 'author'))))
 
@@ -166,7 +87,7 @@ user_recs =  [("", "")]
 def index_home_not(request):
     """View function for home page of site."""
     r_user = request.user
-    context = context_bm
+    context = context_mainsite
 
     context['r_user'] = "Anonymuous"
     return Response(context, template_name='index_home_not.html', )
@@ -178,13 +99,92 @@ def index_home_not(request):
 def index_home(request):
     """View function for home page of site."""
     r_user = request.user
-    context = context_bm
-
-    all_books = Book.objects.all()
-    num_books = Book.objects.all().count()
-    context['allbooks'] = all_books
-    context['num_books'] = num_books
     
+
+    # all_books = Book.objects.all()
+    # num_books = Book.objects.all().count()
+
+    try:
+        if Book.objects.all():
+            # Book.objects.update()
+        # if Book.objects.filter().all():
+            all_books = Book.objects.all()
+            context_list.append(all_books)
+            num_books = Book.objects.all().count()
+            context_mainsite['allbooks'] = all_books
+            context_mainsite['num_books'] = num_books
+        elif not Book.objects.all():
+        # elif not Book.objects.filter().all():
+            context_mainsite['allbooks'] = None
+            context_mainsite['num_books'] = 0
+    except:
+        print("booksmart models 335 no Book.objects.all():")
+        pass
+
+    try:
+        if Author.objects.all():
+            # Author.objects.update()
+        # if Author.objects.filter().all():
+            all_authors = Author.objects.all()
+            context_list.append(all_authors)
+            num_authors = Author.objects.all().count()
+            context_mainsite['allauthors'] = all_authors
+            context_mainsite['num_authors'] = num_authors
+        elif not Author.objects.all():
+        #elif not Author.objects.filter().all():
+            context_mainsite['allauthors'] = None
+            context_mainsite['num_authors'] = 0
+    except:
+        print("booksmart models 351 no Author.objects.all():")
+        pass
+
+    try:
+        if BackgroundPoster.objects.filter().last():
+            poster = BackgroundPoster.objects.filter().last()
+            context_mainsite['poster_url_1'] = poster.link_poster_1
+            context_mainsite['poster_url_2'] = poster.link_poster_2
+        elif not BackgroundPoster.objects.filter().last():
+            context_mainsite['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+            context_mainsite['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+    except:
+        print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+        pass
+
+    try:
+        if BackgroundVideo.objects.filter().last():   
+            video = BackgroundVideo.objects.filter().last()
+            context_mainsite['video_url'] = video.link_video
+            context_mainsite['video_type'] = video.type_video
+        elif not BackgroundVideo.objects.filter().last():
+            context_mainsite['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+
+            context_mainsite['video_type'] = "mp4"
+    except:
+        print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+        pass
+
+
+    try:
+        if BackgroundMusic.objects.filter().last():   
+            music = BackgroundVideo.objects.filter().last()
+            context_mainsite['music_url_1'] = music.link_music_1
+            context_mainsite['music_type_1'] = music.type_music_1
+            context_mainsite['music_url_2'] = music.link_music_2
+            context_mainsite['music_type_2'] = music.type_music_2
+        elif not BackgroundMusic.objects.filter().last(): 
+            context_mainsite['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+            context_mainsite['music_type_1'] = "mp3"
+            context_mainsite['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+            context_mainsite['music_type_2'] = "mp3"
+    except:
+        context_mainsite['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+        context_mainsite['music_type_1'] = "mp3"
+        context_mainsite['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+        context_mainsite['music_type_2'] = "mp3"
+    
+    context = context_mainsite
+
+    print('context mainsite', context)
     try:
         if r_user.is_authenticated:
             context['person_name'] = r_user.username
@@ -194,30 +194,7 @@ def index_home(request):
 
     except:
         print('something went wrong;')
-
-
-        
-    # try:
-    #     if BackgroundPoster.objects.last():
-    #         poster = BackgroundPoster.objects.filter().last()
-    #         print('poster', poster.link_poster_1)
-    #         context['poster_url'] = poster.link_poster_1
-
-
-    #     else:
-    #         print('no poster')
-    # except Exception as e:
-    #     print(f'oster exception: {e}')
-
-    # try:
-    #     if BackgroundVideo.objects.filter().last():
-    #         video = BackgroundVideo.objects.filter().last()
-    #         print('video', video.link_video)
-    #         context['video_url'] = video.link_video
-    #     else:
-    #         print('no video')
-    # except Exception as e:
-    #     print(f'video exception: {e}')        
+      
 
     context['gb_books'] = r"https://books.google.com/"
 
@@ -286,7 +263,7 @@ def ajax_info_1(request):
 #     user = request.user
 #     cont_main['user-id'] = user.id
 #     form = AccountUpdateForm()
-#     context_a = context_bm
+#     context_a = context_mainsite
 #     # context_a['account_view_form'] = account_view_form
 #     context_a['account_form']= form
 
@@ -305,7 +282,7 @@ def ajax_info_1(request):
 # @renderer_classes([TemplateHTMLRenderer])
 # def error_pages(request):
 #     r_user = request.user
-#     context = context_bm
+#     context = context_mainsite
 #     # All resource paths end in .html.
 #     # Pick out the html file name from the url. And load that template.
 #     try:
@@ -340,7 +317,7 @@ def ajax_info_1(request):
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_page_not_found_view(request, exception):
     # return Response(context, template_name='page-500.html', )
-    context = context_bm
+    context = context_mainsite
     # return Response(context, template_name='page-404.html', )
     return render(request, "page-404.html", context)
 
@@ -349,7 +326,7 @@ def custom_page_not_found_view(request, exception):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer,JSONRenderer])
 def custom_error_view(request, exception=None):
-    context = context_bm
+    context = context_mainsite
     # return Response(context, template_name='page-500.html', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     return render(request, "page-500.html", context)
 
@@ -359,7 +336,7 @@ def custom_error_view(request, exception=None):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_permission_denied_view(request, exception=None):
-    context = context_bm
+    context = context_mainsite
     # return Response(context, template_name='page-403.html', )
     return render(request, "page-403.html", context)
 
@@ -368,6 +345,6 @@ def custom_permission_denied_view(request, exception=None):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_bad_request_view(request, exception=None):
-    context = context_bm
+    context = context_mainsite
     # return Response(context, template_name='page-400.html', )
     return render(request, "page-400.html", context)
