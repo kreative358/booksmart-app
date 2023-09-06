@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 import django.conf.global_settings
 from decouple import config
 import django_heroku
+from pathlib import Path
 
 # env = environ.Env(
 #     # set casting, default value
@@ -17,7 +18,8 @@ import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # BOOKMAIN_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
@@ -318,9 +320,11 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+STATIC_ROOT =  BASE_DIR / 'staticfiles'
 # STATIC_URL = '/static/'
-STATIC_URL = '/static/'
-STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = 'static/'
+# STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 
@@ -345,14 +349,23 @@ STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
 
 if IS_HEROKU_APP:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
-    # STATICFILES_DIRS = 'booksmartapp/staticfiles'
+    # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
+    # STATICFILES_DIRS = [BASE_DIR / "static_build"]
     # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
     # STATICFILES_DIRS = ['staticfiles']
     # WHITENOISE_KEEP_ONLY_HASHED_FILES = True
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     # django_heroku.settings(locals())
+#     STORAGES = {
+#     # Enable WhiteNoise's GZip and Brotli compression of static assets:
+#     # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
+    WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 elif ENVIRONMENT == 'development':
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
     # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
