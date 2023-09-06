@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from os import environ
 from booksearch.forms import BookSearch
 import os, re, json, time, requests, datetime
-from booksmart.models import Book, Author, context_bm
+from booksmart.models import Book, Author #, context_bm
 from accounts.models import Account
 from booksmart.forms import BookForm, AuthorForm
 from booksearch.reqs import *
@@ -27,6 +27,8 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny
 from rest_framework.authentication import TokenAuthentication
+from booksmart.views_apiview import context_allrecords
+from bookserach.views import context_bm_bs
 
 key=os.environ.get('API_KEY')
 
@@ -36,7 +38,8 @@ key=os.environ.get('API_KEY')
 @renderer_classes([TemplateHTMLRenderer])
 def addx_book(request): 
 
-    context = context_bm
+    context = context_bm_bs
+    context = context.update(context_allrecords)
 
     r_user = request.user
     # context['current_url_name'] = current_url_name

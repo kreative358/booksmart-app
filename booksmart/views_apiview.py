@@ -50,6 +50,8 @@ from rest_framework import filters as base_filters
 
 import datetime
 
+context_allrecords = {}
+
 context_bm = {}
 context_list = []
 
@@ -179,6 +181,9 @@ def all_authors(request):
     num_authors = Author.objects.all().count()
     context['allauthors'] = all_authors
     context['num_authors'] = num_authors
+
+    context_allrecords['num_authors'] = num_authors
+    
     search_form = SearchRecord()
     form_search = ItemsSearchForm()
     author = BooksAuthor()
@@ -267,6 +272,8 @@ def all_records(request):
     num_books = Book.objects.all().count()
     context['allbooks'] = all_books
     context['num_books'] = num_books
+
+    context_allrecords['num_books'] = num_books
 
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 

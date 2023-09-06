@@ -11,13 +11,15 @@ from django.db import IntegrityError
 from django.utils.html import format_html
 from accounts.views_authorization import *
 from booksearch.reqs import *
-    
+from booksmart.views_apiview import context_allrecords
+from bookserach.views import context_bm_bs
 
 key=os.environ.get('API_KEY')
 def addx_author(request):
     context = context_bm
  
-    
+    context = context_bm_bs
+    context = context.update(context_allrecords)
     # form_a = a_account_view(request)
     # form_r = a_registration_view(request)
     # form_l = a_login_view(request)
