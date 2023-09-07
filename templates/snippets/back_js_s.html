@@ -2,39 +2,66 @@
 <!--<link rel="preload" height="1090" width="1940"  type="media_type" href="{% static 'background_film_mp4_ok.mp4' %}"> preload-->
 <style type="text/css">
 
-.glass_class_mode {
-  background-color: rgba(20, 40, 240, 0.1);
-  position: fixed;
-  width: 102%;
-  height: 102%;
-  top: -1%;
-  left:-1%;
-  z-index: 1;
-} 
-
-.dark-mode {
-  background-color: rgba(2, 4, 8, 0.9);
-}
-
-video {
-  box-sizing: content-box;
-  position: fixed;
-  z-index:0;
-  object-fit: cover;
-  width: 100.8vw;
-  height: 104vh;
-  top: -2vw;
-  animation-name: mymove;
-  animation-duration: 12s;
-  animation-iteration-count: 4;
-  left:-0.4vw;
-  opacity: 1;
-}
-
-
-@keyframes mymove {
-50% {opacity: 0.2;}
-}
+  .glass_class_mode {
+    background-color: rgba(20, 40, 240, 0.1);
+    position: fixed;
+    width: 102%;
+    height: 102%;
+    top: -1%;
+    left:-1%;
+    z-index: 1;
+  } 
+  
+  .dark-mode {
+   /* background-color: rgba(2, 4, 8, 0.9); */
+   background-color: rgba(0, 6, 44, 0.9);
+   /* background: repeating-conic-gradient( rgba(6, 16, 44, 0.9) 10%, rgba(0, 6, 44, 0.9) 20%, rgba(6, 16, 44, 0.9) 30%, rgba(0, 6, 44, 0.9) 10%) no-repeat fixed center; */
+  } 
+  
+  
+  /*.myVideo_1 {
+    box-sizing: content-box;
+    position: relative;
+    z-index: 1;
+    object-fit: cover;
+    width: 100.8vw;
+    height: 104vh;
+    margin-top: -2vh;
+    left:-0.4vw;
+    opacity: 1;
+  } 
+   
+  
+  .myVideo_2 {
+    box-sizing: content-box;
+    position: fixed;
+    z-index: 0;
+    object-fit: cover;
+    width: 100.8vw;
+    height: 104vh;
+    top: -1.2vh;
+   left:0.4vw;
+    opacity: 1;
+  } */
+  
+  #myVideo_2 {
+    box-sizing: content-box;
+    position: fixed;
+    z-index:0;
+    object-fit: cover;
+    width: 100.8vw;
+    height: 104vh;
+    top: -2vh;
+    left:-0.4vw;
+    animation: mymovie 12s 1 forwards;
+    opacity: 0;
+  } 
+  
+  @keyframes mymovie {
+    from {opacity: 0;}
+    to {opacity: 1;}
+    } 
+  
 
 #myBtna {
 top: 52px;
@@ -142,18 +169,12 @@ margin: 5px;
 </audio>
 
 
-<!--<div id="background"> -->
-<!--  <video _autoplay muted loop id="myVideo" poster="https://drive.google.com/uc?export=download&id=1U1mL-irD6JrP8fIla9iPC-ZtaKUI_LZN">
-    <source src="https://drive.google.com/uc?export=download&id=1bPnSn_hazUkg0LqZmj3k_2SjdrfBCxlO" type="video/mp4"> 
-  Your browser does not support HTML5 video.
-</video> -->
-  <video autoplay muted loop id="myVideo" poster="{{ poster_url_1 }}">
+  <video autoplay muted loop id="myVideo_2" poster="{{ poster_url_1 }}">
     <source src="{{ video_url }}" type="video/{{ video_type }}">
   Your browser does not support HTML5 video.
 </video>
 
 <!--</div>-->
-
 
   <audio preload autoplay loop id="myAudio02">
     <source src="{{ music_url_1 }}" type="audio/{{ music_type_1 }}">
@@ -255,7 +276,7 @@ margin: 5px;
    
     var btnv = document.getElementById("myBtn");
     var btnmv = document.getElementById("myBtn1")
-    var myvideo = document.getElementById("myVideo")
+    var myvideo = document.getElementById("myVideo_2")
 
 //    var video = document.getElementById("myVideo");
 //    var videom = document.getElementById("myVideo");

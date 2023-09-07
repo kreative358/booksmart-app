@@ -7,7 +7,6 @@ from booksmart.forms import ItemsSearchForm
 from rest_framework.authentication import TokenAuthentication
 from accounts.views_forms import *
 
-
 from rest_framework import viewsets
 
 from rest_framework.response import Response
@@ -41,7 +40,6 @@ from django.forms.widgets import NumberInput
 from django import forms
 from django.forms import ModelForm, Form
 from django.utils.html import format_html
-import django_filters
 from django_filters.widgets import RangeWidget
 from django_filters import DateFromToRangeFilter
 from booksmart.api.filters import BookFilter
@@ -68,13 +66,87 @@ from django_currentuser.middleware import (
 
 import datetime
 
-context_mainsite = {}
 context_list = []
 
-context_mainsite['no_date'] = datetime.date(3000, 1, 1)
-context_mainsite['url_img_book'] = url_img
-context_mainsite['url_img_author'] = url_img_author
+context_main = {}
 
+context_main['no_date'] = datetime.date(3000, 1, 1)
+context_main['url_img_book'] = url_img
+context_main['url_img_author'] = url_img_author
+
+try:
+    if Book.objects.all():
+    # if Book.objects.filter().all():
+        all_books = Book.objects.all()
+        # context_list.append(all_books)
+        num_books = Book.objects.all().count()
+        context_main['allbooks'] = all_books
+        context_main['num_books'] = num_books
+    elif not Book.objects.all():
+    # elif not Book.objects.filter().all():
+        context_main['allbooks'] = None
+        context_main['num_books'] = 0
+except:
+    print("booksmart models 335 no Book.objects.all():")
+    pass
+
+try:
+    if Author.objects.all():
+    # if Author.objects.filter().all():
+        all_authors = Author.objects.all()
+        # context_list.append(all_authors)
+        num_authors = Author.objects.all().count()
+        context_main['allauthors'] = all_authors
+        context_main['num_authors'] = num_authors
+    elif not Author.objects.all():
+    #elif not Author.objects.filter().all():
+        context_main['allauthors'] = None
+        context_main['num_authors'] = 0
+except:
+    print("booksmart models 351 no Author.objects.all():")
+    pass
+
+try:
+    if BackgroundPoster.objects.filter().last():
+        poster = BackgroundPoster.objects.filter().last()
+        context_main['poster_url_1'] = poster.link_poster_1
+        context_main['poster_url_2'] = poster.link_poster_2
+    elif not BackgroundPoster.objects.filter().last():
+        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+except:
+    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+    pass
+
+try:
+    if BackgroundVideo.objects.filter().last():   
+        video = BackgroundVideo.objects.filter().last()
+        context_main['video_url'] = video.link_video
+        context_main['video_type'] = video.type_video
+    elif not BackgroundVideo.objects.filter().last():
+        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+        context_main['video_type'] = "mp4"
+except:
+    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+    pass
+
+try:
+    if BackgroundMusic.objects.filter().last():   
+        music = BackgroundVideo.objects.filter().last()
+        context_main['music_url_1'] = music.link_music_1
+        context_main['music_type_1'] = music.type_music_1
+        context_main['music_url_2'] = music.link_music_2
+        context_main['music_type_2'] = music.type_music_2
+    elif not BackgroundMusic.objects.filter().last(): 
+        context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+        context_main['music_type_1'] = "mp3"
+        context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+        context_main['music_type_2'] = "mp3"
+except:
+    context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+    context_main['music_type_1'] = "mp3"
+    context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+    context_main['music_type_2'] = "mp3"
 # print(list(set(Book.objects.values_list('author', 'author'))))
 
 cont = {}
@@ -87,9 +159,21 @@ user_recs =  [("", "")]
 def index_home_not(request):
     """View function for home page of site."""
     r_user = request.user
-    context = context_mainsite
+    current_url_name = request.path
 
-    context['r_user'] = "Anonymuous"
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name
+
+    if r_user.username == "":
+        context['r_user'] = "Anonymuous"
+    elif r_user.username != "":
+        context['r_user'] = r_user
     return Response(context, template_name='index_home_not.html', )
 
 @api_view(['GET', 'POST'])
@@ -99,92 +183,16 @@ def index_home_not(request):
 def index_home(request):
     """View function for home page of site."""
     r_user = request.user
-    
+    current_url_name = request.path
 
-    # all_books = Book.objects.all()
-    # num_books = Book.objects.all().count()
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
 
-    try:
-        if Book.objects.all():
-            # Book.objects.update()
-        # if Book.objects.filter().all():
-            all_books = Book.objects.all()
-            context_list.append(all_books)
-            num_books = Book.objects.all().count()
-            context_mainsite['allbooks'] = all_books
-            context_mainsite['num_books'] = num_books
-        elif not Book.objects.all():
-        # elif not Book.objects.filter().all():
-            context_mainsite['allbooks'] = None
-            context_mainsite['num_books'] = 0
-    except:
-        print("booksmart models 335 no Book.objects.all():")
-        pass
+    context = context_main
 
-    try:
-        if Author.objects.all():
-            # Author.objects.update()
-        # if Author.objects.filter().all():
-            all_authors = Author.objects.all()
-            context_list.append(all_authors)
-            num_authors = Author.objects.all().count()
-            context_mainsite['allauthors'] = all_authors
-            context_mainsite['num_authors'] = num_authors
-        elif not Author.objects.all():
-        #elif not Author.objects.filter().all():
-            context_mainsite['allauthors'] = None
-            context_mainsite['num_authors'] = 0
-    except:
-        print("booksmart models 351 no Author.objects.all():")
-        pass
-
-    try:
-        if BackgroundPoster.objects.filter().last():
-            poster = BackgroundPoster.objects.filter().last()
-            context_mainsite['poster_url_1'] = poster.link_poster_1
-            context_mainsite['poster_url_2'] = poster.link_poster_2
-        elif not BackgroundPoster.objects.filter().last():
-            context_mainsite['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-            context_mainsite['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-    except:
-        print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
-        pass
-
-    try:
-        if BackgroundVideo.objects.filter().last():   
-            video = BackgroundVideo.objects.filter().last()
-            context_mainsite['video_url'] = video.link_video
-            context_mainsite['video_type'] = video.type_video
-        elif not BackgroundVideo.objects.filter().last():
-            context_mainsite['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
-
-            context_mainsite['video_type'] = "mp4"
-    except:
-        print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
-        pass
-
-
-    try:
-        if BackgroundMusic.objects.filter().last():   
-            music = BackgroundVideo.objects.filter().last()
-            context_mainsite['music_url_1'] = music.link_music_1
-            context_mainsite['music_type_1'] = music.type_music_1
-            context_mainsite['music_url_2'] = music.link_music_2
-            context_mainsite['music_type_2'] = music.type_music_2
-        elif not BackgroundMusic.objects.filter().last(): 
-            context_mainsite['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-            context_mainsite['music_type_1'] = "mp3"
-            context_mainsite['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-            context_mainsite['music_type_2'] = "mp3"
-    except:
-        context_mainsite['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-        context_mainsite['music_type_1'] = "mp3"
-        context_mainsite['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-        context_mainsite['music_type_2'] = "mp3"
-    
-    context = context_mainsite
-
-    print('context mainsite', context)
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name
     try:
         if r_user.is_authenticated:
             context['person_name'] = r_user.username

@@ -38,6 +38,42 @@
 </div>
 </div>
 
+<style type="text/css">
+
+#author_last_add {  
+  position:relative;
+  z-index:1;
+  margin:24px auto 30px auto;
+  text-align:center;
+  padding:10px auto 10px auto;
+  width: 560px;
+  max-width: 96%;
+  border-radius:2px;
+  box-shadow: 
+  0px 0px 6px 6px rgba(151, 191, 231, 0.6) inset,
+  0px 0px 10px 6px rgba(229, 230, 243, 0.2); 
+    -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  
+  color: MediumBlue; 
+  font-family: Georgia; 
+  font-weight: bold; 
+  font-size: 36px; 
+
+}
+         
+</style>
+  
+
+{% if author_add_last %}
+
+<div class="container-fluid" id="author_last_add" >
+  AUTHORS IN DATABASE </div>
+  {% author_add_last %}
+{% include 'snippets-booksmart/author.html' %}
+{% endif %}
+
+
 {% endblock content_3 %}
 
 
@@ -46,6 +82,7 @@
 {% include 'snippets-booksmart/sort_book.html' %}
 {% include 'snippets-booksmart/filter_books_q.html' %}
 {% include 'snippets-booksmart/search_panel.html' %}
+
 
 {% if page_obj %}
 {% include 'snippets-booksmart/authors_bar.html' %}

@@ -11,9 +11,7 @@ from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPo
 from booksmart.forms import *
 
 from django.db.models import Avg, Max, Min
-# from django.contrib.auth.decorators import login_required
 import os, requests, json, re, datetime, requests.api
-# from django.views.generic import TemplateView, ListView, View, UpdateView
 
 from django.db.models import Q, ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseRedirect
@@ -22,42 +20,96 @@ from django.contrib import messages
 from operator import attrgetter
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
-# from django.contrib.auth import login, authenticate, logout
-# from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm, UrlPathForm
-
-# from django.contrib.auth.mixins import LoginRequiredMixin
-# from booksmart.infoview import *
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import resolve
-# from .views import *
-# from .views_api import registration_view_api_my_2, login_user, logout_user, register_users
+
 from rest_framework.authtoken.views import ObtainAuthToken
 # from .views import CustomAuthToken
 import requests, datetime
-from datetime import datetime
+# from datetime import datetime
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer, HTMLFormRenderer
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
 from accounts.views_authorization import *
 
 from rest_framework import filters as base_filters
 
 import datetime
 
-context_allrecords = {}
+# context_list = []
+context_main = {}
 
-# context_bm = {}
-context_list = []
+context_main['no_date'] = datetime.date(3000, 1, 1)
+context_main['url_img_book'] = url_img
+context_main['url_img_author'] = url_img_author
 
-context_allrecords['no_date'] = datetime.date(3000, 1, 1)
-context_allrecords['url_img_book'] = url_img
-context_allrecords['url_img_author'] = url_img_author
+try:
+    if Book.objects.all():
+    # if Book.objects.filter().all():
+        all_books = Book.objects.all()
+        # context_list.append(all_books)
+        num_books = Book.objects.all().count()
+        context_main['allbooks'] = all_books
+        context_main['num_books'] = num_books
+    elif not Book.objects.all():
+    # elif not Book.objects.filter().all():
+        context_main['allbooks'] = None
+        context_main['num_books'] = 0
+except:
+    print("booksmart models 335 no Book.objects.all():")
+    pass
+
+try:
+    if Author.objects.all():
+    # if Author.objects.filter().all():
+        all_authors = Author.objects.all()
+        # context_list.append(all_authors)
+        num_authors = Author.objects.all().count()
+        context_main['allauthors'] = all_authors
+        context_main['num_authors'] = num_authors
+    elif not Author.objects.all():
+    #elif not Author.objects.filter().all():
+        context_main['allauthors'] = None
+        context_main['num_authors'] = 0
+except:
+    print("booksmart models 351 no Author.objects.all():")
+    pass
+
+try:
+    if BackgroundVideo.objects.filter().last():   
+        video = BackgroundVideo.objects.filter().last()
+        context_main['video_url'] = video.link_video
+        context_main['video_type'] = video.type_video
+    elif not BackgroundVideo.objects.filter().last():
+        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+        context_main['video_type'] = "mp4"
+except:
+    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+    pass
+
+try:
+    if BackgroundMusic.objects.filter().last():   
+        music = BackgroundVideo.objects.filter().last()
+        context_main['music_url_1'] = music.link_music_1
+        context_main['music_type_1'] = music.type_music_1
+        context_main['music_url_2'] = music.link_music_2
+        context_main['music_type_2'] = music.type_music_2
+    elif not BackgroundMusic.objects.filter().last(): 
+        context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+        context_main['music_type_1'] = "mp3"
+        context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+        context_main['music_type_2'] = "mp3"
+except:
+    context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+    context_main['music_type_1'] = "mp3"
+    context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+    context_main['music_type_2'] = "mp3"
 
 @api_view(['GET', 'POST'])
 @permission_classes([])  #IsAuthenticated
@@ -66,89 +118,27 @@ context_allrecords['url_img_author'] = url_img_author
 def all_records(request):
 
     r_user = request.user
+    current_url_name = request.path
 
-    try:
-        if Book.objects.all():
-        # if Book.objects.filter().all():
-            all_books = Book.objects.all()
-            context_list.append(all_books)
-            num_books = Book.objects.all().count()
-            context_allrecords['allbooks'] = all_books
-            context_allrecords['num_books'] = num_books
-        elif not Book.objects.all():
-        # elif not Book.objects.filter().all():
-            context_allrecords['allbooks'] = None
-            context_allrecords['num_books'] = 0
-    except:
-        print("booksmart models 335 no Book.objects.all():")
-        pass
+    all_books = Book.objects.all()
+    all_authors = Author.objects.all()
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
 
-    try:
-        if Author.objects.all():
-        # if Author.objects.filter().all():
-            all_authors = Author.objects.all()
-            context_list.append(all_authors)
-            num_authors = Author.objects.all().count()
-            context_allrecords['allauthors'] = all_authors
-            context_allrecords['num_authors'] = num_authors
-        elif not Author.objects.all():
-        #elif not Author.objects.filter().all():
-            context_allrecords['allauthors'] = None
-            context_allrecords['num_authors'] = 0
-    except:
-        print("booksmart models 351 no Author.objects.all():")
-        pass
+    context = context_main
 
-    try:
-        if BackgroundPoster.objects.filter().last():
-            poster = BackgroundPoster.objects.filter().last()
-            context_allrecords['poster_url_1'] = poster.link_poster_1
-            context_allrecords['poster_url_2'] = poster.link_poster_2
-        elif not BackgroundPoster.objects.filter().last():
-            context_allrecords['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-            context_allrecords['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-    except:
-        print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
-        pass
+    context['allbooks'] = all_books
+    context['allauthors'] = all_authors
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name
 
-    try:
-        if BackgroundVideo.objects.filter().last():   
-            video = BackgroundVideo.objects.filter().last()
-            context_allrecords['video_url'] = video.link_video
-            context_allrecords['video_type'] = video.type_video
-        elif not BackgroundVideo.objects.filter().last():
-            context_allrecords['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
-            context_allrecords['video_type'] = "mp4"
-    except:
-        print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
-        pass
-
-    try:
-        if BackgroundMusic.objects.filter().last():   
-            music = BackgroundVideo.objects.filter().last()
-            context_allrecords['music_url_1'] = music.link_music_1
-            context_allrecords['music_type_1'] = music.type_music_1
-            context_allrecords['music_url_2'] = music.link_music_2
-            context_allrecords['music_type_2'] = music.type_music_2
-        elif not BackgroundMusic.objects.filter().last(): 
-            context_allrecords['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-            context_allrecords['music_type_1'] = "mp3"
-            context_allrecords['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-            context_allrecords['music_type_2'] = "mp3"
-    except:
-        context_allrecords['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-        context_allrecords['music_type_1'] = "mp3"
-        context_allrecords['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-        context_allrecords['music_type_2'] = "mp3"
-
-    context = context_allrecords
-    print("context allrecords:", context)
+    context = context_main
 
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
     author = BooksAuthor()
     book_sort = BookSort(request.GET)
-    current_url_name = request.path
 
     context['search_form'] = search_form
     context['form_search'] = form_search
@@ -203,40 +193,26 @@ def all_records(request):
 def all_authors(request):
 
     r_user = request.user
+    current_url_name = request.path
 
-    context = context_allrecords
-    all_authors = Author.objects.all().order_by('-created_at')
+    author_add_last = Author.objects.filter().last()
+    # all_authors = Author.objects.all().order_by('-created_at')
+    all_authors = Author.objects.all().order_by('last_name')
     num_authors = Author.objects.all().count()
     all_books = Book.objects.all()
     num_books = Book.objects.all().count()
+
+    context = context_main
+
     context['allbooks'] = all_books
     context['num_books'] = num_books
     context['allauthors'] = all_authors
     context['num_authors'] = num_authors
-    context_allrecords['num_authors'] = num_authors
+    context['current_url'] = current_url_name
     
     search_form = SearchRecord()
     form_search = ItemsSearchForm()
     author = BooksAuthor()
- 
- 
-    # current_url_name = request.resolver_match.url_name
-    # currents.append(current_url_name)
-  
-    current_url_name = request.path
-    print('current_url_name', current_url_name)
-    context['current_url'] = current_url_name
-    # form_a = a_account_view(request)
-    # #form_out = a_logout_view(request)
-    # form_r = a_registration_view(request)
-    # form_l = a_login_view(request)
-    
-    # #context['logout_form'] = form_out
-    # context['login_form'] = form_l
-    # context['registration_form'] = form_r
-    # context['account_form'] = form_a
-
-    # context['current_url_name'] = current_url_name
     
     context['search_form'] = search_form
     context['search_author'] = author
@@ -263,17 +239,28 @@ def all_authors(request):
 # @authentication_classes([]) # authentication.TokenAuthentication
 @renderer_classes([TemplateHTMLRenderer])
 def account_records(request):
-    context_a = context_allrecords 
     r_user = request.user
+    current_url_name = request.path
+
+    all_books = Book.objects.all()
+    all_authors = Author.objects.all()
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context_a = context_main
+
+    context_a['allbooks'] = all_books
+    context_a['allauthors'] = all_authors
+
+    context_a['num_authors'] = num_authors
+    context_a['num_books'] = num_books
+    context_a['current_url'] = current_url_name
+
     search_form = SearchRecord()
     author = BooksAuthor()
     form_search = ItemsSearchForm()
 
-    # current_url_name = request.resolver_match.url_name
-    # currents.append(current_url_name)
-    current_url_name = request.path
-    print('current_url_name', current_url_name)
-    context_a['current_url'] = current_url_name
     context_a['search_form'] = search_form
     context_a['form_search'] = form_search
     context_a['search_author'] = author
@@ -298,8 +285,9 @@ def account_records(request):
 # @authentication_classes([]) # authentication.TokenAuthentication
 @renderer_classes([TemplateHTMLRenderer])
 def authors_last(request):
-    context = context_bm
     r_user = request.user
+    current_url_name = request.path
+    
     author = BooksAuthor()
  
     all_authors = Author.objects.all().order_by('last_name')
@@ -308,13 +296,15 @@ def authors_last(request):
 
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
-    current_url_name = request.path
-    print('current_url_name', current_url_name)
-    context['current_url'] = current_url_name
- 
-    # context['current_url_name'] = current_url_name
+    context = context_main
 
+    context['allbooks'] = all_books
     context['allauthors'] = all_authors
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name
+
     context['search_form'] = search_form
     context['search_author'] = author
     context['form_search'] = form_search
@@ -332,28 +322,31 @@ def authors_last(request):
 # @authentication_classes([]) # authentication.TokenAuthentication
 @renderer_classes([TemplateHTMLRenderer])
 def all_records_author(request, *arg, **kwargs):
+    r_user = request.user
+    current_url_name = request.path
 
-    context = context_bm
     all_books = Book.objects.all().order_by('surname') #.values() 'surname',
+    all_authors = Author.objects.all()
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+
+    context['allbooks'] = all_books
+    context['allauthors'] = all_authors
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name
+
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
     author = BooksAuthor()
 
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
-    current_url_name = request.path
-    print('current_url_name', current_url_name)
-    context['current_url'] = current_url_name
-    
-    # context['account_form'] = form_a
-    # context['login_form'] = form_l
-    # context['registration_form'] = form_r.data
-    
-    # form_out = a_logout_view(request)
-    # form_r = a_registration_view(request)
-    # form_l = a_login_view(request)
 
-    context['allbooks'] = all_books
     context['search_form'] = search_form
     context['form_search'] = form_search
     context['search_author'] = author
@@ -371,9 +364,23 @@ def all_records_author(request, *arg, **kwargs):
 # @authentication_classes([]) # authentication.TokenAuthentication
 @renderer_classes([TemplateHTMLRenderer])
 def all_records_title(request):
+    r_user = request.user
+    current_url_name = request.path
 
-    context_a = context_bm
     all_books = Book.objects.all().order_by('title')
+    all_authors = Author.objects.all()
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+
+    context['allbooks'] = all_books
+    context['allauthors'] = all_authors
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name  
 
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
@@ -381,9 +388,7 @@ def all_records_title(request):
     current_url_name = request.path
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
-    print('current_url_name', current_url_name)
-    context_a['current_url'] = current_url_name
-    context_a['allbooks'] = all_books
+
     context_a['search_form'] = search_form
     context_a['form_search'] = form_search
     context_a['search_author'] = author
@@ -440,7 +445,25 @@ def all_records_title(request):
 # @authentication_classes([]) # authentication.TokenAuthentication
 @renderer_classes([TemplateHTMLRenderer])
 def books_author(request):
-    context = context_bm
+
+    r_user = request.user
+    current_url_name = request.path
+
+    all_books = Book.objects.all()
+    all_authors = Author.objects.all()
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+
+    context['allbooks'] = all_books
+    context['allauthors'] = all_authors
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name
+
     author_form = BooksAuthor(request.GET)
     if author_form.is_valid():
         # values=author_form.cleaned_data['author']
@@ -465,18 +488,6 @@ def books_author(request):
     print('current_url_name', current_url_name)
     context['current_url'] = current_url_name
     context["parameters"] = values
-    # user = request.user
-    # form_a = a_account_view(request)
-    # # form_out = a_logout_view(request)
-    # form_r = a_registration_view(request)
-    # form_l = a_login_view(request)
-    
-    # #context['logout_form'] = form_out
-    # context['login_form'] = form_l
-    # context['registration_form'] = form_r
-    # context['account_form'] = form_a
-
-    # context['current_url_name'] = current_url_name
 
     context['search_author'] = author
 
@@ -502,8 +513,10 @@ def books_author(request):
 
 BOOKS_RESULT_PER_PAGE = 10
 class RecordsView(APIView):
-
-    renderer_classes=[TemplateHTMLRenderer]
+    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+    renderer_classes = [JSONRenderer, TemplateHTMLRenderer, HTMLFormRenderer]
+    permission_classes = [IsAuthenticated,]
+    # renderer_classes=[TemplateHTMLRenderer]
     template_name="register.html"
 
     # def get_form_kwargs(self):
@@ -524,11 +537,23 @@ class RecordsView(APIView):
     #     return kwargs
 
     def get(self, request, *args, **kwargs):
+        r_user = request.user
+        current_url_name = request.path
         
-        r_user=request.user
         all_books = Book.objects.all()
         all_authors = Author.objects.all()
-        context = context_bm
+        num_books = Book.objects.all().count()
+        num_authors = Author.objects.all().count()
+
+        context = context_main
+
+        context['allbooks'] = all_books
+        context['allauthors'] = all_authors
+
+        context['num_authors'] = num_authors
+        context['num_books'] = num_books
+        context['current_url'] = current_url_name        
+        
         context['user_id'] = r_user.id 
         book_sort = BookSort(request.GET)
         # search_form = SearchRecord()
@@ -541,10 +566,6 @@ class RecordsView(APIView):
         # context['user_id'] = user_id
         # current_url_name = request.resolver_match.url_name
         # currents.append(current_url_name)
-        current_url_name = request.path
-
-        print('current_url_name', current_url_name)
-        context['current_url'] = current_url_name
 
         context['search_author'] = author
         context['search_form'] = search_form
@@ -794,11 +815,11 @@ class RecordsView(APIView):
         list_authors_result_queryset_set = list(set(authors_result_queryset))
         list_authors_result_list_set = list(set(authors_result_list))
         # if request.GET:
-        print('1. books_result_queryset', books_result_queryset)
-        print('1. books_result_title', books_result_title)
-        # authors_result = list(set(authors_result))
-        print('2. list_authors_result_list_set', list_authors_result_list_set)
-        print('2. list_authors_result_queryset_set', list_authors_result_queryset_set)
+        # print('1. books_result_queryset', books_result_queryset)
+        # print('1. books_result_title', books_result_title)
+        # # authors_result = list(set(authors_result))
+        # print('2. list_authors_result_list_set', list_authors_result_list_set)
+        # print('2. list_authors_result_queryset_set', list_authors_result_queryset_set)
 
         dict_values = ' '.join([dic_v for dic_v in keywords_fields.values() if dic_v != '' and dic_v != None])
         if dict_values:
@@ -809,12 +830,12 @@ class RecordsView(APIView):
             # context['allbooks'] = all_books_sort
             # return Response(context, template_name='allrecords.html', )
 
-        print('end sort_parameter', sort_parameter)
+        # print('end sort_parameter', sort_parameter)
         num_books_result = len(books_result_queryset)
         num_authors_result_set = len(list_authors_result_queryset_set)
-        print('5. books_result_queryset', books_result_queryset)
-        print('5. list_authors_result_queryset_set', list_authors_result_queryset_set)
-        # books_result_filter = books_result.order_by('-title)
+        # print('5. books_result_queryset', books_result_queryset)
+        # print('5. list_authors_result_queryset_set', list_authors_result_queryset_set)
+        # # books_result_filter = books_result.order_by('-title)
         
         filtered_books = books_result_queryset
         # filtered_books = books_result.reverse()
@@ -841,9 +862,24 @@ class RecordsView(APIView):
         # return render(request, 'records.html', context)
 
     def post(self, request, *args, **kwargs):
-        context = context_bm
-        # all_books = Book.objects.all()
-        # all_authors = Author.objects.all()
+        r_user = request.user
+        current_url_name = request.path
+
+        all_books = Book.objects.all()
+        all_authors = Author.objects.all()
+
+        num_books = Book.objects.all().count()
+        num_authors = Author.objects.all().count()
+
+        context = context_main
+
+        context['allbooks'] = all_books
+        context['allauthors'] = all_authors
+
+        context['num_authors'] = num_authors
+        context['num_books'] = num_books
+        context['current_url'] = current_url_name
+
         form_search = ItemsSearchForm(request.POST)
         search_form = SearchRecord()
         author = BooksAuthor()
@@ -853,9 +889,7 @@ class RecordsView(APIView):
         current_url_name = request.path
         # current_url_name = request.resolver_match.url_name
         # currents.append(current_url_name)
-        
-        print('current_url_name', current_url_name)
-        context['current_url'] = current_url_name
+
         context['form_search'] = form_search
         context['search_form'] = search_form
         context['search_author'] = author

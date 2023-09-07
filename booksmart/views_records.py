@@ -1,6 +1,6 @@
 import os, re, json, time, requests, datetime, random
 from os import environ
-from booksmart.models import url_img, Book, Author, BackgroundPoster, BackgroundVideo, context_bm
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo
 from booksmart.forms import BookForm, AuthorForm, SearchRecord, BookChange, ItemsSearchForm, LibrarySearch, BackgroundFormPoster, BackgroundFormVideo
 from accounts.models import Account
 from booksmart.api.permissions import IsOwnerOrReadOnly #, IsOwnerIsAdminOrReadOnly
@@ -21,24 +21,93 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
 from rest_framework import permissions
 from rest_framework.generics import UpdateAPIView
-# from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
 
 from rest_framework.exceptions import APIException
 from rest_framework.authtoken.views import ObtainAuthToken
-# from booksmart.views import context
-# from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.views.generic.edit import CreateView
-# from myapp.models import Author
 
-# class AuthorCreateView(LoginRequiredMixin, CreateView):
-#     model = Author
-#     fields = ['name']
-
-#     def form_valid(self, form):
-#         form.instance.created_by = self.request.user
-#         return super().form_valid(form)
 from django.utils.html import format_html
 from booksmart.read_book import *
+
+
+context_main = {}
+
+context_main['no_date'] = datetime.date(3000, 1, 1)
+context_main['url_img_book'] = url_img
+context_main['url_img_author'] = url_img_author
+
+try:
+    if Book.objects.all():
+    # if Book.objects.filter().all():
+        all_books = Book.objects.all()
+        # context_list.append(all_books)
+        num_books = Book.objects.all().count()
+        context_main['allbooks'] = all_books
+        context_main['num_books'] = num_books
+    elif not Book.objects.all():
+    # elif not Book.objects.filter().all():
+        context_main['allbooks'] = None
+        context_main['num_books'] = 0
+except:
+    print("booksmart models 335 no Book.objects.all():")
+    pass
+
+try:
+    if Author.objects.all():
+    # if Author.objects.filter().all():
+        all_authors = Author.objects.all()
+        # context_list.append(all_authors)
+        num_authors = Author.objects.all().count()
+        context_main['allauthors'] = all_authors
+        context_main['num_authors'] = num_authors
+    elif not Author.objects.all():
+    #elif not Author.objects.filter().all():
+        context_main['allauthors'] = None
+        context_main['num_authors'] = 0
+except:
+    print("booksmart models 351 no Author.objects.all():")
+    pass
+
+try:
+    if BackgroundPoster.objects.filter().last():
+        poster = BackgroundPoster.objects.filter().last()
+        context_main['poster_url_1'] = poster.link_poster_1
+        context_main['poster_url_2'] = poster.link_poster_2
+    elif not BackgroundPoster.objects.filter().last():
+        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+except:
+    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+    pass
+
+try:
+    if BackgroundVideo.objects.filter().last():   
+        video = BackgroundVideo.objects.filter().last()
+        context_main['video_url'] = video.link_video
+        context_main['video_type'] = video.type_video
+    elif not BackgroundVideo.objects.filter().last():
+        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+        context_main['video_type'] = "mp4"
+except:
+    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+    pass
+
+try:
+    if BackgroundMusic.objects.filter().last():   
+        music = BackgroundVideo.objects.filter().last()
+        context_main['music_url_1'] = music.link_music_1
+        context_main['music_type_1'] = music.type_music_1
+        context_main['music_url_2'] = music.link_music_2
+        context_main['music_type_2'] = music.type_music_2
+    elif not BackgroundMusic.objects.filter().last(): 
+        context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+        context_main['music_type_1'] = "mp3"
+        context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+        context_main['music_type_2'] = "mp3"
+except:
+    context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+    context_main['music_type_1'] = "mp3"
+    context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+    context_main['music_type_2'] = "mp3"
 
 
 @api_view(['GET', 'POST'])
@@ -47,9 +116,19 @@ from booksmart.read_book import *
 @permission_classes([permissions.IsAuthenticated, ])
 def read_book(request, id):
 
-    context = context_bm
     formlib = LibrarySearch(request.GET)
     book = get_object_or_404(Book, pk=id)
+
+    r_user = request.user
+    current_url_name = request.path
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books    
+
     context['book'] = book
 
     keyword_field = {}
@@ -69,11 +148,19 @@ def read_book(request, id):
 @permission_classes([permissions.IsAuthenticated, ])
 def read_book_ol(request, id):
 
-    context = context_bm
-    
+    r_user = request.user
+    current_url_name = request.path
     book = get_object_or_404(Book, pk=id)
-    context['book'] = book
+    
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
 
+    context = context_main
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+
+    context['book'] = book
     keyword_field = {}
 
     logs = [('booksmart01@hotmail.com', 'Djangoapp01o'), ('booksmart02@hotmail.com', 'Djangoapp02o'), ('booksmart03@hotmail.com', 'Djangoapp03o')]
@@ -374,16 +461,23 @@ def read_book_ol(request, id):
     return Response(context, template_name='read_book_ol.html', )
 
 
-
-
-
 @api_view(['POST', 'GET'])
 # @authentication_classes([])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 @permission_classes([permissions.IsAuthenticated, ])
 def new_book(request):
-    context_a = context_bm
     r_user = request.user
+    current_url_name = request.path
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context_a = context_main
+
+    context_a['num_authors'] = num_authors
+    context_a['num_books'] = num_books
+
+    context_a['current_url'] = current_url_name
 
     if not r_user.is_authenticated:
         return redirect('index')
@@ -412,16 +506,23 @@ def new_book(request):
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 @permission_classes([permissions.IsAuthenticated, IsOwnerOrReadOnly,])
 def edit_book(request, id):
-    context_a = context_bm
-
     r_user = request.user
+
     editbook = get_object_or_404(Book, pk=id)
-    
-    # book = get_object_or_404(Book, id=pk)
+
+    current_url_name = request.path
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context_a = context_main
+
+    context_a['num_authors'] = num_authors
+    context_a['num_books'] = num_books
+    context_a['current_url'] = current_url_name
+  
     form_edit_book = BookForm(request.POST or None, request.FILES or None, instance=editbook)
-    # context_a['form'] = form_book
-    # context_a['new'] = False
-    #user_add = BookChange(request.GET)
+
     context_a['book'] = editbook
     context_a['user_book_id'] = editbook.user_num_b
     # if request.method == "POST":
@@ -455,24 +556,20 @@ def edit_book(request, id):
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 @permission_classes([permissions.IsAuthenticated, IsOwnerOrReadOnly,])
 def delete_book(request, id):
-    # book = Book.objects.filter(pk=id)
-    # context = {}
-    # if book:
-    #     context["book"] = book
-    #     if request.method == "POST":
-    #         book.delete()
-    #         return redirect('allrecords')
-    #     else: 
-    #         pass
-    # else:
-    #     context = {}
-    #     context["message"] = "This book probably does not currently exist in the database"
-    #     return render(request, 'edit_book.html', context)
-    # return render(request, 'submit.html', context)
-    r_user = request.user
-    context_a = context_bm
 
+    r_user = request.user
     book = get_object_or_404(Book, pk=id)
+
+    current_url_name = request.path
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context_a = context_main
+
+    context_a['num_authors'] = num_authors
+    context_a['num_books'] = num_books
+
     context_a['book'] = book
     # user_add = BookChange(request.GET)
     # if user_add.is_valid():
@@ -504,19 +601,19 @@ def delete_book(request, id):
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 @permission_classes([permissions.IsAuthenticated,])
 def new_author(request):
-    context = context_bm
-    r_user = request.user
-    # form_a = a_account_view(request)
-    # #form_out = a_logout_view(request)
-    # form_r = a_registration_view(request)
-    # form_l = a_login_view(request)
-    
-    # #context['logout_form'] = form_out
-    # context['login_form'] = form_l
-    # context['registration_form'] = form_r
-    # context['account_form'] = form_a
 
+    r_user = request.user
+    current_url_name = request.path
     form_new_author = AuthorForm(request.POST or None, request.FILES or None)
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name    
     
     if form_new_author.is_valid():
         newauthor = form_new_author.save(commit=False)
@@ -533,41 +630,27 @@ def new_author(request):
     return Response(context, template_name='new_author.html', )
     
 
-# def new_author(request, id):
-#     context = {}
-#     if request.method == 'POST':
-#         form_author_c = AuthorForm(request.POST or None, request.FILES or None)
-#         if form_author_c.is_valid():
-#             author_add = form_author_c.cleaned_data
-#             # new_author = author_add.save(commit=False)
-#             new_author = form_author_c.save(commit=False)
-#             new_author.user = request.user
-#             tags = form_author_c.cleaned_data['tags']
-#             new_author.save()
-#             for tag in tags:
-#                 new_author.tags.add(tag)
-#                 new_author.save()
-#             new_author.save()
-#             create_action(request.user, 'created an author:', new_author)
-#             context['message'] = 'Author added successfully'
-#             form_author_c = AuthorForm()
-#         else:
-#             context['message'] = 'Author NOT added successfully'
-#     else:
-#         # build form 
-#         form_author_c = AuthorForm(data=request.GET)
-#     context['form_author_c'] = form_author_c
-#     context['new'] = True
-#     return render(request, 'new_author.html', context)
 
 @api_view(['POST', 'GET'])
 # @authentication_classes([])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 @permission_classes([permissions.IsAuthenticated, IsOwnerOrReadOnly]) # ,permissions.IsAdminUser
 def edit_author(request, id):
-    context_a = context_bm
+
     r_user = request.user
+    current_url_name = request.path
+
     editauthor = get_object_or_404(Author, pk=id)
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context_a = context_main
+
+    context_a['num_authors'] = num_authors
+    context_a['num_books'] = num_books
+    context_a['current_url'] = current_url_name
+
     form_edit_author = AuthorForm(request.POST or None, request.FILES or None, instance=editauthor)
 
     end_date = editauthor.date_of_death
@@ -619,10 +702,21 @@ def edit_author(request, id):
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 @permission_classes([permissions.IsAuthenticated, IsOwnerOrReadOnly]) #, permissions.IsAdminr_user
 def delete_author(request, id):
-    context_a = context_bm
+    r_user = request.user
+    current_url_name = request.path    
 
     author_c = get_object_or_404(Author, pk=id)
-    r_user = request.user
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context_a = context_main
+
+    context_a['num_authors'] = num_authors
+    context_a['num_books'] = num_books
+    context_a['current_url'] = current_url_name    
+
+
     context_a['author_c'] = author_c
 
     if request.method == "POST":
@@ -638,9 +732,17 @@ def delete_author(request, id):
 
 
 def lr_registration_view(request):  
-    # c_path = cur_path[1:-1]+".html"
-    # print('c_path', c_path)
-    context = context_bm
+    r_user = request.user
+    current_url_name = request.path
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name
 
     if request.POST:
         form = RegistrationForm(request.POST)
@@ -658,71 +760,25 @@ def lr_registration_view(request):
         form = RegistrationForm()
         context['registration_form'] = form
 
-    # content_rr = context['registration_form']
-    # content_r = f"{context['registration_form']}"
-    
-    # return HttpResponse(content_l) 
-    # return redirect("/", content_l) 
     return redirect('/')
     # return render(request, c_path, context)
 
-# def current(request, path):
-#     print('path', path)
-#     return HttpResponse("{}".format(path))
-# def current(request):
-#     path = get_current_site(request)
-#     print('path', path)
-#     path1 = get_current_site(request)
-#     print('path1', path1)
-#     path2 = request.path
-#     print('path2', path2)
-#     path3 = request.get_host() + request.path
-#     print('path3', path3)
-#     if author_form.is_valid():
-#         values=author_form.cleaned_data['author']
-#         print(values, type(values))
-
-# def urlpath(request):
-#     context = {}
-#     print(request.method)
-    
-#     form_url = UrlPathForm()
-#     print(form_url)
-    # if form_url.is_valid():
-    #     values=form_url.cleaned_data['url_path']
-    #     print(values, type(values))
-        
-
-    #     context['values'] = values
-    # print(str(context['values']))  
-    # print('1', curent)
-    # path = get_current_site(request)
-    # print('path', path)
-    # path1 = get_current_site(request)
-    # print('path1', path1)
-    # path2 = request.path
-    # print('path2', path2)
-    # path3 = request.get_host() + request.path
-    # print('path3', path3)
-    # value= request.GET['value']
-    # print(value)
-        
-    # return render(request, "urlpath.html", {'formurl':form_url})
-    
-
-# if currents:
-#     print('if currents:',currents)
 
 
 def lr_login_view(request):
     
-    # print('login currents', currents)
-    # cur_path = currents[-1][11:-1]
-    # print('login cur_path', cur_path)
-    # c_path = cur_path+".html"
-    # print('c_path', c_path)
-    context = context_bm
     r_user = request.user
+    current_url_name = request.path
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name
+
     form_url = UrlPathForm()
     print('2', form_url)
     if r_user.is_authenticated:
@@ -742,25 +798,24 @@ def lr_login_view(request):
     else:
         form = AccountAuthenticationForm()
 
-    # path = request.path
-    # print('path_l', path)
-    # path1 = get_current_site(request)
-    # print('path1_l', path1)
-    # path2 = request.path
-    # print('path2_l', path2)
-    # path3 = request.get_host() + request.path
-    # print('path3_l', path3)
-
     context['login_form'] = form
-    # form_url = UrlPathForm()
-    # return HttpResponseRedirect(content_l) 
-    #  render(request, 'booksmart.html', context)
+
     return redirect("/")
     # return render(request, c_path, context)
     # return HttpResponse("snippets/log_reg.html", context)
 
 def lr_account_view(request):
-    context = context_bm
+    r_user = request.user
+    current_url_name = request.path
+
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    context['current_url'] = current_url_name
     if not request.user.is_authenticated:
         return redirect("/")
 
@@ -778,14 +833,11 @@ def lr_account_view(request):
             }
         )
     context['account_form'] = form
-    # content_ar = context['account_form']
-    # print(content)
-    # content_a = f"{context['account_form']}"
     
     # return HttpResponse(content_a) 
     return redirect("/") 
-   #  return render(request, 'account_copy.html', context)
-    #return redirect("/")
+    # return render(request, 'account_copy.html', context)
+
 
 def lr_logout_view(request):
 	logout(request)

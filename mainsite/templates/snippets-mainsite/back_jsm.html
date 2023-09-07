@@ -8,7 +8,6 @@
 
 body {
 
-  
 }  
 
 .glass_class_mode {
@@ -21,37 +20,37 @@ body {
 } 
 
 .dark_mode_back {
-  background-color: rgba(2, 4, 8, 0.9);
- 
+ /* background-color: rgba(2, 4, 8, 0.9); */
+ background-color: rgba(0, 6, 44, 0.9);
+ /* background: repeating-conic-gradient( rgba(6, 16, 44, 0.9) 10%, rgba(0, 6, 44, 0.9) 20%, rgba(6, 16, 44, 0.9) 30%, rgba(0, 6, 44, 0.9) 10%) no-repeat fixed center; */
 }
 
-/* #video_background {
+/*
+.myVideo_1 {
   box-sizing: content-box;
-  position: fixed;
-  z-index:0;
-  object-fit: cover;
-  width: 100vw;
-  height: 104vh;
-  top: -2vw;
-  animation-name: mymove;
-  animation-duration: 14s;
-  animation-iteration-count: 4;
-  left:-0.4vw;
-} */
- 
-video {
-  box-sizing: content-box;
-  position: fixed;
-  z-index:0;
+  position: relative;
+  z-index: -1;
   object-fit: cover;
   width: 100.8vw;
   height: 104vh;
-  top: -2vw;
-  animation-name: mymove;
-  animation-duration: 12s;
-  animation-iteration-count: 4;
+   margin-top: -2vh;
+ 
   left:-0.4vw;
+  opacity: 1;
 }
+ 
+
+.myVideo_2 {
+  box-sizing: content-box;
+  position: fixed;
+  z-index: 0;
+  object-fit: cover;
+  width: 100.8vw;
+  height: 104vh;
+  top: -1.2vh;
+ left:0.4vw;
+  opacity: 1;
+} */
 
   /*#myVideo {
     position: fixed;
@@ -67,9 +66,23 @@ video {
     animation-iteration-count: 4;
 }*/
 
-@keyframes mymove {
-50% {opacity: 0.2;}
-}
+#myVideo_2 {
+  box-sizing: content-box;
+  position: fixed;
+  z-index:0;
+  object-fit: cover;
+  width: 100.8vw;
+  height: 104vh;
+  top: -2vh;
+  left:-0.4vw;
+  animation: mymovie 12s 1 forwards;
+  opacity: 0;
+} 
+
+@keyframes mymovie {
+  from {opacity: 0;}
+  to {opacity: 1;}
+  } 
 
 #myBtna {
   top: 52px;
@@ -181,9 +194,10 @@ video {
   Your browser does not support HTML5 audio.
 </audio>
 
- 
+
+
 <!-- <div id="background">-->
-    <video autoplay muted loop id="myVideo" poster="{{ poster_url_1 }}">
+    <video autoplay muted loop poster="{{ poster_url_1 }}" id="myVideo_2">
       <source src="{{ video_url }}" type="video/{{ video_type }}">
     Your browser does not support HTML5 video.
   </video>
@@ -289,7 +303,7 @@ video {
       }
     </script>
      <script>
-      var my_video = document.getElementById("myVideo");
+      var my_video = document.getElementById("myVideo_2");
       var btnv = document.getElementById("myBtn");
       var btnmv = document.getElementById("myBtn1");
       

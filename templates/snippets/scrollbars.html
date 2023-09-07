@@ -6,41 +6,22 @@
       box-sizing: border-box;
       }
   
+  
+
   html, body {
   height: 100%;
   width: 100%;
-  top: -1%;
   margin: 0;
   overflow-y: hidden;
   font-family: Times;
-  background-color: LightSteelBlue;
-  box-sizing: content-box;
-position: relative;
-  z-index:-2;
-
+  
+  background-color: rgba(60, 160, 240, 0.6);
+    background: repeating-conic-gradient( rgba(60, 160, 240, 0.6) 10%, rgba(0, 60, 240, 0.6) 20%, rgba(60, 160, 240, 0.6) 30%, rgba(0, 60, 240, 0.6) 10%) no-repeat fixed center; 
+    z-index: -2;
   }
   
   body {
-    width: 100.8vw;
-    height: 104vh;
-    top: -2vw;
-   /* animation-name: mymove;
-    animation-duration: 12s;
-    animation-iteration-count: 4; */
-    left:-0.4vw;
-    
-   background-color: rgba(60, 160, 240, 0.8);
-    text-shadow: -0.015em 0.015em 0.0em rgb(201, 201, 201), -0.03em 0.03em 0.015em rgb(201, 201, 201), 0.04em 0.0em 0.02em rgb(128, 128, 128) ,0.02em 0.02em 0.01em rgb(128, 128, 128);;
-    color: rgba(230, 230, 240, 0.9);
-    background-image: url({% static 'plakat_ok.jpg' %}) no-repeat fixed center; 
-  /*
-  text-shadow: -0.02em 0.02em 0.04em #eee, 0.02em -0.02em 0.04em #333;
-  background:url("https://drive.google.com/uc?export=download&id=1vVOywzXQP-QLawHG0pBoNpV6ImZ2Nuw3") no-repeat fixed center; 
-  background-size: cover;
-  bottom: -8px;
-  left: -0.6%;
-  width: 102vw;
-  height: 102vh;*/
+
   }
   
   body::-webkit-scrollbar {
