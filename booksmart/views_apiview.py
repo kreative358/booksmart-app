@@ -194,16 +194,20 @@ def all_authors(request):
 
     r_user = request.user
     current_url_name = request.path
-
-    author_add_last = Author.objects.filter().last()
+    # last_id = list(Author.objects.values_list('id').order_by('-id')[0])[0]
+    # # author_add_last = Author.objects.values_list('id').order_by('-id')[0]   
+    # author_add_last = Author.objects.filter(pk=last_id).get() 
+    # print('author_add_last:', author_add_last)
     # all_authors = Author.objects.all().order_by('-created_at')
     all_authors = Author.objects.all().order_by('last_name')
+    print('all_authors:', all_authors)
     num_authors = Author.objects.all().count()
     all_books = Book.objects.all()
     num_books = Book.objects.all().count()
 
     context = context_main
 
+    # context["author_add_last"] = author_add_last
     context['allbooks'] = all_books
     context['num_books'] = num_books
     context['allauthors'] = all_authors
@@ -218,11 +222,11 @@ def all_authors(request):
     context['search_author'] = author
     context['form_search'] = form_search
   
-    paginator = Paginator(all_authors, 10) 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    # paginator = Paginator(all_authors, 10) 
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
     
-    context['page_obj'] = page_obj
+    # context['page_obj'] = page_obj
 
     paginator_extras_authors = Paginator(all_authors, 10)
     page_number_authors = request.GET.get('page')

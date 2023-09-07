@@ -66,15 +66,12 @@
   
 
 {% if author_add_last %}
-{% if author_add_last|length > 0 %}
+
 <div class="container-fluid" id="author_last_add" >
-  AUTHOR LAST ADDED </div>
-{% for author_c in author_add_last %}
+  AUTHORS IN DATABASE </div>
+
 {% include 'snippets-booksmart/author.html' %}
-{% endfor %}
- 
 {% endif %}
-{% endif %}  
 
 
 {% endblock content_3 %}
@@ -95,20 +92,8 @@
 {% include 'snippets-booksmart/author.html' %}
 
 {% endfor %}
-{% include 'snippets-booksmart/pagination.html' %}
-{% endif %}
+  
 
-
-{% if author_page_obj %}
-       
-<div id="margin_authors">
-  </div>
-{% include 'snippets-booksmart/authors_bar.html' %}
-
-{% for author_c in author_page_obj %}
-{% include 'snippets-booksmart/author.html' %}
-
-{% endfor %}
 <style type="text/css">
 
 #cont_pag {

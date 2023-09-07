@@ -41,6 +41,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     username = serializers.CharField(
         required=False, 
+        max_length=14,
         style={'template':'snippets/input-username.html', 'placeholder': 'enter username'},
         validators=[UniqueValidator(queryset=Account.objects.all(), message="this username already exists, this field must be unique")],
         )
@@ -152,6 +153,7 @@ class AccountSerializer(serializers.HyperlinkedModelSerializer):
 
     username = serializers.CharField(
     required=False, 
+    max_length=14,
     # allow_blank=True,
     style={'placeholder': 'enter new username', 'autofocus': True,},
     validators=[UniqueValidator(queryset=Account.objects.all(), message="this username already exists, this field must be unique")],)
