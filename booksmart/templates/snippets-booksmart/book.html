@@ -8,7 +8,7 @@
   border: 2px solid rgba(180, 217, 240, 0.1);
   /*outline: 2px solid rgba(180, 217, 240, 0.2);*/
   position:relative;
-  z-index:1;
+  z-index:14;
   width:94%;
   margin: 10px auto auto auto;
   /*padding: -2px -1px -1px -1px;*/
@@ -35,7 +35,7 @@
   -webkit-backdrop-filter: none;
   box-shadow:
   1px 2px 6px 10px rgba(229, 230, 243, 0.6);
-  scale:1.02;
+transform: matrix(1.01, 0, 0, 1.01, 0, 0);
 }
 
 /* [id^="col_img_book"] */
@@ -173,8 +173,7 @@ button:focus {
   }
 
   [id^="button_1"]:active {
-  transform: translateY(2px);
-  scale: 0.96;
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 }
 
 .button_1 {
@@ -202,8 +201,7 @@ button:focus {
   }
 
 .button_1:active {
-  transform: translateY(2px);
-  scale: 0.96;
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 }
 
 [id^="button_2_"] {
@@ -230,8 +228,7 @@ button:focus {
   }
 
   [id^="button_2_"]:active {
-    transform: translateY(2px);
-    scale: 0.96;
+    transform: matrix(0.98, 0, 0, 0.98, 0, 2);
   }
 
 .button_2 {
@@ -258,8 +255,7 @@ button:focus {
   }
 
 .button_2:active {
-  transform: translateY(2px);
-  scale: 0.96;
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
   }
 
 .button_3 {
@@ -287,8 +283,7 @@ button:focus {
   }
 
 .button_3:active {
-  transform: translateY(2px);
-  scale: 0.96;
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
   }
 
 [id^="button_3"] {
@@ -315,8 +310,7 @@ button:focus {
   }
 
   [id^="button_3"]:active {
-  transform: translateY(2px);
-  scale: 0.96;
+    transform: matrix(0.98, 0, 0, 0.98, 0, 2);
   }
 
   [id^="button_4"] {
@@ -343,8 +337,7 @@ button:focus {
   }
 
   [id^="button_4"]:active {
-  transform: translateY(2px);
-  scale: 0.96;
+    transform: matrix(0.98, 0, 0, 0.98, 0, 2);
   }
 
 .button_4 {
@@ -371,8 +364,7 @@ button:focus {
   }
 
 .button_4:active {
-  transform: translateY(2px);
-  scale: 0.96;
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
   }
 
 .modal-dialog {
@@ -637,7 +629,7 @@ button:focus {
   }
   
 [id^="mymodalauthor_bookCont"]:hover {
-  scale: 1.01;
+  transform: matrix(1.01, 0, 0, 1.01, 0, 2);
   box-shadow:
  /*-8px 8px 10px 0px rgba(229, 230, 243, 0.6), */
  0px 0px 18px 14px rgba(209, 210, 223, 0.8); 
@@ -723,7 +715,7 @@ button:focus {
 
   .close_m:active {
     color: rgba(0, 0, 220, 0.8);
-    scale: 0.98;
+    transform: matrix(0.98, 0, 0, 0.98, 0, 2);
   }
 
 .close_m:focus {
@@ -848,7 +840,7 @@ button:focus {
     </div>
   </div>
   
-  <div class="column" id="column_book_{{book.google_id}}">
+  <div class="mycolumn_book" id="column_book_{{book.google_id}}">
     <div class="glass_book">
    <p class="h3_l1_c" style="margin: 10px auto 10px 10px; padding-left: 60px; text-indent: -60px;"> title: <a  href="{{ book.preview_link }}" target="_blank" ><span id="book_title_{{ book.google_id }}" class="p_m_b"> "{{ book.title }}"</span></a></p>
 

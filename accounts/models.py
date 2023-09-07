@@ -110,7 +110,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_staff				= models.BooleanField(default=False)
     is_superuser			= models.BooleanField(default=False)
 
-    is_email_confirmed = models.BooleanField(default=False)
+    is_email_confirmed = models.BooleanField(default=True)
     # owner_book = GenericRelation(Book)
     # owner_author = GenericRelation(Author)
 
@@ -152,7 +152,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 #     # Other fields
 
-class EmailConfirmationToken(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+# class EmailConfirmationToken(models.Model):
+#     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     user = models.ForeignKey(Account, on_delete=models.CASCADE)

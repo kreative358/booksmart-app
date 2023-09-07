@@ -60,48 +60,48 @@ def index_auth(request):
     return Response(context_i_a, template_name='index_auth.html', )
 
 
-from typing import Protocol
-from django.contrib.auth.decorators import login_required
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
-from django.core.mail import EmailMessage
-from .tokens import account_activation_token
+# from typing import Protocol
+# from django.contrib.auth.decorators import login_required
+# from django.template.loader import render_to_string
+# from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+# from django.utils.encoding import force_bytes, force_str
+# from django.core.mail import EmailMessage
+# from .tokens import account_activation_token
 
-def activate(request, uidb64, token):
-    User = get_user_model()
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except:
-        user = None
+# def activate(request, uidb64, token):
+#     User = get_user_model()
+#     try:
+#         uid = force_str(urlsafe_base64_decode(uidb64))
+#         user = User.objects.get(pk=uid)
+#     except:
+#         user = None
 
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
+#     if user is not None and account_activation_token.check_token(user, token):
+#         user.is_active = True
+#         user.save()
 
-        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
-        return redirect('login')
-    else:
-        messages.error(request, "Activation link is invalid!")
+#         messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
+#         return redirect('login')
+#     else:
+#         messages.error(request, "Activation link is invalid!")
 
-    return redirect('homepage')
+#     return redirect('homepage')
 
-def activateEmail(request, user, to_email):
-    mail_subject = "Activate your user account."
-    message = render_to_string("template_activate_account.html", {
-        'user': user.username,
-        'domain': get_current_site(request).domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': account_activation_token.make_token(user),
-        "protocol": 'https' if request.is_secure() else 'http'
-    })
-    email = EmailMessage(mail_subject, message, to=[to_email])
-    if email.send():
-        messages.success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
-                received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
-    else:
-        messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
+# def activateEmail(request, user, to_email):
+#     mail_subject = "Activate your user account."
+#     message = render_to_string("template_activate_account.html", {
+#         'user': user.username,
+#         'domain': get_current_site(request).domain,
+#         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#         'token': account_activation_token.make_token(user),
+#         "protocol": 'https' if request.is_secure() else 'http'
+#     })
+#     email = EmailMessage(mail_subject, message, to=[to_email])
+#     if email.send():
+#         messages.success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
+#                 received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
+#     else:
+#         messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
 
 
 class RegistrationViewBase(APIView):
@@ -580,49 +580,49 @@ class PasswordUpdateViewApi(APIView):
 
 
 
-from accounts.models import EmailConfirmationToken
-from accounts.utils import send_confirmation_email
-from rest_framework.parsers import (
-    MultiPartParser, 
-    FormParser
-    )
-from django.urls import reverse_lazy
+# from accounts.models import EmailConfirmationToken
+# from accounts.utils import send_confirmation_email
+# from rest_framework.parsers import (
+#     MultiPartParser, 
+#     FormParser
+#     )
+# from django.urls import reverse_lazy
 
 
-class UserInformationAPIVIew(APIView):
+# class UserInformationAPIVIew(APIView):
 
-    permission_classes = [IsAuthenticated,]
+#     permission_classes = [IsAuthenticated,]
 
-    def get(self, request):
-        r_user = request.user
-        email = r_user.email
-        is_email_confirmed = r_user.is_email_confirmed
-        payload = {'email': email, 'is_email_confirmed': is_email_confirmed, 'id': r_user.pk}
-        return Response(data=payload, status=200)
+#     def get(self, request):
+#         r_user = request.user
+#         email = r_user.email
+#         is_email_confirmed = r_user.is_email_confirmed
+#         payload = {'email': email, 'is_email_confirmed': is_email_confirmed, 'id': r_user.pk}
+#         return Response(data=payload, status=200)
 
 
-class SendEmailConfirmationTokenAPIView(APIView):
+# class SendEmailConfirmationTokenAPIView(APIView):
 
-    permission_classes = [IsAuthenticated,]
+#     permission_classes = [IsAuthenticated,]
 
-    def post(self, request, format=None):
-        r_user = request.user
-        token = EmailConfirmationToken.objects.create(user=r_user)
-        send_confirmation_email(email=r_user.email, token_id=token.pk, user_id=r_user.pk)
-        return Response(data=None, status=201)
+#     def post(self, request, format=None):
+#         r_user = request.user
+#         token = EmailConfirmationToken.objects.create(user=r_user)
+#         send_confirmation_email(email=r_user.email, token_id=token.pk, user_id=r_user.pk)
+#         return Response(data=None, status=201)
     
-def confirm_email_view(request):
-    token_id = request.GET.get('token_id', None)
-    user_id = request.GET.get('user_id', None)
-    try:
-        token = EmailConfirmationToken.objects.get(pk=token_id)
-        user = token.user
-        user.is_email_confirmed = True
-        user.save()
-        data = {'is_email_confirmed': True}
-        return render(request, template_name='users/confirm_email_view.html', context=data)
-    except EmailConfirmationToken.DoesNotExist:
-        data = {'is_email_confirmed': False}
-        return render(request, template_name='users/confirm_email_view.html', context=data)
+# def confirm_email_view(request):
+#     token_id = request.GET.get('token_id', None)
+#     user_id = request.GET.get('user_id', None)
+#     try:
+#         token = EmailConfirmationToken.objects.get(pk=token_id)
+#         user = token.user
+#         user.is_email_confirmed = True
+#         user.save()
+#         data = {'is_email_confirmed': True}
+#         return render(request, template_name='users/confirm_email_view.html', context=data)
+#     except EmailConfirmationToken.DoesNotExist:
+#         data = {'is_email_confirmed': False}
+#         return render(request, template_name='users/confirm_email_view.html', context=data)
 
 

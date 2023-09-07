@@ -22,9 +22,9 @@ from accounts.views import(
     PasswordUpdateView,
     PasswordUpdateViewApi,
     
-    SendEmailConfirmationTokenAPIView, 
-    UserInformationAPIVIew,
-    confirm_email_view,
+    # SendEmailConfirmationTokenAPIView, 
+    # UserInformationAPIVIew,
+    # confirm_email_view,
     )
 
 # from accounts.views_email import activateAccount
@@ -97,11 +97,11 @@ urlpatterns = [
     
     path('account_update/', account_view_form, name="account_update"),
 
-    path('user_info/', UserInformationAPIVIew.as_view(), name='user_information_api_view'),
+    # path('user_info/', UserInformationAPIVIew.as_view(), name='user_information_api_view'),
 
 
-    path('send-confirmation-email/', SendEmailConfirmationTokenAPIView.as_view(), name='send_email_confirmation_api_view'),
-    path('confirm-email/', confirm_email_view, name='confirm_email_view'),
+    # path('send-confirmation-email/', SendEmailConfirmationTokenAPIView.as_view(), name='send_email_confirmation_api_view'),
+    # path('confirm-email/', confirm_email_view, name='confirm_email_view'),
 
     # path('activate/<uidb64>/<token>', activateAccount, name='activate'),
     # path('account_update/', UpdateProfileView.as_view(), name="account_update"),
