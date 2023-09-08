@@ -182,7 +182,7 @@ class Book(models.Model):
     author_wiki_idx = models.CharField(max_length=10, blank = True)
     surname = models.CharField(max_length=100, blank=True) # required=True, defalult='surname-unknown'
     published = models.DateField(blank=True, null=True)
-    category = models.CharField(max_length=24, default='unknown')
+    category = models.CharField(max_length=48, default='unknown')
     summary = models.TextField(max_length=1200, default = 'no description')
     isbn = models.CharField('ISBN', max_length=24, unique=False,)
     language = models.CharField(max_length=12, blank=True, choices=LANGUAGES)
