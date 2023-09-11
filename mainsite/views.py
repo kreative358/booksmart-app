@@ -325,7 +325,7 @@ def ajax_info_1(request):
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_page_not_found_view(request, exception):
     # return Response(context, template_name='page-500.html', )
-    context = context_mainsite
+    context = context_main
     # return Response(context, template_name='page-404.html', )
     return render(request, "page-404.html", context)
 
@@ -334,7 +334,7 @@ def custom_page_not_found_view(request, exception):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer,JSONRenderer])
 def custom_error_view(request, exception=None):
-    context = context_mainsite
+    context = context_main
     # return Response(context, template_name='page-500.html', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     return render(request, "page-500.html", context)
 
@@ -344,7 +344,7 @@ def custom_error_view(request, exception=None):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_permission_denied_view(request, exception=None):
-    context = context_mainsite
+    context = context_main
     # return Response(context, template_name='page-403.html', )
     return render(request, "page-403.html", context)
 
@@ -353,6 +353,6 @@ def custom_permission_denied_view(request, exception=None):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_bad_request_view(request, exception=None):
-    context = context_mainsite
+    context = context_mains
     # return Response(context, template_name='page-400.html', )
     return render(request, "page-400.html", context)
