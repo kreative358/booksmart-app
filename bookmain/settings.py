@@ -407,7 +407,7 @@ MEDIA_ROOT = [
 # https://www.youtube.com/watch?v=wB1qOExDsYY
 
 if IS_HEROKU_APP and ENVIRONMENT == 'production':
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'booksmartapp358@gmail.com'
     EMAIL_FROM = 'booksmartapp358@gmail.com'
