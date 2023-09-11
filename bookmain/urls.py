@@ -39,12 +39,13 @@ from mainsite.views import (
     ajax_info_1
     )
 from accounts.password import (
-    PasswordChangeView as PasswordChange, 
-    PasswordChangeDoneView,
-    PasswordResetView as PasswordReset,
-    PasswordResetConfirmView,
-    PasswordResetCompleteView,
-    PasswordResetDoneView,)
+    PasswordChangeView as PasswordChangeViewForm, 
+    PasswordChangeDoneView as PasswordChangeDoneViewForm,
+    PasswordResetView as PasswordResetViewForm,
+    PasswordResetConfirmView as PasswordResetConfirmViewForm,
+    PasswordResetCompleteView as PasswordResetCompleteViewForm,
+    PasswordResetDoneView as PasswordResetDoneViewForm,
+    )
 
 from rest_auth.registration.views import RegisterView, VerifyEmailView
 # from rest_auth.views import (
@@ -129,19 +130,42 @@ browserapi_patterns = [
 ] # , namespace='myapi'
 
 registration_patterns = [
-    path('password_change/', PasswordChange.as_view(template_name='registrations/password_change.html'), name='password_change_view'),
+    path('password_change/', PasswordChangeViewForm.as_view(template_name='registrations/password_change.html'), name='password_change_view'),
 
-    path('password_change_done/', PasswordChangeDoneView.as_view(template_name='registrations/password_change_done.html'), name='password_change_done'),
+    path('password_change_done/', PasswordChangeDoneViewForm.as_view(template_name='registrations/password_change_done.html'), name='password_change_done'),
 
-    path('password_reset_form/', PasswordReset.as_view(template_name='registrations/password_reset_form.html'), name='password_reset'),
+    path('password_reset_form/', PasswordResetViewForm.as_view(template_name='registrations/password_reset_form.html'), name='password_reset'),
 
-    path('password_reset_done/', PasswordResetDoneView.as_view(template_name='registrations/password_reset_done.html'),
+    path('password_reset_done/', PasswordResetDoneViewForm.as_view(template_name='registrations/password_reset_done.html'),
         name='password_reset_done'),
 
-    path('reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password_reset_confirmation/<uidb64>/<token>/', PasswordResetConfirmViewForm.as_view(), name='password_reset_confirm'),
+    # path('reset/<uidb64>/<token>/', PasswordResetConfirmViewForm.as_view(), name='password_reset_confirm'),
 
-    path('reset_reset_complete/', PasswordResetCompleteView.as_view(template_name='registrations/password_reset_complete.html'), name='password_reset_complete'),
+    # path('password_reset/', PasswordResetViewForm.as_view(), name='password_reset'),
+
+    path('password_reset_complete/', PasswordResetCompleteViewForm.as_view(template_name='registrations/password_reset_complete.html'), name='password_reset_complete'),
 ]
+
+# registration_patterns = [
+#     path('password_change/', auth_views.PasswordChangeViewForm.as_view(template_name='registrations/password_change.html'), name='password_change_view'),
+
+#     path('password_change_done/', auth_views.PasswordChangeDoneViewForm.as_view(template_name='registrations/password_change_done.html'), name='password_change_done'),
+
+#     path('password_reset_form/', auth_views.PasswordResetViewForm.as_view(template_name='registrations/password_reset_form.html'), name='password_reset'),
+
+#     path('password_reset_form/', auth_views.PasswordResetViewForm.as_view(template_name='registrations/password_reset_form.html'), name='password_reset'),
+
+#     path('password_reset_done/', auth_views.PasswordResetDoneViewForm.as_view(template_name='registrations/password_reset_done.html'),
+#         name='password_reset_done'),
+
+#     # path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+#     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmViewForm.as_view(), name='password_reset_confirm'),
+
+#     path('password_reset/', auth_views.PasswordResetViewForm.as_view(), name='password_reset'),
+
+#     path('password_reset_complete/', auth_views.PasswordResetCompleteViewForm.as_view(template_name='registrations/password_reset_complete.html'), name='password_reset_complete'),
+# ]
 
 from rest_framework.schemas import get_schema_view
 from rest_framework.documentation import include_docs_urls

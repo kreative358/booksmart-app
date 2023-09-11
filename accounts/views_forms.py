@@ -13,10 +13,40 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 
 from django.contrib import messages
+
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.mail import send_mail
 # https://blog.miguelgrinberg.com/post/the-new-way-to-generate-secure-tokens-in-python
 # import secrets
 # secrets.token_hex()
 # secrets.token_urlsafe()
+
+def mail_sender_form(request):
+    # send_mail(
+    #     "They visited our site",
+    #     "They clicked on link",
+    #     "booksmartapp358@gmail.com",
+    #     ["valow25984@chambile.com"],
+    #     fail_silently=False
+    # )
+    if request.method == "POST":
+        if request.POST.get('user-email', False):
+            user_email = request.POST['user-email']
+            message_text = "User send email address: " + user_email
+            books = Book.objects.all()
+            for book in books:
+                message_text += f'\n\r"{book.title}" - {book.author}' 
+            print("message_text:", message_text)
+            send_mail(
+                "They visited our site",
+                message_text,
+                "booksmartapp358@gmail.com",
+                ["valow25984@chambile.com"],
+                fail_silently=False
+            )
+
+            return HttpResponse("Mail with email address was sended")
+    return render(request, 'mail_sender.html')
 
 def account_view_form(request):
     context = context_bm

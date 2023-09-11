@@ -28,15 +28,43 @@
 
 {% block content_3 %} 
 
-<div class="my_container"  style="position: relative; z-index:12; margin-top:60px, float:left; margin-left: 7.4vw;">
-    <div class="my_row_user">
-    <div class="my_column_user ">   
-        <h4 style="z-index: 14;">user {{request.user}}</h4>
-      
-</div>
-</div>
-</div>
 
+<style type="text/css">
+
+    #book_last_add {  
+      position:relative;
+      z-index:11;
+      margin:24px auto 30px auto;
+      text-align:center;
+      padding:10px auto 10px auto;
+      width: 560px;
+      max-width: 96%;
+      border-radius:2px;
+      box-shadow: 
+      0px 0px 6px 6px rgba(151, 191, 231, 0.6) inset,
+      0px 0px 10px 6px rgba(229, 230, 243, 0.2); 
+        -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+      
+      color: MediumBlue; 
+      font-family: Georgia; 
+      font-weight: bold; 
+      font-size: 36px; 
+    
+    }
+             
+    </style>
+      
+    
+    {% if book_add_last %}
+    {% for book in book_add_last %}
+      {% if book.id == last_id %}
+      <div class="container-fluid" id="book_last_add" >
+        BOOK LAST ADDED </div>
+    {% include 'snippets-booksmart/book.html' %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}  
 {% endblock content_3 %}
 
 

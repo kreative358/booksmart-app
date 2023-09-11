@@ -7,17 +7,27 @@
 	padding:auto;
 	} */
 
-#input-email input[type=text] {
+#input-email input[type=text],
+#input-email input[type=email] {
 	font-size: 16px;
 	font-weight: bold;
 	color: darkblue;
 	padding:auto;
 	background: rgba(220, 220, 230, 0.6);
+	border: none;
+	outline: none;
 }
 
-#input-email input[type=text]:focus, #input-email input[type=text]:active, #input-email input[type=text]:valid {
+#input-email input[type=text]:focus, 
+#input-email input[type=text]:active, 
+#input-email input[type=text]:valid,
+#input-email input[type=email]:focus, 
+#input-email input[type=email]:active, 
+#input-email input[type=email]:valid {
 	background: rgba(220, 220, 230, 0.8);
 	color: darkblue;
+	border: none;
+	outline: none;
 }
 
 #input-email input:-webkit-autofill,

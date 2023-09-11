@@ -8,10 +8,10 @@
   z-index:1;
   width:90%;
   margin: 10px auto auto auto;
-  /*padding: -2px -2px -1px -1px;*/
+  /*padding: -2px -2px -1px -1px;
   -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-  transition-duration: 0.2s;
+  backdrop-filter: blur(2px); */
+  transition: 0.2s;
   text-shadow: 
   -0.015em 0.015em 0.0em rgb(211, 211, 211),
   -0.03em 0.03em 0.015em rgb(211, 211, 211), 
@@ -31,7 +31,7 @@
   border: 2px solid rgba(220, 230, 240, 0.2);
   box-shadow:
   1px 2px 6px 10px rgba(229, 230, 243, 0.6);
-  scale:1.01;
+  transform: matrix(1.02, 0, 0, 1.02, 0, 0);
 }
 
 .glass_book_gb {
@@ -305,6 +305,39 @@ text-shadow: 0px 0px 2px AliceBlue;}
   margin-bottom: 0px;
 }
 
+.button_author_save {
+  border: 4px solid rgba(60, 160, 240, 0.8); 
+  background-color: rgba(220, 220, 240, 0.6);
+  color: rgba(60, 160, 240, 0.8); 
+  margin:24px 5px 0px 0px; 
+  font-size: 22px; 
+  font-weight: bold; 
+  padding:2px 0px 2px 0px; 
+  width: 146px; 
+  min-width: 146px;
+  box-shadow: 
+  0px 0px 0px 4px rgba(219, 220, 222, 0.4);
+  transition: 0.4s;
+  float:right;
+}
+
+.button_author_save:hover,
+.button_author_save:focus {
+  border: 4px solid rgba(0, 20, 220, 0.8); 
+  box-shadow: 
+  0px 0px 0px 4px rgba(219, 220, 222, 0.6);
+  background-color: rgba(220, 220, 240, 0.8);
+  color: rgba(0, 20, 220, 0.8);
+}
+
+.button_author_save:active {
+  border: 4px solid rgba(0, 20, 220, 0.8); 
+  box-shadow: 
+  0px 0px 0px 2px rgba(219, 220, 222, 0.8);
+  background-color: rgba(220, 220, 240, 0.8);
+  color: rgba(0, 20, 220, 0.8); 
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+}
 </style>
          
 <div class="myrow_author_gb" id="row_author_gb">
@@ -313,7 +346,7 @@ text-shadow: 0px 0px 2px AliceBlue;}
     <div class="glass_book_gb">
     <div>
 
-    <button type="button" id="btn_wiki_author{{book_dict.author_c.wiki_idx}}" class="btn btn-outline-primary btn-lg text-primary float-right"  style="border: 4px solid; margin:24px 5px 0px 0px; font-size: 22px; font-weight: bold; padding:2px 0px 2px 0px; width:146px; min-width:146px;">edit &nbsp;&&nbsp; save</button>
+    <button type="button" id="btn_wiki_author{{book_dict.author_c.wiki_idx}}" class="button_author_save" >edit &nbsp;&&nbsp; save</button>
       
   <!-- The Modal -->
  

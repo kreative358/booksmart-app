@@ -155,6 +155,7 @@ ACCOUNT_EMAIL_REQUIRED = False
 LOGIN_REDIRECT_URL = "/api"
 LOGOUT_REDIRECT_URL = "/api" 
 REGISTRATION_REDIRECT_URL = "/api"
+LOGIN_URL = '/accounts-app/login'
 
 # TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates') # ROOT dir for templates
@@ -374,6 +375,8 @@ elif ENVIRONMENT == 'development':
     # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 MEDIA_URL = '/media/'
+# MEDIA_ROOT = 'media'
+# MEDIA_ROOT = 'mediafiles'
 MEDIA_ROOT = [  
     os.path.join(BASE_DIR, 'mediafiles')    
     ]
@@ -402,15 +405,29 @@ MEDIA_ROOT = [
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Emailing settings
 # https://www.youtube.com/watch?v=wB1qOExDsYY
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_FROM = 'booksmartapp3580@gmail.com'
-# EMAIL_HOST_USER = 'booksmartapp3580@gmail.com'
-# EMAIL_HOST_PASSWORD = 'ikzliaiijzdvbqlq'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
 
-# PASSWORD_RESET_TIMEOUT = 14400
+if ENVIRONMENT == 'production':
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'booksmartapp358@gmail.com'
+    # EMAIL_FROM = 'booksmartapp358@gmail.com'
+    EMAIL_HOST_PASSWORD = 'ikzliaiijzdvbqlq'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = 'BookSmart App Team booksmartapp358@gmail.com'
 
+    # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # EMAIL_HOST = 'smtp.sendgrid.com'
+    # EMAIL_HOST_USER = 'apikey'
+    # EMAIL_HOST_PASSWORD = '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'
+    # EMAIL_PORT = 587
+    # EMAIL_USE_TLS = True
+
+    # PASSWORD_RESET_TIMEOUT = 14400
+# elif ENVIRONMENT == 'development':
+#     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# elif DEBUG:
+elif ENVIRONMENT == 'development':
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -214,20 +214,25 @@
   to {left: -50%;}
   }
   
-  @keyframes door_left_close {
-  from {left: -50%;}
-  to {left: 0%;}
-  }
-  
+  @keyframes door_left_open {
+    0% {transform: translateX(100%);}
+    100% {transform: translateX(0%);}
+    }
+    
+    @keyframes door_left_close {
+    0% {transform: translateX(-100%);}
+    100% {transform: translateX(0%);}
+    }
+    
   @keyframes door_right_open {
-  from {right: 0%;}
-  to {right: -50%;}
-  }
-  
-  @keyframes door_right_close {
-  from {right: -50%;}
-  to {right: 0%;}
-  }
+    from {transform: translateX(-100%);}
+    to {transform: translateX(0%);}
+    }
+    
+    @keyframes door_right_close {
+    from {transform: translateX(100%);}
+    to {transform: translateX(0%);}
+    }
 
 @keyframes anime_left {
 	16% {

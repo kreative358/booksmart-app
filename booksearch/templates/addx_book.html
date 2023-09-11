@@ -12,14 +12,14 @@
   
   <script>
   
-    window.onload = function() {
+  /*  window.onload = function() {
     localStorage.clear();
-    }
+    } */
   
   
 
   document.body.onbeforeunload = function() {
-  let searches =  document.querySelectorAll("[id^='middle_message_'")
+  let searches =  document.querySelectorAll("[id^='middle_message_']")
   for (let search of searches) {
     search.innerText = "";
   }

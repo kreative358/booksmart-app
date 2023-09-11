@@ -178,8 +178,28 @@
   #right_div {
   }
 }
-    
+  
 
+@keyframes door_left_open {
+  0% {transform: translateX(100%);}
+  100% {transform: translateX(0%);}
+  }
+  
+  @keyframes door_left_close {
+  0% {transform: translateX(-100%);}
+  100% {transform: translateX(0%);}
+  }
+  
+@keyframes door_right_open {
+  from {transform: translateX(-100%);}
+  to {transform: translateX(0%);}
+  }
+  
+  @keyframes door_right_close {
+  from {transform: translateX(100%);}
+  to {transform: translateX(0%);}
+  }
+/*
 @keyframes door_left_open {
   from {left: 0%;}
   to {left: -50%;}
@@ -198,7 +218,7 @@
   @keyframes door_right_close {
   from {right: -50%;}
   to {right: 0%;}
-  }
+  } */
   
 
 

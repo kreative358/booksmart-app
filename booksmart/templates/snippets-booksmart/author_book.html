@@ -81,7 +81,7 @@
   box-shadow: 0px 0px 2px 2px rgba(120, 120, 120, 0.3);
   }
 
-#button_1a {
+#button_1a_m {
   float:right;
   padding:4px auto 4px auto;
   color: rgb(240, 248, 255);
@@ -97,21 +97,27 @@
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.4);
   }
 
-#button_1a:hover {
+#button_1a_m:hover,
+#button_1a_m:focus {
   color: rgb(30, 144, 255);
   background:rgb(211, 211, 211);
   background:rgba(211, 211, 211, 0.6);
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.6);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6 );
   }
 
-#button_1a:active {
-  scale: 0.98;
+#button_1a_m:active {
+  transform: matrix(0.98, 0, 0.98, 0, 2);
   box-shadow: 0px 0px 2px 2px rgba(210, 220, 230, 0.8);
+  border: 2px solid rgba(240, 240, 240, 0.6);
+  outline: 2px solid rgba(240, 240, 240, 0.6 );
 }
 
-#button_2a {
+#button_2a_m {
   float: right;
-  margin: auto 10px auto 10px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding:4px auto 4px auto;
   color: rgb(240, 248, 255);
   background-color:rgb(30, 144, 255);
@@ -126,7 +132,8 @@
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.4);
   }
 
-#button_2a:hover {
+#button_2a_m:hover,
+#button_2a_m:focus {
   color: rgb(30, 144, 255);
   background-color: rgb(211, 211, 211);
   background-color: rgba(211, 211, 211, 0.6);
@@ -135,17 +142,19 @@
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.6);
   }
 
-#button_2a:active {
-  scale: 0.98;
+#button_2a_m:active {
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
+  transform: matrix(0.98, 0, 0.98, 0, 2);
   box-shadow: 0px 0px 2px 2px rgba(210, 220, 230, 0.8);
 }
 
-#button_3a {
-  float:right;
-  padding:4px auto 4px auto;
+#button_3a_m {
+  float: right;
+  padding: 4px auto 4px auto;
   color: rgb(240, 248, 255);
-  background-color:rgb(178, 34, 34);
-  background-color:rgba(178, 34, 34, 0.6);
+  background-color: rgb(178, 34, 34);
+  background-color: rgba(178, 34, 34, 0.6);
   border: 2px solid rgba(240, 240, 240, 0.6);
   outline: 2px solid rgba(240, 240, 240, 0.6);
   text-align: center;
@@ -156,7 +165,8 @@
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.4);
   }
 
-#button_3a:hover {
+#button_3a_m:hover,
+#button_3a_m:focus {
   color: rgb(112, 128, 144);
   background-color: rgb(135, 206, 250);
   background-color: rgba(135, 206, 250, 0.6);
@@ -165,9 +175,11 @@
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.6);
   }
 
-#button_3a:active {
-  scale: 0.98;
+#button_3a_m:active {
+  transform: matrix(0.98, 0, 0.98, 0, 2);
   box-shadow: 0px 0px 2px 2px rgba(210, 220, 230, 0.8);
+  border: 2px solid rgba(120, 120, 120, 0.6);
+  outline: 2px solid rgba(120, 120, 120, 0.6);
 }
 
 #textarea_a {
@@ -304,23 +316,23 @@ button:focus {
 
     <div>  
          {% if request.user.id == book.author_c.user_num_a%}
-         <a type="button"  id="button_1a" href="{% url 'booksmart:editauthor' book.author_c.id %}" target="_blank" > Edit<br>Author </a>
+         <a type="button"  id="button_1a_m" href="{% url 'booksmart:editauthor' book.author_c.id %}" target="_blank" > Edit<br>Author </a>
          {% else %}
-         <a type="button"  id="button_1a" > Edit<br>Author </a>
+         <a type="button"  id="button_1a_m" > Edit<br>Author </a>
          {% endif %}
         
          <form action="{% url 'booksmart:booksauthor' %}" method="get" target="_blank" >
           {{ search_author }}
           <input type="hidden" id="author" name="author" value="{{book.author_c.author_name}}">
-          <button type="submit" id="button_2a">
+          <button type="submit" id="button_2a_m">
             Author's<br>Books
         </button>
       </form>
 
       {% if request.user.id == book.author_c.user_num_a%}
-      <a type="button"  id="button_3a" href="{% url 'booksmart:deleteauthor' book.author_c.id %}" target="_blank" > Delete<br>Author </a>
+      <a type="button"  id="button_3a_m" href="{% url 'booksmart:deleteauthor' book.author_c.id %}" target="_blank" > Delete<br>Author </a>
       {% else %}
-      <a type="button" id="button_3a" > Delete<br>Author </a>
+      <a type="button" id="button_3a_m" > Delete<br>Author </a>
       {% endif %}
   </div>
 

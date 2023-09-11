@@ -12,7 +12,7 @@
   margin: 10px auto auto auto;
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
-  transition-duration: 0.6s;
+  transition-duration: 0.4s;
   text-shadow: 
   -0.015em 0.015em 0.0em rgb(211, 211, 211),
   -0.03em 0.03em 0.015em rgb(211, 211, 211), 
@@ -33,7 +33,7 @@
   -webkit-backdrop-filter: none;
   box-shadow:
   1px 2px 6px 10px rgba(229, 230, 243, 0.6);
-  scale:1.02;
+  transform: matrix(1.02, 0, 0, 1.02, 0, 0);
 }
 
 .mycolumn_author {
@@ -142,7 +142,7 @@ button:focus {
 .button_1a {
   float:right;
   padding: 4px;
-  
+  margin-top: 5px;
   color: rgb(240, 248, 255);
   background: rgb(119, 136, 153);
   background: rgba(119, 136, 153, 0.6);
@@ -165,8 +165,7 @@ button:focus {
   }
 
 .button_1a:active {
-    transform: translateY(2px);
-    scale: 0.96;
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
     }
 
 .button_2a {
@@ -197,8 +196,7 @@ button:focus {
   }
 
 .button_2a:active {
-  transform: translateY(2px);
-  scale: 0.96; 
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 }
 
 .button_3a {
@@ -215,6 +213,7 @@ button:focus {
   font-size: 14px;
   font-weight: bold;
   box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+  margin-top: 5px;
   }
 
 .button_3a:hover {
@@ -226,8 +225,7 @@ button:focus {
   }
 
 .button_3a:active {
-  transform: translateY(2px);
-  scale: 0.96; 
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 }
 
 .textarea_a {

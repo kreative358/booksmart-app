@@ -120,13 +120,17 @@ def all_records(request):
     r_user = request.user
     current_url_name = request.path
 
-    all_books = Book.objects.all()
+    last_id = list(Book.objects.values_list('id').order_by('-id')[0])[0]
+    book_add_last = Book.objects.all().order_by('-id') 
+
+    all_books = Book.objects.all().order_by("title")
     all_authors = Author.objects.all()
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
 
     context = context_main
-
+    context["last_id"] = last_id
+    context["book_add_last"] = book_add_last
     context['allbooks'] = all_books
     context['allauthors'] = all_authors
     context['num_authors'] = num_authors
@@ -194,9 +198,9 @@ def all_authors(request):
 
     r_user = request.user
     current_url_name = request.path
-    # last_id = list(Author.objects.values_list('id').order_by('-id')[0])[0]
-    # # author_add_last = Author.objects.values_list('id').order_by('-id')[0]   
-    # author_add_last = Author.objects.filter(pk=last_id).get() 
+    last_id = list(Author.objects.values_list('id').order_by('-id')[0])[0]
+    author_add_last = Author.objects.all().order_by('-id') 
+    # author_add_last = get_object_or_404(Author, pk=last_id) 
     # print('author_add_last:', author_add_last)
     # all_authors = Author.objects.all().order_by('-created_at')
     all_authors = Author.objects.all().order_by('last_name')
@@ -206,8 +210,8 @@ def all_authors(request):
     num_books = Book.objects.all().count()
 
     context = context_main
-
-    # context["author_add_last"] = author_add_last
+    context["last_id"] = last_id
+    context["author_add_last"] = author_add_last
     context['allbooks'] = all_books
     context['num_books'] = num_books
     context['allauthors'] = all_authors

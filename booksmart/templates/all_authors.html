@@ -29,20 +29,12 @@
 
 {% block content_3 %} 
 
-<div class="container-fluid col-lg-10 mb-4"  >
-    <div class="row">
-    <div class="col-lg-12  ">   
-
-      
-</div>
-</div>
-</div>
 
 <style type="text/css">
 
 #author_last_add {  
   position:relative;
-  z-index:1;
+  z-index: 11;
   margin:24px auto 30px auto;
   text-align:center;
   padding:10px auto 10px auto;
@@ -66,14 +58,13 @@
   
 
 {% if author_add_last %}
-{% if author_add_last|length > 0 %}
-<div class="container-fluid" id="author_last_add" >
-  AUTHOR LAST ADDED </div>
 {% for author_c in author_add_last %}
+  {% if author_c.id == last_id %}
+  <div class="container-fluid" id="author_last_add" >
+    AUTHOR LAST ADDED </div>
 {% include 'snippets-booksmart/author.html' %}
-{% endfor %}
- 
 {% endif %}
+{% endfor %}
 {% endif %}  
 
 
@@ -82,7 +73,6 @@
 
 {% block content_4 %}
 
-{% include 'snippets-booksmart/sort_book.html' %}
 {% include 'snippets-booksmart/filter_books_q.html' %}
 {% include 'snippets-booksmart/search_panel.html' %}
 

@@ -32,6 +32,7 @@ from accounts.views import(
 from accounts.views_forms import (
     register_view_form, ## usunąć
     account_view_form,
+    mail_sender_form
 )
 
 from accounts.password import (
@@ -89,6 +90,10 @@ urlpatterns = [
     path('password-update/', PasswordUpdateView.as_view(), name="password-update"),
     path('password-update-api/', PasswordUpdateViewApi.as_view(), name="password-update-api"),
 
+    #path('email-sender', EmailSender.as_view(), name="email-sender")
+    #path('password-reset)
+
+
     # path('register/', registration_view_base, name='register'),
     #path('login_token', ObtainAuthTokenView.as_view(), name="login"),
     #path('login', CustomAuthToken.as_view(), name="login"),
@@ -97,8 +102,9 @@ urlpatterns = [
     
     path('account_update/', account_view_form, name="account_update"),
 
-    # path('user_info/', UserInformationAPIVIew.as_view(), name='user_information_api_view'),
+    path('mail_sender', mail_sender_form, name='email_sender'),
 
+    # path('user_info/', UserInformationAPIVIew.as_view(), name='user_information_api_view'),
 
     # path('send-confirmation-email/', SendEmailConfirmationTokenAPIView.as_view(), name='send_email_confirmation_api_view'),
     # path('confirm-email/', confirm_email_view, name='confirm_email_view'),
