@@ -221,7 +221,7 @@ class PasswordResetView(PasswordContextMixin, FormView):
     template_name = 'registrations/password_reset_form.html'
     title = _('Password reset')
     token_generator = default_token_generator
-    print("PasswordResetView")
+    
     @method_decorator(csrf_protect)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
@@ -238,7 +238,7 @@ class PasswordResetView(PasswordContextMixin, FormView):
             'extra_email_context': self.extra_email_context,
         }
         form.save(**opts)
-        print("PasswordResetView form: ", form)
+        
         return super().form_valid(form)
 
 
@@ -259,7 +259,7 @@ class PasswordResetConfirmView(PasswordContextMixin, FormView):
     template_name = 'registrations/password_reset_confirm.html'
     title = _('Enter new password')
     token_generator = default_token_generator
-    print("PasswordResetConfirmView: ")
+    
     @method_decorator(sensitive_post_parameters())
     @method_decorator(never_cache)
     def dispatch(self, *args, **kwargs):
@@ -278,7 +278,7 @@ class PasswordResetConfirmView(PasswordContextMixin, FormView):
                 if self.token_generator.check_token(self.user, session_token):
                     # If the token is valid, display the password reset form.
                     self.validlink = True
-                    print("PasswordResetConfirmView: ", super().dispatch(*args, **kwargs))
+                    
                     return super().dispatch(*args, **kwargs)
             else:
                 if self.token_generator.check_token(self.user, token):
