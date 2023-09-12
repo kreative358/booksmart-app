@@ -135,9 +135,9 @@ registration_patterns = [
     path('password_change_done/', PasswordChangeDoneViewForm.as_view(template_name='registrations/password_change_done.html'), name='password_change_done'),
 
     path('password_reset_form/', PasswordResetViewForm.as_view(
-        template_name='registrations/password_reset_form.html',
-        from_email="booksmart358@gmail.com"), name='password_reset'),
-
+        template_name='registrations/password_reset_form.html'), name='password_reset'),
+    # , from_email="booksmart358@gmail.com"
+    
     path('password_reset_done/', PasswordResetDoneViewForm.as_view(template_name='registrations/password_reset_done.html'),
         name='password_reset_done'),
 

@@ -32,7 +32,12 @@ from accounts.views import(
 from accounts.views_forms import (
     register_view_form, ## usunąć
     account_view_form,
-    mail_sender_form
+)
+
+from accounts.mail_sender import (
+    mail_sender_form_1,
+    mail_sender_form_2,
+    mail_sender_form_3
 )
 
 from accounts.password import (
@@ -102,8 +107,9 @@ urlpatterns = [
     
     path('account_update/', account_view_form, name="account_update"),
 
-    path('mail_sender', mail_sender_form, name='email_sender'),
-
+    path('mail_sender_1/', mail_sender_form_1, name='email_sender_1'),
+    path('mail_sender_2/', mail_sender_form_2, name='email_sender_2'),
+    path('mail_sender_3/', mail_sender_form_3, name='email_sender_3'),
     # path('user_info/', UserInformationAPIVIew.as_view(), name='user_information_api_view'),
 
     # path('send-confirmation-email/', SendEmailConfirmationTokenAPIView.as_view(), name='send_email_confirmation_api_view'),
