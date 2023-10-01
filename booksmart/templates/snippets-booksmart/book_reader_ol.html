@@ -2,9 +2,9 @@
 <style type="text/css">
 
 /*⊕ ⊖ − ∓ ─  */
-[id^="read_column_o"] {  
+.mycolumn_book_reader {  
 position:relative;
-z-index:1;
+z-index:12;
 justify-content: center;
 align-items: center;
 border: 4px solid rgba(90, 150, 210, 0.4);
@@ -27,18 +27,15 @@ font-weight: bold;
 padding-top: 2px;
 text-align: center;
 margin: 120px auto 10px auto;
-width: 490px;
-min-width: 490px;
+width: 520px;
+max-width: 90%;
 font-family: Times;
+padding: 10px;
   }
 
-.mycard_reader {
-  background: rgba(90, 150, 210, 0.4);
-}
-
-.mycolumn_reader {  
+.mycolumn_book_reader {  
   position:relative;
-  z-index:1;
+  z-index:14;
   justify-content: center;
   align-items: center;
   border: 4px solid rgba(90, 150, 210, 0.2);
@@ -59,19 +56,15 @@ font-family: Times;
   padding-top: 2px;
   text-align: center;
   margin: 100px auto 40px auto;
-  min-width: 490px;
- width: 490px;
+  width: 520px;
+ max-width: 90%;
  font-family: Times;
  padding: 10px;
-    }
-
-  [id^="read_card_o2"] {
-   
-      background: rgba(90, 150, 210, 0.4);
+ left: 12px;
     }
 
 
-.mycolumn_reader:hover {
+.mycolumn_bo0k_reader:hover {
   color: darkblue;
   background-color: rgb(100, 160, 220); 
   background-color: rgba(100, 160, 220, 0.6); 
@@ -80,7 +73,7 @@ font-family: Times;
   box-shadow: -1px 2px 1px 1px rgba(110, 170, 230, 0.4), 1px -1px 1px 1px rgba(110, 170, 230, 0.4), 0px 4px 0px 0px rgba(47, 128, 208, 0.4), 0px 8px 0px 0px rgba(38, 102, 166, 0.4), -4px 10px 8px 2px rgba(229, 230, 243, 0.4), 4px 0px 8px 2px rgba(219, 220, 233, 0.4),  0px 12px 6px 2px rgba(209, 210, 222, 0.4), 0px 14px 8px 0px rgba(199, 200, 212, 0.4), 0 16px 20px 0 rgba(190, 190, 201, 0.4);
 }
 
-.mycolumn_reader:active {
+.mycolumn_book_reader:active {
   color: LightSteelBlue;
   background-color: rgb(200, 200, 240); 
   background-color: rgba(200, 200, 240, 0.6); 
@@ -93,7 +86,11 @@ font-family: Times;
   3px -2px 4px 1px rgba(29, 130, 243, 0.6),
 }
 
-
+.mycard_book_reader {
+  background: rgba(90, 150, 210, 0.4);
+  margin: auto;
+  padding: 10px;
+}
 @keyframes anime_red_border {
 25% {
 border-color: red;}
@@ -109,12 +106,35 @@ color: red;}
 [id^='button_ol_'].active {
 transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 }
+
+@media screen and (max-width: 560px) {
+  #marque {
+    font-size: 24px;
+  }
+
+  .mycontainer_book_reader {
+    max-width: 94%;
+    width: 94%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+  #marque {
+    font-size: 22px;
+  }
+
+  .mycontainer_book_reader {
+    max-width: 98%;
+    left: 0px;
+  }
+}
 </style>
 
 
- <div class="mycolumn_reader"  id="read_column_o2_{{book.id}}">
-        <div class="mycard_reader" id="read_card_o2_{{book.id}}">
-      {% if cont %}
+ <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
+        <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">
+          {% if cont %}
       {% include 'snippets-booksmart/openbook.html' %}
        {% elif conts %}
        {% for cont in conts %}
@@ -123,10 +143,26 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 2);
         {% elif message_read %}
          
     <p style="animation: anime_red_text 2s infinite; font-size: 22px; color: mediumblue; padding: 10px; line-height: 1;"> <span style="padding-top: 10px;"> Information about book title: </span> <br><br> <span  > "{{ book.title }}" </span> <br><br> <span style="padding-bottom: 10px;" > {{message_read}} </span> </p>
+
     {% endif %}
-          </div>
-        </div>
-    <br>
+  </div>
+</div>
+<br>
+
+    <div class="mycolumn_book_reader"  id="">
+      <div class="mycard_book_reader" id="">
+    
+    <form action="{% url 'booksmart:downloadbook' %}"  method="GET" target="_blank" >
+     
+     {{ search_title_download }}
+     <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
+     <button type="submit" class="btn btn-outline-primary btn-lg text-danger" style="width:340px; padding:auto; margin: 5px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold; font-family: Times;" id='tooltip'>
+      IF YOU NEED YOU CAN TRY TO FIND THIS BOOK BUT ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND
+    <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT</span></button>
+    </form>
+    </div>
+    </div>
+   
 
 
 

@@ -87,9 +87,15 @@ margin: 5px;
   margin: 5px;  
 }
 
-#myBtn_dark_main {
+#myBtn_dark_back_s {
   bottom: 12px;
   left: 3px;
+  margin: 5px;  
+}
+
+#myBtn_mail_sender {
+  bottom: 12px;
+  right: 3px;
   margin: 5px;  
 }
 
@@ -98,8 +104,9 @@ margin: 5px;
   z-index: 44;
   cursor: pointer;
   font-size: 22px;
-  padding: 8px auto 8px auto;
+  padding: 2px;
   min-height: 38px;
+  max-height: 38px;
   min-width: 140px;
   font-family:Times;
   transition-duration: 0.2s;
@@ -160,10 +167,24 @@ margin: 5px;
   outline: none;
 }
 
+
+  @media screen and (max-width: 820px) {
+    .myBtns {
+    font-size: 2.6vw;
+    padding: 0px;
+    min-width: 16%;
+    max-width: 16%;
+    width: 16%;
+  /*  line-height: 1.4; */
+    min-height: 5vw;
+    max-height: 5vw;
+    height: 5vw;
+  }
+}
 </style>
 
 
-<audio autoplay loop id="myAudio01">
+<audio preload loop id="myAudio01">
   <source src="{{ music_url_2 }}" type="audio/{{ music_type_2 }}">
   Your browser does not support HTML5 audio.
 </audio>
@@ -176,7 +197,7 @@ margin: 5px;
 
 <!--</div>-->
 
-  <audio preload autoplay loop id="myAudio02">
+  <audio preload loop id="myAudio02">
     <source src="{{ music_url_1 }}" type="audio/{{ music_type_1 }}">
     Your browser does not support HTML5 audio.
   </audio> 
@@ -194,7 +215,9 @@ margin: 5px;
   
       <button type="button" id="myBtn1a" class="myBtns notranslate" onclick="myFunction1a()" > mute audio </button>
   
-       <button type="button" class="myBtns notranslate" id="myBtn_dark_main">dark mode</button>
+       <button type="button" class="myBtns notranslate" id="myBtn_dark_back_s">dark mode</button>
+
+       <button type="button" class="myBtns notranslate" id="myBtn_mail_sender"> contact </button>
 
   <script>
     window.onload = function() {

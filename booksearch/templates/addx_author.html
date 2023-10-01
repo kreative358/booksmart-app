@@ -63,9 +63,9 @@
 
 <style type="text/css">
   
-#cont_main_ba {
+.container_af {
 position: relative;
-z-index:1;
+z-index:12;
 margin:6vw auto 2vw auto;
 text-align:center;
 padding:auto;
@@ -82,12 +82,18 @@ color: MediumBlue;
 font-family: Georgia; 
 font-weight: bold; 
 font-size: 36px; 
+left: 12px;
 }
 
+@media screen and (max-width: 480px) {
+  #cont_main_ba {
+    left: 0px;
+  }
+}
 </style>
           
           
-  <div class="container" id="cont_main_ba" >
+  <div class="container_af" >
    AUTHOR FOUND </div>
       
 {% include 'snippets-booksearch/base_gbook_author.html' %}

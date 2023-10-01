@@ -1,7 +1,7 @@
 <style>
-.modal {
+  .mymodal_back_booksmart {
   position:fixed;
-  z-index:35;
+  z-index:65;
   background-color: rgb(20, 400, 220); 
   background-color: rgba(20, 400, 220, 0.2);
   left: 0;
@@ -14,16 +14,18 @@
        background-color: rgba(120, 120, 120, 0.2);
  } */
 
-#modal_dialog_m {
+ .mymodal_container_booksmart {
   position:relative;
-  z-index: 36;
-  max-width::620px;
-  width: 620px;
+  z-index: 76;
+  max-width::90%;
+  width: 560px;
   margin: 140px auto auto auto;
+  border: 6px solid rgba(60, 160, 240, 0.4);
+  box-shadow: 0px 0px 8px 8px rgba(200, 200, 220, 0.4);    
 }
 
 
-#modal_cont {
+.mymodal_container_booksmart {
     /* margin: 0;
   position: fixed;
   top: 200px;
@@ -35,39 +37,43 @@
   text-align: center;
   font-weight: bold;
   border-radius: 3px;
-  border: 5px solid rgba(240, 240, 240, 0.6);
-  box-shadow: 4px 0px 8px 0 rgba(120, 120, 120, 0.3);    
+  border: 6px solid rgba(60, 160, 240, 0.4);
+  
     }
 
 #modal_content {
-  width: 600px;
+  margin: auto;
   background-color: rgb(220, 220, 220); 
   background-color: rgba(220, 220, 220, 0.8);
+  padding: 10px;
   }
 
 #modal_header {
 background-color: rgb(120, 160, 220); 
 background-color: rgba(120, 160, 220, 0.2);
+margin: auto;
+padding: 10px;
 }
+
 
 </style>
 
 <!-- Modal -->
-<div class="modal" id="myModal_m" data-backdrop="false" >
-  <div class="modal-dialog" id="modal_dialog_m">
-    <div class="container-fluid" id="modal_cont">
+<div class="mymodal_back_booksmart" id="mymodal_back_booksmart" >
+  <div class="mymodal_container_booksmart" id="my_modal_container_booksmart">
+    <div class="mymodal_row_booksmart" id="my_modal_row_booksmart">
     <!-- Modal content-->
-    <div class="modal-content" id="modal_content" >
+    <div class="mymodal_column_booksmart" id="my_modal_colum_booksmart" >
     
-      <div class="modal-header" id="modal_header">
+      <div class="mymodal_header_booksmart" id="my_modal_header_booksmart">
 
       <div> <h4>INFO MESSAGES</h4>  </div>
       
-        <button type="button" class="close" data-dismiss="modal">✖</button>
+        <button type="button" class="close" >✖</button>
     
       </div>
       
-      <div class="modal-body">
+      <div class="mymodal_body_booksmart" id="my_modal_body_booksmart">
       {% for message in messages %}
       <div> <h4> {% autoescape off %} {{ message }} {% endautoescape %}</h4><br></div>
       {% endfor %}

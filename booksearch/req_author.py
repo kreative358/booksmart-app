@@ -17,6 +17,8 @@ key=os.environ.get('API_KEY')
 context_main = {}
 
 context_main['no_date'] = datetime.date(3000, 1, 1)
+context_main['no_date_start'] = datetime.date(3000, 1, 1)
+context_main['no_date_end'] = datetime.date(3000, 1, 1)
 context_main['url_img_book'] = url_img
 context_main['url_img_author'] = url_img_author
 
@@ -109,6 +111,10 @@ def addx_author(request):
     context['author'] = ""
     context['message_a'] = ""
     
+    no_date = '3000-01-01'
+    context['no_date'] = r'3000-01-01'
+    context['no_date_start'] = r'3000-01-01'
+    context['no_date_end'] = r'3000-01-01'
     book_dict = {}
     author_search_form = GBAuthor(request.GET)
     
@@ -151,7 +157,7 @@ def addx_author(request):
     else:    
         book_dict['author_c']['wiki_idx'] = wiki_idx
 
-    print('491 wiki_idx', wiki_idx)            
+    # print('491 wiki_idx', wiki_idx)            
     if wiki_idx.startswith('Q'):
         req_author_date(wiki_idx, book_dict)
         # r_author_date = req_author_date(wiki_idx, book_dict)
@@ -266,7 +272,7 @@ def addauthor(request):
 
     
     new_author_name = new_author.author_name
-    print(f'\nnew_author_name: {new_author_name}\n')
+    # print(f'\nnew_author_name: {new_author_name}\n')
     try:
         books_author_c=Author.objects.filter(author_name=new_author_name)
         if books_author_c:
@@ -275,7 +281,7 @@ def addauthor(request):
             return redirect('booksmart:allauthors')
         else:
             new_author.save()
-            print('req_author line 261')
+            # print('req_author line 261')
             books = Book.objects.filter(author=new_author_name)
             # new_author_c = Author.objects.filter().last()
             # books = Book.objects.filter(author=new_author_name)
@@ -299,7 +305,7 @@ def addauthor(request):
                         book.author_c = author_author_c
                         # book.author_c = Author.objects.filter().last()
                         book.save()
-                        print('req_author line 278')
+                        # print('req_author line 278')
             else:
                 print('req_author line 280')
 

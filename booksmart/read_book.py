@@ -35,7 +35,7 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
         author_to_search = auth_to_search.lower()
         auth_surname = book.surname
         author_surname = auth_surname.lower()
-        print('title_to_search', title_to_search)
+        # print('title_to_search', title_to_search)
 
         title_to_search_q = title_to_search.lower().replace("the ", "").replace("-", "slugify")
         title_slugify_q = slugify(title_to_search_q).replace("-", " ").replace("slugify", "-")
@@ -61,7 +61,7 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
             titles_plus.append(title_plus)
             title_plus_q = title_short_q.replace(' ', '+')
             titles_plus_q.append(title_plus)
-            print('if title_plus', title_plus)
+            # print('if title_plus', title_plus)
         else:
             title_split_short = title_to_search_split
             titles_split.append(title_split_short)
@@ -69,7 +69,7 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
             titles_short.append(title_short)
             title_plus = title_short.replace(' ', '+')
             titles_plus.append(title_plus)
-            print('else title_plus', title_plus)
+            # print('else title_plus', title_plus)
             title_split_short_q = title_split_q
             titles_split.append(title_split_short_q)
             titles_idents_1.append("".join(title_split_short_q))
@@ -80,9 +80,9 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
 
         # parameters = f'{title_plus}+{author_surname}'
         parameters = f'{title_plus_q}+{author_surname_q}'
-        print('parameters:', parameters)
+        # print('parameters:', parameters)
         search_url = f'https://openlibrary.org/search/inside.json?q={parameters}'
-        print('search_url', search_url)
+        # print('search_url', search_url)
         # search_url = f'https://openlibrary.org/search/inside.json?q={title_plus}'
         r = requests.get(url=search_url)
         if r.status_code != 200:
@@ -112,9 +112,9 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
         
         if records['hits']['hits']:
             recs = records['hits']['hits']
-            print('len(recs)', len(recs))
+            # print('len(recs)', len(recs))
             n_records = len(recs)
-            print('titles_short[-1]', titles_short[-1])
+            # print('titles_short[-1]', titles_short[-1])
             # for i in range(n_records-1):
             for i in range(n_records):
                 try:
@@ -127,8 +127,8 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
                 try:
                     if recs[i]['edition']['title']:
                         title_jshort = recs[i]['edition']['title'].lower()
-                        # print('title_jshort', title_jshort)
-                        # print('titles_short[0]', titles_short[0])
+                        # # print('title_jshort', title_jshort)
+                        # # print('titles_short[0]', titles_short[0])
                         titles_jshort.append(title_jshort)
                         title_jsplit = title_jshort.split()
                         titles_jsplit.append(title_jsplit)
@@ -161,7 +161,7 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
                 except Exception as e:
                     print(f"180 {e}, i: {i}")
 
-            print('163 idents', idents)
+            # print('163 idents', idents)
             # print('idents_title', idents_title)
             # print('idents_author', idents_author)
 
@@ -170,7 +170,7 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
                 # identities.extend(identities_list_1)
                 if len(identities_list_1) > 0:
                     identities_1.extend(identities_list_1)
-                    print('identities_list_1', identities_list_1)
+                    # print('identities_list_1', identities_list_1)
                     identities.extend(identities_list_1)
                     
                 else:
@@ -181,10 +181,10 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
                 # identities.extend(identities_list_2)
                 if len(identities_list_2) > 0:
                     identities_1.extend(identities_list_2)
-                    print('identities_list_2', identities_list_2)
+                    # print('identities_list_2', identities_list_2)
                     identities.extend(identities_list_2)
                 else:
-                    print('2. no links')
+                    # print('2. no links')
                     idents_title_1.extend(idents_title)
 
             elif idents and idents_author and not idents_title:
@@ -192,23 +192,24 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
                 # identities.extend(identities_list_3)
                 if len(identities_list_3) > 0:
                     identities_1.extend(identities_list_3)
-                    print('identities_list_3', identities_list_3)
+                    # print('identities_list_3', identities_list_3)
                     identities.extend(identities_list_3)
                 else:
-                    print('19 3. no links')
+                    # print('19 3. no links')
                     idents_author_1.extend(idents_author)
                     idents_1.extend(idents)
 
 
 
             else:
-                print('4 no links')
+                # print('4 no links')
                 pass
                 #context['message'] = 'Sorry, probably no free ebook on this title'
                 #return Response(context, template_name='read_book.html', )
 
         else:
-            print('5 no links')
+            # print('5 no links')
+            pass
 
             #context['message'] = 'Sorry, probably there is no this book to read for free'
             #return Response(context, template_name='read_book.html', )    
@@ -220,10 +221,10 @@ def include_ident_1(idents_1, titles_idents_1, container, context, titles_idents
 
     t_ident = titles_idents_1[-1]
     titles_idents_2.append(t_ident)
-    print("include_ident_1:", t_ident)
+    # print("include_ident_1:", t_ident)
     
     t_idents_1 = [i for i in idents_1 if t_ident in i]
-    print("226 t_idents_1", t_idents_1)
+    # print("226 t_idents_1", t_idents_1)
     context_i1 = {}
     if len(t_idents_1) > 0:
         if len(t_idents_1) == 1:
@@ -231,7 +232,7 @@ def include_ident_1(idents_1, titles_idents_1, container, context, titles_idents
             container_one = container
             container_one['link'] = f'https://openlibrary.org/borrow/ia/{t_ids[0]}?ref=ol'
             context_i1['cont'] = container_one
-            print("233 context['cont']", context_i1['cont'])
+            # print("233 context['cont']", context_i1['cont'])
             return context_i1
             # return Response(context, template_name='read_book.html', )
         elif len(t_idents_1) > 1:
@@ -244,21 +245,21 @@ def include_ident_1(idents_1, titles_idents_1, container, context, titles_idents
                 containers_many.append(container_many)
 
                 context_i1['conts'] = containers_many
-                print("245 context['conts'][0]", context_i1['conts'][0])
+                # print("245 context['conts'][0]", context_i1['conts'][0])
             return context_i1
             # return Response(context, template_name='read_book.html', )
     
     else:
-        print("NO include_ident_1")
+        # print("NO include_ident_1")
         text ="no context"
         return text
 
 def include_ident_2(idents_1, titles_idents_2, container, context):
 
     t_ident = titles_idents_2[-1]
-    print("include_ident_2:", t_ident)
+    # print("include_ident_2:", t_ident)
     t_idents_2 = [i for i in idents_1 if i[:i.index("00")] in t_ident]
-    print("253 t_idents_2", t_idents_2)
+    # print("253 t_idents_2", t_idents_2)
     context_i2 = {}
     if len(t_idents_2) > 0:
         if len(t_idents_2) == 1:
@@ -266,7 +267,7 @@ def include_ident_2(idents_1, titles_idents_2, container, context):
             container_one = container
             container_one['link'] = f'https://openlibrary.org/borrow/ia/{t_ids[0]}?ref=ol'
             context_i2['cont'] = container_one
-            print("context['cont']", context_i2['cont'])
+            # print("context['cont']", context_i2['cont'])
             return context_i2
             # return Response(context, template_name='read_book.html', )
         elif len(t_idents_2) > 1:
@@ -279,11 +280,11 @@ def include_ident_2(idents_1, titles_idents_2, container, context):
                 containers_many.append(container_many)
 
                 context_i2['conts'] = containers_many
-                print("context['conts'][0]", context_i2['conts'][0])
+                # print("context['conts'][0]", context_i2['conts'][0])
             return context_i2
             # return Response(context, template_name='read_book.html', )
     else:
-        print("NO include_ident_2")
+        # print("NO include_ident_2")
         text ="no context"
         return text
 
@@ -295,7 +296,7 @@ def idents_title_author_1(idents_title_1, indets_author_1):
         container_one = container
         container_one['link'] = f'https://openlibrary.org/borrow/ia/{ids[0]}?ref=ol'
         context_ta['cont'] = container_one
-        print("context['cont']", context_ta['cont'])
+        # print("context['cont']", context_ta['cont'])
         return context_ta
         # return Response(context, template_name='read_book.html', )
     elif len(ids) > 1:
@@ -307,11 +308,11 @@ def idents_title_author_1(idents_title_1, indets_author_1):
             containers_many.append(container_many)
 
         context_ta['conts'] = containers_many
-        print("context['conts'][0]", context_ta['conts'][0])
+        # print("context['conts'][0]", context_ta['conts'][0])
         return context_ta
         # return Response(context, template_name='read_book.html', )
     else:
-        print("NO idents_title_author")
+        # print("NO idents_title_author")
         text ="no context"
         return text
 
@@ -322,7 +323,7 @@ def idents_title_author_2(idents_title_2, indets_author_2):
         container_one = container
         container_one['link'] = f'https://openlibrary.org/borrow/ia/{ids[0]}?ref=ol'
         context_ta['cont'] = container_one
-        print("context['cont']", context_ta['cont'])
+        # print("context['cont']", context_ta['cont'])
         return context_ta
         # return Response(context, template_name='read_book.html', )
     elif len(ids) > 1:
@@ -334,11 +335,11 @@ def idents_title_author_2(idents_title_2, indets_author_2):
             containers_many.append(container_many)
 
         context_ta['conts'] = containers_many
-        print("context['conts'][0]", context_ta['conts'][0])
+        # print("context['conts'][0]", context_ta['conts'][0])
         return context_ta
         # return Response(context, template_name='read_book.html', )
     else:
-        print("NO idents_title_author")
+        # print("NO idents_title_author")
         text ="no context"
         return text
 
@@ -376,7 +377,7 @@ def use_title(context, formlib, book, identities_1, idents_title_1, idents_autho
         author_to_search = auth_to_search.lower()
         auth_surname = book.surname
         author_surname = auth_surname.lower()
-        print('title_to_search', title_to_search)
+        # print('title_to_search', title_to_search)
 
         title_to_search_q = title_to_search.lower().replace("the ", "").replace("-", "slugify")
         title_slugify_q = slugify(title_to_search_q).replace("-", " ").replace("slugify", "-")
@@ -402,7 +403,7 @@ def use_title(context, formlib, book, identities_1, idents_title_1, idents_autho
             titles_plus.append(title_plus)
             title_plus_q = title_short_q.replace(' ', '+')
             titles_plus_q.append(title_plus)
-            print('if title_plus', title_plus)
+            # print('if title_plus', title_plus)
         else:
             title_split_short = title_to_search_split
             titles_split.append(title_split_short)
@@ -410,7 +411,7 @@ def use_title(context, formlib, book, identities_1, idents_title_1, idents_autho
             titles_short.append(title_short)
             title_plus = title_short.replace(' ', '+')
             titles_plus.append(title_plus)
-            print('else title_plus', title_plus)
+            # print('else title_plus', title_plus)
             title_split_short_q = title_split_q
             titles_split.append(title_split_short_q)
             titles_idents_1.append("".join(title_split_short_q))
@@ -422,9 +423,9 @@ def use_title(context, formlib, book, identities_1, idents_title_1, idents_autho
         # parameters = f'{title_plus}+{author_surname}'
         # parameters = f'{title_plus_q}+{author_surname_q}'
         parameters = f'{title_plus_q}'
-        print('parameters:', parameters)
+        # print('parameters:', parameters)
         search_url = f'https://openlibrary.org/search/inside.json?q={parameters}'
-        print('search_url', search_url)
+        # print('search_url', search_url)
         # search_url = f'https://openlibrary.org/search/inside.json?q={title_plus}'
         r = requests.get(url=search_url)
         if r.status_code != 200:
@@ -454,9 +455,9 @@ def use_title(context, formlib, book, identities_1, idents_title_1, idents_autho
         
         if records['hits']['hits']:
             recs = records['hits']['hits']
-            print('len(recs)', len(recs))
+            # print('len(recs)', len(recs))
             n_records = len(recs)
-            print('titles_short[-1]', titles_short[-1])
+            # print('titles_short[-1]', titles_short[-1])
             # for i in range(n_records-1):
             for i in range(n_records):
                 try:
@@ -481,9 +482,11 @@ def use_title(context, formlib, book, identities_1, idents_title_1, idents_autho
                         #     idents_title.append(idents[-1])
 
                         else:
-                            print('1. no title')
+                            # print('1. no title')
+                            pass
                     else:
-                        print('2. no title')
+                        # print('2. no title')
+                        pass
                 except Exception as e:
                     print(f"168 {e}, i: {i}")
                 try:
@@ -495,38 +498,41 @@ def use_title(context, formlib, book, identities_1, idents_title_1, idents_autho
                         if author_jname == author_to_search or author_jsurname == author_surname:
                             idents_author.append(idents[-1])
                         else:
-                            print('1. no author')
+                            # print('1. no author')
+                            pass
                             
                     else:
-                        print('2. no author')
+                        # print('2. no author')
+                        pass
                         
                 except Exception as e:
                     print(f"180 {e}, i: {i}")
 
-            print('163 idents', idents)
-            # print('idents_title', idents_title)
-            # print('idents_author', idents_author)
+            # print('163 idents', idents)
+            # # print('idents_title', idents_title)
+            # # print('idents_author', idents_author)
 
             if idents and idents_title and idents_author:
                 identities_list_1 = list(set(idents).intersection(set(idents_title).intersection(set(idents_author))))
                 # identities.extend(identities_list_1)
                 if len(identities_list_1) > 0:
                     identities_1.extend(identities_list_1)
-                    print('identities_list_1', identities_list_1)
+                    # print('identities_list_1', identities_list_1)
                     identities.extend(identities_list_1)
                     
                 else:
-                    print('1. no links')
+                    # print('1. no links')
+                    pass
 
             elif idents and idents_title and not idents_author:
                 identities_list_2 = list(set(idents).intersection(set(idents_title)))
                 # identities.extend(identities_list_2)
                 if len(identities_list_2) > 0:
                     identities_1.extend(identities_list_2)
-                    print('identities_list_2', identities_list_2)
+                    # print('identities_list_2', identities_list_2)
                     identities.extend(identities_list_2)
                 else:
-                    print('2. no links')
+                    # print('2. no links')
                     idents_title_1.extend(idents_title)
 
             elif idents and idents_author and not idents_title:
@@ -534,23 +540,24 @@ def use_title(context, formlib, book, identities_1, idents_title_1, idents_autho
                 # identities.extend(identities_list_3)
                 if len(identities_list_3) > 0:
                     identities_1.extend(identities_list_3)
-                    print('identities_list_3', identities_list_3)
+                    # print('identities_list_3', identities_list_3)
                     identities.extend(identities_list_3)
                 else:
-                    print('19 3. no links')
+                    # print('19 3. no links')
                     idents_author_1.extend(idents_author)
                     idents_1.extend(idents)
 
 
 
             else:
-                print('4 no links')
+                # print('4 no links')
+                pass
                 
                 #context['message'] = 'Sorry, probably no free ebook on this title'
                 #return Response(context, template_name='read_book.html', )
 
         else:
-            print('5 no links')
+            # print('5 no links')
             text ="no context"
             return text
 
@@ -584,7 +591,7 @@ def use_meta_title_author(context, formlib, book, identities_2, idents_title_2, 
         author_to_search = auth_to_search.lower()
         auth_surname = book.surname
         author_surname = auth_surname.lower()
-        print('title_to_search', title_to_search)
+        # print('title_to_search', title_to_search)
 
         title_to_search_q = title_to_search.lower().replace("the ", "").replace("-", "slugify")
         title_slugify_q = slugify(title_to_search_q).replace("-", " ").replace("slugify", "-")
@@ -606,7 +613,7 @@ def use_meta_title_author(context, formlib, book, identities_2, idents_title_2, 
             title_short_q_f = " ".join(title_split_short_q_f)
             title_plus_q = title_short_q_f.replace(' ', '+')
             titles_plus_q.append(title_plus_q)
-            print('if title_plus_q', title_plus_q)
+            # print('if title_plus_q', title_plus_q)
         else:
             title_split_short_f = title_to_search_split
             titles_split_f.append(title_split_short_f)
@@ -621,14 +628,14 @@ def use_meta_title_author(context, formlib, book, identities_2, idents_title_2, 
             titles_short_q_f.append(title_short_q_f)
             title_plus_q = title_short_q_f.replace(' ', '+')
             titles_plus_q.append(title_plus_q)
-            print('else title_plus_q', title_plus_q)
-            print('else title_short_q_f', title_short_q_f)
+            # print('else title_plus_q', title_plus_q)
+            # print('else title_short_q_f', title_short_q_f)
 
         # parameters = f'{title_plus}+{author_surname}'
         parameters = f'{title_plus_q}+{author_surname_q}'
-        print('parameters:', parameters)
+        # print('parameters:', parameters)
         search_url = f'https://openlibrary.org/search/inside.json?q={parameters}'
-        print('search_url', search_url)
+        # print('search_url', search_url)
         # search_url = f'https://openlibrary.org/search/inside.json?q={title_plus}'
         r = requests.get(url=search_url)
         if r.status_code != 200:
@@ -658,9 +665,9 @@ def use_meta_title_author(context, formlib, book, identities_2, idents_title_2, 
         
         if records['hits']['hits']:
             recs = records['hits']['hits']
-            print('len(recs)', len(recs))
+            # print('len(recs)', len(recs))
             n_records = len(recs)
-            print('titles_short_f[-1]', titles_short_f[-1])
+            # print('titles_short_f[-1]', titles_short_f[-1])
             for i in range(n_records):
                 try:
                     if recs[i]['edition']['ocaid']:
@@ -686,7 +693,7 @@ def use_meta_title_author(context, formlib, book, identities_2, idents_title_2, 
                         # print('342 title_short_q_f', title_jshort_f_slugify)
                         # print('342 title_short_q_f', title_short_q_f)
                         if title_jshort_f==title_short_f or title_jshort_f_slugify==title_short_q_f or set(title_jsplit_f).issubset(set(title_split_short_f)) or set(title_split_short_f).issubset(set(title_jsplit_f)):
-                            print("title_jshort_f: ", title_jshort_f)
+                            # print("title_jshort_f: ", title_jshort_f)
                             idents_title.append(idents[-1])
                         # if title_jshort==titles_short[0] set(title_jsplit).issubset(set(titles_split[0])) or set(titles_split[0]).issubset(set(title_jsplit)):
                         #     idents_title.append(idents[-1])
@@ -724,10 +731,11 @@ def use_meta_title_author(context, formlib, book, identities_2, idents_title_2, 
                 # identities.extend(identities_list_1)
                 if len(identities_list_1) > 0:
                     identities_2.extend(identities_list_1)
-                    print('identities_list_1', identities_list_1)
+                    # print('identities_list_1', identities_list_1)
                     
                 else:
-                    print('1. no links')
+                    # print('1. no links')
+                    pass
                     
 
             elif idents and idents_title and not idents_author:
@@ -735,9 +743,9 @@ def use_meta_title_author(context, formlib, book, identities_2, idents_title_2, 
                 # identities.extend(identities_list_2)
                 if len(identities_list_2) > 0:
                     identities_2.extend(identities_list_2)
-                    print('identities_list_2', identities_list_2)
+                    # print('identities_list_2', identities_list_2)
                 else:
-                    print('2. no links')
+                    # print('2. no links')
                     idents_title_2.extend(idents_title)
 
             elif idents and idents_author and not idents_title:
@@ -745,18 +753,19 @@ def use_meta_title_author(context, formlib, book, identities_2, idents_title_2, 
                 # identities.extend(identities_list_3)
                 if len(identities_list_3) > 0:
                     identities_2.extend(identities_list_3)
-                    print('identities_list_3', identities_list_3)
+                    # print('identities_list_3', identities_list_3)
                 else:
-                    print('498 3. no links')
+                    # print('498 3. no links')
                     idents_author_2.extend(idents_title)
 
             else:
-                print('4 no links')
+                # print('4 no links')
+                pass
                 #context['message'] = 'Sorry, probably no free ebook on this title'
                 #return Response(context, template_name='read_book.html', )
 
         else:
-            print('NO LINKS use_meta_title')
+            # print('NO LINKS use_meta_title')
             text ="no context"
             return text
             # context['message'] = 'Sorry, probably there is no this book to read for free'

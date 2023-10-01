@@ -1564,8 +1564,10 @@
     float: right;
   } */
   .flatpickr-current-month {
-    width: 36%;
+   /* width: 38%; */
+   width: 38%;
     position: absolute;
+    padding-left: 0px;
   }
   .flatpickr-current-month .flatpickr-monthDropdown-months {
     margin-left: 110%;
@@ -1573,6 +1575,7 @@
     padding-top: 0px;
     top: 3px;
     height: 30px;
+    padding-left: 0px;
   }
   
   .flatpickr-current-month .numInputWrapper {
@@ -1581,6 +1584,7 @@
     margin-top: -4px;
     margin-left: -10px;
     width: 84px;
+    /* width: 90px; */
   }
   
   /*.flatpickr-calendar {
@@ -1592,5 +1596,15 @@
     transform: scale(0.92); 
   }
   
-  
+  @media screen and (max-width: 640px) {
+  .flatpickr-calendar.open { 
+    margin-left: 20px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .flatpickr-calendar.open { 
+    margin-left: 0px;
+  }
+}
       </style>

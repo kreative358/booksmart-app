@@ -1,6 +1,6 @@
 <style>
 
-#container_header {
+.container_header {
 position: relative;
 z-index: 11;
 background-color: rgb(60, 160, 240); 
@@ -15,9 +15,10 @@ margin: 80px auto 20px auto;
 padding: 10px;
 width:560px;
 left: 12px;
+max-width: 92%;
 }
 
-#row_header {
+.row_header {
 background-color: rgb(60, 160, 240); 
 background-color: rgba(60, 160, 240, 0.2); 
 text-align: center;
@@ -31,7 +32,7 @@ padding: 10px;
 
 }
 
-#column_header {
+.column_header {
 background-color: rgb(60, 160, 240); 
 background-color: rgba(60, 160, 240, 0.2); 
 text-align: center;
@@ -45,11 +46,16 @@ padding: 10px;
 
 }
 
+@media screen and (max-width: 480px) {
+    .container_header {
+        left: 0px;
+    }
+}
 </style>  
     
-    <div class="mycontainer" id="container_header">
-        <div class="myrow" id="row_header">
-            <div class="mycolumn" id="column_header">
+    <div class="container_header" id="container_header_id">
+        <div class="row_header" id="row_header_id">
+            <div class="column_header" id="column_header_id">
         <br>
         <h4> VERYFICATION </h4>
         {% if not request.user.is_authenticated %}

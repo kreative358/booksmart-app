@@ -16,6 +16,8 @@
 
 {% include 'snippets-booksmart/top_cards.html' %}
 
+
+
 {% endblock content_1 %}
 
 {% block content_2 %}
@@ -99,60 +101,78 @@
 {% include 'snippets-booksmart/author.html' %}
 
 {% endfor %}
+
 <style type="text/css">
 
-#cont_pag {
-    position:relative;
-    z-index:1;
-    margin: -10px 5% 2vw auto;
-    width: 600px;
-    max-width:90%;
-    float:right;
-    display: flex;
-    align-content: right;
-    padding: auto;
-    color: blue;
-}
+  .mycontainer_pagination {
+      position:relative;
+      z-index: 12;
+      margin: -10px 5% 2vw auto;
+      width: 600px;
+      max-width:96%;
+      float: right;
+      display: flex;
+      align-content: right;
+      padding: auto;
+      color: blue;
+  }
+  .myrow_pagination,
+  .mycolumn_pagination {
+  max-width: 100%;
+  
+  }
+  
+  .pagination_temp {
+      text-align:right;
+      display: inline-block; 
+      font-size:30px;
+      font-weight: bold;
+      padding:10px;
+      text-align-last: right;
+      justify-content: right;
+      width:580px;
+      max-width:96%;
+  }
+  
+  @media screen and (max-width: 640px) {
+  .pagination_temp {
+  font-size:26px;
+  }
+  }
 
-.pagination {
-    text-align:right;
-    display: inline-block; 
-    font-size:30px;
-    font-weight: bold;
-    padding:10px;
-    text-align-last: right;
-    justify-content:right;
-    width:580px;
-}
-
-</style>
-    
-    <div class="container-fluid" id="cont_pag">      
-      <div class="row">
-        <div class="column"  >
-          <div class="pagination"><!-- justify-content-end-->
-    
-            <span class="step-links">   <!--<p>-->
-                {% if author_page_obj.has_previous %}
-                    <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
-                    <a href="{% my_url author_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
-                    
-                {% endif %}
-        
-                <span class="current">
-                    Page {{ author_page_obj.number }} of {{ author_page_obj.paginator.num_pages }}.
-                </span>
-        
-                {% if author_page_obj.has_next %}
-                    <a href="{% my_url author_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
-                    <a href="{% my_url author_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
-                {% endif %}<!--</p>-->
-            </span>  
-    
-          </div>       
+   @media screen and (max-width: 480px) {
+  .pagination_temp {
+  font-size:22px;
+  }
+  }
+  </style>
+      
+      <div class="mycontainer_pagination" id="mycontainer_pagination_id">      
+        <div class="myrow_pagination">
+          <div class="mycolumn_pagination"  >
+            <div class="pagination_temp"><!-- justify-content-end-->
+      
+              <span class="step-links">   <!--<p>-->
+                  {% if author_page_obj.has_previous %}
+                      <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+                      <a href="{% my_url author_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+                      
+                  {% endif %}
+          
+                  <span class="current">
+                      Page {{ author_page_obj.number }} of {{ author_page_obj.paginator.num_pages }}.
+                  </span>
+          
+                  {% if author_page_obj.has_next %}
+                      <a href="{% my_url author_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+                      <a href="{% my_url author_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+                  {% endif %}<!--</p>-->
+              </span>  
+      
+            </div>       
+          </div>
         </div>
       </div>
-    </div>
     
 {% endif %}
 
@@ -160,7 +180,7 @@
 
 
 {% block content_5 %}
-  
+
 {% endblock content_5 %}
 
 </div>

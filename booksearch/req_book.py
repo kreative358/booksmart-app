@@ -49,7 +49,7 @@ try:
         context_main['allbooks'] = None
         context_main['num_books'] = 0
 except:
-    print("booksmart models 335 no Book.objects.all():")
+    # print("booksmart models 335 no Book.objects.all():")
     pass
 
 try:
@@ -65,7 +65,7 @@ try:
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
 except:
-    print("booksmart models 351 no Author.objects.all():")
+    # print("booksmart models 351 no Author.objects.all():")
     pass
 
 try:
@@ -77,7 +77,7 @@ try:
         context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
         context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
 except:
-    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+    # print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
     pass
 
 try:
@@ -89,7 +89,7 @@ try:
         context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
 except:
-    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+    # print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
     pass
 
 try:
@@ -173,7 +173,7 @@ def addx_book(request):
     b_link = []
     bl_link = []
     if keywords_fields["volumeId"] != '':
-        print('len(keywords_fields["bl_volumeId"])', len(keywords_fields["bl_volumeId"]))
+        # print('len(keywords_fields["bl_volumeId"])', len(keywords_fields["bl_volumeId"]))
         if len(keywords_fields["volumeId"]) == 12:
             b_link.append(keywords_fields["volumeId"])
             
@@ -201,7 +201,7 @@ def addx_book(request):
             elif not re.findall("id=.+?[&]", url):
                 id_book = url[-12:]
                 key_book = id_book
-                print('key_book', key_book)
+                # print('key_book', key_book)
                 b_link.append(key_book)
                 keywords_fields["bl_volumeId"] = key_book """
         except Exception as e:
@@ -214,7 +214,7 @@ def addx_book(request):
     keywords_fields_values = list(keywords_fields.values())
         
     parameters_list = []
-    print('b_link', b_link)
+    # print('b_link', b_link)
     if b_link != []:
         parameters_list.append(('volumeId', b_link[0]))
     
@@ -297,7 +297,7 @@ def addx_book(request):
             # params_pre_3 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "_")}'
             params_str = params_pre_1 + params_pre_2 # + params_pre_3
             #params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
-            print('3a.', params_str)
+            # print('3a.', params_str)
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] != 'query':
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}'
@@ -309,7 +309,7 @@ def addx_book(request):
             params_pre_3 = f'&{parameters_list[2][0]}:{parameters_list[2][1]}'
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2 + params_pre_3
-            print('3b.', params_str)
+            # print('3b.', params_str)
 
         elif parameters_list[0][0] == 'intitle' and parameters_list[1][0] != 'inauthor' and  parameters_list[1][0] != 'query':
             # params_pre_1 = f'q={parameters_list[0][1].replace(" ", "_")}' + f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
@@ -318,23 +318,23 @@ def addx_book(request):
             # params_pre_1 = f'+{parameters_list[0][0]}:{parameters_list[0][1]}&'
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2
-            print('3c.', params_str)
+            # print('3c.', params_str)
         # elif parameters_list[0][0] !='intitle' and parameters_list[0][0] == 'inauthor':
         elif parameters_list[0][0] == 'inauthor' and  parameters_list[1][0] != 'query':
             # params_pre_1 = f'q={parameters_list[0][1].replace(" ", "_")}' + f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
-            params_pre_1 = f'q={parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"&' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
+            params_pre_1 = f'q={parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}&' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
             params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             # params_pre_1 = f'+{parameters_list[0][0]}:{parameters_list[0][1]}&'
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2
-            print('3c.', params_str)
+            # print('3c.', params_str)
 
 
         elif parameters_list[0][0] == 'query':
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}&'
             params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2
-            print('3e.', params_str)
+            # print('3e.', params_str)
 
 
         # !!!
@@ -354,7 +354,7 @@ def addx_book(request):
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}&'
             params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2
-            print('3e.', params_str)
+            # print('3e.', params_str)
 
 
     elif len(parameters_list) > 3:
@@ -366,7 +366,7 @@ def addx_book(request):
             params_pre_4 = '&'.join([f'{k}={v}' for k, v in parameters_list[3:]])
             params_str = params_pre_1 + params_pre_3 + params_pre_4
             #params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
-            print('4a.', params_str)
+            # print('4a.', params_str)
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] != 'query':
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}'
@@ -379,7 +379,7 @@ def addx_book(request):
             params_pre_3 = f'&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2 + params_pre_3
-            print('4b.', params_str)
+            # print('4b.', params_str)
 
         # elif parameters_list[0][0] !='intitle' and parameters_list[0][0] == 'inauthor':
         elif parameters_list[0][0] == 'intitle' and  parameters_list[1][0] != 'query':
@@ -389,7 +389,7 @@ def addx_book(request):
             # params_pre_1 = f'+{parameters_list[0][0]}:{parameters_list[0][1]}&'
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2
-            print('4c.', params_str)
+            # print('4c.', params_str)
 
         # !!!
         elif parameters_list[0][0] == 'inauthor' and  parameters_list[1][0] != 'query':
@@ -398,7 +398,7 @@ def addx_book(request):
             # params_pre_1 = f'+{parameters_list[0][0]}:{parameters_list[0][1]}&'
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2
-            print('4c.', params_str)
+            # print('4c.', params_str)
 
         elif parameters_list[0][0] == 'inauthor' and parameters_list[1][0] == 'query' :
             # params_pre_1 = f'q={parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"+'
@@ -411,7 +411,7 @@ def addx_book(request):
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}&'
             params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2
-            print('4d.', params_str)
+            # print('4d.', params_str)
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'query':
             params_pre_1 = f'q={parameters_list[1][1].replace(" ", "+")}'
@@ -420,7 +420,7 @@ def addx_book(request):
             # params_pre_2 = f'+{parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"&'
             params_pre_2 = f'&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
             params_str = params_pre_1 + params_pre_2
-            print('4e.', params_str)
+            # print('4e.', params_str)
 
 
         elif parameters_list[0][0] !='intitle' and parameters_list[0][0] != 'inauthor' and parameters_list[0][0] != 'query':
@@ -458,7 +458,7 @@ def addx_book(request):
         parameters = parameters_str.replace('intitle', 'title').replace('inauthor', 'author').replace('query', 'search').replace('download', 'epub').replace('langRestrict', 'language').replace('maxResults', 'max-results').replace('orderBy', 'in-order').replace('inpublisher', 'publisher')
         try:
             if parameters_list != [] and parameters_list[0][0] != 'volumeId':
-                print("602 parameters_list", parameters_list)
+                # print("602 parameters_list", parameters_list)
                 params_string = params_str
                 #parameters = ',<br>'.join([': '.join([str(e) for e in el]) for el in parameters_list])
                 context['parameters'] = parameters
@@ -475,12 +475,12 @@ def addx_book(request):
             # return render(request, 'addx_book.html', context)    
 
 
-    print('params_string', params_string)
+    # print('params_string', params_string)
 
     search_url = f"https://www.googleapis.com/books/v1/volumes?{params_string}"
 
     googleapikey=os.environ.get('API_KEY')
-    print('search_url', search_url)
+    # print('search_url', search_url)
     r = requests.get(url=search_url, params = {'key': googleapikey})
 
     if r.status_code != 200:
@@ -506,28 +506,28 @@ def addx_book(request):
                 return render(request, 'addx.html', context)
             elif len(data['items']) > 0:
                 founded_books=data['items']
-                # print("data['totalItems']", data['totalItems'])
+                # # print("data['totalItems']", data['totalItems'])
                 context['totaItems'] = data['totalItems']
                 context['val_total'] = data['totalItems']
 
         except:       
-            # print('no data["items"]')
+            # # print('no data["items"]')
             context['message'] = 'Sorry, probably threre is no books in google books match that search term'
             return Response(context, template_name='addx_book.html', )
             # return render(request, 'addx_book.html', context)
             
     
-    # print("data['totalItems']", data['totalItems'])
+    # # print("data['totalItems']", data['totalItems'])
 
-    # print("data['totalItems']", data['totalItems'])
+    # # print("data['totalItems']", data['totalItems'])
     context['totaItems'] = data['totalItems']
     context['val_total'] = data['totalItems']
 
     
     founded_books_number = data['totalItems']
-    # print('founded_books_number', founded_books_number)
+    # # print('founded_books_number', founded_books_number)
     
-    # print(f"\nlen(data['items']) = {len(data['items'])}\n")
+    # # print(f"\nlen(data['items']) = {len(data['items'])}\n")
     
     founded_books = data['items']
 
@@ -542,7 +542,7 @@ def addx_book(request):
             i=0  
             for book in founded_books:
                 i+=1
-                # print('\n466 req_book(book, founded_books_number)')
+                # # print('\n466 req_book(book, founded_books_number)')
                 req_book(book, founded_books_number)
                 # r_book = req_book(book, founded_books_number)
                 book_dict = req_book(book, founded_books_number)
@@ -554,14 +554,14 @@ def addx_book(request):
                 
 
             book_info = json.dumps(books[0], indent=4, sort_keys=False)
-            # print('\nbook_info', book_info)
+            # # print('\nbook_info', book_info)
             num_books_result = len(books)
             filtered_books = books
 
             context['filtered_books'] = filtered_books
             context['num_books_result'] = num_books_result
 
-            paginated_filtered_books = Paginator(filtered_books, 12)  # filtered_books.qs
+            paginated_filtered_books = Paginator(filtered_books, 10)  # filtered_books.qs
             page_number = request.GET.get('page')
             book_page_obj = paginated_filtered_books.get_page(page_number)
             context['book_page_obj'] = book_page_obj
@@ -604,7 +604,7 @@ def addbook(request):
     'embeddable': request.POST['embeddable'],
     'preview_link_new': request.POST['preview_link_new'],
     }
-    print("book['published']", book['published'])
+    # print("book['published']", book['published'])
     # book_pub = book['published']
     # new_book_pub = book_pub.strftime('%m/%d/%Y')
     # book['published'] = new_book_pub
@@ -628,7 +628,7 @@ def addbook(request):
         surname=book['author'].split()[-1] if book['author'] else '',
         # created_by=Account.objects.filter(id=user.id).first(),
         # owner=Account.objects.filter(id=user.id).first(),
-        owner=r_user
+        owner=r_user,
         )
     #Account.objects.filter(id=user.id).first()
     new_book_google_id = new_book.google_id
@@ -649,9 +649,10 @@ def addbook(request):
                 if author_c_new_book:
                     new_book_add.author_c = author_c_new_book
                     new_book_add.save()
-                    print('req_book line 578')
+                    # print('req_book line 578')
                 else:
                     print('req_book line 580')
+                    
                 
             except Exception as e:
                 print(f'req_book line 602, error {e}')

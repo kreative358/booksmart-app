@@ -15,7 +15,7 @@
   to {background-color: rgba(20, 100, 200, 0.4);}
   }
   
-  #mymodal_messages_main {
+  #mymodal_messages_main_part {
   position: fixed;
   display:none;
   z-index:77;
@@ -34,48 +34,41 @@
   }
   
   /* Modal Content */
-  #modal_cont_messages_main {
-  position: fixed;
-  z-index:88;
-  display:none;
-  left: 50%;
-  top:5%;
-  margin-left: -280px;
-  width: 560px;
-  background: rgba(60, 160, 240, 0.4);
-  /*
-  display:none;
-  font-family: Times;
-  padding: 5px;
-  font-size:18px;
-  text-align: center;
-  font-weight: bold;*/
-  border-radius: 4px;
-  box-shadow: 
-  0px 0px 10px 10px rgba(160, 170, 180, 0.4),
-  0px 10px 20px 0px rgba(160, 170, 180, 0.4),
-  -6px 0px 16px 0px rgba(160, 170, 180, 0.4),
-  6px 0px 16px 0px rgba(160, 170, 180, 0.4),
-  0px 10px 16px 0px rgba(160, 170, 180, 0.4),
-  0px -6px 16px 0px rgba(160, 170, 180, 0.4);
-  border: 6px solid rgba(60, 160, 240, 0.8);
-  padding: 10px;
-  animation-delay: 2s;
-  animation: noname2;
-  transition: 0.1s;
+  #modal_cont_messages_main_part {
+    position: relative;
+    z-index:88;
+    display:none;
+    top: 60px;
+    width: 560px;
+    max-width: 96%;
+    background-color: rgba(60, 160, 240, 0.4);
+    border-radius: 4px;
+    box-shadow: 
+    0px 0px 10px 10px rgba(160, 170, 180, 0.4),
+    0px 10px 20px 0px rgba(160, 170, 180, 0.4),
+    -6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+    6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+    0px 10px 16px 0px rgba(160, 170, 180, 0.4),
+    0px -6px 16px 0px rgba(160, 170, 180, 0.4);
+    border: 6px solid rgba(60, 160, 240, 0.8);
+    padding: 10px;
+    animation-delay: 2s;
+    animation: noname2;
+    transition: 0.1s;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 60px;
   }
   
-  #modal_cont_messages_main:hover {
+  #modal_cont_messages_main_part:hover {
   background: rgba(60, 160, 240, 0.6);
-    scale:1.02;
     box-shadow: 
 	0px 4px 16px 10px rgba(220, 230, 240, 0.4),
   	0px 0px 30px 290px rgba(220, 230, 240, 0.4) inset;
   }
   
-   #modal_cont_messages_main:active {
+   #modal_cont_messages_main_part:active {
   background: rgba(60, 160, 240, 0.6);
-    scale:1.02;
     box-shadow: 
 	0px 4px 16px 10px rgba(230, 240, 250, 0.6),
   	0px 0px 30px 290px rgba(230, 240, 250, 0.6) inset;
@@ -180,7 +173,7 @@
   /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }*/
 
-#modal_row_messages_main {
+#modal_row_messages_main_part {
   background-color: rgb(60, 160, 240); 
   background-color: rgba(60, 160, 240, 0.0);
   border: 6px solid rgba(60, 160, 240, 0.8);
@@ -191,7 +184,7 @@
   margin:auto;
 }
 
-#modal_col_messages_main {
+#modal_col_messages_main_part {
   background-color: rgb(60, 160, 240); 
   background-color: rgba(60, 160, 240, 0.0);
   border: 6px solid rgba(60, 160, 240, 0.8);
@@ -203,7 +196,7 @@
   }
   
     
- #modal_header_messages_main {
+ #modal_header_messages_main_part {
   background-color: rgb(140, 140, 140); 
   background-color: rgba(140, 140, 140, 0.4);
   border-radius: 4px;
@@ -214,19 +207,17 @@
   text-align:center;
   }
 
- #modal_header_messages_main:hover {
+ #modal_header_messages_main_part:hover {
     background-color: rgb(180, 180, 180); 
     background-color: rgba(180, 180, 180, 0.8);
-    scale:1.02;
   }
   
- #modal_header_messages_main:active {
+ #modal_header_messages_main_part:active {
     background-color: rgb(180, 180, 180); 
     background-color: rgba(180, 180, 180, 0.8);
-    scale:1;
   }
   
-  #modal_body_messages_main {
+  #modal_body_messages_main_part {
   background-color: rgb(140, 140, 140); 
   background-color: rgba(140, 140, 140, 0.4);    
   border-radius: 4px;
@@ -240,20 +231,17 @@
   text-align:center;
   }
  
- #modal_body_messages_main:hover {
+ #modal_body_messages_main_part:hover {
   background-color: rgb(180, 180, 180); 
   background-color: rgba(180, 180, 180, 0.6);
-  scale:1.02;
 }
   
- #modal_body_messages_main:active {
+ #modal_body_messages_main_part:active {
     background-color: rgb(180, 180, 180); 
     background-color: rgba(180, 180, 180, 0.8);
-    scale:1;
   }
 
-    
-#modal_footer_messages_main {
+#modal_footer_messages_main_part {
   justify-content:center;
   text-align:center;
   background-color: rgb(140, 140, 140); 
@@ -265,19 +253,17 @@
   transition: 0.1s;
   }
 
-#modal_footer_messages_main:hover {
+#modal_footer_messages_main_part:hover {
   background-color: rgb(180, 180, 180); 
   background-color: rgba(180, 180, 180, 0.6);
-  scale:1.02;
 }
   
-#modal_footer_messages_main:active {
+#modal_footer_messages_main_part:active {
     background-color: rgb(180, 180, 180); 
     background-color: rgba(180, 180, 180, 0.8);
-    scale:1;
     }
     
-.close_m {
+.close_m_part {
   color:  rgba(220, 230, 240, 0.6);
   float: right;
   font-size: 26px;
@@ -290,54 +276,75 @@
   -0.06em 0.06em 0.04em rgba(0, 0, 209, 0.6)
   }
   
-.close_m:hover {
+.close_m_part:hover {
   text-shadow:
   -0.06em 0.06em 0.04em rgba(9, 109, 209, 0.8)
   color:  rgba(230, 240, 250, 0.8);
   }
 
-.close_m:active {
-  scale:0.98;
+.close_m_part:active {
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
   color: rgba(20, 20, 220, 0.9);
     text-shadow:
   -0.03em 0.03em 0.02em rgba(220, 230, 240, 0.8);
   }
 
-.close_m:focus {
+.close_m_part:focus {
   border:none;
   outline:none;
   text-decoration: none;
   }
  
-  .close_mb {
-    position:relative;
-      transition-duration: 0.2s;
-      background-color: rgba(10, 20, 210, 0.4);
-      /*rgba(10, 80, 240, 0.6);
-      text-shadow: 0px 1px 1px #fff, 0 -1px 1px #000;*/ 
-      color: rgba(160, 170, 180, 0.4); 
-      border: 6px outset  rgba(160, 170, 180, 0.4);
-      border-radius:2px;
-      padding: 2px;
-      font-weight:bold;
-      font-family:Times;
-      font-variant:small-caps;
-      font-size:20px;
-      min-width: 140px;
-      margin: 20px auto 20px auto;  
-      box-shadow: 0px 0px 4px 4px rgba(210, 220, 230, 0.4);
-    }
-    
-    .close_mb:hover {
-     background-color: rgba(210, 20, 10, 0.6); 
-    color: rgba(230, 240, 250, 0.6);
-    box-shadow: 0px 0px 4px 4px rgba(210, 220, 230, 0.6);
-    }
-    
-    .close_mb:active {
-     scale:0.96;
-     box-shadow: 0px 0px 4px 2px rgba(210, 220, 230, 0.8);
-     }
+.close_mb_part {
+  text-shadow:
+  0.04em 0.06em 0.04em rgba(60, 80, 100, 0.6);
+  position:relative;
+  background-color: rgba(40, 160, 240, 0.4);
+  border-width: 6px;
+  border-style: solid; 
+  color: rgba(160, 170, 180, 0.8); 
+  border-color: rgba(80, 180, 240, 0.8) rgba(40, 140, 220, 0.8) rgba(20, 120, 180, 0.8) rgba(40, 140, 220, 0.8);
+  border-radius:2px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-weight:bold;
+  font-family:Times;
+  font-variant: small-caps;
+  font-size: 20px;
+  min-width: 140px;
+  width: 140px;
+  margin: 14px auto 14px auto;  
+  box-shadow:
+  0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+  0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+  0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  transition: 0.2s;
+  min-height: 42px;
+  max-height: 42px;
+line-height: 1;
+  }
+  
+.close_mb_part:hover,
+.close_mb_part:focus {
+  background-color: rgba(40, 160, 240, 0.6); 
+  color: rgba(190, 200, 210, 0.8);
+  border-color: rgba(80, 180, 240, 0.6) rgba(40, 140, 220, 0.6) rgba(20, 120, 180, 0.6) rgba(40, 140, 220, 0.6);
+  box-shadow: 
+  0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+  0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+  0px 0px 4px 4px rgba(230, 240, 240, 0.6);
+  }
+  
+.close_mb_part:active {
+  color: rgba(210, 220, 230, 0.8);
+  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+  box-shadow: 
+  0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
+  0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
+  0px 0px 2px 2px rgba(230, 240, 240, 0.8);
+  background-color: rgba(40, 160, 240, 0.8);
+  border-color: rgba(80, 180, 240, 0.6) rgba(40, 140, 220, 0.6) rgba(20, 120, 180, 0.6) rgba(40, 140, 220, 0.6);
+  }
   
 #a_submit_t {
   animation-name: anime_submit_t;
@@ -346,11 +353,11 @@
   }
   
 @keyframes anime_submit_t {
-  50% {color: red;}
+  50% {color: rgba(200, 0, 0, 0.9);}
     }  
 
 @keyframes anime_red_text {
-      25% {color: red;}
+      50% {color: 200, 0, 0, 0.9;}
         } 
 
 .title_account {
@@ -360,6 +367,7 @@
   margin: 5px auto 5px auto;
   font-weight:bold;
   color:rgba(0, 0, 209, 0.9);
+  line-height: 0.8;
   }
 
 .header_text {
@@ -390,27 +398,59 @@
   font-variant: small-caps;
   text-align:center;
 }
+
+@media screen and (max-width: 480px) {
+  .mycontainer_messages_main_n { 
+    max-width: 96%;
+    min-width: 380px;
+    width: 460px;
+    margin: auto;
+  }
+  .mycontainer_messages_main_n,
+  .myrow_messages_main_n,
+  .mycolumn_messages_main_n {
+    padding: 4px;
+
+  }
+
+  #modal_body_messages_main_n {
+    margin: 4px auto 4px auto;
+  } 
+
+  .title_account {
+    font-size: 24px;
+  } 
+
+  .class_label {
+    font-size: 22px;
+  }
+
+  .header_text {
+    font-size: 20px;
+  }  
+  
+}
     </style>
 
     
        
-       <div class="my_modal_messages" id="mymodal_messages_main">  </div>
+       <div class="my_modal_messages_part" id="mymodal_messages_main_part">  
       
         <!-- Modal content -->
-        <div class="mycontainer" id="modal_cont_messages_main">
-          <div class="myrow" id="modal_row_messages_main">
-          <div class="mycolumn" id="modal_col_messages_main">
+        <div class="mycontainer_messages_part" id="modal_cont_messages_main_part">
+          <div class="myrow_messages_part" id="modal_row_messages_main_part">
+          <div class="mycolumn_messages_part" id="modal_col_messages_main_part">
           
-          <div class="modal_content" id="modal_header_messages_main" >
-            <span class="close_m">✖</span><br>
+          <div class="modal_content" id="modal_header_messages_main_part" >
+            <span id="close_m_part_id" class="close_m_part">✖</span><br>
             <p class="title_account">INFO MESSAGES</p>
           </div>
 
-          <div class="modal_content" id="modal_body_messages_main">
+          <div class="modal_content_part" id="modal_body_messages_main_part">
           
        <div>
           {% for message in messages %}
-          <p class="header_text"  id="a_submit_t"> {% autoescape off %} 
+          <p class="header_text" style="animation: anie_red_text 2s infinite;"> {% autoescape off %} 
           {{ message }} {% endautoescape %}
           </p>
           {% endfor %}
@@ -428,19 +468,19 @@
         {% endif %}
       </div>
     <br>  
-    <div class="header_text">
-      <p> MESSAGE </p>  
-      <p id="information_message" style="animation: anime_red_text 2s infinite"></p>
+    <div >
+      <p class="header_text"> MESSAGE </p>  
+      <p  id="information_message" style="animation: anime_red_text 2s infinite; font-size; 22px; color: rgba(0, 0, 200, 0.9); font-weight: bold;"></p>
     </div>
 
   </div> 
 
-        <div class="modal_content" id="modal_footer_messages_main" style="margin-top:20px">
-            <button id="myBtn_messages" type="button"  class="close_mb" >CLOSE</button>
+        <div class="modal_content_part" id="modal_footer_messages_main_part" style="margin-top:20px">
+            <button id="myBtn_messages_part_id" type="button"  class="close_mb_part" >CLOSE</button>
         </div>
 
         </div>
       </div>
     </div>
     
-   <br>
+  </div>

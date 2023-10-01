@@ -193,6 +193,8 @@ def index_home(request):
     context['num_authors'] = num_authors
     context['num_books'] = num_books
     context['current_url'] = current_url_name
+
+    context["test_word"] = "test-word"
     try:
         if r_user.is_authenticated:
             context['person_name'] = r_user.username

@@ -152,7 +152,8 @@
   padding: 10px;
   text-shadow: 2px 2px 8px AliceBlue; 
   text-align: center;
-  right: 25%;}
+ /* right: 25%;*/
+}
   
   #right_div::before {
   content: "APPLICATION";
@@ -166,7 +167,7 @@
   padding: 10px;
   text-shadow: 2px 2px 8px AliceBlue; 
   text-align: center;
-  left: 25%;
+/*  left: 25%; */
   }
 
 
@@ -198,15 +199,15 @@
   width: 100%;
   }
 
-
-
-@media only screen and (max-width: 1280px) {
-  #text { font-size: 36px;
+  #p_left,
+  #p_right {
+    font-size: 20px;
+    max-width: 90%;
+    color: red;
+    margin-top: 20px;
+    text-align: center;
+    margin-left: 5%;
   }
-  #right_div {
-  
-}
-}
 
 
 @keyframes door_left_open {
@@ -262,6 +263,23 @@
         background-image: linear-gradient(to left top, rgba(220, 220, 240, 0.6), rgba(160, 200, 240, 0.6),  rgba(60, 160, 240, 0.6), rgba(160, 200, 240, 0.6));
 	}
 }
+
+
+@media only screen and (max-width: 1280px) {
+  #text { font-size: 36px;
+  }
+  #right_div {
+  
+}
+}
+
+@media only screen and (max-width: 640px) {
+  #p_left,
+  #p_right {
+    font-size: 16px;
+   
+  }    
+}
 </style>
 
 
@@ -272,11 +290,11 @@
    {% include 'snippets/log_reg.html' %}
     
    <div id="left_div" class="left_d">
-    <div id="text_l" class="text"><p style="font-size: 20px; color: red; margin-top: 20px"><span style="font-style: italic; white-space: pre-line;" id="left_text"> </span> </p></div> 
+    <div id="text_l" class="text"><p id="p_left" ><span style="font-style: italic; white-space: pre-line;" id="left_text"> </span> </p></div> 
      </div>
      
    <div id="right_div" class="right_d"> 
-   <div id="text_r" class="text"><p style="font-size: 20px; color: red; margin-top: 20px" ><span style="font-style: italic; white-space: pre-line;" id="right_text"></span> </p></div>  
+   <div id="text_r" class="text"><p id="p_right" ><span style="font-style: italic; white-space: pre-line;" id="right_text"></span> </p></div>  
    </div> 
 
 <script>

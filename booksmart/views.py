@@ -29,7 +29,7 @@ try:
         context_main['allbooks'] = None
         context_main['num_books'] = 0
 except:
-    print("booksmart models 335 no Book.objects.all():")
+    # print("booksmart models 335 no Book.objects.all():")
     pass
 
 try:
@@ -45,7 +45,7 @@ try:
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
 except:
-    print("booksmart models 351 no Author.objects.all():")
+    # print("booksmart models 351 no Author.objects.all():")
     pass
 
 try:
@@ -57,7 +57,7 @@ try:
         context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
         context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
 except:
-    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+    # print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
     pass
 
 try:
@@ -69,7 +69,7 @@ try:
         context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
 except:
-    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+    # print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
     pass
 
 try:
@@ -116,18 +116,18 @@ class AuthorDetailView(generic.DetailView):
 #     user=request.user
 #     if user.is_authenicated:
 #         get_id = {}
-#         print('booksmar.views user.id:', user.id)
+#         # print('booksmar.views user.id:', user.id)
 #         get_id['user_id']=user.id
-#         print(" booksmar.views get_id['user_id']", get_id['user_id'])
+#         # print(" booksmar.views get_id['user_id']", get_id['user_id'])
 #         userid = get_id['user_id']
-#         print('booksmar.views userid', userid)
+#         # print('booksmar.views userid', userid)
 #         return userid
 #     else:
-#         print('booksmar.views None')
+#         # print('booksmar.views None')
 #         return None
 
 
-# print(list(set(Book.objects.values_list('author', 'author'))))
+# # print(list(set(Book.objects.values_list('author', 'author'))))
 # cont = {}
 
 # user_recs =  [("", "")]
@@ -151,7 +151,7 @@ class AuthorDetailView(generic.DetailView):
 #     if user.is_authenticated:
 #         cont['user_id'] = user.id
 #         context_a['user'] = user
-#         print('user.id', user.id)
+#         # print('user.id', user.id)
 #         if Book.objects.filter(owner__id=user.id):
 #             global books_user
 #             books_user = Book.objects.filter(owner__id=user.id)
@@ -160,7 +160,7 @@ class AuthorDetailView(generic.DetailView):
 #                 user_recs.append((f'"{book_user.title}", "{book_user.author}"'))
 
 #             user_books = Book.objects.filter(owner__id=user.id).values_list('title', 'author')    
-#             print('user_books', user_books)
+#             # print('user_books', user_books)
 #             return Response(context_a, template_name='index_home.html', )
 #         elif not Book.objects.filter(owner__id=user.id):
 #             messages.info(request, 'you have any own books yet here')
@@ -169,9 +169,9 @@ class AuthorDetailView(generic.DetailView):
 #         context_a['user'] = "Anonymuous"
 
 #     if get_current_user():
-#         print('get_current_user', get_current_user())
+#         # print('get_current_user', get_current_user())
 #     else:
-#         print('no get_current_user')
+#         # print('no get_current_user')
 #     # context_a['CustomAuthToken']= CustomAuthToken
 #     return Response(context_a, template_name='index_home.html', )
 #     # return render(request, 'index.html', context_a)
@@ -187,10 +187,10 @@ class AuthorDetailView(generic.DetailView):
 #         author_class = Author.objects.filter(last_name=book_no.surname).last()    
 #         book.author_c = author_class
 #         book.save()
-#         print('yes')
+#         # print('yes')
 #     elif not Author.objects.filter(last_name=book_no.surname):
         
-#         print('no author_c for', book.surname)
+#         # print('no author_c for', book.surname)
 
 
 # books_no = Book.objects.filter(author_c__isnull=True)
@@ -200,9 +200,9 @@ class AuthorDetailView(generic.DetailView):
 #         author_class = Author.objects.filter(author_name=book_no.author).last()    
 #         book.author_c = author_class
 #         book.save()
-#         print('yes')
+#         # print('yes')
 #     elif not Author.objects.filter(author_name=book_no.author):
-#         print('no author_c for', book.author)
+#         # print('no author_c for', book.author)
 #     else:
 #         pass
 # for book_id in books_no_id:
@@ -213,11 +213,11 @@ class AuthorDetailView(generic.DetailView):
 #         if no_author:
 #             no_book.author_c = no_author
 #             no_book.save()
-#             print(no_book.title)
+#             # print(no_book.title)
 #         else:
-#             print('no', no_book.title)
+#             # print('no', no_book.title)
 #     except:
-#         print("no way")
+#         # print("no way")
 
 
 
@@ -226,7 +226,7 @@ class AuthorDetailView(generic.DetailView):
     #     author_no = Author.objecs.filter(author_name = book_no.author)
     #     book_no.author_c = author_no
     #     book_no.save()
-    #     print('yes')
+    #     # print('yes')
     # except:
-    #     print('no')
+    #     # print('no')
 

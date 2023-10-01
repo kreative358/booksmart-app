@@ -135,7 +135,7 @@ def read_book(request, id):
 
     logs = [('booksmart01@hotmail.com', 'Djangoapp01o'), ('booksmart02@hotmail.com', 'Djangoapp02o'), ('booksmart03@hotmail.com', 'Djangoapp03o')]
     log = random.choice(logs)
-    print('log', log)
+    # print('log', log)
 
     context['mail'] = log[0]
     context['pass'] = log[1]
@@ -165,7 +165,7 @@ def read_book_ol(request, id):
 
     logs = [('booksmart01@hotmail.com', 'Djangoapp01o'), ('booksmart02@hotmail.com', 'Djangoapp02o'), ('booksmart03@hotmail.com', 'Djangoapp03o')]
     log = random.choice(logs)
-    print('log', log)
+    # print('log', log)
 
     context['mail'] = log[0]
     context['pass'] = log[1]
@@ -212,15 +212,15 @@ def read_book_ol(request, id):
         # container['title'] = title_to_search
         container['title'] = book.title
         if len(identities_1) > 0:
-            print('identities_1: ', identities_1) 
+            # print('identities_1: ', identities_1) 
             ids = list(set(identities_1))
-            print('ids', ids)
+            # print('ids', ids)
 
             if len(ids) == 1:
                 container_one = container
                 container_one['link'] = f'https://openlibrary.org/borrow/ia/{ids[0]}?ref=ol'
                 context['cont'] = container_one
-                print("context['cont']: ", context['cont'])
+                # print("context['cont']: ", context['cont'])
                 # return Response(context, template_name='read_book.html', )
                 return Response(context, template_name='read_book_ol.html', )
             elif len(ids) > 1:
@@ -232,7 +232,7 @@ def read_book_ol(request, id):
                     containers_many.append(container_many)
 
                 context['conts'] = containers_many
-                print("context['conts'][0]", context['conts'][0])
+                # print("context['conts'][0]", context['conts'][0])
                 # return Response(context, template_name='read_book.html', )
                 return Response(context, template_name='read_book_ol.html', )
             else:
@@ -242,16 +242,16 @@ def read_book_ol(request, id):
                 # return Response(context, template_name='read_book.html', ) 
 
         elif len(identities_1)==0:
-            print("len(identities)==0")
+            # print("len(identities)==0")
             titles_idents_2 = []
-            print("134 idents_1", idents_1)
+            # print("134 idents_1", idents_1)
             
             try:
                 if len(idents_1) > 1:
                     try:
                         include_ident_1(idents_1, titles_idents_1, container, context, titles_idents_2)
                         if context_i1:
-                            print('143 context_i1')
+                            # print('143 context_i1')
                             context = context + context_i1
                             # return Response(context, template_name='read_book.html', )
                             return Response(context, template_name='read_book_ol.html', )
@@ -288,18 +288,18 @@ def read_book_ol(request, id):
 
             # if len(idents_1) == 0:
             try:
-                print("use_title")
+                # print("use_title")
                 use_title(context, formlib, book, identities_1, idents_title_1, idents_author_1, idents_1, titles_idents_1, identities)
                 if len(identities_1) > 0:
-                    print('identities_1: ', identities_1) 
+                    # print('identities_1: ', identities_1) 
                     ids = list(set(identities_1))
-                    print('ids', ids)
+                    # print('ids', ids)
 
                     if len(ids) == 1:
                         container_one = container
                         container_one['link'] = f'https://openlibrary.org/borrow/ia/{ids[0]}?ref=ol'
                         context['cont'] = container_one
-                        print("context['cont']: ", context['cont'])
+                        # print("context['cont']: ", context['cont'])
                         # return Response(context, template_name='read_book.html', )
                         return Response(context, template_name='read_book_ol.html', )
                     elif len(ids) > 1:
@@ -311,16 +311,16 @@ def read_book_ol(request, id):
                             containers_many.append(container_many)
 
                         context['conts'] = containers_many
-                        print("context['conts'][0]", context['conts'][0])
+                        # print("context['conts'][0]", context['conts'][0])
                         # return Response(context, template_name='read_book.html', )
                         return Response(context, template_name='read_book_ol.html', )
                     else:
                         print('6 no links')
                 #
                 elif len(identities_1)==0:
-                    print("len(identities_1)==0")
+                    # print("len(identities_1)==0")
                     titles_idents_2 = []
-                    print("134 idents_1", idents_1)
+                    # print("134 idents_1", idents_1)
                     if len(idents_1) > 1:
                         try:
                             include_ident_1(idents_1, titles_idents_1, container, context, titles_idents_2)
@@ -356,19 +356,19 @@ def read_book_ol(request, id):
 
             # else:
             try:
-                print("use_meta_title_author")
+                # print("use_meta_title_author")
                 use_meta_title_author(context, formlib, book, identities_2, idents_title_2, idents_author_2, idents_2, identities)
 
                 if len(identities_2) > 0:
-                    print('identities_2: ', identities_2) 
+                    # print('identities_2: ', identities_2) 
                     ids = list(set(identities_2))
-                    print('2 ids', ids)
+                    # print('2 ids', ids)
 
                     if len(ids) == 1:
                         container_one = container
                         container_one['link'] = f'https://openlibrary.org/borrow/ia/{ids[0]}?ref=ol'
                         context['cont'] = container_one
-                        print("context['cont']: ", context['cont'])
+                        # print("context['cont']: ", context['cont'])
                         # return Response(context, template_name='read_book.html', )
                         return Response(context, template_name='read_book_ol.html', )
                     elif len(ids) > 1:
@@ -380,7 +380,7 @@ def read_book_ol(request, id):
                             containers_many.append(container_many)
 
                         context['conts'] = containers_many
-                        print("context['conts'][0]", context['conts'][0])
+                        # print("context['conts'][0]", context['conts'][0])
                         # return Response(context, template_name='read_book.html', )
                         return Response(context, template_name='read_book_ol.html', )
                     else:
@@ -390,9 +390,9 @@ def read_book_ol(request, id):
                         # return Response(context, template_name='read_book.html', ) 
 
                 elif len(identities_2)==0:
-                    print("len(identities_1)==0")
+                    # print("len(identities_1)==0")
                     titles_idents_2 = []
-                    print("134 idents_1", idents_1)
+                    # print("134 idents_1", idents_1)
                     if len(idents_1) > 1:
                         try:
                             include_ident_1(idents_1, titles_idents_1, container, context, titles_idents_2)
@@ -428,7 +428,7 @@ def read_book_ol(request, id):
                             elif text:
                                 print("172 NO context")
                         else:
-                            print("344 no book")
+                            # print("344 no book")
                             context['message_read'] = 'Sorry, probably no this title to read for free in openlibrary'
                             # return Response(context, template_name='read_book_ol.html', )
 
@@ -440,7 +440,7 @@ def read_book_ol(request, id):
             #context['message_read'] = 'Sorry, probably no this title to read for free'
             # print("209 no links")
         else:
-            print("6a no links")
+            # print("6a no links")
             context['message_read'] = 'Sorry, probably no this title to read for free'
             # return Response(context, template_name='read_book.html', )
             return Response(context, template_name='read_book_ol.html', )
@@ -544,7 +544,7 @@ def edit_book(request, id):
         book_published = f"{b_p[8:10]}/{b_p[5:7]}/{b_p[0:4]}"
         # context_a['book_published'] = book_published
         context_a['book_published'] = editbook.published
-        print("date published:", book_published)
+        # print("date published:", book_published)
     else:
         print("NO date published")
 
@@ -780,7 +780,7 @@ def lr_login_view(request):
     context['current_url'] = current_url_name
 
     form_url = UrlPathForm()
-    print('2', form_url)
+    # print('2', form_url)
     if r_user.is_authenticated:
         return redirect("/")
 

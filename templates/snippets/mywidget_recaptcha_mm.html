@@ -41,25 +41,22 @@
     }	*/
     
     </style>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>     
-    <div class="form-group" style="margin: 0px; padding:10px 0px 10px 0px;">
+       
+    
 
-    <div class="g-recaptcha" style="align-items: center; margin: 0px 0px 0px 23px; justify-content: center; width: 80%; padding-left: 36px;" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26"
-                data-callback="callback">
+    <div class="g-recaptcha" style="align-items: center; margin: 0px 0px 0px 10px; justify-content: center; width: 80%; padding-left: 10px;" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26"
+                data-callback="callback_mm">
     </div>
                
            
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>  
 
-            <div class="valid-feedback" id="valid"  style="text-align:center; margin: auto;">value field is filled out.</div>
-            <!--<div class="invalid-feedback" id="valid" style="margin:-1px auto -5x auto; padding-left: 20px;">please fill out this field.</div>-->
-        <div class="invalid-feedback" id="valid" style="text-align:center; margin: auto;" ><span>please fill out this field.</span></div>
-          </div>
+    <script type="text/javascript">
+      function callback_mm() {
+        const submitButton_ml = document.getElementById("button_send_mail");
+        submitButton_ml.removeAttribute("disabled");
+      }
 
-          <script type="text/javascript">
-            function callback() {
-              const submitButton = document.getElementById("button_sm");
-              submitButton.removeAttribute("disabled");
-            }
-          </script>
+    </script>
           
         

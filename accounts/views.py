@@ -39,11 +39,11 @@ def get_user(request):
     r_user=request.user
     if r_user.is_authenicated:
         get_id = {}
-        print('accounts views user.id:', r_user.id)
+        # print('accounts views user.id:', r_user.id)
         get_id['user_id'] = r_user.id
-        print("accounts views get_id['user_id']", get_id['user_id'])
+        # print("accounts views get_id['user_id']", get_id['user_id'])
         userid = get_id['user_id']
-        print('accounts views userid', userid)
+        # print('accounts views userid', userid)
         return userid
     else:
         print('accounts views None')
@@ -114,7 +114,7 @@ class RegistrationViewBase(APIView):
     serializer_class = RegistrationSerializer
 
     def get(self, request, *args, **kwargs):
-    
+        messages.info(request, "")
         serializer = self.serializer_class()
         # return Response({'serializer':serializer, 'style':self.style}, )
         context_serializer_get = {'serializer':serializer, 'style':self.style, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
@@ -122,6 +122,7 @@ class RegistrationViewBase(APIView):
         return Response(context_serializer_get, )
 
     def post(self, request, *args, **kwargs):
+        messages.info(request, "")
         # datas = request.data.copy()
         initials = {}
         serializer = self.serializer_class(data=request.data)
@@ -136,12 +137,13 @@ class RegistrationViewBase(APIView):
         oldpass_val = 'no_oldpass'
         # serializer = self.serializer_class(data=request.data, context={'request': request})
         # initial_vals = serializer.initial_data
-        print('registration initial_val accounts', initial_val)
+        # print('registration initial_val accounts', initial_val)
         # print('registration initial_vals accounts', initial_vals)
         # https://stackoverflow.com/questions/36414804/integrate-django-password-validators-with-django-rest-framework-validate-passwor
         # https://medium.com/django-rest/django-rest-framework-login-and-register-user-fd91cf6029d5
         # https://www.django-rest-framework.org/api-guide/serializers/#saving-instances
         # https://www.django-rest-framework.org/api-guide/serializers/#accessing-the-initial-data-and-instance
+        
         if serializer.is_valid():
             # serializer = serializer.data
             password = serializer.validated_data.get('password')
@@ -150,8 +152,8 @@ class RegistrationViewBase(APIView):
             account = serializer.save()
 
             
-            print("serializer.data", serializer.data)
-            print('account:', account)
+            # print("serializer.data", serializer.data)
+            # print('account:', account)
 
             if account:
                 login(request, account)
@@ -161,9 +163,11 @@ class RegistrationViewBase(APIView):
                     token = Token.objects.create(user=account)
 
                 if token:
-                    print('token.key', token.key)
+                    # print('token.key', token.key)
+                    pass
                 else:
-                    print('no token')
+                    # print('no token')
+                    pass
 
                 
                 # if initial_val['current_url']!= "":
@@ -181,8 +185,8 @@ class RegistrationViewBase(APIView):
 
             errs = serializer.errors
             message_errors = serializer_errors(errs) +  ["<p style='font-weight: bold'>You try register with:</p>", f"<p>username: {username_val},<br>email: {email_val}</p>"]
-            print('accounts views RegistrationViewBase m_errs:', message_errors)
-            print('accounts views RegistrationViewBase s_errs:', serializer.errors)
+            # print('accounts views RegistrationViewBase m_errs:', message_errors)
+            # print('accounts views RegistrationViewBase s_errs:', serializer.errors)
             # print('register message_errors:', message_errors)
             # if initial_val['current_url']!= "":
             if initial_val['current_url']!= "":
@@ -216,6 +220,7 @@ class LoginView(GenericAPIView):
     serializer_class = LoginSerializer
     # context_serializer_LV = context_bm_rest
     def get(self, request, *args, **kwargs):
+        messages.info(request, "")
         # print("context_bm_rest = ", context_bm_rest)
         serializer = self.serializer_class()
 
@@ -224,13 +229,13 @@ class LoginView(GenericAPIView):
         return Response(context_serializer_get, )
 
     def post(self, request, *args, **kwargs):
-
+        messages.info(request, "")
         # print('request', request)
         serializer = self.serializer_class(data=request.data, context={'request': request})
         # serializer = self.serializer_class(data=request.data )
         initial_val = serializer.initial_data
         # initial_val = initial_values.data
-        print("login initial_val['current_url']:", initial_val )
+        # print("login initial_val['current_url']:", initial_val )
 
         # except Exception as e:
         #     print(f'exception: {e}')
@@ -239,12 +244,13 @@ class LoginView(GenericAPIView):
         username_val = initial_val['username']
         pass_val = initial_val['password']
         email_val = 'no_email'
+        
         if serializer.is_valid():
             #try:
             account = serializer.validated_data['user']
             # account = serializer.save()
-            print("serializer.data", serializer.data)
-            print('account:', account)
+            # print("serializer.data", serializer.data)
+            # print('account:', account)
 
             if account:
                 # login(request, user)
@@ -255,9 +261,11 @@ class LoginView(GenericAPIView):
                     token = Token.objects.create(user=account)
 
                 if token:
-                    print('token.key', token.key)
+                    # print('token.key', token.key)
+                    pass
                 else:
-                    print('no token')
+                    # print('no token')
+                    pass
 
                 if initial_val['current_url']!= "":
                     # print("login initial_val['current_url']:", initial_val['current_url'] )
@@ -335,7 +343,8 @@ class AccauntUpdateView(APIView):
 
 
     def get(self, request, *args, **kwargs): #self, request, *args, **kwargs
-    # def get(self, request, format=None):    
+    # def get(self, request, format=None):   
+        messages.info(request, "") 
         account = request.user
         username_val = account.username
         email_val = account.email
@@ -346,6 +355,7 @@ class AccauntUpdateView(APIView):
         return Response(context_serializer_get,)
 
     def post(self, request, format=None):
+        messages.info(request, "")
         account = request.user
         serializer = self.serializer_class(account, data=request.data)
         # serializer = self.serializer_c;ass(account, data=request.data)
@@ -360,7 +370,7 @@ class AccauntUpdateView(APIView):
             serializer.save()
             
             if initial_val['current_url']!= "":
-                print("login initial_val['current_url']:", initial_val['current_url'] )
+                # print("login initial_val['current_url']:", initial_val['current_url'] )
                 msgs = ['MESSAGE: <br>', 'Profile details updated success<br>', f"username: {username_val},<br>adress email: {email_val}"]
                 messages.info(request, ''.join(msg for msg in msgs))
                 # return redirect(f"booksmart:{initial_val['current_url']}")
@@ -377,7 +387,7 @@ class AccauntUpdateView(APIView):
         else:
             errs = serializer.errors
             message_errors = serializer_errors(errs)
-            print('register message_errors:', message_errors)
+            # print('register message_errors:', message_errors)
 
             if initial_val['current_url']!= "":
 
@@ -404,10 +414,10 @@ class AccauntUpdateView(APIView):
 @api_view(["GET"])
 @permission_classes([AllowAny,])
 def logout_user(request):
-
+    messages.info(request, "")
     try:
-        print("request.data:", request.data)
-        print("request.path:", request.path)
+        # print("request.data:", request.data)
+        # print("request.path:", request.path)
         request.user.auth_token.delete()
         logout(request)
 
@@ -416,7 +426,7 @@ def logout_user(request):
 
         return redirect('/')
     except:
-        print("request.path:", request.path)
+        # print("request.path:", request.path)
         logout(request)
         msgs = ['INFORMATION:<br>','Logout successfully']
         messages.info(request, ''.join(msg for msg in msgs))
@@ -439,7 +449,7 @@ class PasswordUpdateView(APIView):
     # permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated]
     def get(self, request, *args, **kwargs): #self, request, *args, **kwargs
     # def get(self, request, format=None):   
-     
+        messages.info(request, "") 
         # user = self.request.user  # !!!
         account = request.user
         serializer = self.serializer_class(account)
@@ -448,6 +458,7 @@ class PasswordUpdateView(APIView):
         return Response(context_serializer_get, )
 
     def post(self, request, format=None):
+        messages.info(request, "")
         account = request.user
         serializer = self.serializer_class(account, data=request.data)
         # serializer = self.serializer_c;ass(account, data=request.data)
@@ -486,9 +497,11 @@ class PasswordUpdateView(APIView):
                     token = Token.objects.create(user=account)
 
                 if token:
-                    print('token.key', token.key)
+                    # print('token.key', token.key)
+                    pass
                 else:
-                    print('no token')
+                    # print('no token')
+                    pass
 
                 msgs = ['INFORMATION: <br>', 'Password details updated success.']
                 if initial_val['current_url']!= "":
@@ -505,7 +518,7 @@ class PasswordUpdateView(APIView):
         else:
             errs = serializer.errors
             message_errors = serializer_errors(errs)
-            print('register message_errors:', message_errors)
+            # print('register message_errors:', message_errors)
             
             if initial_val['current_url']!= "":
                 messages.info(request, "<br>".join(msg_error for msg_error in message_errors))
@@ -531,7 +544,7 @@ class PasswordUpdateViewApi(APIView):
     # permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated]
     def get(self, request, *args, **kwargs): #self, request, *args, **kwargs
     # def get(self, request, format=None):   
-        
+        messages.info(request, "")
         # user = self.request.user  # !!!
         account = request.user
         serializer = self.serializer_class(account)
@@ -540,6 +553,7 @@ class PasswordUpdateViewApi(APIView):
         return Response(context_serializer_get, )
 
     def post(self, request, format=None):
+        messages.info(request, "")
         account = request.user
         serializer = self.serializer_class(account, data=request.data)
         # serializer = self.serializer_c;ass(account, data=request.data)
@@ -569,7 +583,7 @@ class PasswordUpdateViewApi(APIView):
         else:
             errs = serializer.errors
             message_errors = serializer_errors(errs)
-            print('register message_errors:', message_errors)
+            # print('register message_errors:', message_errors)
             messages.info(request, "<br>".join(msg_error for msg_error in message_errors))
             context_serializer_post_else = {'serializer':serializer, 'errors': message_errors, 'oldpassword':oldpassword_val, 'password': password_val, 'password1':pass1_val, 'style':self.style, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
             return Response(context_serializer_post_else,  template_name="password-update-api.html")

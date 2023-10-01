@@ -317,7 +317,7 @@ def lr_login_view(request):
     context = context_bm
     r_user = request.user
     form_url = UrlPathForm()
-    print('2', form_url)
+    # print('2', form_url)
     if r_user.is_authenticated:
         return redirect("/")
 

@@ -24,9 +24,9 @@
 
 <style type="text/css">
 
-#cont_accounts_register {
+.container_accounts {
 	position: relative;
-	z-index :1;
+	z-index :12;
 	background-color: rgb(60, 160, 240);
 	background-color: rgba(60, 160, 240, 0.2);
 	text-align: center;
@@ -38,9 +38,11 @@
 	width:560px;
 	padding:10px;
 	margin:40px auto 40px auto;
+  max-width: 92%;
+  left: 12px;
   }
 
-#row_accounts_register {
+.row_accounts {
 	background-color: rgb(60, 160, 240);
 	background-color: rgba(60, 160, 240, 0.2);
 	text-align: center;
@@ -53,7 +55,7 @@
 	padding: 10px; 
   }
 
-#col_accounts_register {
+.column_accounts {
 	background-color: rgb(60, 160, 240);
 	background-color: rgba(60, 160, 240, 0.2);
 	text-align: center;
@@ -341,46 +343,18 @@ width: 480px;
     .bs_input_recaptcha {
       align-items: center;
     }
+
+    @media screen and (max-width: 480px) {
+      .container_accounts {
+        left: 0;
+      }
+    }
 </style>
 
-<div>
-  <dialog id="alert_info">
-    <p id="closebtn">✖</p>
-    <p id="alert_text"> Remeber both passwords <br> must be the same</p>
-    <p id="texthtml"></p>
-  </dialog>
-  </div>
 
-<script>
-
-  var modal = document.getElementById("alert_info")
-  var span1 = document.getElementById("closebtn")
-  var add_pass = document.getElementById("texthtml")
-  
-  function validateForm() {
-    let x = document.forms["register_v"]["password"].value;
-    let y = document.forms["register_v"]["password2"].value;
-    let text = "You try with:<br>" + x + "<br>" + y
-
-    if (x != y) {
-      add_pass.innerHTML = text;
-      modal.showModal();
-      return false;
-    }
-  }
-
-  span1.onclick = function() {
-    modal.close();
-    alert("YOU SHOULD TRY AGAIN");
-    //setTimeout(function() {modal.close()}, 1000);
-    //console.clear();
-        } 
-
-  </script>
-
-<div class="container" id="cont_accounts_register">
-	<div class="myrow" id="row_accounts_register">
-	  <div class="mycolumn" id="col_accounts_register">
+<div class="container_accounts" id="container_accounts_register">
+	<div class="row_accounts" id="row_accounts_register">
+    <div class="column_accounts" id="column_accounts_register">
 
       <form action=""  method="post" class="was-validated" id="register_v" name="register_v" onsubmit="return validateForm()">
 
@@ -426,9 +400,10 @@ width: 480px;
     </div>
    </div>
 
-   <div class="bs_input_accounts_register">
-    <div class="bs_input_recaptcha"> 	
-   {% include 'snippets/mywidget_recaptcha_p.html' %}
+   <div class="bs_input_accounts_register" >
+    <p class="class_label"> Veryfication</p> 
+    <div class="bs_input_recaptcha" style="postion: relative; margin-left: auto; margin-right: auto;"> 	
+   {% include 'snippets/mywidget_recaptcha_s.html' %}
     </div>
    </div>
 
@@ -511,6 +486,41 @@ infos.addEventListener('click', (event) => {
 
 {% block content_4 %}
 
+<div>
+  <dialog id="alert_info">
+    <p id="closebtn">✖</p>
+    <p id="alert_text"> Remeber both passwords <br> must be the same</p>
+    <p id="texthtml"></p>
+  </dialog>
+  </div>
+
+<script>
+
+  var modal = document.getElementById("alert_info")
+  var span1 = document.getElementById("closebtn")
+  var add_pass = document.getElementById("texthtml")
+  
+  function validateForm() {
+    let x = document.forms["register_v"]["password"].value;
+    let y = document.forms["register_v"]["password2"].value;
+    let text = "You try with:<br>" + x + "<br>" + y
+
+    if (x != y) {
+      add_pass.innerHTML = text;
+      modal.showModal();
+      return false;
+    }
+  }
+
+  span1.onclick = function() {
+    modal.close();
+    alert("YOU SHOULD TRY AGAIN");
+    //setTimeout(function() {modal.close()}, 1000);
+    //console.clear();
+        } 
+
+  </script>
+  
 {% endblock content_4 %}
 
 

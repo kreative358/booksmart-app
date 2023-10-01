@@ -1,5 +1,10 @@
 from django.urls import path
 
+from booksmart.book_download import (
+
+    download_book
+)
+
 from booksmart.infoview import (
     app_users,
     pdf_reader,
@@ -76,12 +81,9 @@ app_name = 'booksmart'
 urlpatterns = [
     # path('', include(router.urls)),
     path('app_users/', app_users, name='app_users'),
-    path('app_users_login/', TemplateView.as_view(template_name="app_users_login.html"),
-                   name='app_users_login'),
-    path('index/', TemplateViewIndex.as_view(template_name="index.html"),
-                   name='index'),
-    path('readapi_demo/', TemplateViewDemo.as_view(template_name="readapi_demo.html"),
-                   name='readapi_demo'),
+    path('app_users_login/', TemplateView.as_view(template_name="app_users_login.html"), name='app_users_login'),
+    path('index/', TemplateViewIndex.as_view(template_name="index.html"),name='index'),
+    path('readapi_demo/', TemplateViewDemo.as_view(template_name="readapi_demo.html"), name='readapi_demo'),
     url(r'^ajax/user_id/$', userid, name='user_id'),
     # path('gbsearch_book/', gbsearch_book, name='gbsearch_book'),
     # path('addx_author/', addx_author, name='addx_author'),
@@ -123,5 +125,8 @@ urlpatterns = [
     path('new_poster/', background_poster, name='newposter'),
     path('new_video/', background_video, name='newvideo'),
     path('read_page/', read_page, name='readpage'),
+    # path('download_book/<int:id>', download_book, name='downloadbook'),
+    path('download_book/', download_book, name='downloadbook'),
+
 ]
 

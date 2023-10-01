@@ -62,7 +62,7 @@ try:
         context_main['allbooks'] = None
         context_main['num_books'] = 0
 except:
-    print("booksmart models 335 no Book.objects.all():")
+    # print("booksmart models 335 no Book.objects.all():")
     pass
 
 try:
@@ -78,7 +78,7 @@ try:
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
 except:
-    print("booksmart models 351 no Author.objects.all():")
+    # print("booksmart models 351 no Author.objects.all():")
     pass
 
 try:
@@ -90,7 +90,7 @@ try:
         context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
 except:
-    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+    # print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
     pass
 
 try:
@@ -123,7 +123,8 @@ def all_records(request):
     last_id = list(Book.objects.values_list('id').order_by('-id')[0])[0]
     book_add_last = Book.objects.all().order_by('-id') 
 
-    all_books = Book.objects.all().order_by("title")
+    # all_books = Book.objects.all().order_by("title")
+    all_books = Book.objects.all()
     all_authors = Author.objects.all()
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
@@ -149,7 +150,7 @@ def all_records(request):
     context['search_author'] = author
     context['book_sort'] = book_sort
 
-    sort_kind = ['-created_at']
+    sort_kind = ['title']
     if book_sort.is_valid():
         field_sorting = book_sort.cleaned_data['sorting']
 
@@ -168,9 +169,9 @@ def all_records(request):
 
     all_books = Book.objects.all().order_by(sort_kind[-1])
     context['allbooks'] = all_books
-    print('current_url_name', current_url_name)
+    # print('current_url_name', current_url_name)
     context['current_url'] = current_url_name
-    print('sort_kind', sort_kind)
+    # print('sort_kind', sort_kind)
 
     # form_a = a_account_view(request)
     # #form_out = a_logout_view(request)
@@ -204,7 +205,7 @@ def all_authors(request):
     # print('author_add_last:', author_add_last)
     # all_authors = Author.objects.all().order_by('-created_at')
     all_authors = Author.objects.all().order_by('last_name')
-    print('all_authors:', all_authors)
+    # print('all_authors:', all_authors)
     num_authors = Author.objects.all().count()
     all_books = Book.objects.all()
     num_books = Book.objects.all().count()
@@ -477,7 +478,7 @@ def books_author(request):
         # values=author_form.cleaned_data['author']
 
         values=author_form.cleaned_data['author_name_hidden']
-        print(values, type(values))
+        # print(values, type(values))
     
     books_result = Book.objects.filter(author=values)
     author_result = Author.objects.filter(author_name=values)
@@ -582,12 +583,12 @@ class RecordsView(APIView):
 
         min_date = Book.objects.aggregate(Min('published'))
         #min_date = Book.objects.agregate(min_date=Min('date'))
-        print("min_date['published__min']:", min_date['published__min'])
-        print("min_date['published__min'].strftime('%Y-%m-%d'):", min_date['published__min'].strftime('%Y-%m-%d'))
+        # print("min_date['published__min']:", min_date['published__min'])
+        # print("min_date['published__min'].strftime('%Y-%m-%d'):", min_date['published__min'].strftime('%Y-%m-%d'))
         max_date = Book.objects.aggregate(Max('published'))
         # max_date = Book.objects.agregate(max_date=Max('date')).value()
-        print("max_date['published__max']:", max_date['published__max'])
-        print("max_date['published__max'].strftime('%Y-%m-%d'):" , max_date['published__max'].strftime('%Y-%m-%d'))
+        # print("max_date['published__max']:", max_date['published__max'])
+        # print("max_date['published__max'].strftime('%Y-%m-%d'):" , max_date['published__max'].strftime('%Y-%m-%d'))
 
         keywords_fields = {}
 
@@ -600,7 +601,7 @@ class RecordsView(APIView):
             search_language = search_form.cleaned_data["language"]
             search_google_id = search_form.cleaned_data["google_id"]
             search_published__gte = search_form.cleaned_data["published__gte"]
-            print('search_published__gte', search_published__gte)
+            # print('search_published__gte', search_published__gte)
             search_published__lt = search_form.cleaned_data["published__lt"]
 
             search_owner = search_form.cleaned_data["owner__username"] 
@@ -608,13 +609,13 @@ class RecordsView(APIView):
 
             search_user_num_b = search_form.cleaned_data["user_num_b"]
             if search_user_num_b == True:
-                print("context['user_id']:", context['user_id'])
+                # print("context['user_id']:", context['user_id'])
                 search_user_num_b = context['user_id']
 
                 keywords_fields["user_num_b"] = str(search_user_num_b)
             else:
                 pass
-            print('search_user_num_b:', search_user_num_b)
+            # print('search_user_num_b:', search_user_num_b)
             # search_user_books = search_form.cleaned_data["user_books"]
 
             search_epub = search_form.cleaned_data["epub"]
@@ -625,7 +626,7 @@ class RecordsView(APIView):
                 pass
 
             search_ordering = search_form.cleaned_data["ordering"]
-            print('search_ordering', search_ordering)
+            # print('search_ordering', search_ordering)
             if search_ordering != '':
                 sort_parameter.append(search_ordering)
             else:
@@ -643,7 +644,7 @@ class RecordsView(APIView):
         #keywords_fields["title"] = search_user_books
         
         # keywords_fields["user_num_b"] = search_user_num_b
-        print('keywords_fields:', keywords_fields)
+        # print('keywords_fields:', keywords_fields)
         # if len(kewords_fields.values) != 0:
         for val in keywords_fields.values():
             if not val != '' and not val != None:
@@ -679,17 +680,17 @@ class RecordsView(APIView):
                 pass
 
         if len(keywords_fields.values()) < 2:
-            print(f'1 parameters_list 557: {parameters_list}')
+            # print(f'1 parameters_list 557: {parameters_list}')
             parameters = f"{parameters_list[0]: {parameters_list[1]}}"
             
         else:
-            print(f'2 parameters_list line 559: {parameters_list}')
+            # print(f'2 parameters_list line 559: {parameters_list}')
             parameters = ',<br>'.join([': '.join([str(e)[:e.index('_')] if '_' in e else e for e in el]) for el in parameters_list])
             
 
         context['parameters'] = parameters
 
-        print('filter_dict', filter_dict)
+        # print('filter_dict', filter_dict)
         key = ''.join(filter_dict.keys())
         val = ''.join(filter_dict.values())
 
@@ -716,15 +717,15 @@ class RecordsView(APIView):
                 list_tuple_books = queryset_books.values_list("title")
                 books_list_title = [book.title for book in queryset_books_distinct]
                 books_result_title.extend(books_list_title)
-                print("books_list_title:", books_list_title)
+                # print("books_list_title:", books_list_title)
                 # distinct This eliminates duplicate rows from the query results.
-                # print('queryset_b', queryset_b)
+                # # print('queryset_b', queryset_b)
                 # queryset <QuerySet [<Book: DAMA KAMELIOWA>, <Book: DAMA KAMELIOWA>]>
                 queryset_books_sort = queryset_books.order_by(f'{sort_parameter[-1]}')
 
-                print('books_result_sort', queryset_books_sort)
+                # print('books_result_sort', queryset_books_sort)
                 # queryset_b = Book.objects.filter(**filter_dict)
-                # print('queryset_b', queryset_b)
+                # # print('queryset_b', queryset_b)
                 # for book in queryset_b:
                 books_result_queryset.extend(queryset_books_sort)
                 books_result_queryset_distinct.extend(queryset_books_distinct)
@@ -738,18 +739,18 @@ class RecordsView(APIView):
         else:
             pass
                 
-        print('1. books_result_queryset', books_result_queryset)
-        print("1. books_result_title", books_result_title)
+        # print('1. books_result_queryset', books_result_queryset)
+        # print("1. books_result_title", books_result_title)
 
         # books_result = list(set(books_result))
-        # print('2. books_result', books_result)
+        # # print('2. books_result', books_result)
         # books_result = tuple(books_result)
 
         authors_result_queryset = []
         authors_result_list = []
         if not books_result_queryset_distinct:
             # pass
-            # print('not books_result')
+            # # print('not books_result')
             # all_books_sort = Book.objects.all().order_by(f'{sort_parameter[-1]}')
             # context['allbooks'] = all_books_sort
             msgs = ["there are no books in the database, with entered parameters:<br>", parameters]
@@ -760,7 +761,7 @@ class RecordsView(APIView):
                 authors_result_list = [book.author for book in books_result_queryset_distinct]
                 authors_result_search = list(set(authors_result_list))
                 # authors_result_search_surname = ["".join(author.split()[-1]) ]
-                print('authors_result_search:', authors_result_search)
+                # print('authors_result_search:', authors_result_search)
                 # authors_result_search ['Antonia Susan Byatt', 'J. R. R. Tolkien',...]
                 # list_founded_authors = [Author.objects.filter(author_name=author).distinct() for author in authors_result_search]
                 for author_found in authors_result_search:
@@ -770,8 +771,8 @@ class RecordsView(APIView):
                     # YES author '1. queryset_author'[<Author: Jack London>]>
                     
                     if queryset_author:
-                        print()
-                        print('1. queryset_author', queryset_author)
+                        # print()
+                        print('1. queryset_author')
                         # for author in queryset_a:
                         
                         authors_result_queryset.append(queryset_author)
@@ -780,15 +781,15 @@ class RecordsView(APIView):
 
                     elif not queryset_author:
                         author_surname = author_found.split()[-1]
-                        print('author_surname:', author_surname)
+                        # print('author_surname:', author_surname)
                         try:
                             # queryset_author_surname = Author.objects.filter(last_name=author_surname).distinct()
                             queryset_author_surname = Author.objects.filter(author_name__icontains=author_surname).last()
                             if queryset_author_surname:
                                 authors_result_queryset.append(queryset_author_surname)
                                 author_result_string = queryset_author_surname.author_name
-                                print()
-                                print('author_result_string:', author_result_string)
+                                # print()
+                                # print('author_result_string:', author_result_string)
                                 authors_result_list.append(author_result_string)
                             else:
                                 pass
@@ -831,23 +832,24 @@ class RecordsView(APIView):
 
         dict_values = ' '.join([dic_v for dic_v in keywords_fields.values() if dic_v != '' and dic_v != None])
         if dict_values:
-            print('dict_values:', dict_values)
+            # print('dict_values:', dict_values)
+            pass
         else:
             print('NO dict_values')
             # all_books_sort = Book.objects.all().order_by(f'{sort_parameter[-1]}')
             # context['allbooks'] = all_books_sort
             # return Response(context, template_name='allrecords.html', )
 
-        # print('end sort_parameter', sort_parameter)
+        # # print('end sort_parameter', sort_parameter)
         num_books_result = len(books_result_queryset)
         num_authors_result_set = len(list_authors_result_queryset_set)
-        # print('5. books_result_queryset', books_result_queryset)
-        # print('5. list_authors_result_queryset_set', list_authors_result_queryset_set)
+        # # print('5. books_result_queryset', books_result_queryset)
+        # # print('5. list_authors_result_queryset_set', list_authors_result_queryset_set)
         # # books_result_filter = books_result.order_by('-title)
         
         filtered_books = books_result_queryset
         # filtered_books = books_result.reverse()
-        print('filtered_books', filtered_books)
+        # print('filtered_books', filtered_books)
 
         context['dict_values'] = dict_values
         context['filtered_books'] = filtered_books
@@ -863,9 +865,9 @@ class RecordsView(APIView):
         book_page_obj = paginated_filtered_books.get_page(page_number)
         
         context['book_page_obj'] = book_page_obj
-        print("book_page_obj:", book_page_obj)
+        # print("book_page_obj:", book_page_obj)
         keywords_fields = {}
-        print('return keywords_fields:', keywords_fields)
+        # print('return keywords_fields:', keywords_fields)
         return Response(context, template_name='records.html', )
         # return render(request, 'records.html', context)
 
@@ -919,7 +921,7 @@ class RecordsView(APIView):
             Q(owner__username__icontains=search_phrase)  
         )
         
-        print("list(set(search_resultB.values_list('surname')))", list(set(search_resultB.values_list('surname'))))
+        # print("list(set(search_resultB.values_list('surname')))", list(set(search_resultB.values_list('surname'))))
         search_resultA = allauthors_dict.filter(
         #search_resultA = all_authors.filter(
             Q(author_name__icontains=search_phrase) |
@@ -931,8 +933,8 @@ class RecordsView(APIView):
         # search_word = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
         # search_result = all_books.filter(title__icontains=title, author__icontains=author, google_id=google_id, language=language, published__gte=published_start, published_lte=pbulished_end)
 
-        print('search_resultB:', len(search_resultB))
-        print('search_resultA:', len(search_resultA))
+        # print('search_resultB:', len(search_resultB))
+        # print('search_resultA:', len(search_resultA))
 
         num_books_result_Q = len(search_resultB)
         num_authors_result_Q = len(search_resultA)
@@ -950,15 +952,15 @@ class RecordsView(APIView):
         # return render(request, 'records.html', context)
         filtered_books = search_resultB
         # filtered_books = books_result.reverse()
-        print('filtered_books', filtered_books)
+        # print('filtered_books', filtered_books)
         context['filtered_books'] = filtered_books
         paginated_filtered_books = Paginator(filtered_books, 10) 
         page_number = request.GET.get('page')
         book_page_obj = paginated_filtered_books.get_page(page_number)
         context['book_page_obj'] = book_page_obj
-        print(book_page_obj)
+        # print(book_page_obj)
         keywords_fields = {}
-        print('return keywords_fields:', keywords_fields)
+        # print('return keywords_fields:', keywords_fields)
         return Response(context, template_name='records.html', )
 
 

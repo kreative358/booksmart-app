@@ -41,15 +41,23 @@ outline: none;
 border:none;
 
 }
-
+.mytootlip_text {
+	min-width: 100%;
+	max-width: 100%;
+	width: 100%;
+}
 </style>
 	
 	<div class="form-group" id="input-email">
         <label class="label_serializer" id="id_label_email" for="email">  </label>
 		{% if user.is_authenticated %}
-        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="must contain @" value="{{ user_email }}">
+		<span class="mytootlip_text" data-tooltip="tooltip_input">
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="{{ user_email }}">
+		<span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
 		{% else %}
+		<span class="tootlip_text" data-tooltip="tooltip_input">
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="must contain @" value="">
+		<span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
 		{% endif %}
         <div class="valid-feedback"  style="text-align:center; margin: auto;">Email field is filled out.</div>
       <div class="invalid-feedback"  style="text-align:center; margin: auto;">Please fill out this field.</div>

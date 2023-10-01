@@ -9,7 +9,7 @@
   localStorage.clear();
 
   document.body.onbeforeunload = function() {
-  let searches =  document.querySelectorAll("[id^='middle_message_'")
+  let searches =  document.querySelectorAll("[id^='middle_message_']")
   for (let search of searches) {
     search.innerText = "";
   }
@@ -20,8 +20,9 @@
 
 .my_container_top_cards {
 position: relative;
-z-index: 1;
-margin: -18px 7.2vw 40px 7.2vw;
+z-index: 11;
+margin: 0px 7.4vw 40px 7.4vw;
+left: 12px;
 }
 
 #mycard_addx_book_top_cards_middle {

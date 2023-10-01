@@ -2,7 +2,7 @@
 
 #list_of_authors {  
   position:relative;
-  z-index:1;
+  z-index:12;
   margin:24px auto 30px auto;
   text-align:center;
   padding:10px auto 10px auto;
@@ -19,12 +19,17 @@
   font-family: Georgia; 
   font-weight: bold; 
   font-size: 36px; 
+left: 12px;
 
 }
-         
+@media screen and (max-width: 480px) {
+  #list_of_authors {
+    left: 0px;
+  }
+}     
 </style>
   
   
-<div class="container-fluid" id="list_of_authors" >
+<div class="container_fluid_bar" id="list_of_authors" >
    AUTHORS IN DATABASE </div>
 

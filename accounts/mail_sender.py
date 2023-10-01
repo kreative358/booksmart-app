@@ -21,6 +21,93 @@ from booksmart.models import context_bm, url_img, Book, Author
 import smtplib
 import ssl
 from django.conf import settings
+
+
+def mail_sender_modal(request):
+    smtp_port = 587                 # Standard secure SMTP port
+    smtp_server = "smtp.gmail.com"  # Google SMTP Server
+    
+    # email_to = "p.uryga@gmail.com"
+    pswd = "ikzliaiijzdvbqlq"
+    books = Book.objects.all()
+    message_content = {}
+    # from_email = "booksmartapp358@gmail.com"
+    message_content['from_email'] = "booksmartapp358@gmail.com"
+    message_content['my_email'] = "kreative358@gmail.com"
+    # simple_email_context = ssl.create_default_context()
+    if request.method == "POST":
+    
+        if request.POST.get('email-sender', False):
+            message_content['email_sender'] = request.POST['email-sender']
+            print("message_content['email_sender']: ",message_content['email_sender'])
+        if request.POST.get('email-subject', False):
+            message_content['email_subject'] = request.POST['email-subject']
+            print("message_content['email_subject']: ", message_content['email_subject'])
+        if request.POST.get('email-text', False): 
+            message_content['email_text'] = request.POST['email-text']
+            print("message_content['email_text']: ", message_content['email_text'])
+            
+            
+            # for book in books:
+            #     message_text += f'\n\r"{book.title}" - {book.author}' 
+            # print("message_text:", message_text)
+        try:
+            send_mail(
+                subject = message_content['email_subject'],
+                message = message_content['email_text'],
+                from_email = message_content['from_email'],
+                recipient_list = [message_content['my_email'], message_content['email_sender']],
+                fail_silently=False
+            )
+            # print(f"Email successfully sent to - {email_to}")
+        except Exception as e:
+            print("1. ", e)
+
+    return render(request, 'mail_sender_modal.html')
+
+def mail_sender_site(request):
+    smtp_port = 587                 # Standard secure SMTP port
+    smtp_server = "smtp.gmail.com"  # Google SMTP Server
+    
+    # email_to = "p.uryga@gmail.com"
+    pswd = "ikzliaiijzdvbqlq"
+    books = Book.objects.all()
+    message_content = {}
+    # from_email = "booksmartapp358@gmail.com"
+    message_content['from_email'] = "booksmartapp358@gmail.com"
+    message_content['my_email'] = "kreative358@gmail.com"
+    # simple_email_context = ssl.create_default_context()
+    if request.method == "POST":
+    
+        if request.POST.get('email-sender', False):
+            message_content['email_sender'] = request.POST['email-sender']
+            print("message_content['email_sender']: ",message_content['email_sender'])
+        if request.POST.get('email-subject', False):
+            message_content['email_subject'] = request.POST['email-subject']
+            print("message_content['email_subject']: ", message_content['email_subject'])
+        if request.POST.get('email-text', False): 
+            message_content['email_text'] = request.POST['email-text']
+            print("message_content['email_text']: ", message_content['email_text'])
+            
+            
+            # for book in books:
+            #     message_text += f'\n\r"{book.title}" - {book.author}' 
+            # print("message_text:", message_text)
+        try:
+            send_mail(
+                subject = message_content['email_subject'],
+                message = message_content['email_text'],
+                from_email = message_content['from_email'],
+                recipient_list = [message_content['my_email'], message_content['email_sender']],
+                fail_silently=False
+            )
+            # print(f"Email successfully sent to - {email_to}")
+        except Exception as e:
+            print("1. ", e)
+
+    return render(request, 'mail_sender_site.html')
+
+
 # https://blog.miguelgrinberg.com/post/the-new-way-to-generate-secure-tokens-in-python
 # import secrets
 # secrets.token_hex()
@@ -58,55 +145,42 @@ from django.conf import settings
 def mail_sender_form_1(request):
     smtp_port = 587                 # Standard secure SMTP port
     smtp_server = "smtp.gmail.com"  # Google SMTP Server
-    from_email = "booksmartapp358@gmail.com"
+    
     # email_to = "p.uryga@gmail.com"
     pswd = "ikzliaiijzdvbqlq"
-
+    books = Book.objects.all()
+    message_content = {}
+    # from_email = "booksmartapp358@gmail.com"
+    message_content['from_email'] = "booksmartapp358@gmail.com"
+    message_content['my_email'] = "kreative358@gmail.com"
     # simple_email_context = ssl.create_default_context()
     if request.method == "POST":
-        if request.POST.get('user-email', False):
-            # email_from = "booksmartapp358@gmail.com"
-            to_email = request.POST['user-email']
+    
+        if request.POST.get('email-sender', False):
+            message_content['email_sender'] = request.POST['email-sender']
+            print("message_content['email_sender']: ",message_content['email_sender'])
+        if request.POST.get('email-subject', False):
+            message_content['email_subject'] = request.POST['email-subject']
+            print("message_content['email_subject']: ", message_content['email_subject'])
+        if request.POST.get('email-text', False): 
+            message_content['email_text'] = request.POST['email-text']
+            print("message_content['email_text']: ", message_content['email_text'])
             
-            print("to_email: ", to_email)
-            subject = "1. Message"
-            message_text = f"User send email address: {to_email}"
-            books = Book.objects.all()
+            
             # for book in books:
             #     message_text += f'\n\r"{book.title}" - {book.author}' 
             # print("message_text:", message_text)
-            try:
-                
-                
-                # print("Connecting to server...")
-                # TIE_server = smtplib.SMTP(smtp_server, smtp_port)
-                # TIE_server.starttls(context=simple_email_context)
-                # TIE_server.login(email_from, pswd)
-                # print("Connecting to server OK")
-
-                # print()
-                # print(f"Sending email to - {email_to}")
-                # TIE_server.sendmail(email_from, email_to, subject, message_text, fail_silently)
-                # print(f"Email successfully sent to - {email_to}")
-
-                # print("Connecting to server...")
-                # TIE_server = smtplib.SMTP(smtp_server, smtp_port)
-                # TIE_server.starttls(context=simple_email_context)
-                # TIE_server.login(email_from, pswd)
-                # print("Connecting to server OK")
-
-                print()
-                print(f"1. Sending email to - {to_email}")
-                send_mail(
-                    subject,
-                    message_text,
-                    from_email,
-                    [to_email],
-                    fail_silently=False
-                )
-                # print(f"Email successfully sent to - {email_to}")
-            except Exception as e:
-                print("1. ", e)
+        try:
+            send_mail(
+                subject = message_content['email_subject'],
+                message = message_content['email_text'],
+                from_email = message_content['from_email'],
+                recipient_list = [message_content['my_email'], message_content['email_sender']],
+                fail_silently=False
+            )
+            # print(f"Email successfully sent to - {email_to}")
+        except Exception as e:
+            print("1. ", e)
 
     return render(request, 'mail_sender_1.html')
 

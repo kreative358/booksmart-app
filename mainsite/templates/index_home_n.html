@@ -17,7 +17,7 @@
   </style>
 {% block content_1 %}  
   <div class="container_fluid"  id="top_jumb" >
-    <a href="" class="text_center"   role="button" ><p  class="" id="h1j">BOOKSMART</p><p id="h2j" >MAINPAGE-LINK</p></a>
+    <a href="" class="text_center" role="button" ><p><span  class="" id="h1j">BOOKSMART</span><br><span id="h2j" >MAINPAGE-LINK</span></a>
     </div>
 
   <!-- style='font-family:Trirong , sans-serif; font-weight: bold; color: blue; font-size: 30px;' -->
@@ -41,7 +41,7 @@
 
 <script type="text/javascript"> 
   $(document).ready(function(){
-    $(".btn_container").click(function(){
+    $(".btn_container_list").click(function(){
         $(this).next("*").slideToggle(1500);
     });
     //
@@ -58,10 +58,10 @@
   <div class="mycolumn" id= "col_main_1">
   
     <div>
-      <p class="" id="" style='font-weight: bold; color: blue; font-size: 34px; margin-bottom: 0px;'> VERYFICATION </p>
-      <span style="font-weight: bold; color: blue; font-size: 32px; line-height: 1;" style="animation: anime_red_text">Hello, you must be logged in <br> to use this app</span>
+      <p class="verification" id="" > VERYFICATION </p>
+      <span class="verification_span" style="animation: anime_red_text"> Hello, you must be logged in <br> to use this app </span>
         <br>
-    <span class="" style='font-weight: bold; color: blue; font-size: 32px;'>
+    <span class="verification_span" style="line-height: 1.2; color:rgba(0, 0, 200,  0.9);">
       <a href="{% url 'accounts:register' %}" >Register</a> | 
       <a href="{% url 'accounts:login' %}" >Login</a>
     </span>
@@ -71,7 +71,7 @@
       {% if messages %}
       <ul class="messages"> <div style="color: red; font-weight: bold"  class="class_text_info">
         <div class="bs_input_message" >
-        <p type="button" id="close_msg1" class="class_close"  >✖</p><br><p style="font-weight: bold; color: blue; font-size: 28px; line-height:1;">
+        <p type="button" id="close_msg1" class="class_close"  >✖</p><br><p class="messages_p" >
         
         {% for message in messages %}
          
@@ -84,8 +84,8 @@
 
       {% if messages and message.tags == 'info' %}
       <div id="bs_input_message" class="alert alert-dismissible fade show" style="min-height: 60px;">
-        <button type="button" class="class_close" data-dismiss="alert" style="float:right; background: transparent; border: none; outline: none;">✖</button>
-        <p style="color: red; font-weight: bold; padding: 20px"  class="class_text_info">
+        <button id="class_close_id" type="button" class="class_close" data-dismiss="alert" style="float:right; background: transparent; border: none; outline: none;">✖</button>
+        <p  class="class_text_info_message">
       {{ message }}</p> </div> 
       {% endif %}
 
@@ -113,15 +113,15 @@
 
     <div class="mycontainer" id="cont_main_2">
       <div class="myrow" id="row_main_2">
-  <div class="column-collapse" id= "col_main_2">
+  <div class="column-collapse" id="col_main_2">
 
-    <div type="button" class="btn_container btn-outline-danger btn-lg text-primary"  style="margin:10px auto 10px auto; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 34px; font-weight: bold; font-family: Helvetica; padding:auto; display: block; cursor: pointer;" id="tooltip_mainsite_lof" >
+    <div type="button" class="btn_container_list" id="tooltip_mainsite_lof" >
       LIST OF FUNCTIONS <span id="tooltiptext_mainsite_lof">FOR LOGGED IN USERS <br> SEARCH BOOKS AND AUTHORS BY DETAILS <br> PRESS TO EXPAND OR UNEXPAND PANEL</span></div>
       
     <div id="list_options" class="collapseble" style="display:none">
     <div>
-        <p class="font-effect-shadow-multiple" style='color: blue; font-size: 30px;'><a  class="modal_link">PDF READER</a></p>
-        <p class="font-effect-shadow-multiple" style='color: blue; font-family: "Trirong", sans-serif; font-size: 30px;'><a class="modal_link">BOOKSMART API</a></p>
+        <p class="font-effect-shadow-multiple" id="list_options_p_1"><a  class="modal_link">PDF READER</a></p>
+        <p class="font-effect-shadow-multiple" id="list_options_p_2" style=''><a class="modal_link">BOOKSMART API</a></p>
     </div>
 
     <div>
@@ -142,7 +142,7 @@
     <hr>
   
     <div>
-      <p class="h4_class">FIND BOOK IN GOOGLE BOOKS AND <br> INFO ABOUT AUTHOR IN WIKIDATA </p>
+      <p class="h4_class">FIND BOOK IN GOOGLE BOOKS AND INFO ABOUT AUTHOR IN WIKIDATA </p>
       <a class="modal_link">
         <button class="btn btn-outline-danger btn-lg text-primary" style="padding:auto; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold;font-family: Helvetica;" id='tooltip_mainsite_fba'> Find Books & Authors <span id="tooltiptext_mainsite_fba">USE IT TO FIND BOOKS FROM GOOGLEBOOKS AND AUTHORS FORM WIKIDATA</span></button>
       </a>
@@ -184,7 +184,7 @@
   <div class="myrow" id="row_main_3">
   <div class="column-collapse" id= "col_main_3">
 
-    <div class="btn_container btn-outline-danger btn-lg text-primary"  style="margin:10px auto 10px auto; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6); font-size: 34px; font-weight: bold; font-family: Helvetica; padding:auto; display: block; left:-4px; cursor: pointer;" id="tooltip_mainsite_lob" >
+    <div class="btn_container_list" id="tooltip_mainsite_lob" >
       LIST OF BOOKS <span id="tooltiptext_mainsite_lob">FOR LOGGED IN USERS <br> IF YOU ADDED ANY BOOKS THIS IS LIST OF THEM PRESS TO EXPAND OR UNEXPAND PANEL</span></div>
     
 </div>
@@ -208,6 +208,7 @@
 
 {% block content_5 %}
       {% include 'snippets-mainsite/modal_message_mainpage_n.html' %}     
+      {% include 'snippets-mainsite/modal_message_mainpage_mail.html' %}  
 {% endblock content_5 %}
    
 

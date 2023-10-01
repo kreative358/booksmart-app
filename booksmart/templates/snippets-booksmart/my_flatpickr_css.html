@@ -70,7 +70,7 @@ top: 4px;
 display: block;
 position: absolute;
 margin:2px;
-z-index:6;
+z-index:16;
 background: rgba(60, 160, 240, 0.6);
 width:430px;
 max-width:430px;
@@ -233,7 +233,7 @@ position: absolute;
 top: 6px;
 height: 30px;
 padding:2px 6px auto 6px;
-z-index: 3;
+z-index: 103;
 color: rgba(0, 0, 210, 0.4);
 fill: rgba(0, 0, 210, 0.4);
 border: 2px solid rgba(60, 160, 240, 0.6);
@@ -299,10 +299,10 @@ stroke-width:2;
 }
 
 .flatpickr-months .flatpickr-prev-month:active {
-transform: matrix(0.94, 0, 0, 0.94, -2, 0);
+transform: matrix(0.99, 0, 0, 0.99, -1, 0);
 }
 .flatpickr-months .flatpickr-next-month:active {
-transform: matrix(0.94, 0, 0, 0.94, 2, 0);
+transform: matrix(0.99, 0, 0, 0.99, 1, 0);
 }
 
 .flatpickr-months .flatpickr-prev-month:hover svg,
@@ -905,7 +905,7 @@ transition: 0.2s;
 }
 
 span.flatpickr-day:active {
-transform: matrix(0.94, 0, 0, 0.94, 0, 2);
+transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 }
 
 .flatpickr-innerContainer {
@@ -1147,7 +1147,7 @@ span.flatpickr-day.nextMonthDay.today,
 span.flatpickr-day.selected,
 span.flatpickr-day.prevMonthDay.selected,
 span.flatpickr-day.nextMonthDay.selected {
-z-index: 2;
+z-index: 102;
 }
 .rangeMode .flatpickr-day {
 margin-top: -1px;
@@ -1541,9 +1541,26 @@ font-weight: 700;
 
 
 .shortcut-buttons-flatpickr-button:active {
-transform: matrix(0.94, 0, 0, 0.94, 0, 2);
+transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 }
 
+/*#container_date_2 {
+position:absolute;
+z-index:100;
+width: 434px;
+max-width: 434px;
+border: 2px solid transparent;
+padding:auto;
+display: none;
+animation: noname2;
+padding-top: 0px;
+transform: scale(0.9);
+} */
+
+.containers_date {
+    z-index: 101;
+    transform: scale(0.9);
+    }
 
 #container_date_1,
 #container_date_2 {
@@ -1562,7 +1579,6 @@ transform: scale(0.9);
 /*left: 50%;
 margin-left: -200px; */
 }
-
 
 .btns_close_date {
 position: absolute;
@@ -1596,7 +1612,7 @@ color: rgba(220, 220, 230, 0.8);
 }
 
 .btns_close_date:active {
-transform: matrix(0.94, 0, 0, 0.94, 0, 2);
+transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 }
 
 
@@ -1633,13 +1649,15 @@ border-radius: 1px;
 .btns_close_date_i {
 float: right;
 bottom: -3px;
-right: 25px;
+right: 0px;
+margin-right: 4.9%;
 
 }
 
 .btns_clear_date {
 float: left;
-left: 25px;
+left: 0px; 
+margin-left: 4.9%;
 top: -3px;
 }
 
@@ -1652,9 +1670,11 @@ background: rgba(60, 160, 240, 0.8);
 }
 
 .btns_close_date_i:active,
+.btns_open_date:focus, 
+.btns_clear_date:focus
 .btns_open_date:active, 
 .btns_clear_date:active {
-transform: matrix(0.94, 0, 0, 0.94, 0, 2);
+transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 }
 
 /*
@@ -1682,35 +1702,13 @@ left: 25px;
 top: -9px;
 } */
 
-.inputs_date,
+/*.inputs_date,
 #input_date_1 {
 display:inline-block;
-z-index: 2;
+z-index: 12;
 padding-left: 76px;
-/*
-display:inline-block;
-font-size:18px; 
-border:4px solid rgba(60,160,240, 0.8); 
-background: rgba(220, 220, 240, 0.8); 
-color: rgba(0, 0, 180, 0.8); 
-width:200px; 
-max-width:200px;
-padding: 4px;
-
-*/
-}
-.tooltip_input input {
-display:inline-block;
-font-size:18px; 
-border:4px solid rgba(60,160,240, 0.8); 
-background: rgba(220, 220, 240, 0.8); 
-color: rgba(0, 0, 180, 0.8); 
-width:360px; 
-max-width:360px;
-padding: 4px;
-
-*/
-}  
+} */
+  
 
 input:hover, input:focus {
 outline:none;
@@ -1831,7 +1829,7 @@ transition: 0.1s;
 
 .numInputWrapper span.arrowUp:active,
 .numInputWrapper span.arrowDown:active {
-transform: matrix(0.94, 0, 0, 0.94, 0, 1);
+transform: matrix(0.99, 0, 0, 0.99, 0, 1);
 }
 
 .numInputWrapper span.arrowUp:after {
@@ -2013,7 +2011,6 @@ border-radius: 2px;
 background: rgba(0, 0, 210, 0.6);
 padding-top: 6px;
 padding-bottom: 8px;
-z-index: 5;
 font-size: 20px;
 font-variant: small-caps;
 outline: 2px solid rgba(60, 160, 240, 0.8);
@@ -2044,7 +2041,7 @@ z-index: 101;
 
 .my_container_date {
 position: relative;
-z-index: 1;
+z-index: 11;
 display: flex;
 /* grid-template-columns: auto auto auto; */
 width: 90%;
@@ -2053,7 +2050,7 @@ margin-right: 5%;
 margin-top: 100px;
 }
 
-.my_row_date {
+.myrow_date_a {
 /* width: 50%; */
 display: flex;
 justify-content: center;
@@ -2064,65 +2061,62 @@ position: relative;
 .input_widget,
 .containers_widget {
 position: relative;
-z-index: 2;
+z-index: 12;
 display: inline;
 /* left: 50%;
 margin-left:-180px; */
-
 }
 
-@media screen and (max-width: 960px) {
-.my_container_date {
-display: block;
-/* grid-template-columns: auto auto auto; */
-}
-
-
-
-#mydiv_2 {
-/*  top: 266px; */}   
-}
-
-.tooltip_data input,
 .input_widget input {
 padding-left: 76px; 
 }
 
+#input_widget_published,
+#my_row_date_a,
+#input_date_publ {
+z-index: 18;
+}
+
 #input_widget_start,
 #my_row_date_1a,
-#tooltip_date_1,
 #input_date_start {
-z-index: 8;
+z-index: 18;
 }
 
 #btn_clear_date_1,
 #btn_open_date_1,
 #btn_close_date_i1 {
-z-index: 9;
+z-index: 19;
 }
 
 #input_widget_end,
 #my_row_date_2a,
 #tooltip_date_2,
 #input_date_end {
-  z-index: 6;
+  z-index: 16;
 }
 
 #btn_clear_date_2,
 #btn_open_date_2,
 #btn_close_date_i2 {
-z-index: 7;
+z-index: 17;
 }
 
+#my_row_date_a,
 #my_row_date_1b,
 #my_row_date_2b {
-z-index: 10;
+z-index: 100;
 }
 
-.containers_date {
-z-index: 12;
-transform: scale(0.9);
+.myrow_date_b {
+    
+    display: flex;
+    justify-content: center;
+    z-index: 20;
+    position: relative;
 }
+
+
 
 /*
 input [id^="container_date_"] {
@@ -2144,3 +2138,80 @@ display:none;
 } */
 
 </style>
+
+<style>
+@media screen and (max-width: 960px) {
+.my_container_date {
+display: block;
+/* grid-template-columns: auto auto auto; */
+}
+
+
+#mydiv_2 {
+/*  top: 266px; */}   
+}
+
+@media screen and (max-width: 640px) {
+    .btns_clear_date {
+
+        margin-left: 4.3%;
+
+        }
+
+        .btns_open_date,
+        .btns_close_date_i {
+
+        margin-right: 4.3%;
+        
+        }
+        .input_widget input {
+            
+            }
+}
+
+@media screen and (max-width: 560px) {
+    .btns_clear_date {
+
+        margin-left: 4.2%;
+
+        }
+
+        .btns_open_date,
+        .btns_close_date_i {
+
+        margin-right: 4.2%;
+        
+        }
+        .input_widget input {
+            
+            }
+}
+
+
+
+@media screen and (max-width: 480px) {
+#container_date_1,
+#container_date_2 {
+transform: scale(0.8);
+}
+
+.btns_clear_date {
+
+    margin-left: 4.1%;
+
+    }
+
+    .btns_open_date,
+    .btns_close_date_i {
+
+    margin-right: 4.1%;
+    
+    }
+    .input_widget input {
+        
+        }
+}
+</style>
+
+
+

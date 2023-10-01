@@ -1,9 +1,8 @@
 {% load bootstrap4 %}
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 <style type="text/css">
-
-
-
 
 #shadow_back_row {
 background: rgba(100, 160, 240, 0.0); 
@@ -40,7 +39,7 @@ text-align:center;
 border:none;
 outline:none;
 position:fixed;
-z-index:2;
+z-index: 12;
 }
 
 #sort_input:hover {
@@ -64,7 +63,7 @@ height:60px;
 background:rgba(60, 160, 240, 0.0);
 left:50%;
 margin:46px auto -30px -70px; 
-z-index:1; 
+z-index: 11; 
 position:absolute; 
 }
 
@@ -131,7 +130,7 @@ to {rotate:0deg;}
 box-shadow: 0px 0px 4px 4px rgba(0, 102, 255, 0.6);
 background-color: rgba(230, 230, 240, 0.4);
 outline:none;
-z-index:3;
+z-index: 13;
 position:absolute;
 border-radius: 2px;
 color:blue;
@@ -167,17 +166,17 @@ option {
 text-align:center;
 border-radius: 4px;
 position:relative;
-z-index:3;
-color:blue;
-border:none;
-outline:none;
+z-index: 13;
+color: blue;
+border: none;
+outline: none;
 background-color: rgba(230, 230, 240, 0.8);
 box-shadow: 0px 0px 2px 4px rgba(100, 160, 220, 0.6); 
-padding:2px 4px 2px 8px;
+padding: 2px 4px 2px 8px;
 
-font-weight:bold;
+font-weight: bold;
 width: auto;
-margin:6px auto 6px auto;
+margin: 6px auto 6px auto;
 /*left:50%;
 margin: -3px auto 14px -190px;
 font-size:20px;*/
@@ -214,22 +213,22 @@ border:none;
 outline:none;}
 
 .button_sort {
-position:relative;
-left:50%;
+position: relative;
+left: 50%;
 /*top:20px;*/
-margin:200px auto auto -70px;
-display:block;
-z-index:2;
+margin: 200px auto auto -70px;
+display: block;
+z-index: 12;
 }
 
 
 /*#button_sort, */
 #button_sort_back {
-left:50%;
+left: 50%;
 /*top:0px;*/
-margin:54px auto 0px -70px;
-z-index:2;
-position:fixed;
+margin: 54px auto 0px -70px;
+z-index: 12;
+position: fixed;
 }
 
 select, .form-group, .form-control {
@@ -243,14 +242,15 @@ outline:none;
 }
 
 #anime_box {
-z-index:1;
-background:#98bf21;
-height:200px;
-width:100px;
-position:absolute;
-display:none;
-left:50%;
-margin:-40px auto auto -50px;
+z-index: 11;
+background-color: rgb(0, 120, 220);
+background-color: rgba(0, 120, 220, 0.8);
+height: 200px;
+width: 100px;
+position: absolute;
+display: none;
+left: 50%;
+margin: -40px auto auto -50px;
 }
 
 </style>

@@ -1,5 +1,15 @@
-<div class="mymodal_Account" id="mymodalLogin">
-</div>
+{% include 'snippets/out_log_css.html' %}
+
+<style>
+	.mytootlip_text {
+		min-width: 100%;
+		max-width: 100%;
+		width: 100%;
+	}
+</style>
+
+<div class="mymodal_Account" id="mymodalLogin"> </div>
+
     <!-- Modal content 
     <div class="container-fluid" id="mymodalAccountCont">
       <div class="column" id="mymodalAccountCol">-->
@@ -24,9 +34,12 @@
                   <input type="hidden" name="current_url" id="current_url" readonly value='{{ current_url }}'>  
     
                     <div class="form-group">
+                    
                       <label class="label" for="username" style="font-size:24px; 
                       color:blue; font-variant: small-caps;" > username </label>
-                      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus >
+                      <span class="mytootlip_text" data-tooltip="tooltip_input">
+                      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus minlengh="3">
+                      <span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
                       <div class="valid-feedback" > username field is filled out.
                       </div>
                       <div class="invalid-feedback" > please fill out the username field.
@@ -38,15 +51,19 @@
                     <div class="form-group">
                       <label class="label" for="password" style="font-size:24px; 
                       color:blue; "> password </label>
-                      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="enter password" required  aautofocus pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                       <span class="mytootlip_text" data-tooltip="tooltip_input">
+                      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="enter password" required  aautofocus pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
+                      	<span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters.</span> </span>
                       <div class="valid-feedback" > password field is filled out.
                       </div>
                       <div class="invalid-feedback" > please fill out the password field.
                       </div>
                     </div>
                     
-                    <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;">
+                    <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;" data-tooltip="tooltip_input">
                     {% include 'snippets/mywidget_recaptcha_ml.html' %}
+                    <span style="margin-bottom: 4px;" data-tooltiptext="tooltiptext_input">if it takes too long,  <br> you can log in by <br>  <a href="{% url 'accounts:login' %}" > LOGIN-SITE </a></span>
+                
                   </div>
                  <!--   <div>
                       <label class="container-check"> 
@@ -64,7 +81,7 @@
                 </form> 
           
                 <div>
-                  <p class="psw">forgot <a href="{% url 'accounts:password_reset_form' %}" target="_blank" >password?</a></p>
+                  <p class="psw" style="margin-top: 6px;">forgot <a href="{% url 'accounts:password_reset_form' %}" target="_blank" >password?</a></p>
                 </div>
           
                 <div> 
@@ -103,12 +120,12 @@
               </div>
             </div> 
       
-            <div class="mymodal_AccountFooter" id="mymodalLoginFooter">
+      <div class="mymodal_AccountFooter" id="mymodalLoginFooter">
               
-              <button name="login_f" form="login_form" type="submit" id="button_login" class="btn_submit" disabled> log in </button>
+          <button name="login_f" form="login_form" type="submit" id="button_login" class="btn_submit" disabled> LOG IN </button>
                 
                 
-                <button id="close_mbLogin" type="button" class="close_mb_acc" >close</button> 
+          <button id="close_mbLogin" type="button" class="close_mb_acc" > CLOSE </button> 
             
             
             </div>
@@ -116,7 +133,7 @@
           </div>
         </div>
       
-
+     
 
       <script>
     

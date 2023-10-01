@@ -6,7 +6,7 @@
 {% block page %}
 
 {% include 'snippets/scrollbars.html' %}
-
+{% include 'snippets-booksmart/css_booksmart.html' %}
 <div id="glass_id_main" class="glass_class_main"> 
 
   {% block content_1 %} 
@@ -29,7 +29,10 @@
   <div class="mycolumn " id="col_edit_book">
 
     <div class="header_card" id="header_edit_book">
-      <p class="header_text" id="header_text_book"> BOOK CARD - "{{ book.user_num_b }} - {{ book_published }}" </p>
+      <p class="header_text_book">
+        <span class="header_text_1"> BOOK CARD </span><br>
+        <span class="header_text_2">"{{ book.title }}"</span>
+      </p>
       </div>
 
       <div class="body_card"  id="body_edit_book" >      

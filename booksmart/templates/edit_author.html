@@ -21,25 +21,16 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/rangePlugin.js"></script>
 
 {% include 'snippets/scrollbars.html' %}
-
+{% include 'snippets-booksmart/css_booksmart.html' %}
 <div id="glass_id_main" class="glass_class_main"> 
-
+  
+ 
   {% block content_1 %} 
 
 <style>
 
-#mycontainer_jumbotron {
-    margin-top: 40px;
-  }
 
-#h2j {
-  margin-bottom: 10px;
-}
-
-#mycontainer_marque {
-
-}
-
+/*
 #col_edit_author ::-webkit-scrollbar {
   width: 16px;
   background: rgba(60, 160, 240, 0.1);
@@ -53,9 +44,7 @@ background-image: radial-gradient;
   background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6))
 
 }
-/* ::-webkit-resizer {
-height:100px;}
-Track */
+
 #col_edit_author ::-webkit-scrollbar-track {
   background: rgba(232, 233, 245, 0.4);
   background-color: rgba(232, 233, 245, 0.4);
@@ -63,17 +52,10 @@ Track */
   0px 0px 4px 8px rgba(120, 120, 140, 0.0) inset,
   0px 0px 0px 2px rgba(60, 160, 240, 0.4); 
   border-radius: 4px;
-/*  background-image: url({% static 'tekst.png' %});*/
 width: 16px;
 border-style: groove ridge ridge groove;
 border-width: 2px;
 border-color: rgba(60, 160, 240, 0.4);
-/*background-image: url({% static 'tekst.png' %});
-background-size: 20px 240px;
- background-repeat: space;
- background-position: center; */
-/*url('/static/text.png')*/
-
 transition: 0.4s;
 }
 
@@ -83,21 +65,14 @@ transition: 0.4s;
   box-shadow: 0px 0px 4px 8px rgba(120, 120, 140, 0.0 ) inset,
   0px 0px 0px 2px rgba(60, 160, 240, 0.8); 
   border-radius: 4px;
-/*  background-image: url({% static 'tekst.png' %});*/
   width: 16px;
   border-style: groove ridge ridge groove;
 border-width: 2px;
 border-color: rgba(60, 160, 240, 0.8);
-/*background-image: url({% static 'tekst.png' %});
-background-size: 20px 240px;
- background-repeat: space;
-background-position: center; */
-/*url('/static/text.png')*/
 transition: 0.4s;
 
 }
   
-/* Handle */
 #col_edit_author ::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background: rgba(202, 203, 225, 1.0) ;
@@ -105,14 +80,7 @@ transition: 0.4s;
   border-style: groove ridge ridge groove;
   border-width: 2px;
   border-color: rgba(60, 160, 240, 0.4); 
-  /*background-image: url({% static 'tekst.png' %});
-  background-size: 18px 220px;
-  background-position: center;
-background-repeat: no-repeat; */
-  
 box-shadow: 0px 0px 0px 2px rgba(0, 0, 210, 0.6);
-/*url('/static/text.png')*/
-/*min-height: 540px;*/
 height: 540px;
 max-height: 540px;
 width: 14px;
@@ -120,24 +88,18 @@ margin: 1px;
 transition: 0.4s;
 }
 
-/* Handle on hover */
 #col_edit_author ::-webkit-scrollbar-thumb:hover {
   background:rgba(50, 151, 254, 1.0); 
   background-color:rgba(200, 201, 254, 1.0); 
   border-style: groove ridge ridge groove;
   border-width: 2px;
   border-color: rgba(60, 160, 240, 0.4); 
-  /*  background-image: url({% static 'tekst.png' %});
-  background-size: 18px 220px; 
-  background-position: center;
-background-repeat: no-repeat; */
-/*min-height: 540px;*/
 height: 540px;
 max-height: 540px;
 width: 14px;
 margin: 1px;
 transition: 0.4s;
-}
+} */
 
   </style>
 {% include 'snippets/jumbotron.html' %}
@@ -183,7 +145,10 @@ transition: 0.4s;
       <div class="mycolumn " id="col_edit_author">
 
        <div class="header_card" id="header_edit_author">
-        <p class="header_text" id="header_text_author"> AUTHOR CARD </p>
+        <p class="header_text_book">
+          <span class="header_text_1"> BOOK CARD </span><br>
+          <span class="header_text_2">"{{ author_c.author_name }}"</span>
+        </p>
        </div>
 
 <div class="body_card"  id="body_edit_author" >

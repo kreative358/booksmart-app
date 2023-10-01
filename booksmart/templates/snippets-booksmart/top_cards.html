@@ -1,9 +1,9 @@
 {% include 'snippets-booksmart/css_booksmart.html' %}
     
   
-    <div class="my_container_top_cards" id="mycard_top_cards_left">
+    <div class="my_container_top_cards" id="mycontainer_top_cards_id">
     
-      <div class="my_card_top_cards">
+      <div class="my_card_top_cards" id="mycard_top_cards_left">
        <a href="{% url 'booksmart:allrecords' %}" target="_blank">
               <p class="h3vw_l_b"  >Number of all books in database:</p> 
               <p class="h2vw_l_b" style="animation: anime_red_text 2s infinite;"> {{ num_books }}</p>
@@ -12,7 +12,7 @@
       
       <div class="my_card_top_cards" id="mycard_top_cards_middle">
    
-      <p class="h3vw_l_b" id="a_submit_t"> You can try find the book, <br>fill in at least one field <br> in the search panel.</p>
+      <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite"> You can try find the book, <br>fill in at least one field <br> in the search panel.</p>
       </div>
       
       <div class="my_card_top_cards" id="mycard_top_cards_right">

@@ -4,13 +4,12 @@
 <style >
   /*type="text/css"*/
   .mycontainer_search_gb {
-    width:100%;
     position:relative;
-    width:560px; 
+    width: 560px; 
     margin: 40px auto 20px auto;
     left: 2px; 
     max-width: 90%;
-    z-index:1;
+    z-index:11;
     box-shadow: 
     0px 2px 2px 0px rgba(110, 170, 230, 0.2), 
     0px 3px 3px 0px rgba(100, 160, 220, 0.6), 
@@ -30,6 +29,7 @@
     backdrop-filter: blur(2px);
     transition: 0.4s;
     padding: 10px;
+    left: 12px;
   }
   
   .mycontainer_search_gb:hover {
@@ -743,7 +743,8 @@
   padding: 6px 4px 6px 6px;
   font-size: 16px;
   margin-bottom: 4px;
-  width: 500px;
+  max-width: 80%;
+  width: 80%;
   }  
   
   /* select:focus option:first-of-type:checked:hover, */
@@ -762,7 +763,8 @@
   padding: 6px 4px 6px 6px;
   font-size: 16px;
   font-weight: bold;
-  width: 500px;
+  max-width: 80%;
+  width: 80%;
   }  
    
   /* select:hover option:not(option:first-child):checked, */
@@ -818,8 +820,8 @@
   transition: 0.4s;
   transform: scale(1.01);
   opacity: 1;
-  min-width:90%;
-  width: 90%;
+  max-width: 80%;
+  width: 80%;
   }
 
 /*
@@ -856,7 +858,215 @@
   background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6))
 }
 
+#search_card_gb select:focus option:nth-of-type(1),
+#search_card_gb select:focus:hover option:nth-of-type(1){
+  max-width: 98%;
+  width: 98%;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: 4px;
+  transform: scale(1.01);
+  transition: 0.4s; 
+  background-color: rgba(60, 160, 240, 0.6);
+  background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6))
+}
+
+#search_card_gb select option:first-of-type,
+#search_card_gb select:focus option:first-of-type:hover,
+#search_card_gb select:focus:hover option:first-of-type:hover,
+#search_card_gb select:focus:hover option:first-of-type,
+#search_card_gb select:focus option:first-of-type {
+  width: 98%;
+  max-width: 98%;
+}
   </style>
+
+  <style>
+
+    @media screen and (max-width: 640px) {
+      .mycontainer_search_gb {
+    max-width: 92%; 
+    
+    }
+    
+    input[type=checkbox] {
+     margin-right: 18vw;    
+        }
+    
+    #search_card_gb select:focus {
+      
+    }
+    
+    /*#search_card_gb select:focus option,
+    #search_card_gb select:focus:hover option {
+    min-width: 90%;
+    width: 100vw;
+    max-width: 100%;
+    margin-left: 0%;
+    } */
+    
+    #search_card_gb select:focus option:first-of-type,
+    #search_card_gb select:focus:hover option:first-of-type:hover,
+    #search_card_gb select option:first-of-type,
+    #search_card_gb select option:first-of-type:hover {
+    /*min-width: 80%;
+    width: 80%;
+    max-width: 82%;
+    margin-left: auto;
+    margin-right: auto; */
+    }
+        
+    .triangle-down {
+    right: 12%;
+    }
+    
+    }
+       
+       
+    @media screen and (max-width: 580px) {
+    
+      .mycontainer_search_gb {
+    
+    max-width: 94%; 
+    
+    }
+    
+    #search_card_gb label {
+    font-size: 20px;
+    }
+
+   
+       
+    .select_class {
+      background-color: rgba(220, 220, 240, 0.4);
+      box-shadow: 0px 0px 0px 2px rgba(60, 160, 240, 0.6);
+      transition: 0.6s;
+      opacity: 1;
+      min-width: 98%;
+      max-width: 98%;
+      width: 98%;
+      padding: 1% 0px 1% 0px;
+      } 
+    
+    .triangle-down {
+    right: 8.8%;
+    }
+    
+    #search_card_gb select,
+    #search_card_gb select:focus,
+    #search_card_gb select:hover {
+    min-width: 90%;
+    width: 90%;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto; 
+    font-size: 16px;
+    }
+    
+         {
+        }
+    
+     #search_card_gb select option {
+    font-size: 14px;
+    
+    }
+    
+        
+    #search_card_gb select:focus option:first-of-child;,
+    #search_card_gb select option:first-of-type,
+    #search_card_gb select:focus option:first-of-type,
+    #search_card_gb select:focus option:first-of-type:hover,
+    #search_card_gb select:focus:hover option:first-of-type:hover,
+    #search_card_gb select:hover option:first-of-type,
+    #search_card_gb select option:first-of-type:hover {
+  /*  min-width: 92%;
+    width: 92%;
+    max-width: 92%;
+    margin-left: 10%;
+    margin-right: auto; */
+   
+    } 
+    
+      #search_card_gb option {
+        min-width: 92%;
+    width: 92%;
+    max-width:92%;
+     margin-left: 5%;
+    margin-right: auto;}
+    
+    #search_card_gb select:focus option:not(option:first-of-type),
+    #search_card_gb select option:not(option:first-of-type) {
+    min-width: 80%;
+    max-width: 80%;
+   width: 80%;
+    margin-left: auto;
+    }
+    
+    /* #search_card_gb select:focus:hover option:not(option:first-of-type):hover,
+    #search_card_gb select:hover option:not(option:first-of-type),
+    #search_card_gb select:hover option:not(option:first-of-type):hover, 
+     #search_card_gb select option:not(option:first-of-type):hover,
+     #search_card_gb select option:not(option:first-of-type):focus,
+      #search_card_gb select option:not(option:first-of-type):active  {
+    min-width: 91%;
+    max-width: 91%;
+    max-width: 91%;
+    margin-left: 8px;
+    } 
+     #search_card_gb select:focus option:first-child,*/
+    
+
+     #search_card_gb select option:first-child,
+      #search_card_gb select:focus option:first-child,     
+    #search_card_gb select option:first-of-type,
+    #search_card_gb select:focus option:first-of-type:hover,
+    #search_card_gb select:focus:hover option:first-of-type:hover,
+    #search_card_gb select:focus:hover option:first-of-type,
+    #search_card_gb select:focus option:first-of-type {
+  min-width: 91%;
+    width: 91%;
+    max-width:91%;
+     margin-left: auto;
+    margin-right: auto;
+    left:100px;
+    
+    }
+       #search_card_gb select:focus option:nth-child(1),
+    #search_card_gb select:focus option:nth-of-type(1) {
+    color: red;}
+   
+       }
+    @media screen and (max-width: 480px) {
+    
+   .mycontainer_search_gb {
+    
+    max-width: 98%; 
+    left: 0px;
+    
+    }
+    
+    input[type=checkbox] {
+    margin-right: 1.2vw;
+    
+       }
+       
+/*    #search_card_gb select:focus option:first-of-type:hover,
+    #search_card_gb select:focus:hover option:first-of-type:hover,
+    #search_card_gb select:focus:hover option:first-of-type,
+    #search_card_gb select:focus option:first-of-type {
+    min-width: 80%;
+    width: 80%;
+    max-width: 80%;
+    margin-left: 11%;
+    
+    } */
+    
+    .triangle-down {
+    right: 9.8%;
+    }
+       }
+
+      </style>
 
 <div class="mycontainer_search_gb"  id="search_cont_gb">
     <div class="mycard_gb" id="search_card_gb">

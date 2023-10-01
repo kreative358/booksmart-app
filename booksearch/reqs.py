@@ -23,6 +23,7 @@ def req_book(book, founded_books_number):
         book_dict['val_total'] = founded_books_number
         # print("req_book book_dict['val_total']", book_dict['val_total'])
         book_dict['google_id'] = book['id']
+        book_dict['google_id_dash'] = book['id'].replace("-", "_dash_")
     except:
         book_dict['google_id'] = "unknown"
 
@@ -47,7 +48,21 @@ def req_book(book, founded_books_number):
         book_dict['category'] = 'no category'
 
     try:
-        book_dict['summary'] = book['volumeInfo']['description'][:990]
+        text = book['volumeInfo']['description']
+        if len(text) == 0:
+            book_dict['summary'] = 'no summary'
+        elif len(text) > 0:
+            if (len(text)-text.rfind('.')) > 50:
+                details = text[: text.rfind(',')]
+                book_dict['summary'] == f'{details}...'
+            elif (len(text)-text.rfind('.')) < 50:
+                details = text[: text.rfind(',')]
+                book_dict['summary'] == f'{details}...'
+            else:
+                details = text
+                book_dict['summary'] == f'{details}...'
+        else:
+            book_dict['summary'] = 'no summary'
     except:
         book_dict['summary'] = 'no summary'
 
@@ -82,7 +97,10 @@ def req_book(book, founded_books_number):
     try:
         book_dict['imageLinks'] =  book['volumeInfo']['imageLinks']['thumbnail']
     except:
-        book_dict['imageLinks'] = url_img
+        try:
+            book_dict['imageLinks'] =  book['volumeInfo']['imageLinks']['smallThumbnail']
+        except:
+            book_dict['imageLinks'] = url_img
 
     try:
         book_dict['selfLink'] = book["selfLink"]
@@ -92,7 +110,8 @@ def req_book(book, founded_books_number):
     try:
         if book['volumeInfo']['industryIdentifiers']:
             Identifiers = book['volumeInfo']['industryIdentifiers']
-            book_dict['identyfiers'] =  "".join([f'<div class="text_cont" style="color: Indigo; font-weight: bold;">{id["type"]}: {id["identifier"]}</div>' for id in Identifiers])
+            # book_dict['identyfiers'] =  "".join([f'<div class="text_cont" style="color: Indigo; font-weight: bold;">{id["type"]}: {id["identifier"]}</div>' for id in Identifiers])
+            book_dict['identyfiers'] =  "<br>".join([f'{id["type"]}: {id["identifier"]}' for id in Identifiers])
             # book_dict['isbn'] = book_dict['identyfiers'].split(',')[0].split()[-1]
             book_dict['identyfiers_dict'] = {}
             book_dict['identyfiers_dict'] = {id["type"]: id["identifier"] for id in Identifiers}
@@ -101,7 +120,7 @@ def req_book(book, founded_books_number):
             else:
                 book_dict['isbn'] = book_dict['identyfiers'].replace('OTHER', '').replace(':', ': ', 1).replace(':', '').split(',')[0].split()[0]
                 # book_dict['isbn'] = book_dict['identyfiers'].split(',')[0].split()[0]
-                print("book_dict['isbn']", book_dict['isbn'])
+                # print("book_dict['isbn']", book_dict['isbn'])
                 # book_dict['no_isbn'] = book_dict['identyfiers_dict']['no isbn']
                 # print("book_dict['no_isbn']", book_dict['no_isbn'])
     except:
@@ -142,7 +161,7 @@ def req_book(book, founded_books_number):
     founded_books_number = book_dict['val_total']
     if founded_books_number > 50 and "unknown" in book_dict.values(): # and book_dict['epub'] == "false":
         book_dict_out = book_dict
-        print("book_dict_out", book_dict_out)
+        # print("book_dict_out", book_dict_out)
         book_dict = {}
         return book_dict_out
     else:
@@ -171,7 +190,7 @@ def req_author_id(author, language, book_dict):
 
             try:
                 wiki_idx = datas["search"][0]["id"]
-                print('185 req_author_id wiki_idx', wiki_idx)  
+                # print('185 req_author_id wiki_idx', wiki_idx)  
                 if wiki_idx:
                     book_dict['author_c']['wiki_idx'] = wiki_idx
                     
@@ -184,7 +203,7 @@ def req_author_id(author, language, book_dict):
                     print("elif not wiki_idx: 184 reqs.py")
                     book_dict['author_c']['wiki_idx'] = 'none wiki_idx'
             except:
-                print('no wiki_idx for', author)
+                # print('no wiki_idx for', author)
                 book_dict['author_c']['wiki_idx'] = 'no wiki_idx'
                 return book_dict
 
@@ -196,7 +215,7 @@ def req_author_id(author, language, book_dict):
                     name = full_name.split()
                     
                     if len(name) == 1:
-                        print('2. name:', name)
+                        # print('2. name:', name)
                         book_dict['author_c']['first_name'] = f'{name[0]}'
                         # book_dict['author_c']['last_name'] = f'{name[-1]}'
                         # book_dict['author_c']['last_name']
@@ -219,7 +238,7 @@ def req_author_id(author, language, book_dict):
         return book_dict
 
     except Exception as e:
-        print(f'Error line author wiki: {e}')
+        # print(f'Error line author wiki: {e}')
         book_dict['author_c']['error'] = f'{e}'
         return book_dict
         
@@ -228,7 +247,7 @@ def req_author_date(wiki_idx, book_dict):
     try:
         key=os.environ.get('API_KEY')
         wiki_id = wiki_idx
-        print("wiki_id", wiki_id)
+        # print("wiki_id", wiki_id)
 
         url2 = "https://www.wikidata.org/w/api.php?action=wbgetentities&ids={}&format=json".format(wiki_id)
         r_1 = requests.get(url2)
@@ -242,7 +261,7 @@ def req_author_date(wiki_idx, book_dict):
                 date_of_birth = data_entities["claims"]["P569"][0]["mainsnak"]["datavalue"]["value"]["time"][1:11]
                 book_dict['author_c']['date_of_birth'] = str(date_of_birth)
                     
-                print("date_of_birth", type(date_of_birth), date_of_birth)
+                # print("date_of_birth", type(date_of_birth), date_of_birth)
             else:
                 book_dict['author_c']['date_of_birth'] = "0000-01-01"
         except:
@@ -254,7 +273,7 @@ def req_author_date(wiki_idx, book_dict):
                 date_of_death = data_entities["claims"]["P570"][0]["mainsnak"]["datavalue"]["value"]["time"][1:11]
                 book_dict['author_c']['date_of_death'] = date_of_death
                     
-                print("date_of_birth", type(date_of_death), date_of_death)
+                # print("date_of_birth", type(date_of_death), date_of_death)
             else:
                 book_dict['author_c']['date_of_death'] = "2500-01-01"
         except:
@@ -264,7 +283,7 @@ def req_author_date(wiki_idx, book_dict):
             book_lang = book_dict['language']
             if data_entities['descriptions'][book_lang]['value']:
                 wiki_data_auth = data_entities['descriptions'][book_lang]['value']
-                print("wiki_data_auth",  wiki_data_auth)
+                # print("wiki_data_auth",  wiki_data_auth)
                 book_dict['author_c']['author_wiki_link_d'] =  wiki_data_auth
             # elif not data_entities['descriptions']['en']['value']:
             elif not data_entities['descriptions'][book_lang]['value']:
@@ -297,51 +316,51 @@ def req_author_wiki_details(book_author, book_lang, book_dict):
                 'format': 'json',
                 'titles': book_author,
                 'prop': 'extracts',
-                'exchars': 1050,
+                'exchars': 1200,
                 'explaintext': True,
             }
 
-        print("wikipedia link", url)
+        # print("wikipedia link", url)
         response = S.get(url, params=params)
         data = response.json()
         
         if data:
-            print('\nndata', data)
+            # print('\nndata', data)
             page = next(iter(data['query']['pages'].values()))
-            print('len(page)', len(page))
+            # print('len(page)', len(page))
             text3 = page['extract']
             text2 = re.sub(r'==.*?==+', '', text3)
             text1 = text2.replace('\n', '')
-            text = text1[:1000]
+            text = text1[:1150]
             
             if len(text) == 0:
                 book_dict['author_c']['author_wiki_link'] = 'no wikidata'
-                print('no wikidata')
+                # print('no wikidata')
             elif len(text) > 0:
-                print('text', text)
+                # print('text', text)
                 if (len(text)-text.rfind('.')) > 50:
                     details = text[: text.rfind(',')]
                     book_dict['author_c']['author_wiki_link'] = f'{details}...'
-                    print("1. book_dict['author_c']['author_wiki_link']", len(book_dict['author_c']['author_wiki_link']))
+                    # print("1. book_dict['author_c']['author_wiki_link']", len(book_dict['author_c']['author_wiki_link']))
                 elif (len(text)-text.rfind('.')) < 50:
                     details = text[: text.rfind(',')]
                     book_dict['author_c']['author_wiki_link'] = f'{details}.'
-                    print("2. book_dict['author_c']['author_wiki_link']", len(book_dict['author_c']['author_wiki_link']))
+                    # print("2. book_dict['author_c']['author_wiki_link']", len(book_dict['author_c']['author_wiki_link']))
                 else:
                     details = text
                     book_dict['author_c']['author_wiki_link'] = f'{details}.'
-                    print("3. book_dict['author_c']['author_wiki_link']", len(book_dict['author_c']['author_wiki_link']))
+                    # print("3. book_dict['author_c']['author_wiki_link']", len(book_dict['author_c']['author_wiki_link']))
             else:
                 book_dict['author_c']['author_wiki_link'] = 'no wikidata'
 
         elif not data:
             book_dict['author_c']['author_wiki_link'] = 'no wikidata'
-            print("\n\nbook_dict['author_c']['author_wiki_link']", book_dict['author_c']['author_wiki_link'])
+            # print("\n\nbook_dict['author_c']['author_wiki_link']", book_dict['author_c']['author_wiki_link'])
 
         return book_dict
 
     except Exception as e:
-        print(f'reqs Error line 380: {e}')
+        # print(f'reqs Error line 380: {e}')
         book_dict['author_c']['author_wiki_link'] = 'no wikidata'
 
         return book_dict
@@ -368,8 +387,8 @@ def req_author_img(book_author, book_lang, book_dict):
         if data1:
             image1 = data1["query"]["pages"][0]["original"]["source"]
             book_dict['author_c']['author_wiki_img'] = image1
-            print()
-            print("image1", image1)
+            # print()
+            # print("image1", image1)
         elif not data1:
             book_dict['author_c']['author_wiki_img'] = 'no img'
             

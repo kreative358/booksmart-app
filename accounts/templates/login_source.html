@@ -24,9 +24,9 @@
 
 <style type="text/css">
 
-#cont_accounts_login {
+.container_accounts {
 	position: relative;
-	z-index :1;
+	z-index :12;
 	background-color: rgb(200, 200, 240);
 	background-color: rgba(200, 200, 240, 0.2);
 	text-align: center;
@@ -39,9 +39,10 @@
 	margin:40px auto 20px auto;
 	border: 4px solid rgba(60, 160, 240, 0.8);
 	left: 12px;
+	max-width: 92%;
 	}
 
-#row_accounts_login {
+.row_accounts {
 	background-color: rgb(60, 160, 240);
 	background-color: rgba(60, 160, 240, 0.2);
 	text-align: center;
@@ -54,7 +55,7 @@
 	padding: 10px; 
 	}	
 
-#col_accounts_login {
+.column_accounts {
 	background-color: rgb(60, 160, 240);
 	background-color: rgba(60, 160, 240, 0.2);
 	text-align: center;
@@ -64,7 +65,7 @@
 	border: 4px solid rgba(60, 160, 240, 0.8);
 	box-shadow: 0px 0px 6px 6px rgba(180, 180, 180, 0.4);
 	margin: auto;
-	padding: 10px  10px 70px 10px;
+	padding: 10px 10px 70px 10px;
 	}
 	
 #bs_input_accounts_login {
@@ -173,23 +174,22 @@ margin-top:-40px;
 
 #closebtn {
 float:right;
-color: white;
+color: rgba(240, 240, 250, 0.9);
 font-weight: bold;
-float: right;
 font-size: 30px;
 padding: 5px;
 cursor: pointer;
-transition: 1s;
+transition: 0.4s;
 
 }
 
 #closebtn:hover {
-color: blue;
+	color: rgba(0, 0, 200, 0.9);
 }
 
 .closebtn {
 float:right;
-color: white;
+color: rgba(240, 240, 250, 0.9);
 font-weight: bold;
 float: right;
 font-size: 30px;
@@ -199,10 +199,11 @@ transition: 1s;
 }
 
 .closebtn:hover {
-color: blue;
+color: rgba(0, 0, 200, 0.9); ;
 }
 
 .button_blue_grey {
+margin: 0px auto 10px 40px;
 transition: 0.2s;
 background-color: rgba(160, 170, 180, 0.8); 
 color: rgba(20, 40, 220, 0.8); 
@@ -218,12 +219,12 @@ font-variant:small-caps;
 font-size:20px;
 min-width: 120px;
 float:left;
-margin: 0px auto 10px 40px;
+
 box-shadow:
 0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
 0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
-
+cursor: pointer;
 }
 
 .button_blue_grey:hover,
@@ -241,7 +242,7 @@ border-radius:2px;
 }
 
 .button_blue_grey:active {
-transform: matrix(0.98, 0, 0, 0.98, 0, -2);
+transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 border-color: rgba(40, 80, 240, 0.8) rgba(20, 40, 220, 0.8) rgba(10, 20, 200, 0.8) rgba(20, 40, 220, 0.8);    
 box-shadow: 
 0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
@@ -253,6 +254,7 @@ border-radius:2px;
 }
 
 .button_red_grey {
+margin: 0px 40px 10px auto;
 transition-duration: 0.2s;
 background-color: rgba(160, 170, 180, 0.8);
 color: rgba(220, 20, 20, 0.6); 
@@ -271,7 +273,7 @@ box-shadow:
 0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
 0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
-margin: 0px 40px 10px auto;
+cursor: pointer;
 }
 
 .button_red_grey:hover,
@@ -290,7 +292,7 @@ border-radius:2px;
 
 .button_red_grey:active {
 border-color: rgba(240, 40, 40, 0.8) rgba(220, 20, 20, 0.8) rgba(200, 10, 10, 0.8) rgba(220, 20, 20, 0.8);
-transform: matrix(0.98, 0, 0, 0.98, 0, -2);
+transform: matrix(0.98, 0, 0, 0.98, 0, 2);
 box-shadow: 
 0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
 0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
@@ -300,12 +302,16 @@ border-style: solid;
 border-radius:2px;
 }
 
-
+@media screen and (max-width: 480px) {
+    .container_accounts {
+      left: 0;
+    }
+	}
 </style>
 
-<div class="container border rounded" id="cont_accounts_login">
-	<div class="myrow border rounded" id="row_accounts_login">
-		<div class="column border rounded" id="col_accounts_login">
+<div class="container_accounts" id="container_accounts_login">
+	<div class="row_accounts" id="row_accounts_login">
+		<div class="column_accounts" id="column_accounts_login">
 	<form  action="" method="post" class="was-validated">
 	{% csrf_token %}
 	<p class="title_account" > LOGIN </p>
@@ -331,8 +337,8 @@ border-radius:2px;
 
 <div class="bs_input_accounts_login">
 	<p class="class_label"> Veryfication</p> 
-	<div style="margin: 0px auto 0px 7.5%;">
-   {% include 'snippets/mywidget_recaptcha_p.html' %}
+	<div class="bs_input_recaptcha" style="postion: relative; margin-left: auto; margin-right: auto;">
+   {% include 'snippets/mywidget_recaptcha_s.html' %}
     </div>
    </div>
 

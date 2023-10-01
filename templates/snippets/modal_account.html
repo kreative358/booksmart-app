@@ -1,5 +1,7 @@
-<div class="mymodal_Account" id="mymodalAccount">
-</div>
+{% include 'snippets/out_log_css.html' %}
+
+<div class="mymodal_Account" id="mymodalAccount"> </div>
+
     <!-- Modal content 
     <div class="container-fluid" id="mymodalAccountCont">
       <div class="column" id="mymodalAccountCol">-->
@@ -62,9 +64,9 @@
                 </form> 
           
                 <div>
-                  <p class="psw" style="margin-top: -4px"> Your <a href="{% url 'booksmart:account-records' %}" target="_blank"> records </a></p>
-                  <p class="psw" style="margin-top: -8px">forgot <a href="{% url 'accounts:password_reset_form' %}" target="_blank" >password?</a></p>
-                  <p class="psw" style="margin-top: -8px">change <a href="{% url 'accounts:password_change' %}" target="_blank" >password?</a></p>
+                  <p class="psw" style="margin-top: 6px; line-height: 1.2;"> Your <a href="{% url 'booksmart:account-records' %}" target="_blank"> records </a></p>
+                  <p class="psw" style="margin-top: 0px; line-height: 1;">forgot <a href="{% url 'accounts:password_reset_form' %}" target="_blank" >password?</a></p>
+                  <p class="psw" style="margin-top: 0px; line-height: 1;">change <a href="{% url 'accounts:password_change' %}" target="_blank" >password?</a></p>
                 </div>
               
           
@@ -106,10 +108,10 @@
       
             <div class="mymodal_AccountFooter" id="mymodalAccountFooter">
               
-              <button name="account_f" form="account_form" type="submit" id="btn_submit_account" class="btn_submit"> confirm </button>
+              <button name="account_f" form="account_form" type="submit" id="btn_submit_account" class="btn_submit"> SAVE </button>
                 
                 
-                <button id="close_mbAccount" type="button" class="close_mb_acc" >close</button> 
+                <button id="close_mbAccount" type="button" class="close_mb_acc" > CLOSE </button> 
             
             
             </div>
@@ -117,7 +119,7 @@
           </div>
         </div>
       
-
+     
 
       <script>
     

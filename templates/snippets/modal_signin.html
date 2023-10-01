@@ -233,6 +233,12 @@
   /*  .container-check input {
       margin-top: 8px;
     } */
+
+  	.mytootlip_text {
+      min-width: 100%;
+      max-width: 100%;
+      width: 100%;
+    }  
   </style>
 
   <div class="mymodal_Account" id="mymodalSignin">
@@ -245,11 +251,11 @@
       
           <div class="mymodal_AccountHeader" id="mymodalSigninHeader" >
             <p id="close_mSignin" class="close_m_acc">✖</p>
-            <p style="font-size:26px; color:blue; margin:10px auto 0px auto;">SIGN IN</p>
+            <p     class="title_account" style="color:blue; margin:10px auto 0px auto;">SIGN IN</p>
           </div>
       
           <div class="mymodal_AccountBody" id="mymodalSigninBody">
-            <p style="font-size:22px; color:blue; margin:0px auto 4px auto;">
+            <p  class-="header_text" style="color:blue; margin:0px auto 4px auto;">
             Please fill in this form to create account.</p>
       
               <div>
@@ -266,51 +272,80 @@
       }
       </script>
 
-
-
             <form class="was-validated" action="{% url 'accounts:register' %}" method="post" id="registration_v" onsubmit="return validateForm()">
                 {% csrf_token %}
 
-                <input type="reset" id="clear_btn" value = 'Clear input field'>
+        <input type="reset" id="clear_btn" value = 'Clear input field'>
     
     <input type="hidden" name="current_url" id="current_url" readonly value='{{ current_url }}'>
     
     <div class="form-group" style="margin-top: 6px;">
       <label class="label_first"  for="username" style="margin-bottom:-6px;"> Username </label>
-      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autocomplete="off" >
+      <span class="mytootlip_text" data-tooltip="tooltip_input">
+      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autocomplete="off" minlength="3">
+      <span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span></span>
       <div class="valid-feedback" >Username field is filled out.</div>
   <div class="invalid-feedback" >Please fill out this field.</div>
     </div>
 
      <div class="form-group">
     <label class="label" for="email" style="margin-bottom:-6px;"> Email </label>
-    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Must contain @" autocomplete="off">
+    <span class="mytootlip_text" data-tooltip="tooltip_input">
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" autocomplete="off">
+    		<span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
     <div class="valid-feedback" >Email field is filled out.</div>
   <div class="invalid-feedback" >Please fill out this field.</div>
 </div>
     
     <div class="form-group">
     <label class="label" for="password" style="margin-bottom:-6px;"> Password </label>
-    <input type="password" name="password" id="inputPassword1" class="form-control" placeholder="enter password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" autocomplete="off" >
+    <span class="mytootlip_text" data-tooltip="tooltip_input">
+    <input type="password" name="password" id="inputPassword1" class="form-control" placeholder="enter password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off" >
+    <span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters.</span> </span>
     <div class="valid-feedback" >Password field is filled out.</div>
   <div class="invalid-feedback" >Please fill out this field.</div>
     </div>
 
     <div class="form-group">
     <label class="label"  for="password2" style="margin-bottom:-6px;">  Repeat Password </label>
-    <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="confirm password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" autocomplete="off" >
+    <span class="mytootlip_text" data-tooltip="tooltip_input">
+    <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="confirm password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number/nand one uppercase and lowercase letter,/nand at least 8 or more characters" autocomplete="off" >
+    <span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters <br>- BE THE SAME LIKE FIRST.</span> </span>
     <div class="valid-feedback" >Repeat password field is filled out.</div>
   <div class="invalid-feedback" >Please fill out this field with the same password.</div>
     </div> 
-    <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;">
-    {% include 'snippets/mywidget_recaptcha_ms.html' %}
+    <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;"  data-tooltip="tooltip_input">
+
+      <style>
+        .g-recaptcha > div {
+          position: relative;
+          margin: 0px auto 0px auto;
+        }
+        </style>
+              
+            <div class="g-recaptcha" style="align-items: center; justify-content: center;" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26"
+            data-callback="callback_ms">
+            </div>
+                       
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script> 
+          <script type="text/javascript">
+            function callback_ms() {
+              const submitButton_ms = document.getElementById("button_signin");
+              submitButton_ms.removeAttribute("disabled");
+            }
+          </script>
+
+     <span style="margin-bottom: 4px;" data-tooltiptext="tooltiptext_input">if it takes too long, <br> you can sign in by <br>  <a href="{% url 'accounts:register' %}" > SIGNIN-SITE </a></span>
   </div>
 
     <div>  <!-- <div class="form-check">   mb-3 mt-n1-->
       <div class="container-check" style="margin-top: 20px; margin-bottom: 0px;">
+
       <input type="checkbox" checked="checked" required="False" name="remember"> <label class="form-check-label" >  I agree. </label>
+      
       <div class="valid-feedback" style="margin-top: -4px; margin-bottom 10px">Valid.</div>
       <div class="invalid-feedback" style="margin-top: -4px; margin-bottom 10px">Check this checkbox to continue.</div>   
+
       </div>
     </div>
 
@@ -380,10 +415,10 @@
    
 <div class="mymodal_AccountFooter" id="mymodalSigninFooter">
 
-      <button name="registration_f" form="registration_v" type="submit" id="button_signin" class="btn_submit"  disabled> sign in </button>
+      <button name="registration_f" form="registration_v" type="submit" id="button_signin" class="btn_submit"  disabled> SIGN IN </button>
 
     
-        <button id="close_mbSignin" type="button" class="close_mb_acc" >close</button> 
+  <button id="close_mbSignin" type="button" class="close_mb_acc" > CLOSE </button> 
      
      
       </div>
@@ -441,7 +476,7 @@
       }
       
      
-
+ 
    //   window.onclick = function(event) {
   //       if (event.target == my_modalSignin) {
           

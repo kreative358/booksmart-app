@@ -2,63 +2,72 @@
 
 <style>
 
-.row {
-  position:relative;
-  width:94%;
-  margin: 10px auto auto auto;
+.row_author_copy {
+  background: rgba(210, 217, 220, 0.2);
+  position: relative;
+  min-width: 100%;
+  max-width: 100%;
+  width: 100%;
+  margin: 0px;
+
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   }
 
-.column {
+.column_author_copy {
   float: left;
   width: 50%;
   }
 
-#col_img_author {
+[id^="column_left_author_copy_"] {
   background-color: rgb(100, 160, 220); 
-  background-color: rgba(100, 160, 220, 0.6); 
+  background-color: rgba(100, 160, 220, 0.2); 
   border-radius: 3px;
   border: 3px solid rgba(240, 240, 240, 0.6);
   box-shadow: 0px 0px 6px 6px rgba(120, 120, 120, 0.3);  
- padding:10px;
+  padding:10px;
   }
 
-  #cont_img_author {
-    position:relative;
-    width: 168px;
-    height: 100%;
-    margin: auto 10px auto auto;
-    float:left;
-   
-    display: flex;
+.cont_img_author_copy {
+  position:relative;
+  width: 168px;
+  height: 100%;
+  margin: auto 10px auto auto;
+  float:left;
+  display: flex;
   align-items:center;
-  }
+}
 
-
-
-#img_author {
- 
+[id^="img_author_c_"] {
+  float:left;
   width: 164px;
   height: 230px;
   object-fit: cover;
-  
-  /*
+  margin: auto 10px auto 6px;  
+  }
+
+/*.img_author_copy {
+  width: 164px;
+  height: 230px;
+  object-fit: cover;
   vertical-align: middle; 
    top: 50%;
    -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  margin: auto 10px auto 6px;*/
-  }
+  margin: auto 10px auto 6px;
+  } */
 
-#col_author {
+  [id^="column_right_author_copy_"] {
   background-color: rgb(240, 240, 240); 
-  background-color: rgba(240, 240, 240, 0.6); 
+  background-color: rgba(240, 240, 240, 0.2); 
   border-radius: 3px;
   border: 3px solid rgba(240, 240, 240, 0.6);
   box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.3);  
   padding: auto 6px auto 6px;
   }
 
-.row:after {
+.row_author_copy:after {
   content: "";
   display: table;
   clear: both;
@@ -71,19 +80,19 @@
   }
 
 @keyframes anime_submit_t {
-  10% {
+  25% {
   color: red;}
   }  
 
-#button_sm {
+.button_sm {
   width: 90%;
   height: 40%;
   box-shadow: 0px 0px 2px 2px rgba(120, 120, 120, 0.3);
   }
 
-#button_1a_m {
+.button_1a_m {
   float:right;
-  padding:4px auto 4px auto;
+  padding:6px auto 8px auto;
   color: rgb(240, 248, 255);
   background: rgb(119, 136, 153);
   background: rgba(119, 136, 153, 0.6);
@@ -91,14 +100,17 @@
   outline: 2px solid rgba(240, 240, 240, 0.6 );
   text-align: center;
   min-width: 60px;
-  width: 60px;
-  font-size: 14px;
+  width: 64px;
+  font-size: 16px;
   font-weight: bold;
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.4);
+  font-variant: small-caps;
+  border-radius: 2px;
+  line-height:1;
   }
 
-#button_1a_m:hover,
-#button_1a_m:focus {
+.button_1a_m:hover,
+.button_1a_m:focus {
   color: rgb(30, 144, 255);
   background:rgb(211, 211, 211);
   background:rgba(211, 211, 211, 0.6);
@@ -107,18 +119,18 @@
   outline: 2px solid rgba(240, 240, 240, 0.6 );
   }
 
-#button_1a_m:active {
+.button_1a_m:active {
   transform: matrix(0.98, 0, 0.98, 0, 2);
   box-shadow: 0px 0px 2px 2px rgba(210, 220, 230, 0.8);
   border: 2px solid rgba(240, 240, 240, 0.6);
   outline: 2px solid rgba(240, 240, 240, 0.6 );
 }
 
-#button_2a_m {
+.button_2a_m {
   float: right;
   margin-left: 10px;
   margin-right: 10px;
-  padding:4px auto 4px auto;
+  padding:6px auto 8px auto;
   color: rgb(240, 248, 255);
   background-color:rgb(30, 144, 255);
   background-color:rgba(30, 144, 255, 0.6);
@@ -126,14 +138,17 @@
   outline: 2px solid rgba(240, 240, 240, 0.6);
   text-align: center;
   min-width: 74px;
-  width: 74px;
-  font-size: 14px;
+  width: 78px;
+  font-size: 16px;
   font-weight: bold;
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.4);
+  font-variant: small-caps;
+  border-radius: 2px;
+  line-height: 1;
   }
 
-#button_2a_m:hover,
-#button_2a_m:focus {
+.button_2a_m:hover,
+.button_2a_m:focus {
   color: rgb(30, 144, 255);
   background-color: rgb(211, 211, 211);
   background-color: rgba(211, 211, 211, 0.6);
@@ -142,16 +157,16 @@
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.6);
   }
 
-#button_2a_m:active {
+.button_2a_m:active {
   border: 2px solid rgba(120, 120, 120, 0.6);
   outline: 2px solid rgba(120, 120, 120, 0.6);
   transform: matrix(0.98, 0, 0.98, 0, 2);
   box-shadow: 0px 0px 2px 2px rgba(210, 220, 230, 0.8);
 }
 
-#button_3a_m {
+.button_3a_m {
   float: right;
-  padding: 4px auto 4px auto;
+  padding: 6px auto 8px auto;
   color: rgb(240, 248, 255);
   background-color: rgb(178, 34, 34);
   background-color: rgba(178, 34, 34, 0.6);
@@ -159,14 +174,17 @@
   outline: 2px solid rgba(240, 240, 240, 0.6);
   text-align: center;
   min-width: 60px;
-  width: 60px;
-  font-size: 14px;
+  width: 64px;
+  font-size: 16px;
   font-weight: bold;
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.4);
+  font-variant: small-caps;
+  border-radius: 2px;
+  line-height: 1;
   }
 
-#button_3a_m:hover,
-#button_3a_m:focus {
+.button_3a_m:hover,
+.button_3a_m:focus {
   color: rgb(112, 128, 144);
   background-color: rgb(135, 206, 250);
   background-color: rgba(135, 206, 250, 0.6);
@@ -175,14 +193,14 @@
   box-shadow: 0px 0px 6px 4px rgba(210, 220, 230, 0.6);
   }
 
-#button_3a_m:active {
+.button_3a_m:active {
   transform: matrix(0.98, 0, 0.98, 0, 2);
   box-shadow: 0px 0px 2px 2px rgba(210, 220, 230, 0.8);
   border: 2px solid rgba(120, 120, 120, 0.6);
   outline: 2px solid rgba(120, 120, 120, 0.6);
 }
 
-#textarea_a {
+.textarea_a {
   padding: 2px 4px 2px 4px;
   resize: none;
   background-color: rgb(240, 240, 240); 
@@ -191,192 +209,268 @@
   border-radius: 3px;
   border: 3px solid rgba(240, 240, 240, 0.6);
   box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.3);  
-  font-size: 14px;
+  font-size: 16px;
   text-align: justify;
   text-justify: inter-word;
   /*width:inherit;*/
   max-width: auto;
   width: auto;
-  min-height: 110px;
-  max-height: 110px;
+  min-height: 120px;
+  max-height: 120px;
   overflow: auto;
   margin: 4px 10px 12px 10px;
   color: darkblue;
+  line-height: 1.1;
+
   }
 
-@media screen and (max-width: 1280px) {
-  .row {
-    width: 90%;
+  .h3_author_r {
+    font-size: 28px;
+    line-height: 1;  
+    color: MediumBlue; 
+    font-weight: bold;
+    }
+  
+  .h4_author_r {
+    font-size: 26px;
+    line-height: 1;
+    color: MediumBlue; 
+    padding-left: 80px; 
+    text-indent: -80px;
   }
-  .column {
-    width: 100%;
+  
+  .h5_author_r {
+    font-size: 24px;
+    line-height: 1;
+    color: MediumBlue; 
+    }
+  
+  .h6_author_r {
+  font-size: 22px;
+  line-height: 1;
+  color: MediumBlue; 
+  }
+  
+  .h7_author_r {
+    font-size: 20px;
+    line-height: 1;
+    color: MediumBlue; 
+    }
+    
+  .h8_author_r {
+    font-size: 18px;
+    line-height: 1;
+    color: MediumBlue; 
+    } 
+  
+  .h6_author_l {
+    font-size: 22px;
+    line-height: 1;
+    margin-left: 180px;
+    color: MediumBlue; 
+    }
+  
+  .h7_author_l {
+    font-size: 20px;
+    line-height: 1;
+    margin-left: 180px;
+    color: MediumBlue; 
+    }
+  
+  .h8_author_l {
+    font-size: 18px;
+    line-height: 1;
+    margin-left: 180px;
+    color: MediumBlue; 
+    } 
+  
+
+@media screen and (max-width: 1280px) {
+  .row_author_copy {
+    max-width: 98%;
+    width: 98%;
+  }
+  .column_author_copy {
+    max-width: 100%;
+    width: 99%;
+  }
+  }
+
+@media screen and (max-width: 960px) {
+  .row_author_copy {
+    max-width: 98%;
+    width: 98%;
+  }
+  .column_author_copy {
+    max-width: 100%;
+    width: 99%;
   }
   }
 
 @media screen and (max-width: 640px) {
-  .row {
-    width: 90%;
+  .row_author_copy {
+    max-width: 98%;
+    width: 98%;
   }
-  .column {
-    width: 100%;
-    min-width: 620px;
+  .column_author_copy {
+    max-width: 100%;
+    width: 99%;
+  }
+
+  .h6_author_l {
+    font-size: 20px;
+  }
+
+  .h6_author_r {
+    font-size: 20px;
+  }
+
+  .h5_author_r {
+    font-size: 22px;
+  }
+
+  .h4_author_r {
+    font-size: 24px;
+    padding-left: 70px; 
+    text-indent: -70px;
+  }
+
+  .h3_author_r {
+    font-size: 26px;
+  }
+
+  .button_1a_m,
+  .button_3a_m {
+    min-width: 54px;
+    width: 58px;
+  }
+
+  .button_2a_m {
+    min-width: 68px;
+    width: 72px;
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  .button_1a_m,
+  .button_2a_m,
+  .button_3a_m {
+    font-size: 14px;
+  }
+
+  .cont_img_author_copy {
+    margin-bottom: 6px;
   }
   }
 
-#h6l {
-  font-size: 18px;
-  line-height: 0.8;
-  margin-left: 170px;
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  }
-
-.h6l {
-  font-size: 16px;
-  line-height: 0.2;
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  }
-
-#h6x {
-  font-size: 18px;
-  line-height: 0.8;
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  }
-
-#h6lb {
-  font-size: 18px;
-  line-height: 0.8;
-  margin-left: 190px;
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  }
-
-.h6lb {
-  font-size: 16px;
-  line-height: 0.2;
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  }
-
-#h4l {
-  font-size: 24px;
-  line-height: 0.8;  
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  }
-
-.h4l {
-  font-size: 26px;
-  line-height: 0.2;
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  }
-
-#h3l {
-  font-size: 26px;
-  line-height: 0.8;  
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  font-weight: bold;
-  }
-
-.h3l {
-  font-size: 24px;
-  line-height: 0.2;
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  font-weight: bold;
-  }
-
-#h5l {
-  font-size: 20px;
-  line-height: 0.8;
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  }
-
-.h5l {
-  font-size: 20px;
-  line-height: 0.2;
-  color: MediumBlue; 
-  font-family: Helvetica; 
-  }
+  @media screen and (max-width:480px) {
   
+    .row_author_copy {
+      max-width: 98%;
+      width: 98%;
+      left: 0px;
+    }
+
+    .column_author_copy {
+      max-width: 100%;
+      width: 99%;
+    }
+
+    .h6_author_l {
+      font-size: 18px;
+    }
+  
+    .h6_author_r {
+      font-size: 18px;
+    }
+  
+    .h5_author_r {
+      font-size: 20px;
+    }
+  
+    .h4_author_r {
+      font-size: 22px;
+      padding-left: 60px; 
+      text-indent: -60px;
+    }
+  
+    .h3_author_r {
+      font-size: 24px;
+    }
+
+  }
+
 button:focus {
-  border:none;
-  outline:none;
+
   }  
 
 </style>
    
-<div class="row" class="row_author_copy">
-  <div class="column" id="col_img_author">
+<div class="row_author_copy">
+  <div class="column_author_copy" id="column_left_author_copy_{{ book.author_c.id }}">
 
     <div>  
          {% if request.user.id == book.author_c.user_num_a%}
-         <a type="button"  id="button_1a_m" href="{% url 'booksmart:editauthor' book.author_c.id %}" target="_blank" > Edit<br>Author </a>
+         <a type="button"  class="button_1a_m" href="{% url 'booksmart:editauthor' book.author_c.id %}" target="_blank" > edit<br>author </a>
          {% else %}
-         <a type="button"  id="button_1a_m" > Edit<br>Author </a>
+         <a type="button" class="button_1a_m" > edit<br>author </a>
          {% endif %}
         
          <form action="{% url 'booksmart:booksauthor' %}" method="get" target="_blank" >
           {{ search_author }}
-          <input type="hidden" id="author" name="author" value="{{book.author_c.author_name}}">
-          <button type="submit" id="button_2a_m">
-            Author's<br>Books
+          <input type="hidden" class="input_author_c" id="input_author_c_{{ book.author_c.id }}" name="author" value="{{ book.author_c.author_name }}">
+          <button type="submit" class="button_2a_m">
+            author's<br>books
         </button>
       </form>
 
       {% if request.user.id == book.author_c.user_num_a%}
-      <a type="button"  id="button_3a_m" href="{% url 'booksmart:deleteauthor' book.author_c.id %}" target="_blank" > Delete<br>Author </a>
+      <a type="button"  class="button_3a_m" href="{% url 'booksmart:deleteauthor' book.author_c.id %}" target="_blank" > delete<br>author </a>
       {% else %}
-      <a type="button" id="button_3a_m" > Delete<br>Author </a>
+      <a type="button" class="button_3a_m" > delete<br>author </a>
       {% endif %}
   </div>
 
-  <div id="cont_img_author">
-      <img src="{{ book.author_c.author_wiki_img }}" id="img_author" class="img-fluid rounded">
+  <div class="cont_img_author_copy">
+      <img src="{{ book.author_c.author_wiki_img }}" id="img_author_c_{{ book.author_c.id }}" class="img-fluid rounded">
   </div>
            
      <div>
-       <br>
-     <p id="h6l_a" style="padding-top:44px"> First name: <span  id="p_m_b"> {{ book.author_c.first_name }} </span> </p>
+     <p class="h6_author_l" style="font-weight: bold; font-variant: small-caps; padding-top:44px;"> first name: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.first_name }} </span> </p>
      {% if book.author_c.middle_name %}
-     <p id="h6l_a" > other name: <span id="p_m_b"> {{ book.author_c.middle_name }} </span> </p>
+     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> other name: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.middle_name }} </span> </p>
      {% endif %}
-     <p id="h6l_a" style="margin-top:-2px;"> Surname: <span id="p_m_b"> {{ book.author_c.last_name }} </span> </p> 
+     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> surname: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.last_name }} </span> </p> 
 
      {% if book.author_c.date_of_birth == no_date %}
-     <p id="h6l_a"> Date of birth: <span  id="p_i_b">  no info </span></p>
+     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> date of birth: <span  style="color: Indigo; font-weight: bold;">  no info </span></p>
       {% else %}
-     <p id="h6l_a"> Date of birth: <span  id="p_i_b">  {{ book.author_c.date_of_birth }} </span></p>
+     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> date of birth: <span  style="color: Indigo; font-weight: bold; text-transform: uppercase;">  {{ book.author_c.date_of_birth }} </span></p>
      {% endif %}
 
      {% if book.author_c.date_of_death == no_date %}
-     <p id="h6l_a" style="margin-top:-2px;"> Date of death: <span id="p_i_b"> - </p>
+     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold;  font-variant: small-caps;"> date of death: <span style="color: Indigo; font-weight: bold;"> - </p>
       {% else %}
-     <p id="h6l_a" style="margin-top:-2px;"> Date of death: <span id="p_i_b"> {{ book.author_c.date_of_death }} </p>
+     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold;  font-variant: small-caps;"> date of death: <span style="color: Indigo; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.date_of_death }} </p>
       {% endif %}
        
-     <p id="h6l_a"> wikidata id: <span  id="p_sg_si"> {{ author_c.wiki_idx}} </span> </p>
+     <p class="h6_author_l"  style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> wikidata id: <span  style="color: SlateGrey; font-weight: bold;"> {{ book.author_c.wiki_idx}} </span> </p>
 
-     <p id="h6l_a" style="padding-bottom:14px">wikipedia english <span  id="p_sb"> <a href="https://en.wikipedia.org/wiki/{{ book.author_c.first_name }}_{{ book.author_c.last_name }}" target="_blank" > link: </a></span> </p>
+     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; padding-bottom:14px; font-variant: small-caps;"> wikipedia english: <span  style="color: SteelBlue; font-weight: bold;"> <a href="https://en.wikipedia.org/wiki/{{ book.author_c.first_name }}_{{ book.author_c.last_name }}" target="_blank" > link </a></span> </p>
       </div>
 
      </div>
      
-     <div class="column" id="col_author">
-      <p id="h4_l1b" style="margin: 10px auto 10px 10px;"> author: <a  href="https://pl.wikipedia.org/wiki/{{book.author_c.author_name}}" target="_blank" ><span id="p_i_b"> {{ book.author_c.author_name}} </span></a></p>
-    <p id="h5_l08b" style="margin: 12px auto 10px 10px;"> short info: <span class="h6p" id="p_dsg"> {{ book.author_c.author_wiki_link_d }} </span></p>
-    <p style="margin: 12px 10px 10px 10px;" id="p_m" > details about author: </p>
+     <div class="column_author_copy" id="column_right_author_copy_{{ book.author_c.id }}">
+      <p class="h4_author_r" style="font-weight: bold; font-variant: small-caps; margin: 10px 10px 10px 10px;"> author: <a  href="https://pl.wikipedia.org/wiki/{{book.author_c.author_name}}" target="_blank" ><span style="color: Indigo; font-weight: bold; font-variant: normal;"> {{ book.author_c.author_name}} </span></a></p>
+    <p class="h5_author_r" style="font-weight: bold; margin: 4px 10px 10px 10px; font-variant: small-caps;"> short info: <span style="color: SteelBlue; font-weight: bold; font-variant: normal;"> {{ book.author_c.author_wiki_link_d }} </span></p>
+    <p class="h6_author_r" style="font-weight: bold; margin: 4px 10px 10px 10px; font-variant: small-caps;" > details about author: </p>
 
-    <div id="textarea_a" > {{ book.author_c.author_wiki_link }} </div>
+    <div class="textarea_a" > {{ book.author_c.author_wiki_link }} </div>
 </div>
   
   </div>
-     <br>
+  
 
      
   

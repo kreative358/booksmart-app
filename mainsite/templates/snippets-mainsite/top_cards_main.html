@@ -4,11 +4,16 @@
   
   .my_container_top_cards {
     position: relative;
-    z-index: 1;
-    margin: -4px 7.0vw auto 7.4vw;
+    z-index: 11;
+    margin: -4px 7.4vw auto 7.4vw;
+    left: 12px;
       }
 
-  
+   @media screen and (max-width: 480px) {
+    .my_container_top_cards {
+      left: 0px;
+    }
+   }
   </style>
 
   
@@ -16,20 +21,20 @@
     
     <div class="my_card_top_cards">
         <a href="{% url 'booksmart:allrecords' %}" target="_blank">
-            <p id="h3vw_l_b"  >Number of all books in database:</p> 
-            <p class="h2vw_l_b" id="num_books" style="animation: anime_red_text 2s infinite"> {{ num_books }}</p>
+            <p class="h3vw_l_b" > Number of all books in database: </p> 
+            <p class="h2vw_l_b" id="num_books" style="animation: anime_red_text 2s infinite;"> {{ num_books }}</p>
         </a>
       </div>
 
     <div class="my_card_top_cards" id="mycard_top_cards_middle">
-      <br>
-        <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite"> BELOW IS LIST OF <br> FUNCTIONS</p>
+        <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite;"><span style="line-height: 2;"> BELOW IS LIST OF </span><br><span> FUNCTIONS </span></p>
       </div>
    
     <div class="my_card_top_cards">
   <a href="{% url 'booksmart:allauthors' %}" target="_blank">
-    <p class="link-number" id="h3vw_l_b" >Number of all authors in database:</p> 
-    <p class="h2vw_l_b" id="num_authors" style="animation: anime_red_text 2s infinite"> {{ num_authors }}</p>
+  <!--  <p class="link-number" id="h3vw_l_b" > Number of all authors in database: </p> -->
+    <p class="h3vw_l_b" > Number of all authors in database: </p> 
+    <p class="h2vw_l_b" id="num_authors" style="animation: anime_red_text 2s infinite;"> {{ num_authors }}</p>
   </a>
       </div>
  

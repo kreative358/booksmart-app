@@ -37,7 +37,9 @@ from accounts.views_forms import (
 from accounts.mail_sender import (
     mail_sender_form_1,
     mail_sender_form_2,
-    mail_sender_form_3
+    mail_sender_form_3,
+    mail_sender_modal,
+    mail_sender_site
 )
 
 from accounts.password import (
@@ -110,6 +112,9 @@ urlpatterns = [
     path('mail_sender_1/', mail_sender_form_1, name='email_sender_1'),
     path('mail_sender_2/', mail_sender_form_2, name='email_sender_2'),
     path('mail_sender_3/', mail_sender_form_3, name='email_sender_3'),
+    path('mail_sender_modal/', mail_sender_modal, name='email_sender_modal'),
+    path('mail_sender_site/', mail_sender_site, name='email_sender_site'),
+    
     # path('user_info/', UserInformationAPIVIew.as_view(), name='user_information_api_view'),
 
     # path('send-confirmation-email/', SendEmailConfirmationTokenAPIView.as_view(), name='send_email_confirmation_api_view'),

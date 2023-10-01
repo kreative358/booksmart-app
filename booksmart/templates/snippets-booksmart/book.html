@@ -9,7 +9,9 @@
   /*outline: 2px solid rgba(180, 217, 240, 0.2);*/
   position:relative;
   z-index:14;
-  width:94%;
+  min-width: 92%;
+  max-width: 92%;
+  width: 92%;
   margin: 10px auto auto auto;
   /*padding: -2px -1px -1px -1px;*/
   -webkit-backdrop-filter: blur(2px);
@@ -26,6 +28,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    left: 12px;
   }
 
   [id^="row_book"]:hover {
@@ -117,7 +120,7 @@ transform: matrix(1.01, 0, 0, 1.01, 0, 0);
 
   }
 
-.row:after {
+.myrow:after {
   content: "";
   display: table;
   clear: both;
@@ -148,32 +151,40 @@ button:focus {
   outline:none;
   }
 
-  [id^="button_1"] {
+  [id^="button_1_"] {
   margin: 5px;
   padding: 4px;
   float: right;
   color: rgb(240, 248, 255);
   background: rgb(119, 136, 153);
   background: rgba(119, 136, 153, 0.8);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6 );
+  border: 2px solid rgba(0, 0, 200, 0.6);
+  outline: 2px solid rgba(0, 0, 200, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  line-height: 1;
+  font-variant:small-caps;
   text-align: center;
-  min-width: 60px;
-  max-width: 70px;
-  font-size: 14px;
-  font-weight: bold;
+  min-width: 68px;
+  width: 68px;
+  font-size: 16px;
   }
 
-  [id^="button_1"]:hover {
+  [id^="button_1_"]:hover,
+  [id^="button_1_"]:focus {
   color: rgb(30, 144, 255);
   background:rgb(211, 211, 211);
   background:rgba(211, 211, 211, 0.6);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.6);
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0);
   }
 
-  [id^="button_1"]:active {
+  [id^="button_1_"]:active {
   transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 2px 2px rgba(220, 220, 230, 0.8);
 }
 
 .button_1 {
@@ -183,25 +194,33 @@ button:focus {
   color: rgb(240, 248, 255);
   background: rgb(119, 136, 153);
   background: rgba(119, 136, 153, 0.8);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6 );
+  border: 2px solid rgba(0, 0, 200, 0.6);
+  outline: 2px solid rgba(0, 0, 200, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  font-variant:small-caps;
+  line-height: 1;
   text-align: center;
-  min-width: 60px;
-  max-width: 70px;
-  font-size: 14px;
-  font-weight: bold;
+  min-width: 68px;
+  width: 68px;
+  font-size: 16px;
   }
 
-.button_1:hover {
+.button_1:hover,
+.button_1:focus {
   color: rgb(30, 80, 240);
   background:rgb(194, 61, 61);
   background:rgba(194, 61, 61, 0.6);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.6);
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0);
   }
 
 .button_1:active {
   transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 2px 2px rgba(220, 220, 230, 0.8);
 }
 
 [id^="button_2_"] {
@@ -211,24 +230,33 @@ button:focus {
   color: rgb(240, 248, 255);
   background-color:rgb(30, 144, 255);
   background-color:rgba(30, 144, 255, 0.6);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.6);
+  outline: 2px solid rgba(0, 0, 200, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  font-variant:small-caps;
+  line-height: 1;
   text-align: center;
   min-width: 60px;
-  font-size: 14px;
-  font-weight: bold;
+  width: 60px;
+  font-size: 16px;
   }
 
-  [id^="button_2_"]:hover {
+  [id^="button_2_"]:hover,
+  [id^="button_2_"]:focus {
   color: rgb(30, 144, 255);
-  background-color: rgb(211, 211, 211);
-  background-color: rgba(211, 211, 211, 0.6);
-  border: 2px solid rgba(120, 120, 120, 0.6);
-  outline: 2px solid rgba(120, 120, 120, 0.6);
+  background-color:rgb(30, 144, 255);
+  background-color:rgba(30, 144, 255, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.6);
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0)
   }
 
   [id^="button_2_"]:active {
     transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+    border: 2px solid rgba(0, 0, 200, 0.8);
+    outline: 2px solid rgba(0, 0, 200, 0.8);
+    box-shadow: 0px 0px 2px 2px rgba(220, 220, 230, 0.8);
   }
 
 .button_2 {
@@ -238,24 +266,33 @@ button:focus {
   color: rgb(240, 248, 255);
   background-color:rgb(30, 144, 255);
   background-color:rgba(30, 144, 255, 0.6);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.6);
+  outline: 2px solid rgba(0, 0, 200, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  font-variant:small-caps;
+  line-height: 1;
   text-align: center;
   min-width: 60px;
-  font-size: 14px;
-  font-weight: bold;
+  width: 60px;
+  font-size: 16px;
   }
     
-.button_2:hover {
+.button_2:hover,
+.button_2:focus {
   color: rgb(30, 144, 255);
   background-color: rgb(211, 211, 211);
   background-color: rgba(211, 211, 211, 0.6);
-  border: 2px solid rgba(120, 120, 120, 0.6);
-  outline: 2px solid rgba(120, 120, 120, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.6);
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0);
   }
 
 .button_2:active {
   transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 2px 2px rgba(220, 220, 230, 0.8);
   }
 
 .button_3 {
@@ -265,79 +302,105 @@ button:focus {
   color: rgb(240, 248, 255);
   background-color:rgb(178, 34, 34);
   background-color:rgba(178, 34, 34, 0.6);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.6);
+  outline: 2px solid rgba(0, 0, 200, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  font-variant:small-caps;
+  line-height: 1;
   text-align: center;
   min-width: 60px;
-  font-size: 14px;
-  font-weight: bold;
-  box-shadow: 0px 0px 4px 4px rgba(180, 180, 180, 0.4);
+  min-width: 68px;
+  font-size: 16px;
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0);
   }
 
-.button_3:hover {
+.button_3:hover
+.button_3:focus {
   color: rgb(112, 128, 144);
   background-color: rgb(135, 206, 250);
   background-color: rgba(135, 206, 250, 0.6);
-  border: 2px solid rgba(120, 120, 120, 0.6);
-  outline: 2px solid rgba(120, 120, 120, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.6);
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0);
   }
 
 .button_3:active {
   transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 2px 2px rgba(220, 220, 230, 0.8);
   }
 
-[id^="button_3"] {
+[id^="button_3_"] {
   margin: 5px;
   padding: 4px;
   float: right;
   color: rgb(240, 248, 255);
   background-color:rgb(178, 34, 34);
   background-color:rgba(178, 34, 34, 0.6);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.6);
+  outline: 2px solid rgba(0, 0, 200, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  font-variant:small-caps;
+  line-height: 1;
   text-align: center;
-  min-width: 60px;
-  font-size: 14px;
-  font-weight: bold;
+  min-width: 64px;
+  width: 68px;
+  font-size: 16px;
   }
 
-  [id^="button_3"]:hover {
+  [id^="button_3_"]:hover
+  [id^="button_3_"]:focus {
   color: rgb(112, 128, 144);
   background-color: rgb(135, 206, 250);
   background-color: rgba(135, 206, 250, 0.6);
-  border: 2px solid rgba(120, 120, 120, 0.6);
-  outline: 2px solid rgba(120, 120, 120, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.6);
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0);
   }
 
-  [id^="button_3"]:active {
-    transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+  [id^="button_3_"]:active {
+    border: 2px solid rgba(0, 0, 200, 0.8);
+    outline: 2px solid rgba(0, 0, 200, 0.8);
+    box-shadow: 0px 0px 2px 2px rgba(220, 220, 230, 0.8);
   }
 
-  [id^="button_4"] {
+  [id^="button_4_"] {
   margin: 5px;
   padding: 4px;
   float: right;
   color: rgb(240, 248, 255);
   background-color:rgb(0, 0, 205);
   background-color:rgba(0, 0, 205, 0.6);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.6);
+  outline: 2px solid rgba(0, 0, 200, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  font-variant:small-caps;
+  line-height: 1;
   text-align: center;
   min-width: 60px;
-  font-size: 14px;
-  font-weight: bold;
+  width: 60px;
+  font-size: 16px;
   }
 
-  [id^="button_4"]:hover {
+  [id^="button_4_"]:hover,
+  [id^="button_4_"]:focus {
   color: rgb(120, 120, 140);
   background-color: rgb(135, 206, 250);
   background-color: rgba(135, 206, 250, 0.6);
-  border: 2px solid rgba(120, 120, 120, 0.6);
-  outline: 2px solid rgba(120, 120, 120, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.6);
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0);
   }
 
-  [id^="button_4"]:active {
-    transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+  [id^="button_4_"]:active {
+    border: 2px solid rgba(0, 0, 200, 0.8);
+    outline: 2px solid rgba(0, 0, 200, 0.8);
+    box-shadow: 0px 0px 2px 2px rgba(220, 220, 230, 0.8);
   }
 
 .button_4 {
@@ -347,24 +410,33 @@ button:focus {
   color: rgb(240, 248, 255);
   background-color:rgb(0, 0, 205);
   background-color:rgba(0, 0, 205, 0.6);
-  border: 2px solid rgba(240, 240, 240, 0.6);
-  outline: 2px solid rgba(240, 240, 240, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.6);
+  outline: 2px solid rgba(0, 0, 200, 0.6);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
+  font-variant:small-caps;
+  line-height: 1;
   text-align: center;
   min-width: 60px;
-  font-size: 14px;
-  font-weight: bold;
+  width: 60px;
+  font-size: 16px;
+
   }
 
 .button_4:hover {
   color: rgb(120, 120, 135);
   background-color: rgb(135, 206, 250);
   background-color: rgba(135, 206, 250, 0.6);
-  border: 2px solid rgba(120, 120, 120, 0.6);
-  outline: 2px solid rgba(120, 120, 120, 0.6);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 4px 4px rgba(220, 220, 230, 0.6);
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0);
   }
 
 .button_4:active {
-  transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+  border: 2px solid rgba(0, 0, 200, 0.8);
+  outline: 2px solid rgba(0, 0, 200, 0.8);
+  box-shadow: 0px 0px 2px 2px rgba(220, 220, 230, 0.8);
+  transform: matrix(0.98, 0, 0, 0.98, 0, 0);
   }
 
 .modal-dialog {
@@ -428,6 +500,8 @@ button:focus {
   overflow: auto;
   margin: 6px 10px 14px 10px;
   color: darkblue;
+  line-height: 1.2;  
+  overflow-y: visible;
   }
 
   .textarea_b {
@@ -450,6 +524,8 @@ button:focus {
     overflow: auto;
     margin: 6px 10px 14px 10px;
     color: darkblue;
+    line-height: 1.2;  
+    overflow-y: visible;
     }
 
 #textarea_link_b {
@@ -469,9 +545,12 @@ button:focus {
   width: auto;
   min-height: 30px;
   max-height: 30px;
+  height: 30px;
   overflow: auto;
   margin: 10px 10px 10px 10px;
   color: darkblue;
+  line-height: 1.2;  
+  overflow-y: visible;
   }
 
 .textarea_link_b {
@@ -491,34 +570,214 @@ button:focus {
   width: auto;
   min-height: 30px;
   max-height: 30px;
+  height: 30px;
   overflow: auto;
   margin: 10px 10px 10px 10px;
   color: darkblue;
+  line-height: 1.2;  
+  overflow-y: visible;
   }
 
-@keyframes anime_submit_t {
-  50% {
-  color: red;}
+  .textarea_b::-webkit-scrollbar:horizontal,
+  .textarea_link_b::-webkit-scrollbar:horizontal {
+    display: none
   }
+
+  @keyframes anime_submit_t {
+    50% {
+    color: red;}
+    }
+
+.h7_book_l {
+  font-size: 20px;
+  line-height: 1;
+  margin-left: 190px;
+  color: MediumBlue; 
+  }
+
+.h8_book_l {
+  font-size: 18px;
+  line-height: 1;
+  margin-left: 190px;
+  color: MediumBlue; 
+  } 
+
+.h6_book_l {
+  font-size: 22px;
+  line-height: 1;
+  margin-left: 190px;
+  color: MediumBlue; 
+  }
+
+.h3_book_r {
+  font-size: 28px;
+  line-height: 1;  
+  color: MediumBlue; 
+  font-weight: bold;
+  padding-left: 70px; 
+  text-indent: -70px;
+  }
+
+.h4_book_r {
+  font-size: 26px;
+  line-height: 1;
+  color: MediumBlue; 
+  padding-left: 80px; 
+  text-indent: -80px;
+}
+
+.h5_book_r {
+  font-size: 24px;
+  line-height: 1;
+  color: MediumBlue; 
+  }
+
+.h6_book_r {
+font-size: 22px;
+line-height: 1;
+color: MediumBlue; 
+}
+
+.h7_book_r {
+  font-size: 20px;
+  line-height: 1;
+  color: MediumBlue; 
+  }
+  
+.h8_book_r {
+  font-size: 18px;
+  line-height: 1;
+  color: MediumBlue; 
+  } 
+
 
 @media screen and (max-width: 1280px) {
   .myrow_book {
+    max-width: 90%;
     width: 90%;
   }
   .mycolumn_book {
-    width: 100%;
+    max-width: 100%;
+    width: 99%;
   }
   }
 
+@media screen and (max-width: 720px) {
+.myrow_book {
+  max-width: 92%;
+  width: 92%;
+}
+.mycolumn_book {
+  max-width: 100%;
+  width: 99%;
+}
+}
+
 @media screen and (max-width: 640px) {
   .myrow_book {
+    max-width: 94%;
     width: 94%;
   }
   .mycolumn_book {
-    width: 100%;
-    min-width: 620px;
+    max-width: 100%;
+    width: 99%;
   }
+
+  .h6_book_l {
+    font-size: 20px;
+    }
+  
+  .h3_book_r {
+    font-size: 26px;
+    padding-left: 60px; 
+    text-indent: -60px;
+    }
+  
+  .h4_book_r {
+    font-size: 24px;
+    padding-left: 70px; 
+    text-indent: -70px;
   }
+  
+  .h5_book_r {
+    font-size: 22px;
+    line-height: 1;
+    }
+  
+  .h6_book_r {
+  font-size: 20px;
+  line-height: 1; 
+  }
+
+  [id^="button_1_"] {
+    margin-right: 0px;
+  }
+
+  [id^="button_1_"] {
+    font-size: 12px;
+    min-width: 50px;
+    max-width: 54px;
+    width: 52px;
+  }
+
+   [id^="button_3_"] {
+    font-size: 12px;
+    min-width: 48px;
+    max-width: 50px;
+    width: 50px;
+  }
+  
+  [id^="button_2_"],
+  [id^="button_4_"] {
+    font-size: 12px;
+    min-width: 40px;
+    max-width: 42px;
+    width: 42px;
+  }
+
+  [id^="button_4_"] {
+    margin-left: 0px;
+  }
+
+}
+
+
+@media screen and (max-width:480px) {
+  .myrow_book {
+    min-width: 98%;
+    max-width: 98%;
+    width: 98%;
+    left: 0px;
+  }
+  .mycolumn_book {
+    min-width: 98%;
+    max-width: 100%;
+    width: 99%;
+  }
+  .h6_book_l {
+    font-size: 20px;
+    }
+  
+  .h3_book_r {
+    font-size: 22px;
+    padding-left: 46px; 
+    text-indent: -46px;
+    }
+  
+  .h4_book_r {
+    font-size: 20px;
+    padding-left: 56px; 
+    text-indent: -56px;
+  }
+  
+  .h5_book_r {
+    font-size: 18px;
+    }
+  
+  .h6_book_r {
+  font-size: 16px;
+  }
+}
 
 .modal {
   position:fixed;
@@ -581,7 +840,7 @@ button:focus {
   to {backdrop-filter: blur(4px);}
   }
   
-[id^="mymodalauthor_bookOverlay"] {
+.mymodal_uni_author_book {
   position: fixed;
   display:none;
   z-index:37;
@@ -599,21 +858,21 @@ button:focus {
   backdrop-filter: blur(4px);
   }
   
-[id^="mymodalauthor_bookOverlay"]:hover {
+.mymodal_uni_author_book:hover {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   background-color: rgba(20, 100, 200, 0.6); 
   }
   
-[id^="mymodalauthor_bookCont"] {
+.container_mymodal_uni_author_book {
   position: fixed;
   z-index:38;
   display:none;
   left:5%;
   margin: auto auto auto auto;
-  top:5%;
+  top:100px;
   font-family: Times;
-  padding: 5px;
+  padding: 10px;
   width: 90%;
   max-width: 90%;
   font-size: 18px;
@@ -627,8 +886,8 @@ button:focus {
   animation: noname2;
   transition: 0.4s;
   }
-  
-[id^="mymodalauthor_bookCont"]:hover {
+
+  .container_mymodal_uni_author_book:hover {
   transform: matrix(1.01, 0, 0, 1.01, 0, 2);
   box-shadow:
  /*-8px 8px 10px 0px rgba(229, 230, 243, 0.6), */
@@ -660,23 +919,23 @@ button:focus {
   to {top:-1000px; }
   }
   
-.column_mymodal_uni {
+.column_mymodal_uni_author_book {
   border-radius: 4px;
   margin: auto;
   border: 6px solid rgba(240, 240, 240, 0.6);
   padding:10px;
   }
   
-.mymodal_header_uni {
+.mymodal_header_uni_author_book {
   background-color: rgb(140, 140, 180); 
   background-color: rgba(140, 140, 180, 0.6);
   border-radius: 4px;
   border: 6px solid rgba(240, 240, 240, 0.6);
   margin: auto;
-  padding:0px 5px auto auto;
+  padding:0px 5px auto 5px;
   }
   
-.mymodal_body_uni {
+.mymodal_body_uni_author_book {
   background-color: rgb(140, 140, 160); 
   background-color: rgba(140, 140, 160, 0.6);
   border-radius: 4px;
@@ -685,9 +944,10 @@ button:focus {
   padding: auto auto auto auto;
   overflow: auto;
   max-height: 440px;
+  padding: 0px;
   }
   
-.mymodal_footer_uni {
+.mymodal_footer_uni_author_book {
   background-color: rgb(140, 140, 180); 
   background-color: rgba(140, 140, 180, 0.6);
   border-radius: 4px;
@@ -787,16 +1047,38 @@ button:focus {
     font-weight: bold;
   }
 
+  @media screen and (max-width:640px) {
+
+.container_mymodal_uni_author_book {
+    width: 98%;
+    max-width: 98%;
+    left: 1%;
+    padding: 4px;
+  }
+
+  .column_mymodal_uni_author_book {
+    padding: 4px;
+  }
+
+  .mymodal_body_uni_author_book {
+    margin: 4px auto 4px auto;
+  }
+
+  .mymodal_body_uni_author_book::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 </style>
 
 
-<div class="myrow_book" id="row_book_{{book.google_id}}">
+<div class="myrow_book" id="row_book_{{ book.google_id }}">
 
   <div class="mycolumn_book" id="col_img_book_{{book.google_id}}">
  <div class="glass_book">
   <div>
 
-  <a type="button" class="button_1"  id="button_1_{{book.google_id}}" > Author <br> details </a>
+  <a type="button" class="button_1"  id="button_1_{{book.author_c.id}}" > Author <br> details </a>
 
   <a type="button" id="button_2_{{book.google_id}}" href="{% url 'booksmart:readbook' book.id %}" target="_blank" class='tooltip_'>Read <br> Book <span class="tooltiptext_"> REMEMBER THAT BOOKS WITH:  EPUB: NO or embeddable: no, AND MANY OTHERS ARE NOT TO READ BECAUSE OF "COPYRIGHT"</span></a>
 
@@ -817,24 +1099,25 @@ button:focus {
   {% endif %}
 
   </div>
+  
   <div class="cont_img_book">
   <img  src="{{ book.imageLinks }}" id="img_book_{{ book.google_id }}" class="img-fluid rounded" >
   </div>
 
   <div class="book_left_content">
       <br>
-     <p class="h6l_b_db_c"class="language" style="padding-top:48px;" > LANGUAGE: <span  style="color: Maroon; font-weight: bold;"> {{ book.language}} </span></p>
-     <p class="h6l_b_db_c" style="margin-top:-2px;"> EPUB: <span class="h6l" style="color: Maroon; font-weight: bold;"> {{ book.epub }} </span></p> 
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; padding-top:48px;" > language: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.language}} </span></p>
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; margin-top:-8px;"> epub: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.epub }} </span></p> 
      {% if book.published == no_date %}
-     <p class="h6l_b_dba_c" style="margin-top:-8px;"> PUBLISHED DATE: <span class="h6l06_b" style="color: Indigo; font-weight: bold;"> no info </span></p>
+     <p class="h6_book_l" style="font-weight: bold; margin-top:-8px; font-variant: small-caps;"> published date: <span  style="color: Indigo; font-weight: bold;"> no info </span></p>
     {% else %}
-     <p class="h6l_b_dba_c" style="margin-top:-8px;">PUBLISHED DATE: <span class="h6l06_b" style="color: Indigo; font-weight: bold;">  {{ book.published }} </span></p>
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; margin-top:-8px;">published date: <span  style="color: Indigo; font-weight: bold;">  {{ book.published }} </span></p>
      {% endif %}
-     <p class="h6l_b_dba_c" style="margin-top:-10px;"> CREATED AT: <span class="h6l06_b" style="color: Indigo; font-weight: bold;"> {{ book.created_at}} </span> </p>
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; margin-top:-8px;"> created at: <span  style="color: Indigo; font-weight: bold;"> {{ book.created_at}} </span> </p>
      
-     <p class="h6l_b_db_c" style="margin-top:-6px;"> ISBN: <span style="color: DarkSlateGrey; font-weight: bold;"> {{ book.isbn}} </span> </p>
-     <p class="h6l_b_db_c" style="margin-top:-4px;"> google_id: <span style="color: DarkSlateGrey; font-weight: bold;"> {{ book.google_id}} </span> </p>
-     <p class="h6l_b_db_c" style="margin-top:-2px; padding-bottom:30px;"> embeddable: <span  style="color: DarkSlateGrey; font-weight: bold;"> {{book.embeddable }}</span> </p>
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; margin-top:-8px;"> isbn: <span style="color: SlateGrey; font-weight: bold; "> {{ book.isbn}} </span> </p>
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; margin-top:-8px;"> google id: <span style="color: SlateGrey; font-weight: bold;"> {{ book.google_id}} </span> </p>
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; margin-top:-8px; padding-bottom: 10px;"> embeddable: <span  style="color: SlateGrey; font-weight: bold; "> {{book.embeddable }}</span> </p>
      
        </div>
     </div>
@@ -842,53 +1125,53 @@ button:focus {
   
   <div class="mycolumn_book" id="column_book_{{book.google_id}}">
     <div class="glass_book">
-   <p class="h3_l1_c" style="margin: 10px auto 10px 10px; padding-left: 60px; text-indent: -60px;"> title: <a  href="{{ book.preview_link }}" target="_blank" ><span id="book_title_{{ book.google_id }}" class="p_m_b"> "{{ book.title }}"</span></a></p>
+   <p class="h3_book_r" style="font-weight: bold; font-variant: small-caps; margin: 10px auto 0px 10px;"> title: <a  href="{{ book.preview_link }}" target="_blank" ><span style="font-weight: bold; color: Maroon;" id="book_title_{{ book.google_id }}" > "{{ book.title }}"</span></a></p>
 
-    <p id="" class="h4_l02" style="margin: 10px auto 10px 10px; padding-left: 80px; text-indent: -80px;"> author: <a  href="https://{{ book.language}}.wikipedia.org/wiki/{{ book.author }}" target="_blank"><span id="book_author_{{ book.google_id }}" class="p_i_b"> {{ book.author }} </span></a></p>
-    <p class="h5_l08" style="margin: 12px auto 10px 10px;"> category: <span class="p_i_b" >{{ book.category }}</span> </p>
+    <p class="h4_book_r" style="font-weight: bold; font-variant: small-caps; margin: 4px auto 0px 10px;"> author: <a  href="https://{{ book.language}}.wikipedia.org/wiki/{{ book.author }}" target="_blank"><span style="font-weight: bold; color: Indigo;" id="book_author_{{ book.google_id }}" > {{ book.author }} </span></a></p>
+    <p class="h5_book_r" style="font-weight: bold; font-variant: small-caps; margin: 4px auto 0px 10px;"> category: <span  style="font-weight: bold; color: Indigo;">{{ book.category }}</span> </p>
   
-    <p class="h6_l04b" style="margin: 12px auto 12px 10px;"> description:</p>
+    <p class="h6_book_r" style="font-weight: bold; font-variant: small-caps; margin: 4px auto 8px 10px;"> description:</p>
     <div class="textarea_b"  > {{ book.summary }} </div>
 
-    <p class="h6_l04b" style="margin: 10px auto 10px 10px;"> important links:</p>
-    <div class="textarea_link_b"  > {{ book.selfLink }} </div>
+    <p class="h6_book_r" style="font-weight: bold; font-variant: small-caps; margin: 0px auto 8px 10px;"> important links: </p>
+    <div class="textarea_link_b" > {{ book.selfLink }} </div>
       </div>
         </div>
           </div>
 
      <br>
 
-      <div class="mymodal_uni" id="mymodalauthor_bookOverlay_{{book.google_id}}">
+      <div class="mymodal_uni_author_book" id="mymodalauthor_bookOverlay_{{ book.author_c.id }}">
     </div>
 
-<div class="container_mymodal_uni" id="mymodalauthor_bookCont_{{book.google_id}}">
-<div class="column_mymodal_uni" id="mymodalauthor_bookCol">
+<div class="container_mymodal_uni_author_book" id="mymodalauthor_bookCont_{{ book.author_c.id }}">
+<div class="column_mymodal_uni_author_book" id="mymodalauthor_bookCol_{{ book.author_c.id }}">
 
-    <div class="mymodal_header_uni" id="mymodalauthor_bookHeader" >
-    <p id="close_m_uni_{{book.google_id}}" class="close_m"> ✖ </p>
+    <div class="mymodal_header_uni_author_book" id="mymodalauthor_bookHeadert_{{ book.author_c.id }}" >
+    <p id="close_m_uni_{{ book.author_c.id }}" class="close_m"> ✖ </p>
     <p style="font-size:26px; color:blue; margin:10px auto 0px 10px;"> AUTHOR INFO </p>
     </div>
 
     
-    {% if book.author_c%}
-    <div class="mymodal_body_uni" id="mymodalauthor_bookBody" >
+    {% if book.author_c %}
+    <div class="mymodal_body_uni_author_book" id="mymodalauthor_bookBodyt_{ {book.author_c.id }}" >
       {% include 'snippets-booksmart/author_book.html' %}
     </div>
   
       {% else %}
-      <div class="mymodal_body_uni" id="mymodalauthor_bookBody" >
+      <div class="mymodal_body_uni_author_book" id="mymodalauthor_bookBodyt_{{ book.author_c.id }}" >
       <div class="text-center" style="padding-top:2px;"><h6 style="margin-top:6px;"> IN DATABASE NO DETAILS ABOUT THIS AUTHOR TRY THIS </h6></div>
     </div>
   
-    <div class="mymodal_body_uni" id="mymodalauthor_bookBody" >
+    <div class="mymodal_body_uni_author_book" id="mymodalauthor_bookBodyt_{{ book.author_c.id }}" >
     <div style="width:100%;" ><iframe src="https://{{ book.language }}.wikipedia.org/wiki/{{ book.author }}" style="width:100%; height:400px;">
     </iframe></div></div>
     {% endif %}
           
-<div class="mymodal_footer_uni" id="mymodalauthor_bookFooter_">
+<div class="mymodal_footer_uni_author_book" id="mymodalauthor_bookFootert_{{ book.author_c.id }}">
     
-    <span class="close_mb">
-    <button id="close_mb_uni_{{ book.google_id }}" type="button" class="close_mb_book">CLOSE</button> 
+    <span class="close_span">
+    <button id="close_modal_uni_t_{{ book.author_c.id }}" type="button" class="close_mb">CLOSE</button> 
     </span>
    
 </div>
@@ -936,54 +1219,54 @@ var img{{ book.google_id }} = document.getElementById('img_book{{ book.google_id
   }
   } */
 
-  var modal_{{ book.google_id }}  = document.getElementById("mymodalauthor_bookOverlay_{{ book.google_id }}");
+  var modal_{{ book.author_c.id }}  = document.getElementById("mymodalauthor_bookOverlay_{{ book.author_c.id }}");
 
-  var cont_{{ book.google_id }}  = document.getElementById("mymodalauthor_bookCont_{{book.google_id}}");
+  var cont_{{ book.author_c.id }}  = document.getElementById("mymodalauthor_bookCont_{{ book.author_c.id }}");
 
  
-var btn_{{ book.google_id }} = document.getElementById("button_1_{{ book.google_id }}");
+var btn_{{ book.author_c.id }} = document.getElementById("button_1_{{ book.author_c.id }}");
  
   //var btn_authorbook = document.getElementById("button_1_{{book.google_id}}");
-  btn_{{ book.google_id }}.onclick = function(){
-    modal_{{ book.google_id }}.style.display = "block";
+  btn_{{ book.author_c.id }}.onclick = function(){
+    modal_{{ book.author_c.id }}.style.display = "block";
       //my_modal_authorbook.style.display = "block";
-      modal_{{ book.google_id }}.style.animation = "modalfadein 1s 1";
+      modal_{{ book.author_c.id }}.style.animation = "modalfadein 1s 1";
       //my_modal_authorbook.src = this.src;
-      cont_{{ book.google_id }}.style.display = "block"; 
-      cont_{{ book.google_id }}.style.animation = "zoom 2s 1";
+      cont_{{ book.author_c.id }}.style.display = "block"; 
+      cont_{{ book.author_c.id }}.style.animation = "zoom 2s 1";
      // my_modal_authorbookCont.src = this.src;
   }
   
-      var close_x_{{ book.google_id }} = document.getElementById("close_m_uni_{{ book.google_id }}");  
-      var close_btn_{{ book.google_id }} = document.getElementById("close_mb_uni_{{ book.google_id }}");
+      var close_x_{{ book.author_c.id }} = document.getElementById("close_m_uni_{{ book.author_c.id }}");  
+      var close_btn_{{ book.author_c.id }} = document.getElementById("close_modal_uni_t_{{ book.author_c.id }}");
       
   
-      close_x_{{ book.google_id }}.onclick = function() {
-        cont_{{ book.google_id }}.style.animation = "unzoom 2s 1";
-        modal{{ book.google_id }}.style.animation = "modalfadeout 1s 1 1s";
+      close_x_{{ book.author_c.id }}.onclick = function() {
+        cont_{{ book.author_c.id }}.style.animation = "unzoom 2s 1";
+        modal{{ book.author_c.id }}.style.animation = "modalfadeout 1s 1 1s";
       setTimeout(()=> {
-        cont_{{ book.google_id }}.style.display = "none";
-          modal_{{ book.google_id }}.style.display = "none";
+        cont_{{ book.author_c.id }}.style.display = "none";
+          modal_{{ book.author_c.id }}.style.display = "none";
           }
           , 1900);
       }
   
-      close_btn_{{ book.google_id }}.onclick = function() {
-        cont_{{ book.google_id }}.style.animation = "animatetopback 2s 1";
-        modal_{{ book.google_id }}.style.animation = "modalfadeout 1s 1 1s";
+      close_btn_{{ book.author_c.id }}.onclick = function() {
+        cont_{{ book.author_c.id }}.style.animation = "animatetopback 2s 1";
+        modal_{{ book.author_c.id }}.style.animation = "modalfadeout 1s 1 1s";
         setTimeout(()=> {
-          cont_{{ book.google_id }}.style.display = "none";
-            modal_{{ book.google_id }}.style.display = "none";
+          cont_{{ book.author_c.id }}.style.display = "none";
+            modal_{{ book.author_c.id }}.style.display = "none";
             }
             , 1900);
       }
   
-      modal_{{  book.google_id }}.onclick = function() {  
-        cont_{{ book.google_id }}.style.animation = "unzoomrotate 2s 1";
-        modal_{{ book.google_id }}.style.animation = "modalfadeout 1s 1 1s";
+      modal_{{ book.author_c.id }}.onclick = function() {  
+        cont_{{ book.author_c.id }}.style.animation = "unzoomrotate 2s 1";
+        modal_{{ book.author_c.id }}.style.animation = "modalfadeout 1s 1 1s";
           setTimeout(()=> {
-            cont_{{ book.google_id }}.style.display = "none";
-            modal_{{ book.google_id }}.style.display = "none";
+            cont_{{ book.author_c.id }}.style.display = "none";
+            modal_{{ book.author_c.id }}.style.display = "none";
           }
           , 1900);   
       }

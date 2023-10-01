@@ -39,24 +39,28 @@
         font-family:Times;
         margin:5px auto auto 5%
     }	*/
-    
+
+  </style>
+<style>
+    .g-recaptcha > div {
+      position: relative;
+      margin: 0px auto 0px auto;
+    } 
     </style>
        
-    
 
-    <div class="g-recaptcha" style="align-items: center; margin: 0px 0px 0px 43px; justify-content: center; width: 80%; padding-left: 36px;" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26"
-                data-callback="callback_ml">
+    <div class="g-recaptcha" style="align-items: center; justify-content: center;" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" data-callback="callback_ml">
     </div>
                
            
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>  
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>  
 
-          <script type="text/javascript">
-            function callback_ml() {
-              const submitButton_ml = document.getElementById("button_login");
-              submitButton_ml.removeAttribute("disabled");
-            }
+  <script type="text/javascript">
+    function callback_ml() {
+      const submitButton_ml = document.getElementById("button_login");
+      submitButton_ml.removeAttribute("disabled");
+    }
 
-          </script>
+  </script>
           
         

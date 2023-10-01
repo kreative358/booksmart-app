@@ -64,15 +64,31 @@
 {% endblock content_3 %}
 
 {% block content_4 %}
+<style type="text/css">
+  
+  .container_row {
+  position: relative;
+  z-index:12;
+  margin:10px auto 20px auto;
+  text-align:center;
+  padding:auto;
+  width: 90%;
+  max-width: 96%;
+margin-bottom: 20px;
+left: 12px;
+  }
+  
+  @media screen and (max-width: 480px) {
+    .container_row {
+      left: 0px;
+    }
+  }
+  </style>
 
-<div class="container-fluid col-lg-10 mb-4"  >
-    <div class="row">
-    <div class="col-lg-12  ">   
-
+<div class="container_row"  >  
       
 </div>
-</div>
-</div>
+
 
 {% endblock content_4 %}
 
@@ -82,7 +98,7 @@
 <style type="text/css">
   #cont_main_t {
     position:relative;
-    z-index:1;
+    z-index:12;
       margin: 3vw auto auto auto;
       min-width:600px;
       width: 1280px;
@@ -97,56 +113,80 @@
       padding:0px;
     }
   
-    #cont_main_ba {
+    .container_row_2 {
       position:relative;
-      z-index:1;
+      z-index:12;
         margin: 2vw auto 2vw auto;
-        min-width:600px;
         width: 1280px;
         max-width: 96%;
-        background-color: rgb(240, 240, 240); 
-        background-color: rgba(240, 240, 240, 0.6); 
+        background-color: rgb(100, 160, 220); 
+        background-color: rgba(100, 160, 220, 0.6); 
         border-radius: 4px;
         border: 4px solid rgba(100, 160, 220, 0.6);
         box-shadow: 0px 0px 6px 6px rgba(120, 120, 120, 0.3); 
         justify-content:center; 
         padding:0px;
-        
+        left: 12px;
     }
   
-    #col_main_ba {
+   .myrow_2 {
+     position: relative;
          text-align:center;
          margin:auto;
+         width: 560px;
+         max-width: 96%;
        }
   
-    #col_main_t {
+  .mycolumn_2 {
       text-align:center;
       padding-top:10px;
       margin:auto;
      }
   
+    .h_container_row {
+      font-size: 30px;
+    }
+
+         @media screen and (max-width: 800px) {
+      .container_row_2 {
+       font-size: 26px;
+      }
+    }
+
+    @media screen and (max-width: 640px) {
+      .h_container_row {
+       font-size: 26px;
+      }
+    }
+
+     @media screen and (max-width: 480px) {
+      .container_row_2 {
+        left: 0px;
+      }
+        .h_container_row {
+       font-size: 22px;
+      }
+    }
   </style>
 
 {% if filtered_books %}
 
           <br>
    
-          <div class="container"  id="cont_main_t" >
-            <div class="row">
-            <div class="mycolumn" id="col_main_t">
-              
+          <div class="container_row_2">
+            <div class="myrow_2">
+            <div class="mycolumn_2" >
 
-              
-           <p class="h2p" id="p_rb">the number of all items found in google books 
-              <br> with the entered parameters: <span class="h2p" id="a_submit_t">{{ val_total }} </span> </p>
+           <p class="h_container_row" style="color:MediumBlue; font-weight: bold;">the number of all items found in google books 
+              with the entered parameters: <span style="animation: anime_red_text 2s infinite;"> {{ val_total }} </span> </p>
             </div>
           </div>
         </div>
       <br>
           
-          <div class="container" id="cont_main_ba" >
-            <div class="row">
-            <div class="mycolumn" id="col_main_ba">
+      <div class="container_row_2">
+        <div class="myrow_2">
+        <div class="mycolumn_2" >
             <p></p>
             <p class="h2p" id="p_rb">BOOKS FOUND</p>
             <p></p>
@@ -161,6 +201,7 @@
 
 {% endfor %}
 
+<!--
 <style>
     /*#cont_pag {
     margin-right:8vw;
@@ -183,11 +224,62 @@
 }
 </style>
 
-<div class="container col-lg-8" id="cont_pag">
+<div class="my_container" id="cont_pag">
   <div class="row">
       <div class="col-lg-12"  >
-         <div class="pagination justify-content-end">
+         <div class="pagination justify-content-end"> -->
+
+  <style type="text/css">
+
+    .mycontainer_pagination {
+      position:relative;
+      z-index: 12;
+      margin: -10px 5% 2vw auto;
+      width: 600px;
+      max-width:96%;
+      float: right;
+      display: flex;
+      align-content: right;
+      padding: auto;
+      color: blue;
       
+  }
+  .myrow_pagination,
+  .mycolumn_pagination {
+  max-width: 100%;
+  
+  }
+  
+  .mypagination {
+      text-align:right;
+      display: inline-block; 
+      font-size:30px;
+      font-weight: bold;
+      padding:10px;
+      text-align-last: right;
+      justify-content: right;
+      width:580px;
+      max-width:96%;
+  }
+  
+  @media screen and (max-width: 640px) {
+  .mypagination {
+  font-size:26px;
+  }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .mypagination {
+    font-size:22px;
+    }
+  }
+  
+  </style>
+          
+          <div class="mycontainer_pagination" id="mycontainer_pagination_id">      
+            <div class="myrow_pagination">
+              <div class="mycolumn_pagination"  >
+                <div class="mypagination">
         <span class="step-links"><h3>
             {% if book_page_obj.has_previous %}
                 <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>

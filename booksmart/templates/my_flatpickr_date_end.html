@@ -15,22 +15,38 @@
  
   {% include 'snippets-booksmart/my_flatpickr_css.html' %}
 
+  <style>
+    @media screen and (max-width: 560px) {
+    /*  #input_date_end {
+          padding: 6px 60px 6px 60px;
+          min-width:180px;
+          max-width:180px;
+          width:180px;
+      }
   
+      .my_row_date input div {
+  
+        min-width:180px;
+        width:180px;
+      }*/
+     } 
+  </style>
   
   
  <!--<div class="cont_input_date" id="cont_input_date_birth">-->
 
 
     <div class="input_widget" id="input_widget_end">
-      <div class="my_row_date" id="my_row_date_2a">
+      <div class="myrow_date_a" id="my_row_date_2a" data-tooltip="tooltip_flatpickr">    
          <div class="btns_clear_date" id="btn_clear_date_2"> CLEAR </div>
-         <a class="tooltip_date" id="tooltip_date_2" data-title_date="date format - mm/dd/yyyy month/day/year">
-       {% include "django/forms/widgets/input.html" %}</a>
-       <div class="btns_close_date_i" id="btn_close_date_i1">CLOSE</div> 
+       {% include "django/forms/widgets/input.html" %}
+       <!--</a>-->
+      <!--<div class="btns_close_date_i" id="btn_close_date_i1">CLOSE</div> --> 
          <div class="btns_open_date" id="btn_open_date_2"> OPEN </div>
+         <span data-tooltiptext="tooltiptext_flatpickr"> "date format - mm/dd/yyyy month/day/year" </span>
        </div>
        
-        <div class="my_row_date" id="my_row_date_2b">
+        <div class="myrow_date_b" id="my_row_date_2b">
        <div class="containers_date" id="container_date_2">
          <div class="btns_close_date" id="btn_close_date_2">close</div>
          </div>

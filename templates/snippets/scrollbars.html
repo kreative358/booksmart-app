@@ -18,9 +18,11 @@
   font-family: Times;
   
   background-color: rgba(60, 160, 240, 0.4);
-  background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(0, 60, 240, 0.4) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+  background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(60, 160, 240, 0.8) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
   z-index: -2;
- 
+ /*
+   background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(0, 60, 240, 0.4) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+   */
   }
   
   body {
@@ -92,6 +94,8 @@
     z-index: 2;
     display: block;
     overflow-y: scroll;
+    scroll-behavior: smooth;
+    /*scroll-padding-top: 0;*/
   }
   
   .glass_class_main::-webkit-scrollbar {
@@ -102,7 +106,7 @@
   background-size: 30px 100%;
   font-size: 16px;
   transition: 0.4s;
-  background-image: url({% static 'tekst_light_s.png' %}), url({% static 'tekst_light_s.png' %}), url({% static 'tekst_light_s.png' %});
+  background-image: url({% static 'tekst_light_s.png' %}), url({% static 'tekst_light_s.png' %}), url('/static/tekst_light_s.png');
   background-size: 20px 240px;
 /*  background-repeat: space;
   background-position: center;
@@ -433,7 +437,7 @@
     outline: 2px solid rgba(220, 220, 220, 0.8);
     border-radius: 2px;
     margin: 4px;
-    background-image: url({% static 'fav_png.png' %}); 
+    background-image: url('/static/fav_png.png'); 
     
     background-repeat: no-repeat;
     background-size: 14px 14px;
@@ -625,4 +629,11 @@ width: 14px;
 margin: 1px;
 transition: 0.4s;
 }  */
+
+@media screen and (max-width: 480px) {
+
+  .glass_class_main::-webkit-scrollbar {
+    display:none;
+  }
+}
   </style>

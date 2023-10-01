@@ -53,11 +53,11 @@ class BookSearch(forms.Form):
     search_maxResults = forms.IntegerField(required=False, min_value=1, max_value=40, label='Choose a number of results', widget=forms.NumberInput(attrs={'id': 'input_integer_bs_search_maxResults', 'title': 'max results for one time search is 40'}))
 
     Download = [
-        ('', 'select epub'),
+        ('', 'select epub - usually a reading version'),
         ('epub', 'epub'),
         ]
     download = forms.ChoiceField(required=False,
-        label= 'Search by epub, (help to find full text book)', choices=Download, widget=forms.Select(attrs={'id':'input_select_bs_download', 'size':1}))
+        label= 'Search by epub', choices=Download, widget=forms.Select(attrs={'id':'input_select_bs_download', 'size':1}))
     # download =  forms.ChoiceField(label= 'Search by epub, (help to find full text book)',  choices=Download, required=False, widget=MySelectWidgetNew(attrs={'id':'input_select_bs_download', 'size':1}))
   
     # download.widget.attrs.update(choices=[
@@ -66,7 +66,7 @@ class BookSearch(forms.Form):
     # )
  
     Filter = [
-        ('', 'select filter'),
+        ('', 'select - specific parameters'),
         ('partial', 'partial'),
         ('full', 'full'),
         ('free-ebooks', 'free-ebooks'),
@@ -74,7 +74,7 @@ class BookSearch(forms.Form):
         ('ebooks', 'ebooks')
     ]
     search_filter = forms.ChoiceField(required=False,
-        label= 'Search by filter, (specific parameters)', choices=Filter, widget=forms.Select(attrs={'id':'input_select_bs_search_filter', 'size':1}))
+        label= 'Search by filter', choices=Filter, widget=forms.Select(attrs={'id':'input_select_bs_search_filter', 'size':1}))
     # search_filter = forms.ChoiceField(label= 'Search by filter, (specific parameters)', required=False, choices=Filter, widget=MySelectWidgetNew(attrs={'id':'input_select_bs_search_filter', 'size':1}))
 
     Languages = [

@@ -1,0 +1,481 @@
+{% include 'snippets/out_log_css.html' %}
+
+<style>
+/*
+    @keyframes opacityanime {
+    from {opacity:1;} 
+    to {opacity:0;}
+    }
+    
+    @keyframes modalfadeout {
+    from {background-color: rgba(20, 100, 200, 0.4);} 
+    to {background-color: rgba(20, 100, 200, 0.0);}
+    }
+    
+    @keyframes modalfadein {
+    from {background-color: rgba(20, 100, 200, 0.0);} 
+    to {background-color: rgba(20, 100, 200, 0.4);}
+    }
+    
+    .mymodal_Account {
+    position: fixed;
+    display:none;
+    z-index:55;
+   
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(20, 100, 200); 
+    background-color: rgba(20, 100, 200, 0.4); 
+    animation:noname;
+    transition:0.2s;
+    }
+  
+    .mymodal_Account:hover {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+   }
+    
+  
+    .container_mymodalAccount {
+    position: relative;
+    z-index:66;
+    display:none;
+    margin: 50px auto auto auto;
+    width: 520px;
+    max-width:90%;
+    font-family: Times;
+    padding: 5px;
+    font-size:18px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 10px solid rgba(140, 140, 180, 0.4);
+    box-shadow: 0 4px 8px 0 rgba(60,60,60,60.2),0 6px 20px 0 rgba(60,60,60,0.2);
+  
+    padding: 10px;
+    animation-delay: 2s;
+    animation: noname2;
+    transition: 0.2s;
+    }
+  
+  .container_mymodalAccount:hover {
+    scale: 1.01;
+    box-shadow:
+    -8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
+    -8px -8px 10px 0px rgba(229, 230, 243, 0.6),
+       8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
+    8px -8px 10px 0px rgba(229, 230, 243, 0.6),
+    
+   18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
+   18px -18px 20px 0px rgba(209, 210, 223, 0.4),
+     -18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
+   -18px -18px 20px 0px rgba(209, 210, 223, 0.4);
+  } 
+    
+    @keyframes unzoomrotate {
+      from {transform:scale(1); rotate:360deg;} 
+      to {transform:scale(0); rotate: 0deg;}
+    } 
+    @keyframes zoomrotate {
+      from {transform:scale(0); rotate:0deg;} 
+      to {transform:scale(1); rotate: 360deg;}
+    } 
+    
+ 
+    @keyframes unzoom {
+      from {transform:scale(1);} 
+      to {transform:scale(0);
+      }
+    }
+    
+    @keyframes zoom {
+      from {transform:scale(0);} 
+      to {transform:scale(1);
+      }
+    }
+    
+    @keyframes animatetopback {
+      from {top: 0px; }
+      to {top:-1000px; }
+    }
+    
+  
+    .column_mymodalAccount {
+    border-radius: 4px;
+    
+    margin: auto;
+    border: 6px solid rgba(240, 240, 240, 0.6);
+    padding:10px;
+   
+    }
+    
+      
+    .mymodal_AccountHeader {
+    background-color: rgb(140, 140, 180); 
+    background-color: rgba(140, 140, 180, 0.6);
+    border-radius: 4px;
+    border: 6px solid rgba(240, 240, 240, 0.6);
+    margin: auto;
+    padding:5px;
+    }
+    
+    .mymodal_AccountBody {
+    background-color: rgb(140, 140, 160); 
+    background-color: rgba(140, 140, 160, 0.6);
+    border-radius: 4px;
+    border: 6px solid rgba(240, 240, 240, 0.6);
+    margin: 10px auto 10px auto;
+    padding: 5px;
+    }
+      
+   .mymodal_AccountFooter {
+    background-color: rgb(140, 140, 180); 
+    background-color: rgba(140, 140, 180, 0.6);
+    border-radius: 4px;
+    border: 6px solid rgba(240, 240, 240, 0.6);
+    margin: auto;
+    padding: 5px;
+    }
+    
+    .close_m {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0px 5px 20px auto;
+    transition: 0.2s;
+    }
+    
+    .close_m:hover,
+    .close_m:focus {
+    color: blue;
+    scale:1.01.;
+    text-decoration: none;
+    cursor: pointer;
+    }
+    
+    .close_mb {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    transition: 0.2s;
+    }
+    
+    .close_mb:hover,
+    .close_mb:focus {
+   
+    text-decoration: none;
+    cursor: pointer;
+    }
+    
+    .close_mb:active {
+    transform: translateY(2px);
+    scale: 0.96;
+    }
+    
+  #a_submit_t {
+    animation-name: anime_submit_t;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    }
+  
+  .label {
+ 
+  }
+  
+  input[type=text], input[type=email], input[type=password] {
+    font-size: 18px; 
+    color:darkblue; 
+    width:90%; 
+    margin: 4px auto 2px auto;
+    padding-top: 8px;
+    
+    display: inline-block;
+    border-radius: 2px;    
+    border: 2px solid rgba(240, 240, 240, 0.6);
+    box-shadow: 0px 0px 4px 4px rgba(100, 160, 220, 0.6);
+    background:rgb(240, 248, 255);
+    background:rgba(240, 248, 255, 0.4);
+  }
+    
+  input[type=text]:focus, input[type=email]:focus , input[type=password]:focus {
+    background:rgb(240, 248, 255);
+    background:rgba(240, 248, 255, 0.8);
+    outline: none;
+  }
+  
+  #valid {
+     font-size:16px; 
+     margin: auto;
+     }
+  
+  .container-check {
+    color:blue;
+    margin-right: 10px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+    
+    input:checked {
+      height: 16px;
+      width: 16px;
+    }*/
+    
+  /*  .container-check input {
+      margin-top: 8px;
+    } */
+
+  	.mytootlip_text {
+      min-width: 100%;
+      max-width: 100%;
+      width: 100%;
+    }  
+  </style>
+
+  <div class="mymodal_Account" id="mymodalSignin">
+</div>
+    <!-- Modal content 
+    <div class="container-fluid" id="mymodalAccountCont">
+      <div class="column" id="mymodalAccountCol">-->
+      <div class="container_mymodalAccount" id="mymodalSigninCont">
+        <div class="column_mymodalAccount" id="mymodalSigninCol">
+      
+          <div class="mymodal_AccountHeader" id="mymodalSigninHeader" >
+            <p id="close_mSignin" class="close_m_acc">✖</p>
+            <p     class="title_account" style="color:blue; margin:10px auto 0px auto;">SIGN IN</p>
+          </div>
+      
+          <div class="mymodal_AccountBody" id="mymodalSigninBody">
+            <p  class-="header_text" style="color:blue; margin:0px auto 4px auto;">
+            Please fill in this form to create account.</p>
+      
+              <div>
+          
+    
+    <script>
+      function validateForm() {
+        let x = document.forms["registration_v"]["password"].value;
+        let y = document.forms["registration_v"]["password2"].value;
+        if (x != y) {
+          alert("REMEMBER BOTH PASSWORDS MUST BE THE SAME");
+          return false;
+        }
+      }
+      </script>
+
+            <form class="was-validated" action="{% url 'accounts:register' %}" method="post" id="registration_v" onsubmit="return validateForm()">
+                {% csrf_token %}
+
+        <input type="reset" id="clear_btn" value = 'Clear input field'>
+    
+    <input type="hidden" name="current_url" id="current_url" readonly value='{{ current_url }}'>
+    
+    <div class="form-group" style="margin-top: 6px;">
+      <label class="label_first"  for="username" style="margin-bottom:-6px;"> Username </label>
+      <span class="mytootlip_text" data-tooltip="tooltip_input">
+      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autocomplete="off" minlength="3">
+      <span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span></span>
+      <div class="valid-feedback" >Username field is filled out.</div>
+  <div class="invalid-feedback" >Please fill out this field.</div>
+    </div>
+
+     <div class="form-group">
+    <label class="label" for="email" style="margin-bottom:-6px;"> Email </label>
+    <span class="mytootlip_text" data-tooltip="tooltip_input">
+    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" autocomplete="off">
+    		<span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
+    <div class="valid-feedback" >Email field is filled out.</div>
+  <div class="invalid-feedback" >Please fill out this field.</div>
+</div>
+    
+    <div class="form-group">
+    <label class="label" for="password" style="margin-bottom:-6px;"> Password </label>
+    <span class="mytootlip_text" data-tooltip="tooltip_input">
+    <input type="password" name="password" id="inputPassword1" class="form-control" placeholder="enter password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off" >
+    <span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters.</span> </span>
+    <div class="valid-feedback" >Password field is filled out.</div>
+  <div class="invalid-feedback" >Please fill out this field.</div>
+    </div>
+
+    <div class="form-group">
+    <label class="label"  for="password2" style="margin-bottom:-6px;">  Repeat Password </label>
+    <span class="mytootlip_text" data-tooltip="tooltip_input">
+    <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="confirm password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number/nand one uppercase and lowercase letter,/nand at least 8 or more characters" autocomplete="off" >
+    <span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters <br>- BE THE SAME LIKE FIRST.</span> </span>
+    <div class="valid-feedback" >Repeat password field is filled out.</div>
+  <div class="invalid-feedback" >Please fill out this field with the same password.</div>
+    </div> 
+    <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;"  data-tooltip="tooltip_input">
+
+    {% include 'snippets/mywidget_recaptcha_ms.html' %}
+    
+     <span style="margin-bottom: 4px;" data-tooltiptext="tooltiptext_input">if it takes too long, <br> you can sign in by <br>  <a href="{% url 'accounts:register' %}" > SIGNIN-SITE </a></span>
+  </div>
+
+    <div>  <!-- <div class="form-check">   mb-3 mt-n1-->
+      <div class="container-check" style="margin-top: 20px; margin-bottom: 0px;">
+      <input type="checkbox" checked="checked" required="False" name="remember"> <label class="form-check-label" >  I agree. </label>
+      <div class="valid-feedback" style="margin-top: -4px; margin-bottom 10px">Valid.</div>
+      <div class="invalid-feedback" style="margin-top: -4px; margin-bottom 10px">Check this checkbox to continue.</div>   
+      </div>
+    </div>
+
+<!--    <div class="form-check">  
+      <label class="container-check" for="myCheck"> 
+        <input class="form-check-input" type="checkbox" id="myCheck" name="remember" required style="margin-top: 8px;"><span class="checkmark"></span> &nbsp; I agree.
+      
+      <div class="valid-feedback" style="margin-top: -6px; margin-bottom 10px">Valid.</div>
+      <div class="invalid-feedback" style="margin-top: -6px; margin-bottom 10px">Check this checkbox to continue.</div>
+    </label>
+  </div> -->
+
+    </form> 
+
+        <p style="color:blue; font-size:18px; margin-top:10px; margin-bottom: 6px;">By creating an account you agree to our <br><a href="{% url 'index' %}" target="_blank" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+  <!--  <div>
+        <label class="container-check" style="margin-top:-10px;"> 
+        <input type="checkbox" checked="checked" name="remember" style=""> 
+        <span class="checkmark"></span> &nbsp; Remember me
+        </label>
+      </div> -->
+
+      <div>
+        <div class="container-check">
+        <input type="checkbox" checked="checked" required="False"  name="remember"><label class="form-check-label"> remember me </label>
+        </div>
+      </div>
+
+    <div> 
+        {% if message_info %}
+        {% for msg_info in message_info %}
+        <h6>{% autoescape off %} {{ msg_info }} {% endautoescape %}</h6>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div>
+{% for field in registration_form %}
+{% for error in field.errors %}
+<h6 id="p_r_b" class="m_remove"> {% autoescape off %} {{ error }} {% endautoescape %} </h6>
+{% endfor %}
+{% endfor %}
+      </div>
+
+      <div>
+{% if registration_form.non_field_errors %}
+<h6 id="p_r_b" class="m_remove"> {% autoescape off %} {{registration_form.non_field_errors}}{% endautoescape %} </h6>
+{% endif %}
+      </div>
+
+
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'info'%}
+<div id="bs_input" class="alert alert-dismissible fade show">
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+<h5 id='p_r_b'  class="p_remove">{% autoescape off %} {{ message }} {% endautoescape %}</h5>
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+</div>
+</div> 
+   
+<div class="mymodal_AccountFooter" id="mymodalSigninFooter">
+
+      <button name="registration_f" form="registration_v" type="submit" id="button_signin" class="btn_submit"  disabled> SIGN IN </button>
+
+    
+  <button id="close_mbSignin" type="button" class="close_mb_acc" > CLOSE </button> 
+     
+     
+      </div>
+      <p style="font-variant: small-caps; float:left; margin:-16px auto auto 5px;"> booksmart </p>
+    </div>
+  </div>
+
+
+
+  <script>
+    console.clear();
+    var my_modalSignin = document.getElementById("mymodalSignin");
+    // var my_modalAccount = document.getElementsByClassName("mymodal_Account")[0];
+    var my_modalSigninCont = document.getElementById("mymodalSigninCont");
+    //  my_modalSignintCont = document.getElementsByClassName("container_mymodalAccount")[0];
+    var btnSignin = document.getElementById("btn_signin");
+  //var captionText = document.getElementById("caption");
+    
+    
+    btnSignin.onclick = function(){
+      my_modalSignin.style.display = "block";
+      my_modalSignin.style.animation = "modalfadein 1s 1";
+      my_modalSignin.src = this.src;
+        
+      my_modalSigninCont.style.display = "block"; 
+      my_modalSigninCont.style.animation = "zoom 2s 1";
+      my_modalSigninCont.src = this.src;
+      //captionText.innerHTML = this.alt;
+    }
+    
+      //var close_x = document.getElementsByClassName("close_m")[0];
+      var close_xSignin = document.getElementById("close_mSignin");
+      //var close_btn = document.getElementsByClassName("close_mb")[0];  
+      var close_btnSignin = document.getElementById("close_mbSignin");         
+      
+    
+      close_xSignin.onclick = function() {
+        my_modalSigninCont.style.animation = "unzoom 2s 1";
+        my_modalSignin.style.animation = "modalfadeout 1s 1 1s";
+        setTimeout(()=> {
+          my_modalSigninCont.style.display = "none";
+          my_modalSignin.style.display = "none"
+            }
+            , 1900);
+      }
+    
+      close_btnSignin.onclick = function() {
+        my_modalSigninCont.style.animation = "animatetopback 2s 1";
+        my_modalSignin.style.animation = "modalfadeout 1s 1 1s";
+        setTimeout(()=> {
+          my_modalSigninCont.style.display = "none";
+          my_modalSignin.style.display = "none"
+            }
+            , 1900);
+      }
+      
+     
+ 
+   //   window.onclick = function(event) {
+  //       if (event.target == my_modalSignin) {
+          
+          //mymodal_cont.style.animation = "unzoomrotate 2s 1";
+      my_modalSignin.onclick = function() {
+          my_modalSigninCont.style.animation = "unzoomrotate 2s 1";
+          my_modalSignin.style.animation = "modalfadeout 1s 1 1s";
+          setTimeout(()=> {
+          my_modalSigninCont.style.display = "none";
+          my_modalSignin.style.display = "none"
+            }
+            , 1900);
+          
+          
+          // mymodal.style.animation = "modalfadeout 1s 1 1s";
+          // setTimeout(function(){ mymodal.style.display = "none"; }, 1900);
+      // mymodal.style.animation = "modalfadein 1s 1 2s";
+    
+          // mymodal_cont.style.animation = "zoomrotate 2s 1";
+        }
+      //  }
+      </script>

@@ -3,7 +3,6 @@
 <style>
 
 
-
 ::-webkit-input-placeholder { /* Edge */
   color: rgba(0, 0, 204, 0.8); 
 }
@@ -136,7 +135,7 @@ input:-webkit-autofill:active {
   select:-webkit-autofill:hover, 
   select:-webkit-autofill:focus,
   select:-webkit-autofill:focus, 
-  select:-webkit-autofill:active, {
+  select:-webkit-autofill:active {
     background-color: rgba(220, 220, 240, 0.4) !important;
     -webkit-text-fill-color: rgba(20, 40, 200, 0.8) !important;
     -webkit-text-fill-color: rgba(20, 40, 200, 0.8);
@@ -238,7 +237,7 @@ input:-webkit-autofill:active {
   }
 
 .valid-feedback, .invalid-feedback {
-  margin-top: 0px;
+  margin: 0px;
   margin-bottom: -6px;
   font-size: 14px;
   font-weight: bold;
@@ -522,7 +521,9 @@ button.[class^="myBtn"]:active {
 #tooltip,
 .tooltip,
 .tooltip_,
-[id^="tooltip_"] {
+[id^="tooltip_"],
+[class^="tooltip_"],
+[data-tooltip^="tooltip_"] {
   position: relative;
   display: inline-block;
   z-index: 115
@@ -534,6 +535,9 @@ button.[class^="myBtn"]:active {
   .tooltip .tooltiptext,
   .tooltip_ .tooltiptext_,
   #tooltip .tooltiptext,
+  [data-tooltip^="tooltip_"] [data-tooltiptext^="tooltiptext_"],
+  [data-tooltip^="tooltip_"] [class^="tooltiptext_"],
+  [class^="tooltip_"] [class^="tooltiptext_"],
   [id^="tooltip_"] [id^="tooltiptext_"] {
     visibility: hidden;
     width: 240px;
@@ -552,7 +556,7 @@ button.[class^="myBtn"]:active {
     margin-bottom: 26px;
     line-height: 1.1;
     left: 50%;
-    margin-left: -120px;
+    margin-left: -132px;
     transition: opacity 0.6s;
     z-index: 116;
     text-align: center;
@@ -563,7 +567,9 @@ button.[class^="myBtn"]:active {
 .tooltip .tooltiptext::after,
 #tooltip .tooltiptext::after, 
 .tooltip_ .tooltiptext_::after,
-
+[data-tooltip^="tooltip_"] [data-tooltiptext^="tooltiptext_"]::after,
+[data-tooltip^="tooltip_"] [class^="tooltiptext_"]::after,
+[class^="tooltip_"] [class^="tooltiptext_"]::after,
 [id^="tooltip_"] [id^="tooltiptext_"]::after {
     content: "";
     position: absolute;
@@ -582,6 +588,9 @@ button.[class^="myBtn"]:active {
 .tooltip:hover .tooltiptext,
 #tooltip:hover .tooltiptext,
 .tooltip_:hover .tooltiptext_,
+[data-tooltip^="tooltip_"]:hover [data-tooltiptext^="tooltiptext_"],
+[data-tooltip^="tooltip_"]:hover [class^="tooltiptext_"],
+[class^="tooltip_"]:hover [class^="tooltiptext_"]
 [id^="tooltip_"]:hover [id^="tooltiptext_"] {
     visibility: visible;
     z-index: 118;
@@ -935,24 +944,23 @@ font-weight:bold;
 }
 
 .h6l_b_db_c {
-  font-size: 16px;
+  font-size: 18x;
   line-height: 0.8;
   margin-left: 190px;
   color: MediumBlue; 
   font-family: Helvetica; 
-  font-weight:bold;
   }
 
 .h6l_b_db {
 font-size: 16px;
-line-height: 0.2;
+line-height: 0.8;
 color: MediumBlue; 
 font-family: Helvetica; 
 }
 
 #h6l_b_dba {
 font-size: 16px;
-line-height: 0;
+line-height: 0.8;
 margin-left: 190px;
 color: MediumBlue; 
 font-family: Helvetica; 
@@ -962,7 +970,7 @@ padding-top: -16px;
 
 .h6l_b_dba_c {
 font-size: 16px;
-line-height: 0;
+line-height: 0.8;
 margin-left: 190px;
 color: MediumBlue; 
 font-family: Helvetica; 
@@ -979,7 +987,7 @@ font-family: Helvetica;
 
 #h6l_a {
 font-size: 18px;
-line-height: 0.6;
+line-height: 0.8;
 margin-left: 170px;
 color: MediumBlue; 
 font-family: Helvetica; 
@@ -987,7 +995,7 @@ font-family: Helvetica;
 
 .h6l_a_c {
   font-size: 18px;
-  line-height: 0.6;
+  line-height: 0.8;
   margin-left: 170px;
   color: MediumBlue; 
   font-family: Helvetica; 
@@ -995,7 +1003,7 @@ font-family: Helvetica;
 
 .h6l_a {
 font-size: 18px;
-line-height: 0.2;
+line-height: 0.8;
 color: MediumBlue; 
 font-family: Helvetica; 
 }
@@ -1009,7 +1017,7 @@ color: MediumBlue;
 
 .h6_l02 {
 font-size: 20px;
-line-height: 0.2;
+line-height: 0.8;
 color: MediumBlue; 
 }
 
@@ -1045,13 +1053,13 @@ font-weight: bold;
 
 .h6_l04b {
 font-size: 20px;
-line-height: 0.4;
+line-height: 0.8;
 color: MediumBlue; 
 }
 
 #h6_l04_b {
 font-size: 20px;
-line-height: 0.4;
+line-height: 0.8;
 color: MediumBlue; 
 font-weight: bold;
 }
@@ -1091,7 +1099,7 @@ color: MediumBlue;
 
 .h4_l02 {
 font-size: 26px;
-line-height: 0.2;
+line-height: 0.8;
 color: MediumBlue; 
 }
 
@@ -1104,7 +1112,7 @@ font-weight: bold;
 
 .h4_l04b {
 font-size: 26px;
-line-height: 0.4;
+line-height: 0.8;
 color: MediumBlue; 
 font-weight: bold;}
 
@@ -1144,7 +1152,7 @@ font-weight: bold;
 
 .h3_l02b {
 font-size: 28px;
-line-height: 0.2;
+line-height: 0.8;
 color: MediumBlue; 
 font-weight: bold;
 }
@@ -1163,13 +1171,13 @@ color: MediumBlue;
 
 .h5_l02 {
 font-size: 22px;
-line-height: 0.2;
+line-height: 0.8;
 color: MediumBlue; 
 }
 
 #h5_l02 {
 font-size: 22px;
-line-height: 0.2;
+line-height: 0.8;
 color: MediumBlue; 
 }
 
@@ -1195,20 +1203,20 @@ color: MediumBlue;
 
 #h5_l04b {
 font-size: 22px;
-line-height: 0.4;
+line-height: 0.8;
 color: MediumBlue; 
 font-weight: bold;
 }
 
 .h5_l04 {
   font-size: 22px;
-  line-height: 0.4;
+  line-height: 0.8;
   color: MediumBlue; 
   }
 
 .h5_l02b {
 font-size: 22px;
-line-height: 0.2;
+line-height: 0.8;
 color: MediumBlue; 
 font-weight: bold;
 }
@@ -1216,6 +1224,23 @@ font-weight: bold;
 button:focus {
   border:none;
   outline:none;
+  }
+
+</style>
+
+<style>
+
+  @media screen and (max-width: 480px) {
+  #tooltip #tooltiptext,
+  .tooltip #tooltiptext,
+  .tooltip .tooltiptext,
+  .tooltip_ .tooltiptext_,
+  #tooltip .tooltiptext,
+  [data-tooltip^="tooltip_"] [class^="tooltiptext_"],
+  [class^="tooltip_"] [class^="tooltiptext_"],
+  [id^="tooltip_"] [id^="tooltiptext_"] {
+    margin-left: -120px;
+  }
   }
 
 </style>

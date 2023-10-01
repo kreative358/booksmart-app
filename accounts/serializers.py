@@ -242,7 +242,7 @@ class LoginSerializer(serializers.Serializer):
         required=False,
         allow_blank=True,
         min_length=8,
-        style={'template': 'snippets/input-password.html', 'placeholder': 'enter password'},
+        style={'template': 'snippets/input-password.html', 'placeholder': 'enter password',  },
         
         # This will be used when the DRF browsable API is enabled
         # style={'input_type': 'password', 'placeholder': 'field to enter email', 'autofocus': True, 'size':'36', 'id':'bs_input'},

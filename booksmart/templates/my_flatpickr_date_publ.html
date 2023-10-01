@@ -10,18 +10,37 @@
   
   {% include 'snippets-booksmart/my_flatpickr_css.html' %}
   
+  <style>
+  /*  @media screen and (max-width: 560px) {
+     #input_date_publ {
+          padding: 6px 60px 6px 60px;
+          min-width:180px;
+          max-width:180px;
+          width:180px;
+      }
   
+      .my_row_date input div {
+  
+        min-width:180px;
+        width:180px;
+      }
+     } */
+  </style>
   
  <!--<div class="cont_input_date" id="cont_input_date_birth">-->
-  <div class="input_widget" id="input_widget_single">
-    <div class="my_row_date" id="my_row_date_a">
+  <div class="input_widget" id="input_widget_published">
+    <div class="myrow_date_a" id="my_row_date_a" data-tooltip="tooltip_flatpickr">
        <div class="btns_clear_date" id="btn_clear_date_1"> CLEAR </div>
-       <a class="tooltip_date" id="tooltip_date_1" data-title="date format - mm/dd/yyyy month/day/year">
-     {% include "django/forms/widgets/input.html" %}</a>
+      
+       <!--<a class="tooltip_date" id="tooltip_date_1" data-title_date="date format - mm/dd/yyyy month/day/year">-->
+        
+     {% include "django/forms/widgets/input.html" %}
+    <!--</a>-->
        <div class="btns_open_date" id="btn_open_date_1"> OPEN </div>
+       <span data-tooltiptext="tooltiptext_flatpickr"> date format - mm/dd/yyyy month/day/year </span>
      </div>
      
-      <div class="my_row_date" id="my_row_date_b">
+      <div class="myrow_date_b" id="my_row_date_b">
      <div class="containers_date" id="container_date_1">
        <div class="btns_close_date" id="btn_close_date_1">close</div>
        </div>
@@ -40,12 +59,21 @@
       });
       
       // const book_publ = '{{ bookpubl }}'
+      // var glass_class_mode = document.querySelector(".glass_class_mode");
+      // var input_widget_published = document.getElementById("input_widget_published");
       var btn_opendate_1 = document.getElementById("btn_open_date_1");
       var cont_date_1 = document.getElementById("container_date_1");
       var input_date_1 = document.getElementById("input_date_publ");
       var btn_closedate_1 = document.getElementById("btn_close_date_1");
       // var cont_months_outside_1 = document.querySelector("#container_date_1 > div > :nth-child(4)");
       var max_width = window.matchMedia("(max-width: 960px)");
+
+    /*  input_widget_published.onclick = function() {
+        let position_input_widget_published = input_widget_published.offsetTop;
+        cont_date_1.style.top = position_input_widget_published + "px";
+        cont_date_1.style.marginTop = "-60px";
+        cont_date_1.style.position = "absolute";
+      } */
       
     var btn_cleardate_1 = document.getElementById("btn_clear_date_1");
     btn_cleardate_1.onclick = function() {

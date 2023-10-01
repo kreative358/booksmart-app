@@ -58,8 +58,18 @@ class MySelectWidget(forms.Select):
 
 # print('get_user:', list(get_current_user))
 class PdfReader(forms.Form):
-    link_book = forms.CharField(
-        max_length=100, label='book to read', required=False, widget=forms.TextInput(attrs={ 'placeholder': 'field to enter link to book in pdf from drive google', 'autofocus': True, 'id':'input_text_pdfreader'}))  
+    link_book_gd = forms.CharField(
+        max_length=120, label='book in pdf from google drive', required=False, widget=forms.TextInput(attrs={ 'placeholder': 'field to enter link to book in pdf from drive google', 'autofocus': True, 'id':'input_text_pdfreader_gd'})) 
+
+    link_book_gb = forms.CharField(
+        max_length=120, label='book in pdf from google books', required=False, widget=forms.TextInput(attrs={ 'placeholder': 'field to enter link to book in pdf from google books', 'autofocus': True, 'id':'input_text_pdfreader_gb'})) 
+
+    link_book_dc = forms.CharField(
+        max_length=120, label='book in any format doc google', required=False, widget=forms.TextInput(attrs={ 'placeholder': 'field to enter link to book in pdf from other sources', 'autofocus': True, 'id':'input_text_pdfreader_dc'})) 
+
+    link_book_sejda = forms.CharField(
+        max_length=120, label='book in pdf sejda', required=False, widget=forms.TextInput(attrs={ 'placeholder': 'field to enter link to book in pdf from other sources', 'autofocus': True, 'id':'input_text_pdfreader_sejda'}))
+
 
 class PdfReaderAdmin(forms.Form):
     link_book = forms.CharField(
@@ -149,6 +159,10 @@ class BooksAuthor(forms.Form):
 class LibrarySearch(forms.Form):
     title_lib = forms.CharField(widget=forms.HiddenInput())
     # author_search = forms.CharField(widget=forms.HiddenInput())
+
+class BookDownload(forms.Form):
+    title_download_search = forms.CharField(widget=forms.HiddenInput(attrs={}))
+    
 
 class BookChange(forms.Form):
     user_add = forms.CharField(widget=forms.HiddenInput())

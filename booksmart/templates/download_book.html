@@ -1,0 +1,57 @@
+{% extends 'base_ds.html' %}
+
+{% load bootstrap4 %}
+{% block title %} books-download {% endblock%}
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %} 
+  
+<style>
+  body {
+
+    font-family:Times;
+    text-shadow: 0px 1px 1px #eee, 0 -1px 1px #333;
+    color: #ccc;
+    }
+
+button {
+    font-family:Times;
+    text-shadow: 0px 1px 1px #eee, 0 -1px 1px #333;
+    }
+</style>
+
+{% include 'snippets-booksmart/modal_block_hello.html' %}
+{% include 'snippets/jumbotron.html' %}
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% include 'snippets/authentication.html' %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% include 'snippets-booksmart/book_download.html' %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+  
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

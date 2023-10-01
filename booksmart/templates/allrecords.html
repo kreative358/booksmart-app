@@ -50,9 +50,14 @@
       font-family: Georgia; 
       font-weight: bold; 
       font-size: 36px; 
-    
+    left: 12px;
     }
-             
+          
+    @media screen and (max-width: 480px;) {
+      #book_last_add {  
+          left: 0px;
+          }
+      }
     </style>
       
     
@@ -86,36 +91,55 @@
 
 <style type="text/css">
 
-#cont_pag {
-position:relative;
-z-index:1;
-margin: -10px 5% 2vw auto;
-width: 600px;
-max-width:90%;
-float:right;
-display: flex;
-align-content: right;
-padding: auto;
-color: blue;
+  .mycontainer_pagination {
+    position:relative;
+    z-index: 12;
+    margin: -10px 5% 2vw auto;
+    width: 600px;
+    max-width:96%;
+    float: right;
+    display: flex;
+    align-content: right;
+    padding: auto;
+    color: blue;
+    
+}
+.myrow_pagination,
+.mycolumn_pagination {
+max-width: 100%;
+
 }
 
-.pagination {
-text-align:right;
-display: inline-block; 
-font-size:30px;
-font-weight: bold;
-padding:10px;
-text-align-last: right;
-justify-content:right;
-width:580px;
+.mypagination {
+    text-align:right;
+    display: inline-block; 
+    font-size:30px;
+    font-weight: bold;
+    padding:10px;
+    text-align-last: right;
+    justify-content: right;
+    width:580px;
+    max-width:96%;
+}
+
+@media screen and (max-width: 640px) {
+.mypagination {
+font-size:26px;
+}
+}
+
+@media screen and (max-width: 480px) {
+  .mypagination {
+  font-size:22px;
+  }
 }
 
 </style>
 
-<div class="container-fluid" id="cont_pag">      
-<div class="row">
-<div class="column"  >
-  <div class="pagination"><!-- justify-content-end-->
+<div class="mycontainer_pagination" id="mycontainer_pagination_id">      
+  <div class="myrow_pagination">
+    <div class="mycolumn_pagination"  >
+      <div class="mypagination"><!-- justify-content-end-->
 
     <span class="step-links">   <!--<p>-->
         {% if book_page_obj.has_previous %}
@@ -144,7 +168,6 @@ width:580px;
 {% endblock content_4 %}
 
 {% block content_5 %}
-
 <!--
 {{request.path}}
 <br>

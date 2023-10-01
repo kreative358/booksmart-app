@@ -151,33 +151,71 @@ def pdf_reader(request):
 	if request.POST:
 		pdf_form = PdfReader(request.POST)
 		if pdf_form.is_valid():
-			book_to_read = pdf_form.cleaned_data['link_book']
-			print('book_to_read', book_to_read)
-			try:
+			book_to_read_gd = pdf_form.cleaned_data['link_book_gd']
+			print('book_to_read_gd:', book_to_read_gd)
+			book_to_read_gb = pdf_form.cleaned_data['link_book_gb']
+			print('book_to_read_gb:', book_to_read_gb)
+			book_to_read_dc = pdf_form.cleaned_data['link_book_dc']
+			print('book_to_read_dc:', book_to_read_dc)
+			book_to_read_sejda = pdf_form.cleaned_data['link_book_sejda']
+			print('book_to_read:', book_to_read)
+			if book_to_read_gd != "":
+				try:
 
-				if re.findall("/d/.+?[/]", book_to_read):
-					# if re.findall("/d/.+?[/]", book_to_read)[0][3:6]=='151':
-					x = book_to_read.rfind("/")
-					print('x', x)
-					book_link = book_to_read[:x+1] + "preview"
-					print('book_link', book_link)
-					context['book_link'] = book_link
+					if re.findall("/d/.+?[/]", book_to_read_gd):
+						# if re.findall("/d/.+?[/]", book_to_read)[0][3:6]=='151':
+						x = book_to_read.rfind("/")
+						print('x', x)
+						book_link_gd = book_to_read_gd[:x+1] + "preview"
+						print('book_link_gb', book_link_gb)
+						context['book_link'] = book_link
 
+						return render(request, "pdf_reader.html", context)
+
+					elif not re.findall("/d/.+?[/]", book_to_read_gd):
+						context['message'] = f'This is not standard google drive pdf link'
+						context['book_link_gd'] = book_link
+						return render(request, "pdf_reader.html", context)
+					
+					else:
+						context['message'] = f'Incorrect link not pdf'
+						return render(request, "pdf_reader.html", context)
+
+				except Exception as e:
+					context['message'] = f'Incorrect link, error description: {e}'
+					return render(request, "pdf_reader.html", context )
+
+			if book_to_read_gb != "":
+				try:
+					print('book_link_gb', book_link_gb)
+					context['book_link_gb'] = book_link_gb
+					print('book_link_gb', book_link_gb)					
 					return render(request, "pdf_reader.html", context)
+				except Exception as e:
+					context['message'] = f'Incorrect link, error description: {e}'
+					return render(request, "pdf_reader.html", context )
 
-				elif not re.findall("/d/.+?[/]", book_to_read):
-					context['message'] = f'This is not standard google drive pdf link'
-					context['book_link'] = book_link
+			if book_to_read_dc != "":
+				try:
+					
+					context['book_link_dc'] = f"https://docs.google.com/viewer?url={book_link_dc}&embedded=true"
+					print(context['book_link_dc'])
 					return render(request, "pdf_reader.html", context)
-				
-				else:
-					context['message'] = f'Incorrect link not pdf'
+				except Exception as e:
+					context['message'] = f'Incorrect link, error description: {e}'
+					return render(request, "pdf_reader.html", context )
+
+			if book_to_read_sejda != "":
+				try:
+					
+					context['book_link_sejda'] = f'https://www.sejda.com/sign-pdf?files=%5B%7B%22downloadUrl%22%3A%22{book_link_sejda}&%22%7D%5D'
+					
+					context['book_link_sejda'] = f'https://www.sejda.com/sign-pdf?files=[\{"downloadUrl":"{book_link_dc}\"\}]'
+					print(context['book_link_sejda'])
 					return render(request, "pdf_reader.html", context)
-
-			except Exception as e:
-				context['message'] = f'Incorrect link, error description: {e}'
-				return render(request, "pdf_reader.html", context )
-
+				except Exception as e:
+					context['message'] = f'Incorrect link, error description: {e}'
+					return render(request, "pdf_reader.html", context )
 
 	return render(request, "pdf_reader.html", context )
 
