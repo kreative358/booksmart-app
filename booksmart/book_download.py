@@ -239,7 +239,7 @@ def download_book(request):
 
     # results = s.search_title("Harry Potter i zakon feniksa")
     # print('results', results)
-
+    context["title_read_wolne_lektury"] = ""
     if formlib_download.is_valid():
         title_download=formlib_download.cleaned_data['title_download_search']
         print("1. formlib_download", title_download)
@@ -269,12 +269,13 @@ def download_book(request):
 
                     return Response(context, template_name='download_book.html',)
 
-                # else:
-                #     context["message_read_download"] = "This book is probably not available for download in pdf."
-                #     title_slugify = slugify(title_download).replace("+", "-")
-                #     print("title_slugify:", title_slugify)
-                #     context["title_read_wolne_lektury"] = title_slugify
-                #     return Response(context, template_name='download_book.html',)
+                else:
+                    context["message_read_download"] = "This book is probably not available for download in pdf."
+                    print("2. formlib_download", title_download)
+                    title_slugify = slugify(title_download).replace("+", "-").replace(" ", "-")
+                    print("title_slugify:", title_slugify)
+                    context["title_read_wolne_lektury"] = title_slugify
+                    return Response(context, template_name='download_book.html',)
 
             except Exception as e:
                 context["message_read_download"] = f"This book is probably not available for download in pdf, reason: {e}"
@@ -286,7 +287,8 @@ def download_book(request):
 
         else:
             context["message_read_download"] = "This book is probably not available for download in pdf, function to find books in other formats will be built soon"
-            title_slugify = slugify(title_download).replace("+", "-")
+            print("3. formlib_download", title_download)
+            title_slugify = slugify(title_download).replace("+", "-").replace(" ", "-")
             print("title_slugify:", title_slugify)
             context["title_read_wolne_lektury"] = title_slugify
         
