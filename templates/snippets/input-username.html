@@ -32,21 +32,21 @@ outline: none;
 border:none;
 }
 
-.mytootlip_text {
+.mytooltip_text {
 	min-width: 100%;
 	max-width: 100%;
 	width: 100%;
 }
 </style>
 
-	<div class="form-group" id="input-username">
+	<div class="form-group" id="input-username" style="position: relative; margin: auto; padding-left: 7.5%; padding-top: 0px;">
 		<label class="label_serializer" id="id_label_username" for="username">  </label>
 		{% if request.user.is_authenticated %}
-		<span class="mytootlip_text" data-tooltip="tooltip_input">
+		<span class="mytooltip_text" data-tooltip="tooltip_input">
 		<input type="text" name="username" id="inputUsername" placeholder="username" class="form-control" required autofocus  minlength="3" value="{{ request.user.username }}" >
 		<span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span></span>
 		{% elif not request.user.is_authenticated %}
-		<span class="mytootlip_text" data-tooltip="tooltip_input">
+		<span class="mytooltip_text" data-tooltip="tooltip_input">
 		<input type="text" name="username" id="inputUsername" placeholder="username" class="form-control" required autofocus minlength="3" value="">	
 		<span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span></span>
 		{% endif %}

@@ -18,7 +18,7 @@
     #mymodal_prevent {
     position: fixed;
     display:none;
-    z-index:8;
+    z-index:121;
     left: 0;
     top: 0;
     width: 100%; 
@@ -32,11 +32,10 @@
     }
     
     #modal_cont_prevent {
-    position: fixed;
-    z-index:8;
+    position: relative;
+    z-index:122;
     display:none;
-    left:50%;
-    margin-left:-280px;
+   max-width: 90%;
     top:100px;
     width: 560px;
     font-family: Times;
@@ -49,6 +48,8 @@
     padding: 10px;
     animation-delay: 2s;
     animation: noname2;
+    margin-left: auto;
+    margin-right: auto;
     }
     
     @keyframes unzoomrotate {
@@ -136,8 +137,7 @@
         transform: matrix(0.98, 0, 0, 0.98, 0, 2);
     }
     
-    .close_mb,
-    [class^="close_mb_"] {
+    .close_mb_prevent {
       text-shadow:
       0.04em 0.06em 0.04em rgba(60, 80, 100, 0.6);
       position:relative;
@@ -166,8 +166,8 @@
       min-height: 36px;
       }
       
-      .close_mb:hover
-      [class^="close_mb_"]:hover {
+      .close_mb_prevent:hover,
+      .close_mb_prevent:focus {
       background-color: rgba(40, 160, 240, 0.6); 
       color: rgba(190, 200, 210, 0.8);
       border-color: rgba(80, 180, 240, 0.6) rgba(40, 140, 220, 0.6) rgba(20, 120, 180, 0.6) rgba(40, 140, 220, 0.6);
@@ -179,8 +179,7 @@
       border-style: solid;
       }
       
-      .close_mb:active,
-      [class^="close_mb_"]:active {
+      .close_mb_prevent:active {
       color: rgba(210, 220, 230, 0.8);
       transform: matrix(0.98, 0, 0, 0.98, 0, -2);
       box-shadow: 
@@ -223,12 +222,26 @@
     color:darkblue;
     margin-bottom: 10px;
     }
+
+    @media screen and (max-width: 480px) {
+     #modal_cont_prevent { 
+        max-width: 98%;
+        width: 98%;
+        margin: auto;
+      }
+      #info_msg {
+        font-size: 26px;
+        } 
+        #solution {
+          font-size: 22px;
+    }
+  }
       </style>
          
          <div class="my_modal_prevent" id="mymodal_prevent">
         </div>
           <!-- Modal content -->
-          <div class="container-fluid" id="modal_cont_prevent">
+          <div class="container_fluid_prevent" id="modal_cont_prevent">
             <div class="column" id="modal_col_prevent">
             
             <div id="modal_header_prevent" >
@@ -246,7 +259,7 @@
             </div> 
              <div id="modal_footer_prevent">
              
-              <button id="myBtn_messages_pd" type="button"  class="close_mb" >CLOSE</button>
+              <button id="myBtn_messages_pd" type="button"  class="close_mb_prevent" >CLOSE</button>
              
             </div>
           </div>

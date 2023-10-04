@@ -90,7 +90,6 @@
 	justify-content: center;
 	text-align: justify;
 	text-justify: inter-word;
-	padding:10px auto 10px auto;
 	margin:auto;
   }	
 
@@ -347,6 +346,8 @@ width: 480px;
     @media screen and (max-width: 480px) {
       .container_accounts {
         left: 0;
+        width: 98%;
+        max-width: 98%;
       }
       .button_blue_grey,
       .button_red_grey {
@@ -371,30 +372,30 @@ width: 480px;
      {% render_field serializer.current_url style=style %} 
     </div>
 
-  <div id="bs_input_account_first" class="bs_input_accounts_register">
-    <p class="class_label"> Username </p>
-    <div style="margin: 0px auto 0px 7.5%;">   
+  <div id="bs_input_account_first" class="bs_input_accounts_register" style="padding-top: 10px; padding-bottom: 14px;">	
+    <p class="class_label" style="margin: 10px auto -22px auto; line-height: 1;"> Username </p>
+    <div style="margin: 0px auto 0px auto;"> 
       {% render_field serializer.username style=style %} 
     </div>
   </div>
 
-  <div  class="bs_input_accounts_register">
-    <p class="class_label"> Email </p>    
-    <div style="margin: 0px auto 0px 7.5%;"> 
+  <div  class="bs_input_accounts_register" style="padding-top: 10px; padding-bottom: 14px;">
+    <p class="class_label" style="margin: 10px auto -24px auto; line-height: 1;"> Email </p>    
+    <div style="margin: 0px auto 0px auto;"> 
     {% render_field serializer.email style=style %} 
     </div>
   </div>
 
-<div class="bs_input_accounts_register">
-  <p class="class_label"> Password </p>  
-   <div style="margin: 0px auto 0px 7.5%;" id="password" >
+<div class="bs_input_accounts_register" style="padding-top: 10px; padding-bottom: 14px;">
+  <p class="class_label" style="margin: 10px auto 2px auto; line-height: 1;"> Password </p>  
+   <div style="margin: 0px auto 0px auto;" id="password" >
      	{% render_field serializer.password style=style %} 
     </div>
   </div>
 
-  <div class="bs_input_accounts_register">
-    <p class="class_label"> Confirm Password </p>
-   <div style="margin: 0px auto 0px 7.5%;" id="password2"> 
+  <div class="bs_input_accounts_register" style="padding-top: 10px; padding-bottom: 14px;">
+    <p class="class_label" style="margin: 10px auto -22px auto; line-height: 1;"> Confirm Password </p>
+   <div style="margin: 0px auto 0px auto;" id="password2"> 
      {% render_field serializer.password2 style=style %}  
     </div>
   </div>

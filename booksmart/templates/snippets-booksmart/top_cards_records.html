@@ -73,7 +73,7 @@
         {% endif%}
        
         {% else %}
-        <p class="h3vw_l" style="margin-bottom: -1vw;" > No search parametersn, no records: "authors or books"  to display</p>
+        <p class="h3vw_l" style="margin-bottom: 10px;" > No search parametersn, no records: "authors or books" to display</p>
             {% endif %}
 
           {% if form_search_post != "" %}
@@ -91,15 +91,15 @@
           
             {% elif num_books_result_post == 0 and num_authors_result_post > 0 %}
             No books found in database <br> for query:<br> {% autoescape off %} > {{parameters_post}} < {% endautoescape %} </p>
-             <p class="h3vw_l" style="margin-bottom: -1vw;" >Authors found in database <br> for this query</p>
-            <p class="h3vw_l" style="margin-bottom: -1vw;" > Number of found authors:
+             <p class="h3vw_l" style="margin-bottom: 6pc;" >Authors found in database <br> for this query</p>
+            <p class="h3vw_l" style="margin-bottom: 10px;" > Number of found authors:
               <span class="h3vw_l_b" style="animation: anime_red_text 2s infinite; margin-bottom:-10px;" > {{ num_authors_result_post }} </span></p> 
 
               {% elif num_books_result_post > 0 and num_authors_result_post == 0 %}    
               <p class="h3vw_l" style="line-height: 1;" > Books found in database <br> for query:<br> {% autoescape off %} > {{parameters_post}} < {% endautoescape %} </p>
           <p class="h3vw_l" style="line-height: 1; margin-top: 0px;" > Number of found books:
             <span style="animation: anime_red_text 2s infinite; font-weight: bold" > {{ num_books_result_post }} </span></p>  
-            <p class="h3vw_l" style="margin-bottom: -1vw;" > No authors found in database <br> for this query.</p>
+            <p class="h3vw_l" style="margin-bottom: 10px;" > No authors found in database <br> for this query.</p>
           {% endif %}
          
       

@@ -32,27 +32,22 @@
     top:56px;
     }
     
-    #collapsible {  
-    min-height: 46px;       
-    font-weight:bold;
-    font-size: 22px;
-    width: 200px;
-    margin: 0vw 2vw 0vw 2vw;
-    color: rgb(178, 34, 34);    
-    line-height: 1;
-    background-color: rgb(100, 160, 220);
-    background-color:  rgba(100, 160, 220, 0.8);
-    padding: 14px auto 10px auto ;
-    transition-duration:0.4s;
-    /*height:auto;*/
+    #_collapsible {  
+      width: 26%;
+      min-width: 190px;
+      display: flex;
+      max-height: 50px;
+      justify-content: center;
+      align-items: center;
+  
     }
     
-    #collapsible:hover {
+    #_collapsible:hover {
     background-color: rgb(100, 160, 240);
     background-color:  rgba(100, 160, 240, 0.9);
     } 
     
-    #collapsible:active {
+    #_collapsible:active {
     background-color: rgb(100, 160, 240);
     background-color:  rgba(100, 160, 240, 0.9);
     } 
@@ -64,7 +59,7 @@
     align-items:center; 
     }
     
-    #collapsible:focus {
+    #_collapsible:focus {
     border: none;
     outline: none;
     }
@@ -314,6 +309,74 @@
     transition: 0.4s;
   }  */
 
+  /*#mymodalAccount {
+    position: fixed;
+    z-index:55;
+    display:none;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    animation:noname;
+    transition:0.6s;
+    background-color: rgb(20, 100, 200); 
+    background-color: rgba(20, 100, 200, 0.4); 
+    background-image: repeating-conic-gradient(rgba(120, 120, 140, 0.4) 0%, rgba(120, 120, 140, 0.4) 1%, rgba(20, 140, 240, 0.4) 2%, rgba(120, 120, 140, 0.4) 3%);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    }
+    
+    #mymodalAccount:hover {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    background-color: rgb(20, 100, 200); 
+    background-color: rgba(20, 100, 200, 0.6); 
+    } */
+    
+    /*#mymodalAccountCont {
+    position: fixed;
+    z-index:66;
+    top: 60px;
+    display:none;
+    margin: auto;
+    width: 540px;
+    left:50%;
+    margin-left: -270px;
+    font-family: Times;
+    padding: 5px;
+    font-size:18px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 10px solid rgba(140, 140, 180, 0.6);
+    
+    box-shadow:
+    0px 2px 10px 10px rgba(60, 70, 80, 0.2); 
+    padding: 10px;
+    animation-delay: 2s;
+    animation: noname2;
+    transition: 0.6s;
+    }
+    
+    #mymodalAccountCont:hover {
+    transform: scale(1.01);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow:
+    0px 2px 10px 10px rgba(229, 230, 243, 0.4);
+    -8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
+    -8px -8px 10px 0px rgba(229, 230, 243, 0.6),
+    8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
+    8px -8px 10px 0px rgba(229, 230, 243, 0.6),
+    
+    18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
+    18px -18px 20px 0px rgba(209, 210, 223, 0.4),
+    -18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
+    -18px -18px 20px 0px rgba(209, 210, 223, 0.4);
+    
+    } */
+
     #mymodalSigninCont,
     #mymodalLoginCont,
     #mymodalAccountCont {
@@ -331,8 +394,8 @@
       padding: 10px;
       animation-delay: 2s;
       animation: noname2;
-      transition: 0.1s;
-      margin: auto;
+      margin-left: auto;
+      margin-right: auto;
       text-align: center;
       font-weight: bold;
       transition: 0.4s;
@@ -1041,73 +1104,6 @@ from { backdrop-filter: blur(4px);}
 to{ backdrop-filter: blur(0px);}
 }
 
-#mymodalAccount {
-position: fixed;
-z-index:55;
-display:none;
-left: 0;
-top: 0;
-width: 100%; 
-height: 100%; 
-/*overflow: auto; */
-animation:noname;
-transition:0.6s;
-background-color: rgb(20, 100, 200); 
-background-color: rgba(20, 100, 200, 0.4); 
-/*background-image: repeating-conic-gradient(rgba(120, 120, 140, 0.4) 0%, rgba(120, 120, 140, 0.4) 1%, rgba(20, 140, 240, 0.4) 2%, rgba(120, 120, 140, 0.4) 3%);*/
--webkit-backdrop-filter: blur(4px);
-backdrop-filter: blur(4px);
-}
-
-#mymodalAccount:hover {
--webkit-backdrop-filter: blur(2px);
-backdrop-filter: blur(2px);
-background-color: rgb(20, 100, 200); 
-background-color: rgba(20, 100, 200, 0.6); 
-}
-
-/*#mymodalAccountCont {
-position: fixed;
-z-index:66;
-top: 60px;
-display:none;
-margin: auto;
-width: 540px;
-left:50%;
-margin-left: -270px;
-font-family: Times;
-padding: 5px;
-font-size:18px;
-text-align: center;
-font-weight: bold;
-border-radius: 4px;
-border: 10px solid rgba(140, 140, 180, 0.6);
-
-box-shadow:
-0px 2px 10px 10px rgba(60, 70, 80, 0.2); 
-padding: 10px;
-animation-delay: 2s;
-animation: noname2;
-transition: 0.6s;
-}
-
-#mymodalAccountCont:hover {
-transform: scale(1.01);
--webkit-backdrop-filter: none;
-backdrop-filter: none;
-box-shadow:
-0px 2px 10px 10px rgba(229, 230, 243, 0.4);
--8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
--8px -8px 10px 0px rgba(229, 230, 243, 0.6),
-8px 8px 10px 0px rgba(229, 230, 243, 0.6), 
-8px -8px 10px 0px rgba(229, 230, 243, 0.6),
-
-18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
-18px -18px 20px 0px rgba(209, 210, 223, 0.4),
--18px 18px 20px 0px rgba(209, 210, 223, 0.4), 
--18px -18px 20px 0px rgba(209, 210, 223, 0.4);
-
-} */
 
 @keyframes unzoomrotate {
 from {transform:scale(1); rotate:360deg;} 
@@ -1525,7 +1521,7 @@ display: block;
 
 #login_form .container-check input[type=checkbox],
 #registration_v .container-check input[type=checkbox],
-.mymodal_Account input[type=checkbox] {
+.container_mymodalAccount input[type=checkbox] {
 display: inline-block;
 position: relative;
 border:none;
@@ -1552,14 +1548,14 @@ z-index: 61;
 
 #login_form .container-check .container-check input[type=checkbox]:hover,
 #registration_v .container-check input[type=checkbox]:hover,
-.mymodal_Account input[type=checkbox]:hover {
+.container_mymodalAccount input[type=checkbox]:hover {
 background: rgba(60, 160, 240, 0.4);
 box-shadow: 0px 0px 0px 4px rgba(220, 220, 230, 0.8);
 }
 
 #login_form .container-check .container-check input[type=checkbox]:checked,
 #registration_v .container-check input[type=checkbox]:checked,
-.mymodal_Account input[type=checkbox]:checked {
+.container_mymodalAccount input[type=checkbox]:checked {
 display: inline-block;
 position: relative;
 width: 26px;
@@ -1582,21 +1578,21 @@ z-index: 62;
 
 #login_form .container-check input[type=checkbox]:checked:focus,
 #registration_v .container-check input[type=checkbox]:checked:focus,
-.mymodal_Account input[type=checkbox]:checked:focus {
+.container_mymodalAccount input[type=checkbox]:checked:focus {
 box-shadow: 0px 0px 0px 4px rgba(220, 220, 230, 0.6);
 transform: scale(1.04);
 } 
 
 #login_form .container-check input[type=checkbox]:checked:active,
 #registration_v .container-check input[type=checkbox]:checked:active,
-.mymodal_Account input[type=checkbox]:checked:active {
+.container_mymodalAccount input[type=checkbox]:checked:active {
 box-shadow: 0px 0px 0px 4px rgba(220, 220, 230, 0.8);
 transform: scale(1.04);
 } 
 
 #login_form .container-check input[type=checkbox]:before,
 #registration_v .container-check input[type=checkbox]:before,
-.mymodal_Account input[type=checkbox]:before {
+.container_mymodalAccount input[type=checkbox]:before {
 position: absolute; 
 visibility: visible;
 content: "";
@@ -1615,7 +1611,7 @@ left: -4px;
 
 #login_form .container-check input[type=checkbox]:checked:before,
 #registration_v .container-check input[type=checkbox]:checked:before,
-.mymodal_Account input[type=checkbox]:checked:before {
+.container_mymodalAccount input[type=checkbox]:checked:before {
 visibility: hidden;
 left: -3px;
 top: -3px;
@@ -1633,7 +1629,7 @@ position: fixed; */
 
 #login_form .container-check .container-check input[type=checkbox]:after,
 #registration_v .container-check input[type=checkbox]:after,
-.mymodal_Account input[type=checkbox]:after {
+.container_mymodalAccount input[type=checkbox]:after {
 content: "";
 visibility: hidden;
 width: 60px;
@@ -1651,7 +1647,7 @@ transition: all 0.6s linear;
 
 #login_form .container-check input[type=checkbox]:checked:after,
 #registration_v .container-check input[type=checkbox]:checked:after,
-.mymodal_Account input[type=checkbox]:checked:after {
+.container_mymodalAccount input[type=checkbox]:checked:after {
 content: "";
 visibility: visible;
 width: 9px;
@@ -1669,7 +1665,7 @@ left: 5px;
 
 #login_form .container-check .text_checked,
 #registration_v .container-check .text_checked,
-.mymodal_Account .text_checked {
+.container_mymodalAccount .text_checked {
 font-weight: bold;
 color: lightgreen;
 }   
@@ -1715,7 +1711,7 @@ color: lightgreen;
 </style>
 
 <style>
-  @media screen and (max-width: 820px) {
+  @media screen and (max-width: 720px) {
   .btn_show:after {
     padding-top: 6px;
     padding-bottom: 8px;

@@ -15,59 +15,78 @@
 {% include 'snippets-booksmart/top_cards.html' %}
 <style>
 
-.my_container_empty {
-  position: relative;
-  z-index:1;
-  width: 800px;
-  max-width: 90%;
-  margin: auto;
-}
-
-.my_row_empty {
-  text-align: center;
-}
-
-.my_column_empty {
-  text-align: center;
-}
-
-#my_container_empty_1 {
-
-}
-
-#my_container_empty_2 {
-  margin-top:120px
+  .my_container_empty {
+    position: relative;
+    z-index: 12;
+    width: 560px;
+    max-width: 90%;
+    margin: 20px auto 20px auto;
+    border-radius: 2px;
+    box-shadow: 
+    0px 0px 6px 6px rgba(151, 191, 231, 0.6) inset,
+    0px 0px 10px 6px rgba(229, 230, 243, 0.2);  
+  }
   
-}
-
-#list_of_authors {
-margin-top: 20px;
-padding: 10px auto 10px auto;
-text-align: center;
-}
-
-#margin_authors {
-  margin-top: 40px;
+  .my_row_empty {
+    text-align: center;
+  }
+  
+  .my_column_empty {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  #my_container_empty_1 {
+  
+  }
+  
+  #my_container_empty_2 {
+    margin-top:120px
+    
+  }
+  
+  #list_of_authors {
+  margin-top: 20px;
+  padding: 10px auto 10px auto;
+  text-align: center;
+  }
+  
+  #margin_authors {
+    margin-top: 40px;
+    }
+  
+  
+  #h2bb   {
+    color: MediumBlue; 
+    font-weight: bold; 
+    font-size: 36px; 
+    text-shadow: 1px 1px 6px AliceBlue; 
+  }
+  
+  .number_add {
+    font-size: 40px;
+    padding: 0px;
+    margin: 4px;
   }
 
-
-#h2bb   {
-  color: MediumBlue; 
-  font-weight: bold; 
-  font-size: 36px; 
-  text-shadow: 1px 1px 6px AliceBlue; 
-}
-
-</style>
-
-<div class="my_container_empty" id="my_container_empty_1" >
+  @media screen and (max-width: 560px) {
+    .number_add {
+      font-size: 30px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .number_add {
+      font-size: 20px;
+    }
+  }
+  
+  </style>
+  <div class="my_container_empty" id="my_container_empty_1" >
     <div class="my_row_empty">
     <div class="my_column_empty">   
-
-      
-</div>
-</div>
-</div>
+<p class="number_add" > Number your authors: {{ authors_add|length }} </p>
+<p class="number_add"> Number your books: {{ books_add|length }}</p>
 
 {% endblock content_1 %}
 
@@ -79,14 +98,12 @@ text-align: center;
 
 {% block content_3 %} 
 
-<div class="my_container_empty" id="my_container_empty_2">
+<!--<div class="my_container_empty" id="my_container_empty_2">
   <div class="my_row_empty">
-    <div class="my_column_empty">    
-
-    
+    <div class="my_column_empty">      
 </div>
 </div>
-</div>
+</div> -->
 {% include 'snippets-booksmart/filter_books_q.html' %}
 {% include 'snippets-booksmart/search_panel.html' %}
 

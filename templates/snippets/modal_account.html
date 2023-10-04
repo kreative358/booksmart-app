@@ -27,7 +27,7 @@
     
                     <div class="form-group">
                       <label class="label" for="username" style="font-size:24px; 
-                      color:blue; margin:4px auto auto auto; font-variant: small-caps;" > Username </label>
+                      color:blue; margin:4px auto 4px auto; font-variant: small-caps;" > Username </label>
                       <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus value="{{request.user.username}}" minlength="3">
                       <div class="valid-feedback" > username field is filled out.
                       </div>
@@ -35,11 +35,11 @@
                       </div>
                     </div> 
 
-                    <div style="height:10px;"> </div>
+                    <div style="height:2px;"> </div>
 
                     <div class="form-group">
                       <label class="label" for="email" style="font-size:24px; 
-                      color:blue; margin: -14px auto auto auto; "> Email </label>
+                      color:blue; margin: -14px auto 4px auto; "> Email </label>
                       <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Must contain @" value="{{request.user.email}}">                      
                       <div class="valid-feedback" > password field is filled out.
                       </div>
@@ -65,7 +65,6 @@
           
                 <div>
                   <p class="psw" style="margin-top: 6px; line-height: 1.2;"> Your <a href="{% url 'booksmart:account-records' %}" target="_blank"> records </a></p>
-                  <p class="psw" style="margin-top: 0px; line-height: 1;">forgot <a href="{% url 'accounts:password_reset_form' %}" target="_blank" >password?</a></p>
                   <p class="psw" style="margin-top: 0px; line-height: 1;">change <a href="{% url 'accounts:password_change' %}" target="_blank" >password?</a></p>
                 </div>
               

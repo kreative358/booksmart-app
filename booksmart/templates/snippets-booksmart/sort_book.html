@@ -321,6 +321,7 @@
   transition: 0.2s;
   cursor:pointer;
   font-variant: small-caps;
+  position: relative;
   }
   
   #btnsort {
@@ -341,7 +342,7 @@
   z-index: 23; 
   color: rgba(0, 0, 210, 0.8);
   border-radius: 2px;
-  z-index:22;
+
   }
   
   #btnsort:hover {
@@ -471,8 +472,22 @@
               background-image: radial-gradient(rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2));
               color: rgba(230, 230, 240, 0.9);
          }
+
+         @media screen and (max-width: 830px) {
+          #input_choice_sorting { 
+            position:fixed;
+            width: 380px;
+            max-width: 380px;
+            top: 66px;
+            z-index: 40;
+            left: 50%;
+            margin-left: -178px;
+          }
+
+         }
   
-  
+
+             
          @media screen and (max-width: 640px) {
           .my_container_sort {
           min-width: 92%;

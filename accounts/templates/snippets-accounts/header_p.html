@@ -94,7 +94,7 @@ padding: 10px;
         <p class="header_h3" style="margin-bottom: 6px;">Hello, {{request.user.username}}</p>
         <p class="header_h4" style="margin-bottom: 6px;">
             <a href="{% url 'index' %}">Main</a> |
-            <a href="{% url 'accounts:password-update' %}" target='_blank'>Password Update </a> |
+            <a href="{% url 'accounts:account' %}" target='_blank'>Account Update </a> |
             <a href="{% url 'accounts:logout' %}">Logout</a>
         </p>
         {% endif %}

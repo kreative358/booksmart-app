@@ -981,29 +981,42 @@ class RecordsView(APIView):
             authors_result_queryset_post = []
             authors_result_list_post = []
             if search_resultB:
-                for record in search_resultB:
+                for record_b in search_resultB:
                     try:
-                        print("record.author =", record.surname)
-                        record_author = record.author
+                        print("record.author =", record_b.surname)
+                        record_author = record_b.author
                         search_surname = record_author.split()
                         authors_result_list_post.append(search_surname[-1])
                         # search_resultAa = allauthors_dict.filter(Q(author_name__contains=search_phrase))
                     except Exception as e:
                         print(f"exception: {e}")
 
-            search_resultA_b_set = list(set(authors_result_list_post))
+            if search_resultAb:
+                for record_a in search_resultAb:
+                    try:
+                        print("record.author =", record_a.last_name)
+                        record_author = record_a.last_name
+                        search_surname = record_author
+                        authors_result_list_post.append(search_surname)
+                        # search_resultAa = allauthors_dict.filter(Q(author_name__contains=search_phrase))
+                    except Exception as e:
+                        print(f"exception: {e}")
+
+            authors_result_list_post_set = list(set(authors_result_list_post))
             # search_resultA_B = [allauthors_dict.filter(Q(author_name__contains=surname)) for surname in search_resultA_b_set]
-            if len(search_resultA_b_set) > 0:
-                if len(search_resultA_b_set) == 1:
-                    search_resultA_1 = allauthors_dict.filter(last_name=search_resultA_b_set[0]) 
-                    if search_resultAb:
-                        search_resultA = search_resultAb | search_resultA_1
-                    else:
-                        search_resultA = search_resultA_1
-                elif len(search_resultA_b_set) > 1:
-                    if search_resultAb:
-                        authors_result_queryset_post.append(search_resultAb)
-                    for author_found_post in search_resultA_b_set:
+            if len(authors_result_list_post_set) > 0:
+                if len(authors_result_list_post_set) == 1:
+                    search_resultA_1 = allauthors_dict.filter(last_name=authors_result_list_post_set[0]) 
+                    search_resultA = search_resultA_1
+                    # if search_resultAb:
+                    #     search_resultA = search_resultAb | search_resultA_1
+                    # else:
+                    #     search_resultA = search_resultA_1
+                elif len(authors_result_list_post_set) > 1:
+                    # if search_resultAb:
+                    #     authors_result_queryset_post.append(search_resultAb)
+                    print("authors_result_list_post_set =", authors_result_list_post_set)
+                    for author_found_post in authors_result_list_post_set:
                         queryset_author_post = Author.objects.filter(last_name__iexact=author_found_post).last()
                         if queryset_author_post:
                             authors_result_queryset_post.append(queryset_author_post)
@@ -1019,8 +1032,6 @@ class RecordsView(APIView):
             # # else:
             # #     print("no search_resultA_B")
             # # search_resultA = search_resultAb | search_resultA_B
-            print('1 search_resultB:', search_resultB)
-            print('1 search_resultA:', search_resultA)
 
             print('len search_resultB:', len(search_resultB))
             print('len search_resultA:', len(search_resultA))
