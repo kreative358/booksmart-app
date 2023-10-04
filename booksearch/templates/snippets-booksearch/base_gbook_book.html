@@ -147,8 +147,8 @@ button:focus {
 
 .button_1_gb {
   float:right;
-  padding: 6px 4px 6px 4px;
-  margin: 5px 10px 2px 10px;
+  padding: 6px 6px 6px 6px;
+  margin: 5px 6px 2px 10px;
   color: rgb(240, 248, 255);
   background-color: rgb(119, 136, 153);
   background-color: rgba(119, 136, 153, 0.6);
@@ -364,6 +364,12 @@ color: MediumBlue;
   max-width: 100%;
   width: 99%;
 }
+
+.button_1_gb,
+.button_2_gb {
+
+}
+
 }
 
 @media screen and (max-width: 640px) {
@@ -374,6 +380,11 @@ color: MediumBlue;
   .mycolumn_book_gb {
     max-width: 100%;
     width: 99%;
+  }
+
+  .button_1_gb,
+  .button_2_gb {
+    
   }
 
   .h6_book_l {
@@ -403,7 +414,25 @@ color: MediumBlue;
   }
 
 }
+@media screen and (max-width: 560px) {
+  .myrow_book_gb {
+    max-width: 96%;
+    width: 96%;
+  }
+  .mycolumn_book_gb {
+    max-width: 100%;
+    width: 99%;
+  }
+  
+  .button_1_gb,
+  .button_2_gb {
+    font-size: 14px;
+  }
 
+  .book_left_text p:first-of-type {
+    padding-top:44px;
+}
+}
 
 @media screen and (max-width:480px) {
   .myrow_book_gb {
@@ -418,7 +447,7 @@ color: MediumBlue;
     width: 99%;
   }
   .h6_book_l {
-    font-size: 20px;
+    font-size: 18px;
     }
   
   .h3_book_r {
@@ -440,6 +469,19 @@ color: MediumBlue;
   .h6_book_r {
   font-size: 16px;
   }
+
+  .button_1_gb,
+  .button_2_gb {
+    font-size: 12px;
+  }
+
+  .book_left_text p:first-of-type {
+    padding-top:32px;
+}
+.book_left_text p:last-of-type {
+  margin-bottom: 6px
+}
+
 }
 
 
@@ -1134,6 +1176,7 @@ flatpickr("#published_{{ book.google_id }}", {
   altFormat: "m/d/Y",
  dateFormat: "Y-m-d",
  altInputClass: "date_published_",
+ disableMobile: true,
  plugins: [
      
   ShortcutButtonsPlugin({

@@ -34,27 +34,54 @@
 
 <style type="text/css">
 
-#author_last_add {  
-  position:relative;
-  z-index: 11;
-  margin:24px auto 30px auto;
-  text-align:center;
-  padding:10px auto 10px auto;
-  width: 560px;
-  max-width: 96%;
-  border-radius:2px;
-  box-shadow: 
-  0px 0px 6px 6px rgba(151, 191, 231, 0.6) inset,
-  0px 0px 10px 6px rgba(229, 230, 243, 0.2); 
-    -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-  
-  color: MediumBlue; 
-  font-family: Georgia; 
-  font-weight: bold; 
-  font-size: 36px; 
+  .container_author_last_add {  
+    position:relative;
+    z-index:12;
+    margin:24px auto 30px auto;
+    text-align:center;
+    padding:10px auto 10px auto;
+    width: 560px;
+    max-width: 90%;
+    border-radius:2px;
+    box-shadow: 
+    0px 0px 6px 6px rgba(151, 191, 231, 0.6) inset,
+    0px 0px 10px 6px rgba(229, 230, 243, 0.2); 
+      -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    
+    color: MediumBlue; 
+    font-family: Georgia; 
+    font-weight: bold; 
+    font-size: 36px; 
+  left: 12px;
+  }
 
-}
+
+   @media screen and (max-width: 640px;) {
+    .container_author_last_add {  
+        
+        font-size: 32px; 
+        max-width: 92%;
+        }
+    }
+
+    @media screen and (max-width: 560px;) {
+      .container_author_last_add {  
+          
+          font-size: 32px; 
+          width: 96%;
+          max-width: 96%;
+          }
+      }
+        
+  @media screen and (max-width: 480px;) {
+    .container_author_last_add {  
+        left: 0px;
+        font-size: 26px; 
+        width: 98%;
+        max-width: 98%;
+        }
+    }
          
 </style>
   
@@ -62,7 +89,7 @@
 {% if author_add_last %}
 {% for author_c in author_add_last %}
   {% if author_c.id == last_id %}
-  <div class="container-fluid" id="author_last_add" >
+  <div class="container_author_last_add" id="author_last_add_id" >
     AUTHOR LAST ADDED </div>
 {% include 'snippets-booksmart/author.html' %}
 {% endif %}

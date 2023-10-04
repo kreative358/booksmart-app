@@ -310,6 +310,7 @@ button:focus {
     line-height: 1;
     margin-left: 180px;
     color: MediumBlue; 
+    margin-top: -6px;
     }
   
   .h7_author_l {
@@ -326,9 +327,9 @@ button:focus {
     color: MediumBlue; 
     } 
 
-    .column_left_text p {
+  /*  .column_left_text p {
       margin-top: -8px;
-    }
+    } */
 
 @media screen and (max-width: 1280px) {
   .myrow_author {
@@ -390,6 +391,15 @@ button:focus {
       min-width: 100%;
       width: 100%;
       max-width: 100%;
+    }
+
+    /* .h6_author_l */
+    .column_left_text p {
+      margin-bottom: 8px;
+    }
+
+      .column_left_text p:last-of-type {
+      margin-bottom: 4px;
     }
 
     .button_1a,
@@ -512,7 +522,7 @@ button:focus {
      <div class="column_left_text"><br>
      <p class="h6_author_l" style="font-variant: small-caps; padding-top:44px"> first name: <span  style="color: Maroon; font-weight: bold;"> {{ author_c.first_name }} </span> </p>
      {% if author_c.middle_name %}
-     <p cclass="h6_author_l" style="font-variant: small-caps;" > other name: <span style="color: Maroon; font-weight: bold;"> {{ author_c.middle_name }} </span> </p>
+     <p class="h6_author_l" style="font-variant: small-caps;" > other name: <span style="color: Maroon; font-weight: bold;"> {{ author_c.middle_name }} </span> </p>
      {% endif %}
      <p class="h6_author_l" style="font-variant: small-caps;"> surname: <span style="color: Maroon; font-weight: bold;"> {{ author_c.last_name }} </span> </p> 
 

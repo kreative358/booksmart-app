@@ -249,27 +249,39 @@ def download_book(request):
             try:
                 items_to_download = results
                 pdf_links = [s.resolve_download_links(item_to_download) for item_to_download in items_to_download if item_to_download["Ext."] == "pdf"] 
-                if pdf_links[0]:
+                context["pdf_links"] = pdf_links
+                context["len_pdf_links"] = len(pdf_links)
+                print(pdf_links)
+                pdf_links_id = [[pdf_links.index(pdf_link), pdf_link] for pdf_link in pdf_links]
+                context["pdf_links_id"] = pdf_links_id
+
+                if len(pdf_links) >= 2:
+                    download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                    print("download_links_1a =", download_links_1a)
+                    context["download_links_1a"] = download_links_1a
+                    download_links_2a = pdf_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                    context["download_links_2a"] = download_links_2a
+                    print("download_links_2a =", download_links_2a)
+                    return Response(context, template_name='download_book.html',)
+                elif len(pdf_links) == 1:
                     download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
                     context["download_links_1a"] = download_links_1a
-                    if pdf_links[1]:
-                        download_links_1a = pdf_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                        context["download_links_2a"] = download_links_2a
-                    elif not pdf_links[1]:
-                        pass
-                elif not pdf_links[0]:
-                    context["message_read_download"] = "This book is probably not available for download in pdf."
-                    title_slugify = slugify(title_download).replace("+", "-")
-                    print("title_slugify:", title_slugify)
-                    context["title_read_wolne_lektury"] = title_slugify
+
                     return Response(context, template_name='download_book.html',)
+
+                # else:
+                #     context["message_read_download"] = "This book is probably not available for download in pdf."
+                #     title_slugify = slugify(title_download).replace("+", "-")
+                #     print("title_slugify:", title_slugify)
+                #     context["title_read_wolne_lektury"] = title_slugify
+                #     return Response(context, template_name='download_book.html',)
 
             except Exception as e:
                 context["message_read_download"] = f"This book is probably not available for download in pdf, reason: {e}"
 
                 return Response(context, template_name='download_book.html',)
         
-            return Response(context, template_name='download_book.html', )
+            # return Response(context, template_name='download_book.html', )
 
 
         else:

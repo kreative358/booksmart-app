@@ -480,7 +480,7 @@ def addx_book(request):
     search_url = f"https://www.googleapis.com/books/v1/volumes?{params_string}"
 
     googleapikey=os.environ.get('API_KEY')
-    # print('search_url', search_url)
+    print('search_url', search_url)
     r = requests.get(url=search_url, params = {'key': googleapikey})
 
     if r.status_code != 200:

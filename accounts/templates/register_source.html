@@ -306,13 +306,13 @@ width: 480px;
     font-family:Times;
     font-variant:small-caps;
     font-size:20px;
-    min-width: 120px;
+    width: 120px;
     float:right;
     box-shadow:
     0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
     0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
     0px 0px 4px 4px rgba(220, 220, 230, 0.4);
-    margin: 14px 40px 4px auto;
+    margin: 14px 20px 4px auto;
     }
     
     .button_red_grey:hover {
@@ -347,6 +347,11 @@ width: 480px;
     @media screen and (max-width: 480px) {
       .container_accounts {
         left: 0;
+      }
+      .button_blue_grey,
+      .button_red_grey {
+        width: 100px;
+        font-size: 18px;
       }
     }
 </style>
@@ -403,7 +408,37 @@ width: 480px;
    <div class="bs_input_accounts_register" >
     <p class="class_label"> Veryfication</p> 
     <div class="bs_input_recaptcha" style="postion: relative; margin-left: auto; margin-right: auto;"> 	
-   {% include 'snippets/mywidget_recaptcha_s.html' %}
+
+
+      <style>
+
+        #g_recaptcha_id_site > div {
+          position: relative;
+          margin: 0px auto 0px auto;
+        }
+        </style>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>     
+        <div class="form-group" style="margin: 0px; padding:10px 0px 10px 0px;">
+    
+        <div id="g_recaptcha_id_site" class="g-recaptcha" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" data-callback="callback">
+        </div>
+                   
+               
+    
+          <div class="valid-feedback" id="valid"  style="text-align:center; margin: auto;">value field is filled out.</div>
+          <!--<div class="invalid-feedback" id="valid" style="margin:-1px auto -5x auto; padding-left: 20px;">please fill out this field.</div>-->
+      <div class="invalid-feedback" id="valid" style="text-align:center; margin: auto;" ><span> please fill out this field. </span>
+      </div>
+              </div>
+    
+              <script type="text/javascript">
+                function callback() {
+                  const submitButton = document.getElementById("button_sm");
+                  submitButton.removeAttribute("disabled");
+                }
+              </script>
+
+
     </div>
    </div>
 

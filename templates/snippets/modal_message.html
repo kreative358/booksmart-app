@@ -17,7 +17,7 @@
   to {background-color: rgba(20, 100, 200, 0.4);}
   }
   
-  #mymodal_messages_msg {
+  .my_modal_messages_msg {
   position: fixed;
   display:none;
   z-index:77;
@@ -36,7 +36,7 @@
   }
   
   /* Modal Content */
-  #modal_cont_messages_msg {
+  .mycontainer_msg {
     position: relative;
     z-index:88;
     display: none;
@@ -60,7 +60,7 @@
     margin: auto;
   }
   
-  #modal_cont_messages_msg:hover,
+ .mycontainer_msg:hover,
   [id^="modal_cont_messages_"]:hover {
   background: rgba(60, 160, 240, 0.6);
   box-shadow: 
@@ -68,7 +68,7 @@
   0px 0px 30px 290px rgba(220, 230, 240, 0.4) inset;
   }
   
-  #modal_cont_messages_msg:active,
+  .mycontainer_msg:active,
   [id^="modal_cont_messages_"]:active {
   background: rgba(60, 160, 240, 0.6);
   box-shadow: 
@@ -381,7 +381,7 @@
   }
   
   @media screen and (max-width: 640px) {
-    .mycontainer_messages_main_msg { 
+    .mycontainer_msg { 
       max-width: 94%;
       min-width: 94%;
       width: 94%;;
@@ -390,15 +390,16 @@
   } 
 
   @media screen and (max-width: 480px) {
-  .mycontainer_messages_main_msg { 
+  .mycontainer_msg { 
     max-width: 98%;
     min-width: 98%;
     width: 98%;;
     margin: auto;
   }
-  .mycontainer_messages_main_msg,
-  .myrow_messages_main_msg,
-  .mycolumn_messages_main_msg {
+  .mycontainer_msg,
+  .mycontainer_border_msg,
+  .myrow_msg,
+  .mycolumn_msg {
     padding: 4px;
 
   }

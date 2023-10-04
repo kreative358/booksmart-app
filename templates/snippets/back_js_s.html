@@ -12,13 +12,15 @@
     z-index: 1;
   } 
   
-  .dark-mode {
+  .dark_mode_back {
    /* background-color: rgba(2, 4, 8, 0.9); */
    background-color: rgba(0, 6, 44, 0.9);
    /* background: repeating-conic-gradient( rgba(6, 16, 44, 0.9) 10%, rgba(0, 6, 44, 0.9) 20%, rgba(6, 16, 44, 0.9) 30%, rgba(0, 6, 44, 0.9) 10%) no-repeat fixed center; */
   } 
   
-  
+  .dark_mode_door {
+    background-color: rgba(0, 15, 128, 0.8);
+  }
   /*.myVideo_1 {
     box-sizing: content-box;
     position: relative;
@@ -87,7 +89,7 @@ margin: 5px;
   margin: 5px;  
 }
 
-#myBtn_dark_back_s {
+#myBtn_dark_back {
   bottom: 12px;
   left: 3px;
   margin: 5px;  
@@ -181,6 +183,35 @@ margin: 5px;
     height: 5vw;
   }
 }
+
+
+@media screen and (max-width: 640px) {
+  .myBtns {
+  font-size: 3vw;
+  padding: 0px;
+  min-width: 18%;
+  max-width: 18%;
+  width: 18%;
+/*  line-height: 1.4; */
+  min-height: 5.4vw;
+  max-height: 5.4vw;
+  height: 5.4vw;
+}
+}
+
+@media screen and (max-width: 480px) {
+  .myBtns {
+  font-size: 3.4vw;
+  padding: 0px;
+  min-width: 20%;
+  max-width: 20%;
+  width: 20%;
+/*  line-height: 1.4; */
+  min-height: 6vw;
+  max-height: 6vw;
+  height: 6w;
+}
+}
 </style>
 
 
@@ -215,7 +246,7 @@ margin: 5px;
   
       <button type="button" id="myBtn1a" class="myBtns notranslate" onclick="myFunction1a()" > mute audio </button>
   
-       <button type="button" class="myBtns notranslate" id="myBtn_dark_back_s">dark mode</button>
+       <button type="button" class="myBtns notranslate" id="myBtn_dark_back">dark mode</button>
 
        <button type="button" class="myBtns notranslate" id="myBtn_mail_sender"> contact </button>
 
@@ -224,10 +255,15 @@ margin: 5px;
       console.clear();
       }
 
-    var btn_dark_main = document.getElementById("myBtn_dark_main");
-    btn_dark_main.onclick = function(){
-    var glass_dark_main =  document.getElementById("glass_id_mode");
-    glass_dark_main.classList.toggle("dark-mode");
+    var btn_dark_back = document.getElementById("myBtn_dark_back");
+    btn_dark_back.onclick = function(){
+      var leftdiv =  document.getElementById("left_div");
+      var rightdiv =  document.getElementById("right_div");
+    var glass_dark_back =  document.getElementById("glass_id_mode");
+       // glass_dark_back.classList.toggle("glass_dark_back");
+       glass_dark_back.classList.toggle("dark_mode_back");
+       // leftdiv.classList.toggle("dark_mode_door");
+       // rightdiv.classList.toggle("dark_mode_door");
 
       if (btn_dark_main.innerHTML === "dark mode") {
         btn_dark_main.innerHTML = "light mode";

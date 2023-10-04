@@ -152,13 +152,14 @@ def pdf_reader(request):
 		pdf_form = PdfReader(request.POST)
 		if pdf_form.is_valid():
 			book_to_read_gd = pdf_form.cleaned_data['link_book_gd']
+		
 			print('book_to_read_gd:', book_to_read_gd)
 			book_to_read_gb = pdf_form.cleaned_data['link_book_gb']
 			print('book_to_read_gb:', book_to_read_gb)
 			book_to_read_dc = pdf_form.cleaned_data['link_book_dc']
 			print('book_to_read_dc:', book_to_read_dc)
 			book_to_read_sejda = pdf_form.cleaned_data['link_book_sejda']
-			print('book_to_read:', book_to_read)
+			print('book_to_read:', book_to_read_sejda)
 			if book_to_read_gd != "":
 				try:
 

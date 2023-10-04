@@ -565,20 +565,13 @@ class RecordsView(APIView):
         context['current_url'] = current_url_name        
         
         context['user_id'] = r_user.id 
-        author = BooksAuthor()
-        form_search = ItemsSearchForm()
         book_sort = BookSort(request.GET)
         # search_form = SearchRecord()
         search_form = SearchRecord(request.GET)
-        # context['search_form'] = ""
-        # context['form_search'] = ""
-        # context['book_sort'] = ""
-        # context['search_author'] = ""
-
         # search_form = SearchRecord(request=request)
-       
-
-       
+        
+        form_search = ItemsSearchForm()
+        author = BooksAuthor()
         # id_user = IdUser()
         # context['user_id'] = user_id
         # current_url_name = request.resolver_match.url_name
@@ -697,13 +690,6 @@ class RecordsView(APIView):
             
 
         context['parameters'] = parameters
-        if parameters:
-
-            context['parameters_get'] = parameters
-            print("parameters =", parameters)
-            print("context['parameters_get'] =", context['parameters_get'])
-        else:
-            print("NO context['parameters_get']")
 
         # print('filter_dict', filter_dict)
         key = ''.join(filter_dict.keys())
@@ -855,15 +841,6 @@ class RecordsView(APIView):
             # context['allbooks'] = all_books_sort
             # return Response(context, template_name='allrecords.html', )
 
-        context['dict_values'] = ""
-        context['filtered_books'] = ""
-
-        context['books_result'] = ""
-        context['authors_result_set'] = ""
-        # context['author_objects'] = list_authors_result_queryset_set
-        context['num_books_result'] = ""
-        context['num_books_result_set'] = "" #
-
         # # print('end sort_parameter', sort_parameter)
         num_books_result = len(books_result_queryset)
         num_authors_result_set = len(list_authors_result_queryset_set)
@@ -883,11 +860,7 @@ class RecordsView(APIView):
         # context['author_objects'] = list_authors_result_queryset_set
         context['num_books_result'] = num_books_result
         context['num_books_result_set'] = num_books_result  #
-        if context['num_books_result_set']:
-            print("868. context['num_books_result_set'] =", context['num_books_result_set'])
         context['num_authors_result_set'] = num_authors_result_set
-        if context['num_authors_result_set']:
-            print("context['num_authors_result_set'] =", context['num_authors_result_set'])
 
         paginated_filtered_books = Paginator(filtered_books, 10) 
         page_number = request.GET.get('page')
@@ -909,16 +882,9 @@ class RecordsView(APIView):
 
         num_books = Book.objects.all().count()
         num_authors = Author.objects.all().count()
-        book_sort = BookSort(request.GET)
+
         context = context_main
-        context['search_form'] = ""
-        context['form_search'] = ""
-        context['book_sort'] = ""
-        context['search_author'] = ""
-        book_sort = BookSort(request.GET)
-        # search_form = SearchRecord()
-        search_form = SearchRecord(request.GET)
-        author = BooksAuthor()
+
         context['allbooks'] = all_books
         context['allauthors'] = all_authors
 
@@ -926,10 +892,8 @@ class RecordsView(APIView):
         context['num_books'] = num_books
         context['current_url'] = current_url_name
 
-        search_form = SearchRecord()
-
         form_search = ItemsSearchForm(request.POST)
-        
+        search_form = SearchRecord()
         author = BooksAuthor()
         allbooks_dict = context['allbooks']
         allauthors_dict = context['allauthors']
@@ -938,135 +902,69 @@ class RecordsView(APIView):
         # current_url_name = request.resolver_match.url_name
         # currents.append(current_url_name)
 
-        context['search_author'] = author
-        context['search_form'] = search_form
         context['form_search'] = form_search
-        context['book_sort'] = book_sort
-        
-        context['parameters'] = ""
+        context['search_form'] = search_form
+        context['search_author'] = author
+
         if not form_search.is_valid(): 
             return redirect('booksmart:allrecords')  #()
             #  return redirect('/')
         
-        elif form_search.is_valid():
-            search_phrase = form_search.cleaned_data['search_field']
-            values = search_phrase
-            print("values =", values)
-            context['parameters'] = values
-            context['parameters_post'] = values
-            context["form_search_post"] = "yes"
+        search_phrase = form_search.cleaned_data['search_field']
+        values = search_phrase
+        context['parameters'] = values
+        
+        
+        search_resultB = allbooks_dict.filter(
+        # search_resultB = all_books.filter(
+            Q(author__icontains=search_phrase) |
+            Q(title__icontains=search_phrase) |
+            Q(language__icontains=search_phrase) |
+            Q(category__icontains=search_phrase) |
+            Q(owner__username__icontains=search_phrase)  
+        )
+        
+        # print("list(set(search_resultB.values_list('surname')))", list(set(search_resultB.values_list('surname'))))
+        search_resultA = allauthors_dict.filter(
+        #search_resultA = all_authors.filter(
+            Q(author_name__icontains=search_phrase) |
+            Q(owner__username__icontains=search_phrase)
+        )
 
-            
-            search_resultB = allbooks_dict.filter(
-            # search_resultB = all_books.filter(
-                Q(author__contains=search_phrase.capitalize()) |
-                Q(title__contains=search_phrase.upper()) |
-                Q(language__contains=search_phrase.lower()) |
-                Q(category__contains=search_phrase.capitalize()) |
-                Q(owner__username__contains=search_phrase)  
-            )
-            
-            # print("list(set(search_resultB.values_list('surname')))", list(set(search_resultB.values_list('surname'))))
-            search_resultAb = allauthors_dict.filter(
-            #search_resultA = all_authors.filter(
-                Q(author_name__contains=search_phrase) |
-                Q(owner__username__contains=search_phrase)
-            )
+        # search_result = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
 
-            # search_result = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
+        # search_word = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
+        # search_result = all_books.filter(title__icontains=title, author__icontains=author, google_id=google_id, language=language, published__gte=published_start, published_lte=pbulished_end)
 
-            # search_word = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
-            # search_result = all_books.filter(title__icontains=title, author__icontains=author, google_id=google_id, language=language, published__gte=published_start, published_lte=pbulished_end)
+        # print('search_resultB:', len(search_resultB))
+        # print('search_resultA:', len(search_resultA))
 
-            authors_result_queryset_post = []
-            authors_result_list_post = []
-            if search_resultB:
-                for record in search_resultB:
-                    try:
-                        print("record.author =", record.surname)
-                        record_author = record.author
-                        search_surname = record_author.split()
-                        authors_result_list_post.append(search_surname[-1])
-                        # search_resultAa = allauthors_dict.filter(Q(author_name__contains=search_phrase))
-                    except Exception as e:
-                        print(f"exception: {e}")
+        num_books_result_Q = len(search_resultB)
+        num_authors_result_Q = len(search_resultA)
+        context["books_result"] = num_books_result_Q
+        context['num_books_result'] = num_books_result_Q
+        context['num_authors_result'] = num_authors_result_Q
+        context['form_search'] = form_search
+        # context['book_obj'] = search_resultB
+        context['author_objects'] = search_resultA
 
-            search_resultA_b_set = list(set(authors_result_list_post))
-            # search_resultA_B = [allauthors_dict.filter(Q(author_name__contains=surname)) for surname in search_resultA_b_set]
-            if len(search_resultA_b_set) > 0:
-                if len(search_resultA_b_set) == 1:
-                    search_resultA_1 = allauthors_dict.filter(last_name=search_resultA_b_set[0]) 
-                    if search_resultAb:
-                        search_resultA = search_resultAb | search_resultA_1
-                    else:
-                        search_resultA = search_resultA_1
-                elif len(search_resultA_b_set) > 1:
-                    if search_resultAb:
-                        authors_result_queryset_post.append(search_resultAb)
-                    for author_found_post in search_resultA_b_set:
-                        queryset_author_post = Author.objects.filter(last_name__iexact=author_found_post).last()
-                        if queryset_author_post:
-                            authors_result_queryset_post.append(queryset_author_post)
-
-            search_resultA = authors_result_queryset_post
-                #     search_resultA_B = ''.join([f" allauthors_dict.filter(Q(last_name={l_name})) |" for l_name in search_resultA_b_set])
-                #     print("search_resultA_B", search_resultA_B) 
-                #     search_resultA = search_resultAb+eval(search_resultA_B)
-            #         search_resultA = search_resultA + "|".join(allauthors_dict.filter(last_name=l_name) for l_name in search_resultA_b_set)
-            # # search_resultA_B = allauthors_dict.filter(Q(author_name__contains=search_resultA_b_set[0]))
-            # # if search_resultA_B:
-            # #     print("search_resultA_B", search_resultA_B)
-            # # else:
-            # #     print("no search_resultA_B")
-            # # search_resultA = search_resultAb | search_resultA_B
-            print('1 search_resultB:', search_resultB)
-            print('1 search_resultA:', search_resultA)
-
-            print('len search_resultB:', len(search_resultB))
-            print('len search_resultA:', len(search_resultA))
-            num_books_result_Q = len(search_resultB)
-            num_authors_result_Q = len(search_resultA)
-            print('2. search_resultB:', search_resultB)
-            print('2. search_resultA:', search_resultA)
-            context["books_result"] = num_books_result_Q
-            context['num_books_result'] = num_books_result_Q
-            context['num_authors_result'] = num_authors_result_Q
-            context['form_search'] = form_search
-
-            context['num_books_result_post'] = num_books_result_Q
-            context['num_authors_result_post'] = num_authors_result_Q
-            # context['book_obj'] = search_resultB
-            
-            context['author_objects'] = search_resultA
-
-            # paginator = Paginator(search_resultB, 3)
-            # page_number = request.GET.get('page', 1)
-            # page_obj = paginator.get_page(page_number)
-            # context['page_obj'] = page_obj
-            # return render(request, 'records.html', context)
-            filtered_books = search_resultB
-            # filtered_books = books_result.reverse()
-            # print('filtered_books', filtered_books)
-            context['filtered_books'] = filtered_books
-            paginated_filtered_books = Paginator(filtered_books, 10) 
-            page_number = request.GET.get('page')
-            book_page_obj = paginated_filtered_books.get_page(page_number)
-            context['book_page_obj'] = book_page_obj
-            # print(book_page_obj)
-            keywords_fields = {}
-            # print('return keywords_fields:', keywords_fields)
-            return Response(context, template_name='records.html', )
-
-
-        context['num_books_result_post'] = ""
-        context['num_authors_result_post'] = ""
-        context['parameters_post'] = ""
-        context["form_search_post"] = "yes"
-        context['parameters'] = ""
-        context['form_search'] = ItemsSearchForm()
+        # paginator = Paginator(search_resultB, 3)
+        # page_number = request.GET.get('page', 1)
+        # page_obj = paginator.get_page(page_number)
+        # context['page_obj'] = page_obj
+        # return render(request, 'records.html', context)
+        filtered_books = search_resultB
+        # filtered_books = books_result.reverse()
+        # print('filtered_books', filtered_books)
+        context['filtered_books'] = filtered_books
+        paginated_filtered_books = Paginator(filtered_books, 10) 
+        page_number = request.GET.get('page')
+        book_page_obj = paginated_filtered_books.get_page(page_number)
+        context['book_page_obj'] = book_page_obj
+        # print(book_page_obj)
+        keywords_fields = {}
+        # print('return keywords_fields:', keywords_fields)
         return Response(context, template_name='records.html', )
-
-
 
 
 

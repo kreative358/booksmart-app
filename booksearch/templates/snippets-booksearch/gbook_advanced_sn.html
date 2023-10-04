@@ -526,7 +526,7 @@
     font-weight:bold;
     font-family:Times;
     font-variant:small-caps;
-    font-size:20px;
+    font-size:18px;
     min-width: 120px;  
     box-shadow: 0px 0px 6px 4px rgba(76, 76, 210, 0.6);
     }
@@ -551,13 +551,14 @@
         /*rgba(10, 80, 240, 0.6);*/
         box-shadow: 0px 0px 0px 1px rgba(60, 160, 240, 0.6);
         color: rgba(0, 0, 210, 0.8); 
-        border: 2px solid rgba(60, 160, 240, 0.6);
+        border: 4px outset rgba(60, 160, 240, 0.6);
         border-radius:2px;
         font-weight:bold;
         font-family:Times;
         font-variant:small-caps;
-        font-size:16px;
-        padding: auto 6px auto 6px;
+        font-size:18px;
+        padding-top: 2px;
+        padding-bottom:4px;
         margin-left: 4px;
         }
     
@@ -1683,10 +1684,10 @@
                     <button type="button" id="btn_closegb_mb" class="btn_close_mb">CLOSE</button>
                     
                     {% if request.user.is_authenticated %}
-                    <button id="btn_submit_gb_mb" type="submit" class="btn_submit_mb" form="gb_search"> search </button>
+                    <button id="btn_submit_gb_mb" type="submit" class="btn_submit_mb" form="gb_search"> SEARCH </button>
                     
                     {% else %}
-                    <button id="btn_no_submit_gb_mb"  class="btn_submit_mb" name="btnG"  disabled id='tooltip'> search <span  id="tooltiptext"> Hello, you must be logged in to use this app </span></button>
+                    <button id="btn_no_submit_gb_mb"  class="btn_submit_mb" name="btnG"  disabled id='tooltip'> SEARCH <span  id="tooltiptext"> Hello, you must be logged in to use this app </span></button>
                     {% endif %}
                  <!-- </form>-->
                   </div>

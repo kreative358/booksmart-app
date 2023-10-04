@@ -1429,6 +1429,7 @@ let date_start = flatpickr("#input_date_start", {
   // flatpickr("#date_of_birth{{book_dict.author_c.wiki_idx}}", {    
    altInput: true,
        allowInput: true,
+       disableMobile: true,
       // static:true,
        altFormat: "m/d/Y",
       dateFormat: "Y-m-d",
@@ -1476,6 +1477,7 @@ let date_start = flatpickr("#input_date_start", {
    //  flatpickr("#date_of_death{{book_dict.author_c.wiki_idx}}", {
          altInput: true,
          allowInput: true,
+         disableMobile: true,
         // static:true,
          altFormat: "m/d/Y",
         dateFormat: "Y-m-d",
@@ -1523,7 +1525,15 @@ let date_start = flatpickr("#input_date_start", {
      //var btn_authorbook = document.getElementById("button_1{{book_dict.author_c.wiki_idx}}");
   
  
- 
+     function MobileView(fp) {
+      this.fp = fp;
+      this.getfp = function () {
+        return this.fp;
+      };
+    }
+    
+    let mobi = MobileView(fp);
+    console.log(mobi.getfp());
 
      
          </script>

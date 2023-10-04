@@ -826,7 +826,7 @@ transform: matrix(0.98, 0, 0, ,0.98, 0, 2);
 .h5vw_btn {
 font-size: 2.4vw;
 font-weight: bold;
-line-height: 1.6vw;  
+line-height: 1.2vw;  
 color: MediumBlue; 
 font-family: Times;     
 
@@ -878,6 +878,20 @@ margin-right: 1vw;
 
 }
 
+@media screen and (max-width: 640px) {
+  .h5vw_btn {
+  line-height: 0.4;
+    font-size: 2.6vw;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .h5vw_btn {
+  line-height: 0;
+    font-size: 2.8vw;
+  }
+
+}
 .cancelbtn {
 background-color: rgba(244, 51, 37, 0.8);
 color: white;
@@ -1425,7 +1439,7 @@ border-width: 8px;
 border-style: solid;
 border-color: transparent transparent rgba(0, 0, 210, 0.6) transparent; 
 top: 100%;
-margin-top: 4px;
+margin-top: 6px;
 margin-left: -8px;
 }
 
@@ -1472,7 +1486,7 @@ border-width: 8px;
 border-style: solid;
 border-color: transparent transparent rgba(0, 0, 210, 0.6) transparent;
 top: 100%; 
-margin-top: 4px;
+margin-top: 6px;
 margin-left: -8px;
 }
 
@@ -1701,6 +1715,31 @@ color: lightgreen;
 </style>
 
 <style>
+  @media screen and (max-width: 820px) {
+  .btn_show:after {
+    padding-top: 6px;
+    padding-bottom: 8px;
+    width: 130px;
+  /*   margin-left: -36px;*/
+  margin-left: -5vw;
+    font-size: 20px;
+    margin-top: 22px;
+    }
+
+
+    .btn_hide:after {
+      width: 130px;
+      left:50%;
+      /*margin-top: 120px; 
+      margin-left: -104px;*/
+      margin-left: -16vw;
+      padding-top: 6px;
+      padding-bottom: 8px;       
+      font-size: 20px;
+      margin-top: 22px;
+      }
+}
+
   @media screen and (max-width: 640px) {
     #mymodalSigninCont,
     #mymodalLoginCont,
@@ -1709,6 +1748,14 @@ color: lightgreen;
       
       width: 92%;
     }
+
+    .btn_show:after,
+    .btn_hide:after {
+
+      width: 120px;
+
+      font-size: 18px;
+        }
   }
 
   @media screen and (max-width: 560px) {
@@ -1719,6 +1766,13 @@ color: lightgreen;
       
       width: 94%;
     }
+
+
+    .btn_show:after,
+    .btn_hide:after  {
+      width: 100px;
+      font-size: 16px;
+        }
 
     .title_account {
       font-size: 26px;

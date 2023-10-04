@@ -92,7 +92,8 @@
 
 .button_1a_m {
   float:right;
-  padding:6px auto 8px auto;
+  padding-top: 2px;
+  padding-bottom: 4px;
   color: rgb(240, 248, 255);
   background: rgb(119, 136, 153);
   background: rgba(119, 136, 153, 0.6);
@@ -129,8 +130,8 @@
 .button_2a_m {
   float: right;
   margin-left: 10px;
-  margin-right: 10px;
-  padding:6px auto 8px auto;
+  padding-top: 2px;
+  padding-bottom: 4px;
   color: rgb(240, 248, 255);
   background-color:rgb(30, 144, 255);
   background-color:rgba(30, 144, 255, 0.6);
@@ -166,7 +167,8 @@
 
 .button_3a_m {
   float: right;
-  padding: 6px auto 8px auto;
+  padding-top: 2px;
+  padding-bottom: 4px;
   color: rgb(240, 248, 255);
   background-color: rgb(178, 34, 34);
   background-color: rgba(178, 34, 34, 0.6);
@@ -284,7 +286,18 @@
     color: MediumBlue; 
     } 
   
+.author_left_content p:first-of-type {
+  padding-top:44px;
 
+}
+
+.author_left_content p:last-of-type {
+  padding-bottom:14px;
+}
+
+.author_left_content p {
+  margin-top: -8px;
+}
 @media screen and (max-width: 1280px) {
   .row_author_copy {
     max-width: 98%;
@@ -397,7 +410,18 @@
     .h3_author_r {
       font-size: 24px;
     }
+    .cont_img_author_copy {
+      max-height: 88%;
+    }
 
+    .author_left_content p:last-of-type {
+      padding-bottom:4px;
+      margin-bottom: 6px;
+    }
+    
+    .author_left_content p:not(p:first-of-type) {
+      margin-top: -10px;
+    }
   }
 
 button:focus {
@@ -435,28 +459,28 @@ button:focus {
       <img src="{{ book.author_c.author_wiki_img }}" id="img_author_c_{{ book.author_c.id }}" class="img-fluid rounded">
   </div>
            
-     <div>
-     <p class="h6_author_l" style="font-weight: bold; font-variant: small-caps; padding-top:44px;"> first name: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.first_name }} </span> </p>
+     <div class="author_left_content">
+     <p class="h6_author_l" style="font-weight: bold; font-variant: small-caps; "> first name: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.first_name }} </span> </p>
      {% if book.author_c.middle_name %}
-     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> other name: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.middle_name }} </span> </p>
+     <p class="h6_author_l" style="font-weight: bold; font-variant: small-caps;"> other name: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.middle_name }} </span> </p>
      {% endif %}
-     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> surname: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.last_name }} </span> </p> 
+     <p class="h6_author_l" style="font-weight: bold; font-variant: small-caps;"> surname: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.last_name }} </span> </p> 
 
      {% if book.author_c.date_of_birth == no_date %}
-     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> date of birth: <span  style="color: Indigo; font-weight: bold;">  no info </span></p>
+     <p class="h6_author_l" style="font-weight: bold; font-variant: small-caps;"> date of birth: <span  style="color: Indigo; font-weight: bold;">  no info </span></p>
       {% else %}
-     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> date of birth: <span  style="color: Indigo; font-weight: bold; text-transform: uppercase;">  {{ book.author_c.date_of_birth }} </span></p>
+     <p class="h6_author_l" style="font-weight: bold; font-variant: small-caps;"> date of birth: <span  style="color: Indigo; font-weight: bold; text-transform: uppercase;">  {{ book.author_c.date_of_birth }} </span></p>
      {% endif %}
 
      {% if book.author_c.date_of_death == no_date %}
-     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold;  font-variant: small-caps;"> date of death: <span style="color: Indigo; font-weight: bold;"> - </p>
+     <p class="h6_author_l" style="font-weight: bold;  font-variant: small-caps;"> date of death: <span style="color: Indigo; font-weight: bold;"> - </p>
       {% else %}
-     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold;  font-variant: small-caps;"> date of death: <span style="color: Indigo; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.date_of_death }} </p>
+     <p class="h6_author_l" style="font-weight: bold;  font-variant: small-caps;"> date of death: <span style="color: Indigo; font-weight: bold; text-transform: uppercase;"> {{ book.author_c.date_of_death }} </p>
       {% endif %}
        
-     <p class="h6_author_l"  style="margin-top: -8px; font-weight: bold; font-variant: small-caps;"> wikidata id: <span  style="color: SlateGrey; font-weight: bold;"> {{ book.author_c.wiki_idx}} </span> </p>
+     <p class="h6_author_l"  style=" font-weight: bold; font-variant: small-caps;"> wikidata id: <span  style="color: SlateGrey; font-weight: bold;"> {{ book.author_c.wiki_idx}} </span> </p>
 
-     <p class="h6_author_l" style="margin-top: -8px; font-weight: bold; padding-bottom:14px; font-variant: small-caps;"> wikipedia english: <span  style="color: SteelBlue; font-weight: bold;"> <a href="https://en.wikipedia.org/wiki/{{ book.author_c.first_name }}_{{ book.author_c.last_name }}" target="_blank" > link </a></span> </p>
+     <p class="h6_author_l" style="font-weight: bold;  font-variant: small-caps;"> wikipedia english: <span  style="color: SteelBlue; font-weight: bold;"> <a href="https://en.wikipedia.org/wiki/{{ book.author_c.first_name }}_{{ book.author_c.last_name }}" target="_blank" > link </a></span> </p>
       </div>
 
      </div>

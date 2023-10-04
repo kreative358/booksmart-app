@@ -1,30 +1,58 @@
 <style type="text/css">
 
-#list_of_books {
+  .container_list_of_books {
   position:relative;
-  z-index:1;
+  z-index:11;
   margin:40px auto 30px auto;
   text-align:center;
-  padding:auto;
+  padding:10px auto 10px auto;
   width: 560px;
-  max-width: 96%;
+  max-width: 90%;
   border-radius:2px;
   box-shadow: 
   0px 0px 6px 6px rgba(151, 191, 231, 0.6) inset,
   0px 0px 10px 6px rgba(229, 230, 243, 0.2); 
-  -webkit-backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
-  padding:10px auto 10px auto;
+  
   color: MediumBlue; 
   font-family: Georgia; 
   font-weight: bold; 
   font-size: 36px; 
-  
+  left: 12px;
+  line-height: 1;
+
   }
-      
+ 
+  
+   @media screen and (max-width: 640px;) {
+    .container_list_of_books {  
+        
+        font-size: 32px; 
+        max-width: 92%;
+        }
+    }
+
+    @media screen and (max-width: 560px;) {
+      .container_list_of_books {  
+          
+          font-size: 32px; 
+          width: 96%;
+          max-width: 96%;
+          }
+      }
+        
+  @media screen and (max-width: 480px;) {
+    .container_list_of_books {  
+        left: 0px;
+        font-size: 26px; 
+        width: 98%;
+        max-width: 98%;
+        }
+    }
 </style>
 
-  <div class="container" id="list_of_books" >
+  <div class="container_list_of_books" id="list_of_books_id" >
  BOOKS IN DATABASE  </div>
   
 

@@ -650,6 +650,9 @@ color: MediumBlue;
   color: MediumBlue; 
   } 
 
+  .book_left_content p:first-of-type {
+    padding-top:48px;
+  }
 
 @media screen and (max-width: 1280px) {
   .myrow_book {
@@ -754,6 +757,10 @@ color: MediumBlue;
     max-width: 100%;
     width: 99%;
   }
+
+  .cont_img_book {
+    max-height: 88%;
+  }
   .h6_book_l {
     font-size: 20px;
     }
@@ -776,6 +783,10 @@ color: MediumBlue;
   
   .h6_book_r {
   font-size: 16px;
+  }
+
+  .book_left_content p:first-of-type {
+    padding-top:30px;
   }
 }
 
@@ -1106,7 +1117,7 @@ color: MediumBlue;
 
   <div class="book_left_content">
       <br>
-     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; padding-top:48px;" > language: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.language}} </span></p>
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps;" > language: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.language}} </span></p>
      <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; margin-top:-8px;"> epub: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.epub }} </span></p> 
      {% if book.published == no_date %}
      <p class="h6_book_l" style="font-weight: bold; margin-top:-8px; font-variant: small-caps;"> published date: <span  style="color: Indigo; font-weight: bold;"> no info </span></p>

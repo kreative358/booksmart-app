@@ -33,14 +33,16 @@
   {% include 'snippets/marquee.html' %}
 
 {% include 'snippets-booksmart/top_cards_records.html' %}
-<div class="container-fluid col-lg-10 mb-4" >
-    <div class="row">
-    <div class="col-lg-12">   
+<div class="container_fluid_my"  style="position:relative;z-index:12 ; margin: 10px auto auto auto; width: 800px; max-width: 90%; background-color: transparent;">
+  <div class="myrow_fluid_my">
+  <div class="mycolumn_fluid_my">   
+
+    
+</div>
+</div>
+</div>  
       
-      
-</div>
-</div>
-</div>
+
 
 {% endblock content_1 %}
 
@@ -52,10 +54,9 @@
 
 {% block content_3 %}
 
-
-<div class="container-fluid col-lg-10"  style="position:relative;z-index:1; margin-top:120px">
-  <div class="row">
-  <div class="col-lg-12 ">   
+<div class="container_fluid_my"  style="position:relative;z-index:12 ; margin: 20px auto auto auto; width: 800px; max-width: 90%; background-color: transparent">
+  <div class="myrow_fluid_my">
+  <div class="mycolumn_fluid_my">   
 
     
 </div>
@@ -91,34 +92,29 @@
           {% endfor %}
  
           {% endif %}
-{% endif %}          
-<style>
-  #margin_books {
-    margin-bottom: 10vw;
-  }
-</style>
-      <div id="margin_books">
-        </div>
+{% endif %}   
+
+<div class="container_fluid_my"  style="position:relative;z-index:12 ; margin: 20px auto 20px auto; width: 800px; max-width: 90%; background-color: transparent">
+  <div class="myrow_fluid_my">
+  <div class="mycolumn_fluid_my">    
+</div>
+</div>
+</div>
 
         {% endblock content_3 %}
 
         {% block content_4 %}
 
-  <style>
-    #margin_authors {
-      margin-top: 14vw;
-    }
-
-    @media only screen and (max-width: 1700px) {
-      #margin_authors {
-        margin-top: -70px;
-      }    
-  }
-  </style>
+  
   {% if book_obj %}
        
-  <div id="margin_authors">
-    </div>
+  <div class="container_fluid_my"  style="position:relative;z-index:12 ; margin: 20px auto 20px auto; width: 800px; max-width: 90%; background-color: transparent">
+    <div class="myrow_fluid_my">
+    <div class="mycolumn_fluid_my">    
+  </div>
+  </div>
+  </div>
+  
 {% include 'snippets-booksmart/books_bar.html' %}
 
 {% for book in book_obj %}
@@ -142,22 +138,55 @@
        {% endfor %}
 
 
-<style type="text/css">
+       <style type="text/css">
 
-#cont_pag {
-  float:right;
-  margin-right:8vw;
-  border: 2px;
-  margin-top: 10px;
-}
-
-</style>
-
-<div class="container col-lg-8" id="cont_pag">
+        .mycontainer_pagination {
+            position:relative;
+            z-index: 12;
+            margin: -10px 5% 2vw auto;
+            width: 600px;
+            max-width:96%;
+            float: right;
+            display: flex;
+            align-content: right;
+            padding: auto;
+            color: blue;
+        }
+        .myrow_pagination,
+        .mycolumn_pagination {
+        max-width: 100%;
         
-    <div class="row">
-      <div class="col-lg-12"  >
-        <div class="pagination justify-content-end">
+        }
+        
+        .pagination_temp {
+            text-align:right;
+            display: inline-block; 
+            font-size:30px;
+            font-weight: bold;
+            padding:10px;
+            text-align-last: right;
+            justify-content: right;
+            width:580px;
+            max-width:96%;
+        }
+        
+        @media screen and (max-width: 640px) {
+        .pagination_temp {
+        font-size:26px;
+        }
+        }
+      
+         @media screen and (max-width: 480px) {
+        .pagination_temp {
+        font-size:22px;
+        }
+        }
+        </style>
+            
+            <div class="mycontainer_pagination" id="mycontainer_pagination_id">      
+              <div class="myrow_pagination">
+                <div class="mycolumn_pagination"  >
+                  <div class="pagination_temp">
 
           <span class="step-links"><h3>
               {% if book_page_obj.has_previous %}

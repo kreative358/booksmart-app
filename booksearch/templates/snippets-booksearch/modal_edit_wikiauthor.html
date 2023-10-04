@@ -200,7 +200,7 @@ border: 4px solid rgba(240, 240, 240, 0.6);
 margin: 10px auto 10px auto;
 padding:10px 5% 0px 5%;
 overflow: auto;
-max-height: 480px;
+max-height: 460px;
 z-index: 38;
 }
 
@@ -520,14 +520,22 @@ animation-iteration-count: infinite;
               <input type="date" class="form-control" id="date_of_birth{{book_dict.author_c.wiki_idx}}" name="date_of_birth" value="{{book_dict.author_c.date_of_birth}}" pattern="^(0[1-9]|1[1,2])\/(0[1-9]|[12][0-9]|3[01])\/d{4}$">
             </div>
             
-            <div class="form-group">
+            
               {% if book_dict.author_c.date_of_death == no_date %}
-              <input type="hidden" class="form-control" id="date_of_death{{book_dict.author_c.wiki_idx}}" name="date_of_death" value="{{book_dict.author_c.date_of_death}}">
+              <div class="form-group" style="" onmouseover="readOnlyFlatpickr(this)">
+                <label class="label_2"  id="bs_label_date_of_death" for="date_of_death" > date of death </label>
+
+                
+              <input type="date" class="form-control" id="date_of_death{{book_dict.author_c.wiki_idx}}" name="date_of_death" value="{{book_dict.author_c.date_of_death}}" readonly style="color: transparent;">
+           
+            </div>
               {% else %}
+              <div class="form-group">
               <label class="label_2"  id="bs_label_date_of_death" for="date_of_death" > date of death </label>
               <input type="date" class="form-control" id="date_of_death{{book_dict.author_c.wiki_idx}}" name="date_of_death" value="{{book_dict.author_c.date_of_death}}" pattern="^(0[1-9]|1[1,2])\/(0[1-9]|[12][0-9]|3[01])\/d{4}$">
-              {% endif %}
             </div>
+              {% endif %}
+            
           
          <div class="form-group">
               <label class="label_2" id="bs_label_author_name" for="author_name" >author name: </label>
@@ -570,11 +578,20 @@ animation-iteration-count: infinite;
     console.clear();
     var_name_wiki = {}
 
+    function readOnlyFlatpickr(element) {
+      element.lastElementChild.style.color = "red";
+      element.lastElementChild.readOnly = true;
+      element.lastElementChild.style.visibility = "hidden";
+      element.lastElementChild.style.cursor = "none";
+      
+      };
+
  let date_startwiki = flatpickr("#date_of_birth{{book_dict.author_c.wiki_idx}}", {
  // flatpickr("#date_of_birth{{book_dict.author_c.wiki_idx}}", {    
   altInput: true,
       allowInput: true,
      // static:true,
+     disableMobile: true,
       altFormat: "m/d/Y",
      dateFormat: "Y-m-d",
      altInputClass: "date_start_wiki",
@@ -620,7 +637,7 @@ animation-iteration-count: infinite;
         altFormat: "m/d/Y",
        dateFormat: "Y-m-d",
        altInputClass: "date_end_wiki",
-
+       disableMobile: true,
        plugins: [
            
         ShortcutButtonsPlugin({

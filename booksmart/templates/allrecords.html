@@ -31,14 +31,14 @@
 
 <style type="text/css">
 
-    #book_last_add {  
+    .container_book_last_add {  
       position:relative;
       z-index:11;
       margin:24px auto 30px auto;
       text-align:center;
       padding:10px auto 10px auto;
       width: 560px;
-      max-width: 96%;
+      max-width: 90%;
       border-radius:2px;
       box-shadow: 
       0px 0px 6px 6px rgba(151, 191, 231, 0.6) inset,
@@ -52,10 +52,31 @@
       font-size: 36px; 
     left: 12px;
     }
+
+
+     @media screen and (max-width: 640px;) {
+      .container_book_last_add {  
+          
+          font-size: 32px; 
+          max-width: 92%;
+          }
+      }
+
+      @media screen and (max-width: 560px;) {
+        .container_book_last_add {  
+            
+            font-size: 32px; 
+            width: 96%;
+            max-width: 96%;
+            }
+        }
           
     @media screen and (max-width: 480px;) {
-      #book_last_add {  
+      .container_book_last_add {  
           left: 0px;
+          font-size: 26px; 
+          width: 98%;
+          max-width: 98%;
           }
       }
     </style>
@@ -64,7 +85,7 @@
     {% if book_add_last %}
     {% for book in book_add_last %}
       {% if book.id == last_id %}
-      <div class="container-fluid" id="book_last_add" >
+      <div class="container_book_last_add" id="book_last_add_id" >
         BOOK LAST ADDED </div>
     {% include 'snippets-booksmart/book.html' %}
     {% endif %}

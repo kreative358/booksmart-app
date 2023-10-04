@@ -102,7 +102,7 @@ left: 12px;
       margin: 3vw auto auto auto;
       min-width:600px;
       width: 1280px;
-      max-width: 96%;
+      max-width: 92%;
       /*max-width: 96%;*/
       background-color: rgb(200, 210, 220); 
       background-color: rgba(200, 210, 220, 0.4); 
@@ -118,7 +118,7 @@ left: 12px;
       z-index:12;
         margin: 2vw auto 2vw auto;
         width: 1280px;
-        max-width: 96%;
+        max-width: 92%;
         background-color: rgb(100, 160, 220); 
         background-color: rgba(100, 160, 220, 0.6); 
         border-radius: 4px;
@@ -147,15 +147,51 @@ left: 12px;
       font-size: 30px;
     }
 
+    .h_container_row_1 {
+      font-size: 40px;
+
+    }
+
          @media screen and (max-width: 800px) {
-      .container_row_2 {
-       font-size: 26px;
+      .h_container_row {
+       font-size: 28px;
       }
+
+        .h_container_row_1 {
+      font-size: 36px;
+
+    }
     }
 
     @media screen and (max-width: 640px) {
+      
+      .container_row_2 {
+        max-width: 94%;
+      }
+
       .h_container_row {
        font-size: 26px;
+      }
+
+      .h_container_row_1 {
+        font-size: 34px;
+  
+      }
+    }
+
+    @media screen and (max-width: 560px) {
+
+      .container_row_2 {
+        max-width: 96%;
+      }
+
+      .h_container_row {
+       font-size: 24px;
+      }
+
+      .h_container_row_1 {
+        font-size: 32px;
+  
       }
     }
 
@@ -166,14 +202,19 @@ left: 12px;
         .h_container_row {
        font-size: 22px;
       }
-    }
+
+      .h_container_row_1 {
+        font-size: 28px;
+  
+      }
+      }
   </style>
 
 {% if filtered_books %}
 
           <br>
    
-          <div class="container_row_2">
+          <div class="container_row_2" style="margin-bottom: 4vw;">
             <div class="myrow_2">
             <div class="mycolumn_2" >
 
@@ -182,14 +223,13 @@ left: 12px;
             </div>
           </div>
         </div>
-      <br>
+   
           
       <div class="container_row_2">
         <div class="myrow_2">
-        <div class="mycolumn_2" >
-            <p></p>
-            <p class="h2p" id="p_rb">BOOKS FOUND</p>
-            <p></p>
+        <div class="mycolumn_2" style="padding-top: 10px; padding-bottom: 0px;">
+         
+            <p class="h_container_row_1" style="color:Blue; font-weight: bold;">BOOKS FOUND</p>
         
             </div>
           </div>

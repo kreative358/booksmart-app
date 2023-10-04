@@ -45,10 +45,30 @@
     padding: 10px;
     
     }
+
+    .header_h3 {
+        font-weight: bold; 
+        color: rgba(0, 0, 240, 0.7); 
+        font-size: 34px;
+      
+      }
+    .header_h4 {
+        font-weight: bold; 
+        color: rgba(0, 0, 200, 0.7); 
+        font-size: 30px;
+    }
     
     @media screen and (max-width: 480px) {
         .container_header {
             left: 0px;
+        }
+
+        .header_h3 {
+            font-size: 24px;
+        }
+    
+        .header_h4 {
+            font-size: 22px;
         }
     }
     </style>  
@@ -57,22 +77,22 @@
             <div class="row_header" id="row_header_id">
                 <div class="column_header" id="column_header_id">
             <br>
-            <h4> VERYFICATION </h4>
+            <p class="header_h4"> VERYFICATION </p>
             {% if not request.user.is_authenticated %}
-            <h4>
+            <p class="header_h4">
                 <a href="{% url 'index' %}">Main</a> |
                 <a href="{% url 'accounts:register' %}" target='_blank'>Register</a> | 
                 <a href="{% url 'accounts:login' %}" target='_blank'>Login</a>
                 
-            </h4>
-            <h3>Hello, my guest... {{username}}</h3>
+            </p>
+            <p class="header_h3">Hello, my guest... {{username}}</p>
             {% elif request.user.is_authenticated %}
-            <h3>Hello, {{request.user.username}}</h3>
-            <h4>
+            <p class="header_h3">Hello, {{request.user.username}}</p>
+            <p class="header_h4">
                 <a href="{% url 'index' %}">Main</a> |
                 <a href="{% url 'accounts:account' %}" target='_blank'>Account</a> |
                 <a href="{% url 'accounts:logout' %}">Logout</a>
-            </h4>
+            </p>
             {% endif %}
             <br>
         </div>

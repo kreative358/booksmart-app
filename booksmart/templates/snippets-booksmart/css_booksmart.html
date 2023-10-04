@@ -366,7 +366,7 @@ border: 4px solid rgba(200, 210, 220, 0.8);
   25% {color: red;}
   }  
       
-      /* .my_container > .my_card { */
+    
     .my_card_top_cards {
       background-color: rgba(100, 160, 220, 0.4); 
       text-align: center;
@@ -518,7 +518,7 @@ border: 4px solid rgba(200, 210, 220, 0.8);
       /* grid-template-columns: auto auto auto; */
       }
       
-      /* my_container > .my_card { */
+    
     .my_card_top_cards {
       text-align: center;
       width: 520px;
@@ -536,14 +536,14 @@ border: 4px solid rgba(200, 210, 220, 0.8);
       
     .h2vw_l {
       font-size: 34px;
-      line-height: 30px;  
+      line-height: 0.9;  
       color: MediumBlue;     
       font-family: Times;  
       }
       
     .h2vw_l_b {
       font-size: 34px;
-      line-height: 30px;  
+      line-height: 0.9;  
       color: MediumBlue; 
       font-weight: bold;
       font-family: Times;
@@ -551,14 +551,14 @@ border: 4px solid rgba(200, 210, 220, 0.8);
       
     #h2vw_l {
       font-size: 34px;
-      line-height: 30px;  
+      line-height: 0.9;  
       color: MediumBlue; 
       font-family: Times;
       }
       
     #h2vw_l_b {
       font-size: 34px;
-      line-height: 30px;  
+      line-height: 0.9;  
       color: MediumBlue;  
       font-weight: bold;
       font-family: Times;
@@ -566,14 +566,14 @@ border: 4px solid rgba(200, 210, 220, 0.8);
       
     .h3vw_l {
       font-size: 28px;
-      line-height: 28px;  
+      line-height: 1;  
       color: RoyalBlue; 
       font-family: Times;
       }
       
     .h3vw_l_b {
       font-size: 28px;
-      line-height: 30px;  
+      line-height: 1;  
       color: RoyalBlue; 
       font-weight: bold;
       font-family: Times;
@@ -581,7 +581,7 @@ border: 4px solid rgba(200, 210, 220, 0.8);
       
     #h3vw_l {
       font-size: 28px;
-      line-height: 28px;  
+      line-height: 1;  
       font-family: Times; 
       }
       
@@ -595,7 +595,7 @@ border: 4px solid rgba(200, 210, 220, 0.8);
       
       #h4vw_l_b {
         font-size: 26px;
-        line-height: 28px;  
+        line-height: 1;  
         color: MediumBlue; 
         font-weight: bold;
         font-family: Times; 
@@ -603,7 +603,7 @@ border: 4px solid rgba(200, 210, 220, 0.8);
       
       .h4vw_l_b {
         font-size: 26px;
-        line-height: 28px;  
+        line-height: 1;  
         color: MediumBlue; 
         font-weight: bold;
         font-family: Times; 
@@ -611,23 +611,45 @@ border: 4px solid rgba(200, 210, 220, 0.8);
       
         #h4vw_l {
         font-size: 26px;
-        line-height: 28px;  
+        line-height: 1;  
         color: MediumBlue; 
         font-family: Times; 
         }
       
       .h4vw_l_b {
         font-size: 26px;
-        line-height: 28px;  
+        line-height: 1;  
         color: MediumBlue; 
         font-family: Times; 
         }  
       }
       
     @media screen and (max-width: 640px) {
+      .my_container_top_cards {
+        display: block;
+        margin: auto;
+        max-width: 94%;
+        /* grid-template-columns: auto auto auto; */
+        
+        }
+        
+     
       .my_card_top_cards {
-      max-width: 94%;
-      }
+        text-align: center;
+        margin:auto; 
+        max-width: 98%;
+        width: 520px;
+      
+        }
+        
+       #mycard_top_cards_middle {
+        /*margin-top: 20px;
+        margin-bottom: 20px; */
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left:auto;
+        margin-right:auto;
+        }
 
 #body_new_book input[type="text"], 
 #body_new_book input[type="date"],
@@ -653,113 +675,117 @@ border: 4px solid rgba(200, 210, 220, 0.8);
     max-width: 94%;
     
 }
-      
-.h2vw_l {
-  font-size: 22px;
-  line-height: 1;   
-  color: rgba(0, 0, 240,  0.8); 
-  font-family: Times;
-  }
-  
-.h2vw_l_b {
-  font-size: 22px;
-  line-height: 1;    
-  color: rgba(0, 0, 240,  0.8); 
-  font-weight: bold;
-  font-family: Times;
-  }
-  
-#h2vw_l {
-  font-size: 22px;
-  line-height: 1;  
-  color: rgba(0, 0, 240,  0.8); 
-  font-family: Times;
-  }
-  
-#h2vw_l_b {
-  font-size: 22px;
-  line-height: 1;   
-  color: rgba(0, 0, 240,  0.8); 
-  font-weight: bold;
-  font-family: Times;
-  }
-  
-.h3vw_l {
-  font-size: 20px;
-  line-height: 1;    
-  color: rgba(0, 0, 220, 0.9); 
-  font-family: Times;
-  }
-  
-.h3vw_l_b {
-  font-size: 20px;
-  line-height: 1.2;   
-  color: rgba(0, 0, 220, 0.9);
-  font-weight: bold;
-  font-family: Times;
-  }
-  
-#h3vw_l {
-  font-size: 20px;
-  line-height: 1;   
-  color: rgba(0, 0, 220, 0.9);
-  font-family: Times;
-  }
-  
-#h3vw_l_b {
-  font-size: 20px;
-  line-height: 1.2;  
-  color: rgba(0, 0, 220, 0.9); 
-  font-weight: bold;
-  font-family: Times;
-  }
-
-  #h4vw_l_b {
-    font-size: 18px;
-    line-height: 1.2;   
-    color:rgba(0, 0, 240,  0.8); 
-    font-weight: bold;
-    font-family: Times; 
-    }
-
-.h4vw_l_b {
-  font-size: 18px;
-  line-height: 1.2;   
-    color: rgba(0, 0, 240,  0.8); 
-    font-weight: bold;
-    font-family: Times; 
-    }
-
-#h4vw_l_b {
-  font-size: 18px;
-  line-height: 1.2;  
-    color: rgba(0, 0, 240,  0.8); 
-    font-family: Times; 
-    }
-
-.h4vw_l_b {
-  font-size: 18px;
-  line-height: 1.2; 
-    color: rgba(0, 0, 240,  0.8); 
-    font-family: Times; 
-    }      
-  }   
-  
-</style>
-
-<style>     
-
-  @media screen and (max-width: 640px) {
-    #marque {
-      font-size: 26px;
-    }
-    }
+     
+          
+        .h2vw_l {
+          font-size: 22px;
+          line-height: 1;   
+          color: rgba(0, 0, 240,  0.8); 
+          font-family: Times;
+          }
+          
+        .h2vw_l_b {
+          font-size: 22px;
+          line-height: 1;    
+          color: rgba(0, 0, 240,  0.8); 
+          font-weight: bold;
+          font-family: Times;
+          }
+          
+        #h2vw_l {
+          font-size: 22px;
+          line-height: 1;  
+          color: rgba(0, 0, 240,  0.8); 
+          font-family: Times;
+          }
+          
+        #h2vw_l_b {
+          font-size: 22px;
+          line-height: 1;   
+          color: rgba(0, 0, 240,  0.8); 
+          font-weight: bold;
+          font-family: Times;
+          }
+          
+        .h3vw_l {
+          font-size: 20px;
+          line-height: 1;    
+          color: rgba(0, 0, 220, 0.9); 
+          font-family: Times;
+          }
+          
+        .h3vw_l_b {
+          font-size: 20px;
+          line-height: 1.2;   
+          color: rgba(0, 0, 220, 0.9);
+          font-weight: bold;
+          font-family: Times;
+          }
+          
+        #h3vw_l {
+          font-size: 20px;
+          line-height: 1;   
+          color: rgba(0, 0, 220, 0.9);
+          font-family: Times;
+          }
+          
+        #h3vw_l_b {
+          font-size: 20px;
+          line-height: 1.2;  
+          color: rgba(0, 0, 220, 0.9); 
+          font-weight: bold;
+          font-family: Times;
+          }
+        
+          #h4vw_l_b {
+            font-size: 18px;
+            line-height: 1.2;   
+            color:rgba(0, 0, 240,  0.8); 
+            font-weight: bold;
+            font-family: Times; 
+            }
+        
+        .h4vw_l_b {
+          font-size: 18px;
+          line-height: 1.2;   
+            color: rgba(0, 0, 240,  0.8); 
+            font-weight: bold;
+            font-family: Times; 
+            }
+        
+        #h4vw_l_b {
+          font-size: 18px;
+          line-height: 1.2;  
+            color: rgba(0, 0, 240,  0.8); 
+            font-family: Times; 
+            }
+        
+        .h4vw_l_b {
+          font-size: 18px;
+          line-height: 1.2; 
+            color: rgba(0, 0, 240,  0.8); 
+            font-family: Times; 
+            }      
+          }        
 
   @media screen and (max-width: 560px) {
-    #marque {
-      font-size: 24px;
-    }
-
+  
+    .my_container_top_cards {
+    
+      max-width: 96%;
+      /* grid-template-columns: auto auto auto; */
+      
+      }
+      
+  
+    .my_card_top_cards {
+      text-align: center;
+      margin:auto; 
+      max-width: 98%;
+      width: 520px;
+    
+      }
+      
     .mycontainer {
       max-width: 94%;
       width: 94%;
@@ -784,18 +810,35 @@ border: 4px solid rgba(200, 210, 220, 0.8);
 
 @media screen and (max-width: 480px) {
 
-  #marque {
-    font-size: 22px;
-  }
 
   .mycontainer {
     max-width: 98%;
     left: 0px;
   }
 
-  .my_card_top_cards {
+  .my_container_top_cards {
+ left: 0px;
     max-width: 98%;
-    left: 0px;
+    /* grid-template-columns: auto auto auto; */
+    
+    }
+    
+    /* my_container > .my_card { */
+  .my_card_top_cards {
+    text-align: center;
+    margin:auto; 
+    max-width: 98%;
+    width: 98%;
+  
+    }
+    
+   #mycard_top_cards_middle {
+    /*margin-top: 20px;
+    margin-bottom: 20px; */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left:auto;
+    margin-right:auto;
     }
 
   #body_new_book input[type="text"], 
@@ -834,6 +877,21 @@ border: 4px solid rgba(200, 210, 220, 0.8);
 .body_card label {
   font-size: 18px;
 }
+
+.h3vw_l_b {
+  font-size: 18px;
+  line-height: 1.2;  
+  color: rgba(0, 0, 220, 0.9);
+
+  }
+  .h2vw_l_b {
+    font-size: 20px;
+    line-height: 0.9;  
+    color: rgba(0, 0, 240,  0.8); 
+    font-weight: bold;
+    font-family: Times;
+    }
+
 }
 
 #close_mb_uni:active {
@@ -841,218 +899,6 @@ border: 4px solid rgba(200, 210, 220, 0.8);
   transform: matrix(0.96, 0, 0, 0.96, 2, 0);
 }
 
-@media screen and (max-width: 1280px) {
-  .my_container_top_cards {
-  display: block;
-  margin: auto;
-  /* grid-template-columns: auto auto auto; */
-  
-  }
-  
-  /* my_container > .my_card { */
-.my_card_top_cards {
-  text-align: center;
-  margin:auto; 
-  max-width: 98%;
-  width: 520px;
-
-  }
-  
- #mycard_top_cards_middle {
-  /*margin-top: 20px;
-  margin-bottom: 20px; */
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left:auto;
-  margin-right:auto;
-  }
-  
-.h2vw_l {
-  font-size: 34px;
-  line-height: 30px;  
-  color: rgba(0, 0, 240,  0.8); 
-  font-family: Times;  
-  }
-  
-.h2vw_l_b {
-  font-size: 34px;
-  line-height: 30px;  
-  color: rgba(0, 0, 240,  0.8); 
-  font-weight: bold;
-  font-family: Times;
-  }
-  
-#h2vw_l {
-  font-size: 34px;
-  line-height: 30px;  
-  color: rgba(0, 0, 240,  0.8); 
-  font-family: Times;
-  }
-  
-#h2vw_l_b {
-  font-size: 34px;
-  line-height: 30px;  
-  color: rgba(0, 0, 240,  0.8); 
-  font-weight: bold;
-  font-family: Times;
-  }
-  
-.h3vw_l {
-  font-size: 28px;
-  line-height: 28px;  
-  color: rgba(0, 0, 220, 0.9);
-  font-family: Times;
-  }
-  
-.h3vw_l_b {
-  font-size: 28px;
-  line-height: 30px;  
-  color: rgba(0, 0, 220, 0.9);
-  font-weight: bold;
-  font-family: Times;
-  }
-  
-#h3vw_l {
-  font-size: 28px;
-  line-height: 28px;  
-  font-family: Times; 
-  color: rgba(0, 0, 220, 0.9);
-  }
-  
-#h3vw_l_b {
-  font-size: 28px;
-  line-height: 30px;  
-  color: rgba(0, 0, 220, 0.9);
-  font-weight: bold;
-  font-family: Times;
-  }   
-  
-  #h4vw_l_b {
-    font-size: 26px;
-    line-height: 28px;  
-    color: rgba(0, 0, 240,  0.8); 
-    font-weight: bold;
-    font-family: Times; 
-    }
-  
-  .h4vw_l_b {
-    font-size: 26px;
-    line-height: 28px;  
-    color: rgba(0, 0, 240,  0.8); 
-    font-weight: bold;
-    font-family: Times; 
-    }
-  
-    #h4vw_l_b {
-    font-size: 26px;
-    line-height: 28px;  
-    color: rgba(0, 0, 240,  0.8); 
-    font-family: Times; 
-    }
-  
-  .h4vw_l_b {
-    font-size: 26px;
-    line-height: 28px;  
-    color: rgba(0, 0, 240,  0.8); 
-    font-family: Times; 
-    }  
-  }
-  
-@media screen and (max-width: 640px) {
-  .my_card_top_cards {
-  max-width: 94%;
-  }
-  
-.h2vw_l {
-  font-size: 22px;
-  line-height: 1;   
-  color: rgba(0, 0, 240,  0.8); 
-  font-family: Times;
-  }
-  
-.h2vw_l_b {
-  font-size: 22px;
-  line-height: 1;    
-  color: rgba(0, 0, 240,  0.8); 
-  font-weight: bold;
-  font-family: Times;
-  }
-  
-#h2vw_l {
-  font-size: 22px;
-  line-height: 1;  
-  color: rgba(0, 0, 240,  0.8); 
-  font-family: Times;
-  }
-  
-#h2vw_l_b {
-  font-size: 22px;
-  line-height: 1;   
-  color: rgba(0, 0, 240,  0.8); 
-  font-weight: bold;
-  font-family: Times;
-  }
-  
-.h3vw_l {
-  font-size: 20px;
-  line-height: 1;    
-  color: rgba(0, 0, 220, 0.9); 
-  font-family: Times;
-  }
-  
-.h3vw_l_b {
-  font-size: 20px;
-  line-height: 1.2;   
-  color: rgba(0, 0, 220, 0.9);
-  font-weight: bold;
-  font-family: Times;
-  }
-  
-#h3vw_l {
-  font-size: 20px;
-  line-height: 1;   
-  color: rgba(0, 0, 220, 0.9);
-  font-family: Times;
-  }
-  
-#h3vw_l_b {
-  font-size: 20px;
-  line-height: 1.2;  
-  color: rgba(0, 0, 220, 0.9); 
-  font-weight: bold;
-  font-family: Times;
-  }
-
-  #h4vw_l_b {
-    font-size: 18px;
-    line-height: 1.2;   
-    color:rgba(0, 0, 240,  0.8); 
-    font-weight: bold;
-    font-family: Times; 
-    }
-
-.h4vw_l_b {
-  font-size: 18px;
-  line-height: 1.2;   
-    color: rgba(0, 0, 240,  0.8); 
-    font-weight: bold;
-    font-family: Times; 
-    }
-
-#h4vw_l_b {
-  font-size: 18px;
-  line-height: 1.2;  
-    color: rgba(0, 0, 240,  0.8); 
-    font-family: Times; 
-    }
-
-.h4vw_l_b {
-  font-size: 18px;
-  line-height: 1.2; 
-    color: rgba(0, 0, 240,  0.8); 
-    font-family: Times; 
-    }      
-  }   
   
 
       </style>
