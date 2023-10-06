@@ -16,18 +16,8 @@
   }
   </style>
 {% block content_1 %}  
-  <div class="container_fluid"  id="top_jumb" >
-    <a href="" class="text_center" role="button" ><p><span  class="" id="h1j">BOOKSMART</span><br><span id="h2j" >MAINPAGE-LINK</span></a>
-    </div>
-
-  <!-- style='font-family:Trirong , sans-serif; font-weight: bold; color: blue; font-size: 30px;' -->
-
-  <div class="container-fluid" id="marque" >
-        
-    <marquee marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"  > ☞ FEEL &nbsp; FREE &nbsp; TO &nbsp; USE &nbsp; WEB - APPLICATION &nbsp; THAT &nbsp; ALLOWS &nbsp; TO >>> SEARCH &nbsp; & &nbsp; FIND <<< &nbsp; ☼ &nbsp; >>> SAVE &nbsp; & &nbsp; READ <<< &nbsp; BOOKS &nbsp; FROM  &nbsp; AROUND &nbsp; THE &nbsp; WORLD ☜ </marquee>
-  
-</div>
-
+{% include 'snippets-mainsite/jumbotron.html' %}
+{% include 'snippets-mainsite/marquee.html' %}
 {% include 'snippets-mainsite/top_cards_main_n.html' %}
 
 {% endblock content_1 %}

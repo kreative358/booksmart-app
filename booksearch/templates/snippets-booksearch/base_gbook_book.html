@@ -1077,7 +1077,7 @@ height:70px;
         
         <div class="form-group" id="gb_identity" >
             <label class="label_1" id="bs_label_gb_id" for="google_id" style="">google books identity:</label>
-            <input type="text" class="form-control" name="google_id" id="google_id" minlength="12" maxlength="12" value="{{book.google_id}}" pattern='^[A-Za-z0-9._-]{12}$' title="12 characters">
+            <input type="text" class="form-control" name="google_id" id="google_id" minlength="12" maxlength="12" value="{{book.google_id}}" pattern='^[A-Za-z0-9._-]{12}$' title="12 characters" readonly>
           </div>
         
           <div class="form-group" id="gb_title">
@@ -1128,22 +1128,22 @@ height:70px;
           
           <div class="form-group" id="gb_image" >
             <label class="label_2" id="bs_label_img" for="imageLinks"> image link: </label>
-            <input type="url" class="form-control" name="imageLinks" id="imageLinks" pattern="^http:\/\/.+$" title="Include http://" value="{{book.imageLinks}}">
+            <input type="url" class="form-control" name="imageLinks" id="imageLinks" pattern="^http:\/\/.+$" title="Include http://" value="{{book.imageLinks}}" readonly>
           </div>
           
           <div class="form-group" id="gb_prev_link">
             <label class="label_2" id="bs_label_prev_link" for="preview_link" >preview link: </label>
-            <input type="url" class="form-control" name="preview_link" id="preview_link" value="{{book.preview_link}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://">
+            <input type="url" class="form-control" name="preview_link" id="preview_link" value="{{book.preview_link}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://" readonly>
           </div>
           
           <div class="form-group" id="gb_self_link">
             <label class="label_2" id="bs_label_self_link" for="selfLink" >self link:</label>
-            <input type="url" class="form-control" name="selfLink" id="selfLink" value="{{book.selfLink}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://">
+            <input type="url" class="form-control" name="selfLink" id="selfLink" value="{{book.selfLink}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://" readonly>
           </div>
     
           <div class="form-group" id="gb_prev_linkn">
             <label class="label_2" for="bs_label_link_new" >preview link new: </label>
-            <input type="url" class="form-control" name="preview_link_new" id="preview_link_new" value="{{book.preview_link}}" pattern="http:\/\/.+" title="Include http://">
+            <input type="url" class="form-control" name="preview_link_new" id="preview_link_new" value="{{book.preview_link}}" pattern="http:\/\/.+" title="Include http://" readonly>
           </div>
           <br>
         

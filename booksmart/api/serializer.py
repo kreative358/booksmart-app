@@ -9,5 +9,5 @@ class BookToEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         
-        fields = ['id', 'title', 'url_book', 'author',  'summary', 'published', 'category', 'language', 'epub', 'isbn',  'embeddable', 'imageLinks' ]
+        fields = ['id', 'title', 'url_book', 'author', 'surname',  'summary', 'published', 'category', 'language', 'epub', 'isbn',  'embeddable', 'imageLinks' ]
 

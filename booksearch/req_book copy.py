@@ -581,12 +581,13 @@ def addx_book(request):
         return Response(context, template_name='addx_book.html', )
         # return render(request, 'addx_book.html', context)
 
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
-from booksearch.api.serializers import NewBookSerializer
-def addbook_serializer(request):
+
+def addbook(request):
     r_user = request.user
+    
     all_books = Book.objects.all()
+    
+
     book = {
     'google_id': request.POST['google_id'],
     'title': request.POST['title'],
@@ -602,169 +603,77 @@ def addbook_serializer(request):
     'epub':  request.POST['epub'],
     'embeddable': request.POST['embeddable'],
     'preview_link_new': request.POST['preview_link_new'],
-     'user_num_b': str(r_user.id),
-     'surname': request.POST['author'].split()[-1] if request.POST['author'] else '',
-     'owner': r_user.id,
     }
-    print("\nbook =", book)
-    new_book = book
-    print("\nnew_book =", new_book)
-    serializer = NewBookSerializer(data=new_book)
-    # print("serializer =", serializer)
-    initial_val = serializer.initial_data
-    new_book_google_id = initial_val["google_id"]
-    print("new_book_google_id =", new_book_google_id)
-    if serializer.is_valid():
-        
-        try:
-            check_new_book = Book.objects.filter(google_id=new_book_google_id)
-            # check_new_book = Book.objects.filter(google_id=initial_val.google_id)
-            if check_new_book:
-                messages.warning(request, "1. This book is already in the database, if you want to save it again you need to change the value of google-id.")
-                return redirect('booksmart:allrecords')
-            else:
-                book_instance = serializer.save()
-                print("book_instance.title =", book_instance.title)
-                new_book_google_id_instance = book_instance.google_id
-                try:
-                    new_book_add = Book.objects.filter(google_id=new_book_google_id_instance).last()
-                    new_book_add = Book.objects.filter().last()
-                    new_book_add_author = new_book_add.author
-                    author_c_new_book = Author.objects.filter(author_name=new_book_add_author).last()
-                    if author_c_new_book:
-                        new_book_add.author_c = author_c_new_book
-                        new_book_add.save()
-                        print('req_book line 578')
-                    else:
-                        print('req_book line 580')
-                        
+    # print("book['published']", book['published'])
+    # book_pub = book['published']
+    # new_book_pub = book_pub.strftime('%m/%d/%Y')
+    # book['published'] = new_book_pub
+
+    new_book = Book(
+        google_id=book['google_id'],
+        title=book['title'],
+        author=book['author'],
+        category=book['category'],
+        summary=book['summary'],
+        published=book['published'],
+        preview_link=book['preview_link'],
+        language=book['language'],
+        imageLinks=book['imageLinks'],
+        selfLink=book['selfLink'],
+        isbn=book['isbn'],
+        epub=book['epub'],
+        embeddable=book['embeddable'],
+        preview_link_new=book['preview_link_new'],
+        user_num_b=r_user.id,
+        surname=book['author'].split()[-1] if book['author'] else '',
+        # created_by=Account.objects.filter(id=user.id).first(),
+        # owner=Account.objects.filter(id=user.id).first(),
+        owner=r_user,
+        )
+    #Account.objects.filter(id=user.id).first()
+    new_book_google_id = new_book.google_id
+
+    try:
+        check_new_book = Book.objects.filter(google_id=new_book_google_id)
+        if check_new_book:
+            messages.warning(request, "1. This book is already in the database, if you want to save it again you need to change the value of google-id.")
+            return redirect('booksmart:allrecords')
+            # return redirect('booksmart:allrecords')
+        else:
+            new_book.save()
+            try:
+                new_book_add = Book.objects.filter(google_id=new_book_google_id).last()
+                # new_book_add = Book.objects.filter().last()
+                new_book_add_author = new_book_add.author
+                author_c_new_book = Author.objects.filter(author_name=new_book_add_author).last()
+                if author_c_new_book:
+                    new_book_add.author_c = author_c_new_book
+                    new_book_add.save()
+                    # print('req_book line 578')
+                else:
+                    print('req_book line 580')
                     
-                except Exception as e:
-                    print(f'req_book line 602, error {e}')
-        except IntegrityError:
-            if Book.objects.filter(google_id=new_book_google_id):
-                messages.info(request, "This book is in database")
-                # return redirect('/booksmart/allrecords/')
-                return redirect('booksmart:allrecords')
-            else:
-                book_instance = serializer.save()
-                # messages.info(request, f"Something went wrong, reason {IntegrityError}")
-                messages.info(request, "Something went wrong, please try again later")
+                
+            except Exception as e:
+                print(f'req_book line 602, error {e}')
+                
+    except IntegrityError:
+        if Book.objects.filter(google_id=new_book_google_id):
+            messages.info(request, "2. This book is in database")
+            return redirect('booksmart:allrecords')
+            # return redirect('booksmart:allrecords')
+        else:
+            new_book.save()
+    except ValidationError:
+        if Book.objects.filter(google_id=new_book_google_id):
+            messages.info(request, "3. This book is in database")
+            # return redirect('/booksmart/allrecords/')
+            return redirect('booksmart:allrecords')
+        else:
+            new_book.save()
 
-                # book_instance = serializer.save()
-                return redirect('booksmart:allrecords')
-        except ValidationError:
-            if Book.objects.filter(google_id=new_book_google_id):
-                messages.info(request, "This book is in database")
-                # return redirect('/booksmart/allrecords/')
-                return redirect('booksmart:allrecords')
-            else:
-                # messages.info(request, f"Something went wrong, reason {ValidationError}")
-                messages.info(request, "Something went wrong, please try again later")
-                book_instance = serializer.save()
-                return redirect('booksmart:allrecords')
 
-    else:
-        # print("serializer.data =", serializer.data)
-        messages.info(request, "Something is wrong with book data")
-        print("serializer.errors =", serializer.errors)
-        return redirect('booksmart:allrecords')
     return HttpResponseRedirect(reverse('booksmart:allrecords'))
-        
-
-
-# def addbook(request):
-#     r_user = request.user
-    
-#     all_books = Book.objects.all()
-    
-#     book = {
-#     'google_id': request.POST['google_id'],
-#     'title': request.POST['title'],
-#     'author': request.POST['author'],
-#     'category': request.POST['category'],
-#     'summary': request.POST['summary'],
-#     'published': request.POST['published'],
-#     'preview_link': request.POST['preview_link'],
-#     'language': request.POST['language'],
-#     'imageLinks': request.POST['imageLinks'],
-#     'selfLink': request.POST['selfLink'],
-#     'isbn': request.POST['isbn'],
-#     'epub':  request.POST['epub'],
-#     'embeddable': request.POST['embeddable'],
-#     'preview_link_new': request.POST['preview_link_new'],
-
-#     }
-#     # print("book['published']", book['published'])
-#     # book_pub = book['published']
-#     # new_book_pub = book_pub.strftime('%m/%d/%Y')
-#     # book['published'] = new_book_pub
-#     print("\naddbook book =", book)
-#     new_book = Book(
-#         google_id=book['google_id'],
-#         title=book['title'],
-#         author=book['author'],
-#         category=book['category'],
-#         summary=book['summary'],
-#         published=book['published'],
-#         preview_link=book['preview_link'],
-#         language=book['language'],
-#         imageLinks=book['imageLinks'],
-#         selfLink=book['selfLink'],
-#         isbn=book['isbn'],
-#         epub=book['epub'],
-#         embeddable=book['embeddable'],
-#         preview_link_new=book['preview_link_new'],
-#         user_num_b=r_user.id,
-#         surname=book['author'].split()[-1] if book['author'] else '',
-#         # created_by=Account.objects.filter(id=user.id).first(),
-#         # owner=Account.objects.filter(id=user.id).first(),
-#         owner=r_user,
-#         )
-#     #Account.objects.filter(id=user.id).first()
-#     new_book_google_id = new_book.google_id
-#     print("\naddbook new_book =", new_book)
-#     try:
-#         check_new_book = Book.objects.filter(google_id=new_book_google_id)
-#         if check_new_book:
-#             messages.warning(request, "1. This book is already in the database, if you want to save it again you need to change the value of google-id.")
-#             return redirect('booksmart:allrecords')
-#             # return redirect('booksmart:allrecords')
-#         else:
-#             new_book.save()
-#             try:
-#                 new_book_add = Book.objects.filter(google_id=new_book_google_id).last()
-#                 # new_book_add = Book.objects.filter().last()
-#                 new_book_add_author = new_book_add.author
-#                 author_c_new_book = Author.objects.filter(author_name=new_book_add_author).last()
-#                 if author_c_new_book:
-#                     new_book_add.author_c = author_c_new_book
-#                     new_book_add.save()
-#                     # print('req_book line 578')
-#                 else:
-#                     print('req_book line 580')
-                    
-                
-#             except Exception as e:
-#                 print(f'req_book line 602, error {e}')
-                
-#     except IntegrityError:
-#         if Book.objects.filter(google_id=new_book_google_id):
-#             messages.info(request, "2. This book is in database")
-#             return redirect('booksmart:allrecords')
-#             # return redirect('booksmart:allrecords')
-#         else:
-#             new_book.save()
-#     except ValidationError:
-#         if Book.objects.filter(google_id=new_book_google_id):
-#             messages.info(request, "3. This book is in database")
-#             # return redirect('/booksmart/allrecords/')
-#             return redirect('booksmart:allrecords')
-#         else:
-#             new_book.save()
-
-
-#     return HttpResponseRedirect(reverse('booksmart:allrecords'))
 
 # H:\BOOKSMART\.venv\Lib\site-packages\rest_auth\registration\serializers.py
 # H:\BOOKSMART\.venv\Lib\site-packages\rest_auth\registration\views.py

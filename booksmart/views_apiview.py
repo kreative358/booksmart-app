@@ -477,7 +477,7 @@ def books_author(request):
     if author_form.is_valid():
         # values=author_form.cleaned_data['author']
 
-        values=author_form.cleaned_data['author_name_hidden']
+        values=author_form.cleaned_data['author_found_books']
         # print(values, type(values))
     
     books_result = Book.objects.filter(author=values)

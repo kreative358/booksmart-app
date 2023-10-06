@@ -1,5 +1,9 @@
 <style type="text/css">
 
+  #mycont_select_month_from select {
+    -webkit-appearance: none;
+  }
+
 #selectback_month_to  {
   display: none; 
   position: fixed; 
@@ -155,7 +159,9 @@
   animation: noname;
   margin-left: 72px;
   justify-content: center;
-
+  min-height: 415px;
+  max-height: 415px;
+  height: 415px;
 
  /* margin-left: 354px;
   position: fixed; */
@@ -415,6 +421,15 @@ box-shadow:
   
   #modal_body_advance_gb #myrow_select_pass_month_to:active { 
     transform: matrix(0.98, 0,  0, 0.98, 0, 2);
+  }
+
+
+  #modal_body_advance_gb #select_month_to
+
+  @media screen and (max-width: 560px) {
+    #modal_body_advance_gb #select_month_to {
+      margin-left: 22px;
+    }
   }
   </style>
   

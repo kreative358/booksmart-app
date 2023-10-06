@@ -83,7 +83,7 @@ class BookToEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         
-        fields = ['id', 'title', 'url_book', 'author',  'summary', 'published', 'category', 'language', 'epub', 'isbn',  'embeddable', 'imageLinks' ]
+        fields = ['id', 'title', 'url_book', 'author',  'summary', 'published', 'category', 'language', 'epub', 'isbn',  'embeddable', 'imageLinks', 'surname' ]
         # list_serializer_class = BookToListSerializer
 
 

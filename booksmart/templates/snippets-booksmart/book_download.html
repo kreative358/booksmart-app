@@ -219,9 +219,8 @@
         {% elif message_read_download %}
     <p style="animation: anime_red_text 2s infinite; font-size: 22px; color: mediumblue; padding: 10px; line-height: 1;"> <span style="padding-top: 10px;"> Information about book title: </span> <br><br> <span  > "{{ title_download }}" </span> <br><br> <span style="padding-bottom: 10px;" > {{message_read_download}} </span></p>
     <div style="position: relative; margin: 10px auto 10px auto; width: 300px; padding-top: 10px; border: 4px solid blue;">
-     <p style="animation: anime_red_text 2s infinite; font-size: 26px; color: mediumblue; text-transform: lowercase;"><a href="https://wolnelektury.pl/katalog/lektura/{{ title_read_wolne_lektury }}.html" target="_blank">Try this to read</a></p></div><br>
-     <div style="position: relative; margin: 10px auto 10px auto; width: 300px; padding-top: 10px; border: 4px solid blue;">
-      <p style="animation: anime_red_text 2s infinite; font-size: 26px; color: mediumblue; text-transform: lowercase;"><a href="https://wolnelektury.pl/media/book/pdf/{{ title_read_wolne_lektury }}.html" target="_blank">Try this to download</a></p></div><br>
+     <p style="animation: anime_red_text 2s infinite; font-size: 26px; color: mediumblue; text-transform: lowercase;"><a href="{{ title_read_last_chance }}" target="_blank">Try this to <br> read or download</a></p></div><br>
+ 
     {% endif %}
           </div>
           

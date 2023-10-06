@@ -270,11 +270,11 @@ def download_book(request):
                     return Response(context, template_name='download_book.html',)
 
                 else:
-                    context["message_read_download"] = "This book is probably not available for download in pdf."
+                    context["message_read_download"] = "This book is probably not available for download in pdf, below is the last chance for those who persevere"
                     print("2. formlib_download", title_download)
-                    title_slugify = slugify(title_download).replace("+", "-").replace(" ", "-")
-                    print("title_slugify:", title_slugify)
-                    context["title_read_wolne_lektury"] = title_slugify
+                    # title_slugify = slugify(title_download).replace("+", "-").replace(" ", "-")
+                    title_docer_pdf = title_download.replace(" ", "+")
+                    context["title_read_last_chance"] = f"https://docer.pl/show/?q={title_docer_pdf}&ext=pdf" 
                     return Response(context, template_name='download_book.html',)
 
             except Exception as e:
@@ -286,11 +286,12 @@ def download_book(request):
 
 
         else:
-            context["message_read_download"] = "This book is probably not available for download in pdf, function to find books in other formats will be built soon"
+            context["message_read_download"] = "This book is probably not available for download in pdf, below is the last chance for those who persevere."
             print("3. formlib_download", title_download)
-            title_slugify = slugify(title_download).replace("+", "-").replace(" ", "-")
-            print("title_slugify:", title_slugify)
-            context["title_read_wolne_lektury"] = title_slugify
+            # title_slugify = slugify(title_download).replace("+", "-").replace(" ", "-")
+            title_docer_pdf = title_download.replace(" ", "+")
+            
+            context["title_read_last_chance"] = f"https://docer.pl/show/?q={title_docer_pdf}&ext=pdf"
         
             return Response(context, template_name='download_book.html',)
 

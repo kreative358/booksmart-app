@@ -206,7 +206,7 @@ align-items:center;
   
   .h5_author_r {
     font-size: 24px;
-    line-height: 1;
+    line-height: 0.9;
     color: MediumBlue; 
     }
   
@@ -233,6 +233,8 @@ align-items:center;
     line-height: 1;
     margin-left: 180px;
     color: MediumBlue; 
+    margin-bottom: 6px;
+    margin-top: 2px;
     }
   
   .h7_author_l {
@@ -249,9 +251,9 @@ align-items:center;
     color: MediumBlue; 
     } 
 
-    .column_left_text_gb p {
-      margin-top: -10px;
-    }
+   .column_left_text_gb p:first-of-type {
+    padding-top: 30px;
+    } 
 
 @media screen and (max-width: 1280px) {
   .myrow_author_gb {
@@ -282,6 +284,7 @@ align-items:center;
 
   .h5_author_r {
     font-size: 22px;
+    line-height: 1;
   }
 
   .h4_author_r {
@@ -313,13 +316,7 @@ align-items:center;
       max-width: 100%;
     }
 
-    p. {
-      margin-bottom: -10px;
-    }
 
-     {
-      font-size: 13px;
-  }
     .h6_author_l {
       font-size: 18px;
       margin-bottom: 12px
@@ -366,7 +363,7 @@ align-items:center;
 </div>
          
 <div class="column_left_text_gb"><br>
-    <p class="h6_author_l" style="font-variant: small-caps; padding-top:44px"> first name: <span  style="color: Maroon; font-weight: bold;"> {{book_dict.author_c.first_name }} </span> </p>
+    <p class="h6_author_l" style="font-variant: small-caps; "> first name: <span  style="color: Maroon; font-weight: bold;"> {{book_dict.author_c.first_name }} </span> </p>
     {% if book_dict.author_c.middle_name %}
     <p class="h6_author_l" style="font-variant: small-caps;"> other names: <span  style="color: Maroon; font-weight: bold;"> {{ book_dict.author_c.middle_name }} </span> </p>
     {% endif %}
@@ -396,7 +393,7 @@ align-items:center;
   <div class="glass_author_gb">
         <p class="h4_author_r" style="margin: 6px auto 10px 10px; font-variant: small-caps;"> about author: <a href="https://{{book_dict.language}}.wikipedia.org/wiki/{{book_dict.author}}" target="_blank" ><span style="color: Indygo; font-weight: bold; font-variant: normal;"> {{book_dict.author}}</span></a></p>
           <p class="h5_author_r"  style="margin: 6px auto 10px 10px; font-variant: small-caps;"> short info: 
-        <span style="color: DarkSlateGrey; font-weight: bold; font-variant: normal;"> {{ book_dict.author_c.author_wiki_link_d }} </span></p>
+        <span style="color: SteelBlue; font-weight: bold; font-variant: small-caps;"> {{ book_dict.author_c.author_wiki_link_d }} </span></p>
     
         <p class="h6_author_r" style="margin: 8px auto 10px 10px; font-variant: small-caps;">details about author: </p>
         <div class="textarea_gb_a" style="margin: 10px 10px 6px 10px;">{{ book_dict.author_c.author_wiki_link }} </div>

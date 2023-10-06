@@ -270,6 +270,8 @@
     line-height: 1;
     margin-left: 180px;
     color: MediumBlue; 
+    margin-top: 4px;
+    margin-bottom: 8px;
     }
   
   .h7_author_l {
@@ -295,9 +297,7 @@
   padding-bottom:14px;
 }
 
-.author_left_content p {
-  margin-top: -8px;
-}
+
 @media screen and (max-width: 1280px) {
   .row_author_copy {
     max-width: 98%;
@@ -332,6 +332,8 @@
 
   .h6_author_l {
     font-size: 20px;
+     margin-top: 4px;
+    margin-bottom: 6px;
   }
 
   .h6_author_r {
@@ -420,7 +422,7 @@
     }
     
     .author_left_content p:not(p:first-of-type) {
-      margin-top: -10px;
+      margin-top: 0px;
     }
   }
 
@@ -442,7 +444,7 @@ button:focus {
         
          <form action="{% url 'booksmart:booksauthor' %}" method="get" target="_blank" >
           {{ search_author }}
-          <input type="hidden" class="input_author_c" id="input_author_c_{{ book.author_c.id }}" name="author" value="{{ book.author_c.author_name }}">
+          <input type="hidden" class="input_author_c" id="input_author_c_{{ book.author_c.id }}" name="author_found_books" value="{{ book.author_c.author_name }}">
           <button type="submit" class="button_2a_m">
             author's<br>books
         </button>

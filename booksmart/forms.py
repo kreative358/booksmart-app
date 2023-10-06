@@ -152,7 +152,7 @@ class ItemsSearchForm(forms.Form):
     search_field = forms.CharField(required=True, label='', widget=forms.TextInput(attrs={ 'placeholder': 'field to enter any book params', 'autofocus': True, 'id':'input_text_search_q'})) 
 
 class BooksAuthor(forms.Form):
-    author_name_hidden = forms.CharField(widget=forms.HiddenInput(attrs={}))
+    author_found_books = forms.CharField(widget=forms.HiddenInput(attrs={}))
     # author_name_hidden = forms.CharField(widget=forms.HiddenInput(attrs={'id': 'author_hidden_input'}))
     # author = forms.CharField(widget=forms.HiddenInput(attrs={}))
 

@@ -13,8 +13,8 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ('id', 'author_name', 'last_name',
                     'first_name', 'date_of_birth', 'date_of_death', 'wiki_idx', 'owner')
     fields = ['author_name', 'wiki_idx','first_name', 'last_name', ('date_of_birth', 'date_of_death'), 'author_wiki_link_d', 'author_wiki_link', 'author_wiki_img', 'owner', 'user_num_a']
-    search_fields = ['author_c'] 
-    list_display_links = ('author_name', )
+    search_fields = ['author_name', 'last_name'] 
+    list_display_links = ['author_name', ]
 
 # admin.site.register(Author, AuthorAdmin)
     
@@ -28,10 +28,10 @@ class BookAdmin(admin.ModelAdmin):
     fields = ('google_id', 'title', 'author', 'surname', 'author_c', 'published', 'category', 'summary', 'isbn', 'owner', 'user_num_b')
     list_display = ('id','title', 'author', 'surname', 'category', 'epub', 'google_id', 'owner', 'author_c',) # ('EPUB', 'embeddable'),'author_c__author_name, 
     list_per_page = 10
-    search_fields = ('google_id', 'title', 'author', 'author_c', 'published', 'category', 'summary', 'isbn', 'book_info', 'created_at')
+    search_fields = ['google_id', 'title', 'author', 'published', 'category', 'summary', 'isbn', 'created_at']
     # list_filter = ['author_c.author_name']
     # autocomplete_fields = ('author_c__author_name',)
-    search_fields = ['author_c']
+
     list_display_links = ('id', 'title')
 
 admin.site.register(Book, BookAdmin)

@@ -233,7 +233,12 @@ def addx_author(request):
 
     return render(request, 'addx_author.html', context)
 
-def addauthor(request):
+
+
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from booksearch.api.serializers import NewAuthorSerializer
+def addauthor_serializer(request):
     r_user = request.user
     authors_instances = []
     author_c = {
@@ -250,73 +255,144 @@ def addauthor(request):
     'wiki_idx': request.POST['wiki_idx'],
     'author_wiki_img': request.POST['author_wiki_img'],
     'user_num_a': request.POST['user_num_a'],
+    'owner': r_user.id,
     }
-    # print("\nauthor_c['author_name']:", author_c['author_name'])
-    # new_author_name = author_c['author_name']
- 
-    new_author = Author(
-            author_wiki_link_d = author_c['author_wiki_link_d'],
-            author_wiki_link = author_c['author_wiki_link'],
-            first_name = author_c['first_name'],
-            middle_name = author_c['middle_name'],
-            last_name = author_c['last_name'],
-            author_name = author_c['author_name'],
-            date_of_birth  = author_c['date_of_birth'],
-            date_of_death = author_c['date_of_death'],
-            wiki_idx = author_c['wiki_idx'],
-            author_wiki_img = author_c['author_wiki_img'],
-            user_num_a = author_c['user_num_a'],
-            # created_by=Account.objects.filter(id=user.id).first(),
-            owner=r_user,
-    ) # middle_name = middle_name,
 
-    
-    new_author_name = new_author.author_name
-    # print(f'\nnew_author_name: {new_author_name}\n')
-    try:
-        books_author_c=Author.objects.filter(author_name=new_author_name)
-        if books_author_c:
-            print('req_author line 256')
-            messages.info(request, "This author is in database")
-            return redirect('booksmart:allauthors')
-        else:
-            new_author.save()
-            # print('req_author line 261')
-            books = Book.objects.filter(author=new_author_name)
-            # new_author_c = Author.objects.filter().last()
-            # books = Book.objects.filter(author=new_author_name)
-            # form_book = BookForm()
-            if books:
-                for book in books:
-                    if book.author_c:
-                        print('req_author line 272')
-                        
-                        # if book_form.is_valid:
-                        #     book=form_book.save(commit=False)
-                        #     book.author_c = new_author
-                        #     book.save()
-                        # else:
-                        #     pass
-
-                    else:
-                        #if book.author == books_author_c.author_name:
-                        book_author_c = book.author
-                        author_author_c = Author.objects.filter(author_name=book_author_c).last()
-                        book.author_c = author_author_c
-                        # book.author_c = Author.objects.filter().last()
-                        book.save()
-                        # print('req_author line 278')
+    print("\nauthor_c =", author_c)
+    new_author_c = author_c
+    serializer = NewAuthorSerializer(data=new_author_c)
+    initial_val = serializer.initial_data
+    new_author_wiki_idx = initial_val["wiki_idx"]
+    print("new_author_wiki_idx =", new_author_wiki_idx)
+    new_author_name = initial_val["author_name"]
+    print("new_author_name =", new_author_name)
+    if serializer.is_valid():
+        try:
+            books_author_c=Author.objects.filter(wiki_idx=new_author_wiki_idx)
+            if books_author_c:
+                print('req_author line 256')
+                messages.info(request, "This author is in database, you can try save with different wiki_idx ID")
+                return redirect('booksmart:allauthors')
             else:
-                print('req_author line 280')
+                author_instance = serializer.save()
+                print("author_instance.author_name =", author_instance.author_name)
+                new_author_name_instance = author_instance.author_name
+                books = Book.objects.filter(author=new_author_name_instance)
+                if books:
+                    for book in books:
+                        if book.author_c:
+                            print('req_author line 272')
 
-    except IntegrityError:
-        new_author.save()
-        print('req_author line 284')
-    except ValidationError:
-        new_author.save()
-        print('req_author line 287')
+                        else:
+                            #if book.author == books_author_c.author_name:
+                            book_author_c = book.author
+                            author_author_c = Author.objects.filter(author_name=book_author_c).last()
+                            book.author_c = author_author_c
+                            # book.author_c = Author.objects.filter().last()
+                            book.save()
+                            # print('req_author line 278')
+                else:
+                    print('req_author line 280')
+
+        except IntegrityError:
+                messages.info(request, "Something went wrong, please try again later")
+                print("300 IntegrityError")
+                # book_instance = serializer.save()
+                return redirect('booksmart:allrecords')
+        except ValidationError:
+                messages.info(request, "Something went wrong, please try again later")
+                print("305 ValidationError")
+                # book_instance = serializer.save()
+                return redirect('booksmart:allrecords')
 
     return HttpResponseRedirect(reverse('booksmart:allauthors'))
+
+
+
+# def addauthor(request):
+#     r_user = request.user
+#     authors_instances = []
+#     author_c = {
+#     'author_wiki_link_d': request.POST['author_wiki_link_d'],
+#     'author_wiki_link': request.POST['author_wiki_link'],
+#     'first_name': request.POST['first_name'],
+#     'middle_name': request.POST['middle_name'] ,
+#     'last_name': request.POST['last_name'],
+#     # author_name = f'{first_name} {last_name}'
+#     # author_name = f'{first_name} {middle_name} {last_name}' if middle_name != '' else f'{first_name} {last_name}'
+#     'author_name': request.POST['author_name'],
+#     'date_of_birth': request.POST['date_of_birth'],
+#     'date_of_death': request.POST['date_of_death'],
+#     'wiki_idx': request.POST['wiki_idx'],
+#     'author_wiki_img': request.POST['author_wiki_img'],
+#     'user_num_a': request.POST['user_num_a'],
+#     }
+#     # print("\nauthor_c['author_name']:", author_c['author_name'])
+#     # new_author_name = author_c['author_name']
+ 
+#     new_author = Author(
+#             author_wiki_link_d = author_c['author_wiki_link_d'],
+#             author_wiki_link = author_c['author_wiki_link'],
+#             first_name = author_c['first_name'],
+#             middle_name = author_c['middle_name'],
+#             last_name = author_c['last_name'],
+#             author_name = author_c['author_name'],
+#             date_of_birth  = author_c['date_of_birth'],
+#             date_of_death = author_c['date_of_death'],
+#             wiki_idx = author_c['wiki_idx'],
+#             author_wiki_img = author_c['author_wiki_img'],
+#             user_num_a = author_c['user_num_a'],
+#             # created_by=Account.objects.filter(id=user.id).first(),
+#             owner=r_user,
+#     ) # middle_name = middle_name,
+
+    
+#     new_author_name = new_author.author_name
+#     # print(f'\nnew_author_name: {new_author_name}\n')
+#     try:
+#         books_author_c=Author.objects.filter(author_name=new_author_name)
+#         if books_author_c:
+#             print('req_author line 256')
+#             messages.info(request, "This author is in database")
+#             return redirect('booksmart:allauthors')
+#         else:
+#             new_author.save()
+#             # print('req_author line 261')
+#             books = Book.objects.filter(author=new_author_name)
+#             # new_author_c = Author.objects.filter().last()
+#             # books = Book.objects.filter(author=new_author_name)
+#             # form_book = BookForm()
+#             if books:
+#                 for book in books:
+#                     if book.author_c:
+#                         print('req_author line 272')
+                        
+#                         # if book_form.is_valid:
+#                         #     book=form_book.save(commit=False)
+#                         #     book.author_c = new_author
+#                         #     book.save()
+#                         # else:
+#                         #     pass
+
+#                     else:
+#                         #if book.author == books_author_c.author_name:
+#                         book_author_c = book.author
+#                         author_author_c = Author.objects.filter(author_name=book_author_c).last()
+#                         book.author_c = author_author_c
+#                         # book.author_c = Author.objects.filter().last()
+#                         book.save()
+#                         # print('req_author line 278')
+#             else:
+#                 print('req_author line 280')
+
+#     except IntegrityError:
+#         new_author.save()
+#         print('req_author line 284')
+#     except ValidationError:
+#         new_author.save()
+#         print('req_author line 287')
+
+#     return HttpResponseRedirect(reverse('booksmart:allauthors'))
                 
 
 

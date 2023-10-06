@@ -283,9 +283,6 @@
    margin: auto;
    transform-origin: top;
   left: 16px;
-  min-height: 362px;
-  height: 362px;
-
   }
   
   #input_choice_sorting:hover {
@@ -458,94 +455,130 @@
       to {opacity: 0;}
     }
     
-#search_card_gb select:focus option:not(option:first-child):checked,
-#search_card_gb select:focus option:not(option:first-of-type):checked{   
-          -webkit-text-fill-color: gold;
-            background-color: #ff000080 !important;
-          background-image: radial-gradient(rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2));
-          color: darkblue;
-      }
+    
+    #search_card_gb select:focus option:not(option:first-child):checked,
+    #search_card_gb select:focus option:not(option:first-of-type):checked{
+             
+             -webkit-text-fill-color: gold;
+               background-color: #ff000080 !important;
+              background-image: radial-gradient(rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2));
+              color: darkblue;
+         }
          
-#search_card_gb select:focus option:first-child:hover,   	
-#search_card_gb select:focus option:first-child:checked,
-#search_card_gb select:focus option:first-child:checked:hover,
-#search_card_gb select:focus option:first-of-type,
-#search_card_gb select:focus option:first-of-type:hover {
-      -webkit-text-fill-color: gold;
-    background-color: #ff000080 !important;
-      background-image: radial-gradient(rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2));
-      color: rgba(230, 230, 240, 0.9);
-  }
+    #search_card_gb select:focus option:first-child:hover,   	
+    #search_card_gb select:focus option:first-child:checked,
+    #search_card_gb select:focus option:first-child:checked:hover,
+    #search_card_gb select:focus option:first-of-type,
+    #search_card_gb select:focus option:first-of-type:hover {
+             -webkit-text-fill-color: gold;
+           background-color: #ff000080 !important;
+              background-image: radial-gradient(rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2));
+              color: rgba(230, 230, 240, 0.9);
+         }
 
          @media screen and (max-width: 830px) {
-#input_choice_sorting {
-    position: fixed;
-    min-width: 350px;
-    width: 350px;
-    max-width: 350px;
-    top: 66px;
-    z-index: 40;
-    left: 50%;
-    margin-left: -158px;
-    border: 2px solid blue;
-}
-}
-            
-    @media screen and (max-width: 640px) {
-    .my_container_sort {
-    min-width: 92%;
-    max-width: 92%;
-    width: 92%;
-  /*  padding: 10px; */}
-    }
+          #input_choice_sorting { 
+            position:fixed;
+            width: 380px;
+            max-width: 380px;
+            top: 66px;
+            z-index: 40;
+            left: 50%;
+            margin-left: -178px;
+          }
+
+         }
   
-    @media screen and (max-width: 580px) {
-    .my_container_sort {
-    min-width: 94%; 
-    max-width: 94%; 
-    width: 94%; 
-    }
-    
-    #input_choice_sorting {
-      position: fixed;
-      min-width: 300px;
-      width: 300px;
-      max-width: 300px;
-      top: 66px;
-      z-index: 40;
-      left: 50%;
-      margin-left: -158px;
-   /*   border: 2px solid blue; */
-  }
-  }
 
-  @media screen and (max-width: 480px) {
-
-    .my_container_sort {
-    left: 0px;
-    min-width: 98%;
-    max-width: 98%;
-    width: 98%; 
-    }
-
-    #input_field {
-      width: 100%;
-    }
-  }
+             
+         @media screen and (max-width: 640px) {
+          .my_container_sort {
+          min-width: 92%;
+          max-width: 92%;
+          width: 92%;
+        /*  padding: 10px; */}
+         }
+         /* 
+          .my_card_sort {
+          margin:auto;
+          padding-left: 20px;
+          padding-right: 20px;
+          min-width: 93%;
+          max-width: 93%;
+          width: 93%;
+          
+          }
+          
+          
+           #input_choice_sorting {
+           padding-left: 20px;
+           padding-right: 20px; 
+           margin:auto;
+           }
+          #input_choice_sorting option {
+          min-width: 80%;
+          max-width: 80%;
+          width: 80%;
+         
   
+        }
+         } */
+  
+  
+         @media screen and (max-width: 580px) {
+  
+          .my_container_sort {
+          min-width: 94%; 
+          max-width: 94%; 
+          width: 94%; 
+          }
+          
+          /*
+          #input_choice_sorting {
+  
+          }
+          
+          #input_choice_sorting option {
+  margin-left: 1.5%;
+        }  */
+        }
+     
+
+
+
+
+        @media screen and (max-width: 480px) {
+  
+          .my_container_sort {
+          left: 0px;
+          min-width: 98%;
+          max-width: 98%;
+          width: 98%; 
+          }
+
+          #input_field {
+            width: 100%;
+          }
+        }
+        
+     
     </style>
+  
   
   <div class="my_container_sort" id="mycontainer_sort">
       <div class="my_card_sort" id="mycard_sort">
-           <form action="/booksmartapp/booksmart-app/allrecords/" method="get" target="_blank" id="sortform" name="formsort_name" onsubmit="return validateFormSort()"  >  
+        <!--      <form action="/booksmartapp/booksmart-app/allrecords/" method="get" target="_blank" id="sortform" name="formsort_name" onsubmit="return validateFormSort()"  > -->
       <div id="input_field">
   <div class="span2" id="span2a">▼</div>
   <!-- <input id="input_select" type="text" value="select sort option" class="my_select"  placeholder="select sort option" readonly> -->
-  <input id="input_select" type="text" value="" class="my_select" placeholder="select sort option" readonly> 
+  <input id="input_select" type="text" value="" class="my_select" placeholder="select sort option" readonly=""> 
   <div class="span2" id="span2b">▲</div>
   
   </div>
-  {% if book_sort %} 
+  {% if book_sort %}
+<!--<div id="select" name="select_name" class="class_select">-->
+
+        <form action="/booksmartapp/booksmart-app/allrecords/" method="get" target="_blank" id="sortform" name="formsort_name"  onsubmit="return validateFormSort()">
           {% bootstrap_form book_sort %}
           <p id="focus_validate"> </p>
         </form>
@@ -577,7 +610,7 @@
       
             mymodal_main.style.display = "block";
             mymodal_main.style.animation = "modalfadein 1s 1";
-            document.getElementById("information_message").innerHTML = '<p style="animation: anime_red_text 2s infinite; font-size: 22px; font-wight: bold;">"select sort option" <br> THIS IS NOT CORRECT VALUE';
+            document.getElementById("information_message").innerHTML = '"select sort option" <br> THIS IS NOT CORRECT VALUE';
             // mymodal_main.src = this.src;
             mymodal_cont_main.style.display = "block"; 
             // mymodal_cont_main.style.animation = "zoom 2s 1 ease-in"; 
@@ -640,96 +673,47 @@
       var select_input = document.getElementById("input_select");
       var cont_sort = document.getElementById("mycard_sort");
          
-      if (
-        navigator.userAgent.match(/Android/i) ||
-        navigator.userAgent.match(/iPhone/i)
-      ) {
-      dropdown_options.style.minHeight = "30px";
-      dropdown_options.style.maxHeight = "30px";
-      dropdown_options.style.height = "30px";
-      dropdown_options.style.marginTop = "-32px";
-      dropdown_options.style.marginLeft= "-38%";
-      dropdown_options.style.color = "transparent";
-      dropdown_options.style.minWidth = "78%"; 
-      dropdown_options.style.maxWidth = "78%"; 
-      dropdown_options.style.width = "78%"; 
-      // dropdown_options.style.border = ""
+      select_input.onclick = function() {
+      if (dropdown_options.style.display === "block" ) {
+      span_2a.classList.toggle("span20");
+      span_2b.classList.toggle("span20");
+      dropdown_options.style.animation = "roll_close 1.4s";
+      setTimeout(function(){
+      dropdown_options.style.display = "none";},
+      1200);
+      } else {
+      span_2a.classList.toggle("span20");
+      span_2b.classList.toggle("span20");
+       dropdown_options.style.animation = "roll_open 1.4s";
       dropdown_options.style.display = "block";
-       dropdown_options.size = 1; 
-      
-      /*dropdown_options.onchange = function() {
-       select_input.value = dropdown_options.value;
-      } */
-       dropdown_options.onclick = function() {
-       span_2a.classList.toggle("span20");
-       span_2b.classList.toggle("span20");
-      var x = dropdown_options.selectedIndex;
-      var y = dropdown_options.options;
-       select_input.value = y[x].text
       }
-      dropdown_options.onblur = function() {
-       span_2a.classList.toggle("span20");
-       span_2b.classList.toggle("span20");
-      }
-       }
-       
-      // else if (document.body.clientWidth > 800) {
-          else {
-            select_input.onclick = function() {
-            if (dropdown_options.style.display === "block" ) {
-            span_2a.classList.toggle("span20");
-            span_2b.classList.toggle("span20");
-            dropdown_options.setAttribute("size", 11); 
-            dropdown_options.style.animation = "roll_close 1.4s";
-            setTimeout(function(){
-            dropdown_options.style.display = "none";},
-            1200);
-            } else {
-            span_2a.classList.toggle("span20");
-            span_2b.classList.toggle("span20");
-             dropdown_options.style.animation = "roll_open 1.4s";
-            dropdown_options.style.display = "block";
-            }
-            }
-            
-            
-            const nodeList_1 = document.getElementsByTagName('option');
-            for (let i = 0; i < nodeList_1.length; i++) {
-             nodeList_1[i].onclick = function() {
-              span_2a.classList.toggle("span20");
-              span_2b.classList.toggle("span20");
-            select_input.value = nodeList_1[i].textContent;
-            dropdown_options.style.animation = "roll_close 1.4s";
-                setTimeout(function(){
-            dropdown_options.style.display = "none";},
-            1200);
-            }
-            }
-            
-            document.addEventListener("click", function(event) {
-              // If user clicks inside the element, do nothing
-              if (event.target.closest(".my_select")) return;
-              // If user clicks outside the element, hide it!
-              span_2a.classList.toggle("span20");
-              span_2b.classList.toggle("span20");
-              dropdown_options.style.animation = "opacity_down 1.2s";
-                setTimeout(function(){
-            dropdown_options.style.display = "none";},
-            1000);
-            })
-           
-      } 
-      
-      /*if (/Android|iPhone/i.test(navigator.userAgent)) {
-        // This checks if the current device is in fact mobile
       }
       
-      // an alternative structure to check individual matches
-      if (
-        navigator.userAgent.match(/Android/i) ||
-        navigator.userAgent.match(/iPhone/i)
-      ) {
-        // making individual checks
-      } */
-            </script>
+      
+      const nodeList_1 = document.getElementsByTagName('option');
+      for (let i = 0; i < nodeList_1.length; i++) {
+       nodeList_1[i].onclick = function() {
+        span_2a.classList.toggle("span20");
+        span_2b.classList.toggle("span20");
+      select_input.value = nodeList_1[i].textContent;
+      dropdown_options.style.animation = "roll_close 1.4s";
+          setTimeout(function(){
+      dropdown_options.style.display = "none";},
+      1200);
+      }
+      }
+      
+      document.addEventListener("click", function(event) {
+        // If user clicks inside the element, do nothing
+        if (event.target.closest(".my_select")) return;
+        // If user clicks outside the element, hide it!
+        span_2a.classList.toggle("span20");
+        span_2b.classList.toggle("span20");
+        dropdown_options.style.animation = "opacity_down 1.2s";
+          setTimeout(function(){
+      dropdown_options.style.display = "none";},
+      1000);
+      })
+      
+      </script>
       

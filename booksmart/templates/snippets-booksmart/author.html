@@ -283,7 +283,7 @@ button:focus {
   
   .h5_author_r {
     font-size: 24px;
-    line-height: 1;
+    line-height: 0.9;
     color: MediumBlue; 
     }
   
@@ -310,7 +310,8 @@ button:focus {
     line-height: 1;
     margin-left: 180px;
     color: MediumBlue; 
-    margin-top: -6px;
+    margin-top: 2px;
+    margin-bottom: 6px;
     }
   
   .h7_author_l {
@@ -327,9 +328,9 @@ button:focus {
     color: MediumBlue; 
     } 
 
-  /*  .column_left_text p {
-      margin-top: -8px;
-    } */
+   .column_left_text p:first-of-type {
+    padding-top: 34px
+    } 
 
 @media screen and (max-width: 1280px) {
   .myrow_author {
@@ -380,6 +381,10 @@ button:focus {
   .button_3a {
     font-size: 14px;
 }
+
+.column_left_text p:first-of-type {
+  padding-top: 30px
+  }
     }
 
   @media screen and (max-width:480px) {
@@ -394,9 +399,7 @@ button:focus {
     }
 
     /* .h6_author_l */
-    .column_left_text p {
-      margin-bottom: 8px;
-    }
+
 
       .column_left_text p:last-of-type {
       margin-bottom: 4px;
@@ -501,7 +504,7 @@ button:focus {
 
   <form action="{% url 'booksmart:booksauthor' %}"  method="get" target="_blank">
   {{ search_author }}
-  <input type="hidden" class="author_hidden" id="author_hidden_input_{{author_c.id}}" name="author_name_hidden" value="{{author_c.author_name}}">
+  <input type="hidden" class="author_hidden" id="author_hidden_input_{{author_c.id}}" name="author_found_books" value="{{author_c.author_name}}">
   <button type="submit" class="button_2a"  id="button_2a_{{author_c.id}}">
     author's <br> books
 </button>
@@ -510,7 +513,7 @@ button:focus {
 {% if request.user.id == author_c.user_num_a %}
 <a type="button" class="button_3a"  id="button_3a_{{author_c.id}}" href="{% url 'booksmart:deleteauthor' author_c.id %}" target="_blank"> delete <br> author </a>
 {% elif request.user.id != author_c.user_num_a  %}
-<a type="button"  class="button_3a"  id="button_3a_{{author_c.id}}" data-toggle="modal" data-target="#M_del_ad{{author_c.id}}" data-backdrop="false"> Delete Author </a>
+<a type="button"  class="button_3a"  id="button_3a_{{author_c.id}}" data-toggle="modal" data-target="#M_del_ad{{author_c.id}}" data-backdrop="false"> delete <br> author </a>
 <!--place after modal-->
 {% endif %}
 </div>
@@ -520,7 +523,7 @@ button:focus {
   </div>
            
      <div class="column_left_text"><br>
-     <p class="h6_author_l" style="font-variant: small-caps; padding-top:44px"> first name: <span  style="color: Maroon; font-weight: bold;"> {{ author_c.first_name }} </span> </p>
+     <p class="h6_author_l" style="font-variant: small-caps;"> first name: <span  style="color: Maroon; font-weight: bold;"> {{ author_c.first_name }} </span> </p>
      {% if author_c.middle_name %}
      <p class="h6_author_l" style="font-variant: small-caps;" > other name: <span style="color: Maroon; font-weight: bold;"> {{ author_c.middle_name }} </span> </p>
      {% endif %}
@@ -535,7 +538,7 @@ button:focus {
      {% if author_c.date_of_death == no_date %}
      <p class="h6_author_l" style="font-variant: small-caps;"> date of death: <span style="color: Indigo; font-weight: bold;"> - </p>
       {% else %}
-     <p class="h6_author_l" style="font-variant: small-caps; margin-top:-2px;"> date of death: <span style="color: Indigo; font-weight: bold;"> {{ author_c.date_of_death }} </p>
+     <p class="h6_author_l" style="font-variant: small-caps;"> date of death: <span style="color: Indigo; font-weight: bold;"> {{ author_c.date_of_death }} </p>
       {% endif %}
        
      <p class="h6_author_l" style="font-variant: small-caps;" > wikidata id: <span  style="color: SlateGrey;"> {{ author_c.wiki_idx}} </span> </p>
@@ -549,7 +552,7 @@ button:focus {
      <div class="mycolumn_author" id="column_author_{{author_c.id}}">
       <div class="glass_author">
       <p class="h4_author_r" style="font-weight: bold; font-variant: small-caps; margin: 10px auto 10px 10px;"> author: <a  href="https://pl.wikipedia.org/wiki/{{author_c.author_name}}" target="_blank" ><span style="color: Indigo;"> {{ author_c.author_name}} </span></a></p>
-    <p class="h5_author_r" style="font-weight: bold; font-variant: small-caps; margin: 12px auto 10px 10px;"> short info: <span style="color: SteelBlue;" > {{ author_c.author_wiki_link_d }} </span></p>
+    <p class="h5_author_r" style="font-weight: bold; font-variant: small-caps; margin: 12px auto 10px 10px;"> short info: <span style="color: SteelBlue; font-variant: small-caps;" > {{ author_c.author_wiki_link_d }} </span></p>
     <p class="h6_author_r" style="font-weight: bold; margin: 12px 10px 10px 10px; font-size: 20px; color: maroon;" >details about author: </p>
 
     <div class="textarea_a" > {{ author_c.author_wiki_link }} </div>

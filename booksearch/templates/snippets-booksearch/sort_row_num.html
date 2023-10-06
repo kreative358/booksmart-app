@@ -1,5 +1,9 @@
 <style>
   
+#my_cont_select_num select {
+  -webkit-appearance: none;
+}
+
   #selectback_num  {
   display: none; 
   position: fixed; 
@@ -129,22 +133,25 @@
  
 #modal_body_advance_gb #select_num, 
 #modal_body_advance_gb #num {
-  overflow: hidden;
-  background-color: rgba(240, 230, 220, 0.0);
-  color: blue;
-  border-radius: 4px;
-  z-index: 36;
- display: none;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  margin-top: 4px;
-  position: absolute;
-  /* min-width: 240px; */
-  max-width: 240px;
-  width: 240px;
-  animation: noname;
-  /*border: 2px solid red; */
+    overflow: hidden;
+    background-color: rgba(240, 230, 220, 0.0);
+    color: blue;
+    border-radius: 4px;
+    z-index: 36;
+    display: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin-top: 4px;
+    position: absolute;
+    /* min-width: 240px; */
+    max-width: 240px;
+    width: 240px;
+    animation: noname;
+    min-height: 210px;
+    height: 210px;
+    max-height: 210px;
+    left: 14px;
   }
 
 #modal_body_advance_gb #select_num:active,

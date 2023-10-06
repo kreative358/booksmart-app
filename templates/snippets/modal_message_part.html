@@ -433,7 +433,9 @@ line-height: 1;
 
     
        
-       <div class="my_modal_messages_part" id="mymodal_messages_main_part">  
+       <div class="my_modal_messages_part" id="mymodal_messages_main_part"> 
+         
+       </div>
       
         <!-- Modal content -->
         <div class="mycontainer_messages_part" id="modal_cont_messages_main_part">
@@ -449,13 +451,11 @@ line-height: 1;
           
        <div>
           {% for message in messages %}
-          <p class="header_text" style="animation: anie_red_text 2s infinite;"> {% autoescape off %} 
+          <p class="header_text" style="animation: anie_red_text 2s infinite; margin: 10px auto 10px auto"> {% autoescape off %} 
           {{ message }} {% endautoescape %}
           </p>
           {% endfor %}
         </div> 
-  
-     <br>
   
       <div> 
         {% if errors and oldpass == "no_oldpass" %}
@@ -466,7 +466,7 @@ line-height: 1;
         <p class="header_text"> You try change with:<br>username - {{ user_name }}, <br>  email - {{ e_mail }},  </p>
         {% endif %}
       </div>
-    <br>  
+   
     <div >
       <p class="header_text"> MESSAGE </p>  
       <p  id="information_message" style="animation: anime_red_text 2s infinite; font-size; 22px; color: rgba(0, 0, 200, 0.9); font-weight: bold;"></p>
@@ -482,4 +482,4 @@ line-height: 1;
       </div>
     </div>
     
-  </div>
+  

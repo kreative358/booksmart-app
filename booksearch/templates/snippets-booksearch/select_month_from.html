@@ -1,4 +1,8 @@
 <style type="text/css">
+#mycont_select_month_from select {
+  -webkit-appearance: none;
+}
+
 
 #selectback_month_from  {
 display: none; 
@@ -159,6 +163,9 @@ animation: noname;
 /*padding-left: 8px;*/
 margin-left: 72px;
 justify-content: center;
+  min-height: 415px;
+  max-height: 415px;
+  height: 415px;
 }
 
 #modal_body_advance_gb #select_month_from:active {
@@ -400,6 +407,12 @@ margin:10px 2px 4px 2px;
     transform: matrix(0.98, 0,  0, 0.98, 0, 2);
   }
 
+
+  @media screen and (max-width: 560px) {
+    #modal_body_advance_gb #select_month_to {
+      margin-left: 22px;
+    }
+  }
 </style>
 
 <div class="select_back" id="selectback_month_from"></div>

@@ -1,0 +1,92 @@
+<style type="text/css">
+
+.my_container_jumbotron {
+  position: relative;
+  margin: 30px auto 8px auto;
+  width: 580px;
+  max-width: 90%;
+  padding: auto;
+  text-align:center;
+  z-index:10;
+  padding-top: 0px; 
+  padding-bottom: 0px;
+  left: 12px;
+}
+
+.h1j {
+  color: RoyalBlue;
+  font-family: Georgia; 
+  font-weight: bold; 
+  font-size: 48px; 
+  text-shadow: -0.015em 0.015em 0.0em rgb(211, 211, 211), -0.03em 0.03em 0.015em rgb(211, 211, 211), 0.04em 0.0em 0.02em rgb(128, 128, 128) ,0.02em 0.02em 0.01em rgb(128, 128, 128);
+  margin:auto auto -26px auto;
+}
+
+.h2j {
+  color: DimGrey;
+  font-family: Georgia; 
+  font-weight: bold; 
+  font-size: 36px; 
+  text-shadow: -0.015em 0.015em 0.0em rgb(211, 211, 211), -0.03em 0.03em 0.015em rgb(211, 211, 211), 0.04em 0.0em 0.02em rgb(128, 128, 128) ,0.02em 0.02em 0.01em rgb(128, 128, 128); 
+}
+
+.text-center {
+  cursor: pointer;
+  transition: 0.2s;
+  opacity: 0.8;
+}
+
+.text-center:hover {
+  opacity: 0.9;
+  color: red;
+  text-shadow: -0.15vw 0 blue, 0 0.15vh blue, 0.15vw 0 blue, 0 -0.15vh blue;
+  transform: matrix(1.01, 0, 0, 1.01, 0, 0);
+}
+
+.text-center:active {
+  transform: matrix(0.99, 0, 0, 0.99, 0, 2)
+  opacity: 1;
+  
+  }
+
+  @media screen and (max-width: 640px) {
+    .h1j {
+      font-size: 44px; 
+    }
+
+    .h2j {
+      font-size: 34px; 
+  }
+}
+
+  @media screen and (max-width: 560px) {
+    .h1j {
+      font-size: 40px; 
+      margin:auto auto -22px auto;
+    }
+
+    .h2j {
+      font-size: 30px; 
+  }
+  }
+
+  @media screen and (max-width: 480px) {
+    .my_container_jumbotron {
+      left: 0;
+    }
+
+    .h1j {
+      font-size: 36px; 
+      margin:auto auto -18px auto;
+    }
+
+    .h2j {
+      font-size: 28px; 
+  }
+  }
+
+</style>
+
+<div class="my_container_jumbotron"  id="mycontainer_jumbotron" >
+  <a href="{% url 'index' %}" class="text_center" id="tag_a_jumbotron" role="button" target="_blank" ><p class="h1j" id="h1j">BOOKSMART</p><p class="h2j" id="h2j" >MAINPAGE-LINK</p></a>
+  </div>

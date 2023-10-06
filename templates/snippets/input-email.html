@@ -41,7 +41,7 @@ outline: none;
 border:none;
 
 }
-.mytooltip_text {
+.mytooltip_text_span {
 	min-width: 100%;
 	max-width: 100%;
 	width: 100%;
@@ -51,11 +51,11 @@ border:none;
 	<div class="form-group" id="input-email" style="position: relative; margin: auto; padding-left: 7.5%; padding-top: 0px;">
         <label class="label_serializer" id="id_label_email" for="email">  </label>
 		{% if user.is_authenticated %}
-		<span class="mytooltip_text" data-tooltip="tooltip_input" style="width: 100%; min-width: 100%;">
+		<span class="mytooltip_text_span" data-tooltip="tooltip_input" style="width: 100%; min-width: 100%;">
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="{{ user_email }}">
 		<span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
 		{% else %}
-		<span class="mytooltip_text" data-tooltip="tooltip_input">
+		<span class="mytooltip_text_span" data-tooltip="tooltip_input">
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="must contain @" value="">
 		<span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
 		{% endif %}

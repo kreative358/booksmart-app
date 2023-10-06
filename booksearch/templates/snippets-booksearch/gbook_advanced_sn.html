@@ -1188,9 +1188,9 @@
    }
 
    .input_min_200 {
-    min-width: 200px; 
+     
     width: 300px; 
-    max-width: 80%;
+    max-width: 76%;
    }
 
   .checbox_120 {
@@ -1220,6 +1220,9 @@
     @media screen and (max-width: 560px) {
     #modal_header_advance_gb::-webkit-scrollbar {
         display: none;
+      }
+      #modal_header_advance_gb {
+        padding: 4px;
       }
 
     #modal_body_advance_gb::-webkit-scrollbar {
@@ -1306,7 +1309,7 @@
                       <input  name="q" placeholder="Shakespeare"  value="Shakespeare" class="input_min_200" style="box-shadow: 0px 0px 0px 1px rgba(60,160,240, 0.8) inset, 0px 0px 0px 1px rgba(60,160,240, 0.8); padding-left: 4px;">
                  {% if request.user.is_authenticated %} 
                       <div class="input-group-append">
-                      <button action="submit" id="btn_submit_gb" type="submit" class="btn_submitgb ">search</button></div>
+                      <button action="submit" id="btn_submit_gb" type="submit" class="btn_submitgb " style="padding-left:4px; padding-right: 4px;">search</button></div>
              {% else %} 
                       <div class="input-group-append">
                         <button  class="btn_submitgb" disabled id='tooltip'>SEARCH <span id="tooltiptext">Hello, you must be logged in to use this function</span></button>  </div>     

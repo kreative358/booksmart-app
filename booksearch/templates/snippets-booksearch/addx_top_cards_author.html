@@ -18,28 +18,28 @@
     
     <div class="my_card_top_cards">
           <p><a href="{% url 'booksmart:allrecords' %}" target="_blank">
-            <p id="h3vw_l_b"  >Number of all books in <br> database:</p> 
-            <p class="h2vw_l_b" id="a_submit_t"> {{ num_books }}</p></a>
+            <p class="h3vw_l_b"  >Number of all books in <br> database:</p> 
+            <p class="h2vw_l_b" style="anime_red_text"> {{ num_books }}</p></a>
             <p>
       </div>
 
       <div class="my_card_top_cards" id="mycard_top_cards_middle_addx_author">
         <br>
           {% if message_a %}
-          <p class="h4vw_l_b" id="a_submit_t"> {{ message_a }}: </p> 
+          <p class="h4vw_l_b" style="anime_red_text"> {{ message_a }}: </p> 
           {% autoescape off %}
-          <p class="h4vw_l_b" id="a_submit_t"> "{{ author }}" </p>
+          <p class="h4vw_l_b" style="anime_red_text"> "{{ author }}" </p>
           {% endautoescape %}
           {% elif not message_a %}
-          <p id="h3vw_l_b" class="p_mb" style="padding-bottom:1.4vw"> FOR QUERY:
-            <span class="h3vw_l_b" id="a_submit_t"><br> "{{ author }}" </span> <br> found informations </p>
+          <p class="h3vw_l_b"  style="color: mediumblue;;"> FOR QUERY:
+            <span class="h3vw_l_b" style="anime_red_text"><br> "{{ author }}" </span> <br> found informations </p>
           {% endif %}
       </div>
    
       <div class="my_card_top_cards">
         <p><a href="{% url 'booksmart:allauthors' %}" target="_blank">
-          <p id="h3vw_l_b"  >Number of all authors in database:</p> 
-          <p class="h2vw_l_b" id="a_submit_t"> {{ num_authors }}</p></a>
+          <p class="h3vw_l_b"  >Number of all authors in database:</p> 
+          <p class="h2vw_l_b" style="anime_red_text"> {{ num_authors }}</p></a>
           <p>
       </div>
 
