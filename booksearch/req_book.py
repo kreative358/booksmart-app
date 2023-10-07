@@ -415,7 +415,7 @@ def addx_book(request):
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'query':
             params_pre_1 = f'q={parameters_list[1][1].replace(" ", "+")}'
-            params_pre_2 = f'+{parameters_list[0][0]:parameters_list[0][1].replace(" ", "+")}"&' 
+            params_pre_2 = f'+{parameters_list[0][0]:parameters_list[0][1].replace(" ", "+")}&' 
 
             # params_pre_2 = f'+{parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"&'
             params_pre_3 = f'&'.join([f'{k}={v}' for k, v in parameters_list[2:]])

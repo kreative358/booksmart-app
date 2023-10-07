@@ -258,14 +258,14 @@ def addauthor_serializer(request):
     'owner': r_user.id,
     }
 
-    print("\nauthor_c =", author_c)
+    # print("\nauthor_c =", author_c)
     new_author_c = author_c
     serializer = NewAuthorSerializer(data=new_author_c)
     initial_val = serializer.initial_data
     new_author_wiki_idx = initial_val["wiki_idx"]
-    print("new_author_wiki_idx =", new_author_wiki_idx)
+    # print("new_author_wiki_idx =", new_author_wiki_idx)
     new_author_name = initial_val["author_name"]
-    print("new_author_name =", new_author_name)
+    # print("new_author_name =", new_author_name)
     if serializer.is_valid():
         try:
             books_author_c=Author.objects.filter(wiki_idx=new_author_wiki_idx)
