@@ -418,8 +418,8 @@ def addx_book(request):
             params_pre_2 = f'+{parameters_list[0][0]:parameters_list[0][1].replace(" ", "+")}"&' 
 
             # params_pre_2 = f'+{parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"&'
-            params_pre_2 = f'&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
-            params_str = params_pre_1 + params_pre_2
+            params_pre_3 = f'&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
+            params_str = params_pre_1 + params_pre_3
             # print('4e.', params_str)
 
 
@@ -606,14 +606,14 @@ def addbook_serializer(request):
      'surname': request.POST['author'].split()[-1] if request.POST['author'] else '',
      'owner': r_user.id,
     }
-    print("\nbook =", book)
+    # print("\nbook =", book)
     new_book = book
-    print("\nnew_book =", new_book)
+    # print("\nnew_book =", new_book)
     serializer = NewBookSerializer(data=new_book)
     # print("serializer =", serializer)
     initial_val = serializer.initial_data
     new_book_google_id = initial_val["google_id"]
-    print("new_book_google_id =", new_book_google_id)
+    # print("new_book_google_id =", new_book_google_id)
     if serializer.is_valid():
         
         try:
