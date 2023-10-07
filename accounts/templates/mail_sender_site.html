@@ -1,7 +1,7 @@
 {% extends 'base_nd_link.html' %}
 {% load bootstrap4 %}
 {% load rest_framework %}
-{% block title %} reset-password  {% endblock%}
+{% block title %} email-send {% endblock%}
 
 {% block page %}
 
@@ -99,7 +99,7 @@ max-height:200px;
 width: 90%; 
 
 resize: none;
-font-size: 14px;
+font-size: 16px;
 font-family: Times;
 padding: 4px;
 border: none;
@@ -332,6 +332,20 @@ to {opacity:0;}
     transform: scale(0.44);
     margin-top: -50px; */ 
     }
+
+.app_link {
+  text-shadow: -0.015em 0.015em 0.0em rgb(211, 211, 211), -0.03em 0.03em 0.015em rgb(211, 211, 211), 0.04em 0.0em 0.02em rgb(128, 128, 128) ,0.02em 0.02em 0.01em rgb(128, 128, 128);
+  z-index: 12;
+  position:relative; 
+  transition: 1s;
+  padding: 4px;
+  width: 60%;
+margin: 0px auto 2px auto;
+  }
+
+  .app_link:hover {
+    transform: rotateY(360deg);
+  }
 </style>
 
 
@@ -341,6 +355,17 @@ to {opacity:0;}
 
         <input class="input_mail_address"  type="email" name="email-sender" placeholder="your email address" autocomplete="off" style="margin-bottom: 16px; margin-top: 10px">
         <input class="input_mail_subject" type="text" name="email-subject" placeholder="your email subject" autocomplete="off" style="margin-bottom: 6px;">
+   <!-- <div class="app_link" name="email-applink" style="
+        padding: 4px;
+        width: 60%;
+        margin: 0px auto 2px auto;
+        text-align: center;
+        font-size: 16px;
+        font-family: Times;
+        font-weight: bold;
+        box-shadow: 0px 0px 2px 2px rgba(20, 120, 220, 0.6);
+        border-radius: 2px;
+        background-color: rgba(60, 160, 240, 0.4);"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" style="color: rgba(0, 0, 220, 0.9);" target="_blank">BOOKSMARTAPP-link to application</a></div> -->
         <textarea class="textarea_mail" placeholder="your email subject" name="email-text" autocomplete="off"> </textarea>
  <!--    <div id="g_recaptcha_site" class="g-recaptcha" style="" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26"
         data-callback="callback_site">

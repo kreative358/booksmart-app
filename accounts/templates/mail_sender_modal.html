@@ -282,7 +282,8 @@ width: 96%;
 position:relative; 
 margin-left: 2%;
 resize: none;
-font-size: 14px;
+z-index: 12;
+font-size: 16px;
 font-family: Times;
 padding: 4px;
 border: none;
@@ -294,8 +295,7 @@ background: rgba(220, 220, 230, 0.2);
 background: repeating-conic-gradient( rgba(60, 160, 240, 0.2) 10%, rgba(60, 160, 240, 0.4) 20%, rgba(60, 160, 240, 0.2) 30%, rgba(0, 60, 240, 0.2) 10%) no-repeat fixed center; 
 color: rgba(0, 0, 220, 0.8);
 overflow: auto;
-z-index: 12;
-font-size: 16px;
+
 text-indent: 0;
 }
 
@@ -508,10 +508,25 @@ from {opacity:1;}
 to {opacity:0;}
 }
 
-#app_link {
+.app_link {
     text-shadow: -0.015em 0.015em 0.0em rgb(211, 211, 211), -0.03em 0.03em 0.015em rgb(211, 211, 211), 0.04em 0.0em 0.02em rgb(128, 128, 128) ,0.02em 0.02em 0.01em rgb(128, 128, 128);
     font-size: 14px;
     font-weight: bold;
+width: 96%; 
+position:relative; 
+margin-left: 2%;
+margin-bottom: 6px;
+font-size: 16px;
+font-family: Times;
+padding: 4px;
+box-shadow: 0px 0px 2px 2px rgba(20, 120, 220, 0.6);
+border: none;
+outline: none;
+border-radius: 2px;
+background-color: rgba(60, 160, 240, 0.4);
+color: rgba(0, 0, 220, 0.9);
+min-height: 24px;
+z-index: 12;
 }
 </style>
 
@@ -520,10 +535,10 @@ to {opacity:0;}
     <form method="post" autocomplete="off">
         {% csrf_token %} 
 
-        <input class="input_mail_address"  type="email" name="email-sender" placeholder="your email address" autocomplete="off"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" id="app_link">BOOKSMART</a>
+        <input class="input_mail_address"  type="email" name="email-sender" placeholder="your email address" autocomplete="off">
         <input class="input_mail_subject" type="text" name="email-subject" placeholder="your email subject" autocomplete="off">
         <textarea class="textarea_mail" placeholder="your email subject" name="email-text" autocomplete="off"> </textarea>
-
+        <a></a>
         <div style="width: 100%; position: relative; justify-content: center; text-align: center;">
         <button id="button_send_mail_id" class="button_send_mail" type="submit" > SEND </button></div>
     </form>

@@ -478,7 +478,42 @@ box-shadow:
   
    // var mycolumn_select_pass_month_to = document.getElementById("mycolumn_select_pass_month_to");
 
-  
+   if (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/iPhone/i) ||
+    "ontouchstart" in document.documentElement
+  //   document.body.clientWidth < 800
+  ) {
+    select_month_to.style.minHeight = "28px";
+    select_month_to.maxHeight = "28px";
+    select_month_to.style.height = "28px";
+    select_month_to.style.marginTop = "-30px";
+    select_month_to.style.marginLeft= "-38%";
+    select_month_to.style.color = "transparent";
+    select_month_to.style.minWidth = "78%"; 
+    select_month_to.style.maxWidth = "78%"; 
+    select_month_to.style.width = "78%"; 
+    // dropdown_options.style.border = ""
+    select_month_to.style.display = "block";
+    select_month_to.size = 1; 
+    
+    /*dropdown_options.onchange = function() {
+      select_input.value = dropdown_options.value;
+    } */
+    select_month_to.onclick = function() {
+      span_tringle_left_month_to.classList.toggle("span20");
+      span_tringle_right_month_to.classList.toggle("span20");
+    var x_to = select_month_to.selectedIndex;
+    var y_to = select_month_to.options;
+    input_pass_select_month_to.value = y_to[x_to].text
+    }
+    select_num.onblur = function() {
+      span_tringle_left_month_to.classList.toggle("span20");
+      span_tringle_right_month_to.classList.toggle("span20");
+    }
+  }
+
+  else {
   input_pass_select_month_to.onclick = function() {
   if (select_month_to.style.display === "block" ) {
   span_tringle_left_month_to.classList.toggle("span_tringle_rotate");
@@ -492,31 +527,15 @@ box-shadow:
   span_tringle_right_month_to.classList.toggle("span_tringle_rotate");
   select_month_to.style.animation = "slideJumptOpen 1.4s";
   select_month_to.style.display = "block";
-
-  // select_month_to.focus();
   }
   }
-  
-/*
-  // const nodeList_1_month_to = document.getElementsByTagName('option');
-  const nodeList_1_month_to = document.querySelectorAll('#select_month_to > option');
-  // let nodeList_1_month_to = select_month_to.options;
-  for (let i = 0; i < nodeList_1_month_to.length; i++) {
-   nodeList_1_month_to[i].onclick = function() {
-   // .addEventListener("click", function(event) {
-  input_pass_select_month_to.setAttribute('value', nodeList_1_month_to[i].innerText);
-  span_tringle_left_month_to.classList.toggle("span_tringle_rotate");
-  span_tringle_right_month_to.classList.toggle("span_tringle_rotate");
-  select_month_to.style.animation = "roll_close 1.4s";
-  setTimeout(function(){
-  select_month_to.style.display = "none";},
-  1200);
-  }
-  } */
 
   select_month_to.onchange = function() {
-    var i_to = select_month_to.selectedIndex;
-      input_pass_select_month_to.value = select_month_to[i_to].text;
+   // var i_to = select_month_to.selectedIndex;
+   //   input_pass_select_month_to.value = select_month_to[i_to].text;
+   var x_to = select_month_to.selectedIndex;
+   var y_to = select_month_to.options;
+   input_pass_select_month_to.value = y_to[x_to].text
       span_tringle_left_month_to.classList.toggle("span_tringle_rotate");
       span_tringle_right_month_to.classList.toggle("span_tringle_rotate");
       select_month_to.style.animation = "roll_close 1.4s";
@@ -525,18 +544,13 @@ box-shadow:
       1200);
   }
   
-  
-  
   document.addEventListener("click", function(event) {
     // If user clicks inside the element, do nothing .mycolumn_select
-   
     //  if (event.target.closest(".myrow_select_pass")) return;
     if (event.target.closest("#myrow_select_pass_month_to")) return;  
    //  if (event.target != mycolumn_select_pass_month_to) {
-  
     // if (event.target.parentElement) return;
     // If user clicks outside the element, hide it!
-    
     span_tringle_left_month_to.classList.toggle("span_tringle_rotate");
     span_tringle_right_month_to.classList.toggle("span_tringle_rotate");
     select_month_to.style.animation = "opacity_down 1.2s";
@@ -544,9 +558,8 @@ box-shadow:
     select_month_to.style.display = "none";},
     1000);
     
-  
     })
-
+  }
   </script>
 
 

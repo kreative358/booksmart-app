@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.mail import send_mail, EmailMessage, get_connection, send_mass_mail
+from django.core.mail import send_mail, EmailMessage, get_connection, send_mass_mail, EmailMultiAlternatives
 from booksmart.models import context_bm, url_img, Book, Author
 
 import smtplib
@@ -35,6 +35,9 @@ def mail_sender_modal(request):
     message_content['from_email'] = "booksmartapp358@gmail.com"
     message_content['my_email'] = "kreative358@gmail.com"
     # simple_email_context = ssl.create_default_context()
+
+    html_message = '<div class="mail_footer"><p style="color: darkblue; font-size: 16px; font-weight: bold; margin-bottom: 4px;">mail from TEAM</p><p style="margin-top: 0px;"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" target="_blank" style="margin-bottom: 20px;"><strong>BOOKSMARTAPP</strong></a></p><p style="font-size: 14px; color: darkblue; margin-bottom: 0px;">If you want to contact about a serious job offer, </p><p style="font-size: 14px; color: darkblue; margin-top: 0px;">you can send me an e-mail e.g. via this box.</p></div>'
+
     if request.method == "POST":
     
         if request.POST.get('email-sender', False):
@@ -51,15 +54,32 @@ def mail_sender_modal(request):
             # for book in books:
             #     message_text += f'\n\r"{book.title}" - {book.author}' 
             # print("message_text:", message_text)
+        # try:
+        #     send_mail(
+        #         subject = message_content['email_subject'],
+        #         message = message_content['email_text'],
+        #         from_email = message_content['from_email'],
+        #         recipient_list = [message_content['my_email'], message_content['email_sender']],
+        #         fail_silently=False
+        #     )
+        #     # print(f"Email successfully sent to - {email_to}")
+        # except Exception as e:
+        #     print("1. ", e)
+        message_text = message_content['email_text']
         try:
-            send_mail(
-                subject = message_content['email_subject'],
-                message = message_content['email_text'],
-                from_email = message_content['from_email'],
-                recipient_list = [message_content['my_email'], message_content['email_sender']],
-                fail_silently=False
+            message1 = (
+                message_content['email_subject'],
+                f"{message_content['email_text']}\n from: {message_content['email_sender']}",
+                message_content['from_email'],
+                [message_content['my_email']],
             )
-            # print(f"Email successfully sent to - {email_to}")
+            message2 = (
+                "mail to booksmart",
+                f"subject: {message_content['email_text']}\ncontent: {message_content['email_text']}\n{link}",
+                message_content['from_email'],
+                [message_content['email_sender']],
+            )
+            send_mass_mail((message1, message2), fail_silently=False)
         except Exception as e:
             print("1. ", e)
 
@@ -77,6 +97,10 @@ def mail_sender_site(request):
     message_content['from_email'] = "booksmartapp358@gmail.com"
     message_content['my_email'] = "kreative358@gmail.com"
     # simple_email_context = ssl.create_default_context()
+
+    html_message = '<div class="mail_footer"><p style="color: darkblue; font-size: 16px; font-weight: bold; margin-bottom: 4px;">mail from TEAM</p><p style="margin-top: 0px;"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" target="_blank" style="margin-bottom: 20px;"><strong>BOOKSMARTAPP</strong></a></p><p style="font-size: 14px; color: darkblue; margin-bottom: 0px;">If you want to contact about a serious job offer, </p><p style="font-size: 14px; color: darkblue; margin-top: 0px;">you can send me an e-mail e.g. via this box.</p></div>'
+
+
     if request.method == "POST":
     
         if request.POST.get('email-sender', False):
@@ -88,22 +112,30 @@ def mail_sender_site(request):
         if request.POST.get('email-text', False): 
             message_content['email_text'] = request.POST['email-text']
             print("message_content['email_text']: ", message_content['email_text'])
-            
-            
-            # for book in books:
-            #     message_text += f'\n\r"{book.title}" - {book.author}' 
-            # print("message_text:", message_text)
+
+        message_text = message_content['email_text']
         try:
-            send_mail(
-                subject = message_content['email_subject'],
-                message = message_content['email_text'],
+            message1 = send_mail(
+                subject = message_content['email_subject'],   
+                message = f"{message_text}\nfrom: {message_content['email_sender']}",         
                 from_email = message_content['from_email'],
-                recipient_list = [message_content['my_email'], message_content['email_sender']],
-                fail_silently=False
+                recipient_list = [message_content['my_email']],
+                fail_silently=False,      
             )
+
+            message2 = send_mail(
+                subject = message_content['email_subject'],   
+                message = message_text,         
+                from_email = message_content['from_email'],
+                recipient_list = [message_content['email_sender']],
+                fail_silently=False,
+                html_message = f"{message_text}\n{html_message}",
+            )
+            # send_mass_mail((message1, message2), fail_silently=False)
             # print(f"Email successfully sent to - {email_to}")
         except Exception as e:
             print("1. ", e)
+
 
     return render(request, 'mail_sender_site.html')
 
