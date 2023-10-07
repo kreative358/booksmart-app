@@ -241,8 +241,11 @@ def addx_book(request):
         elif parameters_list[0][0] == 'query':
             params_str = f'q={parameters_list[0][1].replace(" ", "+")}'
         
+        # else:
+        #     params_str = f'q={parameters_list[0][1]}'
         else:
-            params_str = f'q={parameters_list[0][1]}' 
+            context['message'] = 'Probably something was wrong with parameters try again'
+            return Response(context, template_name='addx_book.html', )
     
     elif len(parameters_list) == 2:
         if parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor':
@@ -283,10 +286,13 @@ def addx_book(request):
             params_pre_1 = f'q={parameters_list[0][1]}'#:{parameters_list[0][1]}'
             params_pre_2 = f'&{parameters_list[1][0]}:{parameters_list[1][1]}'
             params_str = params_pre_1 + params_pre_2
+        # else:
+        #     params_pre_1 = f'q={parameters_list[0][1]}'
+        #     params_pre_2 = f'&{parameters_list[1][0]}={parameters_list[1][1]}'
+        #     params_str = params_pre_1 + params_pre_2
         else:
-            params_pre_1 = f'q={parameters_list[0][1]}'
-            params_pre_2 = f'&{parameters_list[1][0]}={parameters_list[1][1]}'
-            params_str = params_pre_1 + params_pre_2
+            context['message'] = 'Probably something was wrong with parameters try again'
+            return Response(context, template_name='addx_book.html', )
     
     # parameters_list=[(k, f'{v.replace(" ", "+")}') if type(v) is str and k != 'bookList' else (k, v) for k, v in parameters_list 
     elif len(parameters_list) == 3:
@@ -336,7 +342,6 @@ def addx_book(request):
             params_str = params_pre_1 + params_pre_2
             # print('3e.', params_str)
 
-
         # !!!
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'query':
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
@@ -355,6 +360,9 @@ def addx_book(request):
             params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2
             # print('3e.', params_str)
+        else:
+            context['message'] = 'Probably something was wrong with parameters try again'
+            return Response(context, template_name='addx_book.html', )
 
 
     elif len(parameters_list) > 3:
@@ -415,11 +423,11 @@ def addx_book(request):
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'query':
             params_pre_1 = f'q={parameters_list[1][1].replace(" ", "+")}'
-            params_pre_2 = f'+{parameters_list[0][0]:parameters_list[0][1].replace(" ", "+")}&' 
+            params_pre_2 = f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}&' 
 
             # params_pre_2 = f'+{parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"&'
             params_pre_3 = f'&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
-            params_str = params_pre_1 + params_pre_3
+            params_str = params_pre_1 + params_pre_2 + params_pre_3
             # print('4e.', params_str)
 
 
@@ -427,6 +435,9 @@ def addx_book(request):
             params_pre_1 = f'q={parameters_list[0][1]}' + f'+{parameters_list[0][0]}:{parameters_list[0][1]}&'
             params_pre_2 = f'&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
             params_str = params_pre_1 + params_pre_2
+        else:
+            context['message'] = 'Probably something was wrong with parameters try again'
+            return Response(context, template_name='addx_book.html', )
     
     else:
     #     params_pre_1 = f'q="{parameters_list[0][1].replace(" ", "+")}"&'
