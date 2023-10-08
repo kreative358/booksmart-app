@@ -150,7 +150,9 @@
   
   @keyframes anime_pulse {
     0% {transform: scale(1);}
-     50% {transform: scale(2);}
+     25% {transform: scale(1.2);}
+     45% {transform: scale(1);}
+     75% {transform: scale(1.6);}
      100% {transform: scale(1);}
    }
   
@@ -244,13 +246,13 @@ var download_object_1 = document.getElementById("download_object_1");
 var download_object_2 = document.getElementById("download_object_2");
 button_download_1.onclick = function() {
   download_object_1.style.display = "block";
-  download_object_1.style.animation = "anime_pulse 2s 10 2s";
+  download_object_1.style.animation = "anime_pulse 2s 4 2s";
     download_object_1.innerHTML = '<iframe class="iframe_download" src="{{ download_links_1a }}" width="0" height="0"></iframe><br><div class="download_book_text"> DOWNLOAD BOOK 1 </div>';
   }
   
   button_download_2.onclick = function() {
   download_object_2.style.display = "block";
-  download_object_2.style.animation = "anime_pulse 2s 10 2s";
+  download_object_2.style.animation = "anime_pulse 2s 4 2s";
     download_object_2.innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="0" height="0"></iframe><br><div class="download_book_text"> DOWNLOAD BOOK 2 </div>';
   }
 /*
