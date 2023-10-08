@@ -10,7 +10,7 @@ from accounts.model import Account
 from accounts.serializer_password_reset import EmailSerializer, ResetPasswordSerializer
 
 
-class PasswordReset(APIView):
+class SerializerPasswordReset(APIView):
     """
     Request for Password Reset Link.
     """
@@ -49,13 +49,13 @@ class PasswordReset(APIView):
             )
 
             reset_link = f"localhost:8000{reset_url}"
-            # reset_link = f'https://booksmart-app-bd32a8932ff0.herokuapp.com/ + {template_name}'
+            # reset_link = f'https://booksmart-app-bd32a8932ff0.herokuapp.com/{template_name}'
             # send the rest_link as mail to the user.
 
             return response.Response(
                 {
                     "message": 
-                    f"Your password rest link: {reset_link}"
+                    f"Your password reset link: {reset_link}"
                 },
                 status=status.HTTP_200_OK,
             )
@@ -66,7 +66,7 @@ class PasswordReset(APIView):
             )
 
 
-class ResetPasswordAPI(generics.GenericAPIView):
+class SerializerResetPasswordAPI(generics.GenericAPIView):
     """
     Verify and Reset Password Token View.
     """

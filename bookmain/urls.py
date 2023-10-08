@@ -141,7 +141,8 @@ registration_patterns = [
     path('password_reset_done/', PasswordResetDoneViewForm.as_view(template_name='registrations/password_reset_done.html'),
         name='password_reset_done'),
 
-    path('password_reset_confirmation/<uidb64>/<token>/', PasswordResetConfirmViewForm.as_view(), name='password_reset_confirm'),
+    # path('password_reset_confirmation/<uidb64>/<token>/', PasswordResetConfirmViewForm.as_view(), name='password_reset_confirm'),
+    path('password_reset_confirmation/<str:uidb64>/<str:token>/', PasswordResetConfirmViewForm.as_view(), name='password_reset_confirm'),
     # path('reset/<uidb64>/<token>/', PasswordResetConfirmViewForm.as_view(), name='password_reset_confirm'),
 
     # path('password_reset/', PasswordResetViewForm.as_view(), name='password_reset'),
