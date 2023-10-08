@@ -36,7 +36,7 @@ def mail_sender_modal(request):
     message_content['my_email'] = "kreative358@gmail.com"
     # simple_email_context = ssl.create_default_context()
 
-    html_message = '<div class="mail_footer"><p style="color: darkblue; font-size: 16px; font-weight: bold; margin-bottom: 4px;">mail from TEAM</p><p style="margin-top: 0px;"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" target="_blank" style="margin-bottom: 20px;"><strong>BOOKSMARTAPP</strong></a></p><p style="font-size: 14px; color: darkblue; margin-bottom: 0px;">If you want to contact about a serious job offer, </p><p style="font-size: 14px; color: darkblue; margin-top: 0px;">you can send me an e-mail e.g. via this box.</p></div>'
+    html_message = '<div class="mail_footer"><p style="color: darkblue; font-size: 16px; font-weight: bold; margin-bottom: 4px;">mail from TEAM</p><p style="margin-top: 0px;"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" target="_blank" style="margin-bottom: 20px; font-size: 16px; font-weight: bold; text-decoration: underline; text-decoration-thickness: 2px;">BOOKSMARTAPP</a></p><p style="font-size: 14px; color: darkblue; margin-bottom: 0px;">If you want to contact about a serious job offer, </p><p style="font-size: 14px; color: darkblue; margin-top: 0px;">you can send me an e-mail e.g. via this box.</p></div>'
 
     if request.method == "POST":
     
@@ -67,19 +67,22 @@ def mail_sender_modal(request):
         #     print("1. ", e)
         message_text = message_content['email_text']
         try:
-            message1 = (
-                message_content['email_subject'],
-                f"{message_content['email_text']}\n from: {message_content['email_sender']}",
-                message_content['from_email'],
-                [message_content['my_email']],
+            message1 = send_mail(
+                subject = message_content['email_subject'],   
+                message = f"{message_text}\nfrom: {message_content['email_sender']}",         
+                from_email = message_content['from_email'],
+                recipient_list = [message_content['my_email']],
+                fail_silently=False,      
             )
-            message2 = (
-                "mail to booksmart",
-                f"subject: {message_content['email_text']}\ncontent: {message_content['email_text']}\n{link}",
-                message_content['from_email'],
-                [message_content['email_sender']],
+
+            message2 = send_mail(
+                subject = message_content['email_subject'],   
+                message = message_text,         
+                from_email = message_content['from_email'],
+                recipient_list = [message_content['email_sender']],
+                fail_silently=False,
+                html_message = f"{message_text}\n{html_message}",
             )
-            send_mass_mail((message1, message2), fail_silently=False)
         except Exception as e:
             print("1. ", e)
 
@@ -98,7 +101,7 @@ def mail_sender_site(request):
     message_content['my_email'] = "kreative358@gmail.com"
     # simple_email_context = ssl.create_default_context()
 
-    html_message = '<div class="mail_footer"><p style="color: darkblue; font-size: 16px; font-weight: bold; margin-bottom: 4px;">mail from TEAM</p><p style="margin-top: 0px;"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" target="_blank" style="margin-bottom: 20px;"><strong>BOOKSMARTAPP</strong></a></p><p style="font-size: 14px; color: darkblue; margin-bottom: 0px;">If you want to contact about a serious job offer, </p><p style="font-size: 14px; color: darkblue; margin-top: 0px;">you can send me an e-mail e.g. via this box.</p></div>'
+    html_message = '<div class="mail_footer"><p style="color: darkblue; font-size: 16px; font-weight: bold; margin-bottom: 4px;">mail from TEAM</p><p style="margin-top: 0px;"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" target="_blank" style="margin-bottom: 20px; font-size: 16px; font-weight: bold; text-decoration: underline; text-decoration-thickness: 2px;" >BOOKSMARTAPP</a></p><p style="font-size: 14px; color: darkblue; margin-bottom: 0px;">If you want to contact about a serious job offer, </p><p style="font-size: 14px; color: darkblue; margin-top: 0px;">you can send me an e-mail e.g. via this box.</p></div>'
 
 
     if request.method == "POST":
