@@ -38,7 +38,7 @@
   height: 620px;
   perspective: 1280px;
   margin: 20px auto 40px auto;
-  left: 12px;
+  left: 0px;
 
   }
 
@@ -383,15 +383,15 @@ font-size: 19px;}
  width: 32%;
  border-radius: 20%;
  line-height: 1;
- border: 2px solid lightgrey;
+ /* border: 2px solid lightgrey; */
  outline: 2px solid lightgrey;
  text-shadow:
  -0.06em 0.06em 0.04em rgba(200, 0, 0, 0.0);
-   background-color: rgba(40,40,220, 0.0);
+   background-color: rgba(40,40,220, 0.4);
  }
  .class_arrows:focus {
-   border:2px solid lightgrey;
-   outline: 2px solid lightgrey;
+  /* border:2px solid lightgrey; */
+ outline: 2px solid lightgrey;
    color: aliceblue;
  }
  
@@ -401,14 +401,14 @@ font-size: 19px;}
    background-color: rgb(40,40,220);
    background-color: rgba(40,40,220, 0.6);
    color:lightgrey;
-   border:2px solid lightgrey;
+  /* border:2px solid lightgrey; */
    outline: 2px solid lightgrey;
  
  }
  
  .class_arrows:hover {
-   border:2px solid lightgrey;
-   outline: 2px solid transparent;
+ /*  border:2px solid lightgrey; */
+   outline: 2px solid transparent; 
    }
  
  #open_sidenav {
@@ -779,11 +779,23 @@ card_viewer_id.insertBefore(card_front, card_viewer_id.children[0]);
  /* if (full_screen.textContent == "open fullscreen") { */
     if (scene_viewer.requestFullscreen) {
       scene_viewer.requestFullscreen();
-      card_viewer_id.style.width = "100%";
-
+    //  card_viewer_id.style.width = "100%";
+    //  card_viewer_id.style.height = "100%";
+    card_viewer_id.style.width = screen.availWidth;
+    card_viewer_id.style.height = screen.availHeight;
     setTimeout(function(){
+    //  var scene_viewer_width = scene_viewer.clientWidth;
+    //  var scene_viewer_width = scene_viewer.clientHeight;
+    //  width_px.innerHTML = scene_viewer_width;
+    //  var frame_viewer_width = card_viewer_id.clientWidth;
+    //  var frame_viewer_height = card_viewer_id.clientHeight;
+    //  var book_viewer_width = frame_viewer_width - 20 + "px";
+      
+   //   var book_viewer_height = frame_viewer_height - 20 + "px";
 
-      // card_viewer_id.style.heigt = "100%";
+   //   book_viewer.style.width = book_viewer_width;
+   //   book_viewer.style.height = book_viewer_height;
+
       var scene_viewer_width = scene_viewer.clientWidth;
       var scene_viewer_width = scene_viewer.clientHeight;
       width_px.innerHTML = scene_viewer_width;
@@ -808,12 +820,16 @@ card_viewer_id.insertBefore(card_front, card_viewer_id.children[0]);
     else if (scene_viewer.mozRequestFullScreen) {
       // changeFront();
       scene_viewer.mozRequestFullScreen();
-      card_viewer_id.style.width = "100%";
+      // card_viewer_id.style.width = "100%";
+      card_viewer_id.style.width = screen.availWidth;
+      card_viewer_id.style.height = screen.availHeight;
     }
     else if(scene_viewer.webkitRequestFullscreen) {
       // changeFront();
       scene_viewer.webkitRequestFullscreen();
-      card_viewer_id.style.width = "100%";
+      // card_viewer_id.style.width = "100%";
+      card_viewer_id.style.width = screen.availWidth;
+      card_viewer_id.style.height = screen.availHeight;
     }
  //   full_screen.textContent = "open fullscreen";
     
