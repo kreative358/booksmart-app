@@ -163,9 +163,9 @@ animation: noname;
 /*padding-left: 8px;*/
 margin-left: 72px;
 justify-content: center;
-  min-height: 415px;
+ /* min-height: 415px;
   max-height: 415px;
-  height: 415px;
+  height: 415px; */
 }
 
 #modal_body_advance_gb #select_month_from:active {
@@ -463,22 +463,27 @@ var select_month_from = document.getElementById("select_month_from");
 if (
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/iPhone/i) ||
-  /Android|iPhone/i.test(navigator.userAgent)
-//   document.body.clientWidth < 800
+  Android|iPhone/i.test(navigator.userAgent)
+ //  document.body.clientWidth < 1280 
 ) {
-  select_month_from.style.minHeight = "28px";
-  select_month_from.maxHeight = "28px";
-  select_month_from.style.height = "28px";
-  select_month_from.style.marginTop = "-30px";
-  select_month_from.style.marginLeft= "-38%";
-  select_month_from.style.color = "transparent";
-  select_month_from.style.minWidth = "78%"; 
-  select_month_from.style.maxWidth = "78%"; 
-  select_month_from.style.width = "78%"; 
-  // dropdown_options.style.border = ""
+  select_month_from.size = 1;
   select_month_from.style.display = "block";
-  select_month_from.size = 1; 
-  
+  select_month_from.style.minHeight = "32px";
+  select_month_from.maxHeight = "32px";
+  select_month_from.style.height = "32px";
+  select_month_from.style.marginTop = "-26px";
+  // select_month_from.style.marginLeft= "16px";
+  select_month_from.style.color = "transparent";
+  select_month_from.style.minWidth = "180" + "px"; 
+  select_month_from.style.maxWidth = "180" + "px"; 
+  select_month_from.style.width = "180" + "px"; 
+  select_month_from.style.border = "2px solid rgba(60, 160, 240, 0.2)"
+  if (document.body.clientWidth < 560) {
+    select_month_from.style.marginLeft= "36" + "px";
+  }
+  else if (document.body.clientWidth > 560) {
+    select_month_from.style.marginLeft = "86" + "px";
+  }
   /*dropdown_options.onchange = function() {
     select_input.value = dropdown_options.value;
   } */
@@ -495,7 +500,9 @@ if (
   }
 }
 
-else { 
+ else { 
+//  else if (document.body.clientWidth > 1280) {
+  select_month_from.size = 16
 input_pass_select_month_from.onclick = function() {
 if (select_month_from.style.display === "block" ) {
 span_tringle_left_month_from.classList.toggle("span_tringle_rotate");

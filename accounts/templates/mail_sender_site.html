@@ -355,6 +355,37 @@ margin: 0px auto 2px auto;
 
         <input class="input_mail_address"  type="email" name="email-sender" placeholder="your email address" autocomplete="off" style="margin-bottom: 16px; margin-top: 10px">
         <input class="input_mail_subject" type="text" name="email-subject" placeholder="your email subject" autocomplete="off" style="margin-bottom: 6px;">
+
+        <div class="bs_input_accounts_login">
+          <p class="class_label"> Veryfication</p> 
+          <div class="bs_input_recaptcha" style="postion: relative; margin-left: auto; margin-right: auto;">
+            <style>
+        
+              #g_recaptcha_id_site > div {
+                position: relative;
+                margin: 0px auto 0px auto;
+              }
+              </style>
+              <script src="https://www.google.com/recaptcha/api.js" async defer></script>     
+              <div class="form-group" style="margin: 0px; padding:10px 0px 10px 0px;">
+            
+              <div id="g_recaptcha_id_site" class="g-recaptcha" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" data-callback="callback">
+              </div>
+                     
+                <div class="valid-feedback" id="valid"  style="text-align:center; margin: auto;">value field is filled out.</div>
+                <!--<div class="invalid-feedback" id="valid" style="margin:-1px auto -5x auto; padding-left: 20px;">please fill out this field.</div>-->
+              <div class="invalid-feedback" id="valid" style="text-align:center; margin: auto;" ><span> please fill out this field. </span>
+              </div>
+                  </div>
+            
+                  <script type="text/javascript">
+                  function callback() {
+                    const submitButton = document.getElementById("button_send_mail_id");
+                    submitButton.removeAttribute("disabled");
+                  }
+                  </script>
+            </div>
+           </div>    
    <!-- <div class="app_link" name="email-applink" style="
         padding: 4px;
         width: 60%;
@@ -371,7 +402,7 @@ margin: 0px auto 2px auto;
         data-callback="callback_site">
         </div>-->
         <div style="justify-content: center; text-align: center;">
-        <button id="button_send_mail_id" class="button_send_mail" type="submit" > SEND </button></div>
+        <button id="button_send_mail_id" class="button_send_mail" type="submit" disabled> SEND </button></div>
     </form>
 </div> 
 

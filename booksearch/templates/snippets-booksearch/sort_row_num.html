@@ -472,23 +472,22 @@ var input_pass_select_num = document.getElementById("input_pass_select_num");
 var select_num = document.getElementById("select_num");
 
 if (
-  navigator.userAgent.match(/Android/i) ||
-  navigator.userAgent.match(/iPhone/i) 
-//   document.body.clientWidth < 800
+   navigator.userAgent.match(/Android/i) ||
+   navigator.userAgent.match(/iPhone/i) 
+//  document.body.clientWidth < 830
 ) {
-  select_num.style.minHeight = "28px";
-  select_num.maxHeight = "28px";
-  select_num.style.height = "28px";
-  select_num.style.marginTop = "-30px";
-  select_num.style.marginLeft= "-38%";
-  select_num.style.color = "transparent";
-  select_num.style.minWidth = "78%"; 
-  select_num.style.maxWidth = "78%"; 
-  select_num.style.width = "78%"; 
-  // dropdown_options.style.border = ""
-  select_num.style.display = "block";
   select_num.size = 1; 
-  
+  select_num.style.display = "block";
+  select_num.style.minHeight = "32px";
+  select_num.maxHeight = "32px";
+  select_num.style.height = "32px";
+  select_num.style.marginTop = "-26px";
+  select_num.style.marginLeft= "10px";
+  select_num.style.color = "transparent";
+  select_num.style.minWidth = "206" + "px"; 
+  select_num.style.maxWidth = "206" + "px"; 
+  select_num.style.width = "206" + "px"; 
+  select_num.style.border = "2px solid rgba(60, 160, 240, 0.2)";
   /*dropdown_options.onchange = function() {
     select_input.value = dropdown_options.value;
   } */
@@ -497,7 +496,7 @@ if (
     span_tringle_right_num.classList.toggle("span20");
   var x_num = select_num.selectedIndex;
   var y_num = select_num.options;
-  input_pass_select_num.value = y_lr[x_lr].text
+  input_pass_select_num.value = y_num[x_num].text
   }
   select_num.onblur = function() {
     span_tringle_left_num.classList.toggle("span20");
@@ -505,7 +504,8 @@ if (
   }
 }
 
-else {   
+// else if (document.body.clientWidth > 830) { 
+  else {   
 input_pass_select_num.onclick = function() {
 if (select_num.style.display === "block" ) {
 span_tringle_left_num.classList.toggle("span_tringle_rotate");

@@ -158,9 +158,9 @@ body {
   max-width: 240px;
   width: 240px;
   animation: noname;
-  min-height: 374px;
+ /* min-height: 374px;
   max-height: 374px;
-  height: 374px;
+  height: 374px; */
   /*border: 2px solid red;  */
   }
 
@@ -536,19 +536,18 @@ if (
    navigator.userAgent.match(/iPhone/i) 
 // document.body.clientWidth < 800
 ) {
-select_lr.style.minHeight = "28px";
-select_lr.maxHeight = "28px";
-select_lr.style.height = "28px";
-select_lr.style.marginTop = "-30px";
-select_lr.style.marginLeft= "-38%";
-select_lr.style.color = "transparent";
-select_lr.style.minWidth = "78%"; 
-select_lr.style.maxWidth = "78%"; 
-select_lr.style.width = "78%"; 
-// dropdown_options.style.border = ""
-select_lr.style.display = "block";
 select_lr.size = 1; 
-
+select_lr.style.display = "block";
+select_lr.style.minHeight = "32px";
+select_lr.maxHeight = "32px";
+select_lr.style.height = "32px";
+select_lr.style.marginTop = "-26px";
+select_lr.style.marginLeft= "20px";
+select_lr.style.color = "transparent";
+select_lr.style.minWidth = "216" + "px"; 
+select_lr.style.maxWidth =  "216" + "px"; 
+select_lr.style.width =  "216" + "px"; 
+select_lr.style.border = "2px solid rgba(60, 160, 240, 0.2)";
 /*dropdown_options.onchange = function() {
 select_input.value = dropdown_options.value;
 } */
@@ -565,7 +564,9 @@ span_tringle_right_lr.classList.toggle("span20");
 }
 }
 
-else {  
+ else {
+ // else if (document.body.clientWidth > 800) {
+select_lr.size = 16;   
 input_pass_select_lr.onclick = function() {
 if (select_lr.style.display === "block" ) {
 span_tringle_left_lr.classList.toggle("span_tringle_rotate");

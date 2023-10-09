@@ -159,9 +159,9 @@
   animation: noname;
   margin-left: 72px;
   justify-content: center;
-  min-height: 415px;
+ /* min-height: 415px;
   max-height: 415px;
-  height: 415px;
+  height: 415px; */
 
  /* margin-left: 354px;
   position: fixed; */
@@ -482,24 +482,31 @@ box-shadow:
     navigator.userAgent.match(/Android/i) ||
     navigator.userAgent.match(/iPhone/i) ||
     "ontouchstart" in document.documentElement
-  //   document.body.clientWidth < 800
+   //  document.body.clientWidth < 900
   ) {
-    select_month_to.style.minHeight = "28px";
-    select_month_to.maxHeight = "28px";
-    select_month_to.style.height = "28px";
-    select_month_to.style.marginTop = "-30px";
-    select_month_to.style.marginLeft= "-38%";
-    select_month_to.style.color = "transparent";
-    select_month_to.style.minWidth = "78%"; 
-    select_month_to.style.maxWidth = "78%"; 
-    select_month_to.style.width = "78%"; 
-    // dropdown_options.style.border = ""
-    select_month_to.style.display = "block";
     select_month_to.size = 1; 
-    
+    select_month_to.style.display = "block";
+    select_month_to.style.minHeight = "32px";
+    select_month_to.maxHeight = "32px";
+    select_month_to.style.height = "32px";
+    select_month_to.style.marginTop = "-26px";
+    // select_month_to.style.marginLeft= "80px";
+    select_month_to.style.color = "transparent";
+    select_month_to.style.minWidth =  "180" + "px"; 
+    select_month_to.style.maxWidth = "180" + "px"; 
+    select_month_to.style.width = "180" + "px"; 
+    select_month_to.style.border = "2px solid rgba(60, 160, 240, 0.2)"
+   
     /*dropdown_options.onchange = function() {
       select_input.value = dropdown_options.value;
     } */
+    if (document.body.clientWidth < 560) {
+      select_month_to.style.marginLeft = "36" + "px";
+    }
+    else if (document.body.clientWidth > 560) {
+      select_month_from.style.marginLeft = "86" + "px";
+    }
+   
     select_month_to.onclick = function() {
       span_tringle_left_month_to.classList.toggle("span20");
       span_tringle_right_month_to.classList.toggle("span20");
@@ -513,7 +520,9 @@ box-shadow:
     }
   }
 
-  else {
+   else {
+  //  else if (document.body.clientWidth > 900) {
+  select_month_to.size = 16; 
   input_pass_select_month_to.onclick = function() {
   if (select_month_to.style.display === "block" ) {
   span_tringle_left_month_to.classList.toggle("span_tringle_rotate");
