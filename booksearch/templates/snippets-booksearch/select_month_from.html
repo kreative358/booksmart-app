@@ -409,7 +409,7 @@ margin:10px 2px 4px 2px;
 
 
   @media screen and (max-width: 560px) {
-    #modal_body_advance_gb #select_month_to {
+    #modal_body_advance_gb #select_month_from {
       margin-left: 22px;
     }
   }
@@ -458,7 +458,7 @@ var span_tringle_right_month_from = document.getElementById("span_tringle_right_
 var input_pass_select_month_from = document.getElementById("input_pass_select_month_from");
 // var mycont_select_month_from = document.getElementById("mycont_select_month_from");
 var select_month_from = document.getElementById("select_month_from");
-// var mycolumn_select_pass_month_to = document.getElementById("mycolumn_select_pass_month_to");
+
 
 if (
   navigator.userAgent.match(/Android/i) ||
@@ -494,7 +494,7 @@ if (
   var y_from = select_month_from.options;
   input_pass_select_month_from.value = y_from[x_from].text
   }
-  select_num.onblur = function() {
+  select_month_from.onblur = function() {
     span_tringle_left_month_from.classList.toggle("span20");
     span_tringle_right_month_from.classList.toggle("span20");
   }
@@ -520,8 +520,8 @@ select_month_from.style.display = "block";
 }
 
 select_month_from.onclick = function() {
-  var x_from = select_num.selectedIndex;
-  var y_from = select_num.options;
+  var x_from = select_month_from.selectedIndex;
+  var y_from = select_month_from.options;
   input_pass_select_month_from.value = y_from[x_from].text
     span_tringle_left_month_from.classList.toggle("span_tringle_rotate");
     span_tringle_right_month_from.classList.toggle("span_tringle_rotate");

@@ -1,6 +1,6 @@
 <style type="text/css">
 
-  #mycont_select_month_from select {
+  #mycont_select_month_to select {
     -webkit-appearance: none;
   }
 
@@ -504,7 +504,7 @@ box-shadow:
       select_month_to.style.marginLeft = "36" + "px";
     }
     else if (document.body.clientWidth > 560) {
-      select_month_from.style.marginLeft = "86" + "px";
+      select_month_to.style.marginLeft = "86" + "px";
     }
    
     select_month_to.onclick = function() {
@@ -514,7 +514,7 @@ box-shadow:
     var y_to = select_month_to.options;
     input_pass_select_month_to.value = y_to[x_to].text
     }
-    select_num.onblur = function() {
+    select_month_to.onblur = function() {
       span_tringle_left_month_to.classList.toggle("span20");
       span_tringle_right_month_to.classList.toggle("span20");
     }

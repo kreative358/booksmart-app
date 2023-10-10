@@ -554,25 +554,52 @@ color: rgba(20, 20, 160, 0.9);
   left: 0px;
 }
 }
+
+#full_screen_close {
+  position: fixed;
+  z-index: 22;
+  display: none;
+  bottom: 10px;
+  left: 50%;
+  min-width: 120px;
+  max-width: 120px;
+  margin-left: -60px;
+  font-size: 18px;
+  line-height: 18px;
+  border-radius: 2px;
+  border: 4px solid blue;
+  color: blue;
+  text-align: center;
+  cursor: pointer;
+  padding-top: 2px;
+ opacity: 0.1;
+ background-color: LightGray;
+  }
+  
+#full_screen_close:hover {
+opacity: 0.4;
+  }
 </style>
 
 
 <div class="scene scene--card_viewer" id="scene_viewer" data-title="nofullscreen">
   <div class="card_viewer" id="card_viewer_id">
     <div id="textalert_viewercanvas_" class="card_viewer__face card_viewer__face--front">
-      <p id="data_reader" style="font-size: 18px; color: rgba(10, 20, 160, 0.9); margin-bottom: -20px;"> </p> 
+     <!-- <p id="data_reader" style="font-size: 18px; color: rgba(10, 20, 160, 0.9); margin-bottom: -20px;"> </p> -->
       <p style="color: rgba(10, 20, 160, 0.9); margin: 20px auto 26px auto; font-size: 28px; animation: anime_red_text 2s infinite;"> INFORMATION </p><span id="textalert_viewer_">
      
     </span></div>
- 
+   
     <div id="book_frame" class="card_viewer__face card_viewer__face--back" > 
     <div id="viewerCanvas"> </div> 
+    <div id="full_screen_close" onclick="toggleFullscreen();" >Close Fullscreen</div>
     </div>
+   
     </div>
   </div>
 
       <br>
-
+      
     
 <script type="text/javascript">
 // var alert_frame = document.getElementById("textalert_viewercanvas_{{ book.id }}")
@@ -595,6 +622,7 @@ var full_size = document.getElementById("full_size");
 var data_reader = document.getElementById("data_reader");
 var card_front = document.getElementById("textalert_viewercanvas_");
 var card_back = document.getElementById("book_frame");
+var full_screen_close = document.getElementById("full_screen_close");
 
 const book_frame = document.getElementById("book_frame");
 const book_viewer = document.getElementById("viewerCanvas");
@@ -722,6 +750,7 @@ const fullScreenBook = function() {
   scene_viewer.requestFullscreen();
   scene_viewer.style.left = "0px";
   scene_viewer.setAttribute('data-title', "fullscreen");
+  full_screen_close.style.display = "block";
   // let text_2 = scene_viewer.getAttribute('data-title');
   // data_reader.innerHTML = "text_2 " + text_2;
   var full_screen_height = screen.availHeight;
@@ -818,11 +847,44 @@ const checkData = function() {
 
  // let text_3a = scene_viewer.getAttribute("data-title");
  // data_reader.innerHTML = "text_3a " + text_3a;
+ /*full_screen_close.onclick = function() {
+  if (scene_viewer.exitFullscreen) {
+    scene_viewer.exitFullscreen();
+   } else if (document.mozCancelFullScreen) {
+     document.mozCancelFullScreen();
+   } else if (document.webkitExitFullscreen) {
+     document.webkitExitFullscreen();
+   }
+    else if (document.msExitFullscreen) {
+     window.top.document.msExitFullscreen();
+   } 
+   };*/
+   const makeFullScreen = (el) => {
+    if (!document.fullscreenElement) {
+      el.requestFullscreen();
+      return;
+   } 
+     document.exitFullscreen();
+ }
+ 
+ //const fullscreenables = document.querySelectorAll(".fullscreenEnabled");
+ //fullscreenables.forEach( (span) => {
+ //btn_close_fullscreen.addEventListener("click", () => {
+ // makeFullScreen(scene_viewer);
+ //});
+ // span.addEventListener('keydown', (e) => {
+ //  if (e.key === "Enter") {
+ //    makeFullScreen(span);
+ //  }
+ // });
+ //});
+
 
   const var_endFullScreen = function() {
     let text_4 = scene_viewer.getAttribute("data-title");
     // data_reader.innerHTML = "text_4_1 " + text_4;
     if (!document.fullscreenElement && text_4 === "fullscreen") { 
+      full_screen_close.style.display = "none";
     setTimeout(function(){
        scene_viewer.style.left = "12px";
       scene_viewer.style.height = "620px";
@@ -839,7 +901,6 @@ const checkData = function() {
      }, 1000);
     } 
   }
-
 
 scene_viewer.addEventListener("fullscreenchange", var_endFullScreen);
 
@@ -871,6 +932,25 @@ function func_endFullScreen() {
    }, 1000);
   } 
 } 
+
+function toggleFullscreen(event) {
+  var element = document.body;
+
+  if (event instanceof HTMLElement) {
+    element = event;
+  }
+
+  var isFullscreen = document.webkitIsFullScreen || document.mozFullScreen || false;
+
+  element.requestFullScreen = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || function() {
+    return false;
+  };
+  document.cancelFullScreen = document.cancelFullScreen || document.webkitCancelFullScreen || document.mozCancelFullScreen || function() {
+    return false;
+  };
+
+  isFullscreen ? document.cancelFullScreen() : element.requestFullScreen();
+}
 </script>
 
 <script>
