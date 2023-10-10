@@ -56,7 +56,24 @@
   * {
   box-sizing: border-box;
   }*/
+  :-webkit-full-screen {
+    background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(60, 160, 240, 0.8) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+  }
   
+  /* IE11 */
+  :-ms-fullscreen {
+    background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(60, 160, 240, 0.8) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+  }
+  
+  /* Standard syntax */
+  :fullscreen {
+    background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(60, 160, 240, 0.8) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+  }
+
+  ::backdrop {
+    background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(60, 160, 240, 0.8) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+  }
+
   button {
   font-family: Times;
   text-shadow: 0px 1px 1px #eee, 0 -1px 1px #333;

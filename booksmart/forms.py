@@ -175,10 +175,10 @@ class BookSort(forms.Form):
         ('-title', 'title: Z-A'),
         ('surname', 'author: A-Z'),
         ('-surname', 'author: Z-A'),
-        ('published', 'published: newest'),
-        ('-published', 'published: oldest'),
-        ('created_at', 'created: newest'),
-        ('-created_at', 'created: oldest'),
+        ('-published', 'published: newest'),
+        ('published', 'published: oldest'),
+        ('-created_at', 'created: newest'),
+        ('created_at', 'created: oldest'),
     ]
 
 

@@ -178,8 +178,6 @@ font-family: Times;
   font-weight: bold;
 }
 
-
-
 .mycolumn_reader {  
   position:relative;
   z-index:12;
@@ -206,6 +204,7 @@ font-family: Times;
   max-width: 90%;
   width: 490px;
   font-family: Times;
+  left: 12px;
     }
 
   [id^="read_card_o2"] {
@@ -412,7 +411,8 @@ font-size: 19px;}
    }
  
  #open_sidenav {
- float:right;}
+ float:right;
+margin-right: -4px;}
  
  #close_sidenav {
  float: left;
@@ -437,7 +437,7 @@ font-size: 19px;}
  <button class="btn_number" id="800x600px"> 800 &nbsp x &nbsp 560 </button>
   <button class="btn_number" id="720x500px"> 720 &nbsp x &nbsp 500 </button>
   <button class="btn_number" id="start_size"> start size </button>
-  <button class="btn_number" id="full_screen"><span> open </span> <span style="line-height: 18px;"> fullscreen </span></button>
+  <button class="btn_number" id="full_screen"><p style="margin-bottom: -4px"> open </p> <p style="margin-top; -4px; margin-bottom: 6px; line-height: 1;"> fullscreen </p></button>
   <button class="btn_number" id="full_size"> full size </button>
  </a>
 
@@ -557,9 +557,11 @@ color: rgba(20, 20, 160, 0.9);
 </style>
 
 
-<div class="scene scene--card_viewer" id="scene_viewer">
+<div class="scene scene--card_viewer" id="scene_viewer" data-title="nofullscreen">
   <div class="card_viewer" id="card_viewer_id">
-    <div id="textalert_viewercanvas_" class="card_viewer__face card_viewer__face--front"><p style="color: rgba(10, 20, 160, 0.9); margin: 20px auto 26px auto; font-size: 28px; animation: anime_red_text 2s infinite;"> INFORMATION <span id="width_px"> </span></p><span id="textalert_viewer_">
+    <div id="textalert_viewercanvas_" class="card_viewer__face card_viewer__face--front">
+      <p id="data_reader" style="font-size: 18px; color: rgba(10, 20, 160, 0.9); margin-bottom: -20px;"> </p> 
+      <p style="color: rgba(10, 20, 160, 0.9); margin: 20px auto 26px auto; font-size: 28px; animation: anime_red_text 2s infinite;"> INFORMATION </p><span id="textalert_viewer_">
      
     </span></div>
  
@@ -590,51 +592,35 @@ var h720px_w500px = document.getElementById("720x500px");
 var start_size = document.getElementById("start_size");
 var full_screen = document.getElementById("full_screen");
 var full_size = document.getElementById("full_size");
-var width_px = document.getElementById("width_px");
+var data_reader = document.getElementById("data_reader");
 var card_front = document.getElementById("textalert_viewercanvas_");
 var card_back = document.getElementById("book_frame");
 
 const book_frame = document.getElementById("book_frame");
 const book_viewer = document.getElementById("viewerCanvas");
 
-// let book_layer = document.querySelector("#viewerCanvas > div > div:nth-child(1) > div.overflow-scrolling > div > div > div:nth-child(1) > div:nth-child(2) > div > div:nth-child(8) > div")
-
-
+// let text_1 = scene_viewer.getAttribute('data-title');
+// data_reader.innerHTML = "text_1 " + text_1;
 
 let book_layer = document.querySelector(".selection-layer");
 var size_minus = document.querySelector("#viewerCanvas > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(9)")
 var size_plus = document.querySelector("#viewerCanvas > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(10)")
 
-/*
-let book_height = book_layer.style.height;
-let book_width = book_layer.style.width; */
-
-// var book_viewer = '<div id="viewerCanvas"> </div>';
-// book_frame.innerHtml = book_viewer;
-// const alert_info_first = document.getElementById("no_embed_first");
-
 var text_first = '<p class="alert-info" id="no_embed"><span> PLEASE WAIT <br> THE BOOK IS LOADING... </span>';
 text_alert.innerHTML = text_first;
+
+scene_viewer.style.left = "12px";
 
 function alertNotFound() {
   var text = '<p class="alert-info" id="no_embed"><span> COULD NOT EMBED <br> THE BOOK TITLE: </span> <br><br> <span style="font-size: 26px; line-height: 26px; color: rgba(60, 60, 240, 0.9);" id="title_alert"> "{{book.title}}" </span></p> <br><p style="font-size: 24px;"> try button below </p>';
     text_alert.innerHTML = text;
-  // alert_frame.innerHTML = text;
   }
  
 function alertFound() {
   var text = '<p class="alert-info" id="yes_embed"><span style="animation:anime_red_text 2s infinite;"> EMBED <br> THE BOOK TITLE: </span> <br><br> <span style="font-size: 28px; line-height: 26px; color: rgba(60, 60, 240, 0.9);" id="title_alert"> "{{book.title}}" </span></p> <br> <p style="font-size: 24px; color: rgba(200, 200, 240, 0.8); border: 4px solid rgba(200, 200, 240, 0.8)"> click to read </p>';
   text_alert.innerHTML = text;
-  // document.querySelector('#viewerCanvas > div > div:nth-child(2)').style.display = "none";
-  //document.querySelector("#viewerCanvas > div > div:nth-child(1) > div:nth-child(2) > a").style.display = "none";
   document.querySelector('#viewerCanvas > div > div:nth-child(2)').style.visibility = "hidden";
   document.querySelector("#viewerCanvas > div > div:nth-child(1) > div:nth-child(2) > a > div").style.visibility = "hidden";
-
-/*  document.querySelector("#viewerCanvas > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(2)").style.backgroundImage = "linear-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.6))";
-  document.querySelector("#viewerCanvas > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(9)").classList.add(".class_viewerCanvas_part");
-  document.querySelector("#viewerCanvas > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(10)").classList.add(".class_viewerCanvas_part");
-  document.querySelector("#viewerCanvas > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(11)").classList.add(".class_viewerCanvas_part");
-  document.querySelector("#viewerCanvas > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(12)").classList.add(".class_viewerCanvas_part"); */
   } 
   
   
@@ -655,7 +641,6 @@ function viewerZoomOut(bookViewer) {
 
 function initialize() {
   var display_options = {showLinkChrome: false};
-  // var viewerDiv = document.getElementById('viewerCanvas');
   const bookViewer = new google.books.DefaultViewer(book_viewer, display_options);
   bookViewer.load('{{book.google_id}}', alertNotFound, alertFound);
   viewerZoomIn(bookViewer);
@@ -671,21 +656,9 @@ h720px_w500px.onclick = function() {
   card_viewer_id.style.width = "510px"; 
   book_viewer.style.height = "680px";
   book_viewer.style.width = "490px";
-/*   book_viewer.children.style.height = "680px";
-  book_viewer.children.style.width = "490px"; */
-
-/*   document.querySelector("#viewerCanvas > div > div:nth-child(1) > div.overflow-scrolling").style.height = "680px";
-  document.querySelector("#viewerCanvas > div > div:nth-child(1) > div.overflow-scrolling").style.width = "490px"; 
-  function initialize_1() {
- const new_viewer_1 =  new google.books.DefaultViewer(book_viewer);
- new_viewer_1.load('{{book.google_id}}', alertNotFound, alertFound); 
-  }
-  google.books.setOnLoadCallback(initialize_1); */
   initialize();
   google.books.setOnLoadCallback(initialize); 
 }
-
-
 
 h800px_w600px.onclick = function() {
   scene_viewer.style.height = "770px";
@@ -694,73 +667,44 @@ h800px_w600px.onclick = function() {
   card_viewer_id.style.width = "560px"; 
   book_viewer.style.height = "750px";
   book_viewer.style.width = "540px";
-
- /* document.querySelector("#viewerCanvas > div > div:nth-child(1) > div.overflow-scrolling").style.height = "750px";
-  document.querySelector("#viewerCanvas > div > div:nth-child(1) > div.overflow-scrolling").style.width = "540px"; 
-  function initialize_2() {
- const new_viewer_2 =  new google.books.DefaultViewer(book_viewer);
- new_viewer_2.load('{{book.google_id}}', alertNotFound, alertFound); 
-  }
-  google.books.setOnLoadCallback(initialize_2); */
-
   initialize();
   google.books.setOnLoadCallback(initialize); 
   }
 
-  
 h920px_w640px.onclick = function() {
   scene_viewer.style.height = "900px";
   scene_viewer.style.width = "720px";
-  // scene_viewer.style.width = "650px";
   card_viewer_id.style.height = "900px";
   card_viewer_id.style.width = "720px";
-  // card_viewer_id.style.width = "650px";
   book_viewer.style.height = "880px";
   book_viewer.style.width = "700px";
-  //book_viewer.style.width = "630px";
-  /*document.querySelector("#viewerCanvas > div > div:nth-child(1) > div.overflow-scrolling").style.height = "880px";
-  document.querySelector("#viewerCanvas > div > div:nth-child(1) > div.overflow-scrolling").style.width = "700px"; 
-  function initialize_3() {
-    const new_viewer_3 =  new google.books.DefaultViewer(book_viewer);
-    new_viewer_3.load('{{book.google_id}}', alertNotFound, alertFound); 
-     }
-     google.books.setOnLoadCallback(initialize_3); */
-
     initialize();
     google.books.setOnLoadCallback(initialize); 
   } 
 
-  start_size.onclick = function() {
-    scene_viewer.style.height = "620px";
-    scene_viewer.style.width = "460px";
-    // scene_viewer.style.width = "650px";
-    card_viewer_id.style.height = "620px";
-    card_viewer_id.style.width = "460px";
-    // card_viewer_id.style.width = "650px";
-    book_viewer.style.height = "600px";
-    book_viewer.style.width = "440px";
-    //book_viewer.style.width = "630px";
+start_size.onclick = function() {
+  scene_viewer.style.left = "0px";
+  scene_viewer.style.height = "620px";
+  scene_viewer.style.width = "460px";
+  card_viewer_id.style.height = "620px";
+  card_viewer_id.style.width = "460px";
+  book_viewer.style.height = "600px";
+  book_viewer.style.width = "440px";
   
 initialize();
     google.books.setOnLoadCallback(initialize); 
   }
 
 full_size.onclick = function() {
+  scene_viewer.style.left = "0px";
   scene_viewer.style.width = "100%";
   var scene_clientWidth = scene_viewer.clientWidth;
   scene_viewer.style.height = scene_clientWidth * 1.35 + "px";
   var scene_clientHeight = scene_viewer.clientHeight;
   card_viewer_id.style.width = scene_clientWidth -10 + "px";
   card_viewer_id.style.height = scene_clientHeight -10 + "px";
-  // card_viewer_id.style.width = scene_viewer.clientWidth + "px";
-  // scene_viewer.style.height = scene_viewer.clientWidth * 1.35 + "px";
-  // card_viewer_id.style.height = scene_clientWidth * 1.35 + "px";
-  // card_viewer_id.style.height = scene_viewer.clientWidth * 1.35 + "px";
-
   book_viewer.style.width = scene_clientWidth - 30 + "px";
-  // book_viewer.style.width = scene_viewer.clientWidth - 20 + "px";
   book_viewer.style.height = scene_clientHeight - 30 + "px";
-  // book_viewer.style.height = scene_viewer.clientWidth * 1.35 - 20 + "px";
   initialize();
   google.books.setOnLoadCallback(initialize); 
   } 
@@ -774,121 +718,47 @@ function changeBack() {
 card_viewer_id.insertBefore(card_front, card_viewer_id.children[0]);
   }
 
-  full_screen.onclick = function() {
+const fullScreenBook = function() {
+  scene_viewer.requestFullscreen();
+  scene_viewer.style.left = "0px";
+  scene_viewer.setAttribute('data-title', "fullscreen");
+  // let text_2 = scene_viewer.getAttribute('data-title');
+  // data_reader.innerHTML = "text_2 " + text_2;
+  var full_screen_height = screen.availHeight;
+  var full_screen_width = document.body.offsetWidth;
   
- /* if (full_screen.textContent == "open fullscreen") { */
+  scene_viewer.style.height = full_screen_height + "px";
+  scene_viewer.style.width = full_screen_width + "px";
+  
+  card_viewer_id.style.height = full_screen_height + "px";
+  card_viewer_id.style.width = full_screen_width + "px";
+  book_viewer.style.width = full_screen_width - 20 + "px";
+  book_viewer.style.height = full_screen_height - 20 + "px";
+  initialize();
+  google.books.setOnLoadCallback(initialize);
+  }
+
+ full_screen.onclick = function() { 
     if (scene_viewer.requestFullscreen) {
-      scene_viewer.requestFullscreen();
-    //  card_viewer_id.style.width = "100%";
-    //  card_viewer_id.style.height = "100%";
-    card_viewer_id.style.width = screen.availWidth;
-    card_viewer_id.style.height = screen.availHeight;
-    setTimeout(function(){
-    //  var scene_viewer_width = scene_viewer.clientWidth;
-    //  var scene_viewer_width = scene_viewer.clientHeight;
-    //  width_px.innerHTML = scene_viewer_width;
-    //  var frame_viewer_width = card_viewer_id.clientWidth;
-    //  var frame_viewer_height = card_viewer_id.clientHeight;
-    //  var book_viewer_width = frame_viewer_width - 20 + "px";
-      
-   //   var book_viewer_height = frame_viewer_height - 20 + "px";
-
-   //   book_viewer.style.width = book_viewer_width;
-   //   book_viewer.style.height = book_viewer_height;
-
-      var scene_viewer_width = scene_viewer.clientWidth;
-      var scene_viewer_width = scene_viewer.clientHeight;
-      width_px.innerHTML = scene_viewer_width;
-      var frame_viewer_width = card_viewer_id.clientWidth;
-      var frame_viewer_height = card_viewer_id.clientHeight;
-      var book_viewer_width = frame_viewer_width - 20 + "px";
-      
-      var book_viewer_height = frame_viewer_height - 20 + "px";
-
-      book_viewer.style.width = book_viewer_width;
-      book_viewer.style.height = book_viewer_height;
-      initialize();
-      google.books.setOnLoadCallback(initialize);
-     }, 1000);
-     fullSizeBook();
-     
+     scene_viewer.requestFullscreen();
+      fullScreenBook();
     } 
+   
     else if (scene_viewer.msRequestFullscreen) {
-      // changeFront();
       scene_viewer.msRequestFullscreen();
+      fullScreenBook();
     } 
     else if (scene_viewer.mozRequestFullScreen) {
-      // changeFront();
       scene_viewer.mozRequestFullScreen();
-      // card_viewer_id.style.width = "100%";
-      card_viewer_id.style.width = screen.availWidth;
-      card_viewer_id.style.height = screen.availHeight;
+      fullScreenBook();
     }
     else if(scene_viewer.webkitRequestFullscreen) {
-      // changeFront();
       scene_viewer.webkitRequestFullscreen();
-      // card_viewer_id.style.width = "100%";
-      card_viewer_id.style.width = screen.availWidth;
-      card_viewer_id.style.height = screen.availHeight;
+      fullScreenBook();
     }
- //   full_screen.textContent = "open fullscreen";
-    
 }
 
-// else {
-  document.stopPropagation();
-
-    if (document.exitFullscreen) {
-      
-        document.exitFullscreen();  
-       // document.addEventListener("fullscreenchange", function() {
-          // book_viewer.style.dispalay = "none";
-           fullSizeBook();
-         // location.reload();
-// });        
-          
-    }
-    else if(document.msexitFullscreen) {
-      //  changeBack();
-        document.msexitFullscreen();
-    }
-    else if(document.mozexitFullscreen) {
-      //  changeBack();
-        document.mozexitFullscreen();
-    }
-    else if(document.webkitexitFullscreen) {
-      //  changeBack();
-        document.webkitexitFullscreen();
-    }
-
-//   full_screen.textContent = "open fullscreen";
-   
-// }  
-
-//  }
-// 
-function fullSizeBook() {
-  scene_viewer.style.width = "100%";
-  var scene_clientWidth = scene_viewer.clientWidth;
-  scene_viewer.style.height = scene_clientWidth * 1.35 + "px";
-  var scene_clientHeight = scene_viewer.clientHeight;
-  card_viewer_id.style.width = scene_clientWidth -10 + "px";
-  card_viewer_id.style.height = scene_clientHeight -10 + "px";
-  // card_viewer_id.style.width = scene_viewer.clientWidth + "px";
-  // scene_viewer.style.height = scene_viewer.clientWidth * 1.35 + "px";
-  // card_viewer_id.style.height = scene_clientWidth * 1.35 + "px";
-  // card_viewer_id.style.height = scene_viewer.clientWidth * 1.35 + "px";
-
-  book_viewer.style.width = scene_clientWidth - 54 + "px";
-  // book_viewer.style.width = scene_viewer.clientWidth - 20 + "px";
-  book_viewer.style.height = scene_clientHeight - 30 + "px";
-  // book_viewer.style.height = scene_viewer.clientWidth * 1.35 - 20 + "px";
-  initialize();
-  google.books.setOnLoadCallback(initialize); 
-}
-
-
-function middleSizeBook() { 
+const middleSizeBook = function() { 
   scene_viewer.style.height = "700px";
   scene_viewer.style.width = "510px";
   card_viewer_id.style.height = "700px";
@@ -897,18 +767,110 @@ function middleSizeBook() {
   book_viewer.style.width = "490px";
 initialize();
 book_viewer.style.display = "block";
-  google.books.setOnLoadCallback(initialize); ;
-  
+  google.books.setOnLoadCallback(initialize); 
 } 
- 
-/* if (full_screen.textContent == "open fullscreen") {
-    full_screen.onchange = function() {
-      changeFront();
-    } else {
-      full_screen.onchange = function() {
-      changeBack();
-    }
-} */
+
+/*
+const func_resize = function() {
+  window.addEventListener("resize", function() {
+  scene_viewer.style.height = "620px";
+  scene_viewer.style.width = "460px";
+  // scene_viewer.style.width = "650px";
+  card_viewer_id.style.height = "620px";
+  card_viewer_id.style.width = "460px";
+  // card_viewer_id.style.width = "650px";
+  book_viewer.style.height = "600px";
+  book_viewer.style.width = "440px";
+  initialize();
+  google.books.setOnLoadCallback(initialize);    
+}) 
+}
+*/
+
+ /*
+const checkData = function() { 
+  let text = scene_viewer.getAttribute("data-title");
+  if (text = "nofullscreen") {  
+   document.addEventListener("fullscreenchange", function() {
+   // scene_viewer.onfullscreenchange = function() {
+    // let text = scene_viewer.getAttribute("data-title");
+   // if (text === "nofullscreen") {
+      setTimeout(function(){
+        scene_viewer.style.height = "620px";
+        scene_viewer.style.width = "460px";
+        // scene_viewer.style.width = "650px";
+        card_viewer_id.style.height = "620px";
+        card_viewer_id.style.width = "460px";
+        // card_viewer_id.style.width = "650px";
+        book_viewer.style.height = "600px";
+        book_viewer.style.width = "440px";
+        initialize();
+        google.books.setOnLoadCallback(initialize);
+       }, 2000);
+       scene_viewer.setAttribute("data-title", "nofullscreen")  
+   //   }
+    });
+  }
+  } 
+
+ const func_change = scene_viewer.addEventListener("change", checkData)
+  */
+
+ // let text_3a = scene_viewer.getAttribute("data-title");
+ // data_reader.innerHTML = "text_3a " + text_3a;
+
+  const var_endFullScreen = function() {
+    let text_4 = scene_viewer.getAttribute("data-title");
+    // data_reader.innerHTML = "text_4_1 " + text_4;
+    if (!document.fullscreenElement && text_4 === "fullscreen") { 
+    setTimeout(function(){
+       scene_viewer.style.left = "12px";
+      scene_viewer.style.height = "620px";
+      scene_viewer.style.width = "460px";
+      // scene_viewer.style.width = "650px";
+      card_viewer_id.style.height = "620px";
+      card_viewer_id.style.width = "460px";
+      // card_viewer_id.style.width = "650px";
+
+      book_viewer.style.height = "600px";
+      book_viewer.style.width = "440px";
+      initialize();
+      google.books.setOnLoadCallback(initialize);
+     }, 1000);
+    } 
+  }
+
+
+scene_viewer.addEventListener("fullscreenchange", var_endFullScreen);
+
+scene_viewer.addEventListener("mozfullscreenchange", func_endFullScreen);
+
+scene_viewer.addEventListener("webkitfullscreenchange", function() {
+  var_endFullScreen();
+});
+scene_viewer.addEventListener("msfullscreenchange", function() {
+  func_endFullScreen();
+});
+
+function func_endFullScreen() {
+  let text_4 = scene_viewer.getAttribute("data-title");
+  data_reader.innerHTML = "text_4_1 " + text_4;
+  if (!document.fullscreenElement && text_4 === "fullscreen") { 
+  setTimeout(function(){
+    scene_viewer.style.height = "620px";
+    scene_viewer.style.width = "460px";
+    // scene_viewer.style.width = "650px";
+    card_viewer_id.style.height = "620px";
+    card_viewer_id.style.width = "460px";
+    // card_viewer_id.style.width = "650px";
+
+    book_viewer.style.height = "600px";
+    book_viewer.style.width = "440px";
+    initialize();
+    google.books.setOnLoadCallback(initialize);
+   }, 1000);
+  } 
+} 
 </script>
 
 <script>
