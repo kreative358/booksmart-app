@@ -1421,16 +1421,33 @@ const selectes = document.querySelectorAll('#search_bar select');
 // const selectes = document.querySelectorAll('#search_bar select'); 
 
 
-if (
-  navigator.userAgent.match(/Android/i) ||
-  navigator.userAgent.match(/iPhone/i)
-) {
-  let select_focus = document.querySelector("#search_bar select:focus");
-  select_focus.style.position = "relative";
-  select_focus.style.marginTop = 6 + "px";
-  select_focus.style.boxShadow = "0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,0px 0px 0px 2px rgba(220, 220, 240, 0.4)";
-  select_focus.style.maxWidth = "80%";
-}  
+
+  if (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/iPhone/i)
+  ) {
+    for (const selekt of selectes) {
+      selekt.addEventListener('focus', (event) => {
+      event.target.style.boxShadow = "0px 0px 0px 2px rgba(10, 115, 230, 0.9) inset,0px 0px 0px 2px rgba(220, 220, 240, 0.9)"
+      event.target.style.position = "relative";
+      event.target.style.height = "32px";
+      event.target.style.marginTop = "6px";
+      event.target.style.width = "90%";
+      event.target.style.left = "-4px";
+      event.target.style.paddingLeft = "4px";
+      })
+        selekt.addEventListener('blur', (event) => {
+       event.target.style.left = "0px";
+       event.target.style.boxShadow = "0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,0px 0px 0px 2px rgba(220, 220, 240, 0.4)"
+       event.target.style.position = "relative";
+        })
+       selekt.addEventListener('change', (event) => {
+        event.target.style.left = "0px";
+       event.target.style.boxShadow = "0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,0px 0px 0px 2px rgba(220, 220, 240, 0.4)"
+       event.target.style.position = "relative";
+       })
+      }
+      }  
 
 else {
  for (const selekt of selectes) {
