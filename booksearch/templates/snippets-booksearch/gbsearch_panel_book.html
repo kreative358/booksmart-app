@@ -1199,7 +1199,7 @@ if (
     let arrow_down = "<span class='arrow-down'> </span>";
     selekt.addEventListener('focus', (event) => {
    // event.target.style.marginTop = "0px;";
-    event.target.style.marginTop = "-44px;";
+   event.target.querySelector('option:first-of-type').style.marginTop = "0px";
     })
 }  
 }
