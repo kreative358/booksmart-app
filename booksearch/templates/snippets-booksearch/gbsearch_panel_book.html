@@ -1197,7 +1197,10 @@ if (
 ) {
   for (const selekt of selectes) {
     let arrow_down = "<span class='arrow-down'> </span>";
-    selekt.size = 1;
+    selekt.addEventListener('focus', (event) => {
+    event.target.style.marginTop = "0px;";
+  //  event.target.style.marginTop = "46px;";
+    })
 }  
 }
 

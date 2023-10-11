@@ -1424,7 +1424,9 @@ if (
     if (selekt.parentNode.className === "form-group") {
     selekt.insertAdjacentHTML("afterend", triangle);
     };
-selekt.size = 1;
+    selekt.addEventListener('focus', (event) => {
+      event.target.marginTop = "0px";
+  })
 }  
 }
 
