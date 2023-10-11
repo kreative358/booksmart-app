@@ -1100,9 +1100,16 @@ margin-right: 40px;
 
     #search_bar label,
     .span_checked {
-      font-size: 20px;
+      font-size: 22px;
       }
   }
+
+  @media screen and (max-width: 720px) {
+    input[type=checkbox] {
+      margin-right: 18vw;    
+         } 
+  }
+
 
 @media screen and (max-width: 640px) {
 #search_column {
@@ -1112,13 +1119,9 @@ max-width: 92%;
 
 #search_bar label,
 .span_checked {
-  font-size: 18px;
+  font-size: 20px;
   }
- 
 
-input[type=checkbox] {
- margin-right: 18vw;    
-    }
 
 #search_bar select:focus {
   
@@ -1395,6 +1398,7 @@ btn_collapse.onclick = function() {
   // var texts = document.getElementsByClassName("text");
   // var test_label = document.getElementById("test_label");
   
+  
   for (const element of elements) {
     let text_checked = '<span class="span_checked" style="font-weight: bold; color:green;"> - checked </span>';
     let text_label = element.nextElementSibling.innerText;
@@ -1410,6 +1414,21 @@ btn_collapse.onclick = function() {
 const selectes = document.querySelectorAll('#search_bar select');
 // const selectes = document.querySelectorAll('#search_bar select'); 
 
+
+if (
+  navigator.userAgent.match(/Android/i) ||
+  navigator.userAgent.match(/iPhone/i)
+) {
+  for (const selekt of selectes) {
+    let triangle = "<span class='triangle-down'> </span>";
+    if (selekt.parentNode.className === "form-group") {
+    selekt.insertAdjacentHTML("afterend", triangle);
+    };
+selekt.size = 1;
+}  
+}
+
+else {
  for (const selekt of selectes) {
   let triangle = "<span class='triangle-down'> </span>";
   if (selekt.parentNode.className === "form-group") {
@@ -1449,6 +1468,7 @@ event.target.insertAdjacentHTML("afterend", triangle);
  }
  });  
   
+}
 }
 
 
@@ -1546,8 +1566,6 @@ let date_start = flatpickr("#input_date_start", {
         }),
        ]   
          });
- 
-  
     
      //var btn_authorbook = document.getElementById("button_1{{book_dict.author_c.wiki_idx}}");
   

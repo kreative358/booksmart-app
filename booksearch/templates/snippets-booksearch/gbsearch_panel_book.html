@@ -1159,14 +1159,8 @@
       </div>
 
 
-
-                       
-
       <script>
      
-    
-
-
         let btn_collapse_gbsp = document.getElementById("btn_collapsible_gbsp");
         let container_collapse_gbsp = document.getElementById("body_spgb");
         
@@ -1196,6 +1190,18 @@
 
 // const selectes = document.getElementsByTagName('select'); #search_card_gb
 const selectes = document.querySelectorAll("#search_card_gb select");
+
+if (
+  navigator.userAgent.match(/Android/i) ||
+  navigator.userAgent.match(/iPhone/i)
+) {
+  for (const selekt of selectes) {
+    let arrow_down = "<span class='arrow-down'> </span>";
+    selekt.size = 1;
+}  
+}
+
+else {
  for (const selekt of selectes) {
 let arrow_down = "<span class='arrow-down'> </span>";
  selekt.addEventListener('mousemove', (event) => {
@@ -1227,6 +1233,7 @@ let arrow_down = "<span class='arrow-down'> </span>";
  }
  });  
   
+}
 }
 
 //  include "snippets-booksearch/my_select_widget_new.html" 

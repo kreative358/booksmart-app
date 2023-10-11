@@ -360,7 +360,6 @@ class SearchRecord(forms.ModelForm):
         ('de', 'German'),
         ('pl', 'Polish'),
         ('pe', 'Portuguese'),
-        ('ru', 'Russian'),
         ('es', 'Spanish'),
         ('uk', 'Ukrainian')
     )
