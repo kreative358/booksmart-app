@@ -908,11 +908,32 @@
   </style>
 
   <style>
+    @media screen and (max-width: 820px) {
+      .mycontainer_search_gb {
+    max-width: 92%; 
+    }
+    .collapsible_gbsp  {
+     
+    }
+  }
+
+      @media screen and (max-width: 720px) {
+      .mycontainer_search_gb {
+    max-width: 94%; 
+    }
+    .collapsible_gbsp  {
+      font-size: 26px
+    }
+  }
+
 
     @media screen and (max-width: 640px) {
       .mycontainer_search_gb {
-    max-width: 92%; 
-    
+
+    }
+
+    .collapsible_gbsp  {
+      font-size: 24px
     }
     
     input[type=checkbox] {
@@ -950,17 +971,19 @@
     }
        
        
-    @media screen and (max-width: 580px) {
+    @media screen and (max-width: 560px) {
     
       .mycontainer_search_gb {
-    
-    max-width: 94%; 
-    
+    max-width: 96%;
     }
-    
+
+    .collapsible_gbsp  {
+      font-size: 22px
+    }
     #search_card_gb label {
     font-size: 20px;
     }
+
 
    
        
@@ -1064,25 +1087,19 @@
    
        }
 
-       @media screen and (max-width: 560px) {
-        #h3_id_gb {
-          font-size: 28px; 
-        }
-    
-        #h4_id_gb {
-          font-size: 24px; 
-        }
-      }
+ 
 
     @media screen and (max-width: 480px) {
     
    .mycontainer_search_gb {
-    
     max-width: 98%; 
     left: 0px;
-    
     }
-    
+
+    .collapsible_gbsp  {
+      font-size: 18px
+    }
+
     input[type=checkbox] {
     margin-right: 1.2vw;
     
@@ -1140,8 +1157,8 @@
     <div class="mycard_gb" id="search_card_gb">
 
 <div id="btn_collapsible_gbsp">      
-<div class="collapsible_gbsp" id="tooltip" id="h4_id_gb">
-  SEARCH PANEL for GOOGLE BOOKS<span id="tooltiptext">SEARCH BOOKS IN GOOGLE BOOKS USING DETAILS PRESS TO EXPAND OR UNEXPAND PANEL</span></div>
+<div class="collapsible_gbsp" id="tooltip"><span class="span_search">
+  SEARCH PANEL for GOOGLE BOOKS</span><span id="tooltiptext">SEARCH BOOKS IN GOOGLE BOOKS USING DETAILS PRESS TO EXPAND OR UNEXPAND PANEL</span></div>
 </div>
 <div id="body_spgb" class="collapse_search_panel">
 
@@ -1201,25 +1218,30 @@ if (
     event.target.style.position = "relative";
     event.target.style.height = "34px";
     event.target.style.marginTop = "6px";
- //   event.target.style.width = "90%";
-  //  event.target.style.left = "-4px";
+    event.target.style.minWidth = "90%";
+    event.target.style.left = "2px";
     event.target.style.paddingLeft = "4px";
     })
       selekt.addEventListener('blur', (event) => {
     // event.target.style.left = "0px";
      event.target.style.boxShadow = "0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,0px 0px 0px 2px rgba(220, 220, 240, 0.4)";
      event.target.style.position = "relative";
+     event.target.style.minWidth = "90%";
+     event.target.style.left = "2px";
       })
      selekt.addEventListener('change', (event) => {
    //   event.target.style.left = "0px";
      event.target.style.boxShadow = "0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,0px 0px 0px 2px rgba(220, 220, 240, 0.4)";
      event.target.style.position = "relative";
+     event.target.style.minWidth = "90%";
+     event.target.style.left = "2px";
      })
      selekt.addEventListener('click', (event) => {
       if (event.target === selekt.children[0]) {
-        event.target.style.left = "0px";
+        event.target.style.left = "2px";
         event.target.style.boxShadow = "0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,0px 0px 0px 2px rgba(220, 220, 240, 0.4)"
         event.target.style.position = "relative";
+         event.target.style.minWidth = "90%";
       }
       })
     }
