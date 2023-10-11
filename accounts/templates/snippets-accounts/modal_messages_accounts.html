@@ -37,13 +37,14 @@ animation:noname;
   /* Modal Content */
   #modal_cont_messages_accounts,
   [id^="modal_cont_messages_"] {
-  position: fixed;
+  position: relative;
   z-index:88;
   display:none;
-  left: 50%;
+  
   top:60px;
   margin-left: -280px;
   width: 560px;
+  max-width: 94%;
   background: rgba(60, 160, 240, 0.4);
   /*
   display:none;
@@ -53,8 +54,8 @@ animation:noname;
   text-align: center;
   font-weight: bold;*/
   border-radius: 4px;
+  margin: auto;
   box-shadow: 
-  
   0px 0px 10px 10px rgba(160, 170, 180, 0.4),
   0px 10px 20px 0px rgba(160, 170, 180, 0.4),
   -6px 0px 16px 0px rgba(160, 170, 180, 0.4),
@@ -404,7 +405,7 @@ text-align:center;
 </style>
 
 <div id="mymodal_messages" class="my_modal_messages_accounts">
-</div>
+
 <!-- Modal content -->
 <div class="mycontainer" id="modal_cont_messages_accounts">
 
@@ -455,6 +456,7 @@ text-align:center;
   
 </div>
 
+</div>
 
 <script>
 console.clear()

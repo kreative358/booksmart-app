@@ -289,14 +289,14 @@ input[type=checkbox]:checked:after {
   width: 9px;
   height: 15px;
   border: solid lightgreen;
-  border-width: 0 5px 5px 0;
+  border-width: 0 6px 6px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   position: absolute;
   /*position: fixed;*/
-  top: 0px;
-  left: 5px;
+  top: -3px;
+  left: 3px;
   z-index: 24;
 }
 
@@ -1092,11 +1092,29 @@ margin-right: 40px;
     left: -4px;
   }
 
+@media screen and (max-width: 820px) {
+  #id_form_search > div:nth-child(1) label,
+  #id_form_search > div:nth-child(2) label {
+  padding-left: 1vw;
+  }
+
+    #search_bar label,
+    .span_checked {
+      font-size: 20px;
+      }
+  }
+
 @media screen and (max-width: 640px) {
 #search_column {
 max-width: 92%; 
 
 }
+
+#search_bar label,
+.span_checked {
+  font-size: 18px;
+  }
+ 
 
 input[type=checkbox] {
  margin-right: 18vw;    
@@ -1140,17 +1158,14 @@ max-width: 94%;
 
 }
 
-#search_bar label {
-font-size: 20px;
+#search_bar label,
+.span_checked {
+font-size: 16px;
 }
    input[type=checkbox] {
   margin-right: 12vw;
    }
    
-   #id_form_search > div:nth-child(1) label,
-   #id_form_search > div:nth-child(2) label {
-   padding-left: 1vw;
-   }
 
 #search_bar input[type="text"], 
 #search_bar input[type="date"] {
@@ -1381,7 +1396,7 @@ btn_collapse.onclick = function() {
   // var test_label = document.getElementById("test_label");
   
   for (const element of elements) {
-    let text_checked = '<span style="font-weight: bold; color:green;"> - checked </span>';
+    let text_checked = '<span class="span_checked" style="font-weight: bold; color:green;"> - checked </span>';
     let text_label = element.nextElementSibling.innerText;
     element.addEventListener('click', () => {
      if (element.checked == true){
