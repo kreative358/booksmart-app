@@ -27,6 +27,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
+from django.template.loader import render_to_string
+
 UserModel = get_user_model()
 
 
@@ -210,12 +212,14 @@ class PasswordContextMixin:
 
 
 class PasswordResetView(PasswordContextMixin, FormView):
-    email_template_name = 'registrations/password_reset_email.html'
+    # email_template_name = 'registrations/password_reset_email.html'
+    email_template_name = None
     extra_email_context = None
     form_class = PasswordResetForm
     from_email = None
     # from_email = 'booksmartapp358@gmail.com'
-    html_email_template_name = None
+    # html_email_template_name = None
+    html_email_template_name = 'registrations/password_reset_email.html'
     subject_template_name = 'registrations/password_reset_subject.txt'
     success_url = reverse_lazy('password_reset_done')
     template_name = 'registrations/password_reset_form.html'
@@ -237,6 +241,7 @@ class PasswordResetView(PasswordContextMixin, FormView):
             'html_email_template_name': self.html_email_template_name,
             'extra_email_context': self.extra_email_context,
         }
+        print(f"\nopts: {opts}\n")
         form.save(**opts)
         
         return super().form_valid(form)
