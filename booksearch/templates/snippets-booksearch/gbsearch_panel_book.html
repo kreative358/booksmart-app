@@ -1195,14 +1195,12 @@ if (
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/iPhone/i)
 ) {
-  for (const selekt of selectes) {
-    let arrow_down = "<span class='arrow-down'> </span>";
-    selekt.addEventListener('focus', (event) => {
-   // event.target.style.marginTop = "0px;";
-   event.target.querySelector('option:first-of-type').style.marginTop = "0px";
-    })
+  let select_focus = document.querySelector("#search_bar select:focus")
+  select_focus.style.position = "relative";
+  select_focus.style.marginTop = 0 + "px";
+
 }  
-}
+
 
 else {
  for (const selekt of selectes) {
