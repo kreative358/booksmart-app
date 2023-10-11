@@ -157,7 +157,7 @@ bottom:  1px;
 /*  margin-left: 104px;
   border: 2px solid red; */
 width: 90%;
-  postion: relative;
+  position: relative;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -195,7 +195,7 @@ margin-bottom: -2px;
 margin-left: -50px; */
 z-index: 23;
 flex: 0 1 30%;
-margin-right: 100px;
+margin-right: 86px;
 }
 
 input[type=checkbox]:hover {
@@ -295,8 +295,8 @@ input[type=checkbox]:checked:after {
   transform: rotate(45deg);
   position: absolute;
   /*position: fixed;*/
-  top: -3px;
-  left: 3px;
+  top: 0px;
+  left: 5px;
   z-index: 24;
 }
 
@@ -1088,7 +1088,7 @@ margin-right: 40px;
 
 <style>
   #search_bar select:focus {
-    outline: 2px solid blue;
+  /*  outline: 2px solid blue; */
     left: -4px;
   }
 
@@ -1102,12 +1102,18 @@ margin-right: 40px;
     .span_checked {
       font-size: 22px;
       }
+
   }
 
   @media screen and (max-width: 720px) {
     input[type=checkbox] {
-      margin-right: 18vw;    
+      margin-right: 14vw;    
          } 
+
+         input[type=checkbox]:checked:after {
+           top: 0px;
+           left: 6px;
+         }
   }
 
 
@@ -1425,7 +1431,7 @@ if (
     selekt.insertAdjacentHTML("afterend", triangle);
     };
     selekt.addEventListener('focus', (event) => {
-      event.target.marginTop = "0px";
+      event.target.marginTop = "-44px";
   })
 }  
 }
