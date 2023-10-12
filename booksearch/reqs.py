@@ -34,7 +34,7 @@ def req_book(book, founded_books_number):
         book_dict['title'] = "unknown"
 
     try:
-        author = " ".join(re.sub(r"\([^()]*\)", "", book['volumeInfo']['authors'][0].title()).split())
+        author = " ".join(re.sub(r"\([^()]*\)", "", book['volumeInfo']['authors'][0].title().replace(".", ".  ").replace(".  ", ". ").replace("  ", " ")).split())
         book_dict['author'] = f'{author}'
         book_dict['surname'] = f'{author.split()[-1]}'
         # book_dict['author_link'] =  f"https://{book['volumeInfo']['language']}.wikipedia.org/wiki/{author.replace(' ', '_')}"

@@ -48,6 +48,9 @@ context_main = {}
 context_main['no_date'] = datetime.date(3000, 1, 1)
 context_main['url_img_book'] = url_img
 context_main['url_img_author'] = url_img_author
+context_main['parameters'] = ""
+context_main['message'] = ""
+context_main['values'] = ""
 
 try:
     if Book.objects.all():
@@ -510,7 +513,7 @@ def books_author(request):
     context['values'] = values
 
     filtered_books = books_result
-    paginated_filtered_books = Paginator(filtered_books, 5)  
+    paginated_filtered_books = Paginator(filtered_books, 10)  
     # filtered_books.qs
     page_number = request.GET.get('page')
     book_page_obj = paginated_filtered_books.get_page(page_number)
@@ -969,69 +972,51 @@ class RecordsView(APIView):
             # print("list(set(search_resultB.values_list('surname')))", list(set(search_resultB.values_list('surname'))))
             search_resultAb = allauthors_dict.filter(
             #search_resultA = all_authors.filter(
-                Q(author_name__contains=search_phrase) |
+                Q(author_name__contains=search_phrase.capitalize()) |
                 Q(owner__username__contains=search_phrase)
             )
-
+            print('search_resultAb =', search_resultAb)
             # search_result = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
 
             # search_word = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
             # search_result = all_books.filter(title__icontains=title, author__icontains=author, google_id=google_id, language=language, published__gte=published_start, published_lte=pbulished_end)
 
-            authors_result_queryset_post = []
-            authors_result_list_post = []
-            if search_resultB:
-                for record_b in search_resultB:
-                    try:
-                        print("record.author =", record_b.surname)
-                        record_author = record_b.author
-                        search_surname = record_author.split()
-                        authors_result_list_post.append(search_surname[-1])
-                        # search_resultAa = allauthors_dict.filter(Q(author_name__contains=search_phrase))
-                    except Exception as e:
-                        print(f"exception: {e}")
+            
+            search_resultA = []
+            if search_resultB and search_resultAb:
+                search_resultAb_list = [author_resultAb for author_resultAb in search_resultAb]
+                list_authors_search_resultB = list(set(record_b.surname for record_b in search_resultB))
+                if len(list_authors_search_resultB) == 1:
+                    search_resultA_1 = allauthors_dict.filter(last_name=list_authors_search_resultB[0]) 
+                    if search_resultA_1:
+                        search_resultA = list(set(search_resultAb_list + search_resultA_1))
+                    else:
+                        search_resultA = search_resultAb_list
+                elif len(list_authors_search_resultB) > 1:
+                    search_resultA_1 = [Author.objects.filter(last_name__iexact=author_found_post).last() for author_found_post in list_authors_search_resultB if Author.objects.filter(last_name__iexact=author_found_post).last()]
+                    
+                    if search_resultA_1:
+                        search_resultA = list(set(search_resultAb_list + search_resultA_1))
+                    else:
+                        search_resultA = search_resultAb_list
 
-            if search_resultAb:
-                for record_a in search_resultAb:
-                    try:
-                        print("record.author =", record_a.last_name)
-                        record_author = record_a.last_name
-                        search_surname = record_author
-                        authors_result_list_post.append(search_surname)
-                        # search_resultAa = allauthors_dict.filter(Q(author_name__contains=search_phrase))
-                    except Exception as e:
-                        print(f"exception: {e}")
+            elif search_resultB and not search_resultAb:
+                list_authors_search_resultB = list(set(record_b.surname for record_b in search_resultB))
+                if len(list_authors_search_resultB) == 1:
+                    search_resultA_1 = allauthors_dict.filter(last_name=list_authors_search_resultB[0]) 
+                    if search_resultA_1:
+                        search_resultA = search_resultA_1
 
-            authors_result_list_post_set = list(set(authors_result_list_post))
-            # search_resultA_B = [allauthors_dict.filter(Q(author_name__contains=surname)) for surname in search_resultA_b_set]
-            if len(authors_result_list_post_set) > 0:
-                if len(authors_result_list_post_set) == 1:
-                    search_resultA_1 = allauthors_dict.filter(last_name=authors_result_list_post_set[0]) 
-                    search_resultA = search_resultA_1
-                    # if search_resultAb:
-                    #     search_resultA = search_resultAb | search_resultA_1
-                    # else:
-                    #     search_resultA = search_resultA_1
-                elif len(authors_result_list_post_set) > 1:
+                elif len(list_authors_search_resultB) > 1:
                     # if search_resultAb:
                     #     authors_result_queryset_post.append(search_resultAb)
-                    print("authors_result_list_post_set =", authors_result_list_post_set)
-                    for author_found_post in authors_result_list_post_set:
-                        queryset_author_post = Author.objects.filter(last_name__iexact=author_found_post).last()
-                        if queryset_author_post:
-                            authors_result_queryset_post.append(queryset_author_post)
-
-            search_resultA = authors_result_queryset_post
-                #     search_resultA_B = ''.join([f" allauthors_dict.filter(Q(last_name={l_name})) |" for l_name in search_resultA_b_set])
-                #     print("search_resultA_B", search_resultA_B) 
-                #     search_resultA = search_resultAb+eval(search_resultA_B)
-            #         search_resultA = search_resultA + "|".join(allauthors_dict.filter(last_name=l_name) for l_name in search_resultA_b_set)
-            # # search_resultA_B = allauthors_dict.filter(Q(author_name__contains=search_resultA_b_set[0]))
-            # # if search_resultA_B:
-            # #     print("search_resultA_B", search_resultA_B)
-            # # else:
-            # #     print("no search_resultA_B")
-            # # search_resultA = search_resultAb | search_resultA_B
+                    print("list_authors_search_resultB =", list_authors_search_resultB)
+                    search_resultA_1 = [Author.objects.filter(last_name__iexact=author_found_post).last() for author_found_post in list_authors_search_resultB if Author.objects.filter(last_name__iexact=author_found_post).last()]
+                    if search_resultA_1:
+                        search_resultA = search_resultA_1
+                    else:
+                        search_resultA = []
+ 
 
             print('len search_resultB:', len(search_resultB))
             print('len search_resultA:', len(search_resultA))

@@ -231,6 +231,8 @@ def addx_book(request):
 
 
     elif len(parameters_list) == 1:
+        context['parameters'] = ""
+        context['message'] = ""
         if parameters_list[0][0] == 'intitle':
             params_str = f'q={parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"'
             # params_str = f'q="{parameters_list[0][1].replace(" ", "+")}"'
@@ -248,6 +250,8 @@ def addx_book(request):
             return Response(context, template_name='addx_book.html', )
     
     elif len(parameters_list) == 2:
+        context['parameters'] = ""
+        context['message'] = ""
         if parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor':
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}' 
             params_pre_2 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "+")}'
@@ -296,7 +300,8 @@ def addx_book(request):
     
     # parameters_list=[(k, f'{v.replace(" ", "+")}') if type(v) is str and k != 'bookList' else (k, v) for k, v in parameters_list 
     elif len(parameters_list) == 3:
-
+        context['parameters'] = ""
+        context['message'] = ""
         if parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] == 'query' :
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}'
             params_pre_2 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "+")}'  
@@ -366,6 +371,8 @@ def addx_book(request):
 
 
     elif len(parameters_list) > 3:
+        context['parameters'] = ""
+        context['message'] = ""
 
         if parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] == 'query' :
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}' 
@@ -572,7 +579,7 @@ def addx_book(request):
             context['filtered_books'] = filtered_books
             context['num_books_result'] = num_books_result
 
-            paginated_filtered_books = Paginator(filtered_books, 10)  # filtered_books.qs
+            paginated_filtered_books = Paginator(filtered_books, 40)  # filtered_books.qs
             page_number = request.GET.get('page')
             book_page_obj = paginated_filtered_books.get_page(page_number)
             context['book_page_obj'] = book_page_obj

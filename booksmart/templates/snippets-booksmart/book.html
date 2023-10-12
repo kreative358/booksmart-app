@@ -1100,7 +1100,7 @@ color: MediumBlue;
  <div class="glass_book">
   <div>
 
-  <a type="button" class="button_1"  id="button_1_{{book.author_c.id}}" > Author <br> details </a>
+  <a type="button" class="button_1"  id="button_1_{{book.id}}" > Author <br> details </a>
 
   <a type="button" id="button_2_{{book.google_id}}" href="{% url 'booksmart:readbook' book.id %}" target="_blank" class='tooltip_'>Read <br> Book <span class="tooltiptext_"> REMEMBER THAT BOOKS WITH:  EPUB: NO or embeddable: no, AND MANY OTHERS ARE NOT TO READ BECAUSE OF "COPYRIGHT"</span></a>
 
@@ -1163,37 +1163,37 @@ color: MediumBlue;
 
      <br>
 
-      <div class="mymodal_uni_author_book" id="mymodalauthor_bookOverlay_{{ book.author_c.id }}">
+      <div class="mymodal_uni_author_book" id="mymodalauthor_bookOverlay_{{ book.id }}">
     </div>
 
-<div class="container_mymodal_uni_author_book" id="mymodalauthor_bookCont_{{ book.author_c.id }}">
-<div class="column_mymodal_uni_author_book" id="mymodalauthor_bookCol_{{ book.author_c.id }}">
+<div class="container_mymodal_uni_author_book" id="mymodalauthor_bookCont_{{ book.id }}">
+<div class="column_mymodal_uni_author_book" id="mymodalauthor_bookCol_{{ book.id }}">
 
-    <div class="mymodal_header_uni_author_book" id="mymodalauthor_bookHeadert_{{ book.author_c.id }}" >
-    <p id="close_m_uni_{{ book.author_c.id }}" class="close_m"> ✖ </p>
+    <div class="mymodal_header_uni_author_book" id="mymodalauthor_bookHeadert_{{ book.id }}" >
+    <p id="close_m_uni_{{ book.id }}" class="close_m"> ✖ </p>
     <p style="font-size:26px; color:blue; margin:10px auto 0px 10px;"> AUTHOR INFO </p>
     </div>
 
     
     {% if book.author_c %}
-    <div class="mymodal_body_uni_author_book" id="mymodalauthor_bookBodyt_{ {book.author_c.id }}" >
+    <div class="mymodal_body_uni_author_book" id="mymodalauthor_bookBodyt_{ {book.id }}" >
       {% include 'snippets-booksmart/author_book.html' %}
     </div>
   
       {% else %}
-      <div class="mymodal_body_uni_author_book" id="mymodalauthor_bookBodyt_{{ book.author_c.id }}" >
+      <div class="mymodal_body_uni_author_book" id="mymodalauthor_bookBodyt_{{ book.id }}" >
       <div class="text-center" style="padding-top:2px;"><h6 style="margin-top:6px;"> IN DATABASE NO DETAILS ABOUT THIS AUTHOR TRY THIS </h6></div>
     </div>
   
-    <div class="mymodal_body_uni_author_book" id="mymodalauthor_bookBodyt_{{ book.author_c.id }}" >
+    <div class="mymodal_body_uni_author_book" id="mymodalauthor_bookBodyt_{{ book.id }}" >
     <div style="width:100%;" ><iframe src="https://{{ book.language }}.wikipedia.org/wiki/{{ book.author }}" style="width:100%; height:400px;">
     </iframe></div></div>
     {% endif %}
           
-<div class="mymodal_footer_uni_author_book" id="mymodalauthor_bookFootert_{{ book.author_c.id }}">
+<div class="mymodal_footer_uni_author_book" id="mymodalauthor_bookFootert_{{ book.id }}">
     
     <span class="close_span">
-    <button id="close_modal_uni_t_{{ book.author_c.id }}" type="button" class="close_mb">CLOSE</button> 
+    <button id="close_modal_uni_t_{{ book.id }}" type="button" class="close_mb">CLOSE</button> 
     </span>
    
 </div>
@@ -1241,54 +1241,54 @@ var img{{ book.google_id }} = document.getElementById('img_book{{ book.google_id
   }
   } */
 
-  var modal_{{ book.author_c.id }}  = document.getElementById("mymodalauthor_bookOverlay_{{ book.author_c.id }}");
+  var modal_{{ book.id }}  = document.getElementById("mymodalauthor_bookOverlay_{{ book.id }}");
 
-  var cont_{{ book.author_c.id }}  = document.getElementById("mymodalauthor_bookCont_{{ book.author_c.id }}");
+  var cont_{{ book.id }}  = document.getElementById("mymodalauthor_bookCont_{{ book.id }}");
 
  
-var btn_{{ book.author_c.id }} = document.getElementById("button_1_{{ book.author_c.id }}");
+var btn_{{ book.id }} = document.getElementById("button_1_{{ book.id }}");
  
   //var btn_authorbook = document.getElementById("button_1_{{book.google_id}}");
-  btn_{{ book.author_c.id }}.onclick = function(){
-    modal_{{ book.author_c.id }}.style.display = "block";
+  btn_{{ book.id }}.onclick = function(){
+    modal_{{ book.id }}.style.display = "block";
       //my_modal_authorbook.style.display = "block";
-      modal_{{ book.author_c.id }}.style.animation = "modalfadein 1s 1";
+      modal_{{ book.id }}.style.animation = "modalfadein 1s 1";
       //my_modal_authorbook.src = this.src;
-      cont_{{ book.author_c.id }}.style.display = "block"; 
-      cont_{{ book.author_c.id }}.style.animation = "zoom 2s 1";
+      cont_{{ book.id }}.style.display = "block"; 
+      cont_{{ book.id }}.style.animation = "zoom 2s 1";
      // my_modal_authorbookCont.src = this.src;
   }
   
-      var close_x_{{ book.author_c.id }} = document.getElementById("close_m_uni_{{ book.author_c.id }}");  
-      var close_btn_{{ book.author_c.id }} = document.getElementById("close_modal_uni_t_{{ book.author_c.id }}");
+      var close_x_{{ book.id }} = document.getElementById("close_m_uni_{{ book.id }}");  
+      var close_btn_{{ book.id }} = document.getElementById("close_modal_uni_t_{{ book.id }}");
       
   
-      close_x_{{ book.author_c.id }}.onclick = function() {
-        cont_{{ book.author_c.id }}.style.animation = "unzoom 2s 1";
-        modal{{ book.author_c.id }}.style.animation = "modalfadeout 1s 1 1s";
+      close_x_{{ book.id }}.onclick = function() {
+        cont_{{ book.id }}.style.animation = "unzoom 2s 1";
+        modal{{ book.id }}.style.animation = "modalfadeout 1s 1 1s";
       setTimeout(()=> {
-        cont_{{ book.author_c.id }}.style.display = "none";
-          modal_{{ book.author_c.id }}.style.display = "none";
+        cont_{{ book.id }}.style.display = "none";
+          modal_{{ book.id }}.style.display = "none";
           }
           , 1900);
       }
   
-      close_btn_{{ book.author_c.id }}.onclick = function() {
-        cont_{{ book.author_c.id }}.style.animation = "animatetopback 2s 1";
-        modal_{{ book.author_c.id }}.style.animation = "modalfadeout 1s 1 1s";
+      close_btn_{{ book.id }}.onclick = function() {
+        cont_{{ book.id }}.style.animation = "animatetopback 2s 1";
+        modal_{{ book.id }}.style.animation = "modalfadeout 1s 1 1s";
         setTimeout(()=> {
-          cont_{{ book.author_c.id }}.style.display = "none";
-            modal_{{ book.author_c.id }}.style.display = "none";
+          cont_{{ book.id }}.style.display = "none";
+            modal_{{ book.id }}.style.display = "none";
             }
             , 1900);
       }
   
-      modal_{{ book.author_c.id }}.onclick = function() {  
-        cont_{{ book.author_c.id }}.style.animation = "unzoomrotate 2s 1";
-        modal_{{ book.author_c.id }}.style.animation = "modalfadeout 1s 1 1s";
+      modal_{{ book.id }}.onclick = function() {  
+        cont_{{ book.id }}.style.animation = "unzoomrotate 2s 1";
+        modal_{{ book.id }}.style.animation = "modalfadeout 1s 1 1s";
           setTimeout(()=> {
-            cont_{{ book.author_c.id }}.style.display = "none";
-            modal_{{ book.author_c.id }}.style.display = "none";
+            cont_{{ book.id }}.style.display = "none";
+            modal_{{ book.id }}.style.display = "none";
           }
           , 1900);   
       }
