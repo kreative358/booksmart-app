@@ -14,10 +14,11 @@
           </div>
       
           <div class="mymodal_AccountBody" id="mymodalAccountBody">
-            <p style="font-size:22px; color:blue; margin:0px auto 0px auto; font-variant: small-caps;">
-              Hello, {{account_form.initial.username}} <br>
-              Here, you can change email or username
-            </p>
+            <div style="font-size:22px; color:blue; margin: 0px auto 0px auto; font-variant: small-caps;">
+              <p style="margin: 0px auto -4px auto">
+              Hello, {{request.user.username}}  </p>
+             <p style="margin: 0px auto 10px auto; line-height: 1;"> Here, you can change email or username
+            </p></div>
       
               <div>
                 <form action="{% url 'accounts:account' %}" class="was-validated" method="post" enctype="multipart/form-data" id="account_form">   
@@ -28,7 +29,7 @@
                     <div class="form-group">
                       <label class="label" for="username" style="font-size:24px; 
                       color:blue; margin:4px auto 4px auto; font-variant: small-caps;" > Username </label>
-                      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus value="{{request.user.username}}" minlength="3">
+                      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus value="{{request.user.username}}" minlength="3" style="margin-top: 4px">
                       <div class="valid-feedback" > username field is filled out.
                       </div>
                       <div class="invalid-feedback" > please fill out the username field.
@@ -37,10 +38,10 @@
 
                     <div style="height:2px;"> </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="">
                       <label class="label" for="email" style="font-size:24px; 
-                      color:blue; margin: -14px auto 4px auto; "> Email </label>
-                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Must contain @" value="{{request.user.email}}">                      
+                      color:blue; margin: 0px auto 4px auto; "> Email </label>
+                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Must contain @" value="{{request.user.email}}" style="margin-top: 4px">                       
                       <div class="valid-feedback" > password field is filled out.
                       </div>
                       <div class="invalid-feedback" >please fill out the password field.
@@ -64,8 +65,8 @@
                 </form> 
           
                 <div>
-                  <p class="psw" style="margin-top: 6px; line-height: 1.2;"> Your <a href="{% url 'booksmart:account-records' %}" target="_blank"> records </a></p>
-                  <p class="psw" style="margin-top: 0px; line-height: 1;">change <a href="{% url 'accounts:password_change' %}" target="_blank" >password?</a></p>
+                  <p class="psw" style="margin-top: 10px; line-height: 1.2; font-size: 18px; margin: 0px auto 4px;auto"> Your <a href="{% url 'booksmart:account-records' %}" target="_blank"> records </a></p>
+                  <p class="psw" style="margin-top: 4px; line-height: 1.2;font-size: 18px;">change <a href="{% url 'accounts:password_change' %}" target="_blank" >password?</a></p>
                 </div>
               
           
@@ -133,11 +134,11 @@
         btnAccount.onclick = function(){
           my_modalAccount.style.display = "block";
           my_modalAccount.style.animation = "modalfadein 1s 1";
-          my_modalAccount.src = this.src;
+          //my_modalAccount.src = this.src;
             
           my_modalAccountCont.style.display = "block"; 
           my_modalAccountCont.style.animation = "zoom 2s 1";
-          my_modalAccountCont.src = this.src;
+          //my_modalAccountCont.src = this.src;
           //captionText.innerHTML = this.alt;
         }
         

@@ -149,7 +149,7 @@ class AuthorRecords(forms.ModelForm):
         fields = ['author_c']
 
 class ItemsSearchForm(forms.Form):
-    search_field = forms.CharField(required=True, label='', widget=forms.TextInput(attrs={ 'placeholder': 'field to enter any book params', 'autofocus': True, 'id':'input_text_search_q'})) 
+    search_field = forms.CharField(required=True, label='', initial="", widget=forms.TextInput(attrs={ 'placeholder': 'field to enter any book params', 'autofocus': True, 'id':'input_text_search_q'})) 
 
 class BooksAuthor(forms.Form):
     author_found_books = forms.CharField(widget=forms.HiddenInput(attrs={}))
@@ -200,9 +200,6 @@ class UrlPathForm(forms.Form):
 # class DateInput(DateTimeBaseInput):
 #     format_key = 'DATE_INPUT_FORMATS'
 #     template_name = 'django/forms/widgets/date.html'
-
-
-
 
 class BookForm(ModelForm):
     # user_num_b = forms.IntegerField(disabled=True)

@@ -2,18 +2,15 @@
 
 <script>
   
-    window.onload = function() {
+  window.addEventListener("load", function() {
     localStorage.clear();
-    }
-  
-  localStorage.clear();
 
-  document.body.onbeforeunload = function() {
+/*  document.body.onbeforeunload = function() {
   let searches =  document.querySelectorAll("[id^='middle_message_']")
   for (let search of searches) {
-    search.innerText = "";
-  }
-  }
+    search.innerText = "";  
+  } */
+   })
 </script>
 
 <style type="text/css">

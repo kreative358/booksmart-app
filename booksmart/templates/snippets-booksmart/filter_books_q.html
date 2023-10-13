@@ -1,5 +1,12 @@
 {% load bootstrap4 %}
 
+<script>
+window.addEventListener("load", function() {
+  console.clear();
+  localStorage.clear();
+  document.querySelector("#input_text_search_q").value = "";
+});
+</script>
 <style type="text/css">
 
 #container_filter {

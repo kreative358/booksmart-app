@@ -1054,8 +1054,8 @@ class RecordsView(APIView):
             return Response(context, template_name='records.html', )
 
 
-        context['num_books_result_post'] = ""
-        context['num_authors_result_post'] = ""
+        context['num_books_result_post'] = None
+        context['num_authors_result_post'] = None
         context['parameters_post'] = ""
         context["form_search_post"] = "yes"
         context['parameters'] = ""
