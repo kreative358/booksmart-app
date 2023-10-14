@@ -1,6 +1,6 @@
 {% include 'snippets/out_log_css.html' %}
 
-<div class="mymodal_Account" id="mymodalAccount"> </div>
+<div class="mymodal_Account" id="mymodalAccount"> 
 
     <!-- Modal content 
     <div class="container-fluid" id="mymodalAccountCont">
@@ -65,7 +65,7 @@
                 </form> 
           
                 <div>
-                  <p class="psw" style="margin-top: 10px; line-height: 1.2; font-size: 18px; margin: 0px auto 4px;auto"> Your <a href="{% url 'booksmart:account-records' %}" target="_blank"> records </a></p>
+                  <p class="psw" style="line-height: 1.2; font-size: 18px; margin: 6px auto 4px auto;"> Your <a href="{% url 'booksmart:account-records' %}" target="_blank"> records </a></p>
                   <p class="psw" style="margin-top: 4px; line-height: 1.2;font-size: 18px;">change <a href="{% url 'accounts:password_change' %}" target="_blank" >password?</a></p>
                 </div>
               
@@ -119,7 +119,7 @@
           </div>
         </div>
       
-     
+      </div>  
 
       <script>
     
@@ -174,7 +174,7 @@
           
           //window.onclick = function(even) {
              //if (even.target == my_modalAccount) {
-         my_modalAccount.onclick = function() {  
+      /*   my_modalAccount.onclick = function() {  
               //mymodal_cont.style.animation = "unzoomrotate 2s 1";
               my_modalAccountCont.style.animation = "unzoomrotate 2s 1";
               my_modalAccount.style.animation = "modalfadeout 1s 1 1s";
@@ -183,14 +183,8 @@
               my_modalAccount.style.display = "none"
                 }
                 , 1900);
-              
-              
-              // mymodal.style.animation = "modalfadeout 1s 1 1s";
-              // setTimeout(function(){ mymodal.style.display = "none"; }, 1900);
-          // mymodal.style.animation = "modalfadein 1s 1 2s";
-        
-              // mymodal_cont.style.animation = "zoomrotate 2s 1";
-            }
+
+            } */
        // }
       
           </script>              

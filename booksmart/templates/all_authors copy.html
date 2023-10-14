@@ -1,0 +1,203 @@
+{% extends 'base_ds.html' %}
+{% load bootstrap4 %}
+{% load booksmart_extras %}
+{% block title %} all-authors  {% endblock%}
+
+{% block page %}
+
+{% include 'snippets/scrollbars.html' %}
+
+<div id="glass_id_main" class="glass_class_main"> 
+
+  {% block content_1 %} 
+
+{% include 'snippets/jumbotron.html' %}
+{% include 'snippets/marquee.html' %}
+
+{% include 'snippets-booksmart/top_cards.html' %}
+
+
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% if messages %}
+{% include 'snippets/authentication.html' %}
+{% endif %}
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+
+<style type="text/css">
+
+  .container_author_last_add {  
+    position:relative;
+    z-index:12;
+    margin:24px auto 30px auto;
+    text-align:center;
+    padding:10px auto 10px auto;
+    width: 560px;
+    max-width: 90%;
+    border-radius:2px;
+    box-shadow: 
+    0px 0px 6px 6px rgba(151, 191, 231, 0.6) inset,
+    0px 0px 10px 6px rgba(229, 230, 243, 0.2); 
+      -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    
+    color: MediumBlue; 
+    font-family: Georgia; 
+    font-weight: bold; 
+    font-size: 36px; 
+  left: 12px;
+  }
+
+
+   @media screen and (max-width: 640px;) {
+    .container_author_last_add {  
+        
+        font-size: 32px; 
+        max-width: 92%;
+        }
+    }
+
+    @media screen and (max-width: 560px;) {
+      .container_author_last_add {  
+          
+          font-size: 32px; 
+          width: 96%;
+          max-width: 96%;
+          }
+      }
+        
+  @media screen and (max-width: 480px;) {
+    .container_author_last_add {  
+        left: 0px;
+        font-size: 26px; 
+        width: 98%;
+        max-width: 98%;
+        }
+    }
+         
+</style>
+  
+
+{% if author_add_last %}
+{% for author_c in author_add_last %}
+  {% if author_c.id == last_id %}
+  <div class="container_author_last_add" id="author_last_add_id" >
+    AUTHOR LAST ADDED </div>
+{% include 'snippets-booksmart/author.html' %}
+{% endif %}
+{% endfor %}
+{% endif %}  
+
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% include 'snippets-booksmart/filter_books_q.html' %}
+{% include 'snippets-booksmart/search_panel.html' %}
+
+
+
+{% if author_page_obj %}
+       
+<div id="margin_authors">
+  </div>
+{% include 'snippets-booksmart/authors_bar.html' %}
+
+{% for author_c in author_page_obj %}
+{% include 'snippets-booksmart/author.html' %}
+
+{% endfor %}
+
+<style type="text/css">
+
+  .mycontainer_pagination {
+      position:relative;
+      z-index: 12;
+      margin: -10px 5% 2vw auto;
+      width: 600px;
+      max-width:96%;
+      float: right;
+      display: flex;
+      align-content: right;
+      padding: auto;
+      color: blue;
+  }
+  .myrow_pagination,
+  .mycolumn_pagination {
+  max-width: 100%;
+  
+  }
+  
+  .pagination_temp {
+      text-align:right;
+      display: inline-block; 
+      font-size:30px;
+      font-weight: bold;
+      padding:10px;
+      text-align-last: right;
+      justify-content: right;
+      width:580px;
+      max-width:96%;
+  }
+  
+  @media screen and (max-width: 640px) {
+  .pagination_temp {
+  font-size:26px;
+  }
+  }
+
+   @media screen and (max-width: 480px) {
+  .pagination_temp {
+  font-size:22px;
+  }
+  }
+  </style>
+      
+      <div class="mycontainer_pagination" id="mycontainer_pagination_id">      
+        <div class="myrow_pagination">
+          <div class="mycolumn_pagination"  >
+            <div class="pagination_temp"><!-- justify-content-end-->
+      
+              <span class="step-links">   <!--<p>-->
+                  {% if author_page_obj.has_previous %}
+                      <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+                      <a href="{% my_url author_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+                      
+                  {% endif %}
+          
+                  <span class="current">
+                      Page {{ author_page_obj.number }} of {{ author_page_obj.paginator.num_pages }}.
+                  </span>
+          
+                  {% if author_page_obj.has_next %}
+                      <a href="{% my_url author_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+                      <a href="{% my_url author_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+                  {% endif %}<!--</p>-->
+              </span>  
+      
+            </div>       
+          </div>
+        </div>
+      </div>
+    
+{% endif %}
+
+{% endblock content_4 %}
+
+
+{% block content_5 %}
+
+{% endblock content_5 %}
+
+</div>
+      {% endblock page %}

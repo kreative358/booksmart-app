@@ -4,7 +4,26 @@
 {% block title %} found-records {% endblock%}
 
 {% block page %}
-
+<script>
+  window.addEventListener("load", function() {
+    localStorage.clear();
+    const search_bar_inputs = document.querySelectorAll("input")
+    for (const search_bar_input of search_bar_inputs) {
+      search_bar_input.value = "";
+      search_bar_input.checked = false;
+    }
+   
+    const search_bar_selects = document.querySelectorAll("select");
+    for (const search_bar_select of search_bar_selects) {
+      search_bar_select.children[0].selected = true;
+      }
+  
+      const checks_text = document.getElementsByClassName("span_checked");
+      for (const check_text of checks_text) {
+      check_text.innerHTML = "";
+      }   
+  });
+  </script>
 {% include 'snippets/scrollbars.html' %}
 
 <div id="glass_id_main" class="glass_class_main"> 

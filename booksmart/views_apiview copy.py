@@ -202,12 +202,8 @@ def all_authors(request):
 
     r_user = request.user
     current_url_name = request.path
-    if Author.objects.all().count() > 0:
-        last_id = list(Author.objects.values_list('id').order_by('-id')[0])[0]
-        author_add_last = Author.objects.all().order_by('-id')
-    else:
-        last_id = []
-        author_add_last = []
+    last_id = list(Author.objects.values_list('id').order_by('-id')[0])[0]
+    author_add_last = Author.objects.all().order_by('-id') 
     # author_add_last = get_object_or_404(Author, pk=last_id) 
     # print('author_add_last:', author_add_last)
     # all_authors = Author.objects.all().order_by('-created_at')
@@ -608,9 +604,8 @@ class RecordsView(APIView):
         keywords_fields = {}
 
         sort_parameter = ['title']
-        # search_user_num_b_byname = request.GET["name_user_num_b"]
-        if search_form.is_valid():
 
+        if search_form.is_valid():
             context["search_form_get"] = "yes"  ###
             search_title = search_form.cleaned_data['title']
             search_author = search_form.cleaned_data['author']
@@ -624,24 +619,22 @@ class RecordsView(APIView):
             search_author_list = search_form.cleaned_data["author_list"] ###
 
             search_user_num_b = search_form.cleaned_data["user_num_b"]
-            # search_epub = search_form.cleaned_data["epub"]
-            print("search_user_num_b =", str(search_user_num_b))
-
-            if str(search_user_num_b) == "True":
-                print("search_user_num")
+            if search_user_num_b == True:
                 # print("context['user_id']:", context['user_id'])
-                # search_user_num_b = context['user_id']      
-                keywords_fields["user_num_b"] = r_user.id
+                search_user_num_b = context['user_id']
+
+                keywords_fields["user_num_b"] = str(search_user_num_b)
             else:
-                # keywords_fields["user_num_b"] = ""                
-                print("NO search_user_num_b")
+                pass
+            # print('search_user_num_b:', search_user_num_b)
+            # search_user_books = search_form.cleaned_data["user_books"]
 
             search_epub = search_form.cleaned_data["epub"]
-            print("search_epub =", str(search_epub))
-            if str(search_epub) == "True":
-                keywords_fields["epub"] = "yes"
+            if search_epub == True:
+                search_epub = "YES"
+                keywords_fields["epub"] = search_epub
             else:
-                print("NO search_epub")
+                pass
 
             search_ordering = search_form.cleaned_data["ordering"]
             # print('search_ordering', search_ordering)
@@ -662,7 +655,7 @@ class RecordsView(APIView):
         #keywords_fields["title"] = search_user_books
         
         # keywords_fields["user_num_b"] = search_user_num_b
-        print('keywords_fields:', keywords_fields)
+        # print('keywords_fields:', keywords_fields)
         # if len(kewords_fields.values) != 0:
         for val in keywords_fields.values():
             if not val != '' and not val != None:
@@ -690,12 +683,12 @@ class RecordsView(APIView):
         filter_dict = {}
 
         for key, value in keywords_fields_items:
-            if value != '' and value != None and not isinstance(value, int):
+            if value != '' and value != None:
                 # parameters_list.append((key, value))
                 parameters_list.append((str(key).replace("__gte", "-start").replace("__lt", "-end"), value))
                 filter_dict[key] = value
-            elif isinstance(value, int):
-                filter_dict[key] = f"{value}"
+            else:
+                pass
 
         if len(keywords_fields.values()) < 2:
             # print(f'1 parameters_list 557: {parameters_list}')
@@ -703,12 +696,13 @@ class RecordsView(APIView):
             
         else:
             # print(f'2 parameters_list line 559: {parameters_list}')
-            parameters = ',<br>'.join([': '.join([str(e)[:e.index('_')] if not isinstance(e, int) and '_' in e else e if not isinstance(e, int) else str(e) for e in el]) for el in parameters_list])
+            parameters = ',<br>'.join([': '.join([str(e)[:e.index('_')] if '_' in e else e for e in el]) for el in parameters_list])
             
 
-        context['parameters'] = parameters
+        # context['parameters'] = parameters
         context['parameters_get'] = parameters
         if parameters:
+
             context['parameters_get'] = parameters
             print("parameters =", parameters)
             print("context['parameters_get'] =", context['parameters_get'])
@@ -855,8 +849,7 @@ class RecordsView(APIView):
         # print('2. list_authors_result_list_set', list_authors_result_list_set)
         # print('2. list_authors_result_queryset_set', list_authors_result_queryset_set)
 
-        # dict_values = ' '.join([dic_v for dic_v in keywords_fields.values() if dic_v != '' and dic_v != None])
-        dict_values = ' '.join([dic_v if dic_v != '' and dic_v != None and not isinstance(dic_v, int) else f"{dic_v}" if isinstance(dic_v, int) else f"{dic_v}" for dic_v in keywords_fields.values()])
+        dict_values = ' '.join([dic_v for dic_v in keywords_fields.values() if dic_v != '' and dic_v != None])
         if dict_values:
             # print('dict_values:', dict_values)
             pass
