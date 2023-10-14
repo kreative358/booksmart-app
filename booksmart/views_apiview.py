@@ -229,7 +229,8 @@ def all_authors(request):
     search_form = SearchRecord()
     form_search = ItemsSearchForm()
     author = BooksAuthor()
-    
+    book_sort = BookSort()
+    context['book_sort'] = book_sort
     context['search_form'] = search_form
     context['search_author'] = author
     context['form_search'] = form_search
@@ -276,7 +277,8 @@ def account_records(request):
     search_form = SearchRecord()
     author = BooksAuthor()
     form_search = ItemsSearchForm()
-
+    book_sort = BookSort()
+    context_a['book_sort'] = book_sort
     context_a['search_form'] = search_form
     context_a['form_search'] = form_search
     context_a['search_author'] = author
@@ -359,7 +361,8 @@ def all_records_author(request, *arg, **kwargs):
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
     author = BooksAuthor()
-
+    book_sort = BookSort()
+    context['book_sort'] = book_sort
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
 
@@ -404,7 +407,8 @@ def all_records_title(request):
     current_url_name = request.path
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
-
+    book_sort = BookSort()
+    context_a['book_sort'] = book_sort
     context_a['search_form'] = search_form
     context_a['form_search'] = form_search
     context_a['search_author'] = author
@@ -481,48 +485,52 @@ def books_author(request):
     context['current_url'] = current_url_name
 
     author_form = BooksAuthor(request.GET)
-    if author_form.is_valid():
-        # values=author_form.cleaned_data['author']
-
-        values=author_form.cleaned_data['author_found_books']
-        # print(values, type(values))
-    
-    books_result = Book.objects.filter(author=values)
-    author_result = Author.objects.filter(author_name=values)
-    num_books_result = books_result.count()
-    num_authors_result_set = author_result.count()
-    # num_books_result = Book.objects.filter(author=search_author).count()
-    # num_authors_result_set = Author.objects.filter(author_name=values).count()
-
+    values_list = []
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
     author = BooksAuthor()
+    book_sort = BookSort()
+    context['search_form'] = search_form
+    context['form_search'] = form_search
+    context['book_sort'] = book_sort
+    context['search_author'] = author
+    vaules_list = []
+    if author_form.is_valid():
+        # values=author_form.cleaned_data['author']
+        
+        value=author_form.cleaned_data['author_found_books']
+        vaules_list.append(value)
+        print("value =", value)
+    
+        books_result = Book.objects.filter(author=value)
+        author_result = Author.objects.filter(author_name=value)
+        num_books_result = books_result.count()
+        num_authors_result_set = author_result.count()
+    # num_books_result = Book.objects.filter(author=search_author).count()
+    # num_authors_result_set = Author.objects.filter(author_name=values).count()
+       
+        context["parameters"] = value
+        context['books_result'] = books_result
+        context['author_result'] = author_result
+        context['num_books_result']= num_books_result
+        context['num_books_result_set']= num_books_result  #
+        context['num_authors_result_set'] = num_authors_result_set
+        context['values'] = value
+
 
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
-    current_url_name = request.path
-    print('current_url_name', current_url_name)
-    context['current_url'] = current_url_name
-    context["parameters"] = values
+        current_url_name = request.path
+        print('current_url_name', current_url_name)
+        context['current_url'] = current_url_name
 
-    context['search_author'] = author
+        filtered_books = books_result
+        paginated_filtered_books = Paginator(filtered_books, 10)  
+        # filtered_books.qs
+        page_number = request.GET.get('page')
+        book_page_obj = paginated_filtered_books.get_page(page_number)
 
-    context['search_form'] = search_form
-    context['form_search'] = form_search
-    context['books_result'] = books_result
-    context['author_result'] = author_result
-    context['num_books_result']= num_books_result
-    context['num_books_result_set']= num_books_result  #
-    context['num_authors_result_set'] = num_authors_result_set
-    context['values'] = values
-
-    filtered_books = books_result
-    paginated_filtered_books = Paginator(filtered_books, 10)  
-    # filtered_books.qs
-    page_number = request.GET.get('page')
-    book_page_obj = paginated_filtered_books.get_page(page_number)
-
-    context['book_page_obj'] = book_page_obj
+        context['book_page_obj'] = book_page_obj
     return Response(context, template_name='books_author.html', )
     # return render(request, 'books_author.html',context)
 
@@ -608,10 +616,11 @@ class RecordsView(APIView):
         keywords_fields = {}
 
         sort_parameter = ['title']
+        context["form_search_get"] = "no"
         # search_user_num_b_byname = request.GET["name_user_num_b"]
         if search_form.is_valid():
 
-            context["search_form_get"] = "yes"  ###
+            context["form_search_get"] = "yes"  ###
             search_title = search_form.cleaned_data['title']
             search_author = search_form.cleaned_data['author']
             search_language = search_form.cleaned_data["language"]
@@ -926,6 +935,7 @@ class RecordsView(APIView):
         context['form_search'] = ""
         context['book_sort'] = ""
         context['search_author'] = ""
+
         book_sort = BookSort(request.GET)
         # search_form = SearchRecord()
         search_form = SearchRecord(request.GET)
@@ -955,6 +965,7 @@ class RecordsView(APIView):
         context['book_sort'] = book_sort
         
         context['parameters'] = ""
+        context["form_search_post"] = "no"
         if not form_search.is_valid(): 
             return redirect('booksmart:allrecords')  #()
             #  return redirect('/')
@@ -995,7 +1006,7 @@ class RecordsView(APIView):
                 search_resultAb_list = [author_resultAb for author_resultAb in search_resultAb]
                 list_authors_search_resultB = list(set(record_b.surname for record_b in search_resultB))
                 if len(list_authors_search_resultB) == 1:
-                    search_resultA_1 = allauthors_dict.filter(last_name=list_authors_search_resultB[0]) 
+                    search_resultA_1 = list(allauthors_dict.filter(last_name=list_authors_search_resultB[0]))
                     if search_resultA_1:
                         search_resultA = list(set(search_resultAb_list + search_resultA_1))
                     else:

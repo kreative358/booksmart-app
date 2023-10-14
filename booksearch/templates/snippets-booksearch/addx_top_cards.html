@@ -5,12 +5,11 @@
   window.addEventListener("load", function() {
     localStorage.clear();
 
-/*  document.body.onbeforeunload = function() {
-  let searches =  document.querySelectorAll("[id^='middle_message_']")
-  for (let search of searches) {
-    search.innerText = "";  
+/*  const message_search_result_gb_t = document.querySelectorAll(".message_search_result_gb");
+  for (const msg_result_gb_t of message_search_result_gb_t) {
+    msg_result_gb_t.innerHTML = "";
   } */
-   })
+   }) 
 </script>
 
 <style type="text/css">
@@ -45,21 +44,21 @@ left: 0px;
 
       <div class="my_card_top_cards" id="mycard_top_cards_middle_addx_book">
           {% if message %}
-          <p id="middle_message_1" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"> {{ message }}: </p> 
+          <p id="middle_message_1" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"><span class="message_search_result_gb"> {{ message }}: </span></p> 
           {% autoescape off %}
-          <p id="middle_message_2" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"> "{{ parameters }}" </p>
+          <p id="middle_message_2" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"> <span class="message_search_result_gb"> "{{ parameters }}" </sapn></p>
           {% endautoescape %}
           {% endif %}
           
           {% if filtered_books %}
           {% if num_books_result == 0 %}
-          <p id="middle_message_3" class="h4vw_l"> No books found for query: <span id="middle_message_3a" class="" style="animation: anime_submit_t 6s infinite;"><br> "{{parameters}}" </span></p>
+          <p id="middle_message_3" class="h4vw_l"><span class="message_search_result_gb"> No books found for query: </span><span id="middle_message_3a" class="message_search_result_gb" style="animation: anime_submit_t 6s infinite;"><br> "{{parameters}}" </span></p>
           {% elif num_books_result > 0 %} 
           <p  class="h3vw_l_b" style="padding-bottom:10px; color: MediumBlue;"> FOR QUERY: 
             {% autoescape off %}
-            <span id="middle_message_4" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"><br> "{{parameters}}" </span></p> {% endautoescape %}
+            <span id="middle_message_4" class="message_search_result_gb" style="animation: anime_submit_t 6s infinite; font-weight: bold;"><br> "{{parameters}}" </span></p> {% endautoescape %}
           
-            <p id="middle_message_5" class="h3vw_l" style="margin-bottom: -6px; margin-top: -18px"> number of found books <span id="middle_message_5a" class="h3vw_l_b" style="animation: anime_submit_t 6s infinite;"> {{ num_books_result }} </span> </p>
+            <p id="middle_message_5" class="h3vw_l" style="margin-bottom: -6px; margin-top: -18px"><span class="message_search_result_gb"> number of found books <span><span id="middle_message_5a" class="message_search_result_gb" style="animation: anime_submit_t 6s infinite; font-weight: bold;"> {{ num_books_result }} </span> </p>
             
           {% endif %}  
           {% endif %} 

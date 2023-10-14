@@ -1361,6 +1361,9 @@ right: 11.8%;
   </div>
 
 <script>
+  document.querySelector("#btn_search_panel_yes").onclick = function() {
+  document.querySelector("#input_text_search_q").value = "";
+  }
 
 let container_collapse = document.getElementById("search_panel_collapse");
 let btn_collapse = document.getElementById("btn_collapse_search_panel");

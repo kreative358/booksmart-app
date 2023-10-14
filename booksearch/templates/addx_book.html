@@ -12,18 +12,14 @@
   
   <script>
   
-  /*  window.onload = function() {
-    localStorage.clear();
+    window.addEventListener("load", function() {
+      localStorage.clear();
+    
+  /*  const message_search_result_gb = document.querySelectorAll(".message_search_result_gb");
+    for (const msg_result_gb of message_search_result_gb) {
+      msg_result_gb.innerHTML = "";
     } */
-  
-  
-
-  document.body.onbeforeunload = function() {
-  let searches =  document.querySelectorAll("[id^='middle_message_']")
-  for (let search of searches) {
-    search.innerText = "";
-  }
-  }
+  });
 </script>
 
 {% block content_1 %}
