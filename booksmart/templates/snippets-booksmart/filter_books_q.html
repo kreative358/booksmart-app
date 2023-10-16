@@ -2,7 +2,7 @@
 
 <script>
 window.addEventListener("load", function() {
-  localStorage.clear();
+//  localStorage.clear();
 //  document.querySelector("#input_text_search_q").value = "";
 });
 </script>
@@ -179,7 +179,7 @@ max-width: 92%;
     <div class="my_card_filter "id="card_filter">
 
       <form  action="{% url 'booksmart:records' %}" method="POST" target="_blank" >
-         
+           
         {% csrf_token %}
         
         {% bootstrap_form form_search %}

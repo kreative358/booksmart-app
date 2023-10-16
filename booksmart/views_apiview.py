@@ -616,7 +616,26 @@ class RecordsView(APIView):
         keywords_fields = {}
 
         sort_parameter = ['title']
+        context['parameters'] = ""
+        context['parameters_post'] =  ""
+        context["form_search_post"] = "no"
         context["form_search_get"] = "no"
+        parameters = ""
+        values = ""
+        parameters = ""
+        values = ""
+        dict_values = ""
+        search_title = ""
+        search_author = ""
+        search_language = ""
+        search_google_id = ""
+        search_published__gte = ""
+        # print('search_published__gte', search_published__gte)
+        search_published__lt = ""
+        search_owner = ""
+        search_author_list = "" ###
+        search_user_num_b = ""
+        search_epub = ""
         # search_user_num_b_byname = request.GET["name_user_num_b"]
         if search_form.is_valid():
 
@@ -657,9 +676,10 @@ class RecordsView(APIView):
             if search_ordering != '':
                 sort_parameter.append(search_ordering)
             else:
-                pass
+                print("views_apiview 662")
 
-        keywords_fields['title__icontains'] = search_title.upper()
+        # keywords_fields['title__icontains'] = search_title.upper()
+        keywords_fields['title__icontains'] = search_title
         keywords_fields['author__icontains'] = search_author
         keywords_fields['language'] = search_language
         keywords_fields['google_id'] = search_google_id
@@ -771,7 +791,7 @@ class RecordsView(APIView):
             except Exception as e:
                 print('1. e:', e)
         else:
-            pass
+            print("api_views 776")
                 
         # print('1. books_result_queryset', books_result_queryset)
         # print("1. books_result_title", books_result_title)
@@ -826,12 +846,12 @@ class RecordsView(APIView):
                                 # print('author_result_string:', author_result_string)
                                 authors_result_list.append(author_result_string)
                             else:
-                                pass
+                                print("api_views 831")
                         except Exception as e:
                             print(f'views_apiview exception 642: {e}')
                             
                     else:
-                        pass
+                        print("views_apiview 834")
                         # authors_result_list_surname = [el.author.split()[-1] for el in books_result]
                         # print('authors_result_list', authors_result_list)
                         # authors_result_search = list(set(authors_result_list))
@@ -853,7 +873,7 @@ class RecordsView(APIView):
             # all_books_sort = Book.objects.all().order_by(f'{sort_parameter[-1]}')
             # context['allbooks'] = all_books_sort
             # return Response(context, template_name='allrecords.html', )
-            pass
+            print("views_apiview 856")
 
         list_authors_result_queryset_set = list(set(authors_result_queryset))
         list_authors_result_list_set = list(set(authors_result_list))
@@ -867,22 +887,22 @@ class RecordsView(APIView):
         # dict_values = ' '.join([dic_v for dic_v in keywords_fields.values() if dic_v != '' and dic_v != None])
         dict_values = ' '.join([dic_v if dic_v != '' and dic_v != None and not isinstance(dic_v, int) else f"{dic_v}" if isinstance(dic_v, int) else f"{dic_v}" for dic_v in keywords_fields.values()])
         if dict_values:
-            # print('dict_values:', dict_values)
-            pass
+            print('views_apiview 870')
+            
         else:
             print('NO dict_values')
             # all_books_sort = Book.objects.all().order_by(f'{sort_parameter[-1]}')
             # context['allbooks'] = all_books_sort
             # return Response(context, template_name='allrecords.html', )
 
-        context['dict_values'] = ""
-        context['filtered_books'] = ""
+        # context['dict_values'] = ""
+        # context['filtered_books'] = ""
 
-        context['books_result'] = ""
-        context['authors_result_set'] = ""
-        # context['author_objects'] = list_authors_result_queryset_set
-        context['num_books_result'] = ""
-        context['num_books_result_set'] = "" #
+        # context['books_result'] = ""
+        # context['authors_result_set'] = ""
+        # # context['author_objects'] = list_authors_result_queryset_set
+        # context['num_books_result'] = ""
+        # context['num_books_result_set'] = "" #
 
         # # print('end sort_parameter', sort_parameter)
         num_books_result = len(books_result_queryset)
@@ -931,10 +951,6 @@ class RecordsView(APIView):
         num_authors = Author.objects.all().count()
         book_sort = BookSort(request.GET)
         context = context_main
-        context['search_form'] = ""
-        context['form_search'] = ""
-        context['book_sort'] = ""
-        context['search_author'] = ""
 
         book_sort = BookSort(request.GET)
         # search_form = SearchRecord()
@@ -965,7 +981,11 @@ class RecordsView(APIView):
         context['book_sort'] = book_sort
         
         context['parameters'] = ""
+        context['parameters_post'] =  ""
         context["form_search_post"] = "no"
+        context["form_search_get"] = "no"
+        parameters = ""
+        values = ""
         if not form_search.is_valid(): 
             return redirect('booksmart:allrecords')  #()
             #  return redirect('/')
@@ -982,7 +1002,8 @@ class RecordsView(APIView):
             search_resultB = allbooks_dict.filter(
             # search_resultB = all_books.filter(
                 Q(author__contains=search_phrase.capitalize()) |
-                Q(title__contains=search_phrase.upper()) |
+                # Q(title__icontains=search_phrase.upper()) |
+                Q(title__icontains=search_phrase()) |
                 Q(language__contains=search_phrase.lower()) |
                 Q(category__contains=search_phrase.capitalize()) |
                 Q(owner__username__contains=search_phrase)  
@@ -992,7 +1013,7 @@ class RecordsView(APIView):
             search_resultAb = allauthors_dict.filter(
             #search_resultA = all_authors.filter(
                 Q(author_name__contains=search_phrase.capitalize()) |
-                Q(owner__username__contains=search_phrase)
+                Q(owner__username__icontains=search_phrase)
             )
             print('search_resultAb =', search_resultAb)
             # search_result = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
@@ -1029,7 +1050,7 @@ class RecordsView(APIView):
                 elif len(list_authors_search_resultB) > 1:
                     # if search_resultAb:
                     #     authors_result_queryset_post.append(search_resultAb)
-                    print("list_authors_search_resultB =", list_authors_search_resultB)
+                    print("1053 wiews_apiview list_authors_search_resultB > 1")
                     search_resultA_1 = [Author.objects.filter(last_name__iexact=author_found_post).last() for author_found_post in list_authors_search_resultB if Author.objects.filter(last_name__iexact=author_found_post).last()]
                     if search_resultA_1:
                         search_resultA = search_resultA_1
@@ -1073,11 +1094,12 @@ class RecordsView(APIView):
             return Response(context, template_name='records.html', )
 
 
-        context['num_books_result_post'] = None
-        context['num_authors_result_post'] = None
-        context['parameters_post'] = ""
-        context["form_search_post"] = "yes"
-        context['parameters'] = ""
+        # context['num_books_result_post'] = None
+        # context['num_authors_result_post'] = None
+        # context['parameters_post'] = ""
+        # context["form_search_post"] = "yes"
+        # context['parameters'] = ""
+        print('views_apiview 1081')
         context['form_search'] = ItemsSearchForm()
         return Response(context, template_name='records.html', )
 

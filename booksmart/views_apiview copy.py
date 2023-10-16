@@ -202,8 +202,12 @@ def all_authors(request):
 
     r_user = request.user
     current_url_name = request.path
-    last_id = list(Author.objects.values_list('id').order_by('-id')[0])[0]
-    author_add_last = Author.objects.all().order_by('-id') 
+    if Author.objects.all().count() > 0:
+        last_id = list(Author.objects.values_list('id').order_by('-id')[0])[0]
+        author_add_last = Author.objects.all().order_by('-id')
+    else:
+        last_id = []
+        author_add_last = []
     # author_add_last = get_object_or_404(Author, pk=last_id) 
     # print('author_add_last:', author_add_last)
     # all_authors = Author.objects.all().order_by('-created_at')
@@ -225,7 +229,8 @@ def all_authors(request):
     search_form = SearchRecord()
     form_search = ItemsSearchForm()
     author = BooksAuthor()
-    
+    book_sort = BookSort()
+    context['book_sort'] = book_sort
     context['search_form'] = search_form
     context['search_author'] = author
     context['form_search'] = form_search
@@ -272,7 +277,8 @@ def account_records(request):
     search_form = SearchRecord()
     author = BooksAuthor()
     form_search = ItemsSearchForm()
-
+    book_sort = BookSort()
+    context_a['book_sort'] = book_sort
     context_a['search_form'] = search_form
     context_a['form_search'] = form_search
     context_a['search_author'] = author
@@ -355,7 +361,8 @@ def all_records_author(request, *arg, **kwargs):
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
     author = BooksAuthor()
-
+    book_sort = BookSort()
+    context['book_sort'] = book_sort
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
 
@@ -400,7 +407,8 @@ def all_records_title(request):
     current_url_name = request.path
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
-
+    book_sort = BookSort()
+    context_a['book_sort'] = book_sort
     context_a['search_form'] = search_form
     context_a['form_search'] = form_search
     context_a['search_author'] = author
@@ -477,48 +485,52 @@ def books_author(request):
     context['current_url'] = current_url_name
 
     author_form = BooksAuthor(request.GET)
-    if author_form.is_valid():
-        # values=author_form.cleaned_data['author']
-
-        values=author_form.cleaned_data['author_found_books']
-        # print(values, type(values))
-    
-    books_result = Book.objects.filter(author=values)
-    author_result = Author.objects.filter(author_name=values)
-    num_books_result = books_result.count()
-    num_authors_result_set = author_result.count()
-    # num_books_result = Book.objects.filter(author=search_author).count()
-    # num_authors_result_set = Author.objects.filter(author_name=values).count()
-
+    values_list = []
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
     author = BooksAuthor()
+    book_sort = BookSort()
+    context['search_form'] = search_form
+    context['form_search'] = form_search
+    context['book_sort'] = book_sort
+    context['search_author'] = author
+    vaules_list = []
+    if author_form.is_valid():
+        # values=author_form.cleaned_data['author']
+        
+        value=author_form.cleaned_data['author_found_books']
+        vaules_list.append(value)
+        print("value =", value)
+    
+        books_result = Book.objects.filter(author=value)
+        author_result = Author.objects.filter(author_name=value)
+        num_books_result = books_result.count()
+        num_authors_result_set = author_result.count()
+    # num_books_result = Book.objects.filter(author=search_author).count()
+    # num_authors_result_set = Author.objects.filter(author_name=values).count()
+       
+        context["parameters"] = value
+        context['books_result'] = books_result
+        context['author_result'] = author_result
+        context['num_books_result']= num_books_result
+        context['num_books_result_set']= num_books_result  #
+        context['num_authors_result_set'] = num_authors_result_set
+        context['values'] = value
+
 
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
-    current_url_name = request.path
-    print('current_url_name', current_url_name)
-    context['current_url'] = current_url_name
-    context["parameters"] = values
+        current_url_name = request.path
+        print('current_url_name', current_url_name)
+        context['current_url'] = current_url_name
 
-    context['search_author'] = author
+        filtered_books = books_result
+        paginated_filtered_books = Paginator(filtered_books, 10)  
+        # filtered_books.qs
+        page_number = request.GET.get('page')
+        book_page_obj = paginated_filtered_books.get_page(page_number)
 
-    context['search_form'] = search_form
-    context['form_search'] = form_search
-    context['books_result'] = books_result
-    context['author_result'] = author_result
-    context['num_books_result']= num_books_result
-    context['num_books_result_set']= num_books_result  #
-    context['num_authors_result_set'] = num_authors_result_set
-    context['values'] = values
-
-    filtered_books = books_result
-    paginated_filtered_books = Paginator(filtered_books, 10)  
-    # filtered_books.qs
-    page_number = request.GET.get('page')
-    book_page_obj = paginated_filtered_books.get_page(page_number)
-
-    context['book_page_obj'] = book_page_obj
+        context['book_page_obj'] = book_page_obj
     return Response(context, template_name='books_author.html', )
     # return render(request, 'books_author.html',context)
 
@@ -604,9 +616,30 @@ class RecordsView(APIView):
         keywords_fields = {}
 
         sort_parameter = ['title']
-
+        context['parameters'] = ""
+        context['parameters_post'] =  ""
+        context["form_search_post"] = "no"
+        context["form_search_get"] = "no"
+        parameters = ""
+        values = ""
+        parameters = ""
+        values = ""
+        dict_values = ""
+        search_title = ""
+        search_author = ""
+        search_language = ""
+        search_google_id = ""
+        search_published__gte = ""
+        # print('search_published__gte', search_published__gte)
+        search_published__lt = ""
+        search_owner = ""
+        search_author_list = "" ###
+        search_user_num_b = ""
+        search_epub = ""
+        # search_user_num_b_byname = request.GET["name_user_num_b"]
         if search_form.is_valid():
-            context["search_form_get"] = "yes"  ###
+
+            context["form_search_get"] = "yes"  ###
             search_title = search_form.cleaned_data['title']
             search_author = search_form.cleaned_data['author']
             search_language = search_form.cleaned_data["language"]
@@ -619,31 +652,34 @@ class RecordsView(APIView):
             search_author_list = search_form.cleaned_data["author_list"] ###
 
             search_user_num_b = search_form.cleaned_data["user_num_b"]
-            if search_user_num_b == True:
-                # print("context['user_id']:", context['user_id'])
-                search_user_num_b = context['user_id']
+            # search_epub = search_form.cleaned_data["epub"]
+            print("search_user_num_b =", str(search_user_num_b))
 
-                keywords_fields["user_num_b"] = str(search_user_num_b)
+            if str(search_user_num_b) == "True":
+                print("search_user_num")
+                # print("context['user_id']:", context['user_id'])
+                # search_user_num_b = context['user_id']      
+                keywords_fields["user_num_b"] = r_user.id
             else:
-                pass
-            # print('search_user_num_b:', search_user_num_b)
-            # search_user_books = search_form.cleaned_data["user_books"]
+                # keywords_fields["user_num_b"] = ""                
+                print("NO search_user_num_b")
 
             search_epub = search_form.cleaned_data["epub"]
-            if search_epub == True:
-                search_epub = "YES"
-                keywords_fields["epub"] = search_epub
+            print("search_epub =", str(search_epub))
+            if str(search_epub) == "True":
+                keywords_fields["epub"] = "yes"
             else:
-                pass
+                print("NO search_epub")
 
             search_ordering = search_form.cleaned_data["ordering"]
             # print('search_ordering', search_ordering)
             if search_ordering != '':
                 sort_parameter.append(search_ordering)
             else:
-                pass
+                print("views_apiview 662")
 
-        keywords_fields['title__icontains'] = search_title.upper()
+        # keywords_fields['title__icontains'] = search_title.upper()
+        keywords_fields['title__icontains'] = search_title
         keywords_fields['author__icontains'] = search_author
         keywords_fields['language'] = search_language
         keywords_fields['google_id'] = search_google_id
@@ -655,7 +691,7 @@ class RecordsView(APIView):
         #keywords_fields["title"] = search_user_books
         
         # keywords_fields["user_num_b"] = search_user_num_b
-        # print('keywords_fields:', keywords_fields)
+        print('keywords_fields:', keywords_fields)
         # if len(kewords_fields.values) != 0:
         for val in keywords_fields.values():
             if not val != '' and not val != None:
@@ -683,12 +719,12 @@ class RecordsView(APIView):
         filter_dict = {}
 
         for key, value in keywords_fields_items:
-            if value != '' and value != None:
+            if value != '' and value != None and not isinstance(value, int):
                 # parameters_list.append((key, value))
                 parameters_list.append((str(key).replace("__gte", "-start").replace("__lt", "-end"), value))
                 filter_dict[key] = value
-            else:
-                pass
+            elif isinstance(value, int):
+                filter_dict[key] = f"{value}"
 
         if len(keywords_fields.values()) < 2:
             # print(f'1 parameters_list 557: {parameters_list}')
@@ -696,13 +732,12 @@ class RecordsView(APIView):
             
         else:
             # print(f'2 parameters_list line 559: {parameters_list}')
-            parameters = ',<br>'.join([': '.join([str(e)[:e.index('_')] if '_' in e else e for e in el]) for el in parameters_list])
+            parameters = ',<br>'.join([': '.join([str(e)[:e.index('_')] if not isinstance(e, int) and '_' in e else e if not isinstance(e, int) else str(e) for e in el]) for el in parameters_list])
             
 
-        # context['parameters'] = parameters
+        context['parameters'] = parameters
         context['parameters_get'] = parameters
         if parameters:
-
             context['parameters_get'] = parameters
             print("parameters =", parameters)
             print("context['parameters_get'] =", context['parameters_get'])
@@ -756,7 +791,7 @@ class RecordsView(APIView):
             except Exception as e:
                 print('1. e:', e)
         else:
-            pass
+            print("api_views 776")
                 
         # print('1. books_result_queryset', books_result_queryset)
         # print("1. books_result_title", books_result_title)
@@ -811,12 +846,12 @@ class RecordsView(APIView):
                                 # print('author_result_string:', author_result_string)
                                 authors_result_list.append(author_result_string)
                             else:
-                                pass
+                                print("api_views 831")
                         except Exception as e:
                             print(f'views_apiview exception 642: {e}')
                             
                     else:
-                        pass
+                        print("views_apiview 834")
                         # authors_result_list_surname = [el.author.split()[-1] for el in books_result]
                         # print('authors_result_list', authors_result_list)
                         # authors_result_search = list(set(authors_result_list))
@@ -838,7 +873,7 @@ class RecordsView(APIView):
             # all_books_sort = Book.objects.all().order_by(f'{sort_parameter[-1]}')
             # context['allbooks'] = all_books_sort
             # return Response(context, template_name='allrecords.html', )
-            pass
+            print("views_apiview 856")
 
         list_authors_result_queryset_set = list(set(authors_result_queryset))
         list_authors_result_list_set = list(set(authors_result_list))
@@ -849,24 +884,25 @@ class RecordsView(APIView):
         # print('2. list_authors_result_list_set', list_authors_result_list_set)
         # print('2. list_authors_result_queryset_set', list_authors_result_queryset_set)
 
-        dict_values = ' '.join([dic_v for dic_v in keywords_fields.values() if dic_v != '' and dic_v != None])
+        # dict_values = ' '.join([dic_v for dic_v in keywords_fields.values() if dic_v != '' and dic_v != None])
+        dict_values = ' '.join([dic_v if dic_v != '' and dic_v != None and not isinstance(dic_v, int) else f"{dic_v}" if isinstance(dic_v, int) else f"{dic_v}" for dic_v in keywords_fields.values()])
         if dict_values:
-            # print('dict_values:', dict_values)
-            pass
+            print('views_apiview 870')
+            
         else:
             print('NO dict_values')
             # all_books_sort = Book.objects.all().order_by(f'{sort_parameter[-1]}')
             # context['allbooks'] = all_books_sort
             # return Response(context, template_name='allrecords.html', )
 
-        context['dict_values'] = ""
-        context['filtered_books'] = ""
+        # context['dict_values'] = ""
+        # context['filtered_books'] = ""
 
-        context['books_result'] = ""
-        context['authors_result_set'] = ""
-        # context['author_objects'] = list_authors_result_queryset_set
-        context['num_books_result'] = ""
-        context['num_books_result_set'] = "" #
+        # context['books_result'] = ""
+        # context['authors_result_set'] = ""
+        # # context['author_objects'] = list_authors_result_queryset_set
+        # context['num_books_result'] = ""
+        # context['num_books_result_set'] = "" #
 
         # # print('end sort_parameter', sort_parameter)
         num_books_result = len(books_result_queryset)
@@ -915,10 +951,7 @@ class RecordsView(APIView):
         num_authors = Author.objects.all().count()
         book_sort = BookSort(request.GET)
         context = context_main
-        context['search_form'] = ""
-        context['form_search'] = ""
-        context['book_sort'] = ""
-        context['search_author'] = ""
+
         book_sort = BookSort(request.GET)
         # search_form = SearchRecord()
         search_form = SearchRecord(request.GET)
@@ -948,6 +981,11 @@ class RecordsView(APIView):
         context['book_sort'] = book_sort
         
         context['parameters'] = ""
+        context['parameters_post'] =  ""
+        context["form_search_post"] = "no"
+        context["form_search_get"] = "no"
+        parameters = ""
+        values = ""
         if not form_search.is_valid(): 
             return redirect('booksmart:allrecords')  #()
             #  return redirect('/')
@@ -988,7 +1026,7 @@ class RecordsView(APIView):
                 search_resultAb_list = [author_resultAb for author_resultAb in search_resultAb]
                 list_authors_search_resultB = list(set(record_b.surname for record_b in search_resultB))
                 if len(list_authors_search_resultB) == 1:
-                    search_resultA_1 = allauthors_dict.filter(last_name=list_authors_search_resultB[0]) 
+                    search_resultA_1 = list(allauthors_dict.filter(last_name=list_authors_search_resultB[0]))
                     if search_resultA_1:
                         search_resultA = list(set(search_resultAb_list + search_resultA_1))
                     else:
@@ -1055,11 +1093,12 @@ class RecordsView(APIView):
             return Response(context, template_name='records.html', )
 
 
-        context['num_books_result_post'] = None
-        context['num_authors_result_post'] = None
-        context['parameters_post'] = ""
-        context["form_search_post"] = "yes"
-        context['parameters'] = ""
+        # context['num_books_result_post'] = None
+        # context['num_authors_result_post'] = None
+        # context['parameters_post'] = ""
+        # context["form_search_post"] = "yes"
+        # context['parameters'] = ""
+        print('views_apiview 1081')
         context['form_search'] = ItemsSearchForm()
         return Response(context, template_name='records.html', )
 

@@ -115,7 +115,7 @@ except:
 # @authentication_classes([]) # authentication.TokenAuthentication
 @renderer_classes([TemplateHTMLRenderer])
 def addx_book(request): 
-
+    
     r_user = request.user
 
     current_url_name = request.path
@@ -137,7 +137,9 @@ def addx_book(request):
     key=os.environ.get('API_KEY')
         
     form = BookSearch(request.GET)
-    
+    context['parameters'] = ""
+    context['message'] = ""
+    params_str = ""
     if form.is_valid():
         search_title = form.cleaned_data['intitle']
         search_author = form.cleaned_data['inauthor']
@@ -169,7 +171,7 @@ def addx_book(request):
         'bl_volumeId':search_bl_volumeId, 
     }  
 
-    context['parameters'] = ""
+
     b_link = []
     bl_link = []
     if keywords_fields["volumeId"] != '':
@@ -373,6 +375,7 @@ def addx_book(request):
     elif len(parameters_list) > 3:
         context['parameters'] = ""
         context['message'] = ""
+        params_str = ""
 
         if parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] == 'query' :
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}' 

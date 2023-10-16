@@ -128,7 +128,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-
+    
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
 
     'django.middleware.common.CommonMiddleware',
@@ -322,7 +322,7 @@ STATICFILES_FINDERS = [
 ]
 
 STATIC_ROOT =  BASE_DIR / 'staticfiles'
-
+# STATIC_ROOT = "/var/www/subdomain.domain.com/staticfiles/"
 # STATIC_TMP = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 

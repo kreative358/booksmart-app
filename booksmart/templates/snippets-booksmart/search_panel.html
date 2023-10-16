@@ -128,7 +128,8 @@ bottom:  1px;
 }
 
 #search_panel_collapse {
-  display: none;
+  display: none; 
+/*max-height: 0%; */
 }
 
     /* select:focus, option:focus, #bs_input_c:focus, #bs_input_o:focus */
@@ -1361,21 +1362,22 @@ right: 11.8%;
   </div>
 
 <script>
-  document.querySelector("#btn_search_panel_yes").onclick = function() {
-  document.querySelector("#input_text_search_q").value = "";
-  }
+
 
 let container_collapse = document.getElementById("search_panel_collapse");
 let btn_collapse = document.getElementById("btn_collapse_search_panel");
 
 btn_collapse.onclick = function() {
-  if (container_collapse.style.display==="block") {
-      container_collapse.style.animation = "anime_roll_close 1.6s 0.2s easy-in-out";
+ if (container_collapse.style.display==="block") {
+ //   if (container_collapse.style.display="0%") {
+      container_collapse.style.animation = "anime_roll_close 1.6s 1 0.2s easy-in-out";
+   // container_collapse.style.animation = "anime_roll_close 1.6s 0.2s easy-in-out";
       setTimeout(function(){
         container_collapse.style.display = "none";
-       }, 1700);
+       // container_collapse.style.display = "block";
+       }, 1700); 
   } else {
-    container_collapse.style.animation = "anime_roll_open 1.6s 0.2s easy-in-out";
+    container_collapse.style.animation = "anime_roll_open 1.6s 1 0.2s easy-in-out";
     container_collapse.style.display = "block";
        }
 }

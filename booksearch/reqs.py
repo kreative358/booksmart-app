@@ -28,7 +28,7 @@ def req_book(book, founded_books_number):
         book_dict['google_id'] = "unknown"
 
     try:
-        book_dict['title'] = book['volumeInfo']['title'].replace('„', '').replace('”', '')
+        book_dict['title'] = book['volumeInfo']['title'].replace('„', '').replace('”', '').replace('"', '').replace("'", "")
         book_dict['preview_link_new'] = f"https://www.google.com/books/edition/_/{book['id']}" 
     except:
         book_dict['title'] = "unknown"

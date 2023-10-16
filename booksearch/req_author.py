@@ -110,11 +110,13 @@ def addx_author(request):
     context['current_url'] = current_url_name
     context['author'] = ""
     context['message_a'] = ""
+    author = ""
     
     no_date = '3000-01-01'
     context['no_date'] = r'3000-01-01'
     context['no_date_start'] = r'3000-01-01'
     context['no_date_end'] = r'3000-01-01'
+    
     book_dict = {}
     author_search_form = GBAuthor(request.GET)
     
