@@ -1003,7 +1003,7 @@ class RecordsView(APIView):
             # search_resultB = all_books.filter(
                 Q(author__contains=search_phrase.capitalize()) |
                 # Q(title__icontains=search_phrase.upper()) |
-                Q(title__icontains=search_phrase()) |
+                Q(title__icontains=search_phrase) |
                 Q(language__contains=search_phrase.lower()) |
                 Q(category__contains=search_phrase.capitalize()) |
                 Q(owner__username__contains=search_phrase)  

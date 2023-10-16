@@ -67,7 +67,7 @@ window.addEventListener("load", function() {
           
           {% if form_search_get == "yes" %}
           {% if num_books_result_set == 0 and num_authors_result_set == 0 %}
-          <p class="h3vw_l" ><span class="message_search_result" style=""> No books and authors found in database for query:</span ><br><span style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;" {% autoescape off %} > {{parameters}} < {% endautoescape %} </span></p>
+          <p class="h3vw_l" ><span class="message_search_result" style=""> No books and authors found in database for query:</span><br><span style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;"> {% autoescape off %} > {{parameters}} < {% endautoescape %} </span></p>
          
           {% elif num_books_result_set > 0 and num_authors_result_set > 0 %}
           <p class="h3vw_l" style="" ><span class="message_search_result"> Books and authors found in database for query: <br></span>
