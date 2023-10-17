@@ -149,7 +149,10 @@ class AuthorRecords(forms.ModelForm):
         fields = ['author_c']
 
 class ItemsSearchForm(forms.Form):
-    search_field = forms.CharField(required=True, label='', initial="", widget=forms.TextInput(attrs={ 'placeholder': 'field to enter any book params', 'autofocus': True, 'id':'input_text_search_q'})) 
+
+    search_field = forms.CharField(required=True, label='', initial="", widget=forms.TextInput(attrs={ 'placeholder': 'field to enter any book params', 'autofocus': True, 'id':'input_text_search_q'}))
+
+    # author_details_Q = forms.BooleanField(label='with author details', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_author_details_Q', 'required':'False', 'name':"name_author_details_Q"}))
 
 class BooksAuthor(forms.Form):
     author_found_books = forms.CharField(widget=forms.HiddenInput(attrs={}))
@@ -336,6 +339,7 @@ class BookForm(ModelForm):
 
 class SearchRecord(forms.ModelForm):
 # class SearchRecord(forms.Form):
+
     user_num_b = forms.BooleanField(label='Search your book', required=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_user_num_b', 'type':'checkbox','required': 'False', 'name': "name_user_num_b"}))
 
     epub = forms.BooleanField(label='Search book to read', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_epub','type':'checkbox','required': 'False', 'name': "name_epub"}))
@@ -398,6 +402,8 @@ class SearchRecord(forms.ModelForm):
 
     owner__username = forms.CharField(
         max_length=50, label='Search by book owner', required=False, widget=forms.TextInput(attrs={'placeholder': 'field to enter part or full owner username', 'autofocus': True, 'id':'input_text_sr_owner'})) 
+
+    author_details_q = forms.BooleanField(label='with author details', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_author_details_q', 'required':'False', 'type':'checkbox','name':"name_author_details_q"}))
 
     # class ChoiceField(choices: Union[_FieldChoices, Callable[[], _FieldChoices]]=..., required: bool=..., widget: Optional[Union[Widget, Type[Widget]]]=..., label: Optional[Any]=..., initial: Optional[Any]=..., help_text: str=..., error_messages: Optional[Any]=..., show_hidden_initial: bool=..., validators: Sequence[Any]=..., localize: bool=..., disabled: bool=..., label_suffix: Optional[Any]=...)
  

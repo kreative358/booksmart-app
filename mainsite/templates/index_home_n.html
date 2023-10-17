@@ -108,14 +108,10 @@
     <div type="button" class="btn_container_list" id="tooltip_mainsite_lof" >
       LIST OF FUNCTIONS <span id="tooltiptext_mainsite_lof">FOR LOGGED IN USERS <br> SEARCH BOOKS AND AUTHORS BY DETAILS <br> PRESS TO EXPAND OR UNEXPAND PANEL</span></div>
       
-    <div id="list_options" class="collapseble" style="display:none">
-    <div>
-        <p class="font-effect-shadow-multiple" id="list_options_p_1"><a  class="modal_link">PDF READER</a></p>
-        <p class="font-effect-shadow-multiple" id="list_options_p_2" style=''><a class="modal_link">BOOKSMART API</a></p>
-    </div>
+    <div id="list_options" class="collapseable_class" style="display:none">
 
-    <div>
-      <p class="h4_class">LIST OF BOOKS AVALIABLE IN THIS DATABASE</p>
+    <div style='margin-top: 26px;'>
+      <p class="h4_class" >LIST OF BOOKS AVALIABLE IN THIS DATABASE</p>
 
       <a href="{% url 'booksmart:allrecords' %}" target="_blank" class="modal_link">
         <button class="btn btn-outline-danger btn-lg text-primary" style="z-index:1; width:150px; padding:auto; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold;font-family: Helvetica;" id='tooltip_mainsite_b'> BOOKS <span id="tooltiptext_mainsite_b">LIST OF BOOKS IN DATABASE THIS APP</span></button>
@@ -139,13 +135,13 @@
     </div>
     <hr>
 
-    <div>
+  <!--  <div>
       <p class="h4_class">FIND THE NEEDED BOOK IN THIS DATABASE</p>
       <a class="modal_link">
         <button class="btn btn-outline-primary btn-lg text-danger" style="min-width:150px; padding:auto; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold;font-family: Helvetica;" id='tooltip_mainsite_fb'> Find Book <span id="tooltiptext_mainsite_fb">USE IT TO FIND BOOKS AND AUTHOURS IN DATABASE THIS APP</span></button>
       </a>
     </div>
-    <hr>
+    <hr> -->
 
     <div>
       <p class="h4_class">ADD NEW BOOK OR NEW AUTHOR TO DATABASE</p>
@@ -159,7 +155,12 @@
     
     </div>
     <hr> 
-       
+    
+    <div>
+      <p class="font-effect-shadow-multiple" id="list_options_p_1" style="margin: 0px auto 0px auto;"><a  class="modal_link">PDF READER</a></p>
+      <p class="font-effect-shadow-multiple" id="list_options_p_2" style='margin-top: 10px auto 0px auto;'><a class="modal_link">BOOKSMART API</a></p>
+  </div>
+
   </div>   
 </div>
 </div>

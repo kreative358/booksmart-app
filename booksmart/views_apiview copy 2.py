@@ -652,7 +652,7 @@ class RecordsView(APIView):
             search_author_list = search_form.cleaned_data["author_list"] ###
             search_ordering = search_form.cleaned_data["ordering"]
             author_details_q = str(search_form.cleaned_data["author_details_q"])
-            # print("author_details_q =", author_details_q)
+            print("author_details_q =", author_details_q)
         # keywords_fields['title__icontains'] = search_title.upper()
         context_get["search_user_num_b"] = search_user_num_b
         keywords_fields["epub"] = search_epub
@@ -669,8 +669,8 @@ class RecordsView(APIView):
         #keywords_fields["title"] = search_user_books
         
         # keywords_fields["user_num_b"] = search_user_num_b
-        # print('keywords_fields:', keywords_fields)
-        # print("context_get =", context_get)
+        print('keywords_fields:', keywords_fields)
+        print("context_get =", context_get)
         # if len(kewords_fields.values) != 0:
         for val in keywords_fields.values():
             if not val != '' and not val != None:
@@ -706,7 +706,7 @@ class RecordsView(APIView):
             elif isinstance(value, int):
                 filter_dict[key] = f"{value}"
 
-        # print("parameters_list=", parameters_list)
+        print("parameters_list=", parameters_list)
         if len(parameters_list) == 0:
             context['parameters'] = ""
             context['parameters_get'] = ""
@@ -725,7 +725,7 @@ class RecordsView(APIView):
             context['parameters'] = parameters
             context['parameters_get'] = parameters
             
-        # print("751 context['parameters'] = ", context['parameters'])
+        print("751 context['parameters'] = ", context['parameters'])
         # if context['parameters'] == "":
         #     print("743 NO parameters")
         # else:
@@ -788,10 +788,10 @@ class RecordsView(APIView):
             messages.info(request, "".join(msg for msg in msgs))
 
         elif len(context_get["books_result_queryset_list_sort"]) > 0: 
-            # print('context_get["books_result_queryset_list_sort"] =', context_get["books_result_queryset_list_sort"])
+            print('context_get["books_result_queryset_list_sort"] =', context_get["books_result_queryset_list_sort"])
             if context_get['author_details_q'] == "False":
                 context["form_search_get_author"] = "no"
-                # print("views_apiview 856")
+                print("views_apiview 856")
            
             elif context_get['author_details_q'] == "True":
                 context["form_search_get_author"] = "yes"
@@ -800,15 +800,15 @@ class RecordsView(APIView):
 
                     authors_result_search_book_author = list(set(authors_result_list_book_author))
 
-                    # print('authors_result_search_book_author =', authors_result_search_book_author)
+                    print('authors_result_search_book_author =', authors_result_search_book_author)
 
                     authors_result_found = [Author.objects.filter(author_name__iexact=author_result_search_book_author).last() for author_result_search_book_author in authors_result_search_book_author if Author.objects.filter(author_name__iexact=author_result_search_book_author).last()]
 
-                    # print('authors_result_found =', authors_result_found)
+                    print('authors_result_found =', authors_result_found)
 
                     if authors_result_found:
                         authors_result_found_list = [author_result_found for author_result_found in authors_result_found]
-                        # print("authors_result_found_list", authors_result_found_list)
+                        print("authors_result_found_list", authors_result_found_list)
                         authors_result_queryset.extend(authors_result_found_list)
                         authors_result_found_author_name = [author_result_found_list.author_name for author_result_found_list in authors_result_found_list]
                         authors_result_list.extend(authors_result_found_author_name)
@@ -850,7 +850,7 @@ class RecordsView(APIView):
                 context['num_books_result'] = num_books_result
                 context['num_books_result_set'] = num_books_result  #
                 context['book_page_obj'] = book_page_obj
-                # print("not books_result_queryset and not authors_result_queryset")
+                print("not books_result_queryset and not authors_result_queryset")
 
         elif len(context_get["books_result_queryset_list_sort"]) > 0:
             if not authors_result_queryset:
@@ -864,13 +864,13 @@ class RecordsView(APIView):
                 context['num_books_result_set'] = len(filtered_books)
                 book_page_obj = context['filtered_books'] #
                 context['book_page_obj'] = book_page_obj
-                # print("books_result_queryset and not authors_result_queryset")
+                print("books_result_queryset and not authors_result_queryset")
             elif authors_result_queryset:
                 list_authors_result_queryset_set = list(set(authors_result_queryset))
                 list_authors_result_list_set = list(set(authors_result_list))
                 num_books_result = len(context_get["books_result_queryset_list_sort"])
                 num_authors_result_set = len(list_authors_result_queryset_set)
-                # print("authors_result_queryset and authors_result_list")
+                print("authors_result_queryset and authors_result_list")
                 filtered_books = context_get["books_result_queryset_list_sort"]
                 context['filtered_books'] = filtered_books
                 context['books_result'] = filtered_books
@@ -878,7 +878,7 @@ class RecordsView(APIView):
                 context['num_books_result'] = len(filtered_books)
                 context['num_books_result_set'] = len(filtered_books) #
                 book_page_obj = context['filtered_books']
-                # print("book_page_obj =", book_page_obj)
+                print("book_page_obj =", book_page_obj)
                 context['book_page_obj'] = book_page_obj
 
         dict_values = ' '.join([dic_v.replace("__gte", "-start").replace("__lt", "-end").replace("__icontains", "").replace("__contains", "") if dic_v != '' and dic_v != None and not isinstance(dic_v, int) else f"{dic_v}" if isinstance(dic_v, int) else f"{dic_v}" for dic_v in keywords_fields.values()])

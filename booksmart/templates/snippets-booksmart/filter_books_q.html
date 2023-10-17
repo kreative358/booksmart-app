@@ -2,7 +2,7 @@
 
 <script>
 window.addEventListener("load", function() {
-//  localStorage.clear();
+localStorage.clear();
 //  document.querySelector("#input_text_search_q").value = "";
 });
 </script>
@@ -181,9 +181,11 @@ max-width: 92%;
       <form  action="{% url 'booksmart:records' %}" method="POST" target="_blank" >
            
         {% csrf_token %}
-        
+
         {% bootstrap_form form_search %}
-          
+
+
+
       <!--<button type="submit" class="btn btn_find btn-outline-primary text-danger" style="margin: 12px auto 4px auto; border: 6px solid; box-shadow: 0px 0px 4px 6px rgba(100, 160, 220, 0.6); font-size: 22px; font-weight: bold; min-width:150px; padding:2px; display:block;" id='tooltip_fq'> -->
       <button type="submit" class="btnfilter" id='tooltip_fq'>
             find books

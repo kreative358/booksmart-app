@@ -6,6 +6,30 @@
   
 {% include 'snippets-booksmart/pure_flatpickr_css.html' %}
 
+<script>
+  window.addEventListener("load", function() {
+  localStorage.clear();
+
+    const search_bar_inputs = document.querySelectorAll("#search_bar input");
+    const search_bar_selects = document.querySelectorAll("#search_bar select");
+    const checks_text = document.getElementsByClassName("span_checked");
+    
+
+    for (const search_bar_input of search_bar_inputs) {
+      if (search_bar_input.value != "") {
+      search_bar_input.value = "";
+      search_bar_input.checked = false;
+      }
+    }
+   
+    for (const search_bar_select of search_bar_selects) {
+      if (search_bar_select.children[0].selected = false) { 
+      search_bar_select.children[0].selected = true;
+      }
+    }
+  });
+  </script>
+
 <style type="text/css">
 
   #search_bar::-webkit-input-placeholder { /* Edge */
@@ -149,7 +173,8 @@ bottom:  1px;
 }
 
 #id_form_search > div:nth-child(1),
-#id_form_search > div:nth-child(2) {
+#id_form_search > div:nth-child(2),
+#id_form_search > div:nth-child(12) {
   min-height: 40px;
   max-height: 40px;
   height: 40px; 
@@ -169,6 +194,11 @@ width: 90%;
 
 #id_form_search > div:nth-child(2) {
   margin-bottom: 10px;
+}  
+
+#id_form_search > div:nth-child(12) {
+  margin-bottom: 0px;
+  margin-top: 10px;
 }  
   
 input[type=checkbox] {
@@ -1193,7 +1223,8 @@ border: 2px solid red;
 } */
 
 #id_form_search > div:nth-child(1),
- #id_form_search > div:nth-child(2) {
+ #id_form_search > div:nth-child(2),
+ #id_form_search > div:nth-child(12) {
 min-width: 90%;
 width: 100%;
 max-width: 100%;
@@ -1237,11 +1268,8 @@ font-size: 16px;
 left: 0px;
 }
 
-
-
- #search_bar select option {
-font-size: 14px;
-
+#search_bar select option {
+  font-size: 14px;
 }
 
 /*#search_bar select option:first-of-type,

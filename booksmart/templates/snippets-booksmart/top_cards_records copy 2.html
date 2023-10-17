@@ -95,11 +95,12 @@ window.addEventListener("load", function() {
 
             {% endif %}
 
-          {% elif form_search_get == "yes" and form_search_get_author == "no" %}
+          {% endif %}
+
+          {% if form_search_get == "yes" and form_search_get_author == "no" %}
           <p class="h3vw_l" style="" ><span style="color:blue; line-height: 1.6;" class="message_search_result"> Books found in database for query: </span><br><span  style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;" class="message_search_result"> {% autoescape off %} " {{parameters}} " {% endautoescape %} </span></p>
           <p class="h3vw_l" style="" > <span style="" class="message_search_result"> Number of found books:</span>
           <span class="message_search_result" style="" > {{ num_books_result_set }} </span></p>
-
           {% endif %}
 
           {% if form_search_post == "yes" %}
@@ -136,7 +137,7 @@ window.addEventListener("load", function() {
           <p class="h3vw_l_b" style="" >Number of all authors in database: </p> 
           <p class="h2vw_l_b" style="animation: anime_red_text 2s infinite; line-heigh: 1.2;" > {{ num_authors }} </p></a>
 
-          {% if form_search_get == "yes" and form_search_get_author == "yes" %}
+          {% if form_search_get == "yes" form_search_get_author == "yes" %}
           <p class="h3vw_l_b" style=""><span class="message_search_result"> <<< FOR QUERY </span></p>
               {% if num_authors_result_set == 0 %}
               <p class="h3vw_l" style=""><span class="message_search_result" style="line-height: 1;"> No authors found in database </span></p>
@@ -145,9 +146,11 @@ window.addEventListener("load", function() {
               <span class="message_search_result" style="animation: anime_red_text 2s infinite; font-weight: bold;"> {{ num_authors_result_set }} </span></p> 
               {% endif %}
           
-            {% elif form_search_get == "yes" and form_search_get_author == "no" %}
-            <p class="h3vw_l_b" style=""><span class="message_search_result"> FOR QUERY >>> <span></p>
-            <p class="h3vw_l" style=""><span class="message_search_result" style=""> search without author details </span></p>
+          {% endif %}
+
+          {% if form_search_get == "yes" and form_search_get_author == "no" %}
+          <p class="h3vw_l_b" style=""><span class="message_search_result"> FOR QUERY >>> <span></p>
+          <p class="h3vw_l" style=""><span class="message_search_result" style=""> Search without author details </span></p>
           {% endif %}
 
           
