@@ -369,13 +369,15 @@ class SearchRecord(forms.ModelForm):
     language = forms.ChoiceField(label= 'Search by language', choices=Languages, required=False, widget=forms.Select(attrs={'id':'input_select_sr_language'}))
 
     Order = [
-        ('', 'select order'),
-        ('title', 'title-ascending'),
-        ('-title', 'title-descending'),
-        ('surname', 'author-ascending'),
-        ('-surname', 'author-descending'),
-        ('published', 'published-ascending'),
-        ('-published', 'published-descending'),
+       # ('', 'select order'),
+        ('title', 'title A-Z'),
+        ('-title', 'title Z-A'),
+        ('surname', 'author A-Z'),
+        ('-surname', 'author Z-A'),
+        ('-published', 'published: newest'),
+        ('published', 'published: oldest'),  
+        ('-created_at', 'created: newest'),
+        ('created_at', 'created: oldest'),
     ]
    
     ordering = forms.ChoiceField(label = 'sort by',  required=False, choices = Order, widget=forms.Select(attrs={'id':'input_select_sr_ordering'}))

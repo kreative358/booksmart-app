@@ -6,27 +6,50 @@
 {% block page %}
 
 <script>
-  window.addEventListener("load", function() {
-    // localStorage.clear();
-    const search_bar_inputs = document.querySelectorAll("input")
+    window.addEventListener("load", function() {
+   // window.addEventListener("beforeunload", function() {
+    localStorage.clear();
+    sessionStorage.clear();
+    
+   /* const search_bar_inputs = document.querySelectorAll("#search_bar input");
+    const search_bar_selects = document.querySelectorAll("#search_bar select");
+    const checks_text = document.getElementsByClassName("span_checked");
+    
+
     for (const search_bar_input of search_bar_inputs) {
-      search_bar_input.value = "";
-      search_bar_input.checked = false;
+      if (search_bar_input.value != "" || search_bar_input.checked == true) {
+        if (search_bar_input.value != "") {
+            search_bar_input.value = "";
+            }
+        if (search_bar_input.hasAttribute('checked')) {
+            search_bar_input.removeAttribute('checked');
+        }
+      }
     }
    
-    const search_bar_selects = document.querySelectorAll("select");
     for (const search_bar_select of search_bar_selects) {
+     // if (search_bar_select.children[0].selected = false) { 
       search_bar_select.children[0].selected = true;
-      }
+     // }
+    } 
   
-      const checks_text = document.getElementsByClassName("span_checked");
-      for (const check_text of checks_text) {
+    
+    for (const check_text of checks_text) {
+      if (check_text.innerHTML != "") {
       check_text.innerHTML = "";
       }
-      
+    }  */
+    
+  /*  let input_text_search_q = document.querySelector("#input_text_search_q");
+    if (input_text_search_q.value != "") {
+      input_text_search_q.value = "";
+    }
 
-  // document.querySelector("#input_text_search_q").value = "";
-  });
+  }); */
+
+  /*window.addEventListener("load", function() {
+
+  })*/
   </script>
   
 {% include 'snippets/scrollbars.html' %}
@@ -56,7 +79,7 @@
   {% include 'snippets/jumbotron.html' %}
   {% include 'snippets/marquee.html' %}
 
-{% include 'snippets-booksmart/top_cards_records.html' %}
+{% include 'snippets-booksmart/top_cards_records_post.html' %}
 <div class="container_fluid_my"  style="position:relative;z-index:12 ; margin: 10px auto auto auto; width: 800px; max-width: 90%; background-color: transparent;">
   <div class="myrow_fluid_my">
   <div class="mycolumn_fluid_my">   
@@ -89,6 +112,7 @@
 {% include 'snippets-booksmart/sort_book.html' %}
 {% include 'snippets-booksmart/filter_books_q.html' %}
 {% include 'snippets-booksmart/search_panel.html' %}
+
 
 {% if author_objects %}
 {% if author_objects|length == 0 %}

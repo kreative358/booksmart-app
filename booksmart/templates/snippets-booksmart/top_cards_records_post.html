@@ -39,17 +39,9 @@ window.addEventListener("load", function() {
             <p class="h3vw_l_b" style="">Number of all books in database:</p> 
             <p class="h2vw_l_b" style="animation: anime_red_text 2s infinite;"> {{ num_books }}</p></a>
            
-            {% if form_search_get_book == "yes" %}
-            <p class="h3vw_l_b" style=""><span class="message_search_result"> FOR QUERY >>> <span></p>
-                {% if books_result_queryset_list_sort|length == 0 %}
-                <p class="h3vw_l" style=""><span class="message_search_result" style=""> No books found in database </span></p>
-                {% elif books_result_queryset_list_sort|length > 0 %} 
-                <p class="h3vw_l" style=""><span class="message_search_result"> Number of found books </span>
-                <span style="animation: anime_red_text 2s infinite; font-weight: bold;" class="message_search_result"> {{ books_result_queryset_list_sort|length }} </span></p> 
-                {% endif %}
-            {% endif %}
 
             {% if form_search_post == "yes" %}
+            <p class="h3vw_l_b" style=""><span class="message_search_result"> FOR QUERY >>> <span></p>
               {% if search_resultB|length == 0 %}
               <p class="h3vw_l" style=""><span class="message_search_result"> No books found in database </span></p>
               {% elif search_resultB|length > 0 %} 
@@ -65,42 +57,11 @@ window.addEventListener("load", function() {
           <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite;" ><span class="message_search_result"> {{ message }} </span></p>
           {% endif %}
 
-          {% if form_search_get_book == "no" and form_search_post == "no" %}
+          {% if form_search_post == "no" %}
           <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite;" > To try to find the book,<br> fill one of the field.</p>
         {% endif %}
 
-        {% if form_search_get_book == "yes" and form_search_get_author == "no" %}
-        <p class="h3vw_l" style="" ><span style="color:blue; line-height: 1.6;" class="message_search_result"> Books found in database for query: </span><br><span  style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;" class="message_search_result"> {% autoescape off %} " {{ parameters }} " {% endautoescape %} </span></p>
-        <p class="h3vw_l" style="" > <span style="" class="message_search_result"> Number of found books:</span>
-        <span class="message_search_result" style="" > {{ books_result_queryset_list_sort|length }} </span></p>
-          
-          {% elif form_search_get_book == "yes" and form_search_get_author == "yes" %}
-            {% if books_result_queryset_list_sort|length == 0 and authors_result_found_list|length == 0 %}
-            <p class="h3vw_l" ><span class="message_search_result" style=""> No books and authors found in database for query:</span><br><span style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;"> {% autoescape off %} > {{ parameters }} < {% endautoescape %} </span></p>
-          
-            {% elif books_result_queryset_list_sort|length > 0 and authors_result_found_list|length > 0 %}
-            <p class="h3vw_l" style="" ><span class="message_search_result"> Books and authors found in database for query: <br></span>
-            <span class="message_search_result"style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;"> {% autoescape off %} " {{ parameters }} " {% endautoescape %}  </span></p>
-            <p class="h3vw_l" style="" > <span class="message_search_result"> Number of found books: </span>
-            <span style="animation: anime_red_text 2s infinite; font-weight: bold;" class="message_search_result"> {{  books_result_queryset_list_sort|length }}  </span></p> 
-            <p class="h3vw_l" style="" ><span class="message_search_result"> Number of found authors: </span><span class="h3vw_l_b" style="animation: anime_red_text 2s infinite; " > {{ authors_result_found_list|length }} </span></p> 
-
-            {% elif books_result_queryset_list_sort|length > 0 and authors_result_found_list|length == 0 %}
-            <p class="h3vw_l" style="" ><span style="color:blue; line-height: 1.6;" class="message_search_result"> Books found in database for query: </span><br><span  style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;" class="message_search_result"> {% autoescape off %} " {{parameters}} " {% endautoescape %} </span></p>
-            <p class="h3vw_l" style="" > <span style="" class="message_search_result"> Number of found books:</span>
-            <span class="message_search_result" style="" > {{ num_books_result_set }} </span></p> 
-            <p class="h3vw_l" style="" ><span class="message_search_result"> No authors found in database </span></p>
-
-            {% elif books_result_queryset_list_sort|length == 0 and authors_result_found_list|length > 0 %}
-            <p class="h3vw_l" style="" > <span style="" class="message_search_result">Authors found in database for query: </span><br>
-            <span  style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;" class="message_search_result"> {% autoescape off %} > {{ parameters }} < {% endautoescape %} </span></p>
-            <p class="h3vw_l" style="" ><span style="" class="message_search_result"> Number of found authors: </span>
-            <span  style="animation: anime_red_text 2s infinite; font-weight: bold;" class="message_search_result"> {{ authors_result_found_list|length }} </span></p>
-            <p class="h3vw_l" style="" ><span class="message_search_result"> No books found in database </span></p> 
-
-            {% endif %}
-            {% endif %}
-
+      
           {% if form_search_post == "yes" %}
           {% if search_resultB|length == 0 and search_resultA|length == 0 %}
           <p class="h3vw_l" style=""> <span class="message_search_result" style="" > No books and authors found in database for query: </span><br><span style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;"> {% autoescape off %} > {{parameters_post}} < {% endautoescape %} </span></p>
@@ -135,23 +96,8 @@ window.addEventListener("load", function() {
           <p class="h3vw_l_b" style="" >Number of all authors in database: </p> 
           <p class="h2vw_l_b" style="animation: anime_red_text 2s infinite; line-heigh: 1.2;" > {{ num_authors }} </p></a>
 
-          {% if form_search_get_book == "yes" and form_search_get_author == "yes" %}
-          <p class="h3vw_l_b" style=""><span class="message_search_result"> <<< FOR QUERY </span></p>
-              {% if authors_result_found_list|length == 0 %}
-              <p class="h3vw_l" style=""><span class="message_search_result" style="line-height: 1;"> No authors found in database </span></p>
-              {% elif authors_result_found_list|length > 0 %} 
-              <p class="h3vw_l" style=""><span class="message_search_result"> Number of found authors: </span>
-              <span class="message_search_result" style="animation: anime_red_text 2s infinite; font-weight: bold;"> {{ authors_result_found_list|length }} </span></p> 
-              {% endif %}
-          
-            {% elif form_search_get_book == "yes" and form_search_get_author == "no" %}
-            <p class="h3vw_l_b" style=""><span class="message_search_result"> FOR QUERY >>> <span></p>
-            <p class="h3vw_l" style=""><span class="message_search_result" style=""> search without author details </span></p>
-          {% endif %}
-
-          
-
           {% if form_search_post == "yes" %}
+          <p class="h3vw_l_b" style=""><span class="message_search_result"> <<< FOR QUERY </span></p>
           {% if search_resultA|length == 0 %}
     <p class="h3vw_l"><span class="message_search_result" style=""> No authors found in database </span></p>
     {% elif search_resultA|length > 0 %} 

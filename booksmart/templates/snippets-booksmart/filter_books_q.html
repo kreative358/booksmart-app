@@ -2,8 +2,20 @@
 
 <script>
 window.addEventListener("load", function() {
-localStorage.clear();
+
+  localStorage.clear();
+  sessionStorage.clear();
+
+//  sessionStorage.removeItem("key");
+
 //  document.querySelector("#input_text_search_q").value = "";
+
+
+let input_text_search_q = document.querySelector("#input_text_search_q");
+if (input_text_search_q.value != "") {
+  input_text_search_q.value = "";
+}  
+
 });
 </script>
 <style type="text/css">
@@ -178,7 +190,7 @@ max-width: 92%;
   <div class="my_container_filter" id="container_filter" >
     <div class="my_card_filter "id="card_filter">
 
-      <form  action="{% url 'booksmart:records' %}" method="POST" target="_blank" >
+      <form  action="{% url 'booksmart:records-post' %}" method="POST" target="_blank" >
            
         {% csrf_token %}
 

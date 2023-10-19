@@ -1,0 +1,114 @@
+{% include 'snippets-booksmart/css_booksmart.html' %}
+
+<script>
+window.addEventListener("load", function() {
+  localStorage.clear();
+  sessionStorage.clear();
+  // document.cookie = "";
+
+/*  const message_search_result = document.querySelectorAll(".message_search_result");
+  for (const msg_result of message_search_result) {
+    msg_result.innerHTML = "";
+  } */
+
+});
+</script>
+<style type="text/css">
+  
+  @keyframes anime_red_text {
+    33% {color: rgba(0, 0, 240, 0.8);}
+    66% {color: rgba(240, 0, 0, 0.8);}
+    100% {color: rgba(0, 0, 240, 0.8);}
+    }  
+
+  .my_container_top_cards {
+  margin: 8px 7.2vw auto 7.2vw;
+    }
+
+.my_container_top_cards:hover {
+  color: blue;
+    }
+  
+  </style>
+
+  
+  <div class="my_container_top_cards">
+    
+    <div class="my_card_top_cards" id="mycard_top_cards_left">
+          <a href="{% url 'booksmart:allrecords' %}" target="_blank">
+            <p class="h3vw_l_b" style="">Number of all books in database:</p> 
+            <p class="h2vw_l_b" style="animation: anime_red_text 2s infinite;"> {{ num_books }}</p></a>
+           
+            {% if parameters != "" %}
+            <p class="h3vw_l_b" style=""><span class="message_search_result"> FOR QUERY >>> <span></p>
+                {% if books_result|length == 0 %}
+                <p class="h3vw_l" style=""><span class="message_search_result" style=""> No books found in database </span></p>
+                {% elif books_result|length > 0 %} 
+                <p class="h3vw_l" style=""><span class="message_search_result"> Number of found books: </span>
+                <span style="animation: anime_red_text 2s infinite; font-weight: bold;" class="message_search_result"> {{ books_result|length }} </span></p> 
+                {% endif %}
+            {% endif %}
+
+            {% if form_search_post == "yes" %}
+              {% if search_resultB|length == 0 %}
+              <p class="h3vw_l" style=""><span class="message_search_result"> No books found in database </span></p>
+              {% elif search_resultB|length > 0 %} 
+              <p class="h3vw_l" style=""><span class="message_search_result">  Number of found books: </span>
+              <span style="animation: anime_red_text 2s infinite; font-weight: bold;" class="message_search_result"> {{ search_resultB|length }} </span></p> 
+              {% endif %}
+            {% endif %}
+
+      </div>
+
+      <div class="my_card_top_cards" id="mycard_top_cards_middle">
+          {% if message %}
+          <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite;" ><span class="message_search_result"> {{ message }} </span></p>
+          {% endif %}
+
+          {% if parameters == "" %}
+          <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite;" > To try to find the book,<br> fill one of the field.</p>
+        {% endif %}
+
+        {% if parameters != "" %}
+        <p class="h3vw_l_b" style=""><span class="message_search_result"> FOR QUERY <span></p>
+          <p class="h3vw_l_b"><span style="animation: anime_red_text 2s infinite;"> {{ parameters }} <span></p>
+        {% if books_result|length == 0 and author_result|length == 0 %}
+        <p class="h3vw_l" ><span class="message_search_result" style=""> No books and authors found in database for query:</span><br><span style="animation: anime_red_text 2s infinite; font-weight: bold; line-height: 1.4; color: blue;"> {% autoescape off %} > {{ parameters }} < {% endautoescape %} </span></p>
+        {% elif books_result|length > 0 and author_result|length == 0 %}
+        <p class="h3vw_l" style="" > <span style="" class="message_search_result"> Number of found books:</span>
+        <span class="message_search_result" style="" > {{ books_result|length }} </span></p>
+        <p class="h3vw_l" style="" > <span style="" class="message_search_result"> No authors found</span></p>
+
+        {% elif books_result|length == 0 and author_result|length > 0 %}
+        <p class="h3vw_l" style="" > <span style="" class="message_search_result"> No books found:</span></p>
+        <p class="h3vw_l" style="" > <span style="" class="message_search_result"> Nomber of found authors: </span></p>
+        <span class="message_search_result" style="" > {{ authors_result|length }} </span>
+        {% elif books_result|length > 0 and author_result|length > 0 %}
+        <p class="h3vw_l" style="" > <span style="" class="message_search_result"> Number of found books:</span>
+          <span class="message_search_result" style="" > {{ books_result|length }} </span></p>
+          <p class="h3vw_l" style="" > <span style="" class="message_search_result"> Number of found authors:</span>
+            <span class="message_search_result" style="" > {{ books_result|length }} </span></p>
+          {% endif %}
+          {% endif %}
+
+         
+      </div>
+  
+      <div class="my_card_top_cards" id="mycard_top_cards_right">
+        <a href="{% url 'booksmart:allauthors' %}" target="_blank">
+          <p class="h3vw_l_b" style="" >Number of all authors in database: </p> 
+          <p class="h2vw_l_b" style="animation: anime_red_text 2s infinite; line-heigh: 1.2;" > {{ num_authors }} </p></a>
+
+          {% if parameters != "" %}
+          <p class="h3vw_l_b" style=""><span class="message_search_result"> <<< FOR QUERY </span></p>
+              {% if  author_result|length == 0 %}
+              <p class="h3vw_l" style=""><span class="message_search_result" style="line-height: 1;"> No authors found in database </span></p>
+              {% elif  author_result|length > 0 %} 
+              <p class="h3vw_l" style=""><span class="message_search_result"> Number of found authors: </span>
+              <span class="message_search_result" style="animation: anime_red_text 2s infinite; font-weight: bold;"> {{  author_result|length }} </span></p> 
+              {% endif %}
+          {% endif %}
+                    
+      </div>
+ 
+  </div>

@@ -6,37 +6,7 @@
   
 {% include 'snippets-booksmart/pure_flatpickr_css.html' %}
 
-<script>
-  const search_bar_inputs = document.querySelectorAll("#search_bar input");
-  const search_bar_selects = document.querySelectorAll("#search_bar select");
-  const checks_text = document.getElementsByClassName("span_checked");
-  
 
-  for (const search_bar_input of search_bar_inputs) {
-    if (search_bar_input.value != "" || search_bar_input.checked == true) {
-      if (search_bar_input.value != "") {
-          search_bar_input.value = "";
-          }
-      if (search_bar_input.hasAttribute('checked')) {
-          search_bar_input.removeAttribute('checked');
-      }
-    }
-  }
- 
-  for (const search_bar_select of search_bar_selects) {
-   // if (search_bar_select.children[0].selected = false) { 
-    search_bar_select.children[0].selected = true;
-   // }
-  } 
-
-  
-  for (const check_text of checks_text) {
-    if (check_text.innerHTML != "") {
-    check_text.innerHTML = "";
-    }
-  } 
-
-</script>
 
 <style type="text/css">
 
@@ -160,9 +130,12 @@ bottom:  1px;
 }
 
 #search_panel_collapse {
-  display: none; 
-/*max-height: 0%; */
 }
+  
+  #id_form_search {
+   transform: scaleY(0);
+   transform-origin: top;
+  }
 
     /* select:focus, option:focus, #bs_input_c:focus, #bs_input_o:focus */
 #search_bar .form-group {
@@ -1373,7 +1346,7 @@ right: 11.8%;
   
 
 {% if search_form %}
-    <form action="{% url 'booksmart:records-get' %}"  method="get" target="_blank" novalidate id="id_form_search">
+    <form action="{% url 'booksmart:records' %}"  method="get" target="_blank" novalidate id="id_form_search">
      
       {% bootstrap_form search_form %}
 
@@ -1399,37 +1372,25 @@ right: 11.8%;
 
 <script>
 
-/*
-let input_text_search_q = document.querySelector("#input_text_search_q");
-if (input_text_search_q.value != "") {
-  input_text_search_q.value = "";
-}  */
-
-/*if (document.getElementById("input_text_search_q")) {
-  let input_text_search_q = document.getElementById("input_text_search_q");
-  let btn_search_panel_yes = document.getElementById("btn_search_panel_yes");
-  if (input_text_search_q.value != "") {
-    btn_search_panel_yes.onclick = function() {
-    input_text_search_q.value = "";
-    }
-}
-} */
-
+let id_form_search = document.getElementById("id_form_search");
 let container_collapse = document.getElementById("search_panel_collapse");
 let btn_collapse = document.getElementById("btn_collapse_search_panel");
 
+ container_collapse.style.height = "0px";
+
 btn_collapse.onclick = function() {
- if (container_collapse.style.display==="block") {
- //   if (container_collapse.style.display="0%") {
-      container_collapse.style.animation = "anime_roll_close 1.6s 1 0.2s easy-in-out";
+// if (container_collapse.style.display==="block") {
+  if (container_collapse.style.height != "0" + "px") {
+    container_collapse.style.height ="0" + "px";
+  id_form_search.style.transform = "scaleY(0)";
    // container_collapse.style.animation = "anime_roll_close 1.6s 0.2s easy-in-out";
-      setTimeout(function(){
+    /*  setTimeout(function(){
         container_collapse.style.display = "none";
-       // container_collapse.style.display = "block";
-       }, 1700); 
+       }, 1700); */
   } else {
-    container_collapse.style.animation = "anime_roll_open 1.6s 1 0.2s easy-in-out";
-    container_collapse.style.display = "block";
+    container_collapse.style.height ="100%";
+    id_form_search.style.transform = "scaleY(1)";
+  //  container_collapse.style.display = "block";
        }
 }
 
@@ -1475,6 +1436,8 @@ btn_collapse.onclick = function() {
 
 const selectes = document.querySelectorAll('#search_bar select');
 // const selectes = document.querySelectorAll('#search_bar select'); 
+
+
 
   if (
     navigator.userAgent.match(/Android/i) ||
@@ -1665,36 +1628,4 @@ let date_start = flatpickr("#input_date_start", {
 
      
          </script>
-         <script>
-     /*   var btn_door_clear = document.getElementById("btn_door");
-        var id_form_search = document.getElementById("id_form_search");
-        btn_door_clear.addEventListener("click", function() { */
-          
-        //  localStorage.clear();
-        //  sessionStorage.clear();
-        
-          // let id_form_search = document.getElementById("id_form_search");
-        //  id_form_search.reset();
-        
-        //  sessionStorage.removeItem("key");
-        
-        
-          /*  const search_bar_inputs = document.querySelectorAll("#search_bar input");
-            const search_bar_selects = document.querySelectorAll("#search_bar select");
-            const checks_text = document.getElementsByClassName("span_checked");
-            
-        
-            for (const search_bar_input of search_bar_inputs) {
-              if (search_bar_input.value != "") {
-              search_bar_input.value = "";
-              search_bar_input.checked = false;
-              }
-            }
-           
-            for (const search_bar_select of search_bar_selects) {
-              if (search_bar_select.children[0].selected = false) { 
-              search_bar_select.children[0].selected = true;
-              }
-            } */
-       //   });
-          </script>
+
