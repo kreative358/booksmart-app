@@ -628,17 +628,17 @@ class RecordsView(APIView):
             context_get["form_search_get_book"] = "yes"  ###
             
             # search_user_num_b = str(search_form.cleaned_data["user_num_b"])
-            print('str(search_form.cleaned_data["user_num_b"]) =', str(search_form.cleaned_data["user_num_b"])) 
+            # print('str(search_form.cleaned_data["user_num_b"]) =', str(search_form.cleaned_data["user_num_b"])) 
             # context_get["search_user_num_b"] = str(search_form.cleaned_data["user_num_b"])  
             keywords_fields["user_num_b"] = r_user.id if str(search_form.cleaned_data["user_num_b"]) == "True" else ""
-            print('keywords_fields["user_num_b"] =', keywords_fields["user_num_b"])
+            # print('keywords_fields["user_num_b"] =', keywords_fields["user_num_b"])
             # print('context_get["search_user_num_b"] =', context_get["search_user_num_b"])
             # context_get_keywords_fields["search_user_num_b"] = str(search_form.cleaned_data["user_num_b"])
             
             # search_epub = "yes" if str(search_form.cleaned_data["epub"]) == "True" else ""
-            print('str(search_form.cleaned_data["epub"]) =', str(search_form.cleaned_data["user_num_b"]))
+            # print('str(search_form.cleaned_data["epub"]) =', str(search_form.cleaned_data["user_num_b"]))
             keywords_fields["epub"] = "yes" if str(search_form.cleaned_data["epub"]) == "True" else ""
-            print('keywords_fields["epub"] =', keywords_fields["epub"])
+            # print('keywords_fields["epub"] =', keywords_fields["epub"])
             # search_title = search_form.cleaned_data['title']
             keywords_fields['title__icontains'] = search_form.cleaned_data['title']
             
@@ -664,12 +664,12 @@ class RecordsView(APIView):
             keywords_fields["author"] = search_form.cleaned_data["author_list"]
 
             # search_ordering = search_form.cleaned_data["ordering"]
-            context_get["search_ordering"] = search_form.cleaned_data["ordering"]
+            context_get["search_ordering"] = search_form.cleaned_data["ordering"] if search_form.cleaned_data["ordering"] != "" else "title"
             print('context_get["search_ordering"] =', context_get["search_ordering"])
             # author_details_q = str(search_form.cleaned_data["author_details_q"])
-            print('str(search_form.cleaned_data["epub"]) =', str(search_form.cleaned_data["user_num_b"]))
+            # print('str(search_form.cleaned_data["epub"]) =', str(search_form.cleaned_data["user_num_b"]))
             context_get["author_details_q"] = str(search_form.cleaned_data["author_details_q"])
-            print('context_get["author_details_q"] =', context_get["author_details_q"])
+            # print('context_get["author_details_q"] =', context_get["author_details_q"])
 
             # print("author_details_q =", author_details_q)
         # keywords_fields['title__icontains'] = search_title.upper()
@@ -773,21 +773,24 @@ class RecordsView(APIView):
         elif filter_dict:
 
             try:
-                queryset_books_distinct = Book.objects.filter(**filter_dict).distinct()
-                queryset_books = Book.objects.filter(**filter_dict)
-                list_tuple_books = queryset_books.values_list("title")
-                books_list_title = [book.title for book in queryset_books_distinct]
+                queryset_books_distinct_sort = Book.objects.filter(**filter_dict).distinct().order_by(context_get["search_ordering"])
+                queryset_books_distinct_sort_list = [book for book in queryset_books_distinct_sort]
+                # print("queryset_books_distinct_sort_list =", queryset_books_distinct_sort_list)
+                # queryset_books = Book.objects.filter(**filter_dict)
+                list_tuple_books = queryset_books_distinct_sort.values_list("title")
+                books_list_title = [book.title for book in queryset_books_distinct_sort]
                 books_result_title.extend(books_list_title)
-                queryset_books_sort = queryset_books.order_by(context_get["search_ordering"])
-                books_result_queryset_list_sort.extend(list(set(queryset_book_sort for queryset_book_sort in queryset_books_sort)))
-                context_get["books_result_queryset_list_sort"] = books_result_queryset_list_sort
+                # queryset_books_sort = queryset_books.order_by(context_get["search_ordering"])
+                books_result_queryset_list_sort.extend(queryset_books_distinct_sort_list)
+                # books_result_queryset_list_sort.extend(list(set(queryset_book_sort for queryset_book_sort in queryset_books_sort)))
+                context_get["books_result_queryset_list_sort"] = queryset_books_distinct_sort_list
                 # print('books_result_sort', queryset_books_sort)
                 # queryset_b = Book.objects.filter(**filter_dict)
                 # # print('queryset_b', queryset_b)
                 # for book in queryset_b:
-                books_result_queryset.extend(queryset_books_sort)
-                books_result_queryset_distinct.extend(queryset_books_distinct)
-                books_result_title.extend([book.title for book in queryset_books_sort])
+                books_result_queryset.extend(queryset_books_distinct_sort)
+                books_result_queryset_distinct.extend(queryset_books_distinct_sort)
+                books_result_title.extend([book.title for book in queryset_books_distinct_sort])
                 # for book in queryset_books_sort:
                 #     books_result_queryset.append(book)
                 #     books_result_title.apend(book.title)

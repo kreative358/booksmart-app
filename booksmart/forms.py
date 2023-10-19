@@ -369,7 +369,7 @@ class SearchRecord(forms.ModelForm):
     language = forms.ChoiceField(label= 'Search by language', choices=Languages, required=False, widget=forms.Select(attrs={'id':'input_select_sr_language'}))
 
     Order = [
-       # ('', 'select order'),
+        ('', 'select order'),
         ('title', 'title A-Z'),
         ('-title', 'title Z-A'),
         ('surname', 'author A-Z'),
@@ -383,7 +383,7 @@ class SearchRecord(forms.ModelForm):
     ordering = forms.ChoiceField(label = 'sort by',  required=False, choices = Order, widget=forms.Select(attrs={'id':'input_select_sr_ordering'}))
 
     try:
-        author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")] + list(set(Book.objects.values_list('author', 'author'))), required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
+        author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")] + sorted(list(set(Book.objects.values_list('author', 'author'))), key = lambda a: a[1].split()[-1]), required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
     except:
         # print("booksmart forms 376 no author_list")
         author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")], required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
