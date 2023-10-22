@@ -33,8 +33,6 @@ box-shadow:
   z-index: 16;
 }
 
-
-
 .header_text_1 {
 font-size: 28px;
 font-weight:bold;
@@ -530,135 +528,331 @@ border: 4px solid rgba(200, 210, 220, 0.8);
         margin-top: 4px;
         margin-bottom: 4px;
         }
-      
-    @media screen and (max-width: 1280px) {
-      .my_container_top_cards {
-      display: block;
-      margin:auto;
-      
-      /* grid-template-columns: auto auto auto; */
-      }
-      
-    
-    .my_card_top_cards {
+
+      </style>
+
+<style>
+  .popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1060;
+    display: block;
+    max-width: 276px;
+    font-family: -apple - system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    "Liberation Sans",
+    sans - serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: left;
+    text-align: start;
       text-align: center;
-      width: 520px;
-      margin:auto; 
-      max-width: 98%;
-      }
-      
-     #mycard_2_top_cards,
-     #mycard_top_cards_middle,
-     [id^="mycard_top_cards_middle"] {
-      /*margin-top: 20px;
-      margin-bottom: 20px; */
-      margin: 20px auto 20px auto;
-      }
-      
-    .h2vw_l {
-      font-size: 34px; 
-      color: MediumBlue;     
-      font-family: Times;  
-      }
-      
-    .h2vw_l_b {
-      font-size: 34px;
-      color: MediumBlue; 
-      font-weight: bold;
-      font-family: Times;
-      }
-      
-    #h2vw_l {
-      font-size: 34px; 
-      color: MediumBlue; 
-      font-family: Times;
-      }
-      
-    #h2vw_l_b {
-      font-size: 34px;
-      color: MediumBlue;  
-      font-weight: bold;
-      font-family: Times;
-      }
-      
-    .h3vw_l {
-      font-size: 28px;
-      color: RoyalBlue; 
-      font-family: Times;
-      }
-      
-    .h3vw_l_b {
-      font-size: 28px;
-      color: RoyalBlue; 
-      font-weight: bold;
-      font-family: Times;
-      }
-      
-    #h3vw_l {
-      font-size: 28px;
-      font-family: Times; 
-      }
-      
-    #h3vw_l_b {
-      font-size: 28px;  
-      color: RoyalBlue; 
-      font-weight: bold;
-      font-family: Times;
-      }   
-      
-      #h4vw_l_b {
-        font-size: 26px;
-        color: MediumBlue; 
-        font-weight: bold;
-        font-family: Times; 
-        }
-      
-      .h4vw_l_b {
-        font-size: 26px; 
-        color: MediumBlue; 
-        font-weight: bold;
-        font-family: Times; 
-        }
-      
-        #h4vw_l {
-        font-size: 26px;
-        color: MediumBlue; 
-        font-family: Times; 
-        }
-      
-      .h4vw_l {
-        font-size: 26px;  
-        color: MediumBlue; 
-        font-family: Times; 
-        }  
-      }
-      
-    @media screen and (max-width: 640px) {
-      .my_container_top_cards {
-        display: block;
-        margin: auto;
-        max-width: 94%;
-        /* grid-template-columns: auto auto auto; */
-        
-        }
-        
-     
-      .my_card_top_cards {
-        text-align: center;
-        margin:auto; 
-        max-width: 98%;
-        width: 520px;
-      
-        }
-        
-       #mycard_top_cards_middle {
-        /*margin-top: 20px;
-        margin-bottom: 20px; */
-        margin-top: 20px;
-        margin-bottom: 20px;
-        margin-left:auto;
-        margin-right:auto;
-        }
+    text-decoration: none;
+    /*text-shadow: none; */
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    white-space: normal;
+    word-spacing: normal;
+    line-break: auto;
+    font-size: 1rem;
+    word-wrap: break-word;
+    background-color: rgb(60, 160, 240);
+    background-color: rgba(40, 140, 240, 0.8);
+    background-clip: padding - box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: .3rem;
+    color: rgba(230, 230, 240, 1);
+  }
+  
+  .popover .arrow {
+  position:absolute;
+  display:block;
+  width:1rem;
+  height:.5rem;
+  margin:0 .3rem;
+  color: rgba(40, 140, 240, 0.8);
+  }
+  
+  .popover .arrow::after,
+  .popover .arrow::before {
+  position:absolute;
+  display:block;
+  content:"";
+  border-color:transparent;
+  border-style:solid;
+  }
+  
+  .bs-popover-auto[x-placement^=top],
+  .bs-popover-top{
+  margin-bottom:.5rem;
+  }
+  
+  .bs-popover-auto[x-placement^=top]>.arrow,
+  .bs-popover-top>.arrow {
+  bottom:calc(-.5rem - 1px);
+  }
+  
+  .bs-popover-auto[x-placement^=top]>.arrow::before,
+  .bs-popover-top>.arrow::before {
+  bottom:0;
+  border-width:.5rem .5rem 0;
+  border-top-color:rgba(0,0,0,.25);
+  }
+  
+  .bs-popover-auto[x-placement^=top]>.arrow::after,
+  .bs-popover-top>.arrow::after {
+  bottom:1px;
+  border-width:.5rem .5rem 0;
+  border-top-color:rgb(60, 160, 240);
+  }
+  
+  .bs-popover-auto[x-placement^=right],
+  .bs-popover-right {
+  margin-left:.5rem;
+  }
+  
+  .bs-popover-auto[x-placement^=right]>.arrow,.bs-popover-right>.arrow{
+  left:calc(-.5rem - 1px);width:.5rem;
+  height:1rem;
+  margin:.3rem 0;
+  }
+  
+  .bs-popover-auto[x-placement^=right]>.arrow::before,
+  .bs-popover-right>.arrow::before { 
+  left:0;
+  border-width:.5rem .5rem .5rem 0;
+  border-right-color:rgba(0,0,0,.25);
+  }
+  
+  .bs-popover-auto[x-placement^=right]>.arrow::after,
+  .bs-popover-right>.arrow::after {
+  left:1px;
+  border-width:.5rem .5rem .5rem 0;
+  border-right-color:#fff;
+  }
+  
+  .bs-popover-auto[x-placement^=bottom],
+  .bs-popover-bottom {
+  margin-top:.5rem;
+  }
+  
+  .bs-popover-auto[x-placement^=bottom]>.arrow,.bs-popover-bottom>.arrow {
+  top:calc(-.5rem - 1px);
+  }
+  
+  .bs-popover-auto[x-placement^=bottom]>.arrow::before,
+  .bs-popover-bottom>.arrow::before{
+  top:0;
+  border-width:0 .5rem .5rem .5rem;
+  border-bottom-color:rgba(0,0,0,.25);
+  }
+  
+  .bs-popover-auto[x-placement^=bottom]>.arrow::after,
+  .bs-popover-bottom>.arrow::after {
+  top:1px;border-width:0 .5rem .5rem .5rem;
+  border-bottom-color:#fff;
+  }
+  
+  .bs-popover-auto[x-placement^=bottom] .popover-header::before,
+  .bs-popover-bottom .popover-header::before {
+  position:absolute;
+  top:0;
+  left:50%;
+  display:block;
+  width:1rem;
+  margin-left:-.5rem;
+  content:"";
+  border-bottom:1px solid #f7f7f7;
+  }
+  
+  .bs-popover-auto[x-placement^=left],
+  .bs-popover-left {
+  margin-right:.5rem;
+  }
+  
+  .bs-popover-auto[x-placement^=left]>.arrow,.bs-popover-left>.arrow {
+  right:calc(-.5rem - 1px);
+  width:.5rem;
+  height:1rem;
+  margin:.3rem 0;
+  }
+  
+  .bs-popover-auto[x-placement^=left]>.arrow::before,.bs-popover-left>.arrow::before {
+  right:0;
+  border-width:.5rem 0 .5rem .5rem;
+  border-left-color:rgba(0,0,0,.25);
+  }
+  
+  .bs-popover-auto[x-placement^=left]>.arrow::after,
+  .bs-popover-left>.arrow::after {
+  right:1px;
+  border-width:.5rem 0 .5rem .5rem;
+  border-left-color:#fff;
+  }
+  
+  .popover-header {
+  padding:.5rem .75rem;
+  margin-bottom:0;
+  font-size:1rem;
+  background-color: rgba(20, 120, 220, 0.8);
+  border-bottom:1px solid #ebebeb;
+  border-top-left-radius:calc(.3rem - 1px);
+  border-top-right-radius:calc(.3rem - 1px);
+  color: color: rgba(230, 230, 240, 1);
+  font-weight: 700;
+  }
+  
+  .popover-header:empty{
+  display:none;
+  }
+  
+  .popover-body{
+  padding:.5rem .75rem .75rem .75rem;    
+    color: aliceblue;
+  }
+  
+  </style>
+
+<style>
+
+@media screen and (max-width: 1280px) {
+.my_container_top_cards {
+display: block;
+margin:auto;
+/* grid-template-columns: auto auto auto; */
+}
+
+.my_card_top_cards {
+text-align: center;
+width: 520px;
+margin:auto; 
+max-width: 98%;
+}
+
+#mycard_2_top_cards,
+#mycard_top_cards_middle,
+[id^="mycard_top_cards_middle"] {
+/*margin-top: 20px;
+margin-bottom: 20px; */
+margin: 20px auto 20px auto;
+}
+
+.h2vw_l {
+font-size: 34px; 
+color: MediumBlue;     
+font-family: Times;  
+}
+
+.h2vw_l_b {
+font-size: 34px;
+color: MediumBlue; 
+font-weight: bold;
+font-family: Times;
+}
+
+#h2vw_l {
+font-size: 34px; 
+color: MediumBlue; 
+font-family: Times;
+}
+
+#h2vw_l_b {
+font-size: 34px;
+color: MediumBlue;  
+font-weight: bold;
+font-family: Times;
+}
+
+.h3vw_l {
+font-size: 28px;
+color: RoyalBlue; 
+font-family: Times;
+}
+
+.h3vw_l_b {
+font-size: 28px;
+color: RoyalBlue; 
+font-weight: bold;
+font-family: Times;
+}
+
+#h3vw_l {
+font-size: 28px;
+font-family: Times; 
+}
+
+#h3vw_l_b {
+font-size: 28px;  
+color: RoyalBlue; 
+font-weight: bold;
+font-family: Times;
+}   
+
+#h4vw_l_b {
+  font-size: 26px;
+  color: MediumBlue; 
+  font-weight: bold;
+  font-family: Times; 
+  }
+
+.h4vw_l_b {
+  font-size: 26px; 
+  color: MediumBlue; 
+  font-weight: bold;
+  font-family: Times; 
+  }
+
+  #h4vw_l {
+  font-size: 26px;
+  color: MediumBlue; 
+  font-family: Times; 
+  }
+
+.h4vw_l {
+  font-size: 26px;  
+  color: MediumBlue; 
+  font-family: Times; 
+  }  
+}
+
+@media screen and (max-width: 640px) {
+.my_container_top_cards {
+  display: block;
+  margin: auto;
+  max-width: 94%;
+  /* grid-template-columns: auto auto auto; */
+  
+  }
+  
+
+.my_card_top_cards {
+  text-align: center;
+  margin:auto; 
+  max-width: 98%;
+  width: 520px;
+
+  }
+  
+  #mycard_top_cards_middle {
+  /*margin-top: 20px;
+  margin-bottom: 20px; */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left:auto;
+  margin-right:auto;
+  }
 
 #body_new_book input[type="text"], 
 #body_new_book input[type="date"],
@@ -685,125 +879,122 @@ border: 4px solid rgba(200, 210, 220, 0.8);
     
 }
      
-          
-        .h2vw_l {
-          font-size: 22px;
-          color: rgba(0, 0, 240,  0.8); 
-          font-family: Times;
-          }
-          
-        .h2vw_l_b {
-          font-size: 22px; 
-          color: rgba(0, 0, 240,  0.8); 
-          font-weight: bold;
-          font-family: Times;
-          }
-          
-        #h2vw_l {
-          font-size: 22px;
-          color: rgba(0, 0, 240,  0.8); 
-          font-family: Times;
-          }
-          
-        #h2vw_l_b {
-          font-size: 22px;
-          color: rgba(0, 0, 240,  0.8); 
-          font-weight: bold;
-          font-family: Times;
-          }
-          
-        .h3vw_l {
-          font-size: 20px;
-          color: rgba(0, 0, 220, 0.9); 
-          font-family: Times;
-          }
-          
-        .h3vw_l_b {
-          font-size: 20px;  
-          color: rgba(0, 0, 220, 0.9);
-          font-weight: bold;
-          font-family: Times;
-          }
-          
-        #h3vw_l {
-          font-size: 20px; 
-          color: rgba(0, 0, 220, 0.9);
-          font-family: Times;
-          }
-          
-        #h3vw_l_b {
-          font-size: 20px;
-          color: rgba(0, 0, 220, 0.9); 
-          font-weight: bold;
-          font-family: Times;
-          }
-        
-          #h4vw_l_b {
-            font-size: 18px;
-            color:rgba(0, 0, 240,  0.8); 
-            font-weight: bold;
-            font-family: Times; 
-            }
-        
-        .h4vw_l {
-          font-size: 18px;
-            color: rgba(0, 0, 240,  0.8); 
-            font-weight: bold;
-            font-family: Times; 
-            }
-        
-        #h4vw_l_b {
-          font-size: 18px;
-            color: rgba(0, 0, 240,  0.8); 
-            font-family: Times; 
-            }
-        
-        .h4vw_l_b {
-          font-size: 18px;
-            color: rgba(0, 0, 240,  0.8); 
-            font-family: Times; 
-            }      
-          }        
-
-  @media screen and (max-width: 560px) {
   
-    .my_container_top_cards {
-    
-      max-width: 96%;
-      /* grid-template-columns: auto auto auto; */
-      
-      }
-      
-  
-    .my_card_top_cards {
-      text-align: center;
-      margin:auto; 
-      max-width: 98%;
-      width: 520px;
-    
-      }
-      
-    .mycontainer {
-      max-width: 94%;
-      width: 94%;
-    }
-
-    .body_card::-webkit-scrollbar {
-      display: none;
-    }
-
-    .header_text_1 {
-      font-size: 26px
-    }
-
-    .header_text_2 {
-      font-size: 22px
-    }
-
-    .body_card label {
-      font-size: 20px;
-    }
+.h2vw_l {
+  font-size: 22px;
+  color: rgba(0, 0, 240,  0.8); 
+  font-family: Times;
   }
+  
+.h2vw_l_b {
+  font-size: 22px; 
+  color: rgba(0, 0, 240,  0.8); 
+  font-weight: bold;
+  font-family: Times;
+  }
+  
+#h2vw_l {
+  font-size: 22px;
+  color: rgba(0, 0, 240,  0.8); 
+  font-family: Times;
+  }
+  
+#h2vw_l_b {
+  font-size: 22px;
+  color: rgba(0, 0, 240,  0.8); 
+  font-weight: bold;
+  font-family: Times;
+  }
+  
+.h3vw_l {
+  font-size: 20px;
+  color: rgba(0, 0, 220, 0.9); 
+  font-family: Times;
+  }
+  
+.h3vw_l_b {
+  font-size: 20px;  
+  color: rgba(0, 0, 220, 0.9);
+  font-weight: bold;
+  font-family: Times;
+  }
+  
+#h3vw_l {
+  font-size: 20px; 
+  color: rgba(0, 0, 220, 0.9);
+  font-family: Times;
+  }
+  
+#h3vw_l_b {
+  font-size: 20px;
+  color: rgba(0, 0, 220, 0.9); 
+  font-weight: bold;
+  font-family: Times;
+  }
+
+  #h4vw_l_b {
+    font-size: 18px;
+    color:rgba(0, 0, 240,  0.8); 
+    font-weight: bold;
+    font-family: Times; 
+    }
+
+.h4vw_l {
+  font-size: 18px;
+    color: rgba(0, 0, 240,  0.8); 
+    font-weight: bold;
+    font-family: Times; 
+    }
+
+#h4vw_l_b {
+  font-size: 18px;
+    color: rgba(0, 0, 240,  0.8); 
+    font-family: Times; 
+    }
+
+.h4vw_l_b {
+  font-size: 18px;
+    color: rgba(0, 0, 240,  0.8); 
+    font-family: Times; 
+    }      
+  }        
+
+@media screen and (max-width: 560px) {
+
+  .my_container_top_cards {
+    max-width: 96%;
+    /* grid-template-columns: auto auto auto; */
+    }
+    
+  .my_card_top_cards {
+    text-align: center;
+    margin:auto; 
+    max-width: 98%;
+    width: 520px;
+  
+    }
+    
+  .mycontainer {
+    max-width: 94%;
+    width: 94%;
+  }
+
+  .body_card::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header_text_1 {
+    font-size: 26px
+  }
+
+  .header_text_2 {
+    font-size: 22px
+  }
+
+  .body_card label {
+    font-size: 20px;
+  }
+}
 
 @media screen and (max-width: 480px) {
 

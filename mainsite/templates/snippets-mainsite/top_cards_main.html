@@ -21,7 +21,7 @@
     
     <div class="my_card_top_cards">
         <a href="{% url 'booksmart:allrecords' %}" target="_blank">
-            <p class="h3vw_l_b" > Number of all books in database: </p> 
+            <p class="h3vw_l_b" > Number of all books<br>in database: </p> 
             <p class="h2vw_l_b" id="num_books" style="animation: anime_red_text 2s infinite;"> {{ num_books }}</p>
         </a>
       </div>
@@ -33,7 +33,7 @@
     <div class="my_card_top_cards">
   <a href="{% url 'booksmart:allauthors' %}" target="_blank">
   <!--  <p class="link-number" id="h3vw_l_b" > Number of all authors in database: </p> -->
-    <p class="h3vw_l_b" > Number of all authors in database: </p> 
+    <p class="h3vw_l_b" > Number of all authors<br>in database: </p> 
     <p class="h2vw_l_b" id="num_authors" style="animation: anime_red_text 2s infinite;"> {{ num_authors }}</p>
   </a>
       </div>
