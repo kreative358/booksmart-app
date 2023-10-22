@@ -1525,7 +1525,8 @@ else {
   selekt.addEventListener('focus', (event) => {
  event.target.classList.remove('select_class');
   let y = event.target.getAttribute('data-title');
-  event.target.size = y * 1.1 + 1;
+  // event.target.size = y * 1.1 + 1;
+  event.target.size = Math.ceil(y * 1.2);
   event.target.nextElementSibling.style.display="none";
   event.target.style.animation = "opacityup 2s";
   });

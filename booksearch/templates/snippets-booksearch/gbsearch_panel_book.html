@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 
 <script>
-
+  // const forms_group = document.querySelectorAll(".form-group");
   window.addEventListener("load", function() {
   const forms_group = document.querySelectorAll(".form-group");
   for (const form_group of forms_group) {
@@ -13,14 +13,16 @@
   
   if (input_in_form_group.hasAttribute("data-title-tooltip")) {
   let text_title_tooltip = input_in_form_group.getAttribute("data-title-tooltip");
-  new_span_input_in_form_group = '<span class="mytooltip_text_span" data-tooltip="tooltip_input">' + new_input_in_form_group + 
-  '<span data-tooltiptext="tooltiptext_input">' + text_title_tooltip + '</span> </span>';
+  let new_span_input_in_form_group = '<span class="mytooltip_text_span" " data-tooltip="gbsearch_tooltip_input">' + new_input_in_form_group + 
+  '<span data-tooltiptext="gbsearch_tooltiptext_input">' + text_title_tooltip + '</span> </span>';
   label_in_form_group.remove();
   input_in_form_group.remove();
   form_group.innerHTML = new_label_in_form_group + new_span_input_in_form_group;
   }
   }
    }); 
+
+  
   </script>
 
 <style >
@@ -36,7 +38,7 @@
     margin: 40px auto 20px auto;
     left: 2px; 
     max-width: 90%;
-    z-index:11;
+    z-index:12;
     box-shadow: 
     0px 2px 2px 0px rgba(110, 170, 230, 0.2), 
     0px 3px 3px 0px rgba(100, 160, 220, 0.6), 
@@ -284,6 +286,7 @@
       font-size: 16px; 
       color:darkblue; 
       width:90%; 
+      position: relative;
       margin-left: auto;
       display: inline-block;
       border-radius: 2px;    
@@ -296,6 +299,7 @@
       padding: 6px;
       border: none;
       outline: none;
+      z-index: 12;
       }
   
     
@@ -476,11 +480,11 @@
   /* select, */
   #search_card_gb select  {
   position:relative;
-  z-index: 1;
+  z-index: 24;
   background-color: rgba(60, 160, 240, 0.0); 
   font-size: 16px; 
   color: rgba(0, 0, 210, 0.8); 
-  margin-top: 4px;
+  margin-top: 2px;
   border-radius: 2px;
   transition: 2s;
   /* padding: 6px 4px 6px 6px; */
@@ -498,7 +502,7 @@
   outline: none;
   border: none;
   position: fixed;
-  z-index: 3;
+  z-index: 25;
   transition: 0.4s;
   font-size: 16px; 
   color: rgba(0, 0, 210, 0.8); 
@@ -506,7 +510,7 @@
   max-width: 90%;
   margin-left: 8px;
   box-shadow: none;
-  margin-top: -6px;
+  margin-top: -8px;
   }
     
 
@@ -515,7 +519,7 @@
   #search_card_gb select,
   #search_card_gb select:hover {
   position: relative;
-  z-index: 1;
+  z-index: 25;
     width: 92%;
     max-width: 92%;
     margin-left: 4%;
@@ -526,7 +530,7 @@
   /* select:focus, */
   #search_card_gb select:focus {
     position: fixed;
-    z-index: 3;
+    z-index: 26;
     min-width: 88%;
     width: 88%;
     max-width: 88%;
@@ -543,6 +547,11 @@
     transition: 0.6s;
     opacity: 1;
   }
+
+  #search_bar select:focus option,
+  #search_bar select:focus:hover option {
+    z-index: 27;
+    }   
 
   /* select option:first-child, */
   #search_card_gb select option:first-child {
@@ -562,7 +571,9 @@
   /* select option:first-child:hover,
   select option:first-child:focus, */
   #search_card_gb select option:first-child:hover,
-  #search_card_gb select option:first-child:focus {
+  #search_card_gb select option:first-child:focus,
+  #search_card_gb select option:first-of-type:hover,
+  #search_card_gb select option:first-of-type:focus {
   background-color: rgba(60, 160, 240, 0.2);
   box-shadow: 
   0px 0px 0px 2px rgba(220, 220, 240, 0.6) inset,
@@ -590,6 +601,10 @@
   font-weight: bold;
   }
   
+  #search_card_gb select option:first-child:hover:after {
+    /*margin-top: 7px; */
+  }
+
   /* option,
   option:focus, */
   #search_card_gb option, 
@@ -609,17 +624,17 @@
   
   /* option:hover, */
   #search_card_gb option:hover {
-  background:rgb(240, 248, 255);
+  /*background:rgb(240, 248, 255);
   background:rgba(240, 248, 255, 0.6);
   box-shadow:
   0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
   0px 0px 0px 2px rgba(220, 220, 240, 0.4);
-  min-width: 90%;
+  min-width: 90%;  */
   }
   
   /* #search_card_gb option:active, */
   #search_card_gb option:focus:active {
-  background-color:rgb(10, 115, 230);
+  /*background-color:rgb(10, 115, 230);
   background-color:rgba(10, 115, 230, 0.8);
   box-shadow:
   0px 0px 0px 2px rgba(220, 220, 240, 0.8) inset,
@@ -628,12 +643,12 @@
   border:none;
   outline: none; 
   padding: 6px 4px 6px 6px;
-  min-width: 90%;
+  min-width: 90%;  */
   }
   
   /* select option, */
   #search_card_gb select option {
-  background-color: rgba(60, 160, 240, 0.2); 
+  /*background-color: rgba(60, 160, 240, 0.2); 
   border-radius: 4px;
   margin-top: 6px;
   font-size: 16px; 
@@ -643,12 +658,13 @@
   box-shadow:
   0px 0px 0px 2px rgba(220, 220, 240, 0.4) inset,
   0px 0px 0px 2px rgba(10, 115, 230, 0.4);
-  min-width: 90%;
+  min-width: 90%; */
   }
   
   
   /* select option:not(option:first-child), */
-  #search_card_gb select option:not(option:first-child) {
+  #search_card_gb select option:not(option:first-child),
+  #search_card_gb select option:not(option:first-of-type) {
   box-shadow: 
   0px 0px 0px 2px rgba(60, 160, 240, 0.4),
   0px 0px 0px 20px rgba(60, 160, 240, 0.4) inset;
@@ -661,7 +677,9 @@
   }
   
   /* select option:first-of-type:hover, */
-  #search_card_gb select option:first-of-type:hover {
+  #search_card_gb select:focus option:first-of-type,
+  #search_card_gb select:focus option:first-of-type:hover,
+  #search_card_gb select:focus option:first-of-type:focus {
   box-shadow: 
   0px 0px 0px 2px rgba(60, 160, 240, 0.6),
   0px 0px 0px 20px rgba(60, 160, 240, 0.6) inset; 
@@ -671,17 +689,29 @@
   transition: 0.4s;
   min-width: 90%;
   }
+
+  #search_card_gb select:focus option:not(option:first-child)
+  #search_card_gb select:focus option:not(option:first-of-type) {
+    box-shadow: 
+    0px 0px 0px 2px rgba(220, 220, 240, 0.6);
+    /*border: 2px solid rgba(230, 230, 240, 0.6); */
+    color: rgba(0, 0, 210, 0.8); 
+    font-size: 16px;
+    padding: 6px 4px 6px 6px;
+    min-width: 90%; 
+    z-index: 27; 
+    transition: 0.4s;
+  }
   
   /* option:not(option:first-child):hover, */
-  #search_card_gb select option:not(option:first-child):hover {
+  #search_card_gb select:focus option:not(option:first-child):hover,
+  #search_card_gb select:focus option:not(option:first-of-type):hover {
   box-shadow: 
-  0px 0px 0px 2px rgba(220, 220, 240, 0.6),
+  0px 0px 0px 2px rgba(220, 220, 240, 0.8),
   0px 0px 0px 20px rgba(60, 160, 240, 0.6) inset; 
   /*border: 2px solid rgba(230, 230, 240, 0.6); */
-  color:rgba(230, 230, 240, 0.9);
   font-weight: bold;
-  color: rgba(0, 0, 210, 0.8); 
-  font-size: 16px;
+  color: rgba(0, 0, 210, 0.8);
   padding: 6px 4px 6px 6px;
   min-width: 90%;
   }
@@ -737,7 +767,7 @@
   
   margin-left:auto;
   margin-right:auto;
-  z-index: 4;
+  z-index: 27;
   }
   
     @keyframes opacityup {
@@ -766,7 +796,7 @@
   box-shadow: 0px 0px 0px 2px rgba(220, 220, 240, 0.8);
   margin-left:auto;
   margin-right:auto;
-  z-index: 4;
+  z-index: 27;
   padding: 6px 4px 6px 6px;
   font-size: 16px;
   margin-bottom: 4px;
@@ -785,7 +815,7 @@
   box-shadow: 0px 0px 0px 2px rgba(220, 220, 240, 0.8);
   margin-left:auto;
   margin-right:auto;
-  z-index: 4;
+  z-index: 27;
   color: rgba(220, 220, 240, 0.9);
   padding: 6px 4px 6px 6px;
   font-size: 16px;
@@ -805,7 +835,7 @@
   background-image: radial-gradient(rgba(60, 160, 240, 0.6), rgba(60, 160, 240, 0.8), rgba(60, 160, 240, 0.6));
   margin-left:auto;
   margin-right: auto;
-  z-index: 4;
+  z-index: 27;
   padding: 6px 4px 6px 6px;
   }
   
@@ -840,7 +870,7 @@
   background: rgba(220, 220, 240, 0.8);
   box-shadow: 
   0px 0px 0px 2px rgba(60, 160, 240, 0.8);
-  z-index: 4;
+  z-index: 27;
   margin-top: 6px;
   border-radius: 4px;
   padding: 6px 4px 6px 6px;
@@ -886,7 +916,7 @@
 }
 
 #search_card_gb select:focus option:nth-of-type(1),
-#search_card_gb select:focus:hover option:nth-of-type(1){
+#search_card_gb select:focus:hover option:nth-of-type(1) {
   max-width: 98%;
   width: 98%;
   margin-left:auto;
@@ -935,6 +965,11 @@
   min-width: 100%;
   max-width: 100%;
   width: 100%;
+}
+
+#search_card_gb select:focus,
+#search_card_gb select:focus option {
+  z-index: 26;
 }
   </style>
 
@@ -1129,7 +1164,65 @@
     padding:.5rem .75rem .75rem .75rem;    
      color: aliceblue;
     }*/
-    
+   
+
+[data-tooltip^="gbsearch_tooltip_"] {
+  position: relative;
+  display: inline-block;
+  z-index: 24;
+/*  z-index: 1; */  
+}
+
+[data-tooltip^="gbsearch_tooltip_"]:hover {
+z-index: 116;
+}
+  
+  [data-tooltip^="gbsearch_tooltip_"] [data-tooltiptext^="gbsearch_tooltiptext_"] {
+    visibility: hidden;
+    width: 240px;
+    background-color: rgb(60, 60, 240,); 
+    background-color:rgba(60, 60, 240, 0.8); 
+    border-radius: 1px;
+    outline: 4px solid rgba(60, 60, 240, 0.8);
+    outline-offset: 3px;
+    box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+    font-size: 15px;
+    color: rgba(220, 220, 230, 0.8);
+    position: absolute;
+ /*  z-index: 1; */ 
+    padding: 4px;
+    bottom: 100%;
+    margin-bottom: 26px;
+    line-height: 1.1;
+    left: 50%;
+    margin-left: -132px;
+    transition: opacity 0.6s;
+    z-index: 116;
+    text-align: center;
+  }
+
+[data-tooltip^="gbsearch_tooltip_"] [data-tooltiptext^="gbsearch_tooltiptext_"]::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 8px;
+    margin-left: -6px;
+    border-width: 12px;
+    border-style: solid;
+    border-color: rgba(60, 60, 240, 0.8) transparent transparent transparent;
+    z-index: 117;
+  }
+
+
+[data-tooltip^="gbsearch_tooltip_"]:hover [data-tooltiptext^="gbsearch_tooltiptext_"] {
+    visibility: visible;
+    z-index: 118;
+  }
+
+
+
+	
     </style>  
 
   <style>
@@ -1418,6 +1511,7 @@
         
           }
         }
+
 
 
 // const selectes = document.getElementsByTagName('select'); #search_card_gb
