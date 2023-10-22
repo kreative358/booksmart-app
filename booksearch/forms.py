@@ -58,7 +58,9 @@ class BookSearch(forms.Form):
         ('epub', 'epub'),
         ]
     download = forms.ChoiceField(required=False,
-        label= 'Search by epub', choices=Download, widget=forms.Select(attrs={'id':'input_select_bs_download', 'size':1, 'data-title-tooltip': 'use to try find books, usually a reading version'}))
+        label= 'Search by epub', choices=Download, widget=forms.Select(attrs={'id':'input_select_bs_download', 'size':'1'}))
+    # , 'data-title-tooltip': 'use to try find books, usually a reading version'
+
     # download =  forms.ChoiceField(label= 'Search by epub, (help to find full text book)',  choices=Download, required=False, widget=MySelectWidgetNew(attrs={'id':'input_select_bs_download', 'size':1}))
   
     # download.widget.attrs.update(choices=[
@@ -76,9 +78,11 @@ class BookSearch(forms.Form):
     ]
 
     search_filter = forms.ChoiceField(required=False,
-        label= 'Search by filter', choices=Filter, widget=forms.Select(attrs={'id':'input_select_bs_search_filter', 'size':1, 'data-title-tooltip': 'use to try find books with specific parameters'}))
-    # search_filter = forms.ChoiceField(label= 'Search by filter, (specific parameters)', required=False, choices=Filter, widget=MySelectWidgetNew(attrs={'id':'input_select_bs_search_filter', 'size':1}))
+        label= 'Search by filter', choices=Filter, widget=forms.Select(attrs={'id':'input_select_bs_search_filter', 'size':1}))
+    # , 'data-title-tooltip': 'use to try find books with specific parameters'
 
+    # search_filter = forms.ChoiceField(label= 'Search by filter, (specific parameters)', required=False, choices=Filter, widget=MySelectWidgetNew(attrs={'id':'input_select_bs_search_filter', 'size':1}))
+    
     Languages = [
         ('', 'select language'),
         ('en', 'English'),
@@ -91,8 +95,9 @@ class BookSearch(forms.Form):
         ('uk', 'Ukrainian'),
     ]
     langRestrict = forms.ChoiceField(required=False,
-        label= 'Search by language', choices=Languages, widget=forms.Select(attrs={'id':'input_select_bs_langRestrict', 'size':1, 'data-title-tooltip': 'use to try find books in specific language'}))
+        label= 'Search by language', choices=Languages, widget=forms.Select(attrs={'id':'input_select_bs_langRestrict', 'size':1}))
 
+    # , 'data-title-tooltip': 'use to try find books in specific language'
     # langRestrict = forms.ChoiceField(label= 'Search by language',  required=False, choices=Languages, widget=MySelectWidgetNew(attrs={'id':'input_select_bs_langRestrict', 'size':1}))
 
     OrderBy = [
@@ -101,7 +106,9 @@ class BookSearch(forms.Form):
         ('relevance', 'relevance'),
         ]
     orderBy = forms.ChoiceField(required=False,
-        label = 'Search by order', choices=OrderBy, widget=forms.Select(attrs={'id':'input_select_bs_orderBy', 'size':1, 'data-title-tooltip': 'use to display books in a specific order' }))
+        label = 'Search by order', choices=OrderBy, widget=forms.Select(attrs={'id':'input_select_bs_orderBy', 'size':1}))
+
+    # , 'data-title-tooltip': 'use to display books in a specific order' 
 
     # orderBy = forms.ChoiceField(label = 'Search by order',  required=False, choices= OrderBy, widget=MySelectWidgetNew(attrs={'id':'input_select_bs_orderBy', 'size':1}))
 
