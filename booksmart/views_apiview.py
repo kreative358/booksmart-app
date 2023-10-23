@@ -115,9 +115,10 @@ except:
     context_main['music_type_2'] = "mp3"
 
 @api_view(['GET', 'POST'])
-# @permission_classes([])
-@permission_classes([IsAuthenticated])
-@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@permission_classes([])
+@authentication_classes([])
+# @permission_classes([IsAuthenticated])
+# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer])
 def all_records(request):
 

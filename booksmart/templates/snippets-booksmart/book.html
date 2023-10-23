@@ -1116,7 +1116,7 @@ color: MediumBlue;
   {% if request.user.id == book.user_num_b%}
   <a type="button" id="button_4_{{book.google_id}}" href="{% url 'booksmart:editbook' book.id %}" target="_blank" class="notranslate">Edit<br>Book</a>
   {% else %}
-  <a type="button"  id="button_4_{{book.google_id}}" class='tooltip' > Edit Book <span class="tooltiptext"> REMEMBER THAT YOU CAN CHANGE ONLY YOUR OWN RECORDS </span></a>
+  <a type="button"  id="button_4_{{book.google_id}}" class='tooltip notranslate' > Edit Book <span class="tooltiptext"> REMEMBER THAT YOU CAN CHANGE ONLY YOUR OWN RECORDS </span></a>
 
   {% endif %}
 

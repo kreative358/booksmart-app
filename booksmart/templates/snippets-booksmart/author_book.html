@@ -130,6 +130,7 @@
 .button_2a_m {
   float: right;
   margin-left: 10px;
+  margin-right: 10px;
   padding-top: 2px;
   padding-bottom: 4px;
   color: rgb(240, 248, 255);
@@ -437,23 +438,23 @@ button:focus {
 
     <div>  
          {% if request.user.id == book.author_c.user_num_a%}
-         <a type="button"  class="button_1a_m" href="{% url 'booksmart:editauthor' book.author_c.id %}" target="_blank" > edit<br>author </a>
+         <a type="button"  class="button_1a_m notranslate" href="{% url 'booksmart:editauthor' book.author_c.id %}" target="_blank" > edit<br>author </a>
          {% else %}
-         <a type="button" class="button_1a_m" > edit<br>author </a>
+         <a type="button" class="button_1a_m notranslate" > edit<br>author </a>
          {% endif %}
         
          <form action="{% url 'booksmart:booksauthor' %}" method="get" target="_blank" >
           {{ search_author }}
-          <input type="hidden" class="input_author_c" id="input_author_c_{{ book.author_c.id }}" name="author_found_books" value="{{ book.author_c.author_name }}">
-          <button type="submit" class="button_2a_m">
+          <input type="hidden" class="input_author_c notranslate" id="input_author_c_{{ book.author_c.id }}" name="author_found_books" value="{{ book.author_c.author_name }}">
+          <button type="submit" class="button_2a_m notranslate">
             author's<br>books
         </button>
       </form>
 
       {% if request.user.id == book.author_c.user_num_a%}
-      <a type="button"  class="button_3a_m" href="{% url 'booksmart:deleteauthor' book.author_c.id %}" target="_blank" > delete<br>author </a>
+      <a type="button"  class="button_3a_m notranslate" href="{% url 'booksmart:deleteauthor' book.author_c.id %}" target="_blank" > delete<br>author </a>
       {% else %}
-      <a type="button" class="button_3a_m" > delete<br>author </a>
+      <a type="button" class="button_3a_m notranslate" > delete<br>author </a>
       {% endif %}
   </div>
 

@@ -526,7 +526,17 @@ button.[class^="myBtn"]:active {
 [data-tooltip^="tooltip_"] {
   position: relative;
   display: inline-block;
-  z-index: 115
+  z-index: 64;
+/*  z-index: 1; */  
+}
+
+#tooltip:hover,
+.tooltip:hover,
+.tooltip_:hover,
+[id^="tooltip_"]:hover,
+[class^="tooltip_"]:hover,
+[data-tooltip^="tooltip_"]:hover {
+  z-index: 115;
 /*  z-index: 1; */  
 }
   
@@ -596,10 +606,13 @@ button.[class^="myBtn"]:active {
     z-index: 118;
   }
 
-
 #tooltip_b {
   position: relative;
   display: inline-block;
+  z-index: 64;
+  }
+
+#tooltip_b:hover {
   z-index: 115;
   }
   

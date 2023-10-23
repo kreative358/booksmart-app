@@ -495,14 +495,14 @@ color: MediumBlue;
 
     <div>
      
-      <button data-tooltip="tooltip_gb" type="button" id="btn_gbook_{{ book.google_id }}" class="button_1_gb" >EDIT<br>SAVE<span class="tooltiptext_gb" id="t_book_{{book.google_id}}"> PRESS TO GENERATE MODAL WITH BOOK DETAILS TO SAVE </span></button>
+      <button data-tooltip="tooltip_gb" type="button" id="btn_gbook_{{ book.google_id }}" class="button_1_gb notranslate" >EDIT<br>SAVE<span class="tooltiptext_gb" id="t_book_{{book.google_id}}"> PRESS TO GENERATE MODAL WITH BOOK DETAILS TO SAVE </span></button>
 
         <form action="{% url 'booksearch:addx_author' %}" method="get" target="_blank" id="book_gb_form_{{ book.google_id }}">
           {{ search_author_form }}
           <input type="hidden" id="author_{{ book.google_id }}" name="author" value="{{book.author}}">
           <input type="hidden" id="language_{{ book.google_id }}" name="language" value="{{book.language}}">
         </form>
-        <button data-tooltip="tooltip_gb" form="book_gb_form_{{ book.google_id }}" type="submit"  class="button_2_gb" id="button_m_a_{{ book.google_id }}">FIND<br>AUTHOR<span class="tooltiptext_gb" id="t_book_{{book.google_id}}"> PRESS TO FIND AND SAVE DETAILS ABOUT AUTHOR OF THIS BOOK </span></button>
+        <button data-tooltip="tooltip_gb" form="book_gb_form_{{ book.google_id }}" type="submit"  class="button_2_gb notranslate" id="button_m_a_{{ book.google_id }}">FIND<br>AUTHOR<span class="tooltiptext_gb" id="t_book_{{book.google_id}}"> PRESS TO FIND AND SAVE DETAILS ABOUT AUTHOR OF THIS BOOK </span></button>
   
 </div>
 

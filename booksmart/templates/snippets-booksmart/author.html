@@ -497,23 +497,23 @@ button:focus {
 
 <div>      
 {% if request.user.id == author_c.user_num_a%}
-<a type="button" class="button_1a"  id="button_1a_{{author_c.id}}" href="{% url 'booksmart:editauthor' author_c.id %}" target="_blank">edit<br>author</a>
+<a type="button" class="button_1a notranslate"  id="button_1a_{{author_c.id}}" href="{% url 'booksmart:editauthor' author_c.id %}" target="_blank">edit<br>author</a>
 {% else %}
-<a type="button" class="button_1a" id="button_1a_{{author_c.id}}" data-toggle="modal" data-target="#M_del_ae{{author_c.id}}" data-backdrop="false">edit<br>author</a>
+<a type="button" class="button_1a notranslate" id="button_1a_{{author_c.id}}" data-toggle="modal" data-target="#M_del_ae{{author_c.id}}" data-backdrop="false">edit<br>author</a>
 {% endif %}
 
   <form action="{% url 'booksmart:booksauthor' %}"  method="get" target="_blank">
   {{ search_author }}
   <input type="hidden" class="author_hidden" id="author_hidden_input_{{author_c.id}}" name="author_found_books" value="{{author_c.author_name}}">
-  <button type="submit" class="button_2a"  id="button_2a_{{author_c.id}}">
+  <button type="submit" class="button_2a notranslate"  id="button_2a_{{author_c.id}}">
     author's <br> books
 </button>
 </form>
 
 {% if request.user.id == author_c.user_num_a %}
-<a type="button" class="button_3a"  id="button_3a_{{author_c.id}}" href="{% url 'booksmart:deleteauthor' author_c.id %}" target="_blank"> delete <br> author </a>
+<a type="button" class="button_3a notranslate"  id="button_3a_{{author_c.id}}" href="{% url 'booksmart:deleteauthor' author_c.id %}" target="_blank"> delete <br> author </a>
 {% elif request.user.id != author_c.user_num_a  %}
-<a type="button"  class="button_3a"  id="button_3a_{{author_c.id}}" data-toggle="modal" data-target="#M_del_ad{{author_c.id}}" data-backdrop="false"> delete <br> author </a>
+<a type="button"  class="button_3a notranslate"  id="button_3a_{{author_c.id}}" data-toggle="modal" data-target="#M_del_ad{{author_c.id}}" data-backdrop="false"> delete <br> author </a>
 <!--place after modal-->
 {% endif %}
 </div>
