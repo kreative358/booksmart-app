@@ -359,7 +359,7 @@ def custom_bad_request_view(request, exception=None):
     # return Response(context, template_name='page-400.html', )
     return render(request, "page-400.html", context)
 
-def custom_unauthorized_view(request, exception=None):
-    context = context_mains
-    # return Response(context, template_name='page-400.html', )
-    return render(request, "page-401.html", context)
+# def custom_unauthorized_view(request, exception=None):
+#     context = context_mains
+#     # return Response(context, template_name='page-400.html', )
+#     return render(request, "page-401.html", context)

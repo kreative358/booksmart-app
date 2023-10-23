@@ -549,7 +549,7 @@
       text-shadow: -0.03em 0.0em 0.02em rgba(220, 220, 230, 0.6), 0.0em 0.03em 0.02em rgba(220, 220, 230, 0.6), 0.03em 0.0em 0.02em rgba(220, 220, 230, 0.6), 0.0em -0.03em 0.02em rgba(220, 220, 230, 0.6);
     }
     
-    .close_mb_acc {
+   /*.close_mb_acc {
     color: rgba(220, 60, 20, 0.8);
     border: 6px solid rgba(220, 60, 20, 0.8);
     border-radius: 2px;
@@ -583,7 +583,7 @@
     .close_mb_acc:active {
     transform: matrix(0.98, 0, 0, 0.98, 0, 2);
     box-shadow: 0px 0px 2px 2px rgba(60, 160, 240, 0.4);
-    }
+    } 
     
     .btn_submit {
     color: rgba(20, 60, 220, 0.8);
@@ -616,7 +616,7 @@
 .btn_submit:active {
    transform: matrix(0.98, 0, 0, 0.98, 0, 2);
    box-shadow: 0px 0px 2px 2px rgba(60, 160, 240, 0.4);
-    }
+    }  */
     
 #a_submit_t {
   animation-name: anime_submit_t;
@@ -1235,8 +1235,7 @@ box-shadow: 0px 0px 2px 2px rgba(60, 160, 240, 0.4);
 }
 
 .close_mb_acc {
-  margin: 5px auto auto auto;
-
+  margin: 10px auto auto auto;
 transition: 0.2s;
 background-color: rgba(160, 170, 180, 0.8); 
 color: rgba(20, 40, 220, 0.8); 
@@ -1245,15 +1244,15 @@ border-style: solid;
 border-radius:2px;
 border-color: rgba(40, 80, 240, 0.6) rgba(20, 40, 220, 0.6) rgba(10, 20, 200, 0.6) rgba(20, 40, 220, 0.6);
 border-radius:2px;
-padding-top: 2px;
-padding-bottom: 0px;
+padding-top: 4px;
+padding-bottom: 2px;
 font-weight:bold;
 font-family:Times;
 font-variant:small-caps;
 font-size:20px;
 min-width: 120px;
 float:left;
-
+line-height: 1.2;
 box-shadow:
 0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
 0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
@@ -1296,8 +1295,8 @@ border-width: 6px;
 border-style: solid;
 border-color: rgba(240, 40, 40, 0.6) rgba(220, 20, 20, 0.6) rgba(200, 10, 10, 0.6) rgba(220, 20, 20, 0.6);
 border-radius:2px;
-padding-top: 2px;
-padding-bottom: 0px;
+padding-top: 4px;
+padding-bottom: 2px;
 font-weight:bold;
 font-family:Times;
 font-variant:small-caps;
@@ -1309,6 +1308,8 @@ box-shadow:
 0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
 0px 0px 4px 4px rgba(220, 220, 230, 0.4);
 cursor: pointer;
+margin: 10px auto auto auto;
+line-height: 1.2;
 }
 
 .btn_submit:hover,
@@ -1323,14 +1324,14 @@ cursor: pointer;
   border-width: 6px;
   border-style: solid;
   border-radius:2px;
-}
+} */
 
 /*.btn_submit:focus {
 text-decoration: none;
 cursor: pointer;
 }*/
 
-.btn_submit:active {
+/*.btn_submit:active {
   border-color: rgba(240, 40, 40, 0.8) rgba(220, 20, 20, 0.8) rgba(200, 10, 10, 0.8) rgba(220, 20, 20, 0.8);
   transform: matrix(0.98, 0, 0, 0.98, 0, 2);
   box-shadow: 
@@ -1340,7 +1341,7 @@ cursor: pointer;
   border-width: 6px;
   border-style: solid;
   border-radius:2px;
-}
+} */
 
 #a_submit_t {
 animation-name: anime_submit_t;
@@ -1702,7 +1703,11 @@ color: lightgreen;
       }
 
       .title_account {
-        font-size: 28px;
+        font-size:28px; 
+        font-weight:bold; 
+        color:blue; 
+        margin:10px auto 0px auto;
+
       } 
     
       .mymodal_AccountBody label {

@@ -115,8 +115,8 @@ except:
     context_main['music_type_2'] = "mp3"
 
 @api_view(['GET', 'POST'])
-@permission_classes([])
-@authentication_classes([])
+# @permission_classes([])
+# @authentication_classes([])
 # @permission_classes([IsAuthenticated])
 # @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer])
@@ -181,9 +181,9 @@ def all_records(request):
     # return render(request, 'allrecords.html', context)
 
 @api_view(['GET', 'POST'])
-@permission_classes([])  
+# @permission_classes([])  
 # @permission_classes([IsAuthenticated])
-# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer])
 def all_authors(request):
 
@@ -239,9 +239,9 @@ def all_authors(request):
 
 
 @api_view(['GET', 'POST' ])
-# @permission_classes([])  
-@permission_classes([IsAuthenticated, IsOwner])
-@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@permission_classes([])  
+# @permission_classes([IsAuthenticated, IsOwner])
+# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer])
 def account_records(request):
     r_user = request.user
