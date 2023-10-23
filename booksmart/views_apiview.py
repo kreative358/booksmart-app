@@ -1039,6 +1039,7 @@ class RecordsView(APIView):
             context_post["search_resultB"] = search_resultB
             search_resultAb = [found_author for found_author in search_resultAb_Q]
             search_resultA = []
+            context_post["search_resultA"] = []
             if search_resultB and search_resultAb:
 
                 list_surname_search_resultB = list(set(record_b.surname for record_b in search_resultB))
