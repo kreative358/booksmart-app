@@ -342,7 +342,7 @@ class SearchRecord(forms.ModelForm):
 
     user_num_b = forms.BooleanField(label='Search your book', required=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_user_num_b', 'type':'checkbox','required': 'False', 'name': "name_user_num_b"}))
 
-    epub = forms.BooleanField(label='Search book epub YES', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_epub','type':'checkbox','required': 'False', 'name': "name_epub"}))
+    epub = forms.BooleanField(label='Search book epub yes', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_epub','type':'checkbox','required': 'False', 'name': "name_epub"}))
 
     # class BooleanField(*, required: bool=..., widget: Optional[Union[Widget, Type[Widget]]]=..., label: Optional[Any]=..., initial: Optional[Any]=..., help_text: str=..., error_messages: Optional[Any]=..., show_hidden_initial: bool=..., validators: Sequence[Any]=..., localize: bool=..., disabled: bool=..., label_suffix: Optional[Any]=...)
 

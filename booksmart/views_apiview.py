@@ -532,7 +532,7 @@ from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 
 BOOKS_RESULT_PER_PAGE = 10
 class RecordsView(APIView):
-    # authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
     # authentication_classes = []
     renderer_classes = [JSONRenderer, TemplateHTMLRenderer, HTMLFormRenderer]
     # permission_classes = [IsAuthenticated,]
@@ -666,7 +666,7 @@ class RecordsView(APIView):
 
             # search_ordering = search_form.cleaned_data["ordering"]
             context_get["search_ordering"] = search_form.cleaned_data["ordering"] if search_form.cleaned_data["ordering"] != "" else "title"
-            print('context_get["search_ordering"] =', context_get["search_ordering"])
+            # print('context_get["search_ordering"] =', context_get["search_ordering"])
             # author_details_q = str(search_form.cleaned_data["author_details_q"])
             # print('str(search_form.cleaned_data["epub"]) =', str(search_form.cleaned_data["user_num_b"]))
             context_get["author_details_q"] = str(search_form.cleaned_data["author_details_q"])
@@ -689,7 +689,7 @@ class RecordsView(APIView):
         #keywords_fields["title"] = search_user_books
         
         # keywords_fields["user_num_b"] = search_user_num_b
-        print('keywords_fields:', keywords_fields)
+        # print('keywords_fields:', keywords_fields)
         print()
         if context_get["author_details_q"] == "False":
             context_get["form_search_get_author"] = "no"
@@ -724,7 +724,7 @@ class RecordsView(APIView):
 
         parameters_list = []
         
-        print('keywords_fields_items =', keywords_fields_items)
+        # print('keywords_fields_items =', keywords_fields_items)
         for key, value in keywords_fields_items:
             if value != '' and value != None and not isinstance(value, int):
                 # parameters_list.append((key, value))
@@ -818,7 +818,7 @@ class RecordsView(APIView):
                 
            
             elif context_get["author_details_q"] == "True":
-                print(f'True context["form_search_get_author"] = {context_get["form_search_get_author"]}\n')
+                # print(f'True context["form_search_get_author"] = {context_get["form_search_get_author"]}\n')
                 # context["form_search_get_author"] = "yes"
                 try:
                     authors_result_list_book_author = [book.author for book in context_get["books_result_queryset_list_sort"]]
@@ -917,9 +917,10 @@ class RecordsView(APIView):
             print('if dict_values == "":')
             
         elif dict_values != "":
-            print('dict_values = ', dict_values)
+            # print('dict_values = ', dict_values)
+            print('elif dict_values != "":')
 
-        book_page_obj =context_get['book_page_obj']
+        book_page_obj = context_get['book_page_obj']
         paginated_filtered_books = Paginator(book_page_obj, 10) 
         page_number = request.GET.get('page')
         book_page_obj = paginated_filtered_books.get_page(page_number)
