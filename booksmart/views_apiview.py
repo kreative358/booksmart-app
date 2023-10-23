@@ -532,10 +532,10 @@ from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 
 BOOKS_RESULT_PER_PAGE = 10
 class RecordsView(APIView):
-    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+    # authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
     # authentication_classes = []
     renderer_classes = [JSONRenderer, TemplateHTMLRenderer, HTMLFormRenderer]
-    permission_classes = [IsAuthenticated,]
+    # permission_classes = [IsAuthenticated,]
     # permission_classes = []
     # renderer_classes=[TemplateHTMLRenderer]
     # template_name="register.html"
