@@ -26,7 +26,7 @@ from booksmart.views_records import (
 
 from booksmart.views_apiview import (
     # gbsearch,
-    RecordsView,
+    # RecordsView,
     all_authors, 
     all_records,
     all_records_title,
@@ -35,6 +35,9 @@ from booksmart.views_apiview import (
     authors_last,
     books_author,
     account_records,
+
+    records_view_post,
+    records_view_get
     )
 
 from django.conf.urls import include, url
@@ -98,8 +101,11 @@ urlpatterns = [
     # path('allrecords_sort/', all_records_sort, name='allrecords_sort'),
     path('allrecords_author/', all_records_author, name='allrecords_author'),
     # path('records/', RecordsView.as_view(), name='records'),
-    path('records_post/', RecordsView.as_view(), {"action": "POST"}, name='records-post'),
-    path('records_get/', RecordsView.as_view(), {"action": "GET"}, name='records-get'),
+    # path('records_post/', RecordsView.as_view(), {"action": "POST"}, name='records-post'),
+    # path('records_get/', RecordsView.as_view(), {"action": "GET"}, name='records-get'),
+    path('records_post/', records_view_post, name='records-post'),
+    path('records_get/', records_view_get, name='records-get'),
+
     path('all_authors/', all_authors, name="allauthors"),
     path('authors_last/', authors_last, name="authorslast"),
     path('books_author/', books_author, name="booksauthor"),

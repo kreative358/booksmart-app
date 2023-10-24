@@ -1,9 +1,10 @@
 {% include 'snippets-booksearch/css_booksearch.html' %}
 
 <script>
-  
   window.addEventListener("load", function() {
+
     localStorage.clear();
+    sessionStorage.clear();
 
 /*  const message_search_result_gb_t = document.querySelectorAll(".message_search_result_gb");
   for (const msg_result_gb_t of message_search_result_gb_t) {
@@ -43,22 +44,31 @@ left: 0px;
       </div>
 
       <div class="my_card_top_cards" id="mycard_top_cards_middle_addx_book">
+
           {% if message %}
-          <p id="middle_message_1" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"><span class="message_search_result_gb"> {{ message }}: </span></p> 
-          {% autoescape off %}
-          <p id="middle_message_2" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"> <span class="message_search_result_gb"> "{{ parameters }}" </sapn></p>
-          {% endautoescape %}
+          <p id="middle_message_1" class="h4vw_l_b" style="animation: anime_submit_t 6s infinite;"
+          ><span class="message_search_result_gb"> {{ message }} </span>
+          </p> 
           {% endif %}
           
-          {% if filtered_books %}
-          {% if num_books_result == 0 %}
-          <p id="middle_message_3" class="h4vw_l"><span class="message_search_result_gb"> No books found for query: </span><span id="middle_message_3a" class="message_search_result_gb" style="animation: anime_submit_t 6s infinite;"><br> "{{parameters}}" </span></p>
-          {% elif num_books_result > 0 %} 
-          <p  class="h3vw_l_b" style="padding-bottom:10px; color: MediumBlue;"> FOR QUERY: 
-            {% autoescape off %}
-            <span id="middle_message_4" class="message_search_result_gb" style="animation: anime_submit_t 6s infinite; font-weight: bold;"><br> "{{parameters}}" </span></p> {% endautoescape %}
+           {% if form_search_gb == "no" %}
+          <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite;" > To try to find the book,<br> fill one of the field in search panel.</p>
+          {% endif %}
+
+          {% if form_search_gb == "yes" %}
+          <p class="h3vw_l_b" style="margin-bottom: 0px;" ><span style="color:blue; line-height: 1.4;" class="message_search_result_gb"> FOR QUERY: </p>
+            <p class="h4vw_l_b" ><span  style="animation: anime_red_text 2s infinite; line-height: 1; color: blue;" class="message_search_result_gb"> 
+              {% autoescape off %} " {{ parameters }} " {% endautoescape %} 
+            </span></p>
           
-            <p id="middle_message_5" class="h3vw_l" style="margin-bottom: -6px; margin-top: -18px"><span class="message_search_result_gb"> number of found books <span><span id="middle_message_5a" class="message_search_result_gb" style="animation: anime_submit_t 6s infinite; font-weight: bold;"> {{ num_books_result }} </span> </p>
+          <p class="h3vw_l" style="margin-top: 0px; margin-bottom: 0px;" ><span style="color:blue; line-height: 1.2;" class="message_search_result_gb"> IN GOOGLE-BOOKS </span></p>
+
+          {% if filtered_books|length == 0 %}
+          <p class="h3vw_l" style="margin-top: 0px; line-height: 1.2;"><span  class="message_search_result_gb"> No books found</span></p>
+
+          {% elif filtered_books|length > 0 %}
+  
+          <p class="h3vw_l" style="margin-top: 0px; line-height: 1.2;"><span class="message_search_result_gb"> Number of found books: </span><span class="message_search_result_gb" style="animation: anime_red_text 2s infinite; font-weight: bold;" > {{ filtered_books|length }} </span></p>
             
           {% endif %}  
           {% endif %} 

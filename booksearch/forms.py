@@ -42,7 +42,7 @@ class BookSearch(forms.Form):
         max_length=50, label='Search by book title', widget=forms.TextInput(attrs={'id':'input_text_bs_intitle', 'placeholder': 'field to enter full title of the book', 'data-title-tooltip': 'can also try searching by adding "" e.g. "Ulisses"'})) #'autofocus': True, 'required': False
 
     inauthor = forms.CharField(required=False,
-        max_length=50, label='Search by book author', widget=forms.TextInput(attrs={'id':'input_text_bs_inauthor', 'placeholder': 'field to enter full name of the author',  'pattern':'^(\w.+\s).+|(["\'])(\w.+\s).+(["\'])$', 'data-title-tooltip': 'must contain at least two words\nIf it is full name please add "" e.g. "James Joyce"'}))
+        max_length=50, label='Search by book author', widget=forms.TextInput(attrs={'id':'input_text_bs_inauthor', 'placeholder': 'field to enter full name of the author',  'pattern':'^(\w.+\s).+|(["\'])(\w.+\s).+(["\'])$', 'data-title-tooltip': 'must contain at least two words'}))
         # 'title':'must contain at least two words\nIf it is full name please add "" e.g. "Mark Twain"'
 
     search_query = forms.CharField(required=False,

@@ -230,3 +230,4 @@ handler404 = 'mainsite.views.custom_page_not_found_view'
 handler500 = 'mainsite.views.custom_error_view'
 handler403 = 'mainsite.views.custom_permission_denied_view'
 handler400 = 'mainsite.views.custom_bad_request_view'
+

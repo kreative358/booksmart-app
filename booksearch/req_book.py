@@ -128,8 +128,7 @@ def addx_book(request):
     context['num_authors'] = num_authors
     
     context['current_url'] = current_url_name
-    context['parameters'] = ""
-    context['message'] = ""
+
     # context['no_date'] = datetime.date(3000, 1, 1)
     no_date = '3000-01-01'
     # context['no_date'] = *no_date
@@ -137,10 +136,13 @@ def addx_book(request):
     key=os.environ.get('API_KEY')
         
     form = BookSearch(request.GET)
+    context['form_search_gb'] = "no"
     context['parameters'] = ""
     context['message'] = ""
     params_str = ""
+
     if form.is_valid():
+        context['form_search_gb'] = "yes"
         search_title = form.cleaned_data['intitle']
         search_author = form.cleaned_data['inauthor']
         search_query = form.cleaned_data['search_query']
@@ -216,6 +218,7 @@ def addx_book(request):
     keywords_fields_values = list(keywords_fields.values())
         
     parameters_list = []
+    print('218 parameters_list =', parameters_list)
     # print('b_link', b_link)
     if b_link != []:
         parameters_list.append(('volumeId', b_link[0]))
@@ -304,6 +307,7 @@ def addx_book(request):
     elif len(parameters_list) == 3:
         context['parameters'] = ""
         context['message'] = ""
+        params_str = ""
         if parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] == 'query' :
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}'
             params_pre_2 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "+")}'  
@@ -480,7 +484,8 @@ def addx_book(request):
         try:
             if parameters_list != [] and parameters_list[0][0] != 'volumeId':
                 # print("602 parameters_list", parameters_list)
-                params_string = params_str
+                print("487 params_str =", params_str)
+                params_string = params_str.replace('"', '')
                 #parameters = ',<br>'.join([': '.join([str(e) for e in el]) for el in parameters_list])
                 context['parameters'] = parameters
             else:
@@ -510,30 +515,31 @@ def addx_book(request):
         # return render(request, 'addx_book.html', context)
         
     data = r.json()    
-
-    if data == None:
+    
+    # if data == None:
+    if not data:
         context['totalItems'] = 0
         context['val_total'] = 0
         context['message'] = 'Sorry, probably threre is no books in google books match that search terms: '
         return Response(context, template_name='addx_book.html', )
         # return render(request, 'addx_book.html', context)
-    elif data:
+    elif data:    
         try:
-            data['items']
-            if len(data['items']) == 0:
+            context["data_items"] = data["items"]
+            if len(context["data_items"]) == 0:
                 context['totalItems'] = 0
                 context['val_total'] = 0
                 context['message'] = 'Sorry, probably there is no books match that search term in google books'
                 return render(request, 'addx.html', context)
-            elif len(data['items']) > 0:
-                founded_books=data['items']
+            elif len(context["data_items"]) > 0:
+                founded_books=context["data_items"]
                 # # print("data['totalItems']", data['totalItems'])
                 context['totaItems'] = data['totalItems']
                 context['val_total'] = data['totalItems']
 
         except:       
             # # print('no data["items"]')
-            context['message'] = 'Sorry, probably threre is no books in google books match that search term'
+            context['message'] = 'Sorry, probably threre is no books in google books match that search term.'
             return Response(context, template_name='addx_book.html', )
             # return render(request, 'addx_book.html', context)
             
