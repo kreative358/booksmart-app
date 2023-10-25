@@ -51,6 +51,7 @@ context_main['url_img_author'] = url_img_author
 context_main['parameters'] = ""
 context_main['message'] = ""
 context_main['values'] = ""
+context_main['modal_uni'] = "{% include 'snippets-booksmart/modal_message_booksmart_uni.html' %}"
 
 try:
     if Book.objects.all():
@@ -115,11 +116,9 @@ except:
     context_main['music_type_2'] = "mp3"
 
 @api_view(['GET', 'POST'])
-# @permission_classes([])
-# @authentication_classes([])
-# @permission_classes([IsAuthenticated])
-# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
-@renderer_classes([TemplateHTMLRenderer])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def all_records(request):
 
     r_user = request.user
@@ -239,10 +238,9 @@ def all_authors(request):
 
 
 @api_view(['GET', 'POST' ])
-@permission_classes([])  
-# @permission_classes([IsAuthenticated, IsOwner])
-# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
-@renderer_classes([TemplateHTMLRenderer])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def account_records(request):
     r_user = request.user
     current_url_name = request.path
@@ -287,10 +285,9 @@ def account_records(request):
 
 
 @api_view(['GET', 'POST'])
-@permission_classes([]) 
-# @permission_classes([IsAuthenticated])
-# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
-@renderer_classes([TemplateHTMLRenderer])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def authors_last(request):
     r_user = request.user
     current_url_name = request.path
@@ -325,10 +322,9 @@ def authors_last(request):
 
 
 @api_view(['GET', 'POST'])
-@permission_classes([])  
-# @permission_classes([IsAuthenticated])
-# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
-@renderer_classes([TemplateHTMLRenderer])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def all_records_author(request, *arg, **kwargs):
     r_user = request.user
     current_url_name = request.path
@@ -369,10 +365,9 @@ def all_records_author(request, *arg, **kwargs):
 
 
 @api_view(['GET', 'POST'])
-@permission_classes([])  
-# @permission_classes([IsAuthenticated])
-# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
-@renderer_classes([TemplateHTMLRenderer])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def all_records_title(request):
     r_user = request.user
     current_url_name = request.path
@@ -452,10 +447,9 @@ def all_records_title(request):
 
 
 @api_view(['GET', 'POST'])
-@permission_classes([])  
-# @permission_classes([IsAuthenticated])
-# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
-@renderer_classes([TemplateHTMLRenderer])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def books_author(request):
 
     r_user = request.user
@@ -700,6 +694,8 @@ def records_view_get(request):
         messages.info(request, "".join(msg for msg in msgs))
         # return Response(context_get, template_name='allrecords.html', )
         return redirect('/')
+        # return redirect(current_url_name)
+        
 
     elif filter_dict:
 
@@ -935,6 +931,7 @@ def records_view_post(request):
     filter_dict = {}
     if not form_search.is_valid(): 
         return redirect('booksmart:allrecords')  #()
+        # return redirect(current_url_name)
         #  return redirect('/')
     
     elif form_search.is_valid():

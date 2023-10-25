@@ -275,7 +275,7 @@
             <form class="was-validated" action="{% url 'accounts:register' %}" method="post" id="registration_v" onsubmit="return validateForm()">
                 {% csrf_token %}
 
-        <input type="reset" id="clear_btn" value = 'Clear input field'>
+        <input type="reset" id="clear_btn" value='Clear input field'>
     
     <input type="hidden" name="current_url" id="current_url" readonly value='{{ current_url }}'>
     
@@ -292,7 +292,7 @@
     <label class="label" for="email" style="margin-bottom:-6px;"> Email </label>
     <span class="mytootlip_text" data-tooltip="tooltip_input">
     <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" autocomplete="off">
-    		<span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
+    		<span data-tooltiptext="tooltiptext_input"> must contain @ </span> </span>
     <div class="valid-feedback" >Email field is filled out.</div>
   <div class="invalid-feedback" >Please fill out this field.</div>
 </div>

@@ -342,8 +342,11 @@ class SearchRecord(forms.ModelForm):
 
     user_num_b = forms.BooleanField(label='Search your book', required=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_user_num_b', 'type':'checkbox','required': 'False', 'name': "name_user_num_b"}))
 
-    epub = forms.BooleanField(label='Search book epub yes', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_epub','type':'checkbox','required': 'False', 'name': "name_epub"}))
+    user_num_b = forms.BooleanField(label='Search your book', widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_user_num_b', 'type':'checkbox', 'name': "name_user_num_b"}))
 
+    # epub = forms.BooleanField(label='Search book epub yes', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_epub','type':'checkbox','required': 'False', 'name': "name_epub"}))
+
+    epub = forms.BooleanField(label='Search book epub yes', initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_sr_epub','type':'checkbox', 'name': "name_epub"}))
     # class BooleanField(*, required: bool=..., widget: Optional[Union[Widget, Type[Widget]]]=..., label: Optional[Any]=..., initial: Optional[Any]=..., help_text: str=..., error_messages: Optional[Any]=..., show_hidden_initial: bool=..., validators: Sequence[Any]=..., localize: bool=..., disabled: bool=..., label_suffix: Optional[Any]=...)
 
     title = forms.CharField(max_length=50, label='Search by book title', required=False, widget=forms.TextInput(attrs={'id':'input_text_sr_title', 'placeholder': 'field to enter part or full title of the book', 'autofocus': True}))  
@@ -405,7 +408,9 @@ class SearchRecord(forms.ModelForm):
     owner__username = forms.CharField(
         max_length=50, label='Search by book owner', required=False, widget=forms.TextInput(attrs={'placeholder': 'field to enter part or full owner username', 'autofocus': True, 'id':'input_text_sr_owner'})) 
 
-    author_details_q = forms.BooleanField(label='with author details', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_author_details_q', 'required':'False', 'type':'checkbox','name':"name_author_details_q"}))
+    # author_details_q = forms.BooleanField(label='with author details', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_author_details_q', 'required':'False', 'type':'checkbox','name':"name_author_details_q"}))
+
+    author_details_q = forms.BooleanField(label='with author details', initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_author_details_q',  'type':'checkbox', 'name':"name_author_details_q"}))
 
     # class ChoiceField(choices: Union[_FieldChoices, Callable[[], _FieldChoices]]=..., required: bool=..., widget: Optional[Union[Widget, Type[Widget]]]=..., label: Optional[Any]=..., initial: Optional[Any]=..., help_text: str=..., error_messages: Optional[Any]=..., show_hidden_initial: bool=..., validators: Sequence[Any]=..., localize: bool=..., disabled: bool=..., label_suffix: Optional[Any]=...)
  

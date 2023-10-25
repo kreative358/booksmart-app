@@ -527,6 +527,7 @@ button.[class^="myBtn"]:active {
   position: relative;
   display: inline-block;
   z-index: 64;
+  transition: 0.1s;
 /*  z-index: 1; */  
 }
 
@@ -567,9 +568,13 @@ button.[class^="myBtn"]:active {
     line-height: 1.1;
     left: 50%;
     margin-left: -132px;
+    opacity: 0.2;
     transition: opacity 0.6s;
     z-index: 116;
     text-align: center;
+    line-height: 1.2;
+    font-family: Times;
+    font-weight: normal;
   }
 
 #tooltip #tooltiptext::after,
@@ -604,12 +609,14 @@ button.[class^="myBtn"]:active {
 [id^="tooltip_"]:hover [id^="tooltiptext_"] {
     visibility: visible;
     z-index: 118;
+    opacity: 1;
   }
 
 #tooltip_b {
   position: relative;
   display: inline-block;
   z-index: 64;
+  transition: 0.1s;
   }
 
 #tooltip_b:hover {
@@ -638,11 +645,14 @@ button.[class^="myBtn"]:active {
     top: 100%;
     margin-top: 26px;
     left: 50%;
-    line-height: 1.1;
     margin-left: -120px;
+    opacity: 0.2;
     transition: opacity 0.6s;
     z-index: 116;
     text-align: center;
+    line-height: 1.2;
+    font-family: Times;
+    font-weight: normal;
   }
   
 #tooltip_b #tooltiptext_b::after,
@@ -669,7 +679,7 @@ button.[class^="myBtn"]:active {
 [id^="tooltip_b_"] [id^="tooltiptext_b_"] {
   visibility: visible;
   z-index: 118;
-  /*  z-index: 1; */
+  opacity: 1;
 }		
 
   #a_submit_m {

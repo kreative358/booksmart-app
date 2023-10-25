@@ -184,7 +184,7 @@ def index_home(request):
     """View function for home page of site."""
     r_user = request.user
     current_url_name = request.path
-
+    print("current_url_name =", current_url_name)
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
 

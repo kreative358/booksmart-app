@@ -29,7 +29,8 @@
                     <div class="form-group">
                       <label class="label" for="username" style="font-size:24px; 
                       color:blue; margin:4px auto 4px auto; font-variant: small-caps;" > Username </label>
-                      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus value="{{request.user.username}}" minlength="3" style="margin-top: 4px">
+                      <span class="mytootlip_text" data-tooltip="tooltip_input" style="min-width: 100%; max-width: 100%; width: 100%;">
+                      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus value="{{request.user.username}}" minlength="3" style="margin-top: 4px">	<span data-tooltiptext="tooltiptext_input" > must contain @ </span> </span>
                       <div class="valid-feedback" > username field is filled out.
                       </div>
                       <div class="invalid-feedback" > please fill out the username field.
@@ -41,7 +42,8 @@
                     <div class="form-group" style="">
                       <label class="label" for="email" style="font-size:24px; 
                       color:blue; margin: 0px auto 4px auto; "> Email </label>
-                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Must contain @" value="{{request.user.email}}" style="margin-top: 4px">                       
+                      <span class="mytootlip_text" data-tooltip="tooltip_input" style="min-width: 100%; max-width: 100%; width: 100%;">
+                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="{{request.user.email}}" style="margin-top: 4px"> <span data-tooltiptext="tooltiptext_input" >must have at least: <br>- 3 characters. </span><span>                      
                       <div class="valid-feedback" > password field is filled out.
                       </div>
                       <div class="invalid-feedback" >please fill out the password field.

@@ -291,6 +291,11 @@ button:focus {
   position: relative;
   z-index: 16;
   display: inline-block;
+  transition: 0.1s;
+}
+
+[id^="tooltip_mainsite"]:hover {
+  z-index: 64;
 }
 
 [id^="tooltip_mainsite"] [id^="tooltiptext_mainsite"] {
@@ -302,15 +307,20 @@ button:focus {
   /*outline: 4px solid rgba(60, 60, 240, 0.8);*/
   outline-offset: 3px;
   box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(220, 220, 230, 0.8);
   position: absolute;
-  z-index: 14;
+  z-index: 16;
   padding: 4px;
   bottom: 100%;
   margin-bottom: 26px;
   left: 50%;
   margin-left: -120px;
+  opacity: 0.2;
+  transition: opacity 0.4s;
+  line-height: 1.2;
+  font-family: Times;
+  font-weight: normal;
 }
 
 [id^="tooltip_mainsite"] [id^="tooltiptext_mainsite"]::after {
@@ -327,6 +337,8 @@ button:focus {
 
 [id^="tooltip_mainsite"]:hover [id^="tooltiptext_mainsite"] {
   visibility: visible;
+  z-index: 65;
+  opacity: 1;
 }
 
 .tooltip_mainsite {
@@ -334,6 +346,10 @@ button:focus {
   z-index: 14;
   display: inline-block;
 }
+
+.tooltip_mainsite:hover {
+  z-index: 64;
+  }
 
 .tooltip_mainsite .tooltiptext_mainsite {
   visibility: hidden;
@@ -344,7 +360,7 @@ button:focus {
   outline: 4px solid rgba(60, 60, 240, 0.8);
   outline-offset: 3px;
   box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
-  font-size: 16px;
+  font-size: 15px;
   color: rgba(220, 220, 230, 0.8);
   position: absolute;
   z-index: 14;
@@ -353,6 +369,11 @@ button:focus {
   margin-bottom: 24px;
   left: 50%;
   margin-left: -120px;
+  opacity: 0.2;
+  transition: opacity 0.6s;
+  line-height: 1.2;
+  font-family: Times;
+  font-weight: normal;
 }
 
 .tooltip_mainsite .tooltiptext_mainsite::after {
@@ -368,12 +389,15 @@ button:focus {
 }
 
 .tooltip_mainsite:hover .tooltiptext_mainsite {
-  z-index: 14;
+  z-index: 65;
   visibility: visible;
+  opacity: 1;
 }
 
 #tooltip_mainsite:hover .tooltiptext_mainsite {
   visibility: visible;
+  z-index: 65;
+  opacity: 1;
 }
 
 .bs_input_message {

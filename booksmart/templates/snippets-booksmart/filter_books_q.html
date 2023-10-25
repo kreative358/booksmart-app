@@ -34,7 +34,7 @@ if (input_text_search_q.value != "") {
   backdrop-filter: blur(2px);
   background-color: rgba(100, 160, 220, 0.2);
   padding: 10px;
-  transition: 0.4s;
+  transition: all 0.4s, z-index 0.1s;
   border-radius: 4px;
   border: 6px solid rgba(100, 160, 220, 0.4);
   box-shadow: 
@@ -58,6 +58,7 @@ if (input_text_search_q.value != "") {
   0px 5px 4px 0px rgba(90, 150, 210, 0.4), 
   0px 6px 5px 0px rgba(80, 140, 200, 0.6), 
   0px 2px 5px 9px rgba(229, 230, 243, 0.6);
+  z-index: 26;
 }
 
 #input_text_search_q::placeholder { 
@@ -198,9 +199,10 @@ max-width: 92%;
         {% bootstrap_form form_search %}
 
       <!--<button type="submit" class="btn btn_find btn-outline-primary text-danger" style="margin: 12px auto 4px auto; border: 6px solid; box-shadow: 0px 0px 4px 6px rgba(100, 160, 220, 0.6); font-size: 22px; font-weight: bold; min-width:150px; padding:2px; display:block;" id='tooltip_fq'> -->
-      <button type="submit" class="btnfilter notranslate" id='tooltip_fq'>
+        <span id='tooltip_fq' style="width: auto">
+      <button type="submit" class="btnfilter notranslate" id='btn_filter_q'>
             find books
-            <span id="tooltiptext_fq">FIND A BOOK IN THE DATABASE WITH DETAILS ABOUT AUTHOR USING ANY PARAMETER</span></button>
+            <span id="tooltiptext_fq">FIND A BOOK IN THE DATABASE WITH DETAILS ABOUT AUTHOR USING ANY PARAMETER</span></button></span>
         {% endif %}
       </form>
     </div>
