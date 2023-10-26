@@ -262,17 +262,17 @@
           
     
     <script>
-      function validateForm() {
-        let x = document.forms["registration_v"]["password"].value;
-        let y = document.forms["registration_v"]["password2"].value;
-        if (x != y) {
+      function validateFormSignIn() {
+        let pass_1 = document.forms["registration_v"]["password"].value;
+        let pass_2 = document.forms["registration_v"]["password2"].value;
+        if (pass_1 != pass_2) {
           alert("REMEMBER BOTH PASSWORDS MUST BE THE SAME");
           return false;
         }
       }
       </script>
 
-            <form class="was-validated" action="{% url 'accounts:register' %}" method="post" id="registration_v" onsubmit="return validateForm()">
+            <form class="was-validated" action="{% url 'accounts:register' %}" method="post" id="registration_v" onsubmit="return validateFormSignIn()">
                 {% csrf_token %}
 
         <input type="reset" id="clear_btn" value='Clear input field'>
