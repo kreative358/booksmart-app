@@ -25,8 +25,8 @@ from rest_framework.decorators import api_view, renderer_classes, authentication
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer
-from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
 
 key=os.environ.get('API_KEY')
 
@@ -111,9 +111,9 @@ except:
     context_main['music_type_2'] = "mp3"
 
 @api_view(['GET', ])
-@permission_classes([])  #IsAuthenticated
-# @authentication_classes([]) # authentication.TokenAuthentication
-@renderer_classes([TemplateHTMLRenderer])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def addx_book(request): 
     
     r_user = request.user
@@ -258,20 +258,20 @@ def addx_book(request):
         context['parameters'] = ""
         context['message'] = ""
         if parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor':
-            params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}' 
-            params_pre_2 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "+")}'
+            params_pre_1 = f'q=intitle:{parameters_list[0][1].replace(" ", "+")}' 
+            params_pre_2 = f'&{parameters_list[1][0]}={parameters_list[1][1].replace(" ", "+")}'
             params_str = params_pre_1 + params_pre_2 
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] != 'inauthor' and parameters_list[1][0] != 'query' :
             # params_pre_1 = f'q={parameters_list[0][1].replace(" ", "_")}' 
-            params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}&'
+            params_pre_1 = f'q=intitle:{parameters_list[0][1].replace(" ", "+")}&'
             params_pre_2 = f'{parameters_list[1][0]}={parameters_list[1][1]}'
             params_str = params_pre_1 + params_pre_2
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'query':
-            params_pre_1 = f'q={parameters_list[1][1].replace(" ", "+")}'# + f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
-            params_pre_2 =  f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}'
-            params_str = params_pre_1 + params_pre_2 
+            params_pre_1 = f'q=intitle:{parameters_list[1][1].replace(" ", "+")}'# + f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
+            # params_pre_2 =  f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}'
+            params_str = params_pre_1
 
         elif parameters_list[0][0] == 'inauthor' and parameters_list[1][0] == 'query':
             params_pre_1 = f'q={parameters_list[1][1].replace(" ", "+")}' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
@@ -309,28 +309,28 @@ def addx_book(request):
         context['message'] = ""
         params_str = ""
         if parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] == 'query' :
-            params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}'
-            params_pre_2 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "+")}'  
+            params_pre_1 = f'q=intitle:{parameters_list[0][1].replace(" ", "+")}'
+            params_pre_2 = f'&inauthor={parameters_list[1][1].replace(" ", "+")}'  
             # params_pre_3 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "_")}'
             params_str = params_pre_1 + params_pre_2 # + params_pre_3
             #params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
             # print('3a.', params_str)
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] != 'query':
-            params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}'
+            params_pre_1 = f'q=intitle:{parameters_list[0][1].replace(" ", "+")}'
 
             # params_pre_1 = f'q={parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"&'
             # params_pre_2 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "_")}'
 
-            params_pre_2 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "+")}'
-            params_pre_3 = f'&{parameters_list[2][0]}:{parameters_list[2][1]}'
+            params_pre_2 = f'&inauthor={parameters_list[1][1].replace(" ", "+")}'
+            params_pre_3 = f'&{parameters_list[2][0]}={parameters_list[2][1]}'
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             params_str = params_pre_1 + params_pre_2 + params_pre_3
             # print('3b.', params_str)
 
         elif parameters_list[0][0] == 'intitle' and parameters_list[1][0] != 'inauthor' and  parameters_list[1][0] != 'query':
             # params_pre_1 = f'q={parameters_list[0][1].replace(" ", "_")}' + f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
-            params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}&' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
+            params_pre_1 = f'q=intitle:{parameters_list[0][1].replace(" ", "+")}&' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
             params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             # params_pre_1 = f'+{parameters_list[0][0]}:{parameters_list[0][1]}&'
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
@@ -339,7 +339,7 @@ def addx_book(request):
         # elif parameters_list[0][0] !='intitle' and parameters_list[0][0] == 'inauthor':
         elif parameters_list[0][0] == 'inauthor' and  parameters_list[1][0] != 'query':
             # params_pre_1 = f'q={parameters_list[0][1].replace(" ", "_")}' + f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
-            params_pre_1 = f'q={parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}&' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
+            params_pre_1 = f'q=inauthor:{parameters_list[0][1].replace(" ", "+")}&' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
             params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             # params_pre_1 = f'+{parameters_list[0][0]}:{parameters_list[0][1]}&'
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
@@ -355,16 +355,16 @@ def addx_book(request):
 
         # !!!
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'query':
-            params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
+            params_pre_1 = f'q=intitle:{parameters_list[0][1].replace(" ", "+")}' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
             # params_pre_2 = f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
             params_pre_3 = f'&{parameters_list[2][0]}:{parameters_list[2][1]}'
             params_str = params_pre_1 + params_pre_3
 
         elif parameters_list[0][0] == 'inauthor' and parameters_list[1][0] == 'query':
-            params_pre_1 = f'q={parameters_list[1][1].replace(" ", "+")}' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
-            params_pre_2 = f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}&'
+            params_pre_1 = f'q=inauthor:{parameters_list[0][1].replace(" ", "+")}' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
+            # params_pre_2 = f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}&'
             params_pre_3 = f'{parameters_list[2][0]}={parameters_list[2][1]}'
-            params_str = params_pre_1 + params_pre_2 + params_pre_3
+            params_str = params_pre_1 + params_pre_3
 
         elif parameters_list[0][0] !='intitle' and parameters_list[0][0] != 'inauthor' and parameters_list[0][0] != 'query':
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}&'
@@ -382,18 +382,17 @@ def addx_book(request):
         params_str = ""
 
         if parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] == 'query' :
-            params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}' 
+            params_pre_1 = f'q=intitle:{parameters_list[0][1].replace(" ", "+")}' 
             # params_pre_2 = f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}'  
-            params_pre_3 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "+")}&'
+            params_pre_3 = f'&inauthor={parameters_list[1][1].replace(" ", "+")}&'
             params_pre_4 = '&'.join([f'{k}={v}' for k, v in parameters_list[3:]])
             params_str = params_pre_1 + params_pre_3 + params_pre_4
             #params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
             # print('4a.', params_str)
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'inauthor' and parameters_list[2][0] != 'query':
-            params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}'
-            params_pre_2 = f'+{parameters_list[1][0]}:{parameters_list[1][1].replace(" ", "+")}&'            
-            
+            params_pre_1 = f'q=intitle:{parameters_list[0][1].replace(" ", "+")}'
+            params_pre_2 = f'&inauthor={parameters_list[1][1].replace(" ", "+")}&'            
             
             # params_pre_1 = f'q={parameters_list[1][0]}:"{parameters_list[1][1].replace(" ", "+")}"'
             # params_pre_2 = f'+{parameters_list[0][1].replace(" ", "+")}&'
@@ -405,7 +404,7 @@ def addx_book(request):
 
         # elif parameters_list[0][0] !='intitle' and parameters_list[0][0] == 'inauthor':
         elif parameters_list[0][0] == 'intitle' and  parameters_list[1][0] != 'query':
-            params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}&'         
+            params_pre_1 = f'q=intitle:{parameters_list[0][1].replace(" ", "+")}&'         
             # params_pre_1 = f'q={parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}&' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
             params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             # params_pre_1 = f'+{parameters_list[0][0]}:{parameters_list[0][1]}&'
@@ -415,7 +414,7 @@ def addx_book(request):
 
         # !!!
         elif parameters_list[0][0] == 'inauthor' and  parameters_list[1][0] != 'query':
-            params_pre_1 = f'q={parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}&' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
+            params_pre_1 = f'q=inauthor:{parameters_list[0][1].replace(" ", "+")}&' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}&'
             params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
             # params_pre_1 = f'+{parameters_list[0][0]}:{parameters_list[0][1]}&'
             # params_pre_2 = '&'.join([f'{k}={v}' for k, v in parameters_list[1:]])
@@ -424,10 +423,10 @@ def addx_book(request):
 
         elif parameters_list[0][0] == 'inauthor' and parameters_list[1][0] == 'query' :
             # params_pre_1 = f'q={parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"+'
-            params_pre_1 = f'q={parameters_list[1][1].replace(" ", "+")}' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
-            params_pre_2 = f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}&'
+            params_pre_1 = f'q=inauthor:{parameters_list[0][1].replace(" ", "+")}' #+ f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "_")}'
+            # params_pre_2 = f'&inauthor={parameters_list[0][1].replace(" ", "+")}&'
             params_pre_3 = '&'.join([f'{k}={v}' for k, v in parameters_list[2:]])
-            params_str = params_pre_1 + params_pre_2 + params_pre_3
+            params_str = params_pre_1 + params_pre_3
 
         elif parameters_list[0][0] == 'query':
             params_pre_1 = f'q={parameters_list[0][1].replace(" ", "+")}&'
@@ -436,7 +435,7 @@ def addx_book(request):
             # print('4d.', params_str)
 
         elif parameters_list[0][0] =='intitle' and parameters_list[1][0] == 'query':
-            params_pre_1 = f'q={parameters_list[1][1].replace(" ", "+")}'
+            params_pre_1 = f'q={parameters_list[1][0]}&intitle={parameters_list[1][1].replace(" ", "+")}'
             params_pre_2 = f'+{parameters_list[0][0]}:{parameters_list[0][1].replace(" ", "+")}&' 
 
             # params_pre_2 = f'+{parameters_list[0][0]}:"{parameters_list[0][1].replace(" ", "+")}"&'

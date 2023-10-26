@@ -110,10 +110,10 @@ except:
     context_main['music_type_2'] = "mp3"
 
 
-@api_view(['GET', 'POST'])
-# @authentication_classes([])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-@permission_classes([permissions.IsAuthenticated, ])
+# @api_view(['GET', 'POST'])
+# # @authentication_classes([])
+# @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+# @permission_classes([permissions.IsAuthenticated, ])
 def read_book(request, id):
 
     formlib = LibrarySearch(request.GET)
@@ -139,13 +139,14 @@ def read_book(request, id):
 
     context['mail'] = log[0]
     context['pass'] = log[1]
-    return Response(context, template_name='read_book.html', )
+    # return Response(context, template_name='read_book.html', )
+    return render(request, "read_book.html", context )
 
 
-@api_view(['GET', 'POST'])
-# @authentication_classes([])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-@permission_classes([permissions.IsAuthenticated, ])
+# @api_view(['GET', 'POST'])
+# # @authentication_classes([])
+# @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+# @permission_classes([permissions.IsAuthenticated, ])
 def read_book_ol(request, id):
 
     r_user = request.user
@@ -234,7 +235,9 @@ def read_book_ol(request, id):
                 context['conts'] = containers_many
                 # print("context['conts'][0]", context['conts'][0])
                 # return Response(context, template_name='read_book.html', )
-                return Response(context, template_name='read_book_ol.html', )
+
+                # return Response(context, template_name='read_book_ol.html', )
+                return render(request, "read_book_ol.html", context )
             else:
                 print('6 no links')
 
@@ -254,7 +257,9 @@ def read_book_ol(request, id):
                             # print('143 context_i1')
                             context = context + context_i1
                             # return Response(context, template_name='read_book.html', )
-                            return Response(context, template_name='read_book_ol.html', )
+                            
+                            # return Response(context, template_name='read_book_ol.html', )
+                            return render(request, "read_book_ol.html", context )
                         elif text:
                             print("145 NO context")
 
@@ -265,7 +270,9 @@ def read_book_ol(request, id):
                         if context_i2:
                             context = context + context_i2
                             # return Response(context, template_name='read_book.html', )
-                            return Response(context, template_name='read_book_ol.html', )
+
+                            # return Response(context, template_name='read_book_ol.html', )
+                            return render(request, "read_book_ol.html", context )
                         elif text:
                             print("158 NO context")
                     except Exception as e:
@@ -280,7 +287,9 @@ def read_book_ol(request, id):
                     if context_ta:
                         context = context + context_ta
                         # return Response(context, template_name='read_book.html', )
-                        return Response(context, template_name='read_book_ol.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
                     elif text:
                         print("172 NO context")
             except Exception as e:
@@ -301,7 +310,10 @@ def read_book_ol(request, id):
                         context['cont'] = container_one
                         # print("context['cont']: ", context['cont'])
                         # return Response(context, template_name='read_book.html', )
-                        return Response(context, template_name='read_book_ol.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
+
                     elif len(ids) > 1:
                         containers_many = []
                         links = [f'https://openlibrary.org/borrow/ia/{ident}?ref=ol' for ident in ids]
@@ -313,7 +325,9 @@ def read_book_ol(request, id):
                         context['conts'] = containers_many
                         # print("context['conts'][0]", context['conts'][0])
                         # return Response(context, template_name='read_book.html', )
-                        return Response(context, template_name='read_book_ol.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
                     else:
                         print('6 no links')
                 #
@@ -327,7 +341,10 @@ def read_book_ol(request, id):
                             if context_i1:
                                 context = context + context_i1
                                 # return Response(context, template_name='read_book.html', )
-                                return Response(context, template_name='read_book_ol.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
                             elif text:
                                 print("204 NO context")
                         except Exception as e:
@@ -338,7 +355,10 @@ def read_book_ol(request, id):
                             if context_i2:
                                 context = context + context_i2
                                 # return Response(context, template_name='read_book.html', )
-                                return Response(context, template_name='read_book_ol.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
                             else:
                                 print("213 NO context")
                         except Exception as e:
@@ -370,7 +390,10 @@ def read_book_ol(request, id):
                         context['cont'] = container_one
                         # print("context['cont']: ", context['cont'])
                         # return Response(context, template_name='read_book.html', )
-                        return Response(context, template_name='read_book_ol.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
+
                     elif len(ids) > 1:
                         containers_many = []
                         links = [f'https://openlibrary.org/borrow/ia/{ident}?ref=ol' for ident in ids]
@@ -382,7 +405,10 @@ def read_book_ol(request, id):
                         context['conts'] = containers_many
                         # print("context['conts'][0]", context['conts'][0])
                         # return Response(context, template_name='read_book.html', )
-                        return Response(context, template_name='read_book_ol.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
+
                     else:
                         print('6b no links')
                         
@@ -399,7 +425,10 @@ def read_book_ol(request, id):
                             if context_i1:
                                 context = context + context_i1
                                 # return Response(context, template_name='read_book.html', )
-                                return Response(context, template_name='read_book_ol.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
                             elif text:
                                 print("204 NO context")
                         except Exception as e:
@@ -410,7 +439,10 @@ def read_book_ol(request, id):
                             if context_i2:
                                 context = context + context_i2
                                 # return Response(context, template_name='read_book.html', )
-                                return Response(context, template_name='read_book_ol.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
                             else:
                                 print("213 NO context")
                         except Exception as e:
@@ -424,7 +456,10 @@ def read_book_ol(request, id):
                             if context_ta:
                                 context = context + context_ta
                                 # return Response(context, template_name='read_book.html', )
-                                return Response(context, template_name='read_book_ol.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
                             elif text:
                                 print("172 NO context")
                         else:
@@ -443,7 +478,10 @@ def read_book_ol(request, id):
             # print("6a no links")
             context['message_read'] = 'Sorry, probably no this title to read for free'
             # return Response(context, template_name='read_book.html', )
-            return Response(context, template_name='read_book_ol.html', )
+
+            # return Response(context, template_name='read_book_ol.html', )
+            return render(request, "read_book_ol.html", context )
+
             # context['message'] = 'Sorry, probably no this title to read for free yet.'
             # return Response(context, template_name='read_book.html', ) 
         
@@ -458,7 +496,9 @@ def read_book_ol(request, id):
         context['search_title'] = formlib
     # return render(request, 'read_book.html', context_a)
     # return Response(context, template_name='read_book.html', )
-    return Response(context, template_name='read_book_ol.html', )
+
+    # return Response(context, template_name='read_book_ol.html', )
+    return render(request, "read_book_ol.html", context )
 
 
 @api_view(['POST', 'GET'])

@@ -1375,7 +1375,7 @@ right: 11.8%;
   var text_information = 'To be able to search,<br>must enter at least<br>one text parameter';
   header_text_innerHTML.innerHTML = text_information;
 
-      const isEveryInputEmpty = () => {
+      const isEverySearchInputEmpty = () => {
       const inputs_sp = document.querySelectorAll('#id_form_search input[type=text]');    
         for (const input_sp of inputs_sp)
           if (input_sp.value !== '') return false;
@@ -1385,8 +1385,8 @@ right: 11.8%;
             return true;            
         }
           
-      function validateForm() {
-       if (isEveryInputEmpty())
+      function validateFormSearch() {
+       if (isEverySearchInputEmpty())
          return false;      
           else
           return true;
@@ -1428,7 +1428,7 @@ function validateForm() {
 <div id="search_panel_collapse" class="cont_collapse">
 
 {% if search_form %}
-    <form action="{% url 'booksmart:records-get' %}"  method="get" target="_blank" novalidate id="id_form_search"  onsubmit="return validateForm()">
+    <form action="{% url 'booksmart:records-get' %}"  method="get" target="_blank" novalidate id="id_form_search"  onsubmit="return validateFormSearch()">
      
       {% bootstrap_form search_form %}
   </form>

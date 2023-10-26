@@ -12,6 +12,22 @@ from django.utils.html import format_html
 from accounts.views_authorization import *
 from booksearch.reqs import *
 
+from django.contrib import messages
+
+from django.utils.regex_helper import _lazy_re_compile
+
+from django.utils.html import format_html
+from django.urls import reverse
+
+from rest_framework.views import APIView
+from django.contrib.auth import authenticate
+from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
+
 key=os.environ.get('API_KEY')
 
 context_main = {}
@@ -96,8 +112,11 @@ except:
     context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
     context_main['music_type_2'] = "mp3"
 
+@api_view(['GET', ])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def addx_author(request):
-
     r_user = request.user
     current_url_name = request.path
     num_books = Book.objects.all().count()
@@ -147,7 +166,8 @@ def addx_author(request):
             wiki_idx = book_dict['author_c']['wiki_idx']
             if wiki_idx == 'no wiki_idx':
                 context['message_a'] = f'Sorry, probably there is no author {author} in wiki database'
-                return render(request, 'addx_author.html', context)  
+                # return render(request, 'addx_author.html', context) 
+                return Response(context, template_name='addx_author.html', ) 
             else:
                 book_dict['author_c']['author_name'] = author
                 book_dict['author_c']['wiki_idx'] = wiki_idx
@@ -224,16 +244,18 @@ def addx_author(request):
             book_dict['author_c']['author_wiki_img'] = author_img
 
         context['book_dict'] = book_dict
-        return render(request, 'addx_author.html', context)
+        # return render(request, 'addx_author.html', context)
+        return Response(context, template_name='addx_author.html', ) 
         
     elif not wiki_idx.startswith('Q'):
         book_dict['author_c'] = 'no author in wikidata'
         
         context['message_a'] = f'Sorry, probably there is no details about {book_author} in wiki database'
-        return render(request, 'addx_author.html', context)  
+        # return render(request, 'addx_author.html', context)  
+        return Response(context, template_name='addx_author.html', ) 
 
-
-    return render(request, 'addx_author.html', context)
+    # return render(request, 'addx_author.html', context)
+    return Response(context, template_name='addx_author.html', ) 
 
 
 
