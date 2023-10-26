@@ -327,21 +327,33 @@ border-radius:2px;
 	{% render_field serializer.current_url style=style  %} 
 	</div>
 
-<div class="bs_input_accounts_login" id="bs_input_accounts_first" style="padding-top: 10px; padding-bottom: 14px;">	
+<div class="bs_input_accounts_login" id="bs_input_accounts_first" style="padding-top: 4px; padding-bottom: 8px;">	
 	<p class="class_label" style="margin: 10px auto -22px auto; line-height: 1;"> Username </p>
 	<div style="margin: 0px auto 0px auto;">	
 	{% render_field serializer.username style=style  %} 
 </div>
 </div>
 
-<div class="bs_input_accounts_login" style="padding-top: 10px; padding-bottom: 14px;"> 
+<div class="bs_input_accounts_login" style="padding-top: 4px; padding-bottom: 8px;"> 
 	<p class="class_label" style="margin: 10px auto 2px auto; line-height: 1;" > Password </p> 
 	<div style="margin: 0px auto 0px auto;">
 	{% render_field serializer.password style=style  %}  
 </div>
 </div>
 
-<div class="bs_input_accounts_login">
+
+<div id="bs_input_accounts_login" style="padding-top: 4px; padding-bottom: 10px;" > 
+	<div class="bs_input_checkbox" style="padding-bottom: 0px; margin-bottom: 0px;"> 
+	{% render_field serializer.remember_me style=style  %}
+</div>
+
+<div style="margin-top: 0px;">
+	<p class="class_text_info" style="text-align: center; margin-bottom: 2px;">forgot password <a href="{% url 'password_reset' %}" style="animation: anime_red_text 2s infinite;"> > click this < </a></p>
+	</div>
+
+</div>
+
+<div class="bs_input_accounts_login" style="padding-top: 4px; padding-bottom: 8px;">
 	<p class="class_label"> Veryfication</p> 
 	<div class="bs_input_recaptcha" style="postion: relative; margin-left: auto; margin-right: auto;">
 		<style>
@@ -371,18 +383,6 @@ border-radius:2px;
 				  </script>
     </div>
    </div>
-
-<div id="bs_input_accounts_login" style="padding-top: 4px; padding-bottom: 10px;" > 
-	
-	<div class="bs_input_checkbox" style="padding-bottom: 0px;"> 
-	{% render_field serializer.remember_me style=style  %}
-</div>
-
-<div style="margin-top: 0px;">
-	<p class="class_text_info" style="text-align: center; margin-bottom: 2px;">forgot password <a href="{% url 'password_reset' %}" style="animation: anime_red_text 2s infinite;"> > click this < </a></p>
-	</div>
-
-</div>
 
 <br>
 

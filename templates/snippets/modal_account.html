@@ -1,5 +1,16 @@
 {% include 'snippets/out_log_css.html' %}
 
+<style>
+  .span_mytootlip_text {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 90%;
+    max-width: 90%;
+    width: 90%;
+  }  
+</style>
+
 <div class="mymodal_Account" id="mymodalAccount"> 
 
     <!-- Modal content 
@@ -26,31 +37,27 @@
     
                   <input type="hidden" name="current_url" id="current_url" readonly value='{{ current_url }}'>  
     
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top: 6px; margin-bottom: 2px;">
                       <label class="label" for="username" style="font-size:24px; 
-                      color:blue; margin:4px auto 4px auto; font-variant: small-caps;" > Username </label>
-                      <span class="mytootlip_text" data-tooltip="tooltip_input" style="min-width: 100%; max-width: 100%; width: 100%;">
-                      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus value="{{request.user.username}}" minlength="3" style="margin-top: 4px">	<span data-tooltiptext="tooltiptext_input" > must contain @ </span> </span>
-                      <div class="valid-feedback" > username field is filled out.
+                      color:blue; margin-bottom:-6px; font-variant: small-caps;" > Username </label>
+                      <span class="span_mytootlip_text" data-tooltip="tooltip_input">
+                      <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus value="{{request.user.username}}" minlength="3" >	<span data-tooltiptext="tooltiptext_input" > must have at least: <br>- 3 characters. </span>
+                      <div class="valid-feedback" style="margin-top: 0px;"> Username field is filled out.
                       </div>
-                      <div class="invalid-feedback" > please fill out the username field.
-                      </div>
+                      <div class="invalid-feedback" style="margin-top: 0px;"> Fill out this field.
+                      </div> </span>
                     </div> 
 
-                    <div style="height:2px;"> </div>
-
-                    <div class="form-group" style="">
+                    <div class="form-group" style="margin-top: 6px; margin-bottom: 4px;">
                       <label class="label" for="email" style="font-size:24px; 
-                      color:blue; margin: 0px auto 4px auto; "> Email </label>
-                      <span class="mytootlip_text" data-tooltip="tooltip_input" style="min-width: 100%; max-width: 100%; width: 100%;">
-                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="{{request.user.email}}" style="margin-top: 4px"> <span data-tooltiptext="tooltiptext_input" >must have at least: <br>- 3 characters. </span><span>                      
-                      <div class="valid-feedback" > password field is filled out.
+                      color:blue; margin-bottom:-6px; "> Email </label>
+                      <span class="span_mytootlip_text" data-tooltip="tooltip_input">
+                      <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="{{request.user.email}}" > <span data-tooltiptext="tooltiptext_input" >must contain @ </span>                     
+                      <div class="valid-feedback" style="margin-top: 0px;"> Email field is filled out.
                       </div>
-                      <div class="invalid-feedback" >please fill out the password field.
-                      </div>
+                      <div class="invalid-feedback" style="margin-top: 0px;">Fill out this field.
+                      </div><span> 
                     </div>
-
-                    <div style="height:4px;"> </div>
 
                   <!--  <div>
                       <label class="container-check"> 

@@ -1,7 +1,7 @@
 {% extends 'base_account_no.html' %}
 {% load rest_framework %}
 {% load bootstrap4 %}
-{% block title %} register-site  {% endblock%}
+{% block title %} register-site {% endblock%}
 
 {% block page %}
 
@@ -373,28 +373,28 @@ width: 480px;
      {% render_field serializer.current_url style=style %} 
     </div>
 
-  <div id="bs_input_account_first" class="bs_input_accounts_register" style="padding-top: 10px; padding-bottom: 14px;">	
+  <div id="bs_input_account_first" class="bs_input_accounts_register" style="padding-top: padding-top: 4px; padding-bottom: 8px;">	
     <p class="class_label" style="margin: 10px auto -22px auto; line-height: 1;"> Username </p>
     <div style="margin: 0px auto 0px auto;"> 
       {% render_field serializer.username style=style %} 
     </div>
   </div>
 
-  <div  class="bs_input_accounts_register" style="padding-top: 10px; padding-bottom: 14px;">
+  <div  class="bs_input_accounts_register" style="padding-top: 0px; padding-bottom: 8px;">
     <p class="class_label" style="margin: 10px auto -24px auto; line-height: 1;"> Email </p>    
     <div style="margin: 0px auto 0px auto;"> 
     {% render_field serializer.email style=style %} 
     </div>
   </div>
 
-<div class="bs_input_accounts_register" style="padding-top: 10px; padding-bottom: 14px;">
+<div class="bs_input_accounts_register" style="padding-top: 0px; padding-bottom: 8px;">
   <p class="class_label" style="margin: 10px auto 2px auto; line-height: 1;"> Password </p>  
    <div style="margin: 0px auto 0px auto;" id="password" >
      	{% render_field serializer.password style=style %} 
     </div>
   </div>
 
-  <div class="bs_input_accounts_register" style="padding-top: 10px; padding-bottom: 14px;">
+  <div class="bs_input_accounts_register" style="padding-top: 0px; padding-bottom: 8px;">
     <p class="class_label" style="margin: 10px auto -22px auto; line-height: 1;"> Confirm Password </p>
    <div style="margin: 0px auto 0px auto;" id="password2"> 
      {% render_field serializer.password2 style=style %}  
@@ -407,8 +407,8 @@ width: 480px;
     </div>
    </div>
 
-   <div class="bs_input_accounts_register" >
-    <p class="class_label"> Veryfication</p> 
+   <div class="bs_input_accounts_register" style="padding-top: 0px; padding-bottom: 8px;">
+    <p class="class_label" style="line-height: 1.2;"> Veryfication</p> 
     <div class="bs_input_recaptcha" style="postion: relative; margin-left: auto; margin-right: auto;"> 	
 
 

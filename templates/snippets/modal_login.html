@@ -1,11 +1,34 @@
 {% include 'snippets/out_log_css.html' %}
 
 <style>
-	.mytootlip_text {
-		min-width: 100%;
-		max-width: 100%;
-		width: 100%;
-	}
+
+  .show_password {
+    display: none;
+    outline: 4px solid rgba(160, 160, 180, 0.8);
+    line-height: 1.2;
+    padding-top: 6px;
+    padding-bottom: 4px;
+    font-size: 12px;
+    margin-left: -52px;
+    top: -6px;
+    background-color: rgba(60, 160, 240, 0.8);
+    font-weight: bold;
+    color: aliceblue;
+    font-variant: small-caps;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    }
+
+    .show_password:hover {
+    outline: 4px solid red;
+    }
+
+  .span_mytootlip_text {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+  }  
 </style>
 
 <div class="mymodal_Account" id="mymodalLogin"> </div>
@@ -33,31 +56,29 @@
     
                   <input type="hidden" name="current_url" id="current_url" readonly value='{{ current_url }}'>  
     
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top: 6px; margin-bottom: 2px;">
                     
-                      <label class="label" for="username" style="font-size:24px; 
-                      color:blue; font-variant: small-caps;" > username </label>
-                      <span class="mytootlip_text" data-tooltip="tooltip_input">
+                      <label class="label" for="username" style="color: blue; font-variant: small-caps; margin-bottom:-6px;" > Username </label>
+                      <span class="span_mytootlip_text" data-tooltip="tooltip_input">
                       <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autofocus minlengh="3">
-                      <span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span> </span>
-                      <div class="valid-feedback" > username field is filled out.
+                      <span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span> 
+                      <div class="valid-feedback" style="margin-top: 0px;"> Username field is filled out.
                       </div>
-                      <div class="invalid-feedback" > please fill out the username field.
-                      </div>
+                      <div class="invalid-feedback" style="margin-top: 0px;"> Fill out this field.
+                      </div></span>
                     </div>   
           
-                    <div style="height: 4px"></div>
 
-                    <div class="form-group">
-                      <label class="label" for="password" style="font-size:24px; 
-                      color:blue; "> password </label>
-                       <span class="mytootlip_text" data-tooltip="tooltip_input">
-                      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="enter password" required  aautofocus pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
-                      	<span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters.</span> </span>
-                      <div class="valid-feedback" > password field is filled out.
+                    <div class="form-group" style="margin-top: 8px; margin-bottom: 4px;">
+                      <label class="label" for="password" style="color: blue; margin-bottom:-6px;"> Password </label>
+                       <span class="span_mytootlip_text" data-tooltip="tooltip_input">
+                      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="enter password" required autofocus pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
+                      <input class="show_password" id="show_pass" style="width: 44px;" value="SHOW" readonly>
+                      	<span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters.</span> 
+                      <div class="valid-feedback" style="margin-top: 0px;"> Password field is filled out.
                       </div>
-                      <div class="invalid-feedback" > please fill out the password field.
-                      </div>
+                      <div class="invalid-feedback" style="margin-top: 0px;"> Fill out this field.
+                      </div></span>
                     </div>
                     
                     <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;" data-tooltip="tooltip_input">
@@ -148,11 +169,11 @@
         btnLogin.onclick = function(){
           my_modalLogin.style.display = "block";
           my_modalLogin.style.animation = "modalfadein 1s 1";
-          my_modalLogin.src = this.src;
+          // my_modalLogin.src = this.src;
             
           my_modalLoginCont.style.display = "block"; 
           my_modalLoginCont.style.animation = "zoom 2s 1";
-          my_modalLoginCont.src = this.src;
+          // my_modalLoginCont.src = this.src;
           //captionText.innerHTML = this.alt;
         }
         
@@ -206,6 +227,26 @@
               // mymodal_cont.style.animation = "zoomrotate 2s 1";
             }
        // }
-      
+       var input_pass = document.getElementById("inputPassword");
+       var show_pass = document.getElementById("show_pass");
+       
+       show_pass.onclick = function() {
+         if (input_pass.type === "password") {
+           input_pass.type = "text";
+           show_pass.value = "HIDE";
+         } else {
+           input_pass.type = "password";
+           show_pass.value = "SHOW";
+         }
+       }
+       
+       input_pass.addEventListener("focus", function() {
+       show_pass.style.display = "inline";
+       
+       });
+       
+       input_pass.addEventListener("blur", function() {
+       setTimeout(function(){ show_pass.style.display = "none"; }, 1000);
+       });
           </script>              
                   

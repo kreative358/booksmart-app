@@ -41,23 +41,30 @@ outline: none;
 border:none;
 
 }
-.mytooltip_text_span {
 
-}
+.span_mytootlip_text {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+  }
 </style>
 	
-	<div class="form-group" id="input-email" style="position: relative; margin: auto; padding-left: 7.5%; padding-top: 0px;">
+	<div class="form-group" id="input-email" style="position: relative; margin: 0px auto 0px auto; padding-left: 7.5%; padding-top: 0px;" >
         <label class="label_serializer" id="id_label_email" for="email">  </label>
 		{% if user.is_authenticated %}
-		<span class="mytooltip_text_span" data-tooltip="tooltip_input" style="min-width: 100%; width: 100%; max-width: 100%;">
+		<span class="span_mytooltip_text" data-tooltip="tooltip_input" style="min-width: 100%; width: 100%; max-width: 100%;">
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="{{ user_email }}">
-		<span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
+		<span data-tooltiptext="tooltiptext_input">must contain @</span> 
+		<div class="valid-feedback" style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;"> Email field is filled out.</div>
+		<div class="invalid-feedback"  style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;" > Please fill out this field.</div>
+		</span>
 		{% else %}
-		<span class="mytooltip_text_span" data-tooltip="tooltip_input">
-        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="must contain @" value="">
-		<span data-tooltiptext="tooltiptext_input">must contain @</span> </span>
+		<span class="span_mytooltip_text" data-tooltip="tooltip_input" style="min-width: 100%; width: 100%; max-width: 100%;">
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="" value="">
+		<span data-tooltiptext="tooltiptext_input"> must contain @</span>
+		<div class="valid-feedback" style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;"> Email field is filled out.</div>
+		<div class="invalid-feedback" style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;"> Please fill out this field.</div>
+		</span>
 		{% endif %}
-        <div class="valid-feedback"  style="text-align:center; margin: auto;">Email field is filled out.</div>
-      <div class="invalid-feedback"  style="text-align:center; margin: auto;">Please fill out this field.</div>
+        
     </div>
-	

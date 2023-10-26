@@ -41,16 +41,23 @@ border:none;
 
 </style>
 
-	<div class="form-group" id="input-username" style="position: relative; margin: 0px auto 0px auto; padding-left: 7.5%; padding-top: 0px;">
+	<div class="form-group" id="input-username" style="position: relative; margin: auto; padding-left: 7.5%; padding-top: 0px;">
 		<label class="label_serializer" id="id_label_username" for="username">  </label>
-
-		<span class="span_mytooltip_text" data-tooltip="tooltip_input" style="min-width: 100%; width: 100%; max-width: 100%;">
+		{% if request.user.is_authenticated %}
+		<span class="mytooltip_text_span" data-tooltip="tooltip_input" style="min-width: 100%; width: 100%; max-width: 100%;">
+		<input type="text" name="username" id="inputUsername" placeholder="username" class="form-control" required autofocus  minlength="3" value="{{ request.user.username }}" title="">
+		<span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span>
+		<div class="valid-feedback" style="text-align:center; margin-top: 0px;">Username field is filled out.</div>
+		<div class="invalid-feedback"  style="text-align:center; margin-top: 0px;">Please fill out this field.</div>
+		</span>
+		{% elif not request.user.is_authenticated %}
+		<span class="mytooltip_text_span" data-tooltip="tooltip_input" style="min-width: 100%; width: 100%; max-width: 100%;">
 		<input type="text" name="username" id="inputUsername" placeholder="username" class="form-control" required autofocus minlength="3" value="" title="">	
 		<span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span>
-		<div class="valid-feedback" style="text-align:center; margin-top: 0px;margin-bottom: 0px; margin-left: -5%;">Username field is filled out.</div>
-		<div class="invalid-feedback"  style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;">Please fill out this field.</div>
+		<div class="valid-feedback" style="text-align:center; margin-top: 0px;">Username field is filled out.</div>
+		<div class="invalid-feedback"  style="text-align:center; margin-top: 0px;">Please fill out this field.</div>
 		</span>
-		
+		{% endif %}
 	
 	  </div>
 

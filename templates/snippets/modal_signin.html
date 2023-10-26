@@ -233,11 +233,35 @@
   /*  .container-check input {
       margin-top: 8px;
     } */
-
-  	.mytootlip_text {
-      min-width: 100%;
-      max-width: 100%;
-      width: 100%;
+    .show_password {
+      display: none;
+      outline: 4px solid rgba(160, 160, 180, 0.8);
+      line-height: 1.2;
+      padding-top: 6px;
+      padding-bottom: 4px;
+      font-size: 12px;
+      margin-left: -52px;
+      top: -6px;
+      background-color: rgba(60, 160, 240, 0.8);
+      font-weight: bold;
+      color: aliceblue;
+      font-variant: small-caps;
+      cursor: pointer;
+      text-align: center;
+      border: none;
+      }
+  
+      .show_password:hover {
+      outline: 4px solid red;
+      }
+      
+  	.span_mytootlip_text {
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      min-width: 90%;
+      max-width: 90%;
+      width: 90%;
     }  
   </style>
 
@@ -266,7 +290,7 @@
         let pass_1 = document.forms["registration_v"]["password"].value;
         let pass_2 = document.forms["registration_v"]["password2"].value;
         if (pass_1 != pass_2) {
-          alert("REMEMBER BOTH PASSWORDS MUST BE THE SAME");
+          alert("REMEMBER BOTH PASSWORDS MUST BE THE SAME\n1. password: " + pass_1 + "\n2. password: " + pass_2);
           return false;
         }
       }
@@ -279,40 +303,42 @@
     
     <input type="hidden" name="current_url" id="current_url" readonly value='{{ current_url }}'>
     
-    <div class="form-group" style="margin-top: 6px;">
+    <div class="form-group" style="margin-top: 6px; margin-bottom: 2px;">
       <label class="label_first"  for="username" style="margin-bottom:-6px;"> Username </label>
-      <span class="mytootlip_text" data-tooltip="tooltip_input">
+      <span class="span_mytootlip_text" data-tooltip="tooltip_input">
       <input type="text" name="username" id="inputUsername" class="form-control" placeholder="enter username" required autocomplete="off" minlength="3">
-      <span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span></span>
-      <div class="valid-feedback" >Username field is filled out.</div>
-  <div class="invalid-feedback" >Please fill out this field.</div>
-    </div>
+      <span data-tooltiptext="tooltiptext_input">must have at least: <br>- 3 characters.</span>
+      <div class="valid-feedback" style="margin-top: 0px;">Username field is filled out.</div>
+  <div class="invalid-feedback" style="margin-top: 0px;">Fill out this field.</div>
+    </div></span>
 
-     <div class="form-group">
+     <div class="form-group" style="margin-bottom: 2px;">
     <label class="label" for="email" style="margin-bottom:-6px;"> Email </label>
-    <span class="mytootlip_text" data-tooltip="tooltip_input">
+    <span class="span_mytootlip_text" data-tooltip="tooltip_input">
     <input type="email" name="email" id="inputEmail" class="form-control" placeholder="email address" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" autocomplete="off">
-    		<span data-tooltiptext="tooltiptext_input"> must contain @ </span> </span>
-    <div class="valid-feedback" >Email field is filled out.</div>
-  <div class="invalid-feedback" >Please fill out this field.</div>
+    		<span data-tooltiptext="tooltiptext_input"> must contain @ </span> 
+    <div class="valid-feedback" style="margin-top: 0px;">Email field is filled out.</div>
+  <div class="invalid-feedback" style="margin-top: 0px;">Fill out this field.</div></span>
 </div>
     
-    <div class="form-group">
+    <div class="form-group" style="margin-bottom: 2px;">
     <label class="label" for="password" style="margin-bottom:-6px;"> Password </label>
-    <span class="mytootlip_text" data-tooltip="tooltip_input">
+    <span class="span_mytootlip_text" data-tooltip="tooltip_input">
     <input type="password" name="password" id="inputPassword1" class="form-control" placeholder="enter password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off" >
-    <span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters.</span> </span>
-    <div class="valid-feedback" >Password field is filled out.</div>
-  <div class="invalid-feedback" >Please fill out this field.</div>
+    <input class="show_password" id="show_pass1" style="width: 44px;" value="SHOW" readonly>
+    <span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters.</span> 
+    <div class="valid-feedback" style="margin-top: 0px;">Password field is filled out.</div>
+  <div class="invalid-feedback" style="margin-top: 0px;">Fill out this field.</div></span>
     </div>
 
-    <div class="form-group">
-    <label class="label"  for="password2" style="margin-bottom:-6px;">  Repeat Password </label>
-    <span class="mytootlip_text" data-tooltip="tooltip_input">
-    <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="confirm password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number/nand one uppercase and lowercase letter,/nand at least 8 or more characters" autocomplete="off" >
-    <span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters <br>- BE THE SAME LIKE FIRST.</span> </span>
-    <div class="valid-feedback" >Repeat password field is filled out.</div>
-  <div class="invalid-feedback" >Please fill out this field with the same password.</div>
+    <div class="form-group" style="margin-bottom: 4px;">
+    <label class="label"  for="password2" style="margin-bottom:-6px;"> Repeat Password </label>
+    <span class="span_mytootlip_text" data-tooltip="tooltip_input">
+    <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="confirm password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off" >
+    <input class="show_password" id="show_pass2" style="width: 44px;" value="SHOW" readonly>
+    <span data-tooltiptext="tooltiptext_input">must contain at least: <br>- one number, <br>- one uppercase, <br>- one lowercase letter, <br>- 8 or more characters <br>- BE THE SAME LIKE FIRST.</span>
+    <div class="valid-feedback" style="margin-top: 0px;">Repeat password field is filled out.</div>
+  <div class="invalid-feedback" style="margin-top: 0px;">Fill out with the same password.</div> </span>
     </div> 
     <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;"  data-tooltip="tooltip_input">
 
@@ -498,4 +524,68 @@
           // mymodal_cont.style.animation = "zoomrotate 2s 1";
         }
       //  }
+
+      var input_pass1 = document.getElementById("inputPassword1");
+      var show_pass1 = document.getElementById("show_pass1");
+      
+      show_pass1.onclick = function() {
+        if (input_pass1.type === "password") {
+          input_pass1.type = "text";
+          show_pass1.value = "HIDE";
+        } else {
+          input_pass1.type = "password";
+          show_pass1.value = "SHOW";
+        }
+      }
+      
+      input_pass1.addEventListener("focus", function() {
+      show_pass1.style.display = "inline";
+      });
+      
+      input_pass1.addEventListener("blur", function() {
+      setTimeout(function(){ show_pass1.style.display = "none"; }, 1000);
+      });
+
+      var input_pass2 = document.getElementById("inputPassword2");
+      var show_pass2 = document.getElementById("show_pass2");
+      
+      show_pass2.onclick = function() {
+        if (input_pass2.type === "password") {
+          input_pass2.type = "text";
+          show_pass2.value = "HIDE";
+        } else {
+          input_pass2.type = "password";
+          show_pass2.value = "SHOW";
+        }
+      }
+      
+      input_pass2.addEventListener("focus", function() {
+      show_pass2.style.display = "inline";
+      });
+      
+      input_pass2.addEventListener("blur", function() {
+      setTimeout(function(){ show_pass2.style.display = "none"; }, 1000);
+      });      
       </script>
+      <script>
+      /*  
+      // https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_form_validation_needs&stacked=h
+      // Disable form submissions if there are invalid fields
+        (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            // Get the forms we want to add validation styles to
+            var forms = document.getElementsByClassName('was-validated');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })(); */
+        </script>
