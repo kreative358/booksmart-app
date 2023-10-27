@@ -646,20 +646,21 @@ def addbook_serializer(request):
             check_new_book = Book.objects.filter(google_id=new_book_google_id)
             # check_new_book = Book.objects.filter(google_id=initial_val.google_id)
             if check_new_book:
-                messages.warning(request, "1. This book is already in the database, if you want to save it again you need to change the value of google-id.")
+                messages.warning(request, "1. This book is already in the database.")
                 return redirect('booksmart:allrecords')
             else:
                 book_instance = serializer.save()
                 print("book_instance.title =", book_instance.title)
                 new_book_google_id_instance = book_instance.google_id
+
                 try:
                     new_book_add = Book.objects.filter(google_id=new_book_google_id_instance).last()
-                    new_book_add = Book.objects.filter().last()
+                    # new_book_add = Book.objects.filter().last()
                     new_book_add_author = new_book_add.author
                     author_c_new_book = Author.objects.filter(author_name=new_book_add_author).last()
                     if author_c_new_book:
-                        new_book_add.author_c = author_c_new_book
-                        new_book_add.save()
+                        book_instance.author_c = author_c_new_book
+                        book_instance.save()
                         print('req_book line 578')
                     else:
                         print('req_book line 580')
@@ -667,6 +668,24 @@ def addbook_serializer(request):
                     
                 except Exception as e:
                     print(f'req_book line 602, error {e}')
+
+                # try:
+                #     new_book_add = Book.objects.filter(google_id=new_book_google_id_instance).last()
+                #     new_book_add = Book.objects.filter().last()
+                #     new_book_add_author = new_book_add.author
+                #     author_c_new_book = Author.objects.filter(author_name=new_book_add_author).last()
+                #     if author_c_new_book:
+                #         new_book_add.author_c = author_c_new_book
+                #         new_book_add.save()
+                #         print('req_book line 578')
+                #     else:
+                #         print('req_book line 580')
+                        
+                    
+                # except Exception as e:
+                #     print(f'req_book line 602, error {e}')
+
+
         except IntegrityError:
             if Book.objects.filter(google_id=new_book_google_id):
                 messages.info(request, "This book is in database")

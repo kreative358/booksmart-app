@@ -508,25 +508,18 @@ button:focus {
 
 .h4_class:hover { 
   color: rgba(0, 0, 240, 0.9); 
-
 }
 
 .h5_class_bold:hover {
-  font-weight: bold; 
   color: rgba(0, 0, 240, 0.9); 
 }
 
 .h5_class:hover { 
-  color: rgba(0, 0, 240, 0.9); 
-  font-size: 26px;
-  
+  color: rgba(0, 0, 240, 0.9);  
 }
 
 .h6_class_bold:hover {
-  font-weight: bold; 
   color: rgba(0, 0, 240, 0.9); 
-  font-size: 22px;
-  
 }
 
 .h6_class:hover { 
@@ -781,13 +774,14 @@ box-shadow: 0px 0px 4px 4px rgba(200, 200, 220, 0.8);
       font-family: Times; 
       }
     
+    </style>
+    <style>      
   @media screen and (max-width: 1280px) {
     .my_container_top_cards {
     display: block;
     margin: auto;
     max-width: 94%;
     /* grid-template-columns: auto auto auto; */
-    
     }
     
     /* my_container > .my_card { */
@@ -796,7 +790,6 @@ box-shadow: 0px 0px 4px 4px rgba(200, 200, 220, 0.8);
     margin:auto; 
     max-width: 98%;
     width: 520px;
-  
     }
     
    #mycard_top_cards_middle {
@@ -898,6 +891,12 @@ box-shadow: 0px 0px 4px 4px rgba(200, 200, 220, 0.8);
       font-family: Times; 
       }  
     }
+
+@media screen and (max-width: 800px) {
+  .h5_class {
+font-size: 22px;
+  }
+    }
     
   @media screen and (max-width: 640px) {
     .my_card_top_cards {
@@ -993,13 +992,6 @@ box-shadow: 0px 0px 4px 4px rgba(200, 200, 220, 0.8);
       color: rgba(0, 0, 240,  0.8); 
       font-family: Times; 
       }      
-    }   
-    
-  
-    </style>
-
-<style>
-  @media screen and (max-width: 640px) {
   
     .btn_container_list {
       margin:10px auto 10px auto; 
@@ -1017,6 +1009,10 @@ box-shadow: 0px 0px 4px 4px rgba(200, 200, 220, 0.8);
       .h2j {
         font-size: 34px; 
     }
+
+    .h5_class {
+      font-size: 18px;
+        }
 
   }
 

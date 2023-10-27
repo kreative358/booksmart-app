@@ -152,6 +152,14 @@ except:
 cont = {}
 user_recs =  [("", "")]
 
+
+# books_in_db_no_author_c = [book for book in Book.objects.filter(author_c__isnull=True)]
+# print(books_in_db_no_author_c)
+
+# books_in_db_no_author_c = [book_in_db for book_in_db in books_in_db if 
+
+
+
 @api_view(['GET', 'POST'])
 @permission_classes([])
 # @authentication_classes([]) # TokenAuthentication

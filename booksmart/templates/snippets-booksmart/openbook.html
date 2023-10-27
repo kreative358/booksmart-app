@@ -15,10 +15,10 @@
       } */
       </script>
     <!--<div class="searching_openlib_{{book.id}}">-->
-    <form class="searching_openlibrary_{{ book.id }}" action="{{ cont.searching }}" method="post" target="_blank" >
+    <form id="register" class="searching_openlibrary_{{ book.id }}" action="{{ cont.searching }}" method="post" target="_blank" >
     {% csrf_token %}
 
-    <input type="hidden"  id="username" name="username" value="{{ cont.mail }}" >      
+    <input type="hidden" class="required"  id="username" name="username" value="{{ cont.mail }}" >      
 
     <input type="hidden" class="required" placeholder="Password" id="password" name="password" value="{{ cont.pass }}">
           

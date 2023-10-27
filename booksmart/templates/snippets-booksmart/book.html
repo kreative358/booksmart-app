@@ -910,7 +910,7 @@ color: MediumBlue;
   }
 
   .container_mymodal_uni_author_book:hover {
-  transform: matrix(1.01, 0, 0, 1.01, 0, 2);
+  /*transform: matrix(1.01, 0, 0, 1.01, 0, 2); */
   box-shadow:
  /*-8px 8px 10px 0px rgba(229, 230, 243, 0.6), */
  0px 0px 18px 14px rgba(209, 210, 223, 0.8); 
@@ -1128,8 +1128,8 @@ color: MediumBlue;
 
   <div class="book_left_content">
       <br>
-     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps;" > language: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.language}} </span></p>
-     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; margin-top:-8px;"> epub: <span style="color: Maroon; font-weight: bold; text-transform: uppercase;"> {{ book.epub }} </span></p> 
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps;" > language: <span style="color: Maroon; font-weight: bold;"> {{ book.language}} </span></p>
+     <p class="h6_book_l" style="font-weight: bold; font-variant: small-caps; margin-top:-8px;"> epub: <span style="color: Maroon; font-weight: bold;"> {{ book.epub }} </span></p> 
      {% if book.published == no_date %}
      <p class="h6_book_l" style="font-weight: bold; margin-top:-8px; font-variant: small-caps;"> published date: <span  style="color: Indigo; font-weight: bold;"> no info </span></p>
     {% else %}

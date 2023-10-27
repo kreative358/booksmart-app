@@ -273,22 +273,21 @@ left: 12px;
       z-index: 12;
       margin: -10px 5% 2vw auto;
       width: 600px;
-      max-width:96%;
+      max-width: 96%;
       float: right;
       display: flex;
       align-content: right;
       padding: auto;
-      color: blue;
-      
+      color: blue;  
   }
+
   .myrow_pagination,
   .mycolumn_pagination {
   max-width: 100%;
-  
   }
   
   .mypagination {
-      text-align:right;
+      text-align: right;
       display: inline-block; 
       font-size:30px;
       font-weight: bold;
@@ -297,7 +296,19 @@ left: 12px;
       justify-content: right;
       width:580px;
       max-width:96%;
+      color: rgba(0, 0, 220, 0.8)
   }
+
+  .mypagination:hover,
+  .mypagination:focus,
+  .mypagination:active {
+    color: rgba(0, 0, 220, 0.9);
+    text-shadow: 
+    -1px 0px darkblue, 
+    0px 1px darkblue, 
+    1px 0px darkblue, 
+    0px -1px darkblue;
+    } 
   
   @media screen and (max-width: 640px) {
   .mypagination {

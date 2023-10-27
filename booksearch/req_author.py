@@ -261,7 +261,7 @@ def addx_author(request):
 
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from booksearch.api.serializers import NewAuthorSerializer
+from booksearch.api.serializers import NewAuthorSerializer, BookToAuthorSerializer
 def addauthor_serializer(request):
     r_user = request.user
     authors_instances = []
@@ -302,21 +302,40 @@ def addauthor_serializer(request):
                 print("author_instance.author_name =", author_instance.author_name)
                 new_author_name_instance = author_instance.author_name
                 books = Book.objects.filter(author=new_author_name_instance)
+                book_serializer = BookToAuthorSerializer
                 if books:
-                    for book in books:
-                        if book.author_c:
-                            print('req_author line 272')
+                    for book_serializer in books:
+                        
+                        if not book_serializer.author_c:
+                            book_author_c = book_serializer.author
+                            author_author_c = Author.objects.filter(author_name=book_author_c).last()
+                            book_serializer.author_c = author_author_c
+                            # book.author_c = Author.objects.filter().last()
+                            book_serializer.save()
+                            # print('req_author line 278')    
 
                         else:
+                            print('309 req_author if book.author_c:')
                             #if book.author == books_author_c.author_name:
-                            book_author_c = book.author
-                            author_author_c = Author.objects.filter(author_name=book_author_c).last()
-                            book.author_c = author_author_c
-                            # book.author_c = Author.objects.filter().last()
-                            book.save()
-                            # print('req_author line 278')
+
                 else:
                     print('req_author line 280')
+
+                # if books:
+                #     for book in books:
+                #         if book.author_c:
+                #             print('req_author line 272')
+
+                #         else:
+                #             #if book.author == books_author_c.author_name:
+                #             book_author_c = book.author
+                #             author_author_c = Author.objects.filter(author_name=book_author_c).last()
+                #             book.author_c = author_author_c
+                #             # book.author_c = Author.objects.filter().last()
+                #             book.save()
+                #             # print('req_author line 278')
+                # else:
+                #     print('req_author line 280')
 
         except IntegrityError:
                 messages.info(request, "Something went wrong, please try again later")
