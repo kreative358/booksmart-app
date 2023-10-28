@@ -32,12 +32,13 @@
     }
     
     #modal_cont_prevent {
-    position: relative;
+    position: fixed;
     z-index:122;
     display:none;
    max-width: 90%;
     top:100px;
     width: 560px;
+
     font-family: Times;
     padding: 5px;
     font-size:18px;
@@ -48,8 +49,8 @@
     padding: 10px;
     animation-delay: 2s;
     animation: noname2;
-    margin-left: auto;
-    margin-right: auto;
+    left: 50%;
+    margin-left: -278px;
     }
     
     @keyframes unzoomrotate {
@@ -223,19 +224,41 @@
     margin-bottom: 10px;
     }
 
-    @media screen and (max-width: 480px) {
+  @media screen and (max-width: 640px) {
      #modal_cont_prevent { 
-        max-width: 98%;
-        width: 98%;
-        margin: auto;
-      }
-      #info_msg {
-        font-size: 26px;
-        } 
-        #solution {
-          font-size: 22px;
+      max-width: 92%;
+      width: 92%;
+      left: 50%;
+      margin-left: -46%;
     }
   }
+
+  @media screen and (max-width: 560px) {
+    #modal_cont_prevent { 
+    max-width: 94%;
+    width: 94%;
+    left: 50%;
+    margin-left: -47%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  
+  #modal_cont_prevent { 
+    max-width: 98%;
+    width: 98%;
+    left: 50%;
+    margin-left: -49%;
+  }
+
+  #info_msg {
+    font-size: 26px;
+    } 
+
+  #solution {
+    font-size: 22px;
+}
+}
       </style>
          
          <div class="my_modal_prevent" id="mymodal_prevent">

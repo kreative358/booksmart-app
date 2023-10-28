@@ -44,9 +44,9 @@
 </div>
       
 <div class="footer_card" id="footer_new_book" >
-  <button type="button" id="button_back_newbook" href="{% url 'booksmart:allrecords' %}" class="btn btn-outline-primary text-danger float-left" > Back </button>
+  <a  href="{% url 'booksmart:allrecords' %}" ><button type="button" id="button_back_newbook"  class="back_button" > Back </button></a>
 
-  <button form="new_book_form" type="submit" id="button_save_newbook" class="btn btn-outline-danger text-primary float-right" > Save </button>
+  <button form="new_book_form" type="submit" id="button_save_newbook" class="save_button" > Save </button>
 </div>
 
     </div>

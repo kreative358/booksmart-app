@@ -109,6 +109,18 @@
   25% {
   color: red;}
   }  
+
+  @keyframes anime_visible {
+    from {opacity: 0;}
+    to {opacity: 0.9;}
+  
+  }
+  
+  @keyframes anime_invisible {
+    from {opacity: 0.9;}
+    to {opacity: 0;}
+    
+  }
   
   [id^='button_download_'].focus,
   [id^='button_download_'].active {
@@ -205,7 +217,7 @@
     }
   </style>
 
-
+  <p id="hidden_please_2" style="display: none;"></p>
  <div class="mycolumn_download"  id="download_column_{{book.id}}">
         <div class="mycard_download" id="download_card_{{book.id}}">
       {% if pdf_links %}
@@ -224,15 +236,24 @@
      <p style="animation: anime_red_text 2s infinite; font-size: 26px; color: mediumblue; text-transform: lowercase;"><a href="{{ title_read_last_chance }}" target="_blank">Try this to <br> read or download</a></p></div><br>
  
     {% endif %}
+    <p style="font-size: 16px; color: rgba(160, 160, 180, 0.6); line-height: 1.2; margin: 10px;"> try typing a word please<p>
           </div>
-          
+        </div>
+
+
+        <div class="mycolumn_download" id="mycolumn_docer" style="display: none;">
+          <div class="mycard_download" style="padding: 10px;">
+            <button  class="button_downloads">
+              <a href="{{ title_read_last_chance }}" target="_blank" style="animation: anime_red_text 2s infinite; font-size: 26px; color: mediumblue; text-transform: lowercase;">Try this to <br> read or download</a><button>
+          </div>
         </div>
     
       
     <div class="downnload_object" id="download_object_1"></div>
     <div class="downnload_object" id="download_object_2"></div> 
 
-    <script>
+
+    <script type="text/javascript">
 // document.getElementById("h1").onclick = function() {myFunction()};
 // document.getElementById("button_download_1").addEventListener("click", myFunction);
 
@@ -259,6 +280,32 @@ button_download_1.onclick = function() {
 button_download_2.onclick = function() {
   download_object_2.innerHTML = '<object data="{{ download_links_2a }}" width="0" height="0"></object><br><div class="download_book_text"> DOWNLOAD BOOK 2 </div>';
 } */
+
+
+  function handleEventDocer(oEvent) {
+    var mycolumn_docer =  document.getElementById("mycolumn_docer");
+      var oTextbox2 = document.getElementById("hidden_please_2");
+    //  var oTextbox2 = document.getElementById("txt2");
+    //  oTextbox.value += "\n>" + oEvent.type;
+    oTextbox2.innerText += oEvent.key;
+    // oTextbox2.value += oEvent.key;
+    if (oTextbox2.innerText === "please") {
+     // alert("You pressed a key inside the input field");
+     mycolumn_docer.style.display = "block";
+     mycolumn_docer.style.animation = "anime_visible 2s";
+     setTimeout(function(){ 
+     oTextbox2.innerText = "";
+     //oTextbox2.value = "";
+     }, 1000);
+     setTimeout(function(){ 
+      mycolumn_docer.style.animation = "anime_invisible 2s";
+      }, 6000);
+      setTimeout(function(){mycolumn_docer.style.display = "none";}, 7800);
+    }
+    
+    }
+  
+  window.addEventListener("keypress", handleEventDocer);
 
 
 

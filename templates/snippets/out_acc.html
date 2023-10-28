@@ -67,7 +67,7 @@
 
      <!-- <button  name="logout_f"  id="btn_door_logout"  class="myBtns_acc"> <a href="{% url 'accounts:logout' %}" style="color:MediumBlue;">Logout</a></button> -->
 
-        <div  name="logout_f"  id="btn_door_logout"  class="myBtns_acc"> <a href="{% url 'accounts:logout' %}" ><p class="h5vw_btn" id="btn_door_logout_text">Logout</p></a></div>
+        <div  name="logout_f"  id="btn_door_logout"  class="myBtns_acc"> <p class="h5vw_btn" id="btn_door_logout_text"><a href="{% url 'accounts:logout' %}" class="h5vw_btn_a">Logout</a></p></div>
         
         <div  class="btn_hide" > <p class="h5vw_btn" id="btn_hide_text">hide </p></div>
      
@@ -76,22 +76,26 @@
 
     {% include 'snippets/modal_account.html' %}
 
-    <script>
-      document.getElementById("btn_account_text").addEventListener("mouseover", mouseOver);
-      document.getElementById("btn_account_text").addEventListener("mouseout", mouseOut);
-      
-      function mouseOver() {
-        document.getElementById("btn_account_text").innerHTML= "change name or email";
+  <script>
+    document.getElementById("btn_account_text").addEventListener("mouseover", mouseOver);
+    document.getElementById("btn_account_text").addEventListener("mouseout", mouseOut);
+
+    var btn_account_text = document.getElementById("btn_account_text");
+    
+    function mouseOver() {
+      document.getElementById("btn_account_text").innerHTML= "change name or email";
+      btn_account_text.innerHTML= "change name or email";
+    }
+    
+    
+    function mouseOut() {
+      if ("{{request.user.username}}" != "None") {
+        btn_account_text.innerHTML=  "Hello, " + "{{request.user.username}}";
+    }
+      else {
+        btn_account_text.innerHTML=  "Hello, " + "{{account_form.initial.username}}";
       }
-      
-      
-      function mouseOut() {
-        var name = document.getElementById("btn_account_text");
-        if ("{{request.user.username}}" != "None") {
-        document.getElementById("btn_account_text").innerHTML=  "Hello, " + "{{request.user.username}}";
-      }
-        else {document.getElementById("btn_account_text").innerHTML=  "Hello, " + "{{account_form.initial.username}}";}
-      }
-      </script>
+    }
+    </script>
 
       

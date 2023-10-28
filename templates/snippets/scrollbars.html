@@ -314,7 +314,7 @@
     background-repeat: no-repeat;
     border: 2px solid rgba(220, 220, 220, 0.4);
     border-radius: 2px;
-    box-shadow: -2px 0px 0px 0px rgba(220, 220, 220, 0.6) inset;
+    box-shadow: -1px 0px 0px 0px rgba(220, 220, 220, 0.6) inset;
     }
     
   .glass_class_main::-webkit-scrollbar-button:single-button:start:hover {
@@ -333,7 +333,7 @@
     background-repeat: no-repeat;
     border: 2px solid rgba(220, 220, 220, 0.4);
     border-radius: 2px;
-    box-shadow: -2px 0px 0px 0px rgba(220, 220, 220, 0.6) inset;
+    box-shadow: -1px 0px 0px 0px rgba(220, 220, 220, 0.6) inset;
     }
     
   .glass_class_main::-webkit-scrollbar-button:single-button:end:hover {
@@ -484,30 +484,31 @@
   }
 
 ::-webkit-scrollbar {
-    width: 16px;
-    max-width: 16px;
-
+    width: 14px;
+    max-width: 14px;
+    background: linear-gradient(rgba(60, 160, 240, 0.2), rgba(60, 160, 240, 0.2), rgba(60, 160, 240, 0.2));
     background-image: linear-gradient(rgba(60, 160, 240, 0.2), rgba(60, 160, 240, 0.2), rgba(60, 160, 240, 0.2));
-    background-size: 16px 100%;
+    background-size: 14px 100%;
     font-size: 16px;
     transition: 0.4s;
     }
     
 ::-webkit-scrollbar:hover {
-    width: 16px;
-    max-width: 16px;
+    width: 14px;
+    max-width: 14px;
+    background: linear-gradient(rgba(60, 160, 240, 0.2), rgba(60, 160, 240, 0.2), rgba(60, 160, 240, 0.2));
     background-image: linear-gradient(rgba(60, 160, 240, 0.2), rgba(60, 160, 240, 0.2), rgba(60, 160, 240, 0.2));
     background-size: 16px 100%;
     padding: 6px;
-    font-size: 16px;
+    font-size: 14px;
     transition: 0.4s;
     }
     
 ::-webkit-scrollbar-track:vertical {
-    background: rgba(220, 220, 220, 0.4);
-    min-width: 14px;
-    width: 14px;
-    max-width: 14px;
+    background: rgba(220, 220, 230, 0.2);
+    min-width: 10px;
+    width: 10px;
+    max-width: 10px;
     border-radius: 2px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -516,10 +517,10 @@
     }
     
 ::-webkit-scrollbar-track:vertical:hover {
-    background: rgba(220, 220, 220, 0.4);
-    min-width: 14px;
-    width: 14px;
-    max-width: 14px;
+    background: rgba(220, 220, 230, 0.4);
+    min-width: 10px;
+    width: 10px;
+    max-width: 10px;
     border-radius: 4px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -553,15 +554,15 @@
     min-height: 10px;
 /*     height: 40px; */
     max-height: 240px;
-    width: 14px;
-    min-width: 14px;
-    max-width: 14px;
+    width: 12px;
+    min-width: 12px;
+    max-width: 12px;
     background: transparent;
     background-color: transparent;
     background: rgba(60, 160, 240, 0.2);
     background-color: rgba(60, 160, 240, 0.2);
     
-    outline: 2px solid rgba(220, 220, 220, 0.8);
+    outline: 2px solid rgba(220, 220, 240, 0.4);
     border-radius: 2px;
     margin: 4px;
     background-image: url('/static/fav_png.png'); 
@@ -579,11 +580,12 @@
     }
         
 ::-webkit-scrollbar-thumb:vertical:hover {
-    width: 14px;
-    min-width: 14px;
-    max-width: 14px;
+    width: 12px;
+    min-width: 12px;
+    max-width: 12px;
     background: transparent;
-    outline: 2px solid rgba(220, 220, 220, 0.8);
+    background-color: transparent;
+    outline: 2px solid rgba(220, 220, 240, 0.6);
     border-radius: 2px;
     margin: 4px;
     background-image: linear-gradient(rgba(60, 160, 240, 0.6), rgba(200, 0, 0, 0.6)); 
