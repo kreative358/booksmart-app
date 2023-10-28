@@ -262,13 +262,19 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 2);
        setTimeout(function(){ 
        oTextbox1.innerText = "";
        //oTextbox2.value = "";
-       }, 1000);
+       }, 3000);
 
        setTimeout(function(){ 
         mycolumn_book_download.style.animation = "anime_invisible 2s";
        }, 6000);
        setTimeout(function(){mycolumn_book_download.style.display = "none";}, 7800);
      }
+     else {
+      setTimeout(function(){ 
+        oTextbox1.innerText = "";
+        //oTextbox2.value = "";
+        }, 3000);
+    }
     }
     
     window.addEventListener("keypress", handleEventLibgen);

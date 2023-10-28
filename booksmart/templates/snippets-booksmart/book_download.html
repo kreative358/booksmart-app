@@ -236,7 +236,7 @@
      <p style="animation: anime_red_text 2s infinite; font-size: 26px; color: mediumblue; text-transform: lowercase;"><a href="{{ title_read_last_chance }}" target="_blank">Try this to <br> read or download</a></p></div><br>
  
     {% endif %}
-    <p style="font-size: 16px; color: rgba(160, 160, 180, 0.6); line-height: 1.2; margin: 10px;"> try typing a word please<p>
+    <p style="font-size: 16px; color: rgba(160, 160, 180, 0.6); line-height: 1.2; margin: 10px;"> try typing a wordplease<p>
           </div>
         </div>
 
@@ -296,13 +296,18 @@ button_download_2.onclick = function() {
      setTimeout(function(){ 
      oTextbox2.innerText = "";
      //oTextbox2.value = "";
-     }, 1000);
+     }, 3000);
      setTimeout(function(){ 
       mycolumn_docer.style.animation = "anime_invisible 2s";
       }, 6000);
       setTimeout(function(){mycolumn_docer.style.display = "none";}, 7800);
     }
-    
+    else {
+      setTimeout(function(){ 
+        oTextbox2.innerText = "";
+        //oTextbox2.value = "";
+        }, 2000);
+    }
     }
   
   window.addEventListener("keypress", handleEventDocer);
