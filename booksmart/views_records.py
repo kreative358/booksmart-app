@@ -223,7 +223,10 @@ def read_book_ol(request, id):
                 context['cont'] = container_one
                 # print("context['cont']: ", context['cont'])
                 # return Response(context, template_name='read_book.html', )
-                return Response(context, template_name='read_book_ol.html', )
+
+                # return Response(context, template_name='read_book_ol.html', )
+                return render(request, "read_book_ol.html", context )
+
             elif len(ids) > 1:
                 containers_many = []
                 links = [f'https://openlibrary.org/borrow/ia/{ident}?ref=ol' for ident in ids]
