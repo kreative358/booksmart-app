@@ -2,8 +2,17 @@
   window.addEventListener("load", function() {
     localStorage.clear();
     sessionStorage.clear();
+
+  if (
+  navigator.userAgent.match(/Android/i) ||
+  navigator.userAgent.match(/iPhone/i)
+) {
+  document.getElementById("scene_flip").remove();
+  document.getElementById("mycard_book_reader_flip").innerHTML = '<div class="button_downloads"><p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word below </p><input id="created_input_2" type="text" placeholder="please" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;"></div>'
+}
   });
-  </script>
+
+</script>
 
 <style type="text/css">
 
@@ -332,15 +341,15 @@ width: 100%;
         
 
         <div class="mycolumn_download"  id="">
-            <div class="mycard_download" id="">      
-              <div class="scene scene--card">
+            <div class="mycard_download" id="mycard_book_reader_flip">      
+              <div class="scene scene--card" id="scene_flip">
                 <div  class="card" >
                 <div class="card__face card__face--front">
                 <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
                 </div> 
                 <div class="card__face card__face--back" id="create_input_2c">
                 <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-                <input id="created_input_2c" type="text" placeholder="please"  style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word; margin-bottom: 6px;">
+                <input id="created_input_2" type="text" placeholder="please"  style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word; margin-bottom: 6px;">
                 </div>
                 </div>
                 </div>
@@ -409,19 +418,19 @@ width: 100%;
       let oTextbox2 = document.getElementById("hidden_please_2");
       // let oInputbox2a = document.getElementById("created_input_2a");
       // let oInputbox2b = document.getElementById("created_input_2b");
-      let oInputbox2c = document.getElementById("created_input_2c");
+      let oInputbox2 = document.getElementById("created_input_2");
       // var inputValue2 = oInputbox2.value;
       oTextbox2.innerText += oEvent.key;
       
   //  if (oTextbox2.innerText === "please" || inputValue === "please") {
-    if (oTextbox2.innerText === "please") {
+    if (oTextbox2.innerText === "please" || oInputbox2.value === "please") {
      // alert("You pressed a key inside the input field");
      mycolumn_docer.style.display = "block";
      mycolumn_docer.style.animation = "anime_visible 2s";
      
      setTimeout(function(){ 
      oTextbox2.innerText = "";
-     oInputbox2a.value = "";
+     oInputbox2.value = "";
      // oInputbox2b.value = "";
      // oInputbox2c.value = "";
      }, 3000);
@@ -438,7 +447,7 @@ width: 100%;
     else {
       setTimeout(function(){ 
         oTextbox2.innerText = "";
-        // oInputbox2a.value = "";
+        oInputbox2.value = "";
         // oInputbox2b.value = "";
         // oInputbox2c.value = "";
         }, 2000);
@@ -464,11 +473,10 @@ width: 100%;
   var link_to_doc_1 = document.getElementById("link_to_doc_1");
   var link_to_doc_2 = document.getElementById("link_to_doc_2");
 
- 
-
   btn_to_doc_2.onclick = function() {
   var book_url = "{{ title_read_last_chance }}";
   window.open(book_url)
   }
+
   </script>
   
