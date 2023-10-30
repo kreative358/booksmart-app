@@ -131,9 +131,8 @@
     }
     
     .downnload_object {
-    
       position: relative;
-      margin: 20px auto 20px auto;
+      margin: 0px auto 20px auto;
       font-size: 30px;
       text-align: center;
       background-color: rgba(60, 160, 240, 0.0);
@@ -304,18 +303,6 @@ width: 100%;
          <span> PRESS TO DOWNLOAD 2 </span><br>
          <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span>
          </div>
-
-         <div class="scene scene--card">
-          <div  class="card" >
-          <div class="card__face card__face--front">
-          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
-          </div> 
-          <div class="card__face card__face--back" id="create_input_2a">
-          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-          <input id="created_input_2a" type=text style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word; margin-bottom: 6px;">
-          </div>
-          </div>
-          </div>
          
         {% elif len_pdf_links == 1 %}
       
@@ -323,18 +310,6 @@ width: 100%;
          <span> PRESS TO DOWNLOAD </span><br>
          <span style="animation: anime_red_text 2s infinite;"> "{{ title_download }}" </span>
          </div>
-
-         <div class="scene scene--card">
-          <div  class="card" >
-          <div class="card__face card__face--front">
-          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
-          </div> 
-          <div class="card__face card__face--back" id="create_input_2b">
-          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-          <input id="created_input_2b" type=text style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word; margin-bottom: 6px;">
-          </div>
-          </div>
-          </div>
   
        {% endif %}
   
@@ -346,7 +321,7 @@ width: 100%;
       <p style="line-height: 1; color: mediumblue; font-size: 22px;" > {{message_read_download}} </p>
       </div>
       
-      <a href="" target="_blank" style="text-decoration: none;" id="link_to_doc_1">
+      <a href="{{ title_read_last_chance }}" target="_blank" style="text-decoration: none;" id="link_to_doc_1">
      <div  class="button_downloads" id="button_to_doc_1" style="animation: anime_red_text 2s infinite; font-size: 20px; color: mediumblue; line-height: 1.2; padding: 10px;">press this to try to find <br> this book another way</div>
       </a>
 
@@ -354,16 +329,33 @@ width: 100%;
 
        </div>
           </div>
-          
+        
+
+        <div class="mycolumn_download"  id="">
+            <div class="mycard_download" id="">      
+              <div class="scene scene--card">
+                <div  class="card" >
+                <div class="card__face card__face--front">
+                <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
+                </div> 
+                <div class="card__face card__face--back" id="create_input_2c">
+                <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
+                <input id="created_input_2c" type=text placeholder="please" value="" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word; margin-bottom: 6px;">
+                </div>
+                </div>
+                </div>
+
+            </div>
+          </div>  
+
           <div class="mycolumn_download" id="mycolumn_docer" style="display: none;">
             <div class="mycard_download" >
-            <a href="" target="_blank" style="text-decoration: none;" id="link_to_doc_2">
+            <!--<a href="" target="_blank" style="text-decoration: none;" id="link_to_doc_2"> -->
                <div class="button_downloads" id="button_to_doc_2" style="animation: anime_red_text 2s infinite; font-size: 22px; color: mediumblue; line-height: 1.2; padding: 10px;">press this to try to find <br> this book another way</div>
-                </a>
+              <!--  </a> -->
                 
             </div>
           </div>
-           
       
         
       <div class="downnload_object" id="download_object_1"></div>
@@ -415,13 +407,14 @@ width: 100%;
   function handleEventDocer(oEvent) {
     var mycolumn_docer =  document.getElementById("mycolumn_docer");
       let oTextbox2 = document.getElementById("hidden_please_2");
-      let oInputbox2a = document.getElementById("created_input_2a");
-      let oInputbox2b = document.getElementById("created_input_2b");
+      // let oInputbox2a = document.getElementById("created_input_2a");
+      // let oInputbox2b = document.getElementById("created_input_2b");
+      let oInputbox2c = document.getElementById("created_input_2c");
       // var inputValue2 = oInputbox2.value;
       oTextbox2.innerText += oEvent.key;
       
   //  if (oTextbox2.innerText === "please" || inputValue === "please") {
-    if (oTextbox2.innerText === "please" && mycolumn_docer.style.display === "none") {
+    if (oTextbox2.innerText === "please") {
      // alert("You pressed a key inside the input field");
      mycolumn_docer.style.display = "block";
      mycolumn_docer.style.animation = "anime_visible 2s";
@@ -429,7 +422,8 @@ width: 100%;
      setTimeout(function(){ 
      oTextbox2.innerText = "";
      oInputbox2a.value = "";
-     oInputbox2b.value = "";
+     // oInputbox2b.value = "";
+     // oInputbox2c.value = "";
      }, 3000);
      
      setTimeout(function(){ 
@@ -444,13 +438,14 @@ width: 100%;
     else {
       setTimeout(function(){ 
         oTextbox2.innerText = "";
-        oInputbox2a.value = "";
-        oInputbox2b.value = "";
+        // oInputbox2a.value = "";
+        // oInputbox2b.value = "";
+        // oInputbox2c.value = "";
         }, 2000);
     }
     }
   
-  window.addEventListener("keypress", handleEventDocer);
+ document.addEventListener("keypress", handleEventDocer);
   
   
   /* var card = document.querySelector('.card');
@@ -469,12 +464,11 @@ width: 100%;
   var link_to_doc_1 = document.getElementById("link_to_doc_1");
   var link_to_doc_2 = document.getElementById("link_to_doc_2");
 
-  btn_to_doc_1.onclick = function() {
-    link_to_doc_1.href = "{{ title_read_last_chance }}";
-  }
+ 
 
   btn_to_doc_2.onclick = function() {
-    link_to_doc_2.href = "{{ title_read_last_chance }}";
+  var book_url = "{{ title_read_last_chance }}";
+  window.open(book_url)
   }
   </script>
   

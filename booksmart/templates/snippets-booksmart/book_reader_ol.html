@@ -227,82 +227,65 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
 
 <p id="hidden_please_1" style="display: none;"></p>
 
-
-        {% if cont %}
+      {% if cont %}
         <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
           <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">
-    {% include 'snippets-booksmart/openbook.html' %}
-              
-    <div class="scene scene--card">
-   <div  class="card" >
-   <div class="card__face card__face--front">
-   <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
-   </div> 
-   <div class="card__face card__face--back" id="create_input">
-   <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-   <input id="created_input" type=text style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
-   </div>
-   
-   </div>
-   </div>          
-        
-  </div>
-</div>
+          {% include 'snippets-booksmart/openbook.html' %}
+          </div>
+        </div>
 
-     {% elif conts %}
-     <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
-      <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">
-     {% for cont in conts %}
-     {% include 'snippets-booksmart/openbook.html' %}
-     {% endfor %}
-
-     <div class="scene scene--card">
-   <div  class="card" >
-   <div class="card__face card__face--front">
-   <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
-   </div> 
-   <div class="card__face card__face--back" id="create_input">
-   <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-   <input id="created_input" type=text style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
-   </div>
-   </div>
-   </div>  
-
-    </div>
-  </div>
+      {% elif conts %}
+        <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
+          <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">
+          {% for cont in conts %}
+          {% include 'snippets-booksmart/openbook.html' %}
+          {% endfor %}
+          </div>
+        </div>
 
       {% elif message_read != "" %}
-<div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
-<div class="mycard_book_reader" id="read_card_o2_{{book.id}}">     
-<div style="font-size: 22px; color: mediumblue; padding: 10px;"> 
-<p style="line-height: 1.2;"> Information about book title: </p> 
+      <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
+      <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">     
+      <div style="font-size: 22px; color: mediumblue; padding: 10px;"> 
+      <p style="line-height: 1.2;"> Information about book title: </p> 
 
-<p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ book.title }}" </p> 
-<p style="line-height: 1.6;" > {{message_read}} </p> 
+      <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ book.title }}" </p> 
+      <p style="line-height: 1.6;" > {{message_read}} </p> 
+      </div>
+
+      <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
+      {{ search_title_download }}
+      <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
+      <button type="submit" class="button_downloads" id='tooltip'>
+        IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND
+      <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT</span></button>
+      </form>
+
+      </div>
+      </div>
+
+      {% endif %}
+
+  <div class="mycolumn_book_reader">
+    <div class="mycard_book_reader">
+      <div class="scene scene--card">
+      <div  class="card" >
+      <div class="card__face card__face--front">
+      <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
+      </div> 
+      <div class="card__face card__face--back" id="create_input">
+      <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
+      <input id="created_input" type=text placeholder="please" value="" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
+      </div>
+      </div>
+      </div>  
+  </div>
 </div>
-
-
-<form action="{% url 'booksmart:downloadbook' %}"  method="GET" target="_blank" >
- 
- {{ search_title_download }}
- <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
- <button type="submit" class="button_downloads" id='tooltip'>
-   IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND
-<span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT</span></button>
-</form>
-
-</div>
-</div>
-
-  {% endif %}
- 
 
   <div class="mycolumn_book_reader" id="mycolumn_book_download" style="display: none">
     <div class="mycard_book_reader" id="">
-  
-  <form action="{% url 'booksmart:downloadbook' %}"  method="GET" target="_blank" >
-   
-   {{ search_title_download }}
+    <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
+  {{ search_title_download }}
    <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
    <button type="submit" class="button_downloads" id='tooltip'>
     IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.
@@ -349,7 +332,7 @@ else {
 }
 }
 
-window.addEventListener("keypress", handleEventLibgen);
+document.addEventListener("keypress", handleEventLibgen);
 
 const cards = document.getElementsByClassName('card');
 

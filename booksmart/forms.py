@@ -150,7 +150,7 @@ class AuthorRecords(forms.ModelForm):
 
 class ItemsSearchForm(forms.Form):
 
-    search_field = forms.CharField(required=True, label='', initial="", widget=forms.TextInput(attrs={ 'placeholder': 'field to enter any book params', 'autofocus': True, 'id':'input_text_search_q'}))
+    search_field = forms.CharField(required=True, label='', initial="", widget=forms.TextInput(attrs={ 'placeholder': 'field to enter any book params', 'autofocus': True, 'id':'input_text_search_q',  'value':''}))
 
     # author_details_Q = forms.BooleanField(label='with author details', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_author_details_Q', 'required':'False', 'name':"name_author_details_Q"}))
 
