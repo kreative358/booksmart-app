@@ -310,13 +310,70 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
 
 function handleEventLibgen(oEvent) {
 var mycolumn_book_download =  document.getElementById("mycolumn_book_download");
-  var oTextbox1 = document.getElementById("hidden_please_1");
-  var oInputbox1 = document.getElementById("created_input_1");
-  // var inputValue = oInputbox2.value;
-  oTextbox1.innerText += oEvent.key;
+  let oTextbox1 = document.getElementById("hidden_please_1");
+  let oInputbox1 = document.getElementById("created_input_1");
   
+  
+  if (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/iPhone/i)
+  ) { 
+    let inputValue = oInputbox1.value;
+    if (inputValue === "please") {
+      mycolumn_book_download.style.display = "block";
+      mycolumn_book_download.style.animation = "anime_visible 2s";
+ 
+      setTimeout(function(){ 
+      inputValue = "";
+      }, 3000);
+      
+      setTimeout(function(){ 
+        mycolumn_book_download.style.animation = "anime_invisible 2s";
+        }, 6000);
+        
+        setTimeout(function(){
+        mycolumn_book_download.style.display = "none";}, 
+        7800);
+      }
+        
+      else {
+        setTimeout(function(){ 
+          
+          inputValue = "";
+          }, 2000);
+      }
+    }
+    else {
+      
+      oTextbox1.innerText += oEvent.key;
+      if (oTextbox1.innerText === "please" || oInputbox1.value === "please") {
+        mycolumn_book_download.style.display = "block";
+        mycolumn_book_download.style.animation = "anime_visible 2s";
+   
+        setTimeout(function(){ 
+        oTextbox1.innerText = "";
+        oInputbox1.value = "";
+        }, 3000);
+        
+        setTimeout(function(){ 
+          mycolumn_book_download.style.animation = "anime_invisible 2s";
+          }, 6000);
+          
+          setTimeout(function(){
+          mycolumn_book_download.style.display = "none";}, 
+          7800);
+        }
+          
+        else {
+          setTimeout(function(){ 
+            oTextbox1.innerText = "";
+            oInputbox1.value = "";
+            }, 2000);
+        }
+    }
+  } 
 //  if (oTextbox2.innerText === "please" || inputValue === "please") {
-if (oTextbox1.innerText === "please" || oInputbox1.value === "please") {
+if (oTextbox1.innerText === "please" || inputValue.value === "please") {
  // alert("You pressed a key inside the input field");
  mycolumn_book_download.style.display = "block";
  mycolumn_book_download.style.animation = "anime_visible 2s";
@@ -343,7 +400,16 @@ else {
 }
 }
 
-document.addEventListener("keypress", handleEventLibgen);
+if (
+  navigator.userAgent.match(/Android/i) ||
+  navigator.userAgent.match(/iPhone/i)
+) { 
+document.addEventListener("input", handleEventLibgen);
+}
+else {
+  document.addEventListener("keypress", handleEventLibgen);
+}
+
 
 const cards = document.getElementsByClassName('card');
 for (let i = 0; i < cards.length; i++) {

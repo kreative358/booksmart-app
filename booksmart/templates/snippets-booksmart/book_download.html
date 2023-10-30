@@ -455,7 +455,15 @@ width: 100%;
     }
     }
   
- document.addEventListener("keypress", handleEventDocer);
+    if (
+      navigator.userAgent.match(/Android/i) ||
+      navigator.userAgent.match(/iPhone/i)
+    ) { 
+    document.addEventListener("input", handleEventDocer);
+    }
+    else {
+      document.addEventListener("keypress", handleEventDocer);
+    }
   
   
   /* var card = document.querySelector('.card');
