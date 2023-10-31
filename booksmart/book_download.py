@@ -217,7 +217,6 @@ def filter_results(results, filters, exact_match):
 # def download_book(request, id):
 def download_book(request):
 
-    formlib_download = BookDownload(request.GET)
     # book = get_object_or_404(Book, pk=id)
     # print("formlib_download:", formlib_download)
     r_user = request.user
@@ -226,12 +225,14 @@ def download_book(request):
     num_authors = Author.objects.all().count()
 
     context = context_main
-
+    title_download = ""
+    context["title_download"] = ""
+    context["title_read_last_chance"] = ""
     context['num_authors'] = num_authors
     context['num_books'] = num_books    
 
-    # context['book'] = book
-    context['search_title_download'] = formlib_download
+    formlib_download = BookDownload(request.GET)
+
     links_to_download = []
     s = LibgenSearch()
     # if request.method == "POST":
@@ -239,12 +240,15 @@ def download_book(request):
 
     # results = s.search_title("Harry Potter i zakon feniksa")
     # print('results', results)
-    context["title_read_wolne_lektury"] = ""
+
     if formlib_download.is_valid():
         title_download=formlib_download.cleaned_data['title_download_search']
-        print("1. formlib_download", title_download)
+        print("1. title_download", title_download)
         context["title_download"] = title_download
+        title_docer_pdf = title_download.replace(" ", "+")
+        context["title_read_last_chance"] = f"https://docer.pl/show/?q={title_docer_pdf}&ext=pdf" 
         results = s.search_title(title_download)
+
         if results:
             try:
                 items_to_download = results
@@ -265,7 +269,9 @@ def download_book(request):
                         download_links_2a = pdf_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
                         context["download_links_2a"] = download_links_2a
                         print("download_links_2a =", download_links_2a)
+
                         return Response(context, template_name='download_book.html',)
+
                     elif len(pdf_links) == 1:
                         download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
                         context["download_links_1a"] = download_links_1a
@@ -274,28 +280,19 @@ def download_book(request):
 
                 else:
                     context["message_read_download"] = "This book is probably not available for download in pdf, below is the last chance for those who persevere"
-                    print("2. formlib_download", title_download)
-                    # title_slugify = slugify(title_download).replace("+", "-").replace(" ", "-")
-                    title_docer_pdf = title_download.replace(" ", "+")
-                    context["title_read_last_chance"] = f"https://docer.pl/show/?q={title_docer_pdf}&ext=pdf" 
+                    # print("2. title_download", title_download)
+                    # title_slugify = slugify(title_download).replace(" ", "+").replace(" ", "-")
+
                     return Response(context, template_name='download_book.html',)
 
             except Exception as e:
                 context["message_read_download"] = f"This book is probably not available for download in pdf, reason: {e}"
-
+                # print("3. title_download", title_download)
                 return Response(context, template_name='download_book.html',)
-        
-            # return Response(context, template_name='download_book.html', )
-
 
         else:
+            # print("4. title_download", title_download)
             context["message_read_download"] = "This book is probably not available for download in pdf, below is the last chance for those who persevere."
-            print("3. formlib_download", title_download)
-            # title_slugify = slugify(title_download).replace("+", "-").replace(" ", "-")
-            title_docer_pdf = title_download.replace(" ", "+")
-            
-            context["title_read_last_chance"] = f"https://docer.pl/show/?q={title_docer_pdf}&ext=pdf"
-        
             return Response(context, template_name='download_book.html',)
 
     # if request.POST:

@@ -4,20 +4,16 @@
     localStorage.clear();
     sessionStorage.clear();
 
-   if (
+  /* if (
       navigator.userAgent.match(/Android/i) ||
       navigator.userAgent.match(/iPhone/i)
     ) { 
-      // document.addEventListener("load", function() {
-
+  
       document.getElementById("scene_flip").remove();
       setTimeout(function() { 
-        document.getElementById("mycard_book_reader_flip").innerHTML = '<div class="button_downloads"><p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word below </p><input id="created_input_1" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px auto 6px auto; text-align: center; text-justify: inter-word;"><br><input id="created_btn_1" type="button" style="width: 100px; position: relative; margin: 0px auto 10px auto; text-align: center; padding: 4px; background-color: rgba(160, 160, 180, 0.8); color: darkblue" value="CONFIRM"></div>'
-      }, 500); 
-      
-      
- // });
-    }
+        document.getElementById("mycard_book_reader_flip").innerHTML = '<div class="button_downloads"><p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word below </p><input id="created_input_1" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px auto 6px auto; text-align: center; text-justify: inter-word;"><br><input id="created_btn_1" type="button" style="width: 100px; position: relative; margin: 0px auto 10px auto; text-align: center; padding: 2px; background-color: rgba(160, 160, 180, 0.8); color: darkblue; border: none; ouline: none;" value="CONFIRM"></div>'
+      }, 500);    
+    } */
   });
 </script>
 
@@ -147,6 +143,7 @@ color: rgba(0, 0, 180, 0.9);
 font-variant: small-caps;
 position: relative;
 z-index: 18;
+line-height: 1.2;
 }
 
 .card__face--back {
@@ -252,8 +249,22 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
         <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
           <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">
           {% include 'snippets-booksmart/openbook.html' %}
+
+          <div class="scene scene--card" id="scene_flip_1a">
+            <div  class="card" >
+            <div class="card__face card__face--front" >
+            <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
+            </div> 
+            <div class="card__face card__face--back" id="create_input">
+            <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
+            <input class="created_input" id="created_input_1a" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
+            </div>
+            </div>
+            </div>  
+
           </div>
         </div>
+
 
       {% elif conts %}
         <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
@@ -261,8 +272,22 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
           {% for cont in conts %}
           {% include 'snippets-booksmart/openbook.html' %}
           {% endfor %}
+
+          <div class="scene scene--card" id="scene_flip_1b">
+            <div  class="card" >
+            <div class="card__face card__face--front" >
+            <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
+            </div> 
+            <div class="card__face card__face--back" id="create_input">
+            <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
+            <input class="created_input" id="created_input_1b" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
+            </div>
+            </div>
+            </div>  
+
           </div>
         </div>
+
 
       {% elif message_read != "" %}
       <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
@@ -277,9 +302,9 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
       <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
       {{ search_title_download }}
       <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
-      <button type="submit" class="button_downloads" id='tooltip'>
+      <button type="submit" class="button_downloads" id='tooltip' >
         IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND
-      <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT</span></button>
+      <span id="tooltiptext" >PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT</span></button>
       </form>
 
       </div>
@@ -299,29 +324,29 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
   </div>
   </div>
 
-  <div class="mycolumn_book_reader">
-    <div class="mycard_book_reader" id="mycard_book_reader_flip">
-      <div class="scene scene--card" id="scene_flip">
-      <div  class="card" >
-      <div class="card__face card__face--front" >
-      <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
-      </div> 
-      <div class="card__face card__face--back" id="create_input">
-      <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-      <input id="created_input_1" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
-      </div>
-      </div>
-      </div>  
-  </div>
-</div>
 
 
 <script type="text/javascript">
 
+  const cards = document.getElementsByClassName('card');
+  for (let i = 0; i < cards.length; i++) {
+  cards[i].onclick = function() {
+  cards[i].classList.add('is-flipped')
+  setTimeout(function() { 
+  cards[i].classList.remove('is-flipped'); 
+  }, 10000); 
+  }
+  cards[i].ondblclick = function() {
+  cards[i].classList.remove('is-flipped');
+  }
+  }
+
 let oTextbox1 = document.getElementById("hidden_please_1");
-let oInputbox1 = document.getElementById("created_input_1");
-let oInputbtn1 = document.getElementById("created_btn_1");
-var mycolumn_book_download =  document.getElementById("mycolumn_book_download");
+let oInputbox1 = document.querySelector(".created_input");
+// let oInputbtn1 = document.getElementById("created_btn_1");
+let scene_flip_1a = document.getElementById("scene_flip_1a");
+let scene_flip_1b = document.getElementById("scene_flip_1b");
+var mycolumn_book_download = document.getElementById("mycolumn_book_download");
 
 /* function handleEventLibgenMobile(mEvent) {
 //  oInputbox1.onclick = function() {}
@@ -350,7 +375,7 @@ var mycolumn_book_download =  document.getElementById("mycolumn_book_download");
       }
     } */
 
-function handleEventLibgenMobile() {
+/* function handleEventLibgenMobile() {
     if (oInputbox1.value === "please") {
     mycolumn_book_download.style.display = "block";
     mycolumn_book_download.style.animation = "anime_visible 2s";
@@ -362,7 +387,7 @@ function handleEventLibgenMobile() {
       mycolumn_book_download.style.display = "none";}, 
       7800);
     } 
-  }
+  } */
 
       
 function handleEventLibgen(oEvent) {
@@ -394,29 +419,19 @@ function handleEventLibgen(oEvent) {
     } 
 
 
-if (
+ if (
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/iPhone/i)
 ) { 
-  oInputbtn1.addEventListener("click", handleEventLibgenMobile);
+  scene_flip_1a.style.display = "none";
+  scene_flip_1b.style.display = "none";
+  mycolumn_book_download.style.display = "block";
 }
 else {
   document.addEventListener("keypress", handleEventLibgen);
-}
+} 
 
 
-const cards = document.getElementsByClassName('card');
-for (let i = 0; i < cards.length; i++) {
-cards[i].onclick = function() {
-cards[i].classList.add('is-flipped')
-setTimeout(function() { 
-cards[i].classList.remove('is-flipped'); 
-}, 10000); 
-}
-cards[i].ondblclick = function() {
-cards[i].classList.remove('is-flipped');
-}
-}
 
 /*for (let card of cards) {
 card.addEventListener('click', function(event) {
