@@ -299,6 +299,10 @@ width: 100%;
   height: 0px;
   width: 0px;
 }
+
+#mycolumn_docer {
+  display: none;
+}
 </style>
   
     <p id="hidden_please_2" style="display: none;"></p>
@@ -363,10 +367,10 @@ width: 100%;
           <div class="mycolumn_download"  id="download_column_{{book.id}}">
             <div class="mycard_download" id="download_card_{{book.id}}">
           
-      <div style="font-size: 22px; color: mediumblue; padding: 10px;"> 
+      <div style="font-size: 22px; color: mediumblue; padding: 10px; max-width: 380px;position: relative; margin: 10px auto 10px auto;"> 
       <p style="line-height: 1.2;"> Information about book title: </p> 
-      <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite; color: mediumblue;"> "{{ title_download }}" </p>  
-      <p style="line-height: 1; color: mediumblue; font-size: 22px;" > {{message_read_download}} </p>
+      <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ title_download }}" </p>  
+      <p style="line-height: 1; margin-top: 10px;" > {{message_read_download}} </p>
       </div>
       
       <a href="{{ title_read_last_chance }}" target="_blank" style="text-decoration: none;" id="link_to_doc_1">
@@ -379,7 +383,7 @@ width: 100%;
 
      
         
-          <div class="mycolumn_download" id="mycolumn_docer" style="display: none;">
+          <div class="mycolumn_download" id="mycolumn_docer">
             <div class="mycard_download" >
               <a href="{{ title_read_last_chance }}" target="_blank" style="text-decoration: none;" id="link_to_doc_2">
                <div class="button_downloads" id="button_to_doc_2" style="animation: anime_red_text 2s infinite; font-size: 22px; color: mediumblue; line-height: 1.2; padding: 10px;"> PRESS THIS TO TRY TO FIND <br> THIS BOOK ANOTHER WAY </div>

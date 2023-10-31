@@ -250,6 +250,10 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
   left: 0px;
 }
 }
+
+#mycolumn_book_download {
+display: none;
+}
 </style>
 
 <p id="hidden_please_1" style="display: none;"></p>
@@ -301,11 +305,11 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
       {% elif message_read != "" %}
       <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
       <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">     
-      <div style="font-size: 22px; color: mediumblue; padding: 10px;"> 
+      <div style="font-size: 22px; color: mediumblue; padding: 10px; max-width: 380px;position: relative; margin: 10px auto 10px auto;"> 
       <p style="line-height: 1.2;"> Information about book title: </p> 
 
       <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ book.title }}" </p> 
-      <p style="line-height: 1.2; margi-top: 10px; max-width: 380px; padding: 10px;" > {{message_read}} </p> 
+      <p style="line-height: 1; margi-top: 10px;" > {{message_read}} </p> 
       </div>
 
       <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
@@ -321,7 +325,7 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
 
       {% endif %}
 
-  <div class="mycolumn_book_reader" id="mycolumn_book_download" style="display: none">
+  <div class="mycolumn_book_reader" id="mycolumn_book_download">
     <div class="mycard_book_reader" id="">
     <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
   {{ search_title_download }}
