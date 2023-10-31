@@ -1,9 +1,8 @@
 <script>
-  localStorage.clear();
-  sessionStorage.clear();
-  // document.addEventListener("beforeunload", function() {
  
-
+  window.addEventListener("beforeunload", function() {
+    localStorage.clear();
+    sessionStorage.clear();
 
    if (
       navigator.userAgent.match(/Android/i) ||
@@ -17,6 +16,7 @@
    
   });
     }
+  });
 </script>
 
 <style type="text/css">
@@ -90,6 +90,7 @@ position: relative;
 background: rgba(90, 150, 210, 0.4);
 margin: auto;
 padding: 10px;
+z-index: 15;
 }
 
 @keyframes anime_red_border {
@@ -128,6 +129,7 @@ position: relative;
 perspective: 600px;
 margin: 10px auto 10px auto; 
 max-width: 90%;
+z-index: 16;
 }
 
 .button_downloads,
@@ -141,6 +143,8 @@ font-weight: bold;
 background-color: rgba(60, 160, 240, 0.4);
 color: rgba(0, 0, 180, 0.9);
 font-variant: small-caps;
+position: relative;
+z-index: 18;
 }
 
 .card__face--back {
@@ -163,6 +167,7 @@ cursor: pointer;
 position: relative; 
 background: transparent;
 background-color: transparent;
+z-index: 17;
 }
 
 .card.is-flipped {
