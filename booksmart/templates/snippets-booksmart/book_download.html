@@ -1,5 +1,6 @@
 <script>
-  window.addEventListener("load", function() {
+ // document.body.addEventListener("load", function() {
+document.addEventListener("beforeunload", function() {
     localStorage.clear();
     sessionStorage.clear();
 
@@ -8,7 +9,7 @@
   navigator.userAgent.match(/iPhone/i)
 ) { 
   document.getElementById("scene_flip").remove();
-  setTimeout(function() { document.getElementById("mycard_book_reader_flip").innerHTML = '<div class="button_downloads"><p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word below </p><input id="created_input_2" type="text" placeholder="please" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;"></div>'
+  setTimeout(function() { document.getElementById("mycard_book_reader_flip").innerHTML = '<div class="button_downloads"><p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word below </p><input id="created_input_2" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;"></div>'
   }, 500); 
  }
   });
@@ -296,7 +297,7 @@ width: 100%;
 }
 </style>
   
-    <p id="hidden_please_2" style="display: none;)"></p>
+    <p id="hidden_please_2" style="display: none;"></p>
     
    <div class="mycolumn_download"  id="download_column_{{book.id}}">
           <div class="mycard_download" id="download_card_{{book.id}}">
@@ -340,6 +341,13 @@ width: 100%;
        </div>
           </div>
         
+          <div class="mycolumn_download" id="mycolumn_docer" style="display: none;">
+            <div class="mycard_download" >
+              <a href="{{ title_read_last_chance }}" target="_blank" style="text-decoration: none;" id="link_to_doc_2">
+               <div class="button_downloads" id="button_to_doc_2" style="animation: anime_red_text 2s infinite; font-size: 22px; color: mediumblue; line-height: 1.2; padding: 10px;"> PRESS THIS TO TRY TO FIND <br> THIS BOOK ANOTHER WAY </div>
+            </a>      
+            </div>
+          </div>
 
         <div class="mycolumn_download"  id="">
             <div class="mycard_download" id="mycard_book_reader_flip">      
@@ -350,7 +358,7 @@ width: 100%;
                 </div> 
                 <div class="card__face card__face--back" id="create_input_2c">
                 <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-                <input id="created_input_2" type="text" placeholder="please"  style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word; margin-bottom: 6px;">
+                <input id="created_input_2" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
                 </div>
                 </div>
                 </div>
@@ -358,14 +366,6 @@ width: 100%;
             </div>
           </div>  
 
-          <div class="mycolumn_download" id="mycolumn_docer" style="display: none;">
-            <div class="mycard_download" >
-            <!--<a href="" target="_blank" style="text-decoration: none;" id="link_to_doc_2"> -->
-               <div class="button_downloads" id="button_to_doc_2" style="animation: anime_red_text 2s infinite; font-size: 22px; color: mediumblue; line-height: 1.2; padding: 10px;"> PRESS THIS TO TRY TO FIND <br> THIS BOOK ANOTHER WAY </div>
-              <!--  </a> -->
-                
-            </div>
-          </div>
       
         
       <div class="downnload_object" id="download_object_1"></div>
@@ -373,15 +373,14 @@ width: 100%;
   
   
       <script type="text/javascript">
-
+        
         const cards = document.getElementsByClassName('card');
-
         for (let i = 0; i < cards.length; i++) {
         cards[i].onclick = function() {
         cards[i].classList.add('is-flipped')
-          setTimeout(function() { 
-          cards[i].classList.remove('is-flipped'); 
-          }, 10000); 
+        setTimeout(function() { 
+        cards[i].classList.remove('is-flipped'); 
+        }, 10000); 
         }
         cards[i].ondblclick = function() {
         cards[i].classList.remove('is-flipped');
@@ -394,10 +393,83 @@ width: 100%;
   function myFunction() {
     document.getElementById("download_object").innerHTML = '<object data="{{ book_download_1a }}" width="0" height="0"></iframe><span>DOWNLOAD BOOK 1</object>';
   }; */
-  var button_download_1 = document.getElementById("button_download_1");
-  var button_download_2 = document.getElementById("button_download_2");
-  var download_object_1 = document.getElementById("download_object_1");
-  var download_object_2 = document.getElementById("download_object_2");
+
+  let oTextbox2 = document.getElementById("hidden_please_2");
+  let oInputbox2 = document.getElementById("created_input_2");
+  // let oInputbox2 = document.getElementById("created_input_2");
+  var mycolumn_docer =  document.getElementById("mycolumn_docer");
+  
+  function handleEventDocerMobile(mEvent) {
+    // oTextbox1.value += mEvent.key;
+      if (oInputbox2.value === "please") {
+        mycolumn_docer.style.display = "block";
+        mycolumn_docer.style.animation = "anime_visible 2s";
+  
+        setTimeout(function(){ 
+        oInputbox2.value = "";
+        }, 3000);
+        
+        setTimeout(function(){ 
+          mycolumn_docer.style.animation = "anime_invisible 2s";
+          }, 6000);
+          
+          setTimeout(function(){
+            mycolumn_docer.style.display = "none";}, 
+          7800);
+        }
+          
+        else {
+          setTimeout(function(){ 
+            oInputbox2.value = "";
+            }, 7000);
+        }
+      }
+     
+        
+  function handleEventDocer(oEvent) {
+        oTextbox2.innerText += oEvent.key;
+        if (oTextbox2.innerText === "please") {
+          mycolumn_docer.style.display = "block";
+          mycolumn_docer.style.animation = "anime_visible 2s";
+     
+          setTimeout(function(){ 
+          oTextbox2.innerText = "";
+          oInputbox2.value = "";
+          }, 3000);
+          
+          setTimeout(function(){ 
+            mycolumn_docer.style.animation = "anime_invisible 2s";
+            }, 6000);
+            
+            setTimeout(function(){
+              mycolumn_docer.style.display = "none";}, 
+            7800);
+          }
+            
+          else {
+            setTimeout(function(){ 
+              oTextbox2.innerText = "";
+              oInputbox2.value = "";
+              }, 7000);
+          }
+      }
+  
+  
+  if (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/iPhone/i)
+  ) { 
+  document.addEventListener("input", handleEventDocerMobile);
+  }
+  else {
+    document.addEventListener("keypress", handleEventDocer);
+  }
+
+if ( "{{ pdf_links }}" ) {
+  let button_download_1 = document.getElementById("button_download_1");
+  let button_download_2 = document.getElementById("button_download_2");
+  let download_object_1 = document.getElementById("download_object_1");
+  let download_object_2 = document.getElementById("download_object_2");
   button_download_1.onclick = function() {
     download_object_1.style.display = "block";
     download_object_1.style.animation = "anime_pulse 2s 4 2s";
@@ -409,62 +481,14 @@ width: 100%;
     download_object_2.style.animation = "anime_pulse 2s 4 2s";
       download_object_2.innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="0" height="0"></iframe><br><div class="download_book_text"> DOWNLOAD BOOK 2 </div>';
     }
+
+}
   /*
   button_download_2.onclick = function() {
     download_object_2.innerHTML = '<object data="{{ download_links_2a }}" width="0" height="0"></object><br><div class="download_book_text"> DOWNLOAD BOOK 2 </div>';
   } */
   
-  function handleEventDocer(oEvent) {
-    var mycolumn_docer =  document.getElementById("mycolumn_docer");
-      let oTextbox2 = document.getElementById("hidden_please_2");
-      // let oInputbox2a = document.getElementById("created_input_2a");
-      // let oInputbox2b = document.getElementById("created_input_2b");
-      let oInputbox2 = document.getElementById("created_input_2");
-      // var inputValue2 = oInputbox2.value;
-      oTextbox2.innerText += oEvent.key;
-      
-  //  if (oTextbox2.innerText === "please" || inputValue === "please") {
-    if (oTextbox2.innerText === "please" || oInputbox2.value === "please") {
-     // alert("You pressed a key inside the input field");
-     mycolumn_docer.style.display = "block";
-     mycolumn_docer.style.animation = "anime_visible 2s";
-     
-     setTimeout(function(){ 
-     oTextbox2.innerText = "";
-     oInputbox2.value = "";
-     // oInputbox2b.value = "";
-     // oInputbox2c.value = "";
-     }, 3000);
-     
-     setTimeout(function(){ 
-      mycolumn_docer.style.animation = "anime_invisible 2s";
-      }, 6000);
-      
-      setTimeout(function(){
-      mycolumn_docer.style.display = "none";
-    }, 7800);
-    }
-      
-    else {
-      setTimeout(function(){ 
-        oTextbox2.innerText = "";
-        oInputbox2.value = "";
-        // oInputbox2b.value = "";
-        // oInputbox2c.value = "";
-        }, 2000);
-    }
-    }
-  
-    if (
-      navigator.userAgent.match(/Android/i) ||
-      navigator.userAgent.match(/iPhone/i)
-    ) { 
-    document.addEventListener("input", handleEventDocer);
-    }
-    else {
-      document.addEventListener("keypress", handleEventDocer);
-    }
-  
+ 
   
   /* var card = document.querySelector('.card');
   card.addEventListener('click', function() {
@@ -477,7 +501,7 @@ width: 100%;
     card.classList.remove('is-flipped');
   });  */ 
 
-  var btn_to_doc_1 = document.getElementById("button_to_doc_1");
+/*  var btn_to_doc_1 = document.getElementById("button_to_doc_1");
   var btn_to_doc_2 = document.getElementById("button_to_doc_2");
   var link_to_doc_1 = document.getElementById("link_to_doc_1");
   var link_to_doc_2 = document.getElementById("link_to_doc_2");
@@ -485,7 +509,7 @@ width: 100%;
   btn_to_doc_2.onclick = function() {
   var book_url = "{{ title_read_last_chance }}";
   window.open(book_url)
-  }
+  } */
 
   </script>
   

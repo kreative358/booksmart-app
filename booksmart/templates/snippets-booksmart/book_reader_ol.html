@@ -1,5 +1,6 @@
 <script>
-  window.addEventListener("load", function() {
+  document.addEventListener("beforeunload", function() {
+   // window.addEventListener("load", function() {
     localStorage.clear();
     sessionStorage.clear();
 
@@ -8,7 +9,7 @@
       navigator.userAgent.match(/iPhone/i)
     ) { 
       document.getElementById("scene_flip").remove();
-      setTimeout(function() { document.getElementById("mycard_book_reader_flip").innerHTML = '<div class="button_downloads"><p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word below </p><input id="created_input_1" type="text" placeholder="please" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;"></div>'
+      setTimeout(function() { document.getElementById("mycard_book_reader_flip").innerHTML = '<div class="button_downloads"><p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word below </p><input id="created_input_1" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;"></div>'
       }, 500); 
     } 
   
@@ -277,6 +278,18 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
 
       {% endif %}
 
+  <div class="mycolumn_book_reader" id="mycolumn_book_download" style="display: none">
+    <div class="mycard_book_reader" id="">
+    <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
+  {{ search_title_download }}
+    <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
+    <button type="submit" class="button_downloads" id='tooltip' style="line-height: 1.2;">
+    IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.
+  <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span></button>
+  </form>
+  </div>
+  </div>
+
   <div class="mycolumn_book_reader">
     <div class="mycard_book_reader" id="mycard_book_reader_flip">
       <div class="scene scene--card" id="scene_flip">
@@ -286,45 +299,29 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
       </div> 
       <div class="card__face card__face--back" id="create_input">
       <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-      <input id="created_input_1" type="text" placeholder="please" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
+      <input id="created_input_1" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
       </div>
       </div>
       </div>  
   </div>
 </div>
 
-  <div class="mycolumn_book_reader" id="mycolumn_book_download" style="display: none">
-    <div class="mycard_book_reader" id="">
-    <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
-  {{ search_title_download }}
-   <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
-   <button type="submit" class="button_downloads" id='tooltip' style="line-height: 1.2;">
-    IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.
-  <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span></button>
-  </form>
-  </div>
-  </div>
-
 
 <script type="text/javascript">
 
-function handleEventLibgen(oEvent) {
+let oTextbox1 = document.getElementById("hidden_please_1");
+let oInputbox1 = document.getElementById("created_input_1");
+// let oInputbox2 = document.getElementById("created_input_2");
 var mycolumn_book_download =  document.getElementById("mycolumn_book_download");
-  let oTextbox1 = document.getElementById("hidden_please_1");
-  let oInputbox1 = document.getElementById("created_input_1");
-  
-  
-  if (
-    navigator.userAgent.match(/Android/i) ||
-    navigator.userAgent.match(/iPhone/i)
-  ) { 
-    let inputValue = oInputbox1.value;
-    if (inputValue === "please") {
+
+function handleEventLibgenMobile(mEvent) {
+  // oTextbox1.value += oEvent.key;
+    if (oInputbox1.value === "please") {
       mycolumn_book_download.style.display = "block";
       mycolumn_book_download.style.animation = "anime_visible 2s";
- 
+
       setTimeout(function(){ 
-      inputValue = "";
+      oInputbox1.value = "";
       }, 3000);
       
       setTimeout(function(){ 
@@ -338,15 +335,15 @@ var mycolumn_book_download =  document.getElementById("mycolumn_book_download");
         
       else {
         setTimeout(function(){ 
-          
-          inputValue = "";
-          }, 2000);
+          oInputbox1.value = "";
+          }, 7000);
       }
     }
-    else {
+   
       
+function handleEventLibgen(oEvent) {
       oTextbox1.innerText += oEvent.key;
-      if (oTextbox1.innerText === "please" || oInputbox1.value === "please") {
+      if (oTextbox1.innerText === "please") {
         mycolumn_book_download.style.display = "block";
         mycolumn_book_download.style.animation = "anime_visible 2s";
    
@@ -368,43 +365,16 @@ var mycolumn_book_download =  document.getElementById("mycolumn_book_download");
           setTimeout(function(){ 
             oTextbox1.innerText = "";
             oInputbox1.value = "";
-            }, 2000);
+            }, 7000);
         }
     }
-  } 
-//  if (oTextbox2.innerText === "please" || inputValue === "please") {
-if (oTextbox1.innerText === "please" || inputValue.value === "please") {
- // alert("You pressed a key inside the input field");
- mycolumn_book_download.style.display = "block";
- mycolumn_book_download.style.animation = "anime_visible 2s";
- 
- setTimeout(function(){ 
- oTextbox1.innerText = "";
- oInputbox1.value = "";
- }, 3000);
- 
- setTimeout(function(){ 
-  mycolumn_book_download.style.animation = "anime_invisible 2s";
-  }, 6000);
-  
-  setTimeout(function(){
-  mycolumn_book_download.style.display = "none";}, 
-  7800);
-}
-  
-else {
-  setTimeout(function(){ 
-    oTextbox1.innerText = "";
-    oInputbox1.value = "";
-    }, 2000);
-}
-}
+
 
 if (
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/iPhone/i)
 ) { 
-document.addEventListener("input", handleEventLibgen);
+document.addEventListener("input", handleEventLibgenMobile);
 }
 else {
   document.addEventListener("keypress", handleEventLibgen);

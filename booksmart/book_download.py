@@ -249,25 +249,28 @@ def download_book(request):
             try:
                 items_to_download = results
                 pdf_links = [s.resolve_download_links(item_to_download) for item_to_download in items_to_download if item_to_download["Ext."] == "pdf"] 
-                context["pdf_links"] = pdf_links
-                context["len_pdf_links"] = len(pdf_links)
-                print(pdf_links)
-                pdf_links_id = [[pdf_links.index(pdf_link), pdf_link] for pdf_link in pdf_links]
-                context["pdf_links_id"] = pdf_links_id
+                if pdf_links:
 
-                if len(pdf_links) >= 2:
-                    download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                    print("download_links_1a =", download_links_1a)
-                    context["download_links_1a"] = download_links_1a
-                    download_links_2a = pdf_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                    context["download_links_2a"] = download_links_2a
-                    print("download_links_2a =", download_links_2a)
-                    return Response(context, template_name='download_book.html',)
-                elif len(pdf_links) == 1:
-                    download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                    context["download_links_1a"] = download_links_1a
+                    print("pdf_links", pdf_links)
+                    context["pdf_links"] = pdf_links
+                    context["len_pdf_links"] = len(pdf_links)
+                    
+                    pdf_links_id = [[pdf_links.index(pdf_link), pdf_link] for pdf_link in pdf_links]
+                    context["pdf_links_id"] = pdf_links_id
 
-                    return Response(context, template_name='download_book.html',)
+                    if len(pdf_links) >= 2:
+                        download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                        print("download_links_1a =", download_links_1a)
+                        context["download_links_1a"] = download_links_1a
+                        download_links_2a = pdf_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                        context["download_links_2a"] = download_links_2a
+                        print("download_links_2a =", download_links_2a)
+                        return Response(context, template_name='download_book.html',)
+                    elif len(pdf_links) == 1:
+                        download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                        context["download_links_1a"] = download_links_1a
+
+                        return Response(context, template_name='download_book.html',)
 
                 else:
                     context["message_read_download"] = "This book is probably not available for download in pdf, below is the last chance for those who persevere"
