@@ -4,6 +4,15 @@
     localStorage.clear();
     sessionStorage.clear();
 
+    if (
+      navigator.userAgent.match(/Android/i) ||
+      navigator.userAgent.match(/iPhone/i)
+    ) { 
+      document.getElementById("scene_flip_1a").style.display = "none";
+      document.getElementById("scene_flip_1b").style.display = "none";
+      document.getElementById("mycolumn_book_download").style.display = "block";
+    }
+
   /* if (
       navigator.userAgent.match(/Android/i) ||
       navigator.userAgent.match(/iPhone/i)
@@ -296,7 +305,7 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
       <p style="line-height: 1.2;"> Information about book title: </p> 
 
       <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ book.title }}" </p> 
-      <p style="line-height: 1.6;" > {{message_read}} </p> 
+      <p style="line-height: 1.2; margi-top: 10px; max-width: 380px; padding: 10px;" > {{message_read}} </p> 
       </div>
 
       <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
