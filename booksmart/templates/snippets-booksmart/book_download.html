@@ -1,6 +1,6 @@
 <script>
  
- window.addEventListener("beforeunload", function() {
+ window.addEventListener("load", function() {
     localStorage.clear();
     sessionStorage.clear();
 
@@ -8,15 +8,16 @@
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/iPhone/i)
 ) { 
-  document.addEventListener("load", function() {
+ // document.addEventListener("load", function() {
 
   document.getElementById("scene_flip").remove();
-  setTimeout(function() { document.getElementById("mycard_book_reader_flip").innerHTML = '<div class="button_downloads"><p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word below </p><input id="created_input_2" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;"></div>'
+  setTimeout(function() { 
+    document.getElementById("mycard_book_reader_flip").innerHTML = '<div class="button_downloads"><p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word below </p><input id="created_input_2" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;"></div>'
   }, 500); 
 
-  });
+//  });
 }
-})
+ });
 </script>
 
 <style type="text/css">
