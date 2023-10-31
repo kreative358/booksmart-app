@@ -403,11 +403,9 @@ width: 100%;
   // let oInputbox2 = document.getElementById("created_input_2");
   var mycolumn_docer =  document.getElementById("mycolumn_docer");
   
-  function handleEventDocerMobile(mEvent) {
-
-      // oInputbox2.onclick = function() {
-      mEvent.onclick = function() {
-      oInputbox2.value += mEvent.key;
+  // function handleEventDocerMobile(mEvent) {
+    function handleEventDocerMobile() {
+      // oInputbox2.value += mEvent.key;
       if (oInputbox2.value === "please") {
         mycolumn_docer.style.display = "block";
         mycolumn_docer.style.animation = "anime_visible 2s";
@@ -431,7 +429,7 @@ width: 100%;
             }, 7000);
         }
       }
-    }
+  //  }
      
         
   function handleEventDocer(oEvent) {
@@ -467,7 +465,7 @@ width: 100%;
     navigator.userAgent.match(/Android/i) ||
     navigator.userAgent.match(/iPhone/i)
   ) { 
-  document.addEventListener("input", handleEventDocerMobile);
+    oInputbox2.addEventListener("input", handleEventDocerMobile);
   }
   else {
     document.addEventListener("keypress", handleEventDocer);

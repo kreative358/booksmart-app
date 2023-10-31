@@ -324,7 +324,7 @@ let oInputbox1 = document.getElementById("created_input_1");
 var mycolumn_book_download =  document.getElementById("mycolumn_book_download");
 
 function handleEventLibgenMobile(mEvent) {
-  oInputbox1.onclick = function() {
+//  oInputbox1.onclick = function() {}
     oInputbox1.value += mEvent.key;
     if (oInputbox1.value === "please") {
       mycolumn_book_download.style.display = "block";
@@ -348,8 +348,22 @@ function handleEventLibgenMobile(mEvent) {
           oInputbox1.value = "";
           }, 7000);
       }
-    }
+    } 
+
+/* function handleEventLibgenMobile() {
+  oInputbox1.onclick = function() {
+    mycolumn_book_download.style.display = "block";
+    mycolumn_book_download.style.animation = "anime_visible 2s";
+    setTimeout(function(){ 
+      mycolumn_book_download.style.animation = "anime_invisible 2s";
+      }, 6000);
+      
+      setTimeout(function(){
+      mycolumn_book_download.style.display = "none";}, 
+      7800);
+    
   }
+} */
       
 function handleEventLibgen(oEvent) {
       oTextbox1.innerText += oEvent.key;
@@ -377,14 +391,14 @@ function handleEventLibgen(oEvent) {
             oInputbox1.value = "";
             }, 7000);
         }
-    }
+    } 
 
 
 if (
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/iPhone/i)
 ) { 
-document.addEventListener("input", handleEventLibgenMobile);
+  oInputbox1.addEventListener("input", handleEventLibgenMobile);
 }
 else {
   document.addEventListener("keypress", handleEventLibgen);
