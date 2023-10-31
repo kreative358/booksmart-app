@@ -406,7 +406,7 @@ width: 100%;
   function handleEventDocerMobile(mEvent) {
 
       // oInputbox2.onclick = function() {
-
+      mEvent.onclick = function() {
       oInputbox2.value += mEvent.key;
       if (oInputbox2.value === "please") {
         mycolumn_docer.style.display = "block";
@@ -431,7 +431,7 @@ width: 100%;
             }, 7000);
         }
       }
-  //  }
+    }
      
         
   function handleEventDocer(oEvent) {

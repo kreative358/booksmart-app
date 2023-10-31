@@ -324,7 +324,7 @@ let oInputbox1 = document.getElementById("created_input_1");
 var mycolumn_book_download =  document.getElementById("mycolumn_book_download");
 
 function handleEventLibgenMobile(mEvent) {
-  
+  oInputbox1.onclick = function() {
     oInputbox1.value += mEvent.key;
     if (oInputbox1.value === "please") {
       mycolumn_book_download.style.display = "block";
@@ -349,7 +349,7 @@ function handleEventLibgenMobile(mEvent) {
           }, 7000);
       }
     }
-   
+  }
       
 function handleEventLibgen(oEvent) {
       oTextbox1.innerText += oEvent.key;
