@@ -232,7 +232,10 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
 }
 }
 
-#mycolumn_book_download {
+#mycolumn_book_download,
+#scene_flip_1a,
+#scene_flip_1b,
+#form_downloadbook_1a {
 display: none;
 }
 </style>
@@ -336,11 +339,11 @@ let mycolumn_book_download = document.getElementById("mycolumn_book_download");
   navigator.userAgent.match(/iPhone/i)
 ) { 
   mycolumn_book_download.style.display = "block";
-  form_downloadbook_1a.style.display = "none";
-  scene_flip_1a.style.display = "none";
-  scene_flip_1b.style.display = "none";
 }
 else {
+  form_downloadbook_1a.style.display = "block";
+  scene_flip_1a.style.display = "block";
+  scene_flip_1b.style.display = "block";
   document.addEventListener("keypress", handleEventLibgen);
 } 
 

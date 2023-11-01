@@ -288,7 +288,10 @@ width: 100%;
   width: 0px;
 }
 
-#mycolumn_docer {
+#mycolumn_docer,
+#scene_flip_1a,
+#scene_flip_1b,
+#link_to_doc_1 {
   display: none;
 }
 </style>
@@ -399,13 +402,12 @@ width: 100%;
     navigator.userAgent.match(/Android/i) ||
     navigator.userAgent.match(/iPhone/i)
   ) { 
-   // oInputbtn2.addEventListener("input", handleEventDocerMobile);
    mycolumn_docer.style.display = "block";
-   link_to_doc_1.style.display = "none";
-   scene_flip_1a.style.display = "none";
-   scene_flip_1b.style.display = "none";
   }
   else {
+    link_to_doc_1.style.display = "block";
+    scene_flip_1a.style.display = "block";
+    scene_flip_1b.style.display = "block";
     document.addEventListener("keypress", handleEventDocer);
   } 
 
