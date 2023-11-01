@@ -4,15 +4,6 @@
     localStorage.clear();
     sessionStorage.clear();
 
-  if (
-    navigator.userAgent.match(/Android/i) ||
-    navigator.userAgent.match(/iPhone/i)
-  ) { 
-    document.getElementById("form_downloadbook_1a").style.display = "none";
-    document.getElementById("scene_flip_1a").style.display = "none";
-    document.getElementById("scene_flip_1b").style.display = "none";
-  }
-
    }); 
 </script>
 
@@ -345,9 +336,9 @@ let mycolumn_book_download = document.getElementById("mycolumn_book_download");
   navigator.userAgent.match(/iPhone/i)
 ) { 
   mycolumn_book_download.style.display = "block";
-//  form_downloadbook_1a.style.display = "none";
-//  scene_flip_1a.style.display = "none";
-//  scene_flip_1b.style.display = "none";
+  form_downloadbook_1a.style.display = "none";
+  scene_flip_1a.style.display = "none";
+  scene_flip_1b.style.display = "none";
 }
 else {
   document.addEventListener("keypress", handleEventLibgen);
