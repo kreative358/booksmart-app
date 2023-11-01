@@ -4,21 +4,6 @@
     localStorage.clear();
     sessionStorage.clear();
 
-/*   if (
-      navigator.userAgent.match(/Android/i) ||
-      navigator.userAgent.match(/iPhone/i)
-    ) { 
-      document.getElementById("card_flip_1a").remove();
-      setTimeout(function() { 
-      document.getElementById("scene_flip_1a").innerHTML = '<form action="{% url "booksmart:downloadbook" %}" method="GET" target="_blank">{{ search_title_download }}<input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}"><button type="submit" class="button_downloads" id="tooltip" style="line-height: 1.2;">IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.<span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span></button></form>';
-      }, 500); 
-
-      document.getElementById("card_flip_1b").remove(); 
-      setTimeout(function() {
-      document.getElementById("scene_flip_1b").innerHTML = '<form action="{% url "booksmart:downloadbook" %}" method="GET" target="_blank">{{ search_title_download }}<input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}"><button type="submit" class="button_downloads" id="tooltip" style="line-height: 1.2;">IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.<span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span></button></form>';
-    }, 500);  
-  
-  } */
   }); 
 </script>
 
@@ -180,10 +165,10 @@ transform: rotateY(180deg);
 
 .button_downloads {
   padding: 10px; 
-  width:340px;
+  width: 340px;
   position: relative;
   margin: 10px auto 10px auto; 
-  max-width: 90%;
+  max-width: 340px;
 }
 
 .card__face {
