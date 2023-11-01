@@ -34,7 +34,7 @@ from rest_framework.decorators import api_view, renderer_classes, authentication
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer, HTMLFormRenderer
-from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
 from accounts.views_authorization import *
 
@@ -211,10 +211,9 @@ def filter_results(results, filters, exact_match):
 
 
 @api_view(['GET', 'POST'])
-# @authentication_classes([])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-@permission_classes([IsAuthenticated, ])
-# def download_book(request, id):
 def download_book(request):
 
     # book = get_object_or_404(Book, pk=id)
