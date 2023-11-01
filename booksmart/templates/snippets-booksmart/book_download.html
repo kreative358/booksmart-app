@@ -288,7 +288,10 @@ width: 100%;
   width: 0px;
 }
 
-#mycolumn_docer,
+#mycolumn_docer {
+  display: block;
+}
+
 #scene_flip_1a,
 #scene_flip_1b,
 #link_to_doc_1 {
@@ -398,13 +401,23 @@ width: 100%;
   let mycolumn_docer =  document.getElementById("mycolumn_docer");
   
     
- if (
+ /* if (
     navigator.userAgent.match(/Android/i) ||
     navigator.userAgent.match(/iPhone/i)
   ) { 
    mycolumn_docer.style.display = "block";
   }
   else {
+    link_to_doc_1.style.display = "block";
+    scene_flip_1a.style.display = "block";
+    scene_flip_1b.style.display = "block";
+    document.addEventListener("keypress", handleEventDocer);
+  } */
+
+  if (
+    !navigator.userAgent.match(/Android/i) &&
+    !navigator.userAgent.match(/iPhone/i)
+  ) {
     link_to_doc_1.style.display = "block";
     scene_flip_1a.style.display = "block";
     scene_flip_1b.style.display = "block";

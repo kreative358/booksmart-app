@@ -1,10 +1,9 @@
 <script>
- 
   window.addEventListener("load", function() {
     localStorage.clear();
     sessionStorage.clear();
+  });
 
-   }); 
 </script>
 
 <style type="text/css">
@@ -232,12 +231,15 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
 }
 }
 
-#mycolumn_book_download,
-#scene_flip_1a,
+/* #mycolumn_book_download {
+  display: block;
+} */
+
+/* #scene_flip_1a,
 #scene_flip_1b,
 #form_downloadbook_1a {
 display: none;
-}
+} */
 </style>
 
 <p id="hidden_please_1" style="display: none;"></p>
@@ -311,7 +313,7 @@ display: none;
 
       {% endif %}
 
-  <div class="mycolumn_book_reader" id="mycolumn_book_download">
+  <div class="mycolumn_book_reader" id="mycolumn_book_download" style="display: none">
     <div class="mycard_book_reader" id="">
     <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank" id="form_downloadbook_1b">
   {{ search_title_download }}
@@ -326,15 +328,44 @@ display: none;
 
 
 <script type="text/javascript">
+var form_downloadbook_1a = document.getElementById("form_downloadbook_1a");
+// var scene_flip_1a = document.getElementById("scene_flip_1a");
+// var scene_flip_1b = document.getElementById("scene_flip_1b");
+var mycolumn_book_download = document.getElementById("mycolumn_book_download");
+const cards = document.getElementsByClassName('card');
+
+for (let i = 0; i < cards.length; i++) {
+  cards[i].onclick = function() {
+  cards[i].classList.add('is-flipped')
+  setTimeout(function() { 
+  cards[i].classList.remove('is-flipped'); 
+  }, 10000); 
+  }
+  cards[i].ondblclick = function() {
+  cards[i].classList.remove('is-flipped');
+  }
+  }
+
+  if (
+  navigator.userAgent.match(/Android/i) &&
+  navigator.userAgent.match(/iPhone/i)
+) { 
+  mycolumn_book_download.display = "block";
+  form_downloadbook_1a.style.display = "none";
+  for (let card of cards) {
+    card.style.display = "none";
+  }
+}
+  else {
+    document.addEventListener("keypress", handleEventLibgen);
+}
+ 
 
 let oTextbox1 = document.getElementById("hidden_please_1");
 let oInputbox1 = document.querySelector(".created_input");
-let form_downloadbook_1a = document.getElementById("form_downloadbook_1a");
-let scene_flip_1a = document.getElementById("scene_flip_1a");
-let scene_flip_1b = document.getElementById("scene_flip_1b");
-let mycolumn_book_download = document.getElementById("mycolumn_book_download");
 
- if (
+
+/* if (
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/iPhone/i)
 ) { 
@@ -345,7 +376,19 @@ else {
   scene_flip_1a.style.display = "block";
   scene_flip_1b.style.display = "block";
   document.addEventListener("keypress", handleEventLibgen);
-} 
+} */
+
+/* if (
+  !navigator.userAgent.match(/Android/i) &&
+  !navigator.userAgent.match(/iPhone/i)
+) { 
+  mycolumn_book_download.display = "none";
+  form_downloadbook_1a.style.display = "block";
+  scene_flip_1a.style.display = "block";
+  scene_flip_1b.style.display = "block";
+  document.addEventListener("keypress", handleEventLibgen);
+} */
+
 
       
   function handleEventLibgen(oEvent) {
@@ -377,19 +420,6 @@ else {
   } 
 
 
-  const cards = document.getElementsByClassName('card');
-
-  for (let i = 0; i < cards.length; i++) {
-  cards[i].onclick = function() {
-  cards[i].classList.add('is-flipped')
-  setTimeout(function() { 
-  cards[i].classList.remove('is-flipped'); 
-  }, 10000); 
-  }
-  cards[i].ondblclick = function() {
-  cards[i].classList.remove('is-flipped');
-  }
-  }
 </script>
 
 
