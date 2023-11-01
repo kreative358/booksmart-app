@@ -289,12 +289,6 @@ width: 100%;
 }
 
 #mycolumn_docer {
-  display: block;
-}
-
-#scene_flip_1a,
-#scene_flip_1b,
-#link_to_doc_1 {
   display: none;
 }
 </style>
@@ -391,7 +385,21 @@ width: 100%;
       <div class="downnload_object" id="download_object_2"></div> 
   
   
-<script type="text/javascript">
+      <script type="text/javascript">
+
+    const cards = document.getElementsByClassName('card');
+
+    for (let i = 0; i < cards.length; i++) {
+    cards[i].onclick = function() {
+    cards[i].classList.add('is-flipped')
+    setTimeout(function() { 
+    cards[i].classList.remove('is-flipped'); 
+    }, 10000); 
+    }
+    cards[i].ondblclick = function() {
+    cards[i].classList.remove('is-flipped');
+    }
+    }
       
   let oTextbox2 = document.getElementById("hidden_please_2");
   let oInputbox2 = document.getElementById("created_input_2");
@@ -401,26 +409,17 @@ width: 100%;
   let mycolumn_docer =  document.getElementById("mycolumn_docer");
   
     
- /* if (
+ if (
     navigator.userAgent.match(/Android/i) ||
     navigator.userAgent.match(/iPhone/i)
   ) { 
+   // oInputbtn2.addEventListener("input", handleEventDocerMobile);
    mycolumn_docer.style.display = "block";
+   link_to_doc_1.style.display = "none";
+   scene_flip_1a.style.display = "none";
+   scene_flip_1b.style.display = "none";
   }
   else {
-    link_to_doc_1.style.display = "block";
-    scene_flip_1a.style.display = "block";
-    scene_flip_1b.style.display = "block";
-    document.addEventListener("keypress", handleEventDocer);
-  } */
-
-  if (
-    !navigator.userAgent.match(/Android/i) &&
-    !navigator.userAgent.match(/iPhone/i)
-  ) {
-    link_to_doc_1.style.display = "block";
-    scene_flip_1a.style.display = "block";
-    scene_flip_1b.style.display = "block";
     document.addEventListener("keypress", handleEventDocer);
   } 
 
@@ -452,20 +451,6 @@ function handleEventDocer(oEvent) {
         }, 7000);
     }
 } 
-
-const cards = document.getElementsByClassName('card');
-
-for (let i = 0; i < cards.length; i++) {
-cards[i].onclick = function() {
-cards[i].classList.add('is-flipped')
-setTimeout(function() { 
-cards[i].classList.remove('is-flipped'); 
-}, 10000); 
-}
-cards[i].ondblclick = function() {
-cards[i].classList.remove('is-flipped');
-}
-}
 
 if ( "{{ pdf_links }}" ) {
   let button_download_1 = document.getElementById("button_download_1");

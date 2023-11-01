@@ -328,9 +328,7 @@ display: none;
 
 
 <script type="text/javascript">
-var form_downloadbook_1a = document.getElementById("form_downloadbook_1a");
-// var scene_flip_1a = document.getElementById("scene_flip_1a");
-// var scene_flip_1b = document.getElementById("scene_flip_1b");
+
 var mycolumn_book_download = document.getElementById("mycolumn_book_download");
 const cards = document.getElementsByClassName('card');
 
@@ -338,11 +336,13 @@ const cards = document.getElementsByClassName('card');
   navigator.userAgent.match(/Android/i) &&
   navigator.userAgent.match(/iPhone/i)
 ) { 
+  let scene_flip_1a = document.getElementById("scene_flip_1a");
+  let scene_flip_1b = document.getElementById("scene_flip_1b");
+  let form_downloadbook_1a = document.getElementById("form_downloadbook_1a");
   mycolumn_book_download.display = "block";
   form_downloadbook_1a.style.display = "none";
-  for (let card of cards) {
-    card.style.display = "none";
-  }
+  scene_flip_1a.style.display = "none";
+  scene_flip_1b.style.display = "none";
 }
   else {
     document.addEventListener("keypress", handleEventLibgen);
