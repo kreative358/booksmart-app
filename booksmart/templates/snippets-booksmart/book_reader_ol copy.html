@@ -4,7 +4,16 @@
     localStorage.clear();
     sessionStorage.clear();
 
-/*   if (
+   /* if (
+      navigator.userAgent.match(/Android/i) ||
+      navigator.userAgent.match(/iPhone/i)
+    ) { 
+      document.getElementById("scene_flip_1a").style.display = "none";
+      document.getElementById("scene_flip_1b").style.display = "none";
+      document.getElementById("mycolumn_book_download").style.display = "block";
+    } */
+
+   if (
       navigator.userAgent.match(/Android/i) ||
       navigator.userAgent.match(/iPhone/i)
     ) { 
@@ -18,8 +27,8 @@
       document.getElementById("scene_flip_1b").innerHTML = '<form action="{% url "booksmart:downloadbook" %}" method="GET" target="_blank">{{ search_title_download }}<input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}"><button type="submit" class="button_downloads" id="tooltip" style="line-height: 1.2;">IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.<span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span></button></form>';
     }, 500);  
   
-  } */
-  }); 
+  }
+  });
 </script>
 
 <style type="text/css">
@@ -308,7 +317,7 @@ display: none;
       <p style="line-height: 1; margi-top: 10px;" > {{message_read}} </p> 
       </div>
 
-      <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank" id="form_downloadbook_1a">
+      <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
       {{ search_title_download }}
       <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
       <button type="submit" class="button_downloads" id='tooltip' >
@@ -323,7 +332,7 @@ display: none;
 
   <div class="mycolumn_book_reader" id="mycolumn_book_download">
     <div class="mycard_book_reader" id="">
-    <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank" id="form_downloadbook_1b">
+    <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank">
   {{ search_title_download }}
     <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
     <button type="submit" class="button_downloads" id='tooltip' style="line-height: 1.2;">
@@ -337,18 +346,18 @@ display: none;
 
 <script type="text/javascript">
 
-const cards = document.getElementsByClassName('card');
-for (let i = 0; i < cards.length; i++) {
-cards[i].onclick = function() {
-cards[i].classList.add('is-flipped')
-setTimeout(function() { 
-cards[i].classList.remove('is-flipped'); 
-}, 10000); 
-}
-cards[i].ondblclick = function() {
-cards[i].classList.remove('is-flipped');
-}
-}
+  const cards = document.getElementsByClassName('card');
+  for (let i = 0; i < cards.length; i++) {
+  cards[i].onclick = function() {
+  cards[i].classList.add('is-flipped')
+  setTimeout(function() { 
+  cards[i].classList.remove('is-flipped'); 
+  }, 10000); 
+  }
+  cards[i].ondblclick = function() {
+  cards[i].classList.remove('is-flipped');
+  }
+  }
 
 let oTextbox1 = document.getElementById("hidden_please_1");
 let oInputbox1 = document.querySelector(".created_input");
@@ -361,14 +370,54 @@ let mycolumn_book_download = document.getElementById("mycolumn_book_download");
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/iPhone/i)
 ) { 
+  // scene_flip_1a.style.display = "none";
+  // scene_flip_1b.style.display = "none";
   mycolumn_book_download.style.display = "block";
-  form_downloadbook_1a.style.display = "none";
-  scene_flip_1a.style.display = "none";
-  scene_flip_1b.style.display = "none";
 }
 else {
   document.addEventListener("keypress", handleEventLibgen);
 } 
+
+/* function handleEventLibgenMobile(mEvent) {
+//  oInputbox1.onclick = function() {}
+    oInputbox1.value += mEvent.key;
+    if (oInputbox1.value === "please") {
+      mycolumn_book_download.style.display = "block";
+      mycolumn_book_download.style.animation = "anime_visible 2s";
+
+      setTimeout(function(){ 
+      oInputbox1.value = "";
+      }, 3000);
+      
+      setTimeout(function(){ 
+        mycolumn_book_download.style.animation = "anime_invisible 2s";
+        }, 6000);
+        
+        setTimeout(function(){
+        mycolumn_book_download.style.display = "none";}, 
+        7800);
+      }
+        
+      else {
+        setTimeout(function(){ 
+          oInputbox1.value = "";
+          }, 7000);
+      }
+    } */
+
+/* function handleEventLibgenMobile() {
+    if (oInputbox1.value === "please") {
+    mycolumn_book_download.style.display = "block";
+    mycolumn_book_download.style.animation = "anime_visible 2s";
+    setTimeout(function(){ 
+      mycolumn_book_download.style.animation = "anime_invisible 2s";
+      }, 6000);
+      
+      setTimeout(function(){
+      mycolumn_book_download.style.display = "none";}, 
+      7800);
+    } 
+  } */
 
       
   function handleEventLibgen(oEvent) {
@@ -399,8 +448,29 @@ else {
       }
   } 
 
+/*for (let card of cards) {
+card.addEventListener('click', function(event) {
+event.target.classList.add('is-flipped');
+setTimeout(function() { 
+event.target.classList.remove('is-flipped'); 
+}, 6000);  
+});
+card.addEventListener('dblclick', function(event) {
+event.target.classList.remove('is-flipped');
+});
 
+}  */
 
 </script>
 
+
+<!--  <p id="txt1" style="display: none;"></p>
+<p><textarea id="txtInput" rows="15" cols="50" onkeypress="handleEvent(event)"
+    ></textarea></p>
+<p><textarea id="txtInput" rows="15" cols="50"
+    onkeydown="handleEvent(event)"
+    onkeyup="handleEvent(event)"
+    onkeypress="handleEvent(event)"></textarea></p>
+    
+<p><textarea id="txt2" rows="15" cols="50"></textarea></p> -->
 

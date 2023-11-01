@@ -162,7 +162,6 @@ font-family: Times;
   color: rgba(20, 20, 240, 0.9);
   font-size: 28px;
   line-height: 28px;
-  padding: 10px;
   border: 6px solid rgba(60, 160, 240, 0.8);
   border-radius: 4px;
   animation: anime_red_border 4s infinite;
@@ -197,7 +196,7 @@ font-family: Times;
   0px 12px 8px 0px rgb(51, 51, 53);
   color: white;
   font-weight: bold;
-  padding: padding: 6px;
+  padding: 6px;
   text-align: center;
   margin: 10px auto 20px auto;
   max-width: 90%;
@@ -971,7 +970,7 @@ function toggleFullscreen(event) {
              {% csrf_token %}
             {{ search_title }}
             <input type="hidden" id="title_lib" name="title_lib" value="ok">
-            <button type="submit" class="btn btn-outline-primary btn-lg text-danger" style="width:340px; padding:auto; margin: 5px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold; font-family: Times;" id='tooltip'>
+            <button type="submit" class="btn btn-outline-primary btn-lg text-danger" style="width:340px; padding: 10px; margin: 5px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold; font-family: Times;" id='tooltip'>
              IF YOU NEED YOU CAN TRY TO FIND THIS BOOK ANOTHER WAY <br> PRESS TO TRY TO FIND
           <span id="tooltiptext" style="z-index:12;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT</span></button>
         </form>
