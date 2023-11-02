@@ -288,7 +288,7 @@ width: 100%;
   width: 0px;
 }
 
-#mycolumn_docer {
+.scene {
   display: none;
 }
 </style>
@@ -386,10 +386,22 @@ width: 100%;
   
   
       <script type="text/javascript">
+  
+    
+ if (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/iPhone/i)
+  ) { 
+   // oInputbtn2.addEventListener("input", handleEventDocerMobile);
+  
+   document.getElementById("link_to_doc_1").style.display = "none";
 
+  }
+  else {
+    document.getElementById("mycolumn_docer").style.display = "none";
     const cards = document.getElementsByClassName('card');
-
     for (let i = 0; i < cards.length; i++) {
+    cards[i].parentElement.style.display = "block"; 
     cards[i].onclick = function() {
     cards[i].classList.add('is-flipped')
     setTimeout(function() { 
@@ -400,30 +412,13 @@ width: 100%;
     cards[i].classList.remove('is-flipped');
     }
     }
-      
-  let oTextbox2 = document.getElementById("hidden_please_2");
-  let oInputbox2 = document.getElementById("created_input_2");
-  let link_to_doc_1 = document.getElementById("link_to_doc_1");
-  let scene_flip_1a = document.getElementById("scene_flip_1a");
-  let scene_flip_1b = document.getElementById("scene_flip_1b");
-  let mycolumn_docer =  document.getElementById("mycolumn_docer");
-  
-    
- if (
-    navigator.userAgent.match(/Android/i) ||
-    navigator.userAgent.match(/iPhone/i)
-  ) { 
-   // oInputbtn2.addEventListener("input", handleEventDocerMobile);
-   mycolumn_docer.style.display = "block";
-   link_to_doc_1.style.display = "none";
-   scene_flip_1a.style.display = "none";
-   scene_flip_1b.style.display = "none";
-  }
-  else {
     document.addEventListener("keypress", handleEventDocer);
   } 
 
-        
+  var mycolumn_docer = document.getElementById("mycolumn_docer");
+  let oTextbox2 = document.getElementById("hidden_please_2");
+  let oInputbox2 = document.getElementById("created_input_2");
+  
 function handleEventDocer(oEvent) {
   oTextbox2.innerText += oEvent.key;
   if (oTextbox2.innerText === "please") {

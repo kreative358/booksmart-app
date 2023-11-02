@@ -231,8 +231,7 @@ transform: matrix(0.98, 0, 0, 0.98, 0, 0);
 }
 }
 
-.cards,
-#mycolumn_book_download {
+.scene {
   display: none;
 } 
 
@@ -303,9 +302,10 @@ display: none;
       <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank" >
       {{ search_title_download }}
       <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
-      <button type="submit" class="button_downloads" id='tooltip' >
-        IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND
-      <span id="tooltiptext" >PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT</span></button>
+      <span id="tooltip">
+      <button type="submit" class="button_downloads" id='form_downloadbook_1b' >
+        IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND</button>
+      <span id="tooltiptext" >PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT</span></span>
       </form>
     </div>
 
@@ -334,13 +334,14 @@ display: none;
   navigator.userAgent.match(/Android/i) ||
   navigator.userAgent.match(/iPhone/i)
 ) { 
-  document.getElementById("mycolumn_book_download").style.display = "block";
   document.getElementById("form_downloadbook_1a").style.display = "none";
 }
   else {
+    // document.getElementById("form_downloadbook_1a").style.display = "block";
+    document.getElementById("mycolumn_book_download").style.display = "none";
     const cards = document.getElementsByClassName('card');
     for (let i = 0; i < cards.length; i++) {
-      cards[i].style.display = "block";
+      cards[i].parentElement.style.display = "block";
       cards[i].onclick = function() {
       cards[i].classList.add('is-flipped')
       setTimeout(function() { 
@@ -351,10 +352,9 @@ display: none;
       cards[i].classList.remove('is-flipped');
       }
       }
-      document.addEventListener("keypress", handleEventLibgen);
+      document.addEventListener("keypress", handleEventLibgen);   
 }
  
-
 
 var mycolumn_book_download = document.getElementById("mycolumn_book_download");
 let oTextbox1 = document.getElementById("hidden_please_1");
