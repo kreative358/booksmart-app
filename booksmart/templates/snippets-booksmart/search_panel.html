@@ -7,35 +7,74 @@
 {% include 'snippets-booksmart/pure_flatpickr_css.html' %}
 
 <script>
-  const search_bar_inputs = document.querySelectorAll("#search_bar input");
+  window.addEventListener("load", function() {
+    localStorage.clear();
+    sessionStorage.clear();
+
+    document.querySelector("#input_checkbox_sr_user_num_b").checked = false;
+    document.querySelector("#input_checkbox_sr_epub").checked = false;
+    document.querySelector("#input_text_sr_title").value = "";
+    document.querySelector("#input_text_sr_author").value = "";
+    document.querySelector("#input_text_sr_google_id").value = "";
+    document.querySelector("#input_select_sr_language").options[0].selected = true;
+    document.querySelector("#input_select_sr_author_list").options[0].selected = true;
+    document.querySelector("#input_date_start").value = "";
+    document.querySelector("#input_date_end").value = "";
+    document.querySelector("#input_text_sr_owner").value = "";
+    document.querySelector("#input_checkbox_author_details_q").checked = false;
+
+    let checks_text = document.querySelectorAll(".checks_text");
+    for (let check_text of checks_text) {
+      // if (check_text.innerHTML != "") {
+      check_text.innerHTML = "";
+    }
+
+  })
+
+/*  document.addEventListener("load", function() {
+    localStorage.clear();
+    sessionStorage.clear();
+
+  const search_bar_inputs_checkbox = document.querySelectorAll("#search_bar input[type='checkbox']");
+  const search_bar_inputs_text = document.querySelectorAll("#search_bar input[type='text']");
+  const search_bar_inputs_date = document.querySelectorAll("#search_bar input[type='date']");
   const search_bar_selects = document.querySelectorAll("#search_bar select");
   const checks_text = document.getElementsByClassName("span_checked");
   
 
-  for (const search_bar_input of search_bar_inputs) {
-    if (search_bar_input.value != "" || search_bar_input.checked == true) {
-      if (search_bar_input.value != "") {
-          search_bar_input.value = "";
-          }
-      if (search_bar_input.hasAttribute('checked')) {
-          search_bar_input.removeAttribute('checked');
-      }
+  for (let search_bar_input_checkbox of search_bar_inputs_checkbox) {
+     if (search_bar_input_checkbox.checked == true) {
+    search_bar_input_checkbox.checked == false;
     }
-  }
- 
-  for (const search_bar_select of search_bar_selects) {
-   // if (search_bar_select.children[0].selected = false) { 
-    search_bar_select.children[0].selected = true;
+    // if (search_bar_input.hasAttribute('checked')) {
+    //  search_bar_input.removeAttribute('checked'); 
+    }
+
+  for (let check_text of checks_text) {
+    // if (check_text.innerHTML != "") {
+    check_text.innerHTML = "";
    // }
   } 
 
-  
-  for (const check_text of checks_text) {
-    if (check_text.innerHTML != "") {
-    check_text.innerHTML = "";
+  for (let search_bar_input_text of search_bar_inputs_text) {
+    if (search_bar_input_text.value != "" ) {
+        search_bar_input_text.value = "";
     }
+    }
+
+  for (let search_bar_input_text of search_bar_inputs_date) {
+      // if (search_bar_input_text.value != "" ) {
+          search_bar_input_date.value = "";
+      // }
+       }
+   
+  for (let search_bar_select of search_bar_selects) {
+   // if (search_bar_select.children[0].selected = false) { 
+    search_bar_select.options[0].selected = true;
+   // }
   } 
 
+}); */
 </script>
 
 <style type="text/css">

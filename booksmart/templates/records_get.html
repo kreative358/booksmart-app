@@ -6,8 +6,8 @@
 {% block page %}
 
 <script>
-/*    window.addEventListener("load", function() {
-   // window.addEventListener("beforeunload", function() {
+  /*  document.addEventListener("load", function() {
+   
     localStorage.clear();
     sessionStorage.clear();
     
@@ -17,7 +17,7 @@
     
 
     for (const search_bar_input of search_bar_inputs) {
-      if (search_bar_input.value != "" || search_bar_input.checked == false) {
+      if (search_bar_input.value != "" || search_bar_input.checked == true) {
       search_bar_input.value = "";
       search_bar_input.checked = false;
       }
@@ -25,7 +25,8 @@
    
     for (const search_bar_select of search_bar_selects) {
      // if (search_bar_select.children[0].selected = false) { 
-      search_bar_select.children[0].selected = true;
+      // search_bar_select.children[0].selected = true;
+      search_bar_select.options[0].selected = true;
      // }
     } 
   
@@ -41,11 +42,54 @@
       input_text_search_q.value = "";
     }
 
-  }); 
+  }); */
 
-  /*window.addEventListener("load", function() {
+  /*
+    document.addEventListener("load", function() {
+    localStorage.clear();
+    sessionStorage.clear();
 
-  })*/
+  const search_bar_inputs_checkbox = document.querySelectorAll("#search_bar input[type='checkbox']");
+  const search_bar_inputs_text = document.querySelectorAll("#search_bar input[type='text']");
+  const search_bar_inputs_date = document.querySelectorAll("#search_bar input[type='date']");
+  const search_bar_selects = document.querySelectorAll("#search_bar select");
+  const checks_text = document.getElementsByClassName("span_checked");
+  
+
+  for (let search_bar_input_checkbox of search_bar_inputs_checkbox) {
+     if (search_bar_input_checkbox.checked == true) {
+    search_bar_input_checkbox.checked == false;
+    }
+    // if (search_bar_input.hasAttribute('checked')) {
+    //  search_bar_input.removeAttribute('checked'); 
+  }
+
+  for (let check_text of checks_text) {
+    // if (check_text.innerHTML != "") {
+    check_text.innerHTML = "";
+   // }
+  } 
+
+  for (let search_bar_input_text of search_bar_inputs_text) {
+    if (search_bar_input_text.value != "" ) {
+        search_bar_input_text.value = "";
+    }
+    }
+
+  for (let search_bar_input_text of search_bar_inputs_date) {
+      // if (search_bar_input_text.value != "" ) {
+          search_bar_input_date.value = "";
+      // }
+       }
+   
+  for (let search_bar_select of search_bar_selects) {
+   // if (search_bar_select.children[0].selected = false) { 
+    search_bar_select.options[0].selected = true;
+   // }
+  } 
+
+});
+  */
   </script>
   
 {% include 'snippets/scrollbars.html' %}

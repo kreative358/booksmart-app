@@ -3,18 +3,10 @@
 <script>
 window.addEventListener("load", function() {
 
-  localStorage.clear();
-  sessionStorage.clear();
+localStorage.clear();
+sessionStorage.clear();
 
-//  sessionStorage.removeItem("key");
-
-//  document.querySelector("#input_text_search_q").value = "";
-
-
-let input_text_search_q = document.querySelector("#input_text_search_q");
-if (input_text_search_q.value != "") {
-  input_text_search_q.value = "";
-}  
+document.querySelector("#input_text_search_q").value = "";
 
 });
 </script>

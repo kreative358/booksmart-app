@@ -486,7 +486,7 @@ def books_author(request):
         
         value=author_form.cleaned_data['author_found_books']
         vaules_list.append(value)
-        print("value =", value)
+        # print("value =", value)
     
         books_result = Book.objects.filter(author=value)
         author_result = Author.objects.filter(author_name=value)
@@ -507,7 +507,7 @@ def books_author(request):
         # current_url_name = request.resolver_match.url_name
         # currents.append(current_url_name)
         current_url_name = request.path
-        print('current_url_name', current_url_name)
+        # print('current_url_name', current_url_name)
         context['current_url'] = current_url_name
 
         filtered_books = books_result
@@ -525,10 +525,12 @@ def books_author(request):
 # @permission_classes([])  
 @permission_classes([IsAuthenticatedOrReadOnly])
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
-@renderer_classes([TemplateHTMLRenderer])
+@renderer_classes([JSONRenderer, TemplateHTMLRenderer, HTMLFormRenderer])
 def records_view_get(request):
     r_user = request.user
     current_url_name = request.path
+    current_url_name_html = current_url_name + ".html"
+    # print("type , current_url_name_html", type(current_url_name_html), current_url_name_html)
     
     all_books = Book.objects.all()
     all_authors = Author.objects.all()
@@ -559,11 +561,6 @@ def records_view_get(request):
 
     max_date = Book.objects.aggregate(Max('published'))
 
-    context = {}
-    context_post = {}
-    sort_parameter = ['title']
-
-    context["form_search_post"] = "no"
     context_get["form_search_get_book"] = "no"
     context_get["form_search_get_author"] = "no"
     parameters = ""
@@ -574,46 +571,86 @@ def records_view_get(request):
     keywords_fields = {}
     
     filter_dict = {}
-    # context_get["filtered_books"] = []
-    context["search_resultB"] = []
-    context['author_objects'] = []
-    context["search_resultA"] = []
+ 
     extra_keywords_fields_search_user_num_b = []
-    if search_form.is_valid():
-        context_get["form_search_get_book"] = "yes"  ###
-          
-        keywords_fields["user_num_b"] = r_user.id if str(search_form.cleaned_data["user_num_b"]) == "True" else ""
+    
+    keywords_fields["user_num_b"] = "False"
+    keywords_fields["epub"] = False
+    keywords_fields['title__icontains'] = ""
+    keywords_fields['author__icontains'] = ""
+    keywords_fields['language'] = ""
+    keywords_fields['google_id'] = ""
+    keywords_fields['published__gte'] = None
+    keywords_fields['published__lt'] = None
+    keywords_fields["owner__username__icontains"] = ""
+    keywords_fields["author"] = ""
+    context_get["search_ordering"] = "title"
+    context_get["author_details_q"] = "False"
 
-        keywords_fields["epub"] = "yes" if str(search_form.cleaned_data["epub"]) == "True" else ""
+    if not search_form.is_valid():
+        print("not search_form.is_valid()")
+        try:
+            
+            context_get["form_search_get_book"] = "yes"  ###
+            
+            keywords_fields["user_num_b"] = r_user.id if str(search_form.cleaned_data["user_num_b"]) == "True" else ""
 
-        keywords_fields['title__icontains'] = search_form.cleaned_data['title']
-        
-        # search_author = search_form.cleaned_data['author']
-        keywords_fields['author__icontains'] = search_form.cleaned_data['author']
+            keywords_fields["epub"] = "yes" if str(search_form.cleaned_data["epub"]) == "True" else ""
 
-        # search_language = search_form.cleaned_data["language"]
-        keywords_fields['language'] = search_form.cleaned_data["language"]
+            keywords_fields['title__icontains'] = search_form.cleaned_data['title']
 
-        # search_google_id = search_form.cleaned_data["google_id"]
-        keywords_fields['google_id'] = search_form.cleaned_data["google_id"]
+            keywords_fields['author__icontains'] = search_form.cleaned_data['author']
 
-        # search_published__gte = search_form.cleaned_data["published__gte"]
-        keywords_fields['published__gte'] = search_form.cleaned_data["published__gte"]
+            keywords_fields['language'] = search_form.cleaned_data["language"]
 
-        # search_published__lt = search_form.cleaned_data["published__lt"]
-        keywords_fields['published__lt'] = search_form.cleaned_data["published__lt"]
+            keywords_fields['google_id'] = search_form.cleaned_data["google_id"]
 
-        # search_owner = search_form.cleaned_data["owner__username"]
-        keywords_fields["owner__username__icontains"] = search_form.cleaned_data["owner__username"]
+            keywords_fields['published__gte'] = search_form.cleaned_data["published__gte"]
 
-        # search_author_list = search_form.cleaned_data["author_list"] ###
-        keywords_fields["author"] = search_form.cleaned_data["author_list"]
+            keywords_fields['published__lt'] = search_form.cleaned_data["published__lt"]
 
-        # search_ordering = search_form.cleaned_data["ordering"]
-        context_get["search_ordering"] = search_form.cleaned_data["ordering"] if search_form.cleaned_data["ordering"] != "" else "title"
+            keywords_fields["owner__username__icontains"] = search_form.cleaned_data["owner__username"]
 
-        context_get["author_details_q"] = str(search_form.cleaned_data["author_details_q"])
+            keywords_fields["author"] = search_form.cleaned_data["author_list"]
 
+            context_get["search_ordering"] = search_form.cleaned_data["ordering"] if search_form.cleaned_data["ordering"] != "" else "title"
+ 
+            context_get["author_details_q"] = str(search_form.cleaned_data["author_details_q"])
+
+        except Exception as e:
+            print(f"633 Exception", e)
+    else:
+        try:
+            
+            context_get["form_search_get_book"] = "yes"  ###
+            
+            keywords_fields["user_num_b"] = r_user.id if str(search_form.cleaned_data["user_num_b"]) == "True" else ""
+
+            keywords_fields["epub"] = "yes" if str(search_form.cleaned_data["epub"]) == "True" else ""
+
+            keywords_fields['title__icontains'] = search_form.cleaned_data['title']
+
+            keywords_fields['author__icontains'] = search_form.cleaned_data['author']
+
+            keywords_fields['language'] = search_form.cleaned_data["language"]
+
+            keywords_fields['google_id'] = search_form.cleaned_data["google_id"]
+
+            keywords_fields['published__gte'] = search_form.cleaned_data["published__gte"]
+
+            keywords_fields['published__lt'] = search_form.cleaned_data["published__lt"]
+
+            keywords_fields["owner__username__icontains"] = search_form.cleaned_data["owner__username"]
+
+            keywords_fields["author"] = search_form.cleaned_data["author_list"]
+
+            context_get["search_ordering"] = search_form.cleaned_data["ordering"] if search_form.cleaned_data["ordering"] != "" else "title"
+ 
+            context_get["author_details_q"] = str(search_form.cleaned_data["author_details_q"])
+        except Exception as e:
+            print(f"686 Exception", e)
+
+    # print("keywords_fields =", keywords_fields)
     if context_get["author_details_q"] == "False":
         context_get["form_search_get_author"] = "no"
     elif context_get["author_details_q"] == "True":
@@ -642,12 +679,12 @@ def records_view_get(request):
         keywords_fields['published__lt'] = None
 
     keywords_fields_items = list(keywords_fields.items())
+    # print("keywords_fields_items =", keywords_fields_items)
     # query = '&'.join([f"{k}={v.replace(' ','+')}" if v == type(str) else f'{k}=' for k, v in keywords_fields.items()])
     # print("query", query)
 
     parameters_list = []
-    
-    # print('keywords_fields_items =', keywords_fields_items)
+
     for key, value in keywords_fields_items:
         if value != '' and value != None and not isinstance(value, int):
             # parameters_list.append((key, value))
@@ -656,6 +693,7 @@ def records_view_get(request):
         elif isinstance(value, int):
             filter_dict[key] = f"{value}"
 
+    # print("filter_dict =", filter_dict)
     # print("parameters_list=", parameters_list)
     if len(parameters_list) == 0:
         context_get['parameters'] = ""
@@ -663,8 +701,7 @@ def records_view_get(request):
 
     # if len(keywords_fields.values()) == 2:
     elif len(parameters_list) == 1:
-        # print(f'1 parameters_list 557: {parameters_list}')
-        # parameters = f"{parameters_list[0][0]: {parameters_list[0][1]}}"
+
         parameters = f"{parameters_list[0][0]}: {parameters_list[0][1]}"
         context_get['parameters'] = parameters
         context_get['parameters_get'] = parameters
@@ -692,8 +729,9 @@ def records_view_get(request):
         msgs = ["You should enter some parameters for the search to work",]
         context_get['no_params'] = "no params"
         messages.info(request, "".join(msg for msg in msgs))
-        # return Response(context_get, template_name='allrecords.html', )
-        return redirect('/')
+        return Response(context_get, template_name='allrecords.html', )
+        # return Response(context_get, template_name=current_url_name[1:-1] + '.html', )
+        # return redirect('/')
         # return redirect(current_url_name)
         
 
@@ -740,7 +778,8 @@ def records_view_get(request):
     elif len(context_get["books_result_queryset_list_sort"]) > 0: 
         # print('context_get["books_result_queryset_list_sort"] =', context_get["books_result_queryset_list_sort"])
         if context_get["author_details_q"] == "False":
-            print(f'False context["form_search_get_author"] = {context_get["form_search_get_author"]}\n')
+            # print(f'False context["form_search_get_author"] = {context_get["form_search_get_author"]}\n')
+            pass
             
         
         elif context_get["author_details_q"] == "True":
@@ -761,7 +800,7 @@ def records_view_get(request):
 
                     authors_result_found_list = [author_result_found for author_result_found in authors_result_found]
 
-                    print("822 authors_result_found_list", authors_result_found_list)
+                    # print("822 authors_result_found_list", authors_result_found_list)
 
                     context_get["authors_result_found_list"] = authors_result_found_list
 
@@ -858,26 +897,26 @@ def records_view_get(request):
     
     # return Response(context_get, template_name='records.html', )
 
-    author = BooksAuthor()
-    form_search = ItemsSearchForm()
-    book_sort = BookSort(request.GET)
-    search_form = SearchRecord()
-    context_get['search_author'] = author
-    context_get['search_form'] = search_form
-    context_get['form_search'] = form_search
-    context_get['book_sort'] = book_sort
+    # author = BooksAuthor()
+    # form_search = ItemsSearchForm()
+    # book_sort = BookSort(request.GET)
+    # search_form = SearchRecord()
+    # context_get['search_author'] = author
+    # context_get['search_form'] = search_form
+    # context_get['form_search'] = form_search
+    # context_get['book_sort'] = book_sort
 
-    context['search_author'] = author
-    context['search_form'] = search_form
-    context['form_search'] = form_search
-    context['book_sort'] = book_sort
+    # context['search_author'] = author
+    # context['search_form'] = search_form
+    # context['form_search'] = form_search
+    # context['book_sort'] = book_sort
     return Response(context_get, template_name='records_get.html', )
 
 @api_view(['GET', 'POST'])
 # @permission_classes([])  
 @permission_classes([IsAuthenticatedOrReadOnly])
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
-@renderer_classes([TemplateHTMLRenderer])
+@renderer_classes([JSONRenderer, TemplateHTMLRenderer, HTMLFormRenderer])
 def records_view_post(request):
     r_user = request.user
     current_url_name = request.path
