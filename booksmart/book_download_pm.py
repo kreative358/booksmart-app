@@ -44,10 +44,9 @@ import datetime
 
 from django.utils.text import slugify
 
-
 from booksmart.search_download_gs import SearchRequestGS
 from booksmart.search_download_is import SearchRequestIS
-
+from booksmart.search_download_pm import SearchRequestPM
 from bs4 import BeautifulSoup
 
 context_main = {}
@@ -121,26 +120,25 @@ except:
 MIRROR_SOURCES = ["GET", "Cloudflare", "IPFS.io", "Infura"]
 MIRROR_SOURCE_GET = ["GET"]
 
-class LibgenSearch:
+class LibgenSearchPM:
     def search_title(self, query):
-        search_request = SearchRequestGS(query, search_type="title")
+        search_request = SearchRequestPM(query, search_type="title")
         return search_request.aggregate_request_data()
 
     def search_author(self, query):
-        search_request = SearchRequestGS(query, search_type="author")
+        search_request = SearchRequestPM(query, search_type="author")
         return search_request.aggregate_request_data()
 
     def search_title_filtered(self, query, filters, exact_match=True):
-        search_request = SearchRequestGS(query, search_type="title")
+        search_request = SearchRequestPM(query, search_type="title")
         results = search_request.aggregate_request_data()
         filtered_results = filter_results(
             results=results, filters=filters, exact_match=exact_match
         )
-        print("search_title_filtered =", filtered_results)
         return filtered_results
 
     def search_author_filtered(self, query, filters, exact_match=True):
-        search_request = SearchRequestGS(query, search_type="author")
+        search_request = SearchRequestPM(query, search_type="author")
         results = search_request.aggregate_request_data()
         filtered_results = filter_results(
             results=results, filters=filters, exact_match=exact_match
@@ -153,11 +151,12 @@ class LibgenSearch:
         page = requests.get(mirror_1)
         soup = BeautifulSoup(page.text, "html.parser")
         
-        links = soup.find_all("a", string=MIRROR_SOURCES)
+        links = soup.find_all("a", string=MIRROR_SOURCES_GET)
         download_links = {link.string: link["href"] for link in links}
         
         # print(f"\n1. download_links = {download_links}\n")
-
+        # links = soup.find_all("a", string=MIRROR_SOURCES)
+        # download_links = {link.string: link["href"] for link in links}
         return download_links
 
     def resolve_download_links_my(self, item):
@@ -167,14 +166,14 @@ class LibgenSearch:
         soup = BeautifulSoup(page.text, "html.parser")
         
         links = soup.find_all("a", string=MIRROR_SOURCE_GET)
-        download_links_my = {link.string: link["href"] for link in links}
+        download_links = {link.string: link["href"] for link in links}
         
-        # print(f"\n1. download_links_my = {download_links_my}\n")
+        print(f"\n1. download_links = {download_links}\n")
+        # links = soup.find_all("a", string=MIRROR_SOURCES)
+        # download_links = {link.string: link["href"] for link in links}
+        return download_links
 
-        return download_links_my
-
-
-def filter_results(results, filters, exact_match):
+def filter_resultsPM(results, filters, exact_match):
     """
     Returns a list of results that match the given filter criteria.
     When exact_match = true, we only include results that exactly match
@@ -205,7 +204,6 @@ def filter_results(results, filters, exact_match):
                     break
             if filter_matches_result:
                 filtered_list.append(result)
-    print(f"\nfiltered_list = {filtered_list}\n")
     return filtered_list
 
 
@@ -214,7 +212,7 @@ def filter_results(results, filters, exact_match):
 @permission_classes([IsAuthenticatedOrReadOnly])
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-def download_book(request):
+def download_bookPM(request):
 
     # book = get_object_or_404(Book, pk=id)
     # print("formlib_download:", formlib_download)
@@ -233,7 +231,7 @@ def download_book(request):
     formlib_download = BookDownload(request.GET)
 
     links_to_download = []
-    s = LibgenSearch()
+    s = LibgenSearchPM()
     # if request.method == "POST":
     #     if request.POST.get('title_download_search', False):
 
@@ -269,30 +267,30 @@ def download_book(request):
                         context["download_links_2a"] = download_links_2a
                         print("download_links_2a =", download_links_2a)
 
-                        return Response(context, template_name='download_book.html',)
+                        return Response(context, template_name='download_book_pm.html',)
 
                     elif len(pdf_links) == 1:
                         download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
                         context["download_links_1a"] = download_links_1a
 
-                        return Response(context, template_name='download_book.html',)
+                        return Response(context, template_name='download_book_pm.html',)
 
                 else:
                     context["message_read_download"] = "This book is probably not available for download in pdf, below is the last chance for those who persevere"
                     # print("2. title_download", title_download)
                     # title_slugify = slugify(title_download).replace(" ", "+").replace(" ", "-")
 
-                    return Response(context, template_name='download_book.html',)
+                    return Response(context, template_name='download_book_pm.html',)
 
             except Exception as e:
                 context["message_read_download"] = f"This book is probably not available for download in pdf, reason: {e}"
                 # print("3. title_download", title_download)
-                return Response(context, template_name='download_book.html',)
+                return Response(context, template_name='download_book_pm.html',)
 
         else:
             # print("4. title_download", title_download)
             context["message_read_download"] = "This book is probably not available for download in pdf, below is the last chance for those who persevere."
-            return Response(context, template_name='download_book.html',)
+            return Response(context, template_name='download_book_pm.html',)
 
     # if request.POST:
     #     formlib_download = LibrarySearch(request.POST)
@@ -327,4 +325,4 @@ def download_book(request):
     #     context["links_download"] = links_to_download
     #     return Response(context, template_name='download_book.html', )
     context["search_title_download"] = BookDownload()
-    return Response(context, template_name='download_book.html', )
+    return Response(context, template_name='download_book_pm.html', )

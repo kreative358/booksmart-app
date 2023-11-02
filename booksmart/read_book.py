@@ -82,7 +82,7 @@ def use_title_author(context, formlib, book, identities_1, idents_title_1, ident
         parameters = f'{title_plus_q}+{author_surname_q}'
         # print('parameters:', parameters)
         search_url = f'https://openlibrary.org/search/inside.json?q={parameters}'
-        # print('search_url', search_url)
+        print('search_url', search_url)
         # search_url = f'https://openlibrary.org/search/inside.json?q={title_plus}'
         r = requests.get(url=search_url)
         if r.status_code != 200:
