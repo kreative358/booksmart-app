@@ -43,7 +43,7 @@ def req_book(book, founded_books_number):
         book_dict['author'] = "unknown"
 
     try:
-        book_dict['category'] = ", ".join(book['volumeInfo']['categories'])
+        book_dict['category'] = ", ".join(book['volumeInfo']['categories'].replace('(', '').replace(')', '').split()[:3])
     except:
         book_dict['category'] = 'no category'
 

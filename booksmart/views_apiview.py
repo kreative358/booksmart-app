@@ -968,6 +968,7 @@ def records_view_post(request):
     keywords_fields = {}
     context_post = {}
     filter_dict = {}
+    searc_phrase = ""
     if not form_search.is_valid(): 
         return redirect('booksmart:allrecords')  #()
         # return redirect(current_url_name)
@@ -977,7 +978,7 @@ def records_view_post(request):
         search_phrase = form_search.cleaned_data['search_field']
         values = search_phrase
         context_post["values"] = values
-        print("context_post'values'] =", context_post["values"])
+        print("[context_post'values'] =", context_post["values"])
         #  context['parameters'] = values
         context['parameters_post'] = context_post["values"]
         context["form_search_post"] = "yes"
@@ -989,12 +990,12 @@ def records_view_post(request):
             Q(title__icontains=search_phrase) |
             Q(language__contains=search_phrase.lower()) |
             Q(category__contains=search_phrase.capitalize()) |
-            Q(owner__username__contains=search_phrase)  
+            Q(owner__username__contains=search_phrase) | 
+            Q(google_id__exact=search_phrase)
         )
         
         # print("list(set(search_resultB.values_list('surname')))", list(set(search_resultB.values_list('surname'))))
         search_resultAb_Q = allauthors_dict.filter(
-        #search_resultA = all_authors.filter(
             Q(author_name__contains=search_phrase.capitalize()) |
             Q(owner__username__icontains=search_phrase)
         )

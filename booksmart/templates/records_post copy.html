@@ -125,7 +125,20 @@
  
     {% endif %}
 {% endif %}
-  
+
+{% if authors_result_set %}
+{% if authors_result_set|length == 0 %}
+{% include 'snippets-booksmart/authors_bar_no.html' %}
+
+{% elif authors_result_set|length > 0 %}
+{% include 'snippets-booksmart/authors_bar.html' %}
+          {% for author_c in authors_result_set %}
+          {% include 'snippets-booksmart/author.html' %}
+
+          {% endfor %}
+ 
+          {% endif %}
+{% endif %}   
 
 <div class="container_fluid_my"  style="position:relative;z-index:12 ; margin: 20px auto 20px auto; width: 800px; max-width: 90%; background-color: transparent">
   <div class="myrow_fluid_my">

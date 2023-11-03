@@ -311,12 +311,12 @@ width: 100%;
           <div class="mycolumn_download"  id="download_column_{{book.id}}">
             <div class="mycard_download" id="download_card_{{book.id}}">
 
-         <div id="button_download_1" class="button_downloads" style="">
+         <div id="button_download_1" class="button_downloads" style="cursor: pointer;">
          <span> PRESS TO DOWNLOAD 1 </span><br>
          <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span>
          </div>
          
-         <div id="button_download_2" class="button_downloads" style="">
+         <div id="button_download_2" class="button_downloads" style="cursor: pointer;">
          <span> PRESS TO DOWNLOAD 2 </span><br>
          <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span>
          </div>
@@ -458,11 +458,12 @@ function handleEventDocer(oEvent) {
     }
 } 
 
-if ( "{{ pdf_links }}" ) {
+// if ( "{{ pdf_links }}" ) {
   let button_download_1 = document.getElementById("button_download_1");
   let button_download_2 = document.getElementById("button_download_2");
   let download_object_1 = document.getElementById("download_object_1");
   let download_object_2 = document.getElementById("download_object_2");
+  
   button_download_1.onclick = function() {
     download_object_1.style.display = "block";
     download_object_1.style.animation = "anime_pulse 2s 4 2s";
@@ -474,8 +475,7 @@ if ( "{{ pdf_links }}" ) {
     download_object_2.style.animation = "anime_pulse 2s 4 2s";
     download_object_2.innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="0" height="0" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 2 </div>';
     }
-
-}
+// }
 
   /*
   button_download_2.onclick = function() {
