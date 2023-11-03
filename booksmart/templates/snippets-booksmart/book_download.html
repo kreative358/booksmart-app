@@ -402,11 +402,23 @@ width: 100%;
  if (
     navigator.userAgent.match(/Android/i) ||
     navigator.userAgent.match(/iPhone/i)
+  
   ) { 
    // oInputbtn2.addEventListener("input", handleEventDocerMobile);
   
    document.getElementById("link_to_doc_1").style.display = "none";
 
+   document.getElementById("button_download_1").onclick = function() {
+    document.getElementById("download_object_1").style.display = "block";
+   document.getElementById("download_object_1").style.animation = "anime_pulse 2s 4 2s";
+   document.getElementById("download_object_1").innerHTML = '<object class="iframe_download" src="{{ download_links_1a }}" width="1" height="1" style="margin: 0px auto 0px auto; cursor: pointer;"></object><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 1 </div>';
+   }
+
+   document.getElementById("button_download_2").onclick = function() {
+    document.getElementById("download_object_2").style.display = "block";
+    document.getElementById("download_object_2").style.animation = "anime_pulse 2s 4 2s";
+    document.getElementById("download_object_2").innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="1" height="1" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 2 </div>';
+     }
   }
   else {
     document.getElementById("mycolumn_docer").style.display = "none";
@@ -424,6 +436,18 @@ width: 100%;
     }
     }
     document.addEventListener("keypress", handleEventDocer);
+
+    document.getElementById("button_download_1").onclick = function() {
+      document.getElementById("download_object_1").style.display = "block";
+     document.getElementById("download_object_1").style.animation = "anime_pulse 2s 4 2s";
+     document.getElementById("download_object_1").innerHTML = '<object class="iframe_download" src="{{ download_links_1a }}" width="1" height="1" style="margin: 0px auto 0px auto; cursor: pointer;"></object><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 1 </div>';
+     }
+  
+     document.getElementById("button_download_2").onclick = function() {
+      document.getElementById("download_object_2").style.display = "block";
+      document.getElementById("download_object_2").style.animation = "anime_pulse 2s 4 2s";
+      document.getElementById("download_object_2").innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="1" height="1" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 2 </div>';
+       }
   } 
 
   var mycolumn_docer = document.getElementById("mycolumn_docer");
@@ -458,11 +482,11 @@ function handleEventDocer(oEvent) {
     }
 } 
 
-// if ( "{{ pdf_links }}" ) {
+/* if ( "{{ pdf_links }}" ) {
   var button_download_1 = document.getElementById("button_download_1");
   var button_download_2 = document.getElementById("button_download_2");
   var download_object_1 = document.getElementById("download_object_1");
-  var download_object_2 = document.getElementById("download_object_2");
+  var download_object_2 = document.getElementById("download_object_2"); */
   
  /* if (
     navigator.userAgent.match(/Android/i) ||
@@ -484,6 +508,7 @@ function handleEventDocer(oEvent) {
 
   }
   else { */
+    /*
   button_download_1.onclick = function() {
     download_object_1.style.display = "block";
     download_object_1.style.animation = "anime_pulse 2s 4 2s";
@@ -494,7 +519,7 @@ function handleEventDocer(oEvent) {
     download_object_2.style.display = "block";
     download_object_2.style.animation = "anime_pulse 2s 4 2s";
     download_object_2.innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="1" height="1" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 2 </div>';
-    }
+    } */
  //}
 
   /*
