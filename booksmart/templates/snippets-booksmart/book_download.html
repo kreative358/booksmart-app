@@ -135,7 +135,7 @@
     
     .download_object {
       position: relative;
-      margin: 0px auto 20px auto;
+      margin: 10px auto 10px auto;
       font-size: 30px;
       text-align: center;
       background-color: rgba(60, 160, 240, 0.0);
@@ -311,15 +311,15 @@ width: 100%;
           <div class="mycolumn_download"  id="download_column_{{book.id}}">
             <div class="mycard_download" id="download_card_{{book.id}}">
 
-         <div id="button_download_1" class="button_downloads" style="cursor: pointer;">
+         <button id="button_download_1" class="button_downloads" style="cursor: pointer;">
          <span> PRESS TO DOWNLOAD 1 </span><br>
          <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span>
-         </div>
+         </button>
          
-         <div id="button_download_2" class="button_downloads" style="cursor: pointer;">
+         <button id="button_download_2" class="button_downloads" style="cursor: pointer;">
          <span> PRESS TO DOWNLOAD 2 </span><br>
          <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span>
-         </div>
+         </button>
 
          <div class="scene scene--card" id="scene_flip_1a">
           <div  class="card" >
@@ -340,10 +340,10 @@ width: 100%;
         <div class="mycolumn_download"  id="download_column_{{book.id}}">
           <div class="mycard_download" id="download_card_{{book.id}}">
 
-         <div id="button_download_1" class="button_downloads" style="">
+         <button id="button_download_1" class="button_downloads" style="">
          <span> PRESS TO DOWNLOAD </span><br>
          <span style="animation: anime_red_text 2s infinite;"> "{{ title_download }}" </span>
-         </div>
+         </button>
 
          <div class="scene scene--card" id="scene_flip_1b">
           <div  class="card" >
@@ -459,12 +459,12 @@ function handleEventDocer(oEvent) {
 } 
 
 // if ( "{{ pdf_links }}" ) {
-  let button_download_1 = document.getElementById("button_download_1");
-  let button_download_2 = document.getElementById("button_download_2");
-  let download_object_1 = document.getElementById("download_object_1");
-  let download_object_2 = document.getElementById("download_object_2");
+  var button_download_1 = document.getElementById("button_download_1");
+  var button_download_2 = document.getElementById("button_download_2");
+  var download_object_1 = document.getElementById("download_object_1");
+  var download_object_2 = document.getElementById("download_object_2");
   
-  if (
+ /* if (
     navigator.userAgent.match(/Android/i) ||
     navigator.userAgent.match(/iPhone/i)
   ) { 
@@ -483,19 +483,19 @@ function handleEventDocer(oEvent) {
     }
 
   }
-  else {
+  else { */
   button_download_1.onclick = function() {
     download_object_1.style.display = "block";
     download_object_1.style.animation = "anime_pulse 2s 4 2s";
-      download_object_1.innerHTML = '<iframe class="iframe_download" src="{{ download_links_1a }}" width="0" height="0" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 1 </div>';
+      download_object_1.innerHTML = '<object class="iframe_download" src="{{ download_links_1a }}" width="1" height="1" style="margin: 0px auto 0px auto; cursor: pointer;"></object><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 1 </div>';
     }
     
     button_download_2.onclick = function() {
     download_object_2.style.display = "block";
     download_object_2.style.animation = "anime_pulse 2s 4 2s";
-    download_object_2.innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="0" height="0" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 2 </div>';
+    download_object_2.innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="1" height="1" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 2 </div>';
     }
- }
+ //}
 
   /*
   button_download_2.onclick = function() {
