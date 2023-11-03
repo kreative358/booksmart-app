@@ -464,6 +464,26 @@ function handleEventDocer(oEvent) {
   let download_object_1 = document.getElementById("download_object_1");
   let download_object_2 = document.getElementById("download_object_2");
   
+  if (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/iPhone/i)
+  ) { 
+   // oInputbtn2.addEventListener("input", handleEventDocerMobile);
+  
+   button_download_1.ontouchstart = function() {
+    download_object_1.style.display = "block";
+    download_object_1.style.animation = "anime_pulse 2s 4 2s";
+      download_object_1.innerHTML = '<iframe class="iframe_download" src="{{ download_links_1a }}" width="0" height="0" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 1 </div>';
+    }
+    
+    button_download_2.ontouchstart = function() {
+    download_object_2.style.display = "block";
+    download_object_2.style.animation = "anime_pulse 2s 4 2s";
+    download_object_2.innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="0" height="0" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 2 </div>';
+    }
+
+  }
+  else {
   button_download_1.onclick = function() {
     download_object_1.style.display = "block";
     download_object_1.style.animation = "anime_pulse 2s 4 2s";
@@ -475,7 +495,7 @@ function handleEventDocer(oEvent) {
     download_object_2.style.animation = "anime_pulse 2s 4 2s";
     download_object_2.innerHTML = '<iframe class="iframe_download" src="{{ download_links_2a }}" width="0" height="0" style="margin: 0px auto 0px auto; cursor: pointer;"></iframe><br><div class="download_book_text" style="margin: 0px auto 0px auto;"> DOWNLOAD BOOK 2 </div>';
     }
-// }
+ }
 
   /*
   button_download_2.onclick = function() {
