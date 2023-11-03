@@ -11,23 +11,37 @@
     localStorage.clear();
     sessionStorage.clear();
 
+
+    let checks_text = document.querySelectorAll(".checks_text");
+    for (let check_text of checks_text) {
+      // if (check_text.innerHTML != "") {
+      check_text.innerHTML = "";
+      }
     document.querySelector("#input_checkbox_sr_user_num_b").checked = false;
     document.querySelector("#input_checkbox_sr_epub").checked = false;
     document.querySelector("#input_text_sr_title").value = "";
     document.querySelector("#input_text_sr_author").value = "";
     document.querySelector("#input_text_sr_google_id").value = "";
     document.querySelector("#input_select_sr_language").options[0].selected = true;
-    document.querySelector("#input_select_sr_author_list").options[0].selected = true;
+    
     document.querySelector("#input_date_start").value = "";
     document.querySelector("#input_date_end").value = "";
+  
     document.querySelector("#input_text_sr_owner").value = "";
-    document.querySelector("#input_checkbox_author_details_q").checked = false;
+    document.querySelector("#input_select_sr_author_list").options[0].selected = true;
+    document.querySelector("#input_select_sr_ordering").options[0].selected = true;
+    document.querySelector("#input_checkbox_author_details_q").checked = false;    
+    
 
-    let checks_text = document.querySelectorAll(".checks_text");
-    for (let check_text of checks_text) {
-      // if (check_text.innerHTML != "") {
-      check_text.innerHTML = "";
-    }
+  
+  /*  let search_bar_inputs_date_placeholder = document.querySelectorAll('#placeholder + div')
+    for (let search_bar_input_date_placeholder of search_bar_inputs_date_placeholder) { search_bar_input_date_placeholder.innerText = "";
+  }
+
+    let search_bar_inputs = document.querySelectorAll('#id_form_search > input:not(input[type="checkbox"])');
+    for (let search_bar_input of search_bar_inputs) {
+      search_bar_input.value = "";
+    } */
 
   })
 
@@ -1455,7 +1469,7 @@ function validateForm() {
     return true; }
 } 
 */     
-      
+// document.getElementById("#id_form_search").reset();    
       </script>  
 
 <div class="my_container_search" id="search_column" >
@@ -1472,7 +1486,6 @@ function validateForm() {
       {% bootstrap_form search_form %}
   </form>
 
-     
   {% if no_params == "no params" %}
   <span id="tooltip_sp_no" style="width: auto; margin: 20px auto 10px auto">
   <button id="btn_search_panel_no" form="id_form_search" type="submit" class="btn_search btn btn-outline-primary text-danger" style="position: relative; z-index:22; border-radius: 2px; min-width: 140px; border: 4px solid; box-shadow: 0px 0px 4px 6px rgba(220, 220, 230, 0.4); font-size: 22px; font-weight: bold; padding-top: 2px; padding-bottom: 4px; display: block;" > SEARCH <span id="tooltiptext_sp_no"> MUST ENTER AT LEAST<br>ONE TEXT PARAMETER </span></span>
@@ -1515,7 +1528,17 @@ function validateForm() {
   </div>
 
  
+
+
 <script>
+ 
+  /*let id_form_search_inputs = document.querySelector("#id_form_search > div:nth-child(n) > input");
+  for (let id_form_search_input of id_form_search_inputs) {
+    if (id_form_search_input.value != "" || id_form_search_input.checked == true ) {
+    id_form_search_input.value = "";
+    id_form_search_input.checked = false;
+   }
+  } */
 
 /*
 let input_text_search_q = document.querySelector("#input_text_search_q");
@@ -1682,6 +1705,7 @@ let date_start = flatpickr("#input_date_start", {
       // static:true,
        altFormat: "m/d/Y",
       dateFormat: "Y-m-d",
+    //  defaultDate: "",  
       // minDate: 
       // altInputClass: "date_start_wiki",
       altInputClass: "date_start_published",
@@ -1730,6 +1754,7 @@ let date_start = flatpickr("#input_date_start", {
         // static:true,
          altFormat: "m/d/Y",
         dateFormat: "Y-m-d",
+      //  defaultDate: "",
         altInputClass: "date_end_published",
         onOpen: function(selectedDates, dateStr, instance) {   
           // btn_opendate_1.innerText = "CLOSE";

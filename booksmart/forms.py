@@ -392,9 +392,11 @@ class SearchRecord(forms.ModelForm):
         author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")], required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
         pass
 
-    published__gte = forms.DateField(label='Start date publish', widget=NumberInput(attrs={'type':'date', 'id':'input_date_start', 'placeholder':'mm/dd/yyyy', 'autocomplete':'off', 'maxlength':10, 'size':10, 'pattern':'^(0[1-9]|1[1,2])\/(0[1-9]|[12][0-9]|3[01])\/d{4}$'}), required=False)
+    published__gte = forms.DateField(label='Start date publish', widget=NumberInput(attrs={'type':'date', 'id':'input_date_start', 'placeholder':'mm/dd/yyyy', 'autocomplete':'off', 'maxlength':10, 'size':10, 'pattern':'^(0[1-9]|1[1,2])\/(0[1-9]|[12][0-9]|3[01])\/d{4}$', 'value':''}), required=False, initial="")
 
-    published__lt = forms.DateField(label='End date publish', widget=NumberInput(attrs={'type':'date', 'id':'input_date_end', 'placeholder':'mm/dd/yyyy', 'autocomplete':'off', 'maxlength':10, 'size':10, 'pattern':'^(0[1-9]|1[1,2])\/(0[1-9]|[12][0-9]|3[01])\/d{4}$'}), required=False)
+    published__lt = forms.DateField(label='End date publish', widget=NumberInput(attrs={'type':'date', 'id':'input_date_end', 'placeholder':'mm/dd/yyyy', 'autocomplete':'off', 'maxlength':10, 'size':10, 'pattern':'^(0[1-9]|1[1,2])\/(0[1-9]|[12][0-9]|3[01])\/d{4}$', 'value':''}), required=False, initial="")
+
+    # class DateField(input_formats: Optional[Any]=..., required: bool=..., widget: Optional[Union[Widget, Type[Widget]]]=..., label: Optional[Any]=..., initial: Optional[Any]=..., help_text: str=..., error_messages: Optional[Any]=..., show_hidden_initial: bool=..., validators: Sequence[Any]=..., localize: bool=..., disabled: bool=..., label_suffix: Optional[Any]=...)
 
     # published__gte = forms.DateField(label='Start date publish', required=False,widget=MyFlatPickrDateStart(format='%m/%d/%Y', attrs={'id':'input_date_start', 'placeholder':'mm/dd/yyyy', 'autocomplete':'off', 'maxlength':10, 'size':10, 'pattern':'^(0[1-9]|1[1,2])\/(0[1-9]|[12][0-9]|3[01])\/d{4}$'}))
     # published__lt = forms.DateField(label='End date publish', required=False,widget=MyFlatPickrDateEnd(format='%m/%d/%Y', attrs={'id':'input_date_end', 'placeholder':'mm/dd/yyyy', 'autocomplete':'off', 'maxlength':10, 'size':10, 'pattern':'^(0[1-9]|1[1,2])\/(0[1-9]|[12][0-9]|3[01])\/d{4}$'})) 
