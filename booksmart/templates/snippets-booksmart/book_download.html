@@ -431,16 +431,20 @@ function handleEventDocer(oEvent) {
 
 if ("{{pdf_links}}") {
 document.querySelector("#button_download_1").onclick = function() {
+    const download_div_1 = document.createElement("div");
     download_iframe_1 = '<iframe class="iframe_download" src="{{ download_links_1a }}" ></iframe><br><div class="download_book_text" > DOWNLOAD BOOK 1 </div>';
-    document.querySelector("#download_object_1").innerHTML = download_iframe_1;
+    download_div_1.innerHTML = download_iframe_1;
+    document.querySelector("#download_object_1").appendChild(download_div_1);
     setTimeout(function(){ 
       document.querySelector("#download_object_1").style.animation = "anime_pulse 2s 4";
     }, 1000);
     }
     
 document.querySelector("#button_download_2").onclick = function() {
-    download_iframe_2 = '<iframe class="iframe_download" src="{{ download_links_2a }}" ></iframe><br><div class="download_book_text" > DOWNLOAD BOOK 2 </div>';
-    document.querySelector("#download_object_2").innerHTML = download_iframe_2;
+    const download_div_2 = document.createElement("div");
+    download_iframe_2 = '<iframe class="iframe_download" src="{{ download_links_2a }}"></iframe><br><div class="download_book_text">DOWNLOAD BOOK 2</div>';
+    download_div_2.innerHTML = download_iframe_2;
+    document.querySelector("#download_object_2").appendChild(download_div_2);
     setTimeout(function(){ 
     document.querySelector("#download_object_2").style.animation = "anime_pulse 2s 4";
     }, 1000);
