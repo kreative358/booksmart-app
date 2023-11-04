@@ -3,8 +3,8 @@ from os import environ
 from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo
 from booksmart.forms import BookForm, AuthorForm, SearchRecord, BookChange, ItemsSearchForm, LibrarySearch, BackgroundFormPoster, BackgroundFormVideo
 from accounts.models import Account
-from booksmart.api.permissions import IsOwnerOrReadOnly #, IsOwnerIsAdminOrReadOnly
-
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer, HTMLFormRenderer #, IsOwnerIsAdminOrReadOnly
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny, IsAuthenticatedOrReadOnly
 from django.contrib import messages
 
 from django.contrib.auth import login, authenticate, logout
@@ -13,13 +13,12 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
-
-from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
+from accounts.views_authorization import *
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
-from rest_framework import permissions
 from rest_framework.generics import UpdateAPIView
 
 from rest_framework.exceptions import APIException
@@ -110,10 +109,10 @@ except:
     context_main['music_type_2'] = "mp3"
 
 
-# @api_view(['GET', 'POST'])
-# # @authentication_classes([])
-# @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-# @permission_classes([permissions.IsAuthenticated, ])
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def read_book(request, id):
 
     formlib = LibrarySearch(request.GET)
@@ -139,8 +138,8 @@ def read_book(request, id):
 
     context['mail'] = log[0]
     context['pass'] = log[1]
-    # return Response(context, template_name='read_book.html', )
-    return render(request, "read_book.html", context )
+    return Response(context, template_name='read_book.html', )
+    # return render(request, "read_book.html", context )
 
 
 # @api_view(['GET', 'POST'])
@@ -504,10 +503,10 @@ def read_book_ol(request, id):
     return render(request, "read_book_ol.html", context )
 
 
-@api_view(['POST', 'GET'])
-# @authentication_classes([])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-@permission_classes([permissions.IsAuthenticated, ])
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def new_book(request):
     r_user = request.user
     current_url_name = request.path
@@ -544,10 +543,10 @@ def new_book(request):
     return Response(context_a, template_name='new_book.html', )
 
 
-@api_view(['POST', 'GET'])
-# @authentication_classes([])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-@permission_classes([permissions.IsAuthenticated, IsOwnerOrReadOnly,])
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def edit_book(request, id):
     r_user = request.user
 
@@ -594,10 +593,10 @@ def edit_book(request, id):
     return Response(context_a, template_name='edit_book.html', )
     
 
-@api_view(['POST', 'GET'])
-# @authentication_classes([])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-@permission_classes([permissions.IsAuthenticated, IsOwnerOrReadOnly,])
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def delete_book(request, id):
 
     r_user = request.user
@@ -639,10 +638,10 @@ def delete_book(request, id):
 #         return redirect('allauthors')
 #     return render(request, 'new_author.html', {"form_author_c": form_author_c, 'new': True})
 
-@api_view(['POST', 'GET'])
-# @authentication_classes([])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-@permission_classes([permissions.IsAuthenticated,])
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def new_author(request):
 
     r_user = request.user
@@ -674,10 +673,10 @@ def new_author(request):
     
 
 
-@api_view(['POST', 'GET'])
-# @authentication_classes([])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-@permission_classes([permissions.IsAuthenticated, IsOwnerOrReadOnly]) # ,permissions.IsAdminUser
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def edit_author(request, id):
 
     r_user = request.user
@@ -740,10 +739,10 @@ def edit_author(request, id):
 
 #     return render(request, 'submita.html', {'author': author})
 
-@api_view(['POST', 'GET'])
-# @authentication_classes([])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
-@permission_classes([permissions.IsAuthenticated, IsOwnerOrReadOnly]) #, permissions.IsAdminr_user
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def delete_author(request, id):
     r_user = request.user
     current_url_name = request.path    
