@@ -211,8 +211,8 @@ def filter_results(results, filters, exact_match):
 
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticatedOrReadOnly])
-@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+# @permission_classes([IsAuthenticatedOrReadOnly])
+# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def download_book(request):
 
@@ -254,7 +254,7 @@ def download_book(request):
                 pdf_links = [s.resolve_download_links(item_to_download) for item_to_download in items_to_download if item_to_download["Ext."] == "pdf"] 
                 if pdf_links:
 
-                    print("pdf_links", pdf_links)
+                    # print("pdf_links", pdf_links)
                     context["pdf_links"] = pdf_links
                     context["len_pdf_links"] = len(pdf_links)
                     
@@ -263,11 +263,11 @@ def download_book(request):
 
                     if len(pdf_links) >= 2:
                         download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                        print("download_links_1a =", download_links_1a)
+                        # print("download_links_1a =", download_links_1a)
                         context["download_links_1a"] = download_links_1a
                         download_links_2a = pdf_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
                         context["download_links_2a"] = download_links_2a
-                        print("download_links_2a =", download_links_2a)
+                        # print("download_links_2a =", download_links_2a)
 
                         return Response(context, template_name='download_book.html',)
 
