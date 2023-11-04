@@ -429,29 +429,23 @@ function handleEventDocer(oEvent) {
     }
 } 
 
-
-  var button_download_1 = document.getElementById("button_download_1");
-  var button_download_2 = document.getElementById("button_download_2");
-  var download_object_1 = document.getElementById("download_object_1");
-  var download_object_2 = document.getElementById("download_object_2"); 
-
-    
-  button_download_1.onclick = function() {
+if ("{{pdf_links}}") {
+document.querySelector("#button_download_1").onclick = function() {
     download_iframe_1 = '<iframe class="iframe_download" src="{{ download_links_1a }}" ></iframe><br><div class="download_book_text" > DOWNLOAD BOOK 1 </div>';
-    download_object_1.innerHTML = download_iframe_1;
+    document.querySelector("#download_object_1").innerHTML = download_iframe_1;
     setTimeout(function(){ 
-      download_object_1.style.animation = "anime_pulse 2s 4";
+      document.querySelector("#download_object_1").style.animation = "anime_pulse 2s 4";
     }, 1000);
     }
     
-    button_download_2.onclick = function() {
+document.querySelector("#button_download_2").onclick = function() {
     download_iframe_2 = '<iframe class="iframe_download" src="{{ download_links_2a }}" ></iframe><br><div class="download_book_text" > DOWNLOAD BOOK 2 </div>';
-    download_object_2.innerHTML = download_iframe_2;
+    document.querySelector("#download_object_2").innerHTML = download_iframe_2;
     setTimeout(function(){ 
-      download_object_2.style.animation = "anime_pulse 2s 4";
+    document.querySelector("#download_object_2").style.animation = "anime_pulse 2s 4";
     }, 1000);
     } 
-
+  }
 
   </script>
   
