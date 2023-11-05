@@ -138,6 +138,25 @@
 
         {% block content_4 %}
 
+  
+  {% if book_obj %}
+       
+  <div class="container_fluid_my"  style="position:relative;z-index:12 ; margin: 20px auto 20px auto; width: 800px; max-width: 90%; background-color: transparent">
+    <div class="myrow_fluid_my">
+    <div class="mycolumn_fluid_my">    
+  </div>
+  </div>
+  </div>
+  
+{% include 'snippets-booksmart/books_bar.html' %}
+
+{% for book in book_obj %}
+{% include 'snippets-booksmart/book.html' %}
+
+{% endfor %}
+{% include 'snippets-booksmart/pagination.html' %}
+{% endif %}
+
 
 
        {% if book_page_obj %}
@@ -151,60 +170,58 @@
 
        {% endfor %}
 
-       {% endif %}
+
        <style type="text/css">
 
         .mycontainer_pagination {
-          position:relative;
-          z-index: 12;
-          margin: -10px 5% 2vw auto;
-          width: 600px;
-          max-width:96%;
-          float: right;
-          display: flex;
-          align-content: right;
-          padding: auto;
-          color: blue;
-          
-      }
-      .myrow_pagination,
-      .mycolumn_pagination {
-      max-width: 100%;
+            position:relative;
+            z-index: 12;
+            margin: -10px 5% 2vw auto;
+            width: 600px;
+            max-width:96%;
+            float: right;
+            display: flex;
+            align-content: right;
+            padding: auto;
+            color: blue;
+        }
+        .myrow_pagination,
+        .mycolumn_pagination {
+        max-width: 100%;
+        
+        }
+        
+        .pagination_temp {
+            text-align:right;
+            display: inline-block; 
+            font-size:30px;
+            font-weight: bold;
+            padding:10px;
+            text-align-last: right;
+            justify-content: right;
+            width:580px;
+            max-width:96%;
+        }
+        
+        @media screen and (max-width: 640px) {
+        .pagination_temp {
+        font-size:26px;
+        }
+        }
       
-      }
-      
-      .mypagination {
-          text-align:right;
-          display: inline-block; 
-          font-size:30px;
-          font-weight: bold;
-          padding:10px;
-          text-align-last: right;
-          justify-content: right;
-          width:580px;
-          max-width:96%;
-      }
-      
-      @media screen and (max-width: 640px) {
-      .mypagination {
-      font-size:26px;
-      }
-      }
-      
-      @media screen and (max-width: 480px) {
-        .mypagination {
+         @media screen and (max-width: 480px) {
+        .pagination_temp {
         font-size:22px;
         }
-      }
-      
-      </style>
-      
-      <div class="mycontainer_pagination" id="mycontainer_pagination_id">      
-        <div class="myrow_pagination">
-          <div class="mycolumn_pagination"  >
-            <div class="mypagination"><!-- justify-content-end-->
-      
-          <span class="step-links">  
+        }
+        </style>
+            
+            <div class="mycontainer_pagination" id="mycontainer_pagination_id">      
+              <div class="myrow_pagination">
+                <div class="mycolumn_pagination"  >
+                  <div class="pagination_temp">
+
+          <span class="step-links"><h3>
               {% if book_page_obj.has_previous %}
                   <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
                   <a href="{% my_url book_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
@@ -218,14 +235,13 @@
               {% if book_page_obj.has_next %}
                   <a href="{% my_url book_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
                   <a href="{% my_url book_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
-              {% endif %}
-          </span>  
-      
+              {% endif %}</h3>
+          </span>      
         </div>       
       </div>
-      </div>
-      </div>
-
+   </div>
+ </div>
+{% endif %}
 
 {% endblock content_4 %}
 

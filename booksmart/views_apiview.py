@@ -875,8 +875,10 @@ def records_view_get(request):
         # print('dict_values = ', dict_values)
         print('elif dict_values != "":')
 
-    book_page_obj = context_get["books_result_queryset_list_sort"]
-    paginated_filtered_books = Paginator(book_page_obj, 10) 
+    # book_page_obj = context_get["books_result_queryset_list_sort"]
+    filtered_books = context_get["books_result_queryset_list_sort"]
+    # paginated_filtered_books = Paginator(book_page_obj, 10) 
+    paginated_filtered_books = Paginator(filtered_books, 10) 
     page_number = request.GET.get('page')
     book_page_obj = paginated_filtered_books.get_page(page_number)
     context_get['book_page_obj'] = book_page_obj
@@ -1024,6 +1026,7 @@ def records_view_post(request):
                     context_post["search_resultA"] = search_resultA
 
 
+        print('context_post["search_resultB_Q"] =', len(context_post["search_resultB_Q"]))
         print('len(context_post["search_resultB"] =', len(context_post["search_resultB"]))
         print('len(context_post["search_resultA"] =', len(context_post["search_resultA"]))
         num_books_result_Q = len(context_post["search_resultB"])
@@ -1045,37 +1048,37 @@ def records_view_post(request):
         # page_obj = paginator.get_page(page_number)
         # context['page_obj'] = page_obj
         # return render(request, 'records.html', context)
-        filtered_books = context_post["search_resultB"]
+        # filtered_books = context_post["search_resultB"]
         # filtered_books = books_result.reverse()
         # print('filtered_books', filtered_books)
 
         filtered_books = context_post["search_resultB_Q"]
-        context_post['filtered_books'] = filtered_books
+        #context_post['filtered_books'] = filtered_books
         
-        paginated_filtered_books = Paginator(context_post['filtered_books'], 10) 
+        paginated_filtered_books = Paginator(filtered_books, num_books_result_Q) 
         # paginated_filtered_books = Paginator(context_post['filtered_books'], 10) 
         page_number = request.GET.get('page')
         book_page_obj = paginated_filtered_books.get_page(page_number)
         context['book_page_obj'] = book_page_obj
         # print(book_page_obj)
-        keywords_fields = {}
+        # keywords_fields = {}
         # print('return keywords_fields:', keywords_fields)
         return Response(context, template_name='records_post.html', )
 
-    print('views_apiview 1081')
-    # book_sort = BookSort()
-    # search_form = SearchRecord()
-    # author = BooksAuthor()
-    form_search = ItemsSearchForm() 
-    # form_search = ItemsSearchForm(request.POST)
-    # context['book_sort'] = book_sort
-    # context['search_form'] = search_form
-    # context['search_author'] = author
-    context['form_search'] = form_search
-    # context['form_search'] = ItemsSearchForm()
+    # print('views_apiview 1081')
+    # # book_sort = BookSort()
+    # # search_form = SearchRecord()
+    # # author = BooksAuthor()
+    # form_search = ItemsSearchForm() 
+    # # form_search = ItemsSearchForm(request.POST)
+    # # context['book_sort'] = book_sort
+    # # context['search_form'] = search_form
+    # # context['search_author'] = author
+    # context['form_search'] = form_search
+    # # context['form_search'] = ItemsSearchForm()
 
-    # return Response(context, template_name='records.html', )
-    return Response(context, template_name='records_post.html', )
+    # # return Response(context, template_name='records.html', )
+    # return Response(context, template_name='records_post.html', )
 
 
     # https://stackoverflow.com/questions/71814729/sort-search-results-in-django

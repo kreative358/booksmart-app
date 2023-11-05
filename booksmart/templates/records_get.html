@@ -244,7 +244,7 @@
                 <div class="mycolumn_pagination"  >
                   <div class="pagination_temp">
 
-          <span class="step-links"><h3>
+          <span class="step-links">
               {% if book_page_obj.has_previous %}
                   <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
                   <a href="{% my_url book_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
@@ -258,7 +258,7 @@
               {% if book_page_obj.has_next %}
                   <a href="{% my_url book_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
                   <a href="{% my_url book_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
-              {% endif %}</h3>
+              {% endif %}
           </span>      
         </div>       
       </div>
