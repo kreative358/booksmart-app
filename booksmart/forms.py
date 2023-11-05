@@ -412,13 +412,13 @@ class SearchRecord(forms.ModelForm):
 
     # author_details_q = forms.BooleanField(label='with author details', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_author_details_q', 'required':'False', 'type':'checkbox','name':"name_author_details_q"}))
 
-    author_details_q = forms.BooleanField(label='with author details', initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_author_details_q',  'type':'checkbox', 'name':"name_author_details_q"}))
+    author_details_q = forms.BooleanField(label='with author details', required=False, initial=False, widget=forms.CheckboxInput(attrs={'id':'input_checkbox_author_details_q',  'type':'checkbox', 'name':"name_author_details_q"}))
 
     # class ChoiceField(choices: Union[_FieldChoices, Callable[[], _FieldChoices]]=..., required: bool=..., widget: Optional[Union[Widget, Type[Widget]]]=..., label: Optional[Any]=..., initial: Optional[Any]=..., help_text: str=..., error_messages: Optional[Any]=..., show_hidden_initial: bool=..., validators: Sequence[Any]=..., localize: bool=..., disabled: bool=..., label_suffix: Optional[Any]=...)
  
     class Meta:
         model= Book
-        fields = ['user_num_b', 'epub', 'title', 'author', 'google_id', 'language', 'published__gte', 'published__lt', 'owner__username', 'author_list', 'ordering'] # , 'user_owner'
+        fields = ['user_num_b', 'epub', 'title', 'author', 'google_id', 'language', 'published__gte', 'published__lt', 'owner__username', 'author_list', 'ordering', 'author_details_q'] # , 'user_owner'
         # fields_order = ['title', 'surname']
 
     # author_c = forms.ChoiceField(queryset=None, label= 'Choose author', required=False, widget=forms.Select(attrs={'id':'bs_input_c'}))

@@ -271,6 +271,7 @@ class LoginView(GenericAPIView):
                     # print("login initial_val['current_url']:", initial_val['current_url'] )
                     msgs = ['INFORMATION:<br>', 'You logged in successfully']
                     messages.info(request, ''.join(msg for msg in msgs))
+                    print('LoginView f {initial_val["current_url"]} =', f"{initial_val['current_url']}")
                     return redirect(f"{initial_val['current_url']}")
             
                 else:

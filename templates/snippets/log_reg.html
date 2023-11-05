@@ -1,19 +1,19 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
   <script> 
   var log_reg = $.noConflict()
   log_reg(document).ready(function(){
     log_reg("#collapsible").click(function(){
-      log_reg("#content_collapsible").slideToggle(3000);
+      log_reg("#content_collapsible").slideToggle("slow");
     });
     log_reg("#collapsible").mouseenter(function(){
-      log_reg("#myBtna").toggle(2000);
-      log_reg("#myBtn1a").toggle(2000);
-      log_reg("#myBtn").toggle(2000);
-      log_reg("#myBtn1").toggle(2000);
-      log_reg("#myBtn_dark_back").toggle(2000);
-      log_reg("#myBtn_dark_back_s").toggle(2000);
-      log_reg("#myBtn_mail_sender").toggle(2000);
+      log_reg("#myBtna").toggle("slow");
+      log_reg("#myBtn1a").toggle("slow");
+      log_reg("#myBtn").toggle("slow");
+      log_reg("#myBtn1").toggle("slow");
+      log_reg("#myBtn_dark_back").toggle("slow");
+      log_reg("#myBtn_dark_back_s").toggle("slow");
+      log_reg("#myBtn_mail_sender").toggle("slow");
     });
   });
   </script>
@@ -38,18 +38,20 @@
       </div>
     </div>
     
-    <div class="container-fluid" style="" id="main_cont_collapsible">
+    <!--<div class="container-fluid" style="" id="main_cont_collapsible">
     	<div class="d-flex flex-column" style="" id="d_flex">
-    
-    <div class="m-auto" id="content_collapsible">
+      <div class="m-auto" id="content_collapsible">-->
+      <div class="container_fluid_collapsible" style="" id="main_cont_collapsible">
+      <div class="d_flex_flex_column" style="" id="d_flex_flex_column_id">
+      <div class="m_auto" id="content_collapsible">
       
         <p class="" style="animation: anime-text-red 2s infinite; margin-top: 30px; margin-bottom: 30px; color: rgba(0, 0, 220, 0.9)">TO USE THE APP <br>TO OPEN THE GATE :) <br> YOU MUST BE LOGGED IN<br>IF YOU DON'T HAVE<br>ACCOUNT CREATE IT </p>
         
 
   
-      <div class="btn_in notranslate"  id="btn_signin" style="margin-bottom: 4px; padding-bottom: 2px;"><p class="h5vw_btn" > sign in </p></div>
+      <div class="btn_in notranslate"  id="btn_signin" ><p class="h5vw_btn" id="p_btn_signin"> SIGN IN </p></div>
       
-      <div class="btn_in notranslate" id="btn_login" style="margin-bottom: 4px; padding-bottom: 2px;" ><p class="h5vw_btn">  log in </p></div>
+      <div class="btn_in notranslate" id="btn_login"  ><p class="h5vw_btn" id="p_btn_login">  LOG IN </p></div>
    
       <br>
       <!-- The Modal -->
