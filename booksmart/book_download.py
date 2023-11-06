@@ -213,7 +213,7 @@ def filter_results(results, filters, exact_match):
 @api_view(['GET', 'POST'])
 # @permission_classes([IsAuthenticatedOrReadOnly])
 # @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def download_book(request):
 
     # book = get_object_or_404(Book, pk=id)
@@ -224,34 +224,34 @@ def download_book(request):
     num_authors = Author.objects.all().count()
 
     context = context_main
-    title_download = ""
-    context["title_download"] = ""
-    context["title_read_last_chance"] = ""
     context['num_authors'] = num_authors
     context['num_books'] = num_books    
 
     formlib_download = BookDownload(request.GET)
 
     links_to_download = []
-    s = LibgenSearch()
+    search_libgen = LibgenSearch()
     # if request.method == "POST":
     #     if request.POST.get('title_download_search', False):
 
     # results = s.search_title("Harry Potter i zakon feniksa")
     # print('results', results)
-
+    pdf_links = []
+    title_download = ""
+    context["title_download"] = ""
+    context["title_read_last_chance"] = ""
     if formlib_download.is_valid():
         title_download=formlib_download.cleaned_data['title_download_search']
         print("1. title_download", title_download)
         context["title_download"] = title_download
         title_docer_pdf = title_download.replace(" ", "+")
         context["title_read_last_chance"] = f"https://docer.pl/show/?q={title_docer_pdf}&ext=pdf" 
-        results = s.search_title(title_download)
+        results = search_libgen.search_title(title_download)
 
         if results:
             try:
                 items_to_download = results
-                pdf_links = [s.resolve_download_links(item_to_download) for item_to_download in items_to_download if item_to_download["Ext."] == "pdf"] 
+                pdf_links = [search_libgen.resolve_download_links(item_to_download) for item_to_download in items_to_download if item_to_download["Ext."] == "pdf"] 
                 if pdf_links:
 
                     # print("pdf_links", pdf_links)

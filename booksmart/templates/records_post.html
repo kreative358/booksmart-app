@@ -1,5 +1,5 @@
 {% extends 'base_ds.html' %}
-{% load booksmart_extras %}
+{% load booksmart_extras %} 
 {% load bootstrap4 %}
 {% block title %} found-records {% endblock %}
 
@@ -151,7 +151,7 @@
 
        {% endfor %}
 
-       {% endif %}
+       
        <style type="text/css">
 
         .mycontainer_pagination {
@@ -204,29 +204,29 @@
           <div class="mycolumn_pagination"  >
             <div class="mypagination"><!-- justify-content-end-->
       
-          <span class="step-links">  
-              {% if book_page_obj.has_previous %}
-                  <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
-                  <a href="{% my_url book_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
-                  
-              {% endif %}
-      
-              <span class="current">
-                  Page {{ book_page_obj.number }} of {{ book_page_obj.paginator.num_pages }}.
-              </span>
-      
-              {% if book_page_obj.has_next %}
-                  <a href="{% my_url book_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
-                  <a href="{% my_url book_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
-              {% endif %}
-          </span>  
+              <span class="step-links">
+                {% if book_page_obj.has_previous %}
+                    <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; first</a>
+                    <a href="{% my_url book_page_obj.previous_page_number 'page' request.GET.urlencode %}">previous</a>
+                    
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ book_page_obj.number }} of {{ book_page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if book_page_obj.has_next %}
+                    <a href="{% my_url book_page_obj.next_page_number 'page' request.GET.urlencode %}">next</a>
+                    <a href="{% my_url book_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">last &raquo;</a>
+                {% endif %}
+            </span>  
       
         </div>       
       </div>
       </div>
       </div>
 
-
+      {% endif %}
 {% endblock content_4 %}
 
 

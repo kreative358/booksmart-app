@@ -875,8 +875,10 @@ def records_view_get(request):
         # print('dict_values = ', dict_values)
         print('elif dict_values != "":')
 
-    # book_page_obj = context_get["books_result_queryset_list_sort"]
     filtered_books = context_get["books_result_queryset_list_sort"]
+    
+    # book_page_obj = context_get["books_result_queryset_list_sort"]
+    # filtered_books = context_get["books_result_queryset_list_sort"]
     # paginated_filtered_books = Paginator(book_page_obj, 10) 
     paginated_filtered_books = Paginator(filtered_books, 10) 
     page_number = request.GET.get('page')
@@ -931,24 +933,20 @@ def records_view_post(request):
     context['parameters_post'] =  ""
     context["form_search_post"] = "no"
 
-    parameters = ""
-    values = ""
     search_resultA = []
     search_resultB = []
     form_search = ItemsSearchForm(request.POST)
-    context['form_search'] = form_search
-    keywords_fields = {}
     context_post = {}
     filter_dict = {}
-    searc_phrase = ""
-    if not form_search.is_valid(): 
-        return redirect('booksmart:allrecords')  #()
-        # return redirect(current_url_name)
-        #  return redirect('/')
-    
-    elif form_search.is_valid():
+    context["search_phrase"] = ""
+    context_post["values"] = ""
+
+    if form_search.is_valid():
+        print("if form_search.is_valid():")
         search_phrase = form_search.cleaned_data['search_field']
-        values = search_phrase
+        
+        context["search_phrase"] = search_phrase
+        values = context["search_phrase"]
         context_post["values"] = values
         print("[context_post'values'] =", context_post["values"])
         #  context['parameters'] = values
@@ -976,8 +974,14 @@ def records_view_post(request):
 
         # search_word = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
         # search_result = all_books.filter(title__icontains=title, author__icontains=author, google_id=google_id, language=language, published__gte=published_start, published_lte=pbulished_end)
-        context_post["search_resultB_Q"] = search_resultB_Q
-        search_resultB = [found_book for found_book in search_resultB_Q]
+        
+        search_resultB_Q_distinct_sort = search_resultB_Q.distinct().order_by("title")
+        context_post["search_resultB_Q_distinct_sort"] = search_resultB_Q_distinct_sort
+        # print('search_resultB_Q =', search_resultB_Q)
+
+
+        # search_resultB = [found_book for found_book in search_resultB_Q]
+        search_resultB = [found_book for found_book in search_resultB_Q_distinct_sort]
         context_post["search_resultB"] = search_resultB
         search_resultAb = [found_author for found_author in search_resultAb_Q]
         search_resultA = []
@@ -1025,8 +1029,15 @@ def records_view_post(request):
                     search_resultA = []
                     context_post["search_resultA"] = search_resultA
 
+        elif not form_search.is_valid(): 
 
-        print('context_post["search_resultB_Q"] =', len(context_post["search_resultB_Q"]))
+            print("elif not form_search.is_valid(): ")
+            return redirect('booksmart:allrecords')  #()
+            # return redirect(current_url_name)
+            #  return redirect('/')
+
+
+        
         print('len(context_post["search_resultB"] =', len(context_post["search_resultB"]))
         print('len(context_post["search_resultA"] =', len(context_post["search_resultA"]))
         num_books_result_Q = len(context_post["search_resultB"])
@@ -1043,33 +1054,21 @@ def records_view_post(request):
         context['author_objects'] = context_post["search_resultA"]
         context["search_resultA"] = context_post["search_resultA"]
         context["search_resultB"] = context_post["search_resultB"]
-        # paginator = Paginator(search_resultB, 3)
-        # page_number = request.GET.get('page', 1)
-        # page_obj = paginator.get_page(page_number)
-        # context['page_obj'] = page_obj
-        # return render(request, 'records.html', context)
-        # filtered_books = context_post["search_resultB"]
-        # filtered_books = books_result.reverse()
-        # print('filtered_books', filtered_books)
 
-        filtered_books = context_post["search_resultB_Q"]
-        #context_post['filtered_books'] = filtered_books
-        
+       
+        filtered_books = context_post["search_resultB"]
         paginated_filtered_books = Paginator(filtered_books, num_books_result_Q) 
-        # paginated_filtered_books = Paginator(context_post['filtered_books'], 10) 
-        page_number = request.GET.get('page')
+        page_number = request.GET.get('page', 1)
         book_page_obj = paginated_filtered_books.get_page(page_number)
         context['book_page_obj'] = book_page_obj
-        # print(book_page_obj)
-        # keywords_fields = {}
-        # print('return keywords_fields:', keywords_fields)
+
         return Response(context, template_name='records_post.html', )
 
     # print('views_apiview 1081')
     # # book_sort = BookSort()
     # # search_form = SearchRecord()
     # # author = BooksAuthor()
-    # form_search = ItemsSearchForm() 
+    # form_search = ItemsSearchForm(request.POST) 
     # # form_search = ItemsSearchForm(request.POST)
     # # context['book_sort'] = book_sort
     # # context['search_form'] = search_form
