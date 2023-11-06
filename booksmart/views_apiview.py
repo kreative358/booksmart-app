@@ -128,7 +128,7 @@ def all_records(request):
     book_add_last = Book.objects.all().order_by('-id') 
 
     # all_books = Book.objects.all().order_by("title")
-    all_books = Book.objects.all()
+    all_books = Book.objects.all().order_by('title')
     all_authors = Author.objects.all()
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
@@ -160,22 +160,27 @@ def all_records(request):
         field_sorting = book_sort.cleaned_data['sorting']
 
         if field_sorting != '':
+            all_books = Book.objects.all().order_by(field_sorting)
+            context['allbooks'] = all_books
             sort_kind.append(field_sorting)
 
         elif field_sorting == '':
-            print("167 views_apiview")
+            all_books = Book.objects.all().order_by('title')
+            context['allbooks'] = all_books
     
-    all_books = Book.objects.all().order_by(sort_kind[-1])
-    context['allbooks'] = all_books
+        # all_books = Book.objects.all().order_by(sort_kind[-1])
+        # context['allbooks'] = all_books
 
-    context['current_url'] = current_url_name
+        filtered_books = context['allbooks']
 
-    filtered_books = all_books
+        paginated_filtered_books = Paginator(filtered_books, 10) 
+        page_number = request.GET.get('page')
+        book_page_obj = paginated_filtered_books.get_page(page_number)
+        context['book_page_obj'] = book_page_obj
+        return Response(context, template_name='allrecords.html', )
 
-    paginated_filtered_books = Paginator(filtered_books, 10) 
-    page_number = request.GET.get('page')
-    book_page_obj = paginated_filtered_books.get_page(page_number)
-    context['book_page_obj'] = book_page_obj
+    book_sort = BookSort(request.GET)
+    context['book_sort'] = book_sort
     return Response(context, template_name='allrecords.html', )
     # return render(request, 'allrecords.html', context)
 
@@ -548,13 +553,13 @@ def records_view_get(request):
     
     context_get['user_id'] = r_user.id 
     author = BooksAuthor()
-    form_search = ItemsSearchForm()
+    form_search_post = ItemsSearchForm()
     book_sort = BookSort(request.GET)
-    search_form = SearchRecord(request.GET)
+    form_search_get = SearchRecord(request.GET)
 
     context_get['search_author'] = author
-    context_get['search_form'] = search_form
-    context_get['form_search'] = form_search
+    # context_get['search_form'] = search_form
+    context_get['form_search'] = form_search_post
     context_get['book_sort'] = book_sort
 
     min_date = Book.objects.aggregate(Min('published'))
@@ -587,304 +592,308 @@ def records_view_get(request):
     context_get["search_ordering"] = "title"
     context_get["author_details_q"] = "False"
 
-    if not search_form.is_valid():
+    if not form_search_get.is_valid():
         print("not search_form.is_valid()")
         try:
             
             context_get["form_search_get_book"] = "yes"  ###
             
-            keywords_fields["user_num_b"] = r_user.id if str(search_form.cleaned_data["user_num_b"]) == "True" else ""
+            keywords_fields["user_num_b"] = r_user.id if str(form_search_get.cleaned_data["user_num_b"]) == "True" else ""
 
-            keywords_fields["epub"] = "yes" if str(search_form.cleaned_data["epub"]) == "True" else ""
+            keywords_fields["epub"] = "yes" if str(form_search_get.cleaned_data["epub"]) == "True" else ""
 
-            keywords_fields['title__icontains'] = search_form.cleaned_data['title']
+            keywords_fields['title__icontains'] = form_search_get.cleaned_data['title']
 
-            keywords_fields['author__icontains'] = search_form.cleaned_data['author']
+            keywords_fields['author__icontains'] = form_search_get.cleaned_data['author']
 
-            keywords_fields['language'] = search_form.cleaned_data["language"]
+            keywords_fields['language'] = form_search_get.cleaned_data["language"]
 
-            keywords_fields['google_id'] = search_form.cleaned_data["google_id"]
+            keywords_fields['google_id'] = form_search_get.cleaned_data["google_id"]
 
-            keywords_fields['published__gte'] = search_form.cleaned_data["published__gte"]
+            keywords_fields['published__gte'] = form_search_get.cleaned_data["published__gte"]
 
-            keywords_fields['published__lt'] = search_form.cleaned_data["published__lt"]
+            keywords_fields['published__lt'] = form_search_get.cleaned_data["published__lt"]
 
-            keywords_fields["owner__username__icontains"] = search_form.cleaned_data["owner__username"]
+            keywords_fields["owner__username__icontains"] = form_search_get.cleaned_data["owner__username"]
 
-            keywords_fields["author"] = search_form.cleaned_data["author_list"]
+            keywords_fields["author"] = form_search_get.cleaned_data["author_list"]
 
-            context_get["search_ordering"] = search_form.cleaned_data["ordering"] if search_form.cleaned_data["ordering"] != "" else "title"
+            context_get["search_ordering"] = form_search_get.cleaned_data["ordering"] if form_search_get.cleaned_data["ordering"] != "" else "title"
  
-            context_get["author_details_q"] = str(search_form.cleaned_data["author_details_q"])
+            context_get["author_details_q"] = str(form_search_get.cleaned_data["author_details_q"])
 
         except Exception as e:
             print(f"633 Exception", e)
-    else:
+    elif form_search_get.is_valid():
         try:
             
             context_get["form_search_get_book"] = "yes"  ###
             
-            keywords_fields["user_num_b"] = r_user.id if str(search_form.cleaned_data["user_num_b"]) == "True" else ""
+            keywords_fields["user_num_b"] = r_user.id if str(form_search_get.cleaned_data["user_num_b"]) == "True" else ""
 
-            keywords_fields["epub"] = "yes" if str(search_form.cleaned_data["epub"]) == "True" else ""
+            keywords_fields["epub"] = "yes" if str(form_search_get.cleaned_data["epub"]) == "True" else ""
 
-            keywords_fields['title__icontains'] = search_form.cleaned_data['title']
+            keywords_fields['title__icontains'] = form_search_get.cleaned_data['title']
 
-            keywords_fields['author__icontains'] = search_form.cleaned_data['author']
+            keywords_fields['author__icontains'] = form_search_get.cleaned_data['author']
 
-            keywords_fields['language'] = search_form.cleaned_data["language"]
+            keywords_fields['language'] = form_search_get.cleaned_data["language"]
 
-            keywords_fields['google_id'] = search_form.cleaned_data["google_id"]
+            keywords_fields['google_id'] = form_search_get.cleaned_data["google_id"]
 
-            keywords_fields['published__gte'] = search_form.cleaned_data["published__gte"]
+            keywords_fields['published__gte'] = form_search_get.cleaned_data["published__gte"]
 
-            keywords_fields['published__lt'] = search_form.cleaned_data["published__lt"]
+            keywords_fields['published__lt'] = form_search_get.cleaned_data["published__lt"]
 
-            keywords_fields["owner__username__icontains"] = search_form.cleaned_data["owner__username"]
+            keywords_fields["owner__username__icontains"] = form_search_get.cleaned_data["owner__username"]
 
-            keywords_fields["author"] = search_form.cleaned_data["author_list"]
+            keywords_fields["author"] = form_search_get.cleaned_data["author_list"]
 
-            context_get["search_ordering"] = search_form.cleaned_data["ordering"] if search_form.cleaned_data["ordering"] != "" else "title"
+            context_get["search_ordering"] = form_search_get.cleaned_data["ordering"] if form_search_get.cleaned_data["ordering"] != "" else "title"
  
-            context_get["author_details_q"] = str(search_form.cleaned_data["author_details_q"])
+            context_get["author_details_q"] = str(form_search_get.cleaned_data["author_details_q"])
         except Exception as e:
             print(f"686 Exception", e)
 
     # print("keywords_fields =", keywords_fields)
-    if context_get["author_details_q"] == "False":
-        context_get["form_search_get_author"] = "no"
-    elif context_get["author_details_q"] == "True":
-        context_get["form_search_get_author"] = "yes"
+        if context_get["author_details_q"] == "False":
+            context_get["form_search_get_author"] = "no"
+        elif context_get["author_details_q"] == "True":
+            context_get["form_search_get_author"] = "yes"
 
-    # if len(kewords_fields.values) != 0:
-    for val in keywords_fields.values():
-        if not val != '' and not val != None:
-            msgs = ["It is necessary to pass any params to search"]
-            contex_get["no_params"] = "no params"
+        # if len(kewords_fields.values) != 0:
+        for val in keywords_fields.values():
+            if not val != '' and not val != None:
+                msgs = ["It is necessary to pass any params to search"]
+                contex_get["no_params"] = "no params"
+                messages.info(request, "".join(msg for msg in msgs))
+                return Response(context_get, template_name='allrecords.html', )
+
+        
+        if keywords_fields['published__gte'] != None and keywords_fields['published__gte'] != '':
+            # keywords_fields['published__gte'] = search_published__gte.strftime('%Y-%m-%d')  
+            keywords_fields['published__gte'] = keywords_fields['published__gte'].strftime('%Y-%m-%d')
+        else:
+            keywords_fields['published__gte'] = None
+
+        if keywords_fields['published__lt']:
+            # d = search_published__lt
+            # keywords_fields['published__lt'] = d.strftime('%Y-%m-%d')  
+            keywords_fields['published__lt'] = keywords_fields['published__lt'].strftime('%Y-%m-%d')
+        else:
+            keywords_fields['published__lt'] = None
+
+        keywords_fields_items = list(keywords_fields.items())
+        # print("keywords_fields_items =", keywords_fields_items)
+        # query = '&'.join([f"{k}={v.replace(' ','+')}" if v == type(str) else f'{k}=' for k, v in keywords_fields.items()])
+        # print("query", query)
+
+        parameters_list = []
+
+        for key, value in keywords_fields_items:
+            if value != '' and value != None and not isinstance(value, int):
+                # parameters_list.append((key, value))
+                parameters_list.append((str(key).replace("__gte", "-start").replace("__lt", "-end").replace("__icontains", "").replace("__contains", ""), value))
+                filter_dict[key] = value
+            elif isinstance(value, int):
+                filter_dict[key] = f"{value}"
+
+        # print("filter_dict =", filter_dict)
+        # print("parameters_list=", parameters_list)
+        if len(parameters_list) == 0:
+            context_get['parameters'] = ""
+            context_get['parameters_get'] = ""
+
+        # if len(keywords_fields.values()) == 2:
+        elif len(parameters_list) == 1:
+
+            parameters = f"{parameters_list[0][0]}: {parameters_list[0][1]}"
+            context_get['parameters'] = parameters
+            context_get['parameters_get'] = parameters
+            
+        elif len(parameters_list) > 1:
+            # print(f'2 parameters_list line 559: {parameters_list}')
+            parameters = ',<br>'.join([': '.join([str(e)[:e.index('_')] if not isinstance(e, int) and '_' in e else e if not isinstance(e, int) else str(e) for e in el]) for el in parameters_list])
+            context_get['parameters'] = parameters
+            context_get['parameters_get'] = parameters
+            
+        key = ''.join(filter_dict.keys())
+        val = ''.join(filter_dict.values())
+
+        
+        books_result_queryset_distinct = []
+        books_result_queryset = []
+        books_result_title = [] # list with books title
+        books_title = []
+        books_result_queryset_list_sort = [] # queryset list with books
+
+        if not filter_dict:
+            all_books_sort = Book.objects.all().order_by(context_get["search_ordering"])
+            # books_result_queryset.extend(list(all_books_sort))
+            books_result_queryset_list_sort.extend(all_books_sort)
+            msgs = ["You should enter some parameters for the search to work",]
+            context_get['no_params'] = "no params"
             messages.info(request, "".join(msg for msg in msgs))
             return Response(context_get, template_name='allrecords.html', )
-
-    
-    if keywords_fields['published__gte'] != None and keywords_fields['published__gte'] != '':
-        # keywords_fields['published__gte'] = search_published__gte.strftime('%Y-%m-%d')  
-        keywords_fields['published__gte'] = keywords_fields['published__gte'].strftime('%Y-%m-%d')
-    else:
-        keywords_fields['published__gte'] = None
-
-    if keywords_fields['published__lt']:
-        # d = search_published__lt
-        # keywords_fields['published__lt'] = d.strftime('%Y-%m-%d')  
-        keywords_fields['published__lt'] = keywords_fields['published__lt'].strftime('%Y-%m-%d')
-    else:
-        keywords_fields['published__lt'] = None
-
-    keywords_fields_items = list(keywords_fields.items())
-    # print("keywords_fields_items =", keywords_fields_items)
-    # query = '&'.join([f"{k}={v.replace(' ','+')}" if v == type(str) else f'{k}=' for k, v in keywords_fields.items()])
-    # print("query", query)
-
-    parameters_list = []
-
-    for key, value in keywords_fields_items:
-        if value != '' and value != None and not isinstance(value, int):
-            # parameters_list.append((key, value))
-            parameters_list.append((str(key).replace("__gte", "-start").replace("__lt", "-end").replace("__icontains", "").replace("__contains", ""), value))
-            filter_dict[key] = value
-        elif isinstance(value, int):
-            filter_dict[key] = f"{value}"
-
-    # print("filter_dict =", filter_dict)
-    # print("parameters_list=", parameters_list)
-    if len(parameters_list) == 0:
-        context_get['parameters'] = ""
-        context_get['parameters_get'] = ""
-
-    # if len(keywords_fields.values()) == 2:
-    elif len(parameters_list) == 1:
-
-        parameters = f"{parameters_list[0][0]}: {parameters_list[0][1]}"
-        context_get['parameters'] = parameters
-        context_get['parameters_get'] = parameters
-        
-    elif len(parameters_list) > 1:
-        # print(f'2 parameters_list line 559: {parameters_list}')
-        parameters = ',<br>'.join([': '.join([str(e)[:e.index('_')] if not isinstance(e, int) and '_' in e else e if not isinstance(e, int) else str(e) for e in el]) for el in parameters_list])
-        context_get['parameters'] = parameters
-        context_get['parameters_get'] = parameters
-        
-    key = ''.join(filter_dict.keys())
-    val = ''.join(filter_dict.values())
-
-    
-    books_result_queryset_distinct = []
-    books_result_queryset = []
-    books_result_title = [] # list with books title
-    books_title = []
-    books_result_queryset_list_sort = [] # queryset list with books
-
-    if not filter_dict:
-        all_books_sort = Book.objects.all().order_by(context_get["search_ordering"])
-        # books_result_queryset.extend(list(all_books_sort))
-        books_result_queryset_list_sort.extend(all_books_sort)
-        msgs = ["You should enter some parameters for the search to work",]
-        context_get['no_params'] = "no params"
-        messages.info(request, "".join(msg for msg in msgs))
-        return Response(context_get, template_name='allrecords.html', )
-        # return Response(context_get, template_name=current_url_name[1:-1] + '.html', )
-        # return redirect('/')
-        # return redirect(current_url_name)
-        
-
-    elif filter_dict:
-
-        try:
-            queryset_books_distinct_sort = Book.objects.filter(**filter_dict).distinct().order_by(context_get["search_ordering"])
-            context_get["queryset_books_distinct_sort"] = queryset_books_distinct_sort
-            queryset_books_distinct_sort_list = [book for book in queryset_books_distinct_sort]
-            # print("queryset_books_distinct_sort_list =", queryset_books_distinct_sort_list)
-            # queryset_books = Book.objects.filter(**filter_dict)
-            list_tuple_books = queryset_books_distinct_sort.values_list("title")
-            books_list_title = [book.title for book in queryset_books_distinct_sort]
-            books_result_title.extend(books_list_title)
-            books_result_queryset_list_sort.extend(queryset_books_distinct_sort_list)
-            # books_result_queryset_list_sort.extend(list(set(queryset_book_sort for queryset_book_sort in queryset_books_sort)))
-            context_get["books_result_queryset_list_sort"] = queryset_books_distinct_sort_list
-            # print('books_result_sort', queryset_books_sort)
-
-            books_result_queryset.extend(queryset_books_distinct_sort)
-            books_result_queryset_distinct.extend(queryset_books_distinct_sort)
-            books_result_title.extend([book.title for book in queryset_books_distinct_sort])
-            # for book in queryset_books_sort:
-            #     books_result_queryset.append(book)
-            #     books_result_title.apend(book.title)
-                
-        except Exception as e:
-            print('796. e:', e)
-    else:
-        print("api_views 798")
+            # return Response(context_get, template_name=current_url_name[1:-1] + '.html', )
+            # return redirect('/')
+            # return redirect(current_url_name)
             
 
-    authors_result_queryset = []
-    authors_result_list = []
-    context_get["authors_result_found_list"] = []
-    if len(context_get["books_result_queryset_list_sort"]) == 0:
-        print('context_get["books_result_queryset_list_sort"] = 0')
-        # msgs = ["there are no books in the database, with entered parameters:<br>", parameters]
-        msgs = ["there are no books in the database, with entered parameters:<br>", context_get['parameters']]
-        messages.info(request, "".join(msg for msg in msgs))
+        elif filter_dict:
 
-    elif len(context_get["books_result_queryset_list_sort"]) > 0: 
-        # print('context_get["books_result_queryset_list_sort"] =', context_get["books_result_queryset_list_sort"])
-        if context_get["author_details_q"] == "False":
-            # print(f'False context["form_search_get_author"] = {context_get["form_search_get_author"]}\n')
-            pass
-            
-        
-        elif context_get["author_details_q"] == "True":
-            # print(f'True context["form_search_get_author"] = {context_get["form_search_get_author"]}\n')
-            # context["form_search_get_author"] = "yes"
             try:
-                authors_result_list_book_author = [book.author for book in context_get["books_result_queryset_list_sort"]]
+                queryset_books_distinct_sort = Book.objects.filter(**filter_dict).distinct().order_by(context_get["search_ordering"])
+                context_get["queryset_books_distinct_sort"] = queryset_books_distinct_sort
+                queryset_books_distinct_sort_list = [book for book in queryset_books_distinct_sort]
+                # print("queryset_books_distinct_sort_list =", queryset_books_distinct_sort_list)
+                # queryset_books = Book.objects.filter(**filter_dict)
+                list_tuple_books = queryset_books_distinct_sort.values_list("title")
+                books_list_title = [book.title for book in queryset_books_distinct_sort]
+                books_result_title.extend(books_list_title)
+                books_result_queryset_list_sort.extend(queryset_books_distinct_sort_list)
+                # books_result_queryset_list_sort.extend(list(set(queryset_book_sort for queryset_book_sort in queryset_books_sort)))
+                context_get["books_result_queryset_list_sort"] = queryset_books_distinct_sort_list
+                # print('books_result_sort', queryset_books_sort)
 
-                authors_result_search_book_author = list(set(authors_result_list_book_author))
-
-                # print('authors_result_search_book_author =', authors_result_search_book_author)
-
-                authors_result_found = [Author.objects.filter(author_name__iexact=author_result_search_book_author).last() for author_result_search_book_author in authors_result_search_book_author if Author.objects.filter(author_name__iexact=author_result_search_book_author).last()]
-
-                # print('authors_result_found =', authors_result_found)
-
-                if len(authors_result_found) > 0:
-
-                    authors_result_found_list = [author_result_found for author_result_found in authors_result_found]
-
-                    # print("822 authors_result_found_list", authors_result_found_list)
-
-                    context_get["authors_result_found_list"] = authors_result_found_list
-
-                    authors_result_queryset.extend(authors_result_found_list)
-
-                    authors_result_found_author_name = [author_result_found_list.author_name for author_result_found_list in authors_result_found_list]
-
-                    authors_result_list.extend(authors_result_found_author_name)
-
-                elif len(authors_result_found) == 0:
-
-                    authors_found_by_surname = [Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last() for author_result_search in authors_result_search if Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last()]
-
-                    if authors_found_by_surname:
-                        authors_found_by_surname_list = [author_found_by_surname for author_found_by_surname in authors_found_by_surname]
-
-                        print("834 authors_found_by_surname_list", authors_result_found_list)
-
-                        context_get["authors_result_found_list"] = authors_found_by_surname_list
-
-                        authors_result_queryset.extend(authors_found_by_surname_list)
-
-                        authors_found_by_surname_surname = [author_found_by_surname_list.author_name for author_found_by_surname_list in authors_found_by_surname_list]
-
-                        authors_result_list.extend(authors_found_by_surname_surname)
-
-                    elif not authors_found_by_surname:
-                        context_get["authors_result_found_list"] = authors_found_by_surname_list
-                        print("elif not authors_found_by_surname:")
-                        
-                elif not authors_result_found and not authors_result_search:
-                    print("not authors_result_found and not authors_result_search")
-
+                books_result_queryset.extend(queryset_books_distinct_sort)
+                books_result_queryset_distinct.extend(queryset_books_distinct_sort)
+                books_result_title.extend([book.title for book in queryset_books_distinct_sort])
+                # for book in queryset_books_sort:
+                #     books_result_queryset.append(book)
+                #     books_result_title.apend(book.title)
+                    
             except Exception as e:
-                print('1. e:', e)
-        
-    if len(context_get["books_result_queryset_list_sort"]) == 0:
-        if len(context_get["authors_result_found_list"]) == 0:
-            context_get['authors_result_set'] = context_get["authors_result_found_list"]
-            context_get['books_result_get'] = context_get["books_result_queryset_list_sort"]
-            context_get['authors_result_get'] = context_get["authors_result_found_list"]
-            context_get['num_books_result_get'] = len(context_get["books_result_queryset_list_sort"])
-            context_get['num_authors_result_get'] = len(context_get["authors_result_found_list"])
-            context_get['book_page_obj'] = context_get["books_result_queryset_list_sort"]
-            # print("context_get["books_result_queryset_list_sort"] and not authors_result_queryset")
+                print('796. e:', e)
+        else:
+            print("api_views 798")
+                
 
-    elif len(context_get["books_result_queryset_list_sort"]) > 0:
-        # if len(authors_result_queryset) == 0:
-        if len(context_get["authors_result_found_list"]) == 0:
-            context_get['authors_result_set'] = context_get["authors_result_found_list"]
-            context_get['books_result_get'] = context_get["books_result_queryset_list_sort"]
-            context_get['authors_result_get'] = context_get["authors_result_found_list"]
-            context_get['num_books_result_get'] = len(context_get["books_result_queryset_list_sort"])
-            context_get['num_authors_result_get'] = len(context_get["authors_result_found_list"])
-            context_get['book_page_obj'] = context_get["books_result_queryset_list_sort"]
-            # print("context_get["books_result_queryset_list_sort"] and not authors_result_queryset")
-        elif len(context_get["authors_result_found_list"]) > 0:
-            context_get['authors_result_set'] = context_get["authors_result_found_list"]
-            context_get['books_result_get'] = context_get["books_result_queryset_list_sort"]
-            context_get['authors_result_get'] = context_get["authors_result_found_list"]
-            context_get['num_books_result_get'] = len(context_get["books_result_queryset_list_sort"])
-            context_get['num_authors_result_get'] = len(context_get["authors_result_found_list"])
-            # context_get['book_page_obj'] = context_get["books_result_queryset_list_sort"]
+        authors_result_queryset = []
+        authors_result_list = []
+        context_get["authors_result_found_list"] = []
+        if len(context_get["books_result_queryset_list_sort"]) == 0:
+            print('context_get["books_result_queryset_list_sort"] = 0')
+            # msgs = ["there are no books in the database, with entered parameters:<br>", parameters]
+            msgs = ["there are no books in the database, with entered parameters:<br>", context_get['parameters']]
+            messages.info(request, "".join(msg for msg in msgs))
+
+        elif len(context_get["books_result_queryset_list_sort"]) > 0: 
+            # print('context_get["books_result_queryset_list_sort"] =', context_get["books_result_queryset_list_sort"])
+            if context_get["author_details_q"] == "False":
+                # print(f'False context["form_search_get_author"] = {context_get["form_search_get_author"]}\n')
+                pass
+                
             
+            elif context_get["author_details_q"] == "True":
+                # print(f'True context["form_search_get_author"] = {context_get["form_search_get_author"]}\n')
+                # context["form_search_get_author"] = "yes"
+                try:
+                    authors_result_list_book_author = [book.author for book in context_get["books_result_queryset_list_sort"]]
 
-    dict_values = ' '.join([dic_v.replace("__gte", "-start").replace("__lt", "-end").replace("__icontains", "").replace("__contains", "") if dic_v != '' and dic_v != None and not isinstance(dic_v, int) else f"{dic_v}" if isinstance(dic_v, int) else f"{dic_v}" for dic_v in keywords_fields.values()])
+                    authors_result_search_book_author = list(set(authors_result_list_book_author))
+
+                    # print('authors_result_search_book_author =', authors_result_search_book_author)
+
+                    authors_result_found = [Author.objects.filter(author_name__iexact=author_result_search_book_author).last() for author_result_search_book_author in authors_result_search_book_author if Author.objects.filter(author_name__iexact=author_result_search_book_author).last()]
+
+                    # print('authors_result_found =', authors_result_found)
+
+                    if len(authors_result_found) > 0:
+
+                        authors_result_found_list = [author_result_found for author_result_found in authors_result_found]
+
+                        # print("822 authors_result_found_list", authors_result_found_list)
+
+                        context_get["authors_result_found_list"] = authors_result_found_list
+
+                        authors_result_queryset.extend(authors_result_found_list)
+
+                        authors_result_found_author_name = [author_result_found_list.author_name for author_result_found_list in authors_result_found_list]
+
+                        authors_result_list.extend(authors_result_found_author_name)
+
+                    elif len(authors_result_found) == 0:
+
+                        authors_found_by_surname = [Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last() for author_result_search in authors_result_search if Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last()]
+
+                        if authors_found_by_surname:
+                            authors_found_by_surname_list = [author_found_by_surname for author_found_by_surname in authors_found_by_surname]
+
+                            print("834 authors_found_by_surname_list", authors_result_found_list)
+
+                            context_get["authors_result_found_list"] = authors_found_by_surname_list
+
+                            authors_result_queryset.extend(authors_found_by_surname_list)
+
+                            authors_found_by_surname_surname = [author_found_by_surname_list.author_name for author_found_by_surname_list in authors_found_by_surname_list]
+
+                            authors_result_list.extend(authors_found_by_surname_surname)
+
+                        elif not authors_found_by_surname:
+                            context_get["authors_result_found_list"] = authors_found_by_surname_list
+                            print("elif not authors_found_by_surname:")
+                            
+                    elif not authors_result_found and not authors_result_search:
+                        print("not authors_result_found and not authors_result_search")
+
+                except Exception as e:
+                    print('1. e:', e)
+            
+        if len(context_get["books_result_queryset_list_sort"]) == 0:
+            if len(context_get["authors_result_found_list"]) == 0:
+                context_get['authors_result_set'] = context_get["authors_result_found_list"]
+                context_get['books_result_get'] = context_get["books_result_queryset_list_sort"]
+                context_get['authors_result_get'] = context_get["authors_result_found_list"]
+                context_get['num_books_result_get'] = len(context_get["books_result_queryset_list_sort"])
+                context_get['num_authors_result_get'] = len(context_get["authors_result_found_list"])
+                context_get['book_page_obj'] = context_get["books_result_queryset_list_sort"]
+                # print("context_get["books_result_queryset_list_sort"] and not authors_result_queryset")
+
+        elif len(context_get["books_result_queryset_list_sort"]) > 0:
+            # if len(authors_result_queryset) == 0:
+            if len(context_get["authors_result_found_list"]) == 0:
+                context_get['authors_result_set'] = context_get["authors_result_found_list"]
+                context_get['books_result_get'] = context_get["books_result_queryset_list_sort"]
+                context_get['authors_result_get'] = context_get["authors_result_found_list"]
+                context_get['num_books_result_get'] = len(context_get["books_result_queryset_list_sort"])
+                context_get['num_authors_result_get'] = len(context_get["authors_result_found_list"])
+                context_get['book_page_obj'] = context_get["books_result_queryset_list_sort"]
+                # print("context_get["books_result_queryset_list_sort"] and not authors_result_queryset")
+            elif len(context_get["authors_result_found_list"]) > 0:
+                context_get['authors_result_set'] = context_get["authors_result_found_list"]
+                context_get['books_result_get'] = context_get["books_result_queryset_list_sort"]
+                context_get['authors_result_get'] = context_get["authors_result_found_list"]
+                context_get['num_books_result_get'] = len(context_get["books_result_queryset_list_sort"])
+                context_get['num_authors_result_get'] = len(context_get["authors_result_found_list"])
+                # context_get['book_page_obj'] = context_get["books_result_queryset_list_sort"]
+                
+
+        dict_values = ' '.join([dic_v.replace("__gte", "-start").replace("__lt", "-end").replace("__icontains", "").replace("__contains", "") if dic_v != '' and dic_v != None and not isinstance(dic_v, int) else f"{dic_v}" if isinstance(dic_v, int) else f"{dic_v}" for dic_v in keywords_fields.values()])
 
 
-    if dict_values == "":
-        context_get['dict_values'] = dict_values
-        print('if dict_values == "":')
+        if dict_values == "":
+            context_get['dict_values'] = dict_values
+            print('if dict_values == "":')
+            
+        elif dict_values != "":
+            # print('dict_values = ', dict_values)
+            print('elif dict_values != "":')
+
+        filtered_books = context_get["books_result_queryset_list_sort"]
         
-    elif dict_values != "":
-        # print('dict_values = ', dict_values)
-        print('elif dict_values != "":')
+        # book_page_obj = context_get["books_result_queryset_list_sort"]
+        # filtered_books = context_get["books_result_queryset_list_sort"]
+        # paginated_filtered_books = Paginator(book_page_obj, 10) 
+        paginated_filtered_books = Paginator(filtered_books, 10) 
+        page_number = request.GET.get('page')
+        book_page_obj = paginated_filtered_books.get_page(page_number)
+        context_get['book_page_obj'] = book_page_obj
+        
+        return Response(context_get, template_name='records_get.html', )
 
-    filtered_books = context_get["books_result_queryset_list_sort"]
-    
-    # book_page_obj = context_get["books_result_queryset_list_sort"]
-    # filtered_books = context_get["books_result_queryset_list_sort"]
-    # paginated_filtered_books = Paginator(book_page_obj, 10) 
-    paginated_filtered_books = Paginator(filtered_books, 10) 
-    page_number = request.GET.get('page')
-    book_page_obj = paginated_filtered_books.get_page(page_number)
-    context_get['book_page_obj'] = book_page_obj
-    
+    form_search_get = SearchRecord(request.GET)
+    context_get['search_form'] = form_search_get
     return Response(context_get, template_name='records_get.html', )
 
 @api_view(['GET', 'POST'])
@@ -908,7 +917,7 @@ def records_view_post(request):
     # book_sort = BookSort(request.GET)
     # search_form = SearchRecord(request.GET)
     book_sort = BookSort(request.GET)
-    search_form = SearchRecord()
+    form_search_get = SearchRecord()
     author = BooksAuthor()
     context['allbooks'] = all_books
     context['allauthors'] = all_authors
@@ -927,7 +936,7 @@ def records_view_post(request):
     # currents.append(current_url_name)
 
     context['search_author'] = author
-    context['search_form'] = search_form
+    context['search_form'] = form_search_get
     context['book_sort'] = book_sort
     
     context['parameters_post'] =  ""
@@ -935,15 +944,15 @@ def records_view_post(request):
 
     search_resultA = []
     search_resultB = []
-    form_search = ItemsSearchForm(request.POST)
+    form_search_post = ItemsSearchForm(request.POST)
     context_post = {}
     filter_dict = {}
     context["search_phrase"] = ""
     context_post["values"] = ""
 
-    if form_search.is_valid():
+    if form_search_post.is_valid():
         print("if form_search.is_valid():")
-        search_phrase = form_search.cleaned_data['search_field']
+        search_phrase = form_search_post.cleaned_data['search_field']
         
         context["search_phrase"] = search_phrase
         values = context["search_phrase"]
@@ -974,7 +983,7 @@ def records_view_post(request):
 
         # search_word = all_books.filter(author__icontains=search_phrase).filter(title__icontains=search_phrase).filter(language__icontains=search_phrase).filter(category__icontains=search_phrase)
         # search_result = all_books.filter(title__icontains=title, author__icontains=author, google_id=google_id, language=language, published__gte=published_start, published_lte=pbulished_end)
-        
+
         search_resultB_Q_distinct_sort = search_resultB_Q.distinct().order_by("title")
         context_post["search_resultB_Q_distinct_sort"] = search_resultB_Q_distinct_sort
         # print('search_resultB_Q =', search_resultB_Q)
@@ -1058,26 +1067,26 @@ def records_view_post(request):
        
         filtered_books = context_post["search_resultB"]
         paginated_filtered_books = Paginator(filtered_books, num_books_result_Q) 
-        page_number = request.GET.get('page', 1)
+        page_number = request.GET.get('page')
         book_page_obj = paginated_filtered_books.get_page(page_number)
         context['book_page_obj'] = book_page_obj
 
         return Response(context, template_name='records_post.html', )
 
-    # print('views_apiview 1081')
-    # # book_sort = BookSort()
-    # # search_form = SearchRecord()
-    # # author = BooksAuthor()
-    # form_search = ItemsSearchForm(request.POST) 
-    # # form_search = ItemsSearchForm(request.POST)
-    # # context['book_sort'] = book_sort
-    # # context['search_form'] = search_form
-    # # context['search_author'] = author
-    # context['form_search'] = form_search
-    # # context['form_search'] = ItemsSearchForm()
+    print('views_apiview 1081')
+    # book_sort = BookSort()
+    # search_form = SearchRecord()
+    # author = BooksAuthor()
+    form_search_post = ItemsSearchForm() 
+    # form_search = ItemsSearchForm(request.POST)
+    # context['book_sort'] = book_sort
+    # context['search_form'] = search_form
+    # context['search_author'] = author
+    context['form_search'] = form_search_post
+    # context['form_search'] = ItemsSearchForm()
 
-    # # return Response(context, template_name='records.html', )
-    # return Response(context, template_name='records_post.html', )
+    # return Response(context, template_name='records.html', )
+    return Response(context, template_name='records_post.html', )
 
 
     # https://stackoverflow.com/questions/71814729/sort-search-results-in-django

@@ -35,12 +35,11 @@
   
   /* Modal Content */
   .mycontainer_messages_booksmart_uni {
-  position: relative;
+  position: fixed;
   z-index:88;
   display:none;
   top: 60px;
   width: 560px;
-  max-width: 96%;
   background-color: rgba(60, 160, 240, 0.4);
   border-radius: 4px;
   box-shadow: 
@@ -55,8 +54,8 @@
   animation-delay: 2s;
   animation: noname2;
   transition: 0.1s;
-  margin-left:auto;
-  margin-right:auto;
+  left: 50%;
+  margin-left: -280px;
   margin-top: 60px;
   }
   
@@ -354,13 +353,19 @@ line-height: 22px;
   text-align:center;
 }
 
+@media screen and (max-width: 640px) {
+  .mycontainer_messages_booksmart_uni { 
+    width: 80%;
+    margin-left: -40%;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .mycontainer_messages_booksmart_uni { 
-    max-width: 96%;
-    min-width: 380px;
-    width: 460px;
-    margin: auto;
+    width: 90%;
+    margin-left: -45%;
   }
+  
   .mycontainer_messages_booksmart_uni,
   .myrow_messages_booksmart_uni,
   .mycolumn_messages_booksmart_uni {
