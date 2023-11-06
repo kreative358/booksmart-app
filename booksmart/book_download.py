@@ -240,6 +240,12 @@ def download_book(request):
     title_download = ""
     context["title_download"] = ""
     context["title_read_last_chance"] = ""
+    download_links_1a = ""
+    download_links_2a = ""
+    title_docer_pdf = ""
+    context["download_links_1a"] = ""
+    context["download_links_2a"] = ""
+    context["title_read_last_chance"] = ""
     if formlib_download.is_valid():
         title_download=formlib_download.cleaned_data['title_download_search']
         print("1. title_download", title_download)
