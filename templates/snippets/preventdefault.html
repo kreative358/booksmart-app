@@ -276,7 +276,7 @@
          
             
             <div style="animation: anime_red_text 2s infinite;"> <p id="solution">
-              right mouse button and key combinations for page inspection and view page source have been disabled, try better ;)
+              function inspect and key combinations for page inspection and view page source have been disabled"
             </p></div>
          
             </div> 
@@ -350,8 +350,9 @@ var var_mymodal_pd = function() {
       }
 }
 
-window.addEventListener("contextmenu", (e) => {e.preventDefault()});
+// window.addEventListener("contextmenu", (e) => {e.preventDefault()});
 window.addEventListener("contextmenu", function() {
+  // document.getElementById("solution").innerText = "function inspect and key combinations for page inspection and view page source have been disabled"
   var_mymodal_pd();
 
     });
