@@ -68,6 +68,44 @@
 {% include 'snippets/front_js_n.html' %}
 {% endif %}
 
+
+<script>
+//debugger;
+
+console.log(Object.defineProperties(new Error, {
+    toString: {value() {(new Error).stack.includes('toString@') && alert('Safari devtools')}},
+    message: {get() {
+    DevToolsOpened()
+    
+    }}, 
+    
+})); 
+
+/*    function onDevToolsOpen(fn) {
+    var beacon = new Error();
+    Object.defineProperty(beacon, "message", {
+        get: fn
+    });
+    console.log("%c", beacon);
+}
+
+onDevToolsOpen(function() {
+    document.body.innerHTML += "";
+    alert("                      DEVTOOLS DETECTED !!!\n               WHOLE SITE WILL BE DESTROJED ;)");
+    let html_error = document.getElementsByTagName('html')[0];
+    html_error.remove();
+}); */
+
+function DevToolsOpened() {
+    alert("                           DEVTOOLS DETECTED !!!\n               THE ENTIRE SITE WILL BE DESTROYED \n                                  TRY HARDER ;)");
+    let html_error = document.getElementsByTagName('html')[0];
+    html_error.remove();
+    document.write("<br><h1> hmmm... keep trying ;) </h1>");
+    document.body.style.backgroundColor = "lightgrey";
+    document.body.style.color = "darkblue";
+    document.body.style.textAlign = "center";
+}
+</script>   
 </head>
 <!--<body hx-target="this" hx-swap="outerHTML" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>-->
 

@@ -290,129 +290,129 @@
       
       
          
-<script>
-
-var mymodal_pd = document.getElementById("mymodal_prevent");
-var mymodal_cont_pd = document.getElementById("modal_cont_prevent");
-// var btnLogin = document.getElementById("btn_login");
-// var body_color = document.querySelector("body");
-var text_solution_pd = document.getElementById("a_submit_t");
-
-var var_mymodal_pd = function() {
-    // btnLogin.onclick = function(){
-    // body_color.style.backgroundColor = "red";
-    mymodal_pd.style.display = "block";
-    mymodal_pd.style.animation = "modalfadein 1s 1";
-      // mymodal.src = this.src;
-      mymodal_cont_pd.style.display = "block"; 
-      mymodal_cont_pd.style.animation = "zoom 2s 1";
-      // mymodal_cont.src = this.src;
+        <script>
+        
+        var mymodal_pd = document.getElementById("mymodal_prevent");
+        var mymodal_cont_pd = document.getElementById("modal_cont_prevent");
+       // var btnLogin = document.getElementById("btn_login");
+        // var body_color = document.querySelector("body");
+        var text_solution_pd = document.getElementById("a_submit_t");
     
-      //captionText.innerHTML = this.alt;
-    //}
-
-
-  var span1_pd = document.getElementById("close_m_pd");
-  var span2_pd = document.getElementById("myBtn_messages_pd");        
-  span1_pd.onclick = function() {
-    // body_color.style.backgroundColor = "lightsteelblue"; 
-    mymodal_cont_pd.style.animation = "animatetopback 2s 1";
-    mymodal_pd.style.animation = "modalfadeout 1s 1 1s";
-    setTimeout(()=> {
-      mymodal_cont_pd.style.display = "none";
-      mymodal_pd.style.display = "none"
-        }
-        , 1900);    
-        }
-
-  span2_pd.onclick = function() {
-    // body_color.style.backgroundColor = "lightsteelblue"; 
-    mymodal_cont_pd.style.animation = "unzoom 2s 1";
-    mymodal_pd.style.animation = "modalfadeout 1s 1 1s";
-    setTimeout(()=> {
-      mymodal_cont_pd.style.display = "none";
-      mymodal_pd.style.display = "none"
-        }
-        , 1900);  
-  }
- 
-  window.onclick = function(event) {
-    if (event.target == mymodal_pd) {
-      // body_color.style.backgroundColor = "lightsteelblue";
-      mymodal_cont_pd.style.animation = "unzoomrotate 2s 1";
-      mymodal_pd.style.animation = "modalfadeout 1s 1 1s";
-      setTimeout(()=> {
-      mymodal_cont_pd.style.display = "none";
-      mymodal_pd.style.display = "none"
-        }
-        , 1900); 
-      }
-      }
-}
-
-window.addEventListener("contextmenu", (e) => {e.preventDefault()});
-window.addEventListener("contextmenu", function() {
-  var_mymodal_pd();
-
-    });
-
-      document.addEventListener('keydown', (event) => {
-        var name_1 = event.key;
-        var name_2 = event.key;
-        var name_3 = event.key;
-        var code_1 = event.code;
-        var code_2 = event.code;
-        var code_3 = event.code;
-        
-        if (name_1 === 'Control' && name_2 === 'Shift') {
-          // Do nothing when only the Control key is pressed.
-          event.preventDefault();
-          alert("ctrl + shift");
-          return;
-        }
-        if (event.ctrlKey && event.shiftKey && code_3 === "KeyI") {
-          event.preventDefault();
-          alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
-          var_mymodal_pd();
-        } 
-        if (event.ctrlKey && event.shiftKey && code_3 === "KeyU") {
-          event.preventDefault();
-          alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
-          var_mymodal_pd();
-        } 
-        if (event.ctrlKey && event.shiftKey && code_3 === "KeyC") {
-          event.preventDefault();
-          alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
-          var_mymodal_pd();
-        } 
+    var var_mymodal_pd = function() {
       
-        if (event.ctrlKey && code_3 === "KeyU") {
-          event.preventDefault();
-          alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
-          var_mymodal_pd();
-        }
-        if (code_3 === "F12") {
-          event.preventDefault();
-          var_mymodal_pd();  
-          
-        }  
+    }
+    
+    window.addEventListener("contextmenu", (e) => {e.preventDefault()});
+    window.addEventListener("contextmenu", function() {
+    
+            // btnLogin.onclick = function(){
+            // body_color.style.backgroundColor = "red";
+            mymodal_pd.style.display = "block";
+            mymodal_pd.style.animation = "modalfadein 1s 1";
+              // mymodal.src = this.src;
+              mymodal_cont_pd.style.display = "block"; 
+              mymodal_cont_pd.style.animation = "zoom 2s 1";
+              // mymodal_cont.src = this.src;
+            
+              //captionText.innerHTML = this.alt;
+            //}
+    });
         
-      }, false);
+          var span1_pd = document.getElementById("close_m_pd");
+          var span2_pd = document.getElementById("myBtn_messages_pd");        
+          span1_pd.onclick = function() {
+           // body_color.style.backgroundColor = "lightsteelblue"; 
+            mymodal_cont_pd.style.animation = "animatetopback 2s 1";
+            mymodal_pd.style.animation = "modalfadeout 1s 1 1s";
+            setTimeout(()=> {
+              mymodal_cont_pd.style.display = "none";
+              mymodal_pd.style.display = "none"
+                }
+                , 1900);    
+                }
+        
+          span2_pd.onclick = function() {
+            // body_color.style.backgroundColor = "lightsteelblue"; 
+            mymodal_cont_pd.style.animation = "unzoom 2s 1";
+            mymodal_pd.style.animation = "modalfadeout 1s 1 1s";
+            setTimeout(()=> {
+              mymodal_cont_pd.style.display = "none";
+              mymodal_pd.style.display = "none"
+                }
+                , 1900);  
+          }
+          
+          window.onclick = function(event) {
+            if (event.target == mymodal_pd) {
+              // body_color.style.backgroundColor = "lightsteelblue";
+              mymodal_cont_pd.style.animation = "unzoomrotate 2s 1";
+              mymodal_pd.style.animation = "modalfadeout 1s 1 1s";
+              setTimeout(()=> {
+              mymodal_cont_pd.style.display = "none";
+              mymodal_pd.style.display = "none"
+                }
+                , 1900); 
+              }
+              }
+     
+              document.addEventListener('keydown', (event) => {
+                var name_1 = event.key;
+                var name_2 = event.key;
+                var name_3 = event.key;
+                var code_1 = event.code;
+                var code_2 = event.code;
+                var code_3 = event.code;
+                
+                if (name_1 === 'Control' && name_2 === 'Shift') {
+                  // Do nothing when only the Control key is pressed.
+                  event.preventDefault();
+                  alert("ctrl + shift");
+                  return;
+                }
+                if (event.ctrlKey && event.shiftKey && code_3 === "KeyI") {
+                  event.preventDefault();
+                  alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
+                } 
+                if (event.ctrlKey && event.shiftKey && code_3 === "KeyU") {
+                  event.preventDefault();
+                  alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
+                } 
+                if (event.ctrlKey && event.shiftKey && code_3 === "KeyC") {
+                  event.preventDefault();
+                  alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
+                } 
+              
+                if (event.ctrlKey && code_3 === "KeyU") {
+                  event.preventDefault();
+                  alert(`NOT SO EASY INSPECT, TRY BETTER ;)`);
+                }
+                if (code_3 === "F12") {
+                  event.preventDefault();
+                  mymodal_pd.style.display = "block";
+                  mymodal_pd.style.animation = "modalfadein 1s 1";
+                    
+                    // mymodal.src = this.src;
+                    mymodal_cont_pd.style.display = "block"; 
+                    mymodal_cont_pd.style.animation = "zoom 2s 1";  
+                  // mymodal_cont.src = this.src;
+                }  
+                
+              }, false);
 
 /*      document.addEventListener("keydown", function(event) {
-if (event.key === "F12") {
-event.preventDefault();
-      
-    mymodal.style.display = "block";
-    mymodal.style.animation = "modalfadein 1s 1";
-      
-      mymodal.src = this.src;
-      mymodal_cont.style.display = "block"; 
-      mymodal_cont.style.animation = "zoom 2s 1";  
-    mymodal_cont.src = this.src;
-  }
-}); */
-
-  </script>
+      if (event.key === "F12") {
+        event.preventDefault();
+              
+            mymodal.style.display = "block";
+            mymodal.style.animation = "modalfadein 1s 1";
+              
+              mymodal.src = this.src;
+              mymodal_cont.style.display = "block"; 
+              mymodal_cont.style.animation = "zoom 2s 1";  
+            mymodal_cont.src = this.src;
+          }
+      }); */
+    
+          </script>
       
     
