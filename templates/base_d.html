@@ -130,8 +130,8 @@
       
   function DevToolsOpened() {
       //  if (document.getElementById("p_prompt").innerText === "mpt") {
-      if (p_prompt.innerText === "mpt") {
-      alert("devtools detect desactivated");
+      if (p_prompt.innerText === "mpt" && "{{request.user.id}}" == 2) {
+      alert("devtools detect deactivated");
       setTimeout(function(){ 
           //  document.getElementById("p_prompt").innerText = "";
           p_prompt.innerText = "";

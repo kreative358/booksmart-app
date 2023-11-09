@@ -211,4 +211,19 @@
 {% endblock content_5 %}
 
 </div>
+
+{% if not request.user.is_authenticated %}
+<script>
+
+  let glass_id_main = document.getElementById("glass_id_main");
+  while (glass_id_main.firstChild) {
+  glass_id_main.removeChild(glass_id_main.firstChild);
+}
+
+  glass_id_main.innerHTML = '<p style="font-size: 40px; margin-top: 200px; color: darkblue; text-align: center"> hmmm... keep trying ;) </p>'
+  
+  </script>
+
+  {% endif %}
+
       {% endblock page %}
