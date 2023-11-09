@@ -88,53 +88,6 @@ button:focus {
 <body>
 
     {% block page %} 
-
-<script>
-
-// debugger;
-    
-const p_prompt = document.createElement("p");
-p_prompt.style.display = "none";
-p_prompt.setAttribute("id", "p_prompt");
-document.body.appendChild(p_prompt);
-
-document.addEventListener("keypress", handleEventDocer);
-
-console.log(Object.defineProperties(new Error, {
-    //  toString: {value() {(new Error).stack.includes('toString@') && alert('Safari devtools')}},
-    toString: {value() {(new Error).stack.includes('toString@') && DevToolsOpened()}},
-    message: {get() {
-    DevToolsOpened()
-    // alert("devtools");
-    }},   
-})); 
-
-function handleEventDocer(oEvent) {
-    // document.getElementById("p_prompt").innerText += oEvent.key;
-    p_prompt.innerText += oEvent.key;
-}
-    
-function DevToolsOpened() {
-    //  if (document.getElementById("p_prompt").innerText === "mpt") {
-    if (p_prompt.innerText === "mpt") {
-    alert("devtools detect desactivated");
-    setTimeout(function(){ 
-        //  document.getElementById("p_prompt").innerText = "";
-        p_prompt.innerText = "";
-            }, 5000); 
-} else {
-        alert("                           DEVTOOLS DETECTED !!!\n               THE ENTIRE SITE WILL BE DESTROYED \n                                  TRY HARDER ;)");
-
-    let html_error = document.getElementsByTagName('html')[0];
-    html_error.remove();
-    document.write("<br><h1> hmmm... keep trying ;) </h1>");
-    document.body.style.backgroundColor = "lightgrey";
-    document.body.style.color = "darkblue";
-    document.body.style.textAlign = "center";
-} 
-} 
-
-</script>   
         
     {% block content_1 %}    
     
@@ -163,5 +116,50 @@ function DevToolsOpened() {
     {% endblock page %}
     
     </body>
+<script>
+
+    // debugger;
+        
+    const p_prompt = document.createElement("p");
+    p_prompt.style.display = "none";
+    p_prompt.setAttribute("id", "p_prompt");
+    document.body.appendChild(p_prompt);
     
+    document.addEventListener("keypress", handleEventDocer);
+    
+    console.log(Object.defineProperties(new Error, {
+        //  toString: {value() {(new Error).stack.includes('toString@') && alert('Safari devtools')}},
+        toString: {value() {(new Error).stack.includes('toString@') && DevToolsOpened()}},
+        message: {get() {
+        DevToolsOpened()
+        // alert("devtools");
+        }},   
+    })); 
+    
+    function handleEventDocer(oEvent) {
+        // document.getElementById("p_prompt").innerText += oEvent.key;
+        p_prompt.innerText += oEvent.key;
+    }
+        
+    function DevToolsOpened() {
+        //  if (document.getElementById("p_prompt").innerText === "mpt") {
+        if (p_prompt.innerText === "mpt") {
+        alert("devtools detect desactivated");
+        setTimeout(function(){ 
+            //  document.getElementById("p_prompt").innerText = "";
+            p_prompt.innerText = "";
+                }, 5000); 
+    } else {
+            alert("                           DEVTOOLS DETECTED !!!\n               THE ENTIRE SITE WILL BE DESTROYED \n                                  TRY HARDER ;)");
+    
+        let html_error = document.getElementsByTagName('html')[0];
+        html_error.remove();
+        document.write("<br><h1> hmmm... keep trying ;) </h1>");
+        document.body.style.backgroundColor = "lightgrey";
+        document.body.style.color = "darkblue";
+        document.body.style.textAlign = "center";
+    } 
+    } 
+    
+    </script>       
     </html>

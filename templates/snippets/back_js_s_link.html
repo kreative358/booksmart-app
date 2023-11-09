@@ -1,5 +1,43 @@
 {% load static %} 
 <!--<link rel="preload" height="1090" width="1940"  type="media_type" href="{% static 'background_film_mp4_ok.mp4' %}"> preload-->
+<script>
+  //debugger;
+  
+  console.log(Object.defineProperties(new Error, {
+      toString: {value() {(new Error).stack.includes('toString@') && alert('Safari devtools')}},
+      message: {get() {
+      // DevToolsOpened()
+      alert("DevToolsOpened()")
+      
+      }}, 
+      
+  })); 
+  
+  /*    function onDevToolsOpen(fn) {
+      var beacon = new Error();
+      Object.defineProperty(beacon, "message", {
+          get: fn
+      });
+      console.log("%c", beacon);
+  }
+  
+  onDevToolsOpen(function() {
+      document.body.innerHTML += "";
+      alert("                      DEVTOOLS DETECTED !!!\n               WHOLE SITE WILL BE DESTROJED ;)");
+      let html_error = document.getElementsByTagName('html')[0];
+      html_error.remove();
+  }); */
+  
+  function DevToolsOpened() {
+    alert("                           DEVTOOLS DETECTED !!!\n               THE ENTIRE SITE WILL BE DESTROYED \n                                  TRY HARDER ;)");
+    let html_error = document.getElementsByTagName('html')[0];
+    html_error.remove();
+    document.write("<br><h1> hmmm... keep trying ;) </h1>");
+    document.body.style.backgroundColor = "lightgrey";
+    document.body.style.color = "darkblue";
+    document.body.style.textAlign = "center";
+}
+  </script> 
 <style type="text/css">
 
   .glass_class_mode {
@@ -262,9 +300,9 @@ height: 6w;
         <button type="button" class="myBtns notranslate" id="myBtn_mail_sender"> contact </button>
 
   <script>
-    window.onload = function() {
+  /*  window.onload = function() {
       console.clear();
-      }
+      }  */
 
     var btn_dark_main = document.getElementById("myBtn_dark_main");
     btn_dark_main.onclick = function(){

@@ -93,15 +93,42 @@ button:focus {
     {% include 'snippets/preventdefault.html' %}
 
 
-    </head>
-    <body>
+</head>
+<body>
 
-        {% block page %} 
+{% block page %}       
 
+{% block content_1 %}    
+
+{% endblock content_1 %}
+
+
+{% block content_2 %} 
+
+{% endblock content_2 %}
+
+
+{% block content_3 %} 
+
+{% endblock content_3 %}
+
+
+{% block content_4 %}
+
+{% endblock content_4 %}
+
+{% block content_5 %}
+
+{% endblock content_5 %}
+
+
+{% endblock page %}
+
+</body>
 <script>
 
-    //debugger;
-    
+    // debugger;
+        
     const p_prompt = document.createElement("p");
     p_prompt.style.display = "none";
     p_prompt.setAttribute("id", "p_prompt");
@@ -124,7 +151,7 @@ button:focus {
     }
         
     function DevToolsOpened() {
-        // if (document.getElementById("p_prompt").innerText === "mpt") {
+        //  if (document.getElementById("p_prompt").innerText === "mpt") {
         if (p_prompt.innerText === "mpt") {
         alert("devtools detect desactivated");
         setTimeout(function(){ 
@@ -143,34 +170,6 @@ button:focus {
     } 
     } 
     
-    </script>        
-        
-        {% block content_1 %}    
-        
-        {% endblock content_1 %}
-        
-        
-        {% block content_2 %} 
-        
-        {% endblock content_2 %}
-        
-        
-        {% block content_3 %} 
-        
-        {% endblock content_3 %}
-        
-        
-        {% block content_4 %}
-        
-        {% endblock content_4 %}
-        
-        {% block content_5 %}
-        
-        {% endblock content_5 %}
-        
-        
-        {% endblock page %}
-        
-        </body>
-        
-        </html>
+    </script>           
+    
+</html>
