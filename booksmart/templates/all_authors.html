@@ -1,11 +1,41 @@
-{% extends 'base_ds.html' %}
+{% extends 'base_ds_noscrap.html' %}
 {% load bootstrap4 %}
 {% load booksmart_extras %}
 {% block title %} all-authors  {% endblock%}
 
 {% block page %}
+<style>
+  #main_div_id_1 {
+    min-height: 100%;
+    max-height: 100%;
+  
+    min-width: 100%;
+    max-width: 100%;
+    background-color: transparent;
+    background: transparent;
+  
+    position: relative;
+    z-index: 2;
+    display: block;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  display: none;
+  text-align: center;
+  color: rgba(0, 0, 0, 180, 0.0);
+  font-size: 40px;
+    /*scroll-padding-top: 0;*/
+  }
+
+</style>
+<div class="main_div_1" id="main_div_id_1"> hmmm... keep trying ;)
+  <div class="main_div_2" id="main_div_id_2">
 
 {% include 'snippets/scrollbars.html' %}
+{% include 'snippets/body_fonts_css.html' %}
+{% include 'snippets/preventdefault.html' %}
 
 <div id="glass_id_main" class="glass_class_main"> 
 
@@ -211,19 +241,70 @@
 {% endblock content_5 %}
 
 </div>
+<script>
+
+  // debugger;
+      
+  const p_prompt = document.createElement("p");
+  p_prompt.style.display = "none";
+  p_prompt.setAttribute("id", "p_prompt");
+  document.body.appendChild(p_prompt);
+  
+  document.addEventListener("keypress", handleEventDocer);
+  
+  console.log(Object.defineProperties(new Error, {
+      //  toString: {value() {(new Error).stack.includes('toString@') && alert('Safari devtools')}},
+      toString: {value() {(new Error).stack.includes('toString@') && DevToolsOpened()}},
+      message: {get() {
+      DevToolsOpened()
+      // alert("devtools");
+      }},   
+  })); 
+  
+  function handleEventDocer(oEvent) {
+      // document.getElementById("p_prompt").innerText += oEvent.key;
+      p_prompt.innerText += oEvent.key;
+  }
+      
+  function DevToolsOpened() {
+      //  if (document.getElementById("p_prompt").innerText === "mpt") {
+      if (p_prompt.innerText === "mpt" && "{{request.user.id}}" == 2) {
+      alert("devtools detect deactivated");
+      setTimeout(function(){ 
+          //  document.getElementById("p_prompt").innerText = "";
+          p_prompt.innerText = "";
+              }, 5000); 
+  } else {
+          alert("                           DEVTOOLS DETECTED !!!\n               THE ENTIRE SITE WILL BE DESTROYED \n                                  TRY HARDER ;)");
+  
+      let html_error = document.getElementsByTagName('html')[0];
+      html_error.remove();
+      document.write("<br><h1> hmmm... keep trying ;) </h1>");
+      document.body.style.backgroundColor = "lightgrey";
+      document.body.style.color = "darkblue";
+      document.body.style.textAlign = "center";
+  } 
+  } 
+  
+  </script>  
+</div>
 
 {% if not request.user.is_authenticated %}
 <script>
 
-  let glass_id_main = document.getElementById("glass_id_main");
-  while (glass_id_main.firstChild) {
-  glass_id_main.removeChild(glass_id_main.firstChild);
-}
+  document.getElementById("main_div_id_2").remove();
+  document.getElementById("main_div_id_1").style.color: rgba(0, 0, 0, 180, 0.8);
+  // while (glass_id_main.firstChild) {
+  // glass_id_main.removeChild(glass_id_main.firstChild);
+  // }
 
-  glass_id_main.innerHTML = '<p style="font-size: 40px; margin-top: 200px; color: darkblue; text-align: center"> hmmm... keep trying ;) </p>'
-  
+  // glass_id_main.innerHTML = '<p style="font-size: 40px; margin-top: 200px; color: darkblue; text-align: center"> hmmm... keep trying ;) </p>'
+
   </script>
 
   {% endif %}
+
+</div>
+
 
       {% endblock page %}
