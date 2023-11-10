@@ -156,7 +156,7 @@ class LibgenSearch:
         links = soup.find_all("a", string=MIRROR_SOURCES)
         download_links = {link.string: link["href"] for link in links}
         
-        # print(f"\n1. download_links = {download_links}\n")
+        print(f"\n1. download_links = {download_links}\n")
 
         return download_links
 
@@ -260,7 +260,7 @@ def download_book(request):
                 pdf_links = [search_libgen.resolve_download_links(item_to_download) for item_to_download in items_to_download if item_to_download["Ext."] == "pdf"] 
                 if pdf_links:
 
-                    # print("pdf_links", pdf_links)
+                    print("pdf_links", pdf_links)
                     context["pdf_links"] = pdf_links
                     context["len_pdf_links"] = len(pdf_links)
                     

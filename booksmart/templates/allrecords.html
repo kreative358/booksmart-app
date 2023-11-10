@@ -1,11 +1,12 @@
-{% extends 'base_ds_noscrap.html' %}
+{% extends 'base_ds.html' %}
 {% load bootstrap4 %}
 {% load booksmart_extras %}
 {% block title %} all-books {% endblock%}
 
 {% block page %}
 <style>
-  #main_div_id_1 {
+  #main_div_id_1,
+  #main_div_id_2 {
     min-height: 100%;
     max-height: 100%;
   
@@ -20,7 +21,7 @@
     overflow-y: hidden;
     scroll-behavior: smooth;
 
- 
+ text-align: center;
   color: rgba(0, 0, 0, 180, 0.0);
   font-size: 40px;
     /*scroll-padding-top: 0;*/
@@ -30,8 +31,7 @@
 <!--<div class="main_div" id="main_div_id_1"> hmmm... keep trying ;)
   <div class="main_div" id="main_div_id_2">  -->
 
-{% include 'snippets/scrollbars.html' %}
-{% include 'snippets/body_fonts_css.html' %}
+
 
 <div id="glass_id_main" class="glass_class_main"> 
 

@@ -1,4 +1,4 @@
-{% extends 'base_ds_noscrap.html' %}
+{% extends 'base_ds.html' %}
 {% load bootstrap4 %}
 {% load booksmart_extras %}
 {% block title %} all-authors  {% endblock%}
@@ -237,7 +237,7 @@
 {% endblock content_5 %}
 
 </div>
-
+<!--
 {% if not request.user.is_authenticated %}
 <script>
 let glass_id_main = document.getElementById("glass_id_main");
@@ -316,6 +316,6 @@ main_div_id_2.removeChild(removeChild.firstChild);
   main_div_id_1.removeChild(removeChild.firstChild);
 
 </script>
-{% endif %}
+{% endif %}  -->
 
       {% endblock page %}
