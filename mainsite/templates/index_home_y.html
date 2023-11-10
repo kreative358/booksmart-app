@@ -28,7 +28,7 @@
   }
 
 </style>
-<div class="main_div" id="main_div_id_1"> hmmm... keep trying ;)
+<div class="main_div" id="main_div_id_1"> 
   <div class="main_div" id="main_div_id_2"> 
 
 {% include 'snippets/scrollbars.html' %}
@@ -255,18 +255,6 @@
 
 </div>
 
-{% if not request.user.is_authenticated %}
-<script>
-let glass_id_main = document.getElementById("glass_id_main");
-  // document.getElementById("main_div_id_2").remove();
-
-   while (glass_id_main.firstChild) {
-    glass_id_main.removeChild(glass_id_main.firstChild);
-   }
-
-</script>
-{% endif %}
-
 <script>
   
       // debugger;
@@ -317,23 +305,11 @@ let glass_id_main = document.getElementById("glass_id_main");
 
 
 </div>
-{% if not request.user.is_authenticated %}
-<script>
-  let main_div_id_2 = document.getElementById("main_div_id_2");
-main_div_id_2.removeChild(removeChild.firstChild);
 
-</script>
-{% endif %}
 
 
 </div>  
-{% if not request.user.is_authenticated %}
-<script>
-  let main_div_id_1 = document.getElementById("main_div_id_1");
-  main_div_id_1.removeChild(removeChild.firstChild);
 
-</script>
-{% endif %}
 
       {% endblock page %}
 
