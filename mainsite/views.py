@@ -64,6 +64,7 @@ from django_currentuser.middleware import (
 # except Exception as e:
 #     print("exception ", e)
 
+
 import datetime
 
 context_list = []
