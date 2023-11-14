@@ -1049,17 +1049,21 @@ color: MediumBlue;
   }
   
   .btn_img_new {
-    width: 170px;
+  /*  width: 170px;
     height: 270px;
     max-width: 170px;
     max-height: 270px;
     margin-left: -184px;
-    /* margin-right: 20px; */
+     margin-right: 20px; */
+    width: 176px;
+    height: 274px;
+    max-width: 176px;
+    max-height: 274px;
+    margin-left: -188px;
     border: 4px solid rgba(160, 160, 240, 0.6);
     text-align: center;
     padding-top: 20px;
     color: blue;
-    font-size: 18px;
     word-wrap: break-word;
     padding-left: 6px;
     padding-right: 6px;
@@ -1067,13 +1071,12 @@ color: MediumBlue;
     border-radius: 2px;
   }
 
-  [id^="span_title"] {
+.p_author {
     font-size: 18px;
-    font-weight: bold;
   }
 
-  [id^="span_author"] {
-    font-size: 18px;
+.p_title {
+    font-size: 19px;
     font-weight: bold;
   }
 
@@ -1210,7 +1213,7 @@ color: MediumBlue;
 </div>
 </div>
 
-
+{% if request.user.is_authenticated %}
 <script>
 
   var_name = {}
@@ -1223,37 +1226,19 @@ var empty_img = "http://books.google.com/books/content?id=YS7eSh0hbDEC&printsec=
 
 var img_{{book.id}} = document.getElementById("img_book_{{book.id}}");
 
-const imgs_fluid = document.querySelectorAll("img_fluid")
-
 // img_{{book.id}}.addEventListener("load", FuncNoImg);
-
-  function FuncNoImg() {
-   
+img_{{book.id}}.onload = function() {
+ // function FuncNoImg() {
+ 
     if (img_{{book.id}}.src === empty_img) {
-  //  if (img_{{book.id}} === empty_img) {
-    var html_{{book.id}} = '<div class="btn_img_new"><p id="p_author_{{book.id}}" ></p><br><p id="p_title_{{book.id}}" style="font-weight:bold;"></p></div>';
+    var html_{{book.id}} = '<div class="btn_img_new"><p class="p_author" id="p_author_{{book.id}}" ></p><br><p class="p_title" id="p_title_{{book.id}}" ></p></div>';
     img_{{book.id}}.insertAdjacentHTML("afterend", html_{{book.id}});
+    // img_{{book.id}}.insertAdjacentElement("afterend", html_{{book.id}});
     document.getElementById("p_author_{{book.id}}").innerText = author_{{book.id}};
     document.getElementById("p_title_{{book.id}}").innerText = title_{{book.id}};
       }
-    } 
-
-  //  for (let img_fluid of imgs_fluid) {
-    FuncNoImg();
-  //  }
-/*
- // var container_book = document.getElementById('row_book{{book.id}}');
-var img{{book.id}} = document.getElementById('img_book{{book.id}}');
- // var img_src{{book.id}} = img{{book.id}}.src;
- var no_img = "http://books.google.com/books/content?id=YS7eSh0hbDEC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api";
- img{{book.id}}.onload = function() {
-  
-  if (img{{book.id}}.src === no_img) {
-  let  html = '<div class="btn_img_new">{{book.author}}<br><br>"{{book.title}}"</div>';
- 
-  img{{book.id}}.insertAdjacentHTML("afterend", html); 
-  }
-  } */
+    }
+ //  } 
 
   var modal_{{book.id}}  = document.getElementById("mymodalauthor_bookOverlay_{{book.id}}");
 
@@ -1309,3 +1294,5 @@ var btn_{{book.id}} = document.getElementById("button_1_{{book.id}}");
   
 
       </script>
+
+      {% endif %}
