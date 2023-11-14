@@ -949,7 +949,7 @@ def records_view_post(request):
     filter_dict = {}
     context["search_phrase"] = ""
     context_post["values"] = ""
-
+    context["form_search"] = form_search_post
     if form_search_post.is_valid():
         print("if form_search.is_valid():")
         search_phrase = form_search_post.cleaned_data['search_field']

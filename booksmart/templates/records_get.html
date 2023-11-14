@@ -1,4 +1,4 @@
-{% extends 'base_ds.html' %}
+{% extends 'base_ds_noscrap.html' %}
 {% load booksmart_extras %}
 {% load bootstrap4 %}
 {% block title %} found-records {% endblock %}
@@ -14,10 +14,10 @@
 });
   
   </script>
-  
-{% include 'snippets/scrollbars.html' %}
 
-<div id="glass_id_main" class="glass_class_main"> 
+  <p id="keep_trying" > hmmm... keep trying ;) </p>
+    
+  <div id="glass_id_main" class="glass_class_main"> 
 
   {% block content_1 %}
 

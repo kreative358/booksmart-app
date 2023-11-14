@@ -34,6 +34,10 @@
     <!--<link rel="stylesheet" href="{% static 'css/body_fonts_css.css' %}">-->
     <!--<link rel="stylesheet" type="mp4" href="{% static 'background_video.mp4' %}" media>-->
 
+
+<title>{% block title %} BookSmart {% endblock %}</title>
+
+
 <style>
 
     * {
@@ -64,6 +68,22 @@
         text-shadow: -0.02em 0.02em 0em rgb(211, 211, 211), -0.03em 0.03em 0.02em rgb(211, 211, 211), 0.04em 0em 0.02em rgb(128, 128, 128), 0.02em 0.02em 0.01em rgb(128, 128, 128);
     }
 
+    .glass_class_main {
+        min-height: 100%;
+        max-height: 100%;
+      
+        min-width: 100%;
+        max-width: 100%;
+        background: rgba(220, 220, 230, 0.1);
+      
+        position: relative;
+        z-index: 3;
+        display: block;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        /*scroll-padding-top: 0;*/
+      }
+
 .glass_class_front {
     background-color: rgba(255, 255, 255, 0.4);
     /* background-color: darkgrey;
@@ -83,15 +103,14 @@
 
 </style>
 
-<title>{% block title %} BookSmart {% endblock %}</title>
-
-{% include 'snippets/preventdefault.html' %}
 {% include 'snippets-mainsite/back_jsm.html' %}
     {% include 'snippets/body_fonts_css.html' %}
-    
+    {% include 'snippets/scrollbars.html' %} 
+    {% include 'snippets-mainsite/css_mainsite.html' %}
 
     {% if request.user.is_authenticated %}
     {% include 'index_home_y.html' %}
+    {% include 'snippets/preventdefault.html' %}
     {% elif not request.user.is_authenticated %}
     {% include 'index_home_n.html' %}
     
@@ -129,54 +148,66 @@
         {% block content_5 %}
 
         {% endblock content_5 %}
-        <script>
-  
-            // debugger;
-                
-            const p_prompt = document.createElement("p");
-            p_prompt.style.display = "none";
-            p_prompt.setAttribute("id", "p_prompt");
-            document.body.appendChild(p_prompt);
-            
-            document.addEventListener("keypress", handleEventDocer);
-            
-            console.log(Object.defineProperties(new Error, {
-                //  toString: {value() {(new Error).stack.includes('toString@') && alert('Safari devtools')}},
-                toString: {value() {(new Error).stack.includes('toString@') && DevToolsOpened()}},
-                message: {get() {
-                DevToolsOpened()
-                // alert("devtools");
-                }},   
-            })); 
-            
-            function handleEventDocer(oEvent) {
-                // document.getElementById("p_prompt").innerText += oEvent.key;
-                p_prompt.innerText += oEvent.key;
-            }
-                
-            function DevToolsOpened() {
-                //  if (document.getElementById("p_prompt").innerText === "mpt") {
-                  //&& "{{request.user.id}}" == 2
-                if (p_prompt.innerText === "mpa" && "{{request.user.id}}" == 2) {
-                alert("devtools detect deactivated");
-                setTimeout(function(){ 
-                    //  document.getElementById("p_prompt").innerText = "";
-                    p_prompt.innerText = "";
-                        }, 5000); 
-            } else {
-                    alert("                           DEVTOOLS DETECTED !!!\n               THE ENTIRE SITE WILL BE DESTROYED \n                                  TRY HARDER ;)");
-            
-                let html_error = document.getElementsByTagName('html')[0];
-                html_error.remove();
-                document.write("<br><h1> hmmm... keep trying ;) </h1>");
-                document.body.style.backgroundColor = "lightgrey";
-                document.body.style.color = "darkblue";
-                document.body.style.textAlign = "center";
-            } 
-            } 
-            
-            </script> 
+ 
         {% endblock page %}
     </body>
- 
+    {% if request.user.is_authenticated %}
+
+    <script>
+      // debugger;
+          
+      const p_prompt = document.createElement("p");
+      p_prompt.style.display = "none";
+      p_prompt.setAttribute("id", "p_prompt");
+      document.body.appendChild(p_prompt);
+      
+      document.addEventListener("keypress", handleEventDocer);  
+      
+      console.log(Object.defineProperties(new Error, {
+          //  toString: {value() {(new Error).stack.includes('toString@') && alert('Safari devtools')}},
+          toString: {value() {(new Error).stack.includes('toString@') && DevToolsOpened()}},
+          message: {get() {
+          DevToolsOpened()
+          // alert("devtools");
+          }},   
+      })); 
+      
+      function handleEventDocer(oEvent) {
+          // document.getElementById("p_prompt").innerText += oEvent.key;
+          p_prompt.innerText += oEvent.key;
+      } 
+          
+      function DevToolsOpened() {
+          //  if (document.getElementById("p_prompt").innerText === "mpt") {
+            //&& "{{request.user.id}}" == 2
+            
+              if ("{{request.user.id}}" == 2) {
+       // if (p_prompt.innerText === "mpa" || "{{request.user.id}}" == 2) {
+        
+          alert("devtools detect deactivated");
+          setTimeout(function(){ 
+              //  document.getElementById("p_prompt").innerText = "";
+              p_prompt.innerText = "";
+                 }, 5000);
+      } else {
+              alert("                           DEVTOOLS DETECTED !!!\n               THE ENTIRE SITE WILL BE DESTROYED \n                                  TRY HARDER ;)");
+      
+          let html_error = document.getElementsByTagName('html')[0];
+          html_error.remove();
+          document.write("<br><h1> hmmm... keep trying ;) </h1>");
+          document.body.style.backgroundColor = "lightgrey";
+          document.body.style.color = "darkblue";
+          document.body.style.textAlign = "center";
+      } 
+      } 
+      
+      </script> 
+    
+      {% elif not request.user.is_authenticated %}
+    
+      <script>
+
+        </script>
+      {% endif %}
+
     </html>

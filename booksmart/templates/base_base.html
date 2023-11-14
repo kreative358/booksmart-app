@@ -25,29 +25,86 @@
     <!--<link rel="stylesheet" href="{% static 'css/body_fonts_css.css' %}">-->
     <!--<link rel="stylesheet" type="mp4" href="{% static 'background_video.mp4' %}" media>-->
 
-<style>
-
-.glass_class_front {
-    background-color: rgba(255, 255, 255, 0.4);
-    /* background-color: darkgrey;
-    opacity: 0.6; */
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    padding: 20px;
-    margin: 30px 10px 30px 10px;
-    width: 100%;
-    position: fixed;
-    width: 102%;
-    height: 102%;
-    top: -1%;
-    left:-1%;
-    z-index: 32;
-    } 
-
-</style>
-
     <title>{% block title1 %} BookSmart {% endblock %}</title>
-    {% include 'snippets/preventdefault.html' %}
+
+    <style>
+        * {
+            box-sizing: border-box;
+            }
+        
+        html {
+          background-color: rgba(60, 160, 240, 0.4); 
+        }
+      
+        html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        overflow-y: hidden;
+        font-family: Times;
+        
+        background-color: rgba(60, 160, 240, 0.4);
+        background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(60, 160, 240, 0.8) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+        z-index: -2;
+       /*
+         background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(0, 60, 240, 0.4) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+         */
+        }
+        
+        body {
+          color: rgba(0, 0, 220, 0.9);
+          text-shadow: -0.02em 0.02em 0em rgb(211, 211, 211), -0.03em 0.03em 0.02em rgb(211, 211, 211), 0.04em 0em 0.02em rgb(128, 128, 128), 0.02em 0.02em 0.01em rgb(128, 128, 128);
+        }
+    
+    .glass_class_main {
+        min-height: 100%;
+        max-height: 100%;
+      
+        min-width: 100%;
+        max-width: 100%;
+        background: rgba(220, 220, 230, 0.1);
+      
+        position: relative;
+        z-index: 3;
+        display: block;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        /*scroll-padding-top: 0;*/
+      }
+    
+    .glass_class_front {
+        background-color: rgba(255, 255, 255, 0.4);
+        /* background-color: darkgrey;
+        opacity: 0.6; */
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        padding: 20px;
+        margin: 30px 10px 30px 10px;
+        width: 100%;
+        position: fixed;
+        width: 102%;
+        height: 102%;
+        top: -1%;
+        left:-1%;
+        z-index: 32;
+        } 
+    
+        #keep_trying {
+          color: rgba(0, 0, 0, 180, 0.8);
+          font-size: 40px;
+          text-align: center;
+          top: 40%;
+          position: relative;
+          z-index: 3;
+          display: none;
+      }
+    </style>
+
+
+    {% include 'snippets/body_fonts_css.html' %}
+    {% include 'snippets/back_js_s.html' %}
+    {% include 'snippets/modal_message_mail.html' %} 
+    {% include 'snippets/scrollbars.html' %}
 
 </head>
 <!--<body hx-target="this" hx-swap="outerHTML" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>-->

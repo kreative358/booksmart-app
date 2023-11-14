@@ -183,7 +183,7 @@ max-width: 92%;
   <div class="my_container_filter" id="container_filter" >
     <div class="my_card_filter"id="card_filter">
 
-      {% if form_search %}
+      
       <form  action="{% url 'booksmart:records-post' %}" method="POST" target="_blank" id="form_search_id">
            
         {% csrf_token %}
@@ -195,12 +195,12 @@ max-width: 92%;
       <button type="submit" class="btnfilter notranslate" id='btn_filter_q'>
             find books
             <span id="tooltiptext_fq">FIND A BOOK IN THE DATABASE WITH DETAILS ABOUT AUTHOR USING ANY PARAMETER</span></button></span>
-        {% endif %}
+       
       </form>
     </div>
   </div>
 
   <script>
-    // document.querySelector("#input_text_search_q").value = "";
+     document.querySelector("#input_text_search_q").value = "";
 
   </script>

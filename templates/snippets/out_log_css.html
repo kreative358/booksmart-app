@@ -1525,6 +1525,68 @@ color: lightgreen;
     
 
 </style>
+<style>
+
+[data-tooltip^="tooltip_"] {
+  position: relative;
+  display: inline-block;
+  z-index: 64;
+  transition: 0.1s;
+/*  z-index: 1; */  
+}
+
+[data-tooltip^="tooltip_"]:hover {
+  z-index: 115;
+/*  z-index: 1; */  
+}
+
+[data-tooltip^="tooltip_"] [data-tooltiptext^="tooltiptext_"] {
+  visibility: hidden;
+  width: 240px;
+  background-color: rgb(60, 60, 240,); 
+  background-color:rgba(60, 60, 240, 0.8); 
+  border-radius: 1px;
+  outline: 4px solid rgba(60, 60, 240, 0.8);
+  outline-offset: 3px;
+  box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+  font-size: 15px;
+  color: rgba(220, 220, 230, 0.8);
+  position: absolute;
+/*  z-index: 1; */ 
+  padding: 4px;
+  bottom: 100%;
+  margin-bottom: 26px;
+  line-height: 1.1;
+  left: 50%;
+  margin-left: -132px;
+  opacity: 0.2;
+  transition: opacity 0.6s;
+  z-index: 116;
+  text-align: center;
+  line-height: 1.2;
+  font-family: Times;
+  font-weight: normal;
+}
+
+[data-tooltip^="tooltip_"] [data-tooltiptext^="tooltiptext_"]::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 8px;
+    margin-left: -6px;
+    border-width: 12px;
+    border-style: solid;
+    border-color: rgba(60, 60, 240, 0.8) transparent transparent transparent;
+    z-index: 117;
+  }
+
+  [data-tooltip^="tooltip_"]:hover [data-tooltiptext^="tooltiptext_"] {
+    visibility: visible;
+    z-index: 118;
+    opacity: 1;
+  }
+</style>
 
 <style>
 

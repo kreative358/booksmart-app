@@ -1,0 +1,141 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <!-- <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <META HTTP-EQUIV="Content-Type" Content="tekst/html"; charset="iso-8859-2">
+    
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong&effect=neon|outline|emboss|shadow-multiple|fire">
+
+ <!--   <script src="https://unpkg.com/htmx.org@1.8.0"></script> -->
+
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    <!--<link rel="stylesheet" href="{% static 'css/body_fonts_css.css' %}">-->
+    <!--<link rel="stylesheet" type="mp4" href="{% static 'background_video.mp4' %}" media>-->
+<style>
+
+</style>   
+
+<!--<link rel="stylesheet" href="{% static 'new.css' %}">-->
+
+    <title>{% block title %} BookSmart {% endblock %}</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    }
+
+html {
+    background-color: rgba(60, 160, 240, 0.4); 
+}
+
+html, body {
+height: 100%;
+width: 100%;
+margin: 0;
+overflow-y: hidden;
+font-family: Times;
+
+background-color: rgba(60, 160, 240, 0.4);
+background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(60, 160, 240, 0.8) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+z-index: -2;
+/*
+    background: repeating-conic-gradient( rgba(60, 160, 240, 0.4) 10%, rgba(0, 60, 240, 0.4) 20%, rgba(60, 160, 240, 0.4) 30%, rgba(0, 60, 240, 0.4) 10%) no-repeat fixed center; 
+    */
+}
+
+body {
+    color: rgba(0, 0, 220, 0.9);
+    text-shadow: -0.02em 0.02em 0em rgb(211, 211, 211), -0.03em 0.03em 0.02em rgb(211, 211, 211), 0.04em 0em 0.02em rgb(128, 128, 128), 0.02em 0.02em 0.01em rgb(128, 128, 128);
+}
+
+.glass_class_main {
+    min-height: 100%;
+    max-height: 100%;
+    
+    min-width: 100%;
+    max-width: 100%;
+    background: rgba(220, 220, 230, 0.1);
+    
+    position: relative;
+    z-index: 3;
+    display: block;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    /*scroll-padding-top: 0;*/
+    }
+
+.glass_class_front {
+background-color: rgba(255, 255, 255, 0.4);
+/* background-color: darkgrey;
+opacity: 0.6; */
+-webkit-backdrop-filter: blur(6px);
+backdrop-filter: blur(6px);
+padding: 20px;
+margin: 30px 10px 30px 10px;
+width: 100%;
+position: fixed;
+width: 102%;
+height: 102%;
+top: -1%;
+left:-1%;
+z-index: 32;
+} 
+
+</style>
+
+    
+{% include 'snippets/body_fonts_css.html' %}
+{% include 'snippets/back_js_s.html' %}
+{% include 'snippets/preventdefault.html' %}
+{% include 'snippets/scrollbars.html' %}
+
+
+</head>
+<body>
+ 
+
+    {% block page %} 
+
+
+    {% block content_1 %}    
+
+    {% endblock content_1 %}
+
+    
+    {% block content_2 %} 
+
+    {% endblock content_2 %}
+    
+    
+    {% block content_3 %} 
+
+    {% endblock content_3 %}
+
+
+    {% block content_4 %}
+
+    {% endblock content_4 %}
+
+    {% block content_5 %}
+
+    {% endblock content_5 %}
+  
+    {% endblock page %}
+</body>
+  
+
+</html>

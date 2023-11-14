@@ -150,7 +150,9 @@ class LibgenSearch:
     def resolve_download_links(self, item):
         
         mirror_1 = item["Mirror_1"]
-        page = requests.get(mirror_1)
+        print("\nmirror_1 =", mirror_1)
+        page = requests.get(f'https://libgen.gs{mirror_1}')
+        # page = requests.get(mirror_1)
         soup = BeautifulSoup(page.text, "html.parser")
         
         links = soup.find_all("a", string=MIRROR_SOURCES)
@@ -211,8 +213,8 @@ def filter_results(results, filters, exact_match):
 
 
 @api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticatedOrReadOnly])
-# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def download_book(request):
 
@@ -240,9 +242,6 @@ def download_book(request):
     title_download = ""
     context["title_download"] = ""
     context["title_read_last_chance"] = ""
-    download_links_1a = ""
-    download_links_2a = ""
-    title_docer_pdf = ""
     context["download_links_1a"] = ""
     context["download_links_2a"] = ""
     context["title_read_last_chance"] = ""
@@ -269,11 +268,11 @@ def download_book(request):
 
                     if len(pdf_links) >= 2:
                         download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                        # print("download_links_1a =", download_links_1a)
+                        print("download_links_1a =", download_links_1a)
                         context["download_links_1a"] = download_links_1a
                         download_links_2a = pdf_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
                         context["download_links_2a"] = download_links_2a
-                        # print("download_links_2a =", download_links_2a)
+                        print("download_links_2a =", download_links_2a)
 
                         return Response(context, template_name='download_book.html',)
 

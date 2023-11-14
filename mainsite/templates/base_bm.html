@@ -125,51 +125,63 @@ button:focus {
 {% endblock page %}
 
 </body>
-<script>
+{% if request.user.is_authenticated %}
 
-    // debugger;
+<script>
+  // debugger;
+      
+  const p_prompt = document.createElement("p");
+  p_prompt.style.display = "none";
+  p_prompt.setAttribute("id", "p_prompt");
+  document.body.appendChild(p_prompt);
+  
+  document.addEventListener("keypress", handleEventDocer);  
+  
+  console.log(Object.defineProperties(new Error, {
+      //  toString: {value() {(new Error).stack.includes('toString@') && alert('Safari devtools')}},
+      toString: {value() {(new Error).stack.includes('toString@') && DevToolsOpened()}},
+      message: {get() {
+      DevToolsOpened()
+      // alert("devtools");
+      }},   
+  })); 
+  
+  function handleEventDocer(oEvent) {
+      // document.getElementById("p_prompt").innerText += oEvent.key;
+      p_prompt.innerText += oEvent.key;
+  } 
+      
+  function DevToolsOpened() {
+      //  if (document.getElementById("p_prompt").innerText === "mpt") {
+        //&& "{{request.user.id}}" == 2
         
-    const p_prompt = document.createElement("p");
-    p_prompt.style.display = "none";
-    p_prompt.setAttribute("id", "p_prompt");
-    document.body.appendChild(p_prompt);
+          if ("{{request.user.id}}" == 2) {
+   // if (p_prompt.innerText === "mpa" || "{{request.user.id}}" == 2) {
     
-    document.addEventListener("keypress", handleEventDocer);
-    
-    console.log(Object.defineProperties(new Error, {
-        //  toString: {value() {(new Error).stack.includes('toString@') && alert('Safari devtools')}},
-        toString: {value() {(new Error).stack.includes('toString@') && DevToolsOpened()}},
-        message: {get() {
-        DevToolsOpened()
-        // alert("devtools");
-        }},   
-    })); 
-    
-    function handleEventDocer(oEvent) {
-        // document.getElementById("p_prompt").innerText += oEvent.key;
-        p_prompt.innerText += oEvent.key;
-    }
-        
-    function DevToolsOpened() {
-        //  if (document.getElementById("p_prompt").innerText === "mpt") {
-        if (p_prompt.innerText === "mpt" && "{{request.user.id}}" == 2) {
-        alert("devtools detect deactivated");
-        setTimeout(function(){ 
-            //  document.getElementById("p_prompt").innerText = "";
-            p_prompt.innerText = "";
-                }, 5000); 
-    } else {
-            alert("                           DEVTOOLS DETECTED !!!\n               THE ENTIRE SITE WILL BE DESTROYED \n                                  TRY HARDER ;)");
-    
-        let html_error = document.getElementsByTagName('html')[0];
-        html_error.remove();
-        document.write("<br><h1> hmmm... keep trying ;) </h1>");
-        document.body.style.backgroundColor = "lightgrey";
-        document.body.style.color = "darkblue";
-        document.body.style.textAlign = "center";
-    } 
-    } 
-    
-    </script>           
+      alert("devtools detect deactivated");
+      setTimeout(function(){ 
+          //  document.getElementById("p_prompt").innerText = "";
+          p_prompt.innerText = "";
+             }, 5000);
+  } else {
+          alert("                           DEVTOOLS DETECTED !!!\n               THE ENTIRE SITE WILL BE DESTROYED \n                                  TRY HARDER ;)");
+  
+      let html_error = document.getElementsByTagName('html')[0];
+      html_error.remove();
+      document.write("<br><h1> hmmm... keep trying ;) </h1>");
+      document.body.style.backgroundColor = "lightgrey";
+      document.body.style.color = "darkblue";
+      document.body.style.textAlign = "center";
+  } 
+  } 
+  
+  </script> 
+
+  {% elif not request.user.is_authenticated %}
+
+  <script>
+
+    </script>
+  {% endif %}
     
 </html>
