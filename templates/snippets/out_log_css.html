@@ -31,7 +31,7 @@
     position: fixed; 
     justify-content:center; 
     align-items:center; 
-    top:52px;
+    top:56px;
     width: 440px;
     left: 50%;
     margin-left: -220px;
@@ -688,20 +688,24 @@ animation-iteration-count: infinite;
 .h5vw_btn {
 font-size: 22px;
 font-weight: bold;
-line-height: 0.72;  
+line-height: 1;  
 color: MediumBlue; 
 font-family: Times;
 font-variant: small-caps;
 margin-top: 7.2%;
 margin-bottom: 7.2%;
 max-height: 46px;
+padding: 0px 4px 0px 4px;
 }
 
 #p_btn_signin,
 #p_btn_login {
   font-size: 18px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+ /* padding-top: 4px;
+  padding-bottom: 4px; */
+  padding: 0px 4px 0px 4px;
+  margin-top: 10%;
+  margin-bottom: 10%;
 }
 
 #btn_hide_text,
@@ -746,13 +750,15 @@ text-align: center;
 }
 
 #btn_signin {
-  margin-bottom: -6px;
+  margin-bottom: -1%;
   margin-left: -8px;
+  padding: 0px 4px 0px 4px;
 }
 
 #btn_login {
   margin-bottom: -6px;
   margin-right: -8px;
+  padding: 0px 4px 0px 4px;
 }
 
 
@@ -1602,23 +1608,13 @@ color: lightgreen;
     
     .h5vw_btn {
     font-size: 2.4vw;    
+    margin-bottom: 6.2%;
     }
-
+    
     #p_btn_signin,
     #p_btn_login {
-  font-size: 2vw;
-}
-    
-    .btn_in,
-    .btn_show,
-    .btn_hide,
-    .myBtns_acc,
-    .myBtns_acc_m {
-    /* justify-content: center;
-    align-items: center;
-    display: flex;
-    text-align: center; */
-    
+    margin-bottom: 10%;
+    font-size: 2.2vw;
     }
     
     .btn_show,
@@ -1634,14 +1630,18 @@ color: lightgreen;
     min-width: 26%;
     width: 26%;
     }
+
+    .myBtns_acc_m {
+      top: 4vw;
+    }
     
     #btn_door {
       margin-left: 1vw;
       margin-right: 1vw; 
       }
     
-      #btn_account {        
-    margin-left: 1vw;
+    #btn_account {        
+      margin-left: 1vw;
     }
     
     
@@ -1649,54 +1649,52 @@ color: lightgreen;
     margin-right: 1vw;
     }
     
-    }
+  /*  #btn_door_text {
+      font-size: 22px;
+    } 
     
-    @media screen and (max-width: 640px) {
-      .h5vw_btn {
-     
-        font-size: 2.6vw;
-      }
-
     #p_btn_signin,
     #p_btn_login {
-  font-size: 2.2vw;
-}
-    }
-    
-    @media screen and (max-width: 480px) {
-      .h5vw_btn {
-        font-size: 2.8vw;
-      }
+    font-size: 18px;
+    }  */
 
-    #p_btn_signin,
-    #p_btn_login {
-  font-size: 2.4vw;
-}
-    
+    #main_cont_collapsible {
+      top: 7vw;
+      width: 50%;
+      margin-left: -25%;
     }
+
+    #content_collapsible {
+      font-size: 3vw;
+    }
+  }
+    
   @media screen and (max-width: 720px) {
   .btn_show:after {
     padding-top: 6px;
     padding-bottom: 8px;
     width: 130px;
-  /*   margin-left: -36px;*/
-  margin-left: -5vw;
+  /* margin-left: -36px;*/
+    margin-left: -5vw;
     font-size: 20px;
     margin-top: 22px;
     }
 
+  .btn_hide:after {
+    width: 130px;
+    left:50%;
+    /*margin-top: 120px; 
+    margin-left: -104px;*/
+    margin-left: -16vw;
+    padding-top: 6px;
+    padding-bottom: 8px;       
+    font-size: 20px;
+    margin-top: 22px;
+    }
 
-    .btn_hide:after {
-      width: 130px;
-      left:50%;
-      /*margin-top: 120px; 
-      margin-left: -104px;*/
-      margin-left: -16vw;
-      padding-top: 6px;
-      padding-bottom: 8px;       
-      font-size: 20px;
-      margin-top: 22px;
-      }
+/*  #btn_door_text {
+    font-size: 22px;
+    }  */
 }
 
   @media screen and (max-width: 640px) {
@@ -1711,12 +1709,39 @@ color: lightgreen;
 
     .btn_show:after,
     .btn_hide:after {
-
       width: 120px;
-
       font-size: 18px;
         }
+
+    .h5vw_btn {
+        font-size: 2.6vw;
+      }
+
+    #p_btn_signin,
+    #p_btn_login {
+    font-size: 2.4vw;
+    }
+  
+  /*  #p_btn_signin,
+    #p_btn_login {
+      font-size: 18px;
   }
+    
+    #btn_door_text {
+    font-size: 22px;
+    }  */
+
+    #main_cont_collapsible {
+      top: 7.4vw;
+      width: 60%;
+      margin-left: -30%;
+    }
+
+    #content_collapsible {
+      font-size: 3.2vw;
+    }
+  }
+  
 
   @media screen and (max-width: 560px) {
     #mymodalSigninCont,
@@ -1781,7 +1806,34 @@ color: lightgreen;
     .header_text {
       font-size: 18px;
     }
-    
+
+    .h5vw_btn {
+      font-size: 2.8vw;
+      }
+
+    #p_btn_signin,
+    #p_btn_login {
+    font-size: 2.6vw;
+    }
+
+  /*  #p_btn_signin,
+    #p_btn_login {
+      font-size: 18px;
+    }
+
+    #btn_door_text {
+      font-size: 22px;
+    }  */
+
+    #main_cont_collapsible {
+      top: 7.8vw;
+      width: 70%;
+      margin-left: -35%;
+    }
+
+    #content_collapsible {
+      font-size: 3.4vw;
+    }
   }
 
 </style>
