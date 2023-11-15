@@ -210,12 +210,12 @@ background-color: rgba(140, 140, 160, 0.8);
 }
 
 
-label {
+.mymodal_body_wiki label {
 font-variant: small-caps;
 font-size: 24px;
 font-family:Times;
 color:blue;
-padding: 0px auto 0px auto;
+padding: 0px;
 font-weight: bold;
 /*margin-bottom:4px; */
 }
@@ -267,12 +267,28 @@ box-shadow:
 background: rgba(240, 255, 255, 0.4);
 border-radius:2px;
 box-sizing: border-box;
-margin: -6px auto -28px auto;
-padding: 2px 6px 4px auto;
-width:96%;
+margin: -2px auto 0px auto;
+padding: 2px 4px 4px 6px;
+width:90%;
+border: none;
+outline: none;
 }
 
-#mymodal_wikiBody input[type=date], #mymodal_wikiBody input[type=url] {
+#date_end_empty {
+  z-index: 39; 
+  width: 91%; 
+  min-height: 34px; top: -32px;  
+  position: relative; 
+  background: rgb(200, 200, 210); 
+  border-radius: 2px; 
+  margin: 0px auto -36px auto; 
+  box-shadow: 
+  0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset, 
+  0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+}
+
+#mymodal_wikiBody input[type=date],
+#mymodal_wikiBody input[type=url] {
 font-size:16px;
 color:darkblue;
 box-shadow: 
@@ -281,24 +297,29 @@ box-shadow:
 background: rgba(240, 255, 255, 0.4);
 border-radius:2px;
 box-sizing: border-box;
-margin: 0px auto -6px auto;
-width:96%;
+margin: -2px auto 0px auto;
+width: 90%;
+border: none;
+outline: none;
 }
 
 #mymodal_wikiBody textarea {
-font-size:16px;
-color:darkblue;
-box-shadow: 
-0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
-0px 0px 0px 2px rgba(220, 220, 240, 0.4);
-background: rgba(240, 255, 255, 0.4);
-border-radius:2px;
-box-sizing: border-box;
-margin: 0px auto -10px auto;
-text-align: justify; 
-text-justify: inter-word; 
-resize:none;
-width:90%;
+  font-size:16px;
+  color:darkblue;
+  box-shadow: 
+  0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
+  0px 0px 0px 2px rgba(220, 220, 240, 0.4);
+  background: rgba(240, 255, 255, 0.4);
+  border-radius:2px;
+  box-sizing: border-box;
+  margin: -2px auto 0px auto;
+  text-align: justify; 
+  text-justify: inter-word; 
+  resize:none;
+  width: 94%;
+  position: relative;
+line-height: 1.2;
+padding: 6px;
 }
 
 ::-webkit-input-placeholder { /* Edge */
@@ -313,14 +334,18 @@ color: lightblue;
 color: lightblue;
 }
 
-#mymodal_wikiBody input:hover, #mymodal_wikiBody select:hover, #mymodal_wikiBody textarea:hover {
+#mymodal_wikiBody input:hover,
+#mymodal_wikiBody select:hover,
+#mymodal_wikiBody textarea:hover {
 box-shadow: 
 0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
 0px 0px 0px 2px rgba(220, 220, 240, 0.6);
 background: rgba(240, 255, 255, 0.6);
 }
 
-#mymodal_wikiBody input:focus, #mymodal_wikiBody select:focus, #mymodal_wikiBody textarea:focus {
+#mymodal_wikiBody input:focus,
+#mymodal_wikiBody select:focus,
+#mymodal_wikiBody textarea:focus {
 box-shadow: 
 0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
 0px 0px 0px 2px rgba(220, 220, 240, 0.8);
@@ -519,12 +544,11 @@ animation-iteration-count: infinite;
             
             
               {% if book_dict.author_c.date_of_death == no_date %}
-              <div class="form-group" style="" onmouseover="readOnlyFlatpickr(this)">
+              <div class="form-group" >
                 <label class="label_2"  id="bs_label_date_of_death" for="date_of_death" > date of death </label>
 
-                
-              <input type="date" class="form-control" id="date_of_death{{book_dict.author_c.wiki_idx}}" name="date_of_death" value="{{book_dict.author_c.date_of_death}}" readonly style="color: transparent;">
-           
+              <input type="date" class="form-control" id="date_of_death{{book_dict.author_c.wiki_idx}}" name="date_of_death" value="{{book_dict.author_c.date_of_death}}" readonly style="color: transparent; z-index: 38;">
+                <div id="date_end_empty"></div> 
             </div>
               {% else %}
               <div class="form-group">
@@ -574,14 +598,6 @@ animation-iteration-count: infinite;
   <script>
     console.clear();
     var_name_wiki = {}
-
-    function readOnlyFlatpickr(element) {
-      element.lastElementChild.style.color = "red";
-      element.lastElementChild.readOnly = true;
-      element.lastElementChild.style.visibility = "hidden";
-      element.lastElementChild.style.cursor = "none";
-      
-      };
 
  let date_startwiki = flatpickr("#date_of_birth{{book_dict.author_c.wiki_idx}}", {
  // flatpickr("#date_of_birth{{book_dict.author_c.wiki_idx}}", {    

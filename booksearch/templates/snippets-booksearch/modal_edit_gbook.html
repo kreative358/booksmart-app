@@ -218,17 +218,13 @@
   background-color: rgba(140, 140, 160, 0.8);
   }
   
-  #mymodal_gbBody label {
-  
-  font-variant: small-caps;
-  font-size: 24px;
-  font-family:Times;
-  color:blue;
-  padding: 0px auto 0px auto;
-  font-weight: bold;
-  line-height: 16px;
-  margin-bottom: 0px;
-  margin-top: 0px;
+  .mymodal_body_gb label {
+    font-variant: small-caps;
+    font-size: 24px;
+    font-family:Times;
+    color:blue;
+    padding: 0px;
+    font-weight: bold;
   }
   
   /*
@@ -275,7 +271,7 @@
   , #mymodal_gbBody input[type=image]}
   */ 
   
-  #mymodal_gbBody input[type=text] {
+  .mymodal_body_gb input[type=text] {
     font-size:16px;
     color:darkblue;
     box-shadow: 
@@ -284,67 +280,72 @@
     background: rgba(240, 255, 255, 0.4);
     border-radius:2px;
     box-sizing: border-box;
-  margin: -6px auto -28px auto;
-  padding: 2px 6px 4px auto;
-  width: 96%;
+  margin: -4px auto 0px auto;
+  padding: 2px 4px 4px 6px;
+  width: 90%;
   border: none;
   outline: none;
   }
   
-  #mymodal_gbBody input[type=date],  #mymodal_gbBody input[type=url] {
+  .mymodal_body_gb input[type=date],
+  .mymodal_body_gb input[type=url] {
   font-size:16px;
   color:darkblue;
   box-shadow: 
   0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
   0px 0px 0px 2px rgba(220, 220, 240, 0.4);
   background: rgba(240, 255, 255, 0.4);
-  border-radius:2px;
+  border-radius: 2px;
   box-sizing: border-box;
-  margin: -6px auto -12px auto;
-  width:96%;
+  margin: -4px auto 0px auto;;
+  width:90%;
    border: none;
   outline: none;
   }
   
-  #mymodal_gbBody textarea {
-    font-size:16px;
-    color:darkblue;
+  .mymodal_body_gb textarea {
+    font-size: 16px;
+    color: darkblue;
     box-shadow: 
     0px 0px 0px 2px rgba(10, 115, 230, 0.4) inset,
     0px 0px 0px 2px rgba(220, 220, 240, 0.4);
     background: rgba(240, 255, 255, 0.4);
     border-radius:2px;
     box-sizing: border-box;
-    margin: -6px auto -12px auto;
+    margin: -4px auto 0px auto;
     text-align: justify; 
     text-justify: inter-word; 
     resize:none;
-    width:96%;
+    width:94%;
     position: relative;
+    line-height: 1.2;
+    padding: 6px;
     }
   
-  #mymodal_gbBody ::-webkit-input-placeholder { /* Edge */
+    .mymodal_body_gb::-webkit-input-placeholder { /* Edge */
     color: lightblue;
   }
   
-  #mymodal_gbBody :-ms-input-placeholder { /* Internet Explorer */
+  .mymodal_body_gb::-ms-input-placeholder { /* Internet Explorer */
     color: lightblue;
   }
   
-  #mymodal_gbBody ::placeholder {
+  .mymodal_body_gb::placeholder {
     color: lightblue;
   }
   
-  #mymodal_wikiBody input:hover, #mymodal_wikiBody select:hover, #mymodal_wikiBody textarea:hover {
-    scale:1.02;
+  .mymodal_body_gb input:hover,
+  .mymodal_body_gb select:hover,
+  .mymodal_body_gb textarea:hover {
     box-shadow: 
     0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
     0px 0px 0px 2px rgba(220, 220, 240, 0.6);
     background: rgba(240, 255, 255, 0.6);
   }
   
-  #mymodal_wikiBody input:focus, #mymodal_wikiBody select:focus, #mymodal_wikiBody textarea:focus {
-    scale:1.02;
+  .mymodal_body_gb input:focus,
+  .mymodal_body_gb select:focus,
+  .mymodal_body_gb textarea:focus {
     box-shadow: 
     0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
     0px 0px 0px 2px rgba(220, 220, 240, 0.8);
@@ -385,14 +386,13 @@ height:70px;
   .close_m:hover,
   .close_m:focus {
   color: blue;
-  scale:1.02;
+  transform: scale(1.02);
   text-decoration: none;
   cursor: pointer;
   }
   
   .close_m:active {
-  transform: translateY(2px);
-  scale: 0.98;
+    transform: scale(0.98);
   }
   
   .btn_close {
@@ -407,8 +407,7 @@ height:70px;
   }
   
   .close_mb:active {
-  transform: translateY(2px);
-  scale: 0.98;
+    transform: scale(0.98);
   }
   
   .btn_save {
@@ -424,7 +423,7 @@ height:70px;
 
 
   
-  #mymodal_gbBody input.date_published,
+  .mymodal_body_gb input.date_published,
   #gb_published > input[class^="date_published"] {
     background:rgba(240, 255, 255, 0.4) url(https://cdn2.iconfinder.com/data/icons/education-1-blue/64/calendar_month_schedule_date-64.png)  no-repeat ;
     background-size: 26px 26px;

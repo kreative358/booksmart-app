@@ -324,7 +324,7 @@ button:focus {
   transform: matrix(1.01, 0, 0, 1.01, 0, 0);
   }
 
-.button_3:hover
+.button_3:hover,
 .button_3:focus {
   color: rgb(112, 128, 144);
   background-color: rgb(135, 206, 250);
@@ -360,7 +360,7 @@ button:focus {
   font-size: 16px;
   }
 
-  [id^="button_3_"]:hover
+  [id^="button_3_"]:hover,
   [id^="button_3_"]:focus {
     color: rgb(240, 248, 255);
   background-color: rgb(135, 206, 250);
@@ -758,7 +758,7 @@ color: MediumBlue;
   }
 
   [id^="button_4_"] {
-    margin-left: 0px;
+    /*margin-left: 0px;*/
   }
 
 }
@@ -1111,8 +1111,6 @@ color: MediumBlue;
  <div class="glass_book">
   <div>
 
-    <a type="button" id="button_2_{{book.id}}" href="{% url 'booksmart:readbook' book.id %}" target="_blank" class='tooltip_ notranslate'>Read <br> Book <span class="tooltiptext_"> REMEMBER THAT BOOKS WITH:  EPUB: NO or embeddable: no, AND MANY OTHERS ARE NOT TO READ BECAUSE OF "COPYRIGHT"</span></a>
-
   <a type="button" class="button_1 notranslate"  id="button_1_{{book.id}}" > Author <br> details </a>
 
 
@@ -1130,6 +1128,8 @@ color: MediumBlue;
   <a type="button"  id="button_4_{{book.id}}" class='tooltip notranslate' > Edit Book <span class="tooltiptext"> REMEMBER THAT YOU CAN CHANGE ONLY YOUR OWN RECORDS </span></a>
 
   {% endif %}
+
+  <a type="button" id="button_2_{{book.id}}" href="{% url 'booksmart:readbook' book.id %}" target="_blank" class='tooltip_ notranslate'>Read <br> Book <span class="tooltiptext_"> REMEMBER THAT BOOKS WITH:  EPUB: NO or embeddable: no, AND MANY OTHERS ARE NOT TO READ BECAUSE OF "COPYRIGHT"</span></a>
 
   </div>
   
@@ -1158,15 +1158,15 @@ color: MediumBlue;
   
   <div class="mycolumn_book" id="column_book_{{book.id}}">
     <div class="glass_book">
-   <p class="h3_book_r" style="font-weight: bold; font-variant: small-caps; margin: 10px auto 0px 10px;"> title: <a  href="{{book.preview_link}}" target="_blank" ><span style="font-weight: bold; color: Maroon;" id="book_title_{{book.id}}" > "{{book.title}}"</span></a></p>
+   <p class="h3_book_r" style="font-weight: bold; font-variant: small-caps; margin: 10px auto 0px 10px; padding: 2px;"> title: <a  href="{{book.preview_link}}" target="_blank" ><span style="font-weight: bold; color: Maroon;" id="book_title_{{book.id}}" > "{{book.title}}"</span></a></p>
 
-    <p class="h4_book_r" style="font-weight: bold; font-variant: small-caps; margin: 4px auto 0px 10px;"> author: <a  href="https://{{book.language}}.wikipedia.org/wiki/{{book.author}}" target="_blank"><span style="font-weight: bold; color: Indigo;" id="book_author_{{book.id}}" > {{book.author}} </span></a></p>
-    <p class="h5_book_r" style="font-weight: bold; font-variant: small-caps; margin: 4px auto 0px 10px;"> category: <span  style="font-weight: bold; color: Indigo;">{{book.category}}</span> </p>
+    <p class="h4_book_r" style="font-weight: bold; font-variant: small-caps; margin: 4px auto 0px 10px; padding: 2px;"> author: <a  href="https://{{book.language}}.wikipedia.org/wiki/{{book.author}}" target="_blank"><span style="font-weight: bold; color: Indigo;" id="book_author_{{book.id}}" > {{book.author}} </span></a></p>
+    <p class="h5_book_r" style="font-weight: bold; font-variant: small-caps; margin: 4px auto 0px 10px; padding: 2px;"> category: <span  style="font-weight: bold; color: Indigo;">{{book.category}}</span> </p>
   
-    <p class="h6_book_r" style="font-weight: bold; font-variant: small-caps; margin: 4px auto 8px 10px;"> description:</p>
+    <p class="h6_book_r" style="font-weight: bold; font-variant: small-caps; margin: 4px auto 8px 10px; padding: 2px;"> description:</p>
     <div class="textarea_b"  > {{book.summary}} </div>
 
-    <p class="h6_book_r" style="font-weight: bold; font-variant: small-caps; margin: 0px auto 8px 10px;"> important links: </p>
+    <p class="h6_book_r" style="font-weight: bold; font-variant: small-caps; margin: 0px auto 8px 10px; padding: 2px;"> important links: </p>
     <div class="textarea_link_b" > {{book.selfLink}} </div>
       </div>
         </div>
