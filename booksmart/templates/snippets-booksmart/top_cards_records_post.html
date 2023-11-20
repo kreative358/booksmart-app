@@ -54,7 +54,7 @@ window.addEventListener("load", function() {
 
       <div class="my_card_top_cards" id="mycard_top_cards_middle">
           {% if message %}
-          <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite;" ><span class="message_search_result"> {{ message }} </span></p>
+          <p class="h3vw_l_b" style="animation: anime_red_text 2s infinite;" ><span class="message_search_result">{% autoescape off %} {{ message }} {% endautoescape %} </span></p>
           {% endif %}
 
           {% if form_search_post == "no" %}

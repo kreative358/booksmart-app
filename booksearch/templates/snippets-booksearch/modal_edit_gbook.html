@@ -200,7 +200,7 @@
   background-color: rgba(140, 140, 180, 0.8);
   }
   
-  .mymodal_body_gb {
+  [id^="mymodal_gbBody_"] {
   justify-content:center;
   text-align:center;
   background-color: rgb(140, 140, 160); 
@@ -213,12 +213,12 @@
   max-height: 460px;
   }
   
-  .mymodal_body_gb:hover {
+  [id^="mymodal_gbBody_"]:hover {
   background-color: rgb(140, 140, 160); 
   background-color: rgba(140, 140, 160, 0.8);
   }
   
-  .mymodal_body_gb label {
+  [id^="mymodal_gbBody_"] label {
     font-variant: small-caps;
     font-size: 24px;
     font-family:Times;
@@ -271,7 +271,7 @@
   , #mymodal_gbBody input[type=image]}
   */ 
   
-  .mymodal_body_gb input[type=text] {
+  [id^="mymodal_gbBody_"] input[type=text] {
     font-size:16px;
     color:darkblue;
     box-shadow: 
@@ -287,8 +287,8 @@
   outline: none;
   }
   
-  .mymodal_body_gb input[type=date],
-  .mymodal_body_gb input[type=url] {
+  [id^="mymodal_gbBody_"] input[type=date],
+  [id^="mymodal_gbBody_"] input[type=url] {
   font-size:16px;
   color:darkblue;
   box-shadow: 
@@ -303,7 +303,7 @@
   outline: none;
   }
   
-  .mymodal_body_gb textarea {
+  [id^="mymodal_gbBody_"] textarea {
     font-size: 16px;
     color: darkblue;
     box-shadow: 
@@ -322,30 +322,30 @@
     padding: 6px;
     }
   
-    .mymodal_body_gb::-webkit-input-placeholder { /* Edge */
+    [id^="mymodal_gbBody_"]::-webkit-input-placeholder { /* Edge */
     color: lightblue;
   }
   
-  .mymodal_body_gb::-ms-input-placeholder { /* Internet Explorer */
+  [id^="mymodal_gbBody_"]::-ms-input-placeholder { /* Internet Explorer */
     color: lightblue;
   }
   
-  .mymodal_body_gb::placeholder {
+  [id^="mymodal_gbBody_"]::placeholder {
     color: lightblue;
   }
   
-  .mymodal_body_gb input:hover,
-  .mymodal_body_gb select:hover,
-  .mymodal_body_gb textarea:hover {
+  [id^="mymodal_gbBody_"] input:hover,
+  [id^="mymodal_gbBody_"] select:hover,
+  [id^="mymodal_gbBody_"] textarea:hover {
     box-shadow: 
     0px 0px 0px 2px rgba(10, 115, 230, 0.6) inset,
     0px 0px 0px 2px rgba(220, 220, 240, 0.6);
     background: rgba(240, 255, 255, 0.6);
   }
   
-  .mymodal_body_gb input:focus,
-  .mymodal_body_gb select:focus,
-  .mymodal_body_gb textarea:focus {
+  [id^="mymodal_gbBody_"] input:focus,
+  [id^="mymodal_gbBody_"] select:focus,
+  [id^="mymodal_gbBody_"] textarea:focus {
     box-shadow: 
     0px 0px 0px 2px rgba(10, 115, 230, 0.8) inset,
     0px 0px 0px 2px rgba(220, 220, 240, 0.8);
@@ -423,7 +423,7 @@ height:70px;
 
 
   
-  .mymodal_body_gb input.date_published,
+  [id^="mymodal_gbBody_"] input.date_published,
   #gb_published > input[class^="date_published"] {
     background:rgba(240, 255, 255, 0.4) url(https://cdn2.iconfinder.com/data/icons/education-1-blue/64/calendar_month_schedule_date-64.png)  no-repeat ;
     background-size: 26px 26px;
@@ -470,73 +470,73 @@ height:70px;
         
         <div class="form-group" id="gb_identity" >
             <label class="label_1" id="bs_label_gb_id" for="google_id" style="">google books identity:</label>
-            <input type="text" class="form-control" name="google_id" id="google_id" minlength="12" maxlength="12" value="{{book.google_id}}" pattern='^[A-Za-z0-9._-]{12}$' title="12 characters">
+            <input type="text" class="form-control" name="google_id" id="google_id" minlength="12" maxlength="12" value="{{book.google_id}}" pattern='^[A-Za-z0-9._-]{12}$' title="12 characters" style="margin-top: 0px;">
           </div>
         
           <div class="form-group" id="gb_title">
             <label class="label_2" id="bs_label_title" for="title" >book title:</label>
-            <input type="text" class="form-control" name="title" id="title" value="{{book.title}}" required>
+            <input type="text" class="form-control" name="title" id="title" value="{{book.title}}" required style="margin-top: 0px;">
           </div>
           
           <div class="form-group" id="gb_author">
             <label class="label_2" id="bs_label_auth" for="author" >book author:</label>
-            <input type="text" class="form-control" name="author" id="author" pattern='^(\w.+\s).+$' title='must contain at least two words' value="{{book.author}}" required>
+            <input type="text" class="form-control" name="author" id="author" pattern='^(\w.+\s).+$' title='must contain at least two words' value="{{book.author}}" required style="margin-top: 0px;">
           </div>
           
           <div class="form-group" id="gb_category">
             <label class="label_2" id="bs_label_cat" for="category" > category: </label>
-            <input type="text" class="form-control" name="category" id="category" value="{{book.category}}" >
+            <input type="text" class="form-control" name="category" id="category" value="{{book.category}}" style="margin-top: 0px;">
           </div>
           
           <div class="form-group" id="gb_description">
             <label class="label_2" id="bs_label_descript" for="summary" > description: </label>
-            <textarea class="form-control" name="summary" id="summary" rows='4' style="width:96%;" maxlength="1250"> {{book.summary}} </textarea>
+            <textarea class="form-control" name="summary" id="summary" rows='4' style="margin-top: 0px; line-height: 1.2;" maxlength="1250"> {{book.summary}} </textarea>
           </div>
   
           <div class="form-group" id="gb_published" style="margin-top: 12px;">
             <label class="label_2" class="bs_label_published" for="published" > published date: </label>
-            <input type="date" class="form-control" name="published" placeholder="mm/dd/yyyy" id="published_{{ book.google_id }}" value='{{book.published}}'/>
+            <input type="date" class="form-control" name="published" placeholder="mm/dd/yyyy" id="published_{{ book.google_id }}" value='{{book.published}}' style="margin-top: 0px;"/>
             
           </div>
     <!---->
           <div class="form-group" id="gb_identyfier">
             <label class="label_2" id="bs_label_identity" for="isbn" >identyfier number:</label>
-            {% autoescape off %} <input type="text" class="form-control" name="isbn" id="isbn"  value="{{book.isbn}}" > {% endautoescape %}
+            {% autoescape off %} <input type="text" class="form-control" name="isbn" id="isbn"  value="{{book.isbn}}" style="margin-top: 0px;"> {% endautoescape %}
           </div>
           
           <div class="form-group" id="gb_language">
             <label class="label_2" id="bs_label_lang" for="language" >language:</label>
-            <input type="text" class="form-control" name="language" id="language" value="{{book.language}}" >
+            <input type="text" class="form-control" name="language" id="language" value="{{book.language}}" style="margin-top: 0px;">
           </div>
           
           <div class="form-group" id="gb_epub" >
             <label class="label_2" id="bs_label_epub" for="epub"> epub: </label>
-            <input type="text" class="form-control" name="epub" id="epub" value="{{book.epub}}" >
+            <input type="text" class="form-control" name="epub" id="epub" value="{{book.epub}}" style="margin-top: 0px;">
           </div>
           
           <div class="form-group" id="gb_embed">
             <label id="bs_label_embed" for="embeddable"> embeddable: </label>
-            <input type="text" class="form-control" name="embeddable"  id="embeddable" value="{{book.embeddable}}" >
+            <input type="text" class="form-control" name="embeddable"  id="embeddable" value="{{book.embeddable}}" style="margin-top: 0px;">
           </div>
           
           <div class="form-group" id="gb_image" >
             <label class="label_2" id="bs_label_img" for="imageLinks"> image link: </label>
-            <input type="url" class="form-control" name="imageLinks" id="imageLinks" pattern="^http:\/\/.+$" title="Include http://" value="{{book.imageLinks}}">
+            <input type="url" class="form-control" name="imageLinks" id="imageLinks" pattern="^http:\/\/.+$" title="Include http://" value="{{book.imageLinks}}" style="margin-top: 0px;">
           </div>
           
           <div class="form-group" id="gb_prev_link">
             <label class="label_2" id="bs_label_prev_link" for="preview_link" >preview link: </label>
-            <input type="url" class="form-control" name="preview_link" id="preview_link" value="{{book.preview_link}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://">
+            <input type="url" class="form-control" name="preview_link" id="preview_link" value="{{book.preview_link}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://" style="margin-top: 0px;">
           </div>
           
           <div class="form-group" id="gb_self_link">
             <label class="label_2" id="bs_label_self_link" for="selfLink" >self link:</label>
-            <input type="url" class="form-control" name="selfLink" id="selfLink" value="{{book.selfLink}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://">
+            <input type="url" class="form-control" name="selfLink" id="selfLink" value="{{book.selfLink}}" pattern="^http:\/\/?\/.*id=([A-Za-z0-9._-]{12}).*|.*\/([A-Za-z0-9._-]{12})\/.*$" title="Include http://" style="margin-top: 0px;">
           </div>
     
           <div class="form-group" id="gb_prev_linkn">
             <label class="label_2" for="bs_label_link_new" >preview link new: </label>
-            <input type="url" class="form-control" name="preview_link_new" id="preview_link_new" value="{{book.preview_link}}" pattern="http:\/\/.+" title="Include http://">
+            <input type="url" class="form-control" name="preview_link_new" id="preview_link_new" value="{{book.preview_link}}" pattern="http:\/\/.+" title="Include http://" style="margin-top: 0px;">
           </div>
           <br>
         

@@ -836,6 +836,11 @@ def records_view_get(request):
                             
                     elif not authors_result_found and not authors_result_search:
                         print("not authors_result_found and not authors_result_search")
+                        context_get["message"] = f'there are no books or authors in the database, with entered parameters:<br>"{context_post["values"]}"'
+                        msgs = [f'there are no books or authors in the database, with entered parameters:<br>"{context_get["parameters"]}"',]
+                        messages.info(request, "".join(msg for msg in msgs))
+                        return Response(context_get, template_name='records_get.html', )
+
 
                 except Exception as e:
                     print('1. e:', e)
@@ -995,30 +1000,19 @@ def records_view_post(request):
         search_resultAb = [found_author for found_author in search_resultAb_Q]
         search_resultA = []
         context_post["search_resultA"] = []
-        if search_resultB and search_resultAb:
 
-            list_surname_search_resultB = list(set(record_b.surname for record_b in search_resultB))
-            list_last_name_search_resultAb = [record_a.last_name for record_a in search_resultAb]
+        if len(search_resultB) == 0 and len(search_resultAb) == 0:
+            context["message"] = f'there are no books or authors in the database, with entered parameters:<br>"{context_post["values"]}"'
+            msgs = [f'there are no books or authors in the database, with entered parameters:<br>"{context_post["values"]}"',]
+            messages.info(request, "".join(msg for msg in msgs))
+            return Response(context, template_name='records_post.html', )
 
-            if len(list_surname_search_resultB) == 1:
-                search_resultA_1 = list(allauthors_dict.filter(last_name=list_surname_search_resultB[0]))
-                if search_resultA_1:
-                    search_resultA = list(set(search_resultAb + search_resultA_1))
-                    context_post["search_resultA"] = search_resultA
-                else:
-                    search_resultA = search_resultAb
-                    context_post["search_resultA"] = search_resultA
-            elif len(list_surname_search_resultB) > 1:
-                search_resultA_1 = [Author.objects.filter(last_name__iexact=author_found_post).last() for author_found_post in list_surname_search_resultB if Author.objects.filter(last_name__iexact=author_found_post).last()]
-                
-                if search_resultA_1:
-                    search_resultA = list(set(search_resultAb + search_resultA_1))
-                    context_post["search_resultA"] = search_resultA
-                else:
-                    search_resultA = search_resultAb
-                    context_post["search_resultA"] = search_resultA
+        elif len(search_resultB) == 0 and len(search_resultAb) > 0:
+            search_resultA = list(set(search_resultAb))
+            context_post["search_resultA"] = search_resultA
 
-        elif search_resultB and not search_resultAb:
+        # elif search_resultB and not search_resultAb:
+        elif len(search_resultB) > 0 and len(search_resultAb) == 0:
             list_surname_search_resultB = list(set(record_b.surname for record_b in search_resultB))
             if len(list_surname_search_resultB) == 1:
                 search_resultA_1 = allauthors_dict.filter(last_name=list_surname_search_resultB[0]) 
@@ -1031,6 +1025,7 @@ def records_view_post(request):
                 #     authors_result_queryset_post.append(search_resultAb)
                 print("1053 wiews_apiview list_authors_search_resultB > 1")
                 search_resultA_1 = [Author.objects.filter(last_name__iexact=author_found_post).last() for author_found_post in list_surname_search_resultB if Author.objects.filter(last_name__iexact=author_found_post).last()]
+
                 if search_resultA_1:
                     search_resultA = search_resultA_1
                     context_post["search_resultA"] = search_resultA
@@ -1038,8 +1033,34 @@ def records_view_post(request):
                     search_resultA = []
                     context_post["search_resultA"] = search_resultA
 
-        elif not form_search.is_valid(): 
+        # if search_resultB and search_resultAb:
+        elif len(search_resultB) > 0 and len(search_resultAb) > 0:
+            list_surname_search_resultB = list(set(record_b.surname for record_b in search_resultB))
+            list_last_name_search_resultAb = [record_a.last_name for record_a in search_resultAb]
 
+            if len(list_surname_search_resultB) == 1:
+                search_resultA_1 = list(allauthors_dict.filter(last_name=list_surname_search_resultB[0]))
+                if search_resultA_1:
+                    search_resultA = list(set(search_resultAb + search_resultA_1))
+                    context_post["search_resultA"] = search_resultA
+                else:
+                    search_resultA = search_resultAb
+                    context_post["search_resultA"] = search_resultA
+
+            elif len(list_surname_search_resultB) > 1:
+                search_resultA_1 = [Author.objects.filter(last_name__iexact=author_found_post).last() for author_found_post in list_surname_search_resultB if Author.objects.filter(last_name__iexact=author_found_post).last()]
+                
+                if search_resultA_1:
+                    search_resultA = list(set(search_resultAb + search_resultA_1))
+                    context_post["search_resultA"] = search_resultA
+                else:
+                    search_resultA = search_resultAb
+                    context_post["search_resultA"] = search_resultA
+
+        else: 
+            context["message"] = 'something went wrong try to change search parameter'
+            msgs = [f'something went wrong try to change search parameter:<br>"{context_post["values"]}"',]
+            messages.info(request, "".join(msg for msg in msgs))
             print("elif not form_search.is_valid(): ")
             return redirect('booksmart:allrecords')  #()
             # return redirect(current_url_name)

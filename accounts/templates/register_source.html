@@ -183,13 +183,17 @@
       }
 
 #alert_info {
-top:20%;
+top: 20%;
 background-color: rgba(220, 20, 20, 0.9);
 outline: 10px solid rgba(220, 20, 20, 0.9);
 outline-offset: 10px;
 border: 10px solid rgba(220, 20, 20, 0.9);
 box-shadow: 0px 0px 6px 6px rgba(180, 180, 180, 0.4);
 width: 480px;
+position: fixed;
+z-index: 31;
+left: 50%;
+margin-left: -240px;
 }
 
 #alert_info:hover {
@@ -260,7 +264,7 @@ width: 480px;
     font-size:20px;
     min-width: 120px;
     float:left;
-    margin: 14px auto 4px 40px;
+    margin: 14px auto 4px 20px;
     box-shadow:
     0px 0px 1px 1px rgba(90, 190, 230, 0.4) inset,
     0px 0px 2px 2px rgba(100, 200, 240, 0.4) inset,
@@ -356,18 +360,72 @@ width: 480px;
         font-size: 18px;
       }
     }
+
+    #g_recaptcha_id > div {
+      position: relative;
+      margin: 0px auto 0px auto;
+    }
 </style>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>   
+
+<div>
+  <dialog id="alert_info">
+    <p id="closebtn">✖</p>
+    <p id="alert_text"> Remeber both passwords <br> must be the same</p>
+    <p id="texthtml"></p>
+  </dialog>
+  </div>
+
+<script>
+  var modal = document.getElementById("alert_info")
+  var span1 = document.getElementById("closebtn")
+  var add_pass = document.getElementById("texthtml")
+  
+  function validateForm() {
+
+    let x = document.forms["register_v"]["password"].value;
+    let y = document.forms["register_v"]["password2"].value;
+    let value_recaptcha = document.forms["register_v"]["input_recaptcha"].value;
+    let text = "You try with:<br>" + x + "<br>" + y;
+
+    if (x != y && value_recaptcha == "") {
+
+      add_pass.innerHTML = text + "<br>VERIFICATION RECAPTCHA FAILED";
+      modal.showModal();
+      return false;
+    }
+
+    else if (x != y && value_recaptcha != "" && value_recaptcha.length > 200) {
+      add_pass.innerHTML = text;
+      modal.showModal();
+      return false;
+      }
+
+    else if (value_recaptcha == "" || value_recaptcha.length < 200 ) {
+    alert("VERIFICATION RECAPTCHA FAILED");
+    return false;
+    }
+
+  }
+
+  span1.onclick = function() {
+    modal.close();
+    // alert("YOU SHOULD TRY AGAIN");
+    //setTimeout(function() {modal.close()}, 1000);
+    //console.clear();
+        } 
+</script>
 
 <div class="container_accounts" id="container_accounts_register">
 	<div class="row_accounts" id="row_accounts_register">
     <div class="column_accounts" id="column_accounts_register">
 
-      <form action=""  method="post" class="was-validated" id="register_v" name="register_v" onsubmit="return validateForm()">
+      <form action=""  method="post" class="was-validated" id="register_v" name="register_v" onsubmit="return validateForm()" required>
 
    {% csrf_token %}
 
-   <p class="title_account"> REGISTER </p>
+   <p class="title_account" style="margin-top: -10px;"> REGISTER </p>
 
    <div style="margin-left:7.5%">	
      {% render_field serializer.current_url style=style %} 
@@ -410,89 +468,71 @@ width: 480px;
    <div class="bs_input_accounts_register" style="padding-top: 0px; padding-bottom: 8px;">
     <p class="class_label" style="line-height: 1.2;"> Veryfication</p> 
     <div class="bs_input_recaptcha" style="postion: relative; margin-left: auto; margin-right: auto;"> 	
-
-
-      <style>
-
-        #g_recaptcha_id_site > div {
-          position: relative;
-          margin: 0px auto 0px auto;
-        }
-        </style>
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>     
+        
         <div class="form-group" style="margin: 0px; padding:10px 0px 10px 0px;">
     
-        <div id="g_recaptcha_id_site" class="g-recaptcha" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" data-callback="callback">
+          <div id="g_recaptcha_id" class="g-recaptcha" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-callback="captchaVerified" data-expired-callback="captchaExpired"> 
+          </div> 
+
+        <input type="text" id="input_recaptcha" name="input_recaptcha" value="" required style="display: none; position: relative; margin: 10px auto 10px auto;" class="form-control">   
+			  <div class="valid-feedback" id="valid_yes"  style="text-align:center; margin: 0px auto 0px auto; position: relative;"> reCAPTCHA is filled out. </div>
+			
+		  	  <div class="invalid-feedback" id="valid_no" style="text-align:center; margin: 0px auto 0px auto; position: relative;" > Please fill out reCAPTCHA </div> 
+             
         </div>
-                   
-               
-    
-          <div class="valid-feedback" id="valid"  style="text-align:center; margin: auto;">value field is filled out.</div>
-          <!--<div class="invalid-feedback" id="valid" style="margin:-1px auto -5x auto; padding-left: 20px;">please fill out this field.</div>-->
-      <div class="invalid-feedback" id="valid" style="text-align:center; margin: auto;" ><span> please fill out this field. </span>
-      </div>
-              </div>
-    
-              <script type="text/javascript">
-                function callback() {
-                  const submitButton = document.getElementById("button_sm");
-                  submitButton.removeAttribute("disabled");
-                }
-              </script>
+   
 
-
-    </div>
-   </div>
-
-
-  <div id="info-remove-all">
-  {% if errors %}
-  <div id="bs_input_accounts_register_e" class="info-remove">
-
-    <span>
-      <p type="button" class="btnclose_x"  >✖</p><br>
-      {% for error in errors %}
-      <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
-      {% autoescape off %} {{ error }} {% endautoescape %}
-      </p>
-    </span>
-
-  {% endfor %}
-
-  <span class="class_text_info"><p style="font-weight: bold"> You try register with:</p>
-    <p> username: {{ user_name }},
-    <br> email: {{ e_mail }},
-    <br> password : {{ pass1 }},
-    <br> password repeat: {{ pass2 }},
-    </p></span>
-
-  </div>
-  {% endif %}
-  
-
-  {% if msgs_info %}
-  <div id="bs_input_accounts_register_m" class="info-remove">
-    <span>
-      <p type="button" class="btnclose_x"  >✖</p><br>
-      {% for msg_info in msgs_info %}
-  
-      <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
-      {% autoescape off %} {{ msg_info }} {% endautoescape %}
-      </p>
-    </span>
-  {% endfor %}
-  </div>
-  {% endif %}
-
-</div>
-
+        <div class="bs_input_accounts_register" style="padding-top: 10px; border: 2px solid rgba(200, 200, 240, 0.6); ">
+          <div id="info-remove-all" style="padding: 0px; margin: 0px;">
+          <span type="button" class="btnclose_x" style="color: rgba(200, 200, 240, 0.8);; font wight: bold; left: -10px;" >✖</span><br>
+          {% if errors %}
+         
+         <div id="bs_input_accounts_register_e" class="class_text_info" >
+              
+              {% for error in errors %}
+              <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
+              {% autoescape off %} {{ error }} {% endautoescape %}
+              </p>
+            </div>
+        
+          {% endfor %}
+        
+          <div id="bs_input_accounts_register_e" class="class_text_info">
+            <p style="font-weight: bold"> You try register with:</p>
+            <p> username: {{ user_name }},
+            <br> email: {{ e_mail }},
+            <br> password : {{ pass1 }},
+            <br> password repeat: {{ pass2 }},
+            </p>
+          </div>
+        
+          {% endif %}
+        
+        
+        
+          {% if msgs_info %}
+          <div class="class_text_info">
+              {% for msg_info in msgs_info %}
+          
+              <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
+              {% autoescape off %} {{ msg_info }} {% endautoescape %}
+              </p>
+           
+          {% endfor %}
+          </div>
+          {% endif %}
+          
+          </div>
+          </div>
+     
+<div>
  
-
 <a href="{% url 'index' %}">
 <button type="button" class="button_blue_grey"> BACK </button> </a>
 
-<button name="button_account_submit" type="submit" id="button_sm" class="button_red_grey" disabled> SAVE </button>
- 
+<button name="button_account_submit" type="submit" id="button_sm" class="button_red_grey"> SAVE </button>
+</div>
+
       </form>
     </div>
   </div>
@@ -523,39 +563,16 @@ infos.addEventListener('click', (event) => {
 
 {% block content_4 %}
 
-<div>
-  <dialog id="alert_info">
-    <p id="closebtn">✖</p>
-    <p id="alert_text"> Remeber both passwords <br> must be the same</p>
-    <p id="texthtml"></p>
-  </dialog>
-  </div>
 
 <script>
 
-  var modal = document.getElementById("alert_info")
-  var span1 = document.getElementById("closebtn")
-  var add_pass = document.getElementById("texthtml")
-  
-  function validateForm() {
-    let x = document.forms["register_v"]["password"].value;
-    let y = document.forms["register_v"]["password2"].value;
-    let text = "You try with:<br>" + x + "<br>" + y
-
-    if (x != y) {
-      add_pass.innerHTML = text;
-      modal.showModal();
-      return false;
+  function captchaVerified(response) {
+      document.getElementById("input_recaptcha").value = response;
     }
-  }
 
-  span1.onclick = function() {
-    modal.close();
-    alert("YOU SHOULD TRY AGAIN");
-    //setTimeout(function() {modal.close()}, 1000);
-    //console.clear();
-        } 
-
+    function captchaExpired() {
+      document.getElementById("input_recaptcha").value = "";
+    }
   </script>
   
 {% endblock content_4 %}

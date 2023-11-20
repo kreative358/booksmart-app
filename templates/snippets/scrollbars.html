@@ -146,8 +146,8 @@
   background-repeat: no-repeat;
   border-radius: 2px;
   background-position: center 4%, center, center 96%;
-
   }
+
   
   .glass_class_main::-webkit-scrollbar:hover {
   width: 24px;
@@ -159,6 +159,18 @@
   padding: 6px;
   font-size: 16px;
   transition: 0.4s;
+  }
+
+  .glass_class_main::-webkit-scrollbar-corner {
+    background: rgba(60, 160, 240, 0.1);
+    background-color: rgba(60, 160, 240, 0.1);
+    background-image: linear-gradient(rgba(60, 160, 240, 0.1), rgba(60, 160, 240, 0.1));
+  }
+
+  .glass_class_main::-webkit-scrollbar-corner:hover {
+    background: rgba(60, 160, 240, 0.2);
+    background-color: rgba(60, 160, 240, 0.2);
+    background-image: linear-gradient(rgba(60, 160, 240, 0.2), rgba(60, 160, 240, 0.2));
   }
   
   .glass_class_main::-webkit-scrollbar-track:vertical {
@@ -177,6 +189,7 @@
   
   .glass_class_main::-webkit-scrollbar-track:vertical:hover {
     background: rgba(220, 220, 230, 0.4);
+    background-color: rgba(220, 220, 230, 0.4);
     min-width: 24px;
     width: 24px;
     max-width: 24px;
