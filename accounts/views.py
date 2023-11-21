@@ -114,6 +114,7 @@ class RegistrationViewBase(APIView):
     serializer_class = RegistrationSerializer
 
     def get(self, request, *args, **kwargs):
+        message_errors = ""
         messages.info(request, "")
         serializer = self.serializer_class()
         # return Response({'serializer':serializer, 'style':self.style}, )
@@ -182,9 +183,10 @@ class RegistrationViewBase(APIView):
                     return redirect("index")
 
         else:
-
+            messages.info(request, "")
             errs = serializer.errors
-            message_errors = serializer_errors(errs) +  ["<p style='font-weight: bold'>You try register with:</p>", f"<p>username: {username_val},<br>email: {email_val}</p>"]
+            # message_errors = serializer_errors(errs) +  ["<p style='font-weight: bold'>You try register with:</p>", f"<p>username: {username_val},<br>email: {email_val}</p>"]
+            message_errors = serializer_errors(errs) +  ["<p class='class_text_info' style='font-weight: bold; margin-bottom: -16px;'>You try register with:</p>", f"<p style='margin-bottom: 0px;'>username: {username_val}</p><p>email: {email_val}</p>"]
             # print('accounts views RegistrationViewBase m_errs:', message_errors)
             # print('accounts views RegistrationViewBase s_errs:', serializer.errors)
             # print('register message_errors:', message_errors)

@@ -94,7 +94,7 @@
 	margin:auto;
   }	
 
-[id^="bs_input_accounts_register_"] {
+#bs_input_accounts_register_m {
 	background-color: rgb(240, 240, 240); 
 	background-color: rgba(240, 240, 240, 0.4); 
 	border-radius: 2px;
@@ -383,41 +383,29 @@ margin-left: -240px;
   var add_pass = document.getElementById("texthtml")
   
   function validateForm() {
-  //  let signup_form = document.forms["register_v"]["register_v"];
-  //  let input_recaptcha = document.forms["register_v"]["input_recaptcha"]
-    let pass = document.forms["register_v"]["password"].value;
-    let pass_2 = document.forms["register_v"]["password2"].value;
-    let value_recaptcha = document.forms["register_v"]["input_recaptcha"].value;
-    let text = "You try with:<br>" + pass + "<br>" + pass_2;
 
-  /*  if (pass == "" || pass_2 == "") {
-      add_pass.innerHTML = "PASSWORDS NOT FILLED OUT";
+    let x = document.forms["register_v"]["password"].value;
+    let y = document.forms["register_v"]["password2"].value;
+    let value_recaptcha = document.forms["register_v"]["input_recaptcha"].value;
+    let text = "You try with:<br>" + x + "<br>" + y;
+
+    if (x != y && value_recaptcha == "") {
+
+      add_pass.innerHTML = text + "<br>VERIFICATION RECAPTCHA FAILED";
       modal.showModal();
       return false;
-    } else {  */
-      if (pass != pass_2) {
-        add_pass.innerHTML = "PASSWORDS NOT THE SAME<br>" + text;
-        modal.showModal();
-        return false;
-    } 
-      /* else {
-        return true
-    } 
-  } */
+    }
 
-  if (value_recaptcha == "") {
-    add_pass.innerHTML = "VERIFICATION RECAPTCHA FAILED<br>RECAPTCHA NOT FILLED OUT";
-    modal.showModal();
-    return false;
-  } else {
-      if (value_recaptcha.length < 200) {
-        add_pass.innerHTML = "VERIFICATION RECAPTCHA FAILED<br>RECAPTCHA NOT CORRECT";
-        modal.showModal();
-        return false;
-      } else {
-        return true;
+    else if (x != y && value_recaptcha != "" && value_recaptcha.length > 200) {
+      add_pass.innerHTML = text;
+      modal.showModal();
+      return false;
       }
-  }
+
+    else if (value_recaptcha == "" || value_recaptcha.length < 200 ) {
+    alert("VERIFICATION RECAPTCHA FAILED");
+    return false;
+    }
 
   }
 
@@ -494,24 +482,23 @@ margin-left: -240px;
         </div>
    
 
-        <div id="bs_input_accounts_register_e1" style="padding-top: 10px; border: 2px solid rgba(200, 200, 240, 0.6); ">
+        <div class="bs_input_accounts_register" style="padding-top: 10px; border: 2px solid rgba(200, 200, 240, 0.6); ">
           <div id="info-remove-all" style="padding: 0px; margin: 0px;">
-          <span type="button" class="btnclose_x" style="color: rgba(200, 200, 240, 0.8); font wight: bold; left: -10px;" id="btnclose_x_id" onclick="this.parentElement.style.display = 'none';">✖</span><br>
+          <span type="button" class="btnclose_x" style="color: rgba(200, 200, 240, 0.8);; font wight: bold; left: -10px;" >✖</span><br>
           {% if errors %}
          
-       <div id="bs_input_accounts_register_e2" class="class_text_info" >
+         <div id="bs_input_accounts_register_e" class="class_text_info" >
               
               {% for error in errors %}
               <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
               {% autoescape off %} {{ error }} {% endautoescape %}
               </p>
-        <!--   </div> -->
+            </div>
         
           {% endfor %}
-        </div>
         
-          <div id="bs_input_accounts_register_m" class="class_text_info">
-            <p class="class_text_info" style="font-weight: bold; margin-botom: -20px;"> You try register with:</p>
+          <div id="bs_input_accounts_register_e" class="class_text_info">
+            <p style="font-weight: bold"> You try register with:</p>
             <p> username: {{ user_name }},
             <br> email: {{ e_mail }},
             <br> password : {{ pass1 }},
@@ -581,9 +568,9 @@ infos.addEventListener('click', (event) => {
 
   function captchaVerified(response) {
       document.getElementById("input_recaptcha").value = response;
-      if (response.length < 200) {
+
+      if (response.length < 200)
       alert("VERIFICATION RECAPTCHA FAILED");
-      }
     }
 
     function captchaExpired() {
