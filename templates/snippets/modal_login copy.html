@@ -29,6 +29,8 @@
     margin-left: auto;
     margin-right: auto;
   }  
+
+  
 </style>
 
 <div class="mymodal_Account" id="mymodalLogin"> </div>
@@ -69,7 +71,7 @@
                     </div>   
           
 
-                    <div class="form-group" style="margin-top: 8px; margin-bottom: -4px;">
+                    <div class="form-group" style="margin-top: 8px; margin-bottom: 4px;">
                       <label class="label" for="password" style="color: blue; margin-bottom:-6px;"> Password </label>
                        <span class="span_mytootlip_text" data-tooltip="tooltip_input">
                       <input type="password" name="password" id="inputPassword" class="form-control" placeholder="enter password" required autofocus pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
@@ -81,8 +83,15 @@
                       </div></span>
                     </div>
                     
-                    {% include 'snippets/mywidget_recaptcha_new_ml.html' %}
+                    <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;" data-tooltip="tooltip_input">
+                    {% include 'snippets/mywidget_recaptcha_ml.html' %}
+                    <span style="margin-bottom: 4px;" data-tooltiptext="tooltiptext_input">if it takes too long,  <br> you can log in by <br>  <a href="{% url 'accounts:login' %}" > LOGIN-SITE </a></span>
+                    
+                    <input type="text" id="input_recaptcha" name="input_recaptcha" value="" required style="display: none; position: relative; margin: 10px auto 10px auto;" class="form-control">   
+                    <div class="valid-feedback" id="valid_yes"  style="text-align:center; margin: 0px auto 0px auto; position: relative;"> reCAPTCHA is filled out. </div>
                   
+                      <div class="invalid-feedback" id="valid_no" style="text-align:center; margin: 0px auto 0px auto; position: relative;" > Please fill out reCAPTCHA </div> 
+                  </div>
                  <!--   <div>
                       <label class="container-check"> 
                       <input type="checkbox" checked="checked" name="remember"> 
@@ -99,7 +108,7 @@
                 </form> 
           
                 <div>
-                  <p class="psw" style="margin-top: 2px;"> forgot <a href="{% url 'accounts:password_reset_form' %}" target="_blank" > password? </a></p>
+                  <p class="psw" style="margin-top: 6px;">forgot <a href="{% url 'accounts:password_reset_form' %}" target="_blank" >password?</a></p>
                 </div>
           
                 <div> 

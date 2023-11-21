@@ -263,7 +263,83 @@
       max-width: 90%;
       width: 90%;
     }  
+
+  	[id^="g_recaptcha_id_"] > div {
+      position: relative;
+      margin: 0px auto 0px auto;
+      }
   </style>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>   
+
+  <div>
+    <dialog id="alert_info">
+      <p id="closebtn">✖</p>
+      <p id="alert_text"> Remeber both passwords <br> must be the same</p>
+      <p id="texthtml"></p>
+    </dialog>
+    </div>
+
+  <script>
+    function validateFormSignIn() {
+      let pass_1 = document.forms["registration_v"]["password"].value;
+      let pass_2 = document.forms["registration_v"]["password2"].value;
+      if (pass_1 != pass_2) {
+        alert("REMEMBER BOTH PASSWORDS MUST BE THE SAME\n1. password: " + pass_1 + "\n2. password: " + pass_2);
+        return false;
+      }
+    }
+    </script>
+
+    <script>
+      var modal = document.getElementById("alert_info")
+      var span1 = document.getElementById("closebtn")
+      var add_pass = document.getElementById("texthtml")
+      
+      function validateFormSignIn() {
+      //  let signup_form = document.forms["register_v"]["register_v"];
+      //  let input_recaptcha = document.forms["register_v"]["input_recaptcha"]
+      let pass = document.forms["registration_v"]["password"].value;
+      let pass_2 = document.forms["registration_v"]["password2"].value;
+      let value_recaptcha_ms = document.forms["registration_v"]["input_recaptcha_ms"].value;
+      let text = "You try with:<br>" + pass + "<br>" + pass_2;
+    
+      /*  if (pass == "" || pass_2 == "") {
+          add_pass.innerHTML = "PASSWORDS NOT FILLED OUT";
+          modal.showModal();
+          return false;
+        } else {  */
+          if (pass != pass_2) {
+            add_pass.innerHTML = "PASSWORDS NOT THE SAME<br>" + text;
+            modal.showModal();
+            return false;
+        } 
+          /* else {
+            return true
+        } 
+      } */
+    
+      if (value_recaptcha_ms == "") {
+        add_pass.innerHTML = "VERIFICATION RECAPTCHA FAILED<br>RECAPTCHA NOT FILLED OUT";
+        modal.showModal();
+        return false;
+      } else {
+          if (value_recaptcha_ms.length < 200) {
+            add_pass.innerHTML = "VERIFICATION RECAPTCHA FAILED<br>RECAPTCHA NOT CORRECT";
+            modal.showModal();
+            return false;
+          } else {
+            return true;
+          }
+      }
+      }
+    
+      span1.onclick = function() {
+        modal.close();
+        // alert("YOU SHOULD TRY AGAIN");
+        //setTimeout(function() {modal.close()}, 1000);
+        //console.clear();
+            } 
+    </script>
 
   <div class="mymodal_Account" id="mymodalSignin">
 </div>
@@ -283,18 +359,6 @@
             Please fill in this form to create account.</p>
       
               <div>
-          
-    
-    <script>
-      function validateFormSignIn() {
-        let pass_1 = document.forms["registration_v"]["password"].value;
-        let pass_2 = document.forms["registration_v"]["password2"].value;
-        if (pass_1 != pass_2) {
-          alert("REMEMBER BOTH PASSWORDS MUST BE THE SAME\n1. password: " + pass_1 + "\n2. password: " + pass_2);
-          return false;
-        }
-      }
-      </script>
 
             <form class="was-validated" action="{% url 'accounts:register' %}" method="post" id="registration_v" onsubmit="return validateFormSignIn()">
                 {% csrf_token %}
@@ -331,7 +395,7 @@
   <div class="invalid-feedback" style="margin-top: 0px;">Fill out this field.</div></span>
     </div>
 
-    <div class="form-group" style="margin-bottom: -4px;">
+    <div class="form-group" style="margin-bottom: 4px;">
     <label class="label"  for="password2" style="margin-bottom:-6px;"> Repeat Password </label>
     <span class="span_mytootlip_text" data-tooltip="tooltip_input">
     <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="confirm password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off" >
@@ -340,10 +404,22 @@
     <div class="valid-feedback" style="margin-top: 0px;">Repeat password field is filled out.</div>
   <div class="invalid-feedback" style="margin-top: 0px;">Fill out with the same password.</div> </span>
     </div> 
+    <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;"  data-tooltip="tooltip_input">
+              
+        <div class="form-group" style="margin: 0px; padding:10px 0px 10px 0px;">
+          <div class="" style="margin-top: 10px; padding:10px 0px 10px 0px;" data-tooltip="tooltip_input">
+          <div id="g_recaptcha_id_ms" class="g-recaptcha" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-callback="captchaVerified_ms" data-expired-callback="captchaExpired_ms"> 
+            <span style="margin-bottom: 4px;" data-tooltiptext="tooltiptext_input">if it takes too long,  <br> you can log in by <br>  <a href="{% url 'accounts:login' %}" > LOGIN-SITE </a></span>
+          </div> 
 
+     <span style="margin-bottom: 4px;" data-tooltiptext="tooltiptext_input">if it takes too long, <br> you can sign in by <br>  <a href="{% url 'accounts:register' %}" > SIGNIN-SITE </a></span>
 
-    {% include 'snippets/mywidget_recaptcha_new_ms.html' %}
+     <input type="text" id="input_recaptcha_ms" name="input_recaptcha" value="" required style="display: none; position: relative; margin: 10px auto 10px auto;" class="form-control">   
+     <div class="valid-feedback" id="valid_yes"  style="text-align:center; margin: 0px auto 0px auto; position: relative;"> reCAPTCHA is filled out. </div>
+   
+       <div class="invalid-feedback" id="valid_no" style="text-align:center; margin: 0px auto 0px auto; position: relative;" > Please fill out reCAPTCHA </div> 
 
+ </div>
 
     <div>  <!-- <div class="form-check">   mb-3 mt-n1-->
       <div class="container-check" style="margin-top: 20px; margin-bottom: 0px;">
@@ -433,7 +509,20 @@
     </div>
   </div>
 
+	<script type="text/javascript">
+		
+		function captchaVerified_ms(response_ms) {
+			document.getElementById("input_recaptcha_ms").value = response_ms;
+			if (response_ms.length < 200) {
+				alert("VERIFICATION RECAPTCHA FAILED");
+				}
+		}
 
+		function captchaExpired_ms() {
+			document.getElementById("input_recaptcha_ms").value = "";
+		}
+
+	  </script>	
 
   <script>
     console.clear();

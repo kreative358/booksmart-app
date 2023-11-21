@@ -1,0 +1,94 @@
+<style>
+
+    /*#inputValue {
+        background-color: rgb(240, 240, 240); 
+        background-color: rgba(240, 240, 240, 0.6); 
+        border-radius: 3px;
+        border: 3px solid rgba(240, 240, 240, 0.6);
+        box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+        font-size: 16px;
+        font-weight: bold;
+        font-family: Helvetica;
+        color: blue;
+        text-align: justify;
+        text-justify: inter-word;
+        margin:auto;
+        width:90%;
+        font-family:Times;
+        }		
+    
+     .bs_input {
+        background-color: rgb(240, 240, 240); 
+        background-color: rgba(240, 240, 240, 0.6); 
+        border-radius: 3px;
+        border: 3px solid rgba(240, 240, 240, 0.6);
+        box-shadow: 0px 0px 5px 5px rgba(100, 160, 220, 0.6);  
+        font-size: 18px;
+        font-weight: bold;
+        font-family: Helvetica;
+        color: blue;
+        text-align: justify;
+        text-justify: inter-word;
+        padding:10px;
+        margin:auto;
+        }	
+    
+    #id_label_custom {
+        color: MediumBlue; 
+        font-size: 22px; 
+        font-family:Times;
+        margin:5px auto auto 5%
+    }	*/
+
+    .g-recaptcha > div {
+      position: relative;
+      margin: 0px auto 0px auto;
+    } 
+  </style>
+
+       
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script> 
+
+        
+  <div class="bs_input_recaptcha" style="postion: relative; margin: 0px auto 0px auto;"> 	
+      <div class="form-group" style="margin: 0px; padding: 0px;">
+        <p class="class_label" style="line-height: 1;"> Veryfication </p> 
+        <div class="" style="margin-top: 6px; padding: 0px;" data-tooltip="tooltip_input">
+
+        <div id="g_recaptcha_id_ml" class="g-recaptcha" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-callback="captchaVerified_ml" data-expired-callback="captchaExpired_ml"> </div>
+
+        <span style="margin-bottom: 4px;" data-tooltiptext="tooltiptext_input" > if it takes too long, <br> you can log in by <br> <a href="{% url 'accounts:login' %}" > LOGIN-SITE </a></span>   
+        </div> 
+
+      <input type="text" id="input_recaptcha_ml" name="input_recaptcha_ml" value="" required style="display: none; position: relative; margin: 6px auto 4px auto;" class="form-control">   
+      <div class="valid-feedback" style="text-align:center; margin: 0px auto 0px auto; position: relative;"> reCAPTCHA is filled out. </div>
+    
+        <div class="invalid-feedback" style="text-align:center; margin: 0px auto 0px auto; position: relative;" > Please fill out reCAPTCHA </div> 
+           
+      </div>
+      <!---->
+    </div>
+
+    <script>
+
+      function captchaVerified_ml(response_ml) {
+        document.getElementById("input_recaptcha_ml").value = response_ml;
+        if (document.getElementById("input_recaptcha_ml").value == "") {
+          alert("VERIFICATION RECAPTCHA EMPTY");
+        } 
+
+        else if (document.getElementById("input_recaptcha_ml").value != "") {
+          // let submitButton_ms = document.getElementById("button_signin");
+          // submitButton_ms.removeAttribute("disabled");
+          if (document.getElementById("input_recaptcha_ml").value.length < 200) {
+            alert("VERIFICATION RECAPTCHA NOT CORRECT");
+          }
+        } 
+        }
+    
+        function captchaExpired_ml() {
+          document.getElementById("input_recaptcha_ml").value = "";
+        }
+      </script>
+          
+        

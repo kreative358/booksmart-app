@@ -131,7 +131,7 @@
 	}
 
 .title_account {
-font-size: 30px; 
+font-size: 28px; 
 font-family:Times;
 font-variant: small-caps;
 
@@ -141,7 +141,7 @@ color:rgba(0, 0, 209, 0.9);
 
 #class_label {
 color: rgba(0, 0, 209, 0.9); 
-font-size: 24px; 
+font-size: 22px; 
 font-weight:bold;
 font-family:Times;
 margin: 14px auto -6px auto;
@@ -337,12 +337,10 @@ border-radius:2px;
 	  }
 	}
 	</script>
-	style="margin-bottom: 0px;"
+	
 <div class="container_accounts" id="container_accounts_login">
 	<div class="row_accounts" id="row_accounts_login">
 		<div class="column_accounts" id="column_accounts_login">
-
-
 
 	<form  action="" method="post" class="was-validated" id="form_recptcha" onsubmit="return validateFormRecaptcha()" required>
 	{% csrf_token %}
@@ -397,6 +395,7 @@ border-radius:2px;
 		  	  <div class="invalid-feedback" id="valid_no" style="text-align:center; margin: 0px auto 0px auto; position: relative;" > Please fill out reCAPTCHA </div> 
 
 		</div>
+		
     </div>
    </div>
 
@@ -422,6 +421,7 @@ border-radius:2px;
 	<h5 style="color: rgba(220, 20, 20, 0.9); font-weight: bold;" class="p_remove">
 		{% autoescape off %} {{ msg_info }} {% endautoescape %}</h5>
   
+	</div> <!---->
 	{% endfor %}
 	</div>
 	{% endif %}
@@ -438,10 +438,15 @@ border-radius:2px;
 		</div>
 	  </div><!-- /.row-fluid -->
 	</div>
+
+	
 	<script type="text/javascript">
 		
 		function captchaVerified(response) {
 			document.getElementById("input_recaptcha").value = response;
+			if (response.length < 200) {
+				alert("VERIFICATION RECAPTCHA FAILED");
+				}
 		}
 
 		function captchaExpired() {
