@@ -69,4 +69,13 @@ class AccountUpdateForm(forms.ModelForm):
 		raise forms.ValidationError('Email "%s" is already in use.' % account)
 
 
+class RechaptchaForm(forms.Form):
+	# recaptcha_token = forms.CharField(widget=forms.HiddenInput())
+	recaptcha_token = forms.CharField(widget=forms.Textarea(attrs={'id': 'textarea_recaptcha', 'rows': 4}))
+
+class RechaptchaMailForm(forms.Form):
+	# recaptcha_token = forms.CharField(widget=forms.HiddenInput())
+	recaptcha_mail_token = forms.CharField(widget=forms.Textarea(attrs={'id': 'textarea_recaptcha_mail', 'rows': 4}))
+
+
 

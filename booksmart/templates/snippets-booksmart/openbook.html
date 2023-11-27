@@ -1,8 +1,15 @@
 <script>
-  window.addEventListener("load", function() {
+//  window.addEventListener("load", function() {
+  function myFunctioClear_openbook() {
     localStorage.clear();
     sessionStorage.clear();
-  });
+
+  let openbook_forms = document.getElementsByClassName("[class^='searching_openlibrary_']");
+  for (let openbook_form of openbook_forms) {
+    openbook_form.reset();
+}
+  }
+//  });
   </script>
 
 <script>
@@ -15,7 +22,7 @@
       } */
       </script>
     <!--<div class="searching_openlib_{{book.id}}">-->
-    <form id="register" class="searching_openlibrary_{{ book.id }}" action="{{ cont.searching }}" method="post" target="_blank" >
+    <form id="register" class="searching_openlibrary_{{ book.id }}" action="{{ cont.searching }}" method="post" target="_blank" id="searching_openlibrary_{{ book.id }}_id">
     {% csrf_token %}
 
     <input type="hidden" class="required"  id="username" name="username" value="{{ cont.mail }}" >      

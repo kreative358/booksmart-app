@@ -24,6 +24,7 @@ from django.conf import settings
 
 
 def mail_sender_modal(request):
+    context = {}
     smtp_port = 587                 # Standard secure SMTP port
     smtp_server = "smtp.gmail.com"  # Google SMTP Server
     
@@ -39,54 +40,61 @@ def mail_sender_modal(request):
     html_message = '<div class="mail_footer"><p style="color: darkblue; font-size: 16px; font-weight: bold; margin-bottom: 4px;">mail from TEAM</p><p style="margin-top: 0px;"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" target="_blank" style="margin-bottom: 20px; font-size: 16px; font-weight: bold; text-decoration: underline; text-decoration-thickness: 2px;">BOOKSMARTAPP</a></p><p style="font-size: 14px; color: darkblue; margin-bottom: 0px;">If you want to contact about a serious job offer, </p><p style="font-size: 14px; color: darkblue; margin-top: 0px;">you can send me an e-mail e.g. via this box.</p></div>'
 
     if request.method == "POST":
+        from mainsite.views import index_home
+        if index_home.recaptcha_token != "":
+            print("index_home.recaptcha_token =", index_home.recaptcha_token[:20])
+            if request.POST.get('email-sender', False):
+                message_content['email_sender'] = request.POST['email-sender']
+                print("message_content['email_sender']: ",message_content['email_sender'])
+            if request.POST.get('email-subject', False):
+                message_content['email_subject'] = request.POST['email-subject']
+                print("message_content['email_subject']: ", message_content['email_subject'])
+            if request.POST.get('email-text', False): 
+                message_content['email_text'] = request.POST['email-text']
+                print("message_content['email_text']: ", message_content['email_text'])
+                
+                
+                # for book in books:
+                #     message_text += f'\n\r"{book.title}" - {book.author}' 
+                # print("message_text:", message_text)
+            # try:
+            #     send_mail(
+            #         subject = message_content['email_subject'],
+            #         message = message_content['email_text'],
+            #         from_email = message_content['from_email'],
+            #         recipient_list = [message_content['my_email'], message_content['email_sender']],
+            #         fail_silently=False
+            #     )
+            #     # print(f"Email successfully sent to - {email_to}")
+            # except Exception as e:
+            #     print("1. ", e)
+            message_text = message_content['email_text']
+            try:
+                message1 = send_mail(
+                    subject = message_content['email_subject'],   
+                    message = f"{message_text}\nfrom: {message_content['email_sender']}",         
+                    from_email = message_content['from_email'],
+                    recipient_list = [message_content['my_email']],
+                    fail_silently=False,      
+                )
+
+                message2 = send_mail(
+                    subject = message_content['email_subject'],   
+                    message = message_text,         
+                    from_email = message_content['from_email'],
+                    recipient_list = [message_content['email_sender']],
+                    fail_silently=False,
+                    html_message = f"{message_text}\n{html_message}",
+                )
+            except Exception as e:
+                print("1. ", e)
+        
+        else:
+            messages.info(request, "reCAPTCHA doesn't match")
+            return redirect("index")
     
-        if request.POST.get('email-sender', False):
-            message_content['email_sender'] = request.POST['email-sender']
-            print("message_content['email_sender']: ",message_content['email_sender'])
-        if request.POST.get('email-subject', False):
-            message_content['email_subject'] = request.POST['email-subject']
-            print("message_content['email_subject']: ", message_content['email_subject'])
-        if request.POST.get('email-text', False): 
-            message_content['email_text'] = request.POST['email-text']
-            print("message_content['email_text']: ", message_content['email_text'])
-            
-            
-            # for book in books:
-            #     message_text += f'\n\r"{book.title}" - {book.author}' 
-            # print("message_text:", message_text)
-        # try:
-        #     send_mail(
-        #         subject = message_content['email_subject'],
-        #         message = message_content['email_text'],
-        #         from_email = message_content['from_email'],
-        #         recipient_list = [message_content['my_email'], message_content['email_sender']],
-        #         fail_silently=False
-        #     )
-        #     # print(f"Email successfully sent to - {email_to}")
-        # except Exception as e:
-        #     print("1. ", e)
-        message_text = message_content['email_text']
-        try:
-            message1 = send_mail(
-                subject = message_content['email_subject'],   
-                message = f"{message_text}\nfrom: {message_content['email_sender']}",         
-                from_email = message_content['from_email'],
-                recipient_list = [message_content['my_email']],
-                fail_silently=False,      
-            )
-
-            message2 = send_mail(
-                subject = message_content['email_subject'],   
-                message = message_text,         
-                from_email = message_content['from_email'],
-                recipient_list = [message_content['email_sender']],
-                fail_silently=False,
-                html_message = f"{message_text}\n{html_message}",
-            )
-        except Exception as e:
-            print("1. ", e)
-
-    return render(request, 'mail_sender_modal.html')
+    # return render(request, 'mail_sender_modal.html')
+    return render(request, 'mail_sender_modal.html', context)
 
 def mail_sender_site(request):
     smtp_port = 587                 # Standard secure SMTP port

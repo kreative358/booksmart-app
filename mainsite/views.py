@@ -6,12 +6,13 @@ from rest_framework.views import APIView
 from booksmart.forms import ItemsSearchForm
 from rest_framework.authentication import TokenAuthentication
 from accounts.views_forms import *
-
+from django.contrib import messages
 from rest_framework import viewsets
 
 from rest_framework.response import Response
 from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, url_img_author, url_img # ,context_bm, 
 from accounts.models import Account
+from accounts.forms import RechaptchaMailForm
 from booksmart.api.serializers import BooksSerializer, AuthorsSerializer
 from rest_framework.settings import api_settings
 from rest_framework.decorators import api_view
@@ -54,7 +55,7 @@ from django_currentuser.middleware import (
     get_current_user, 
     get_current_authenticated_user,
     )
-
+from django.http import JsonResponse
 # from django.utils.text import slugify
 # try:
 #     txt = "Cześć: .&перевод чего-либо"
@@ -185,6 +186,8 @@ def index_home_not(request):
         context['r_user'] = r_user
     return Response(context, template_name='index_home_not.html', )
 
+recapitcha_value = ""
+
 @api_view(['GET', 'POST'])
 @permission_classes([])
 # @authentication_classes([]) # TokenAuthentication
@@ -193,17 +196,50 @@ def index_home(request):
     """View function for home page of site."""
     r_user = request.user
     current_url_name = request.path
-    print("current_url_name =", current_url_name)
+    print("1. current_url_name =", current_url_name)
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
 
     context = context_main
-
+    # form_recaptcha_mail = RechaptchaMailForm()
+    # context["form_recaptcha_mail"] = form_recaptcha_mail
     context['num_authors'] = num_authors
     context['num_books'] = num_books
     context['current_url'] = current_url_name
 
     context["test_word"] = "test-word"
+
+    context['recapitcha_value_back'] = ""
+    index_home.recaptcha_token  = ""
+
+    if request.method == 'POST':
+        # form_recaptcha_mail = RechaptchaMailForm(request.POST)
+        # recapitcha_token = request.POST.get('recapitcha_value', None)
+       
+        data_recaptcha = json.loads(request.body.decode("utf-8"))
+        if data_recaptcha:
+        # if form_recaptcha_mail.is_valid():
+            # Do something with the form data
+            # recaptcha_token = form_recaptcha_mail.cleaned_data["recaptcha_mail_token"]
+            print("data_recapitcha['tag'][:20] =", data_recaptcha['tag'][:20])
+            if len(data_recaptcha['tag']) > 200:
+                index_home.recaptcha_token = data_recaptcha['tag']
+            # return JsonResponse({'status': 'success'})
+            else:
+                index_home.recaptcha_token = ""
+
+        else:
+            print("status error")
+
+    # recapitcha_value = request.GET.get('recapitcha_value', None)
+    # if recapitcha_value:
+    #     print('recapitcha_value =', recapitcha_value[:20])
+    #     context['recapitcha_value'] = recapitcha_value
+        
+    # else:
+    #     recapitcha_value = ""
+    #     print('NO recapitcha_value')
+
     try:
         if r_user.is_authenticated:
             context['person_name'] = r_user.username
@@ -213,7 +249,6 @@ def index_home(request):
 
     except:
         print('something went wrong;')
-      
 
     context['gb_books'] = r"https://books.google.com/"
 
@@ -245,6 +280,7 @@ def index_home(request):
     else:
         print('views mainsite, no get_current_user')
     # context_a['CustomAuthToken']= CustomAuthToken
+    
     return Response(context, template_name='index_home.html', )
     # return render(request, 'index.html', context)
 

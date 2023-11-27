@@ -15,7 +15,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
 from rest_framework import permissions
-from accounts.serializers import RegistrationSerializer, AccountUpdateSerializer, LoginSerializer, PasswordUpdateSerializer, PasswordUpdateSerializerApi
+from accounts.serializers import RegistrationSerializer, AccountUpdateSerializer, LoginSerializer, PasswordUpdateSerializer, PasswordUpdateSerializerApi #, ReCaptchaSerializer
 
 from rest_framework.generics import GenericAPIView, CreateAPIView
 from django.contrib.auth import (
@@ -32,6 +32,7 @@ from django.contrib import messages
 from django.contrib.auth.models import AnonymousUser
 from accounts.error import *
 from django.contrib.auth.hashers import make_password
+from accounts.forms import RechaptchaForm
 
 
 
@@ -222,6 +223,7 @@ class LoginView(GenericAPIView):
     serializer_class = LoginSerializer
     # context_serializer_LV = context_bm_rest
     def get(self, request, *args, **kwargs):
+        #current_url_name = request.path
         messages.info(request, "")
         # print("context_bm_rest = ", context_bm_rest)
         serializer = self.serializer_class()
@@ -231,31 +233,32 @@ class LoginView(GenericAPIView):
         return Response(context_serializer_get, )
 
     def post(self, request, *args, **kwargs):
-        messages.info(request, "")
+
+        # messages.info(request, "")
+        # recaptcha_login = ""
         # print('request', request)
+        # data_recaptcha = json.loads(request.body.decode("utf-8"))
         serializer = self.serializer_class(data=request.data, context={'request': request})
-        # serializer = self.serializer_class(data=request.data )
         initial_val = serializer.initial_data
-        # initial_val = initial_values.data
-        # print("login initial_val['current_url']:", initial_val )
+        # print('initial_val =', initial_val)
 
-        # except Exception as e:
-        #     print(f'exception: {e}')
-
-        # if initial_val['username'] and initial_val['password']:
         username_val = initial_val['username']
         pass_val = initial_val['password']
+        recaptcha_val = initial_val['g-recaptcha-response']
+        print('recaptcha_val[:20]', recaptcha_val[:20])
         email_val = 'no_email'
         
+        # if data_recaptcha:
+        #     recaptcha_login = data_recaptcha['tag']
+        #     if len(recaptcha_login) > 200:
+        #         print("YES login recaptcha: len(recaptcha_login) =", len(recaptcha_login))
+                
         if serializer.is_valid():
-            #try:
+
             account = serializer.validated_data['user']
-            # account = serializer.save()
-            # print("serializer.data", serializer.data)
-            # print('account:', account)
 
             if account:
-                # login(request, user)
+
                 login(request, account)
                 try:
                     token = Token.objects.get(user=account)
@@ -288,47 +291,27 @@ class LoginView(GenericAPIView):
             if initial_val['current_url']!= "":
                 messages.info(request, ''.join(msg_error for msg_error in message_errors))
                 return redirect(f"{initial_val['current_url']}")
-                       
+                    
             else:
                 # message_errors = ['MESSAGE:<br>', 'Access denied:<br> wrong username or password']
                 messages.info(request, ''.join(msg_error for msg_error in message_errors))
                 context_serializer_post_else = {'serializer':serializer, 'style': self.style, 'errors':message_errors, 'user_name':username_val, 'pass':pass_val, 'e_mail': email_val, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
                 
                 return Response(context_serializer_post_else, template_name="login.html")
-
-            # if initial_val['username'] != '' and initial_val['password'] != '':
-            #     msg_exc = ['Access denied: wrong username or password.',]
-            #     username = initial_val['username']
-            #     password = initial_val['password']
-            # elif initial_val['username'] != '' and  initial_val['password'] == '':
-            #     msg_exc = ['Both "username" and "password" are required.', 'You forgot about password',]
-            #     username = initial_val['username']
-            #     password = " "
-            # elif initial_val['username'] == '' and initial_val['password'] != '':
-            #     msg_exc = ['Both "username" and "password" are required.', 'You forgot about password',]
-            #     username = " "
-            #     password = initial_val['password']
-            # elif initial_val['username'] == '' and initial_val['password'] == '':
-            #     msg_exc = ['Both "username" and "password" are required.', 'You forgot about username and password',]
-            #     username = " "
-            #     password = " "
-            # else:
-            #     msg_exc = '<br>'
-                
-
-            # msg = 'Access denied: wrong username or password.'
             
-            # if initial_val['current_url']:
-            #     # message_error = ['Access denied: wrong username or password.',]
-            #     # messages.info(request, "<br>".join(message for message in message_errors))
-            #     messages.info(request, msg)
-            #     return redirect(f"{initial_val['current_url']}")
-            #     # return redirect(f"booksmart:{initial_val['current_url']}")
             # else:
-            #     serializer = self.serializer_class()
-            #     return Response({'serializer':serializer, 'style': self.style, 'message_info':msg_exc, 'username':username, 'password':password}, template_name="login.html")
+            #     if initial_val['current_url']!= "":
+            #         messages.info(request, 'reCaptcha seems to be NOT ORIGINAL')
+            #         return redirect(f"{initial_val['current_url']}")
+                        
+            #     else:
+            #         # message_errors = ['MESSAGE:<br>', 'Access denied:<br> wrong username or password']
+            #         messages.info(request, 'reCaptcha seems to be NOT ORIGINAL')
+            #         context_serializer_post_else = {'serializer':serializer, 'style': self.style, 'errors':message_errors, 'user_name':username_val, 'pass':pass_val, 'e_mail': email_val, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
+                    
+            #         return Response(context_serializer_post_else, template_name="login.html")
 
-        # return Response(None, status=status.HTTP_202_ACCEPTED)
+
         context_serializer_Response = {'serializer':serializer, 'style': self.style, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
         
         return Response(context_serializer_Response,  template_name="login.html")

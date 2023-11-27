@@ -7,6 +7,12 @@
 {% include 'snippets-booksmart/pure_flatpickr_css.html' %}
 
 <script>
+
+  function myFunctionClearSP() {
+    localStorage.clear();
+    sessionStorage.clear();
+    document.getElementById("id_form_search").reset();
+  }
 /*  window.addEventListener("load", function() {
     localStorage.clear();
     sessionStorage.clear();

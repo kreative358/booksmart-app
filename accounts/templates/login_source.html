@@ -201,7 +201,7 @@ color: rgba(0, 0, 200, 0.9); ;
 
 .button_blue_grey,
 #button_back {
-margin: 0px auto 10px 20px;
+margin: 18px auto 10px 20px;
 transition: 0.2s;
 background-color: rgba(160, 170, 180, 0.8); 
 color: rgba(20, 40, 220, 0.8); 
@@ -256,7 +256,7 @@ border-radius:2px;
 
 .button_red_grey,
 #button_sm {
-margin: 0px 20px 10px auto;
+margin: 18px 20px 10px auto;
 transition-duration: 0.2s;
 background-color: rgba(160, 170, 180, 0.8);
 color: rgba(220, 20, 20, 0.6); 
@@ -307,6 +307,22 @@ border-style: solid;
 border-radius:2px;
 }
 
+#invalid_feedback_id,
+#valid_feedback_id {
+  font-size: 14px;
+	
+}
+
+#invalid_feedback_id {
+  color: red;
+  display: block;
+}
+
+#valid_feedback_id {
+  color: green;
+  display: none;
+}
+
 @media screen and (max-width: 480px) {
     .container_accounts {
       left: 0;
@@ -329,20 +345,22 @@ border-radius:2px;
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>   
 
 <script>
-	function validateFormRecaptcha() {
+/*	function validateFormRecaptcha() {
 	  let value_recaptcha = document.forms["form_recptcha"]["input_recaptcha"].value;
 	  if (value_recaptcha.length < 200 ) {
 		alert("VERIFICATION RECAPTCHA FAILED");
 		return false;
 	  }
-	}
+	}  
+<form  action="" method="post" class="was-validated" id="form_recptcha" onsubmit="return validateFormRecaptcha()" required>	
+	*/
 	</script>
 	
 <div class="container_accounts" id="container_accounts_login">
 	<div class="row_accounts" id="row_accounts_login">
 		<div class="column_accounts" id="column_accounts_login">
 
-	<form  action="" method="post" class="was-validated" id="form_recptcha" onsubmit="return validateFormRecaptcha()" required>
+	<form  action="" method="post" class="was-validated" id="form_recptcha" >
 	{% csrf_token %}
 	<p class="title_account" style="margin-bottom: 10px;"> LOGIN </p>
 
@@ -353,7 +371,7 @@ border-radius:2px;
 
 <div class="bs_input_accounts_login" id="bs_input_accounts_first" style="padding-top: 4px; padding-bottom: 8px;">	
 	<p class="class_label" style="margin: 10px auto -22px auto; line-height: 1;"> Username </p>
-	<div style="margin: 0px auto 0px auto;">	
+	<div style="postion: relative; margin: 0px auto 0px auto;">	
 	{% render_field serializer.username style=style %} 
 </div>
 </div>
@@ -386,22 +404,19 @@ border-radius:2px;
 	<!--	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>  -->
 			<div class="form-group" style="margin: 0px; padding:10px 0px 10px 0px;">
 		
-			<div id="g_recaptcha_id" class="g-recaptcha" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-callback="captchaVerified" data-expired-callback="captchaExpired"> 
+			<div id="g_recaptcha_id" class="g-recaptcha" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-callback="captchaVerified" data-expired-callback="captchaExpired" data-error-callback="captchaError"> 
 			</div> 
 
-			<input type="text" id="input_recaptcha" name="input_recaptcha" value="" required style="display: none; position: relative; margin: 10px auto 10px auto;" class="form-control">   
-			  <div class="valid-feedback" id="valid_yes"  style="text-align:center; margin: 0px auto 0px auto; position: relative;"> reCAPTCHA is filled out. </div>
-			
-		  	  <div class="invalid-feedback" id="valid_no" style="text-align:center; margin: 0px auto 0px auto; position: relative;" > Please fill out reCAPTCHA </div> 
-
-		</div>
+			<div style="postion: relative; margin: 0px auto 0px auto;">	
+				{% render_field serializer.recaptcha_token style=style %} 
+			</div>
 		
     </div>
    </div>
 
-<br>
 
-<div>
+
+<div >
 	{% if errors %}
 	<div id="bs_input_accounts_login_m" class="alert alert-dismissible fade show">
 		<button type="button" class="close" data-dismiss="alert">✖</button>
@@ -439,30 +454,67 @@ border-radius:2px;
 	  </div><!-- /.row-fluid -->
 	</div>
 
-	
-	<script type="text/javascript">
-		
-		function captchaVerified(response) {
-			document.getElementById("input_recaptcha").value = response;
-			if (response.length < 200) {
-				alert("VERIFICATION RECAPTCHA FAILED");
+
+<script type="text/javascript">
+
+var invalid_feedback_id = document.getElementById("invalid_feedback_id");
+var valid_feedback_id = document.getElementById("valid_feedback_id");
+
+function captchaVerified(response) {
+	document.getElementById("inputRecaptcha").value = response;
+
+	invalid_feedback_id.style.display = "none";
+	valid_feedback_id.style.display = "block";
+
+/*	let recaptcha_response = response_mm;
+	  recaptcha_value = JSON.stringify({
+		  tag: recaptcha_response,
+		}) */
+
+	// let csrftoken = getCookie('csrftoken');
+
+/*	fetch("", {
+		method: 'POST',
+		body: recapitcha_value,
+		headers: { 'Accept': 'application/json, text/plain, * / *',
+        'Content-Type': 'application/json',
+        "X-CSRFToken": csrftoken },
+		}) */	
+
+/*	function getCookie(name) {
+		var cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			var cookies = document.cookie.split(';');
+			for (var i = 0; i < cookies.length; i++) {
+				var cookie = cookies[i].trim();
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
 				}
+			}
+		}
+		return cookieValue;
+	}  */
+
+	}
+
+	function captchaExpired() {
+		document.getElementById("input_recaptcha").value = "";
+		invalid_feedback_id.style.display = "block";
+		valid_feedback_id.style.display = "none";
 		}
 
-		function captchaExpired() {
-			document.getElementById("input_recaptcha").value = "";
-		}
+	function captchaError() {
+		document.getElementById("input_recaptcha").value = "";
+		invalid_feedback_id.style.display = "block";
+		valid_feedback_id.style.display = "none";
+	}
 
 
 	  </script>	
 <script>
 
 </script>
-
- 
- 
-
-
 
 	{% endblock content_3 %}
 

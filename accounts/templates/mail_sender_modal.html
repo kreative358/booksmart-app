@@ -532,18 +532,30 @@ z-index: 12;
 
 
 <div class="container_emailbox" >
-    <form method="post" autocomplete="off">
+    <form method="post" autocomplete="off" id="form_sender_mail_modal">
         {% csrf_token %} 
 
         <input class="input_mail_address"  type="email" name="email-sender" placeholder="your email address" autocomplete="off">
         <input class="input_mail_subject" type="text" name="email-subject" placeholder="your email subject" autocomplete="off">
         <textarea class="textarea_mail" placeholder="your email subject" name="email-text" autocomplete="off"> </textarea>
+ 
         <a></a>
         <div style="width: 100%; position: relative; justify-content: center; text-align: center;">
         <button id="button_send_mail_id" class="button_send_mail" type="submit" > SEND </button></div>
     </form>
 </div> 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>  
+
+<script>
+var button_send_mail_id = document.getElementById("button_send_mail_id");
+
+if (document.getElementById("my_modal_messages_main_mail")) {
+var mymodal_mail = document.getElementById("my_modal_messages_main_mail");
+var mymodal_cont_mail = document.getElementById("modal_cont_messages_mail");
+
+}
+</script>
 
 </body>
 </html>

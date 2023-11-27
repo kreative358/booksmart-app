@@ -1,0 +1,47 @@
+<style>
+
+    /* #inputUsername {
+        font-size: 16px;
+        font-weight: bold;
+        color: darkblue;
+        padding:auto;
+    } */
+    
+    #input-recaptcha input[type=text] {
+        font-size: 16px;
+        font-weight: bold;
+        color: darkblue;
+        background: rgba(220, 220, 230, 0.6);
+       
+    }
+    
+    #input-recaptcha input[type=text]:focus, 
+    #input-recaptcha input[type=text]:active,
+    #input-recaptcha input[type=text]:valid {
+        background: rgba(220, 220, 230, 0.8);
+        color: darkblue;
+    }
+    
+    
+    #input-recaptcha input:-webkit-autofill,
+    #input-recaptcha input:-webkit-autofill:hover,
+    #input-recaptcha input:-webkit-autofill:focus,
+    #input-recaptcha input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: blue;
+    -webkit-animation: autofill 0s forwards;
+    outline: none;
+    border:none;
+    }
+    
+    
+    
+    </style>
+
+	<div class="form-group" id="input-recaptcha" style="position: relative; margin: 0px auto 0px auto; padding-left: 7.5%; padding-top: 0px;">
+	<!--<label class="label_serializer" id="id_label_inputRecaptcha" for="inputRecaptcha"> -->
+    <input type="text" name="recaptcha_token" id="inputRecaptcha"  class="form-control" required value="" readonly style="display: none;">	
+    <div class="valid_feedback" id="valid_feedback_id"  style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;"> reCAPTCHA is filled out. </div>
+    <div class="invalid_feedback" id="invalid_feedback_id" style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;" > Please fill out reCAPTCHA </div> 
+</div>
+	

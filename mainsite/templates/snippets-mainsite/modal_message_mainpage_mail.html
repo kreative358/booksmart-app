@@ -360,18 +360,19 @@ line-height: 22px;
 #iframe_mail {
   z-index: 90;
   position: relative;
-max-width: 98%;
-  width: 98%;
- 
-  height:364px;
-  max-height:98%;
+  max-width: 102%;
+  width: 102%;
+  height: 374px;
+  max-height: 104%;
+  left: -1%;
+  top: -2%;
   resize: none;
   background-color: transparent;
   overflow: hidden;
   padding: 0px;
-border:none;
-outline: none;
-box-shadow: 0px 0px 2px 2px  rgba(160, 160, 220, 0.8);
+  border:none;
+  outline: none;
+  box-shadow: 0px 0px 2px 2px  rgba(160, 160, 220, 0.8);
 }
 
 
@@ -495,11 +496,13 @@ min-height: 80px;
 </div>
        
        <div id="g_recaptcha_mail" class="g-recaptcha" style="" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26"
-        data-callback="data_callback_mm" data-error-callback="data_error_callback_mm" data-tabindex=4>
+       data-callback="captchaVerified_mm" data-expired-callback="captchaExpired_mm" data-error-callback="captchaError_mm" data-tabindex=4>
         </div>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>  
+    
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>       
 <script>
-console.clear()
 
 var btn_modal_mail = document.getElementById("myBtn_mail_sender");
 var recaptcha_mail = document.getElementById("g_recaptcha_mail");
@@ -532,79 +535,120 @@ btn_modal_mail.onclick = function() {
   
 // recaptcha_mail.style.display = "block";
 // recaptcha_mail.style.animation = "modalfadein 1.4s 1";
-}      
+}   
 
-function data_callback_mm() {
+function captchaExpired_mm() {
+  let recaptcha_response = "";
+  let recaptcha_value = JSON.stringify({
+    tag: recaptcha_response,
+  })
+}
+
+function captchaVerified_mm(response_mm) {
+  let recaptcha_response = response_mm;
+  recaptcha_value = JSON.stringify({
+    tag: recaptcha_response,
+  })
+  // sessionStorage.setItem("recapitcha_value_data", recapitcha_value);
+
+  // document.getElementById("textarea_recaptcha_mail").innerText = response_mm;
+  /* $.ajax(
+    {
+    type: "GET",
+    url: "",
+    data: {
+        "recapitcha_value": recapitcha_value,
+    },
+    dataType: "json",
+  },  
+   ) */
+  /* {
+    type: "GET",
+    url: "{% url 'accounts:email_sender_modal'%}",
+    data: {
+        "recapitcha_value": recapitcha_value,
+    },
+    dataType: "json",
+  }
+  ); */
+ 
+ fetch("", {
+  method: 'POST',
+  body: recapitcha_value,
+  headers: { 'Accept':  '*/*',
+   },
+  }) 
+
   recaptcha_mail.style.animation = "opacityanime_down 1.4s 1";
   setTimeout(()=> {
     recaptcha_mail.style.display = "none";
-      }
-      , 1200);
-
+      }, 1200);
+       
   mymodal_mail.style.display = "block";
   mymodal_mail.style.animation = "modalfadein 1s 1";
   mymodal_cont_mail.style.display = "block"; 
   mymodal_cont_mail.style.animation = "zoom 2s 1 ease-in";
-}  
-   
-span1_mail.onclick = function() {
-  mymodal_cont_mail.style.animation = "unzoom 2s";
-  mymodal_mail.style.animation = "modalfadeout 1s 1 1s";
-  setTimeout(()=> {
-    mymodal_cont_mail.style.display = "none";
-    mymodal_mail.style.display = "none"
-      }
-      , 1900);
-}
 
-function data_error_callback_mm() {
+}
+  
+
+ 
+function captchaError_mm() {
+  let recaptcha_response = "";
+  let recaptcha_value = JSON.stringify({
+    tag: recaptcha_response,
+  })
+  
   recaptcha_mail.style.animation = "opacityanime_down 1s 1";
   setTimeout(()=> {
     recaptcha_mail.style.display = "none";
       }
       , 800);
 
-  mymodal_mail.style.display = "block";
-  mymodal_mail.style.animation = "modalfadein 1s 1";
-  mymodal_cont_mail.style.display = "block"; 
-  mymodal_cont_mail.style.animation = "zoom 2s 1 ease-in";
+
 }  
+
    
-span1_mail.onclick = function() {
-  mymodal_cont_mail.style.animation = "unzoom 2s";
-  mymodal_mail.style.animation = "modalfadeout 1s 1 1s";
-  setTimeout(()=> {
-    mymodal_cont_mail.style.display = "none";
-    mymodal_mail.style.display = "none"
-      }
-      , 1900);
-}
-
-  span2_mail.onclick = function() {
-    mymodal_cont_mail.style.animation = "animatetopback 2s 1";
-    mymodal_mail.style.animation = "modalfadeout 1s 1 1s";
-    setTimeout(()=> {
-      mymodal_cont_mail.style.display = "none";
-      mymodal_mail.style.display = "none"
-        }
-        , 1900);
-  }
-
-
-  // When the user clicks anywhere outside of the modal, close it
-  //window.onclick = function(event) {
-    //if (event.target == mymodal) {
-  
-      mymodal_mail.onclick = function() {
-        if (event.target == mymodal_mail) {
-      //mymodal_cont.style.animation = "unzoomrotate 2s 1";
-      mymodal_cont_mail.style.animation = "unzoomrotate 2s 1";
+    span1_mail.onclick = function() {
+      mymodal_cont_mail.style.animation = "unzoom 2s";
       mymodal_mail.style.animation = "modalfadeout 1s 1 1s";
       setTimeout(()=> {
-      mymodal_cont_mail.style.display = "none";
-      mymodal_mail.style.display = "none"
-        }, 1900);
-      }
+        mymodal_cont_mail.style.display = "none";
+        mymodal_mail.style.display = "none"
+          }
+          , 1900);
     }
+    
+      span2_mail.onclick = function() {
+        mymodal_cont_mail.style.animation = "animatetopback 2s 1";
+        mymodal_mail.style.animation = "modalfadeout 1s 1 1s";
+        setTimeout(()=> {
+          mymodal_cont_mail.style.display = "none";
+          mymodal_mail.style.display = "none"
+            }
+            , 1900);
+      }
+
+      mymodal_mail.onclick = function() {
+        if (event.target == mymodal_mail) {
+        //mymodal_cont.style.animation = "unzoomrotate 2s 1";
+        mymodal_cont_mail.style.animation = "unzoomrotate 2s 1";
+        mymodal_mail.style.animation = "modalfadeout 1s 1 1s";
+        setTimeout(()=> {
+        mymodal_cont_mail.style.display = "none";
+        mymodal_mail.style.display = "none"
+          }, 1900);
    
+        }
+      }
+  
+      if (document.getElementById("#button_send_mail_id")) {
+        mymodal_cont_mail.style.animation = "unzoomrotate 2s 1";
+        mymodal_mail.style.animation = "modalfadeout 1s 1 1s";
+        setTimeout(()=> {
+        mymodal_cont_mail.style.display = "none";
+        mymodal_mail.style.display = "none"
+          }, 1900);
+      }
 </script>
+

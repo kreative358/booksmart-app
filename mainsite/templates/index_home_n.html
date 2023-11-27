@@ -183,8 +183,6 @@
 
 </div>
 
-
-
 <script>
   if (document.getElementById("msg_mainpage")) {
   var msg_main = document.getElementById("msg_mainpage");
@@ -195,15 +193,28 @@
   
 {% endif %}
 <br>
+
+<style>
+  .textarea_recaptcha_div {
+
+    position:relative;
+    margin: 20px auto 20px auto;
+    max-width: 560px;
+    padding: 10px;
+}
+</style>
+
+
 {% endblock content_4 %}
 
 {% block content_5 %}
+
       {% include 'snippets-mainsite/modal_message_mainpage_n.html' %}     
       {% include 'snippets-mainsite/modal_message_mainpage_mail.html' %}  
+
 {% endblock content_5 %}
    
+  </div>
 
-    </div>
-
-          {% endblock page %}
+{% endblock page %}
       

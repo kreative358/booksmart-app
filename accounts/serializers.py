@@ -30,6 +30,14 @@ from accounts.api.hyperlink import OwnAuthorField, OwnBookField
 # def errors(self): ret = super().errors if isinstance(ret, list) and len(ret) == 1 and getattr(ret[0], 'code', None) == 'null': detail = ErrorDetail('No data provided', code='null') ret = {api_settings.NON_FIELD_ERRORS_KEY: [detail]} return ReturnDict(ret, serializer=self)
 # Full name: rest_framework.serializers.Serializer.errors
 
+# class ReCaptchaSerializer(serializers.Serializer):
+#     recaptcha_token = serializers.CharField(
+#         read_only=True, 
+#         allow_blank=True, 
+#         required=False,
+#         style={'template':'snippets/input-recaptcha.html'},
+#         )
+
 class RegistrationSerializer(serializers.ModelSerializer):
 
     current_url = serializers.CharField(
@@ -88,6 +96,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
         style={'template':'snippets/input-checkbox-remember.html'}
         )
 
+
+    recaptcha_token = serializers.CharField(
+        read_only=True, 
+        allow_blank=True, 
+        required=False,
+        style={'template':'snippets/input-recaptcha.html'},
+        )
+
     def validate(self, attrs):
         if attrs.get('password') != attrs.get('password2'):
             raise serializers.ValidationError({"password and repeat password": "Those two passwords don't match."})
@@ -106,7 +122,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['current_url', 'username', 'email', 'password', 'password2', 'remember_me'] #, 'recaptcha'
+        fields = ['current_url', 'username', 'email', 'password', 'password2', 'remember_me', 'recaptcha_token'] #, 'recaptcha'
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     
@@ -256,10 +272,17 @@ class LoginSerializer(serializers.Serializer):
         required=False, 
         style={'template':'snippets/input-checkbox-remember.html'},
         )
+
+    recaptcha_token = serializers.CharField(
+        read_only=True, 
+        allow_blank=True, 
+        required=False,
+        style={'template':'snippets/input-recaptcha.html'},
+        )
     # type = serializers.CharField(style={'base_template': 'textarea.html', 'rows': 10})
     class Meta:
         model = Account
-        fields = ['current_url', 'username', 'password', 'remember_me']
+        fields = ['current_url', 'username', 'password', 'remember_me',  'recaptcha_token']
 
 
   

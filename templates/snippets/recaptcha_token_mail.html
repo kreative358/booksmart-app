@@ -1,0 +1,45 @@
+{% load bootstrap4 %}
+<style>
+.textarea_recaptcha_div {
+
+    position:relative;
+    margin: 20px auto 20px auto;
+    max-width: 560px;
+    padding: 10px;
+}
+</style>
+
+<div class="textarea_recaptcha_div">
+<form id="form_recaptcha_text_mail" method="post">
+    
+    {% bootstrap_form form_recaptcha_mail %}
+  
+    <button type="submit">SUBMIT</button>
+</form>
+<div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+    var form_recaptcha_text_mail = document.getElementById('form_recaptcha_text_mail')
+    form_recaptcha_text_mail.addEventListener('submit', function() {
+        event.preventDefault();
+        var recaptcha_text_mail = new FormData(form_recaptcha_text_mail);
+        alert(recaptcha_text_mail);
+        fetch('', {
+            method: 'POST',
+            body: recaptcha_text_mail
+        })
+        // .then(function(response_rc) {
+            .then(function(response_rc_mail) {
+            alert(".then(function(response_rc_mail)")
+            return response_rc_mail.json();
+        })
+        .then(function(data) {
+            if (data.status === 'success') {
+                alert('Form submitted successfully!');
+            } else {
+                alert('An error occurred while submitting the form.');
+            }
+        });
+    });
+</script>
