@@ -146,7 +146,380 @@ def read_book(request, id):
 # # @authentication_classes([])
 # @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 # @permission_classes([permissions.IsAuthenticated, ])
+def read_book_ol(request, id):
+    context = {}
+    container = {}
+    r_user = request.user
+    current_url_name = request.path
+    book = get_object_or_404(Book, pk=id)
+    
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
 
+    context = context_main
+
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+
+    context['book'] = book
+    keyword_field = {}
+
+    logs = [('booksmart01@hotmail.com', 'Djangoapp01o'), ('booksmart02@hotmail.com', 'Djangoapp02o'), ('booksmart03@hotmail.com', 'Djangoapp03o')]
+    log = random.choice(logs)
+    print('log', log)
+
+    context['mail'] = log[0]
+    context['pass'] = log[1]
+    identities = []
+
+    identities_1 = []
+    identities_1.clear()
+    idents_1 = []
+    idents_1.clear()
+    idents_title_1 = []
+    idents_title_1.clear()
+    idents_author_1 = []
+    idents_author_1.clear()
+    titles_idents_1 = []
+    titles_idents_1.clear()
+
+    idents_2 = []
+    idents_2.clear()
+    idents_title_2 = []
+    idents_2.clear()
+    idents_author_2 = []
+    idents_2.clear()
+    identities_2 = []
+    idents_2.clear()
+    titles_idents_2 = []
+    idents_2.clear()
+
+    if request.POST:
+        formlib = LibrarySearch(request.POST)
+        container = {}
+        container.clear()
+        context['cont'] = ""
+        context['conts'] = ""
+
+
+        use_title_author(context, formlib, book, identities_1, idents_title_1, idents_author_1, idents_1, titles_idents_1, identities)
+        
+        time.sleep(2)
+        # container = {}
+        # container.clear()
+        container['mail'] = context['mail']
+        container['pass'] = context['pass']
+        container['searching'] = 'https://openlibrary.org/account/login'
+        # container['title'] = title_to_search
+        print('read_book_ol container =', container)
+        container['title'] = book.title
+        if len(identities_1) > 0:
+            # print('identities_1: ', identities_1) 
+            ids = list(set(identities_1))
+            # print('ids', ids)
+            print('220. read_book_ol ids =', ids)
+            if len(ids) == 1:
+                container_one = container
+                container_one['link'] = f'https://openlibrary.org/borrow/ia/{ids[0]}?ref=ol'
+                context['cont'] = container_one
+                # print("context['cont']: ", context['cont'])
+                # return Response(context, template_name='read_book.html', )
+
+                # return Response(context, template_name='read_book_ol.html', )
+                return render(request, "read_book_ol.html", context )
+
+            elif len(ids) > 1:
+                
+                # containers_many = []
+                # links = [f'https://openlibrary.org/borrow/ia/{ident}?ref=ol' for ident in ids]
+                # for link in links:
+                #     container_many = container
+                #     container_many['link'] = link   
+                #     containers_many.append(container_many)
+
+                links = [f'https://openlibrary.org/borrow/ia/{ids[i]}?ref=ol' for i in range(len(ids))]
+
+                containers_lists_tuples = [list(container.items()) + [("link", links[l])] for l in range(len(links))]
+                
+                containers_many = [{k:v for (k,v) in cont} for cont in containers_lists_tuples]
+ 
+                context['conts'] = containers_many
+                # print("context['conts'][0]", context['conts'][0])
+                # return Response(context, template_name='read_book.html', )
+
+                # return Response(context, template_name='read_book_ol.html', )
+                return render(request, "read_book_ol.html", context )
+            else:
+                print('6 no links')
+
+                # context['message'] = 'Sorry, probably no this title to read for free'
+                # return Response(context, template_name='read_book.html', ) 
+
+        elif len(identities_1)==0:
+            # print("len(identities)==0")
+            titles_idents_2 = []
+            # print("134 idents_1", idents_1)
+            
+            try:
+                if len(idents_1) > 1:
+                    print('260. read_book_ol idents_1=', idents_1)
+                    try:
+                        include_ident_1(idents_1, titles_idents_1, container, context, titles_idents_2)
+                        if context_i1:
+                            # print('143 context_i1')
+                            context = context + context_i1
+                            # return Response(context, template_name='read_book.html', )
+                            
+                            # return Response(context, template_name='read_book_ol.html', )
+                            return render(request, "read_book_ol.html", context )
+                        elif text:
+                            print("145 NO context")
+
+                    except Exception as e:
+                        print("151 Exception as e:", e)
+                    try:
+                        include_ident_2(idents_1, titles_idents_2, container, context)
+                        if context_i2:
+                            context = context + context_i2
+                            # return Response(context, template_name='read_book.html', )
+
+                            # return Response(context, template_name='read_book_ol.html', )
+                            return render(request, "read_book_ol.html", context )
+                        elif text:
+                            print("158 NO context")
+                    except Exception as e:
+                        print("160 Exception as e:", e)
+            except Exception as e:
+                print("127 Exception as e:", e)
+        
+            try:
+                print("176 try")
+                if idents_title_1 and indets_author_1:
+                    idents_title_author_1(idents_title_1, indets_author_1)
+                    if context_ta:
+                        context = context + context_ta
+                        # return Response(context, template_name='read_book.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
+                    elif text:
+                        print("172 NO context")
+            except Exception as e:
+                print("138 Exception as e:", e)
+
+            # if len(idents_1) == 0:
+            try:
+                # print("use_title")
+                use_title(context, formlib, book, identities_1, idents_title_1, idents_author_1, idents_1, titles_idents_1, identities)
+                if len(identities_1) > 0:
+                    # print('identities_1: ', identities_1) 
+                    ids = list(set(identities_1))
+                    print('312. read_book_ol ids = list(set(identities_1)) =', ids)
+
+                    if len(ids) == 1:
+                        container_one = container
+                        container_one['link'] = f'https://openlibrary.org/borrow/ia/{ids[0]}?ref=ol'
+                        context['cont'] = container_one
+                        # print("context['cont']: ", context['cont'])
+                        # return Response(context, template_name='read_book.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
+
+                    elif len(ids) > 1:
+                        # containers_many = []
+                        # links = [f'https://openlibrary.org/borrow/ia/{ident}?ref=ol' for ident in ids]
+                        # for link in links:
+                        #     container_many = container
+                        #     container_many['link'] = link   
+                        #     containers_many.append(container_many)                        
+                        links = [f'https://openlibrary.org/borrow/ia/{ids[i]}?ref=ol' for i in range(len(ids))]
+                        containers_lists_tuples = [list(container.items()) + [("link", links[l])] for l in range(len(links))]
+                        
+                        containers_many = [{k:v for (k,v) in cont} for cont in containers_lists_tuples]
+                        context['conts'] = containers_many
+
+           
+                        # print("context['conts'][0]", context['conts'][0])
+                        # return Response(context, template_name='read_book.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
+                    else:
+                        print('6 no links')
+                #
+                elif len(identities_1)==0:
+                    # print("len(identities_1)==0")
+                    titles_idents_2 = []
+                    # print("134 idents_1", idents_1)
+                    if len(idents_1) > 1:
+                        try:
+                            include_ident_1(idents_1, titles_idents_1, container, context, titles_idents_2)
+                            if context_i1:
+                                context = context + context_i1
+                                # return Response(context, template_name='read_book.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
+                            elif text:
+                                print("204 NO context")
+                        except Exception as e:
+                            print("127 Exception as e:", e)
+
+                        try:
+                            include_ident_2(idents_1, titles_idents_2, container, context)
+                            if context_i2:
+                                context = context + context_i2
+                                # return Response(context, template_name='read_book.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
+                            else:
+                                print("213 NO context")
+                        except Exception as e:
+                            print("131 Exception as e:", e)
+
+                    # if idents_title_1 and indets_author_1:
+                        # try:
+                            # idents_title_author(idents_title_1, indets_author_1)
+                        # except Exception as e:
+                            # print("138 Exception as e:", e) 
+
+            except Exception as e: 
+                print("190 Exception", e)
+                
+
+            # else:
+            try:
+                # print("use_meta_title_author")
+                use_meta_title_author(context, formlib, book, identities_2, idents_title_2, idents_author_2, idents_2, identities)
+
+                if len(identities_2) > 0:
+                    # print('identities_2: ', identities_2) 
+                    ids = list(set(identities_2))
+                    print('392 read_book_ol list(set(identities_2) ids =', ids)
+
+                    if len(ids) == 1:
+                        container_one = container
+                        container_one['link'] = f'https://openlibrary.org/borrow/ia/{ids[0]}?ref=ol'
+                        context['cont'] = container_one
+                        # print("context['cont']: ", context['cont'])
+                        # return Response(context, template_name='read_book.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
+
+                    elif len(ids) > 1:
+                        # containers_many = []
+                        # # links = [f'https://openlibrary.org/borrow/ia/{ident}?ref=ol' for ident in ids]
+                        # links = [f'https://openlibrary.org/borrow/ia/{ids[i]}?ref=ol' for i in range(len(ids))]
+                        # for link in links:
+                        #     container_many = container
+                        #     container_many['link'] = link   
+                        #     containers_many.append(container_many)
+                        links = [f'https://openlibrary.org/borrow/ia/{ids[i]}?ref=ol' for i in range(len(ids))]
+                        containers_lists_tuples = [list(container.items()) + [("link", links[l])] for l in range(len(links))]
+                        
+                        containers_many = [{k:v for (k,v) in cont} for cont in containers_lists_tuples]
+                        context['conts'] = containers_many
+                        # print("context['conts'][0]", context['conts'][0])
+                        # return Response(context, template_name='read_book.html', )
+
+                        # return Response(context, template_name='read_book_ol.html', )
+                        return render(request, "read_book_ol.html", context )
+
+                    else:
+                        print('6b no links')
+                        
+                        # context['message'] = 'Sorry, probably no this title to read for free'
+                        # return Response(context, template_name='read_book.html', ) 
+
+                elif len(identities_2)==0:
+                    # print("len(identities_1)==0")
+                    titles_idents_2 = []
+                    # print("134 idents_1", idents_1)
+                    if len(idents_1) > 1:
+                        try:
+                            include_ident_1(idents_1, titles_idents_1, container, context, titles_idents_2)
+                            if context_i1:
+                                context = context + context_i1
+                                # return Response(context, template_name='read_book.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
+                            elif text:
+                                print("204 NO context")
+                        except Exception as e:
+                            print("127 Exception as e:", e)
+
+                        try:
+                            include_ident_2(idents_1, titles_idents_2, container, context)
+                            if context_i2:
+                                context = context + context_i2
+                                # return Response(context, template_name='read_book.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
+                            else:
+                                print("213 NO context")
+                        except Exception as e:
+                            print("131 Exception as e:", e)
+
+                    # if idents_title_1 and indets_author_1:
+                    try:
+                        print("300 try")
+                        if idents_title_2 and indets_author_2:
+                            idents_title_author_2(idents_title_2, indets_author_2)
+                            if context_ta:
+                                context = context + context_ta
+                                # return Response(context, template_name='read_book.html', )
+
+                                # return Response(context, template_name='read_book_ol.html', )
+                                return render(request, "read_book_ol.html", context )
+
+                            elif text:
+                                print("172 NO context")
+                        else:
+                            # print("344 no book")
+                            context['message_read'] = 'Sorry, probably no this title to read for free in openlibrary'
+                            # return Response(context, template_name='read_book_ol.html', )
+
+                    except Exception as e:
+                        print("138 Exception as e:", e)
+                    
+            except Exception as e: 
+                print("249 Exception", e)
+            #context['message_read'] = 'Sorry, probably no this title to read for free'
+            # print("209 no links")
+        else:
+            # print("6a no links")
+            context['message_read'] = 'Sorry, probably no this title to read for free'
+            # return Response(context, template_name='read_book.html', )
+
+            # return Response(context, template_name='read_book_ol.html', )
+            return render(request, "read_book_ol.html", context )
+
+            # context['message'] = 'Sorry, probably no this title to read for free yet.'
+            # return Response(context, template_name='read_book.html', ) 
+        
+        # else:
+            # print('7 no links')
+            # context['message'] = 'Sorry, probably no this title to read for free'
+            # return Response(context, template_name='read_book.html', )
+
+               
+    else:
+        formlib = LibrarySearch()
+        context['search_title'] = formlib
+    # return render(request, 'read_book.html', context_a)
+    # return Response(context, template_name='read_book.html', )
+
+    # return Response(context, template_name='read_book_ol.html', )
+    return render(request, "read_book_ol.html", context )
 
 
 @api_view(['GET', 'POST'])

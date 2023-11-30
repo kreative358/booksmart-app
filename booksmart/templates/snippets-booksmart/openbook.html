@@ -4,10 +4,10 @@
     localStorage.clear();
     sessionStorage.clear();
 
-  let openbook_forms = document.getElementsByClassName("[class^='searching_openlibrary_']");
+/*  let openbook_forms = document.getElementsByClassName("[class^='searching_openlibrary_']");
   for (let openbook_form of openbook_forms) {
     openbook_form.reset();
-}
+}  */
   }
 
   
@@ -24,7 +24,7 @@
       } */
       </script>
     <!--<div class="searching_openlib_{{book.id}}">-->
-    <form id="register" class="searching_openlibrary_{{ book.id }}" action="{{ cont.searching }}" method="post" target="_blank" id="searching_openlibrary_{{ book.id }}_id">
+    <form id="register" class="login olform" action="{{ cont.searching }}" method="post" target="_blank">
     {% csrf_token %}
 
     <input type="hidden" class="required"  id="username" name="username" value="{{ cont.mail }}" >      
@@ -39,9 +39,10 @@
 <!--</div>-->
     <!--title="Log In" -->
     <script>
-      document.getElementById("username").value = "";
-      document.getElementById("password").value = "";
-      document.getElementById("redirect").value = "";
+      document.getElementById("register").autocomplete = "off";
+      document.getElementById("username").autocomplete = "off";
+      document.getElementById("password").autocomplete = "off";
+      document.getElementById("redirect").autocomplete = "off";
 
     </script>
   

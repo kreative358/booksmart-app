@@ -47,7 +47,7 @@ from django.utils.text import slugify
 
 from booksmart.search_download_gs import SearchRequestGS
 from booksmart.search_download_is import SearchRequestIS
-
+from booksmart.search_download_pm import SearchRequestPM,SearchRequestPM_my
 from bs4 import BeautifulSoup
 
 context_main = {}
@@ -123,15 +123,18 @@ MIRROR_SOURCE_GET = ["GET"]
 
 class LibgenSearch:
     def search_title(self, query):
-        search_request = SearchRequestGS(query, search_type="title")
+        # search_request = SearchRequestGS(query, search_type="title")
+        search_request = SearchRequestPM(query, search_type="title")
         return search_request.aggregate_request_data()
 
     def search_author(self, query):
-        search_request = SearchRequestGS(query, search_type="author")
+        # search_request = SearchRequestGS(query, search_type="author")
+        search_request = SearchRequestPM(query, search_type="author")
         return search_request.aggregate_request_data()
 
     def search_title_filtered(self, query, filters, exact_match=True):
-        search_request = SearchRequestGS(query, search_type="title")
+        # search_request = SearchRequestGS(query, search_type="title")
+        search_request = SearchRequestPM(query, search_type="title")
         results = search_request.aggregate_request_data()
         filtered_results = filter_results(
             results=results, filters=filters, exact_match=exact_match
@@ -140,7 +143,53 @@ class LibgenSearch:
         return filtered_results
 
     def search_author_filtered(self, query, filters, exact_match=True):
-        search_request = SearchRequestGS(query, search_type="author")
+        # search_request = SearchRequestGS(query, search_type="author")
+        search_request = SearchRequestPM(query, search_type="author")
+        results = search_request.aggregate_request_data()
+        filtered_results = filter_results(
+            results=results, filters=filters, exact_match=exact_match
+        )
+        return filtered_results
+
+    def resolve_download_links(self, item):
+        mirror_1 = item["Mirror_1"]
+        print("\nmirror_1 =", mirror_1)
+        # page = requests.get(f'https://libgen.gs{mirror_1}')
+        page = requests.get(f'https://libgen.pm{mirror_1}')
+        # page = requests.get(mirror_1)
+        soup = BeautifulSoup(page.text, "html.parser")
+        
+        links = soup.find_all("a", string=MIRROR_SOURCES)
+        download_links = {link.string: link["href"] for link in links}
+        
+        print(f"\n1. download_links = {download_links}\n")
+
+        return download_links
+
+class LibgenSearch_my:
+    def search_title(self, query):
+        # search_request = SearchRequestGS(query, search_type="title")
+        search_request = SearchRequestPM_my(query, search_type="title")
+        return search_request.aggregate_request_data()
+
+    def search_author(self, query):
+        # search_request = SearchRequestGS(query, search_type="author")
+        search_request = SearchRequestPM_my(query, search_type="author")
+        return search_request.aggregate_request_data()
+
+    def search_title_filtered(self, query, filters, exact_match=True):
+        # search_request = SearchRequestGS(query, search_type="title")
+        search_request = SearchRequestPM_my(query, search_type="title")
+        results = search_request.aggregate_request_data()
+        filtered_results = filter_results(
+            results=results, filters=filters, exact_match=exact_match
+        )
+        print("search_title_filtered =", filtered_results)
+        return filtered_results
+
+    def search_author_filtered(self, query, filters, exact_match=True):
+        # search_request = SearchRequestGS(query, search_type="author")
+        search_request = SearchRequestPM_my(query, search_type="author")
         results = search_request.aggregate_request_data()
         filtered_results = filter_results(
             results=results, filters=filters, exact_match=exact_match
@@ -151,7 +200,8 @@ class LibgenSearch:
         
         mirror_1 = item["Mirror_1"]
         print("\nmirror_1 =", mirror_1)
-        page = requests.get(f'https://libgen.gs{mirror_1}')
+        # page = requests.get(f'https://libgen.gs{mirror_1}')
+        page = requests.get(f'https://libgen.pm{mirror_1}')
         # page = requests.get(mirror_1)
         soup = BeautifulSoup(page.text, "html.parser")
         
