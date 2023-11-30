@@ -96,12 +96,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
         style={'template':'snippets/input-checkbox-remember.html'}
         )
 
-
     recaptcha_token = serializers.CharField(
         read_only=True, 
         allow_blank=True, 
         required=False,
-        style={'template':'snippets/input-recaptcha.html'},
+        style={'template':'snippets/input-recaptcha-signin.html'},
         )
 
     def validate(self, attrs):
@@ -122,7 +121,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['current_url', 'username', 'email', 'password', 'password2', 'remember_me', 'recaptcha_token'] #, 'recaptcha'
+        fields = ['current_url', 'username', 'email', 'password', 'password2', 'remember_me', 'recaptcha_token'] # 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     
@@ -265,7 +264,6 @@ class LoginSerializer(serializers.Serializer):
         # trim_whitespace=False,
         # write_only=True,
         # help_text='Minimum 8 signts include one upper letter and one number',
-        
     )
 
     remember_me = serializers.BooleanField(
@@ -277,15 +275,14 @@ class LoginSerializer(serializers.Serializer):
         read_only=True, 
         allow_blank=True, 
         required=False,
-        style={'template':'snippets/input-recaptcha.html'},
+        style={'template':'snippets/input-recaptcha-login.html'},
         )
     # type = serializers.CharField(style={'base_template': 'textarea.html', 'rows': 10})
     class Meta:
         model = Account
-        fields = ['current_url', 'username', 'password', 'remember_me',  'recaptcha_token']
+        fields = ['current_url', 'username', 'password', 'remember_me', 'recaptcha_token'] 
+         
 
-
-  
 
     def validate(self, attrs):
         username = attrs.get('username')

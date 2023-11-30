@@ -229,7 +229,7 @@ def download_book(request):
     context['num_authors'] = num_authors
     context['num_books'] = num_books    
 
-    formlib_download = BookDownload(request.GET)
+    formlib_download_pdf = BookDownload(request.GET)
 
     links_to_download = []
     search_libgen = LibgenSearch()
@@ -239,28 +239,24 @@ def download_book(request):
     # results = s.search_title("Harry Potter i zakon feniksa")
     # print('results', results)
     pdf_links = []
-    else_links = []
     title_download = ""
-    context["title_download"] = ""
+    context["title_download_pdf"] = ""
+    context["title_download_not_pdf"] = ""
     context["title_read_last_chance"] = ""
     context["download_links_1a"] = ""
     context["download_links_2a"] = ""
     context["title_read_last_chance"] = ""
-    context["message_read_download"] = ""
-    context["message_read_download_not_pdf"] = ""
-    
-    if formlib_download.is_valid():
-        title_download=formlib_download.cleaned_data['title_download_search']
-        print("1. title_download", title_download)
-        context["title_download"] = title_download
-        title_docer_pdf = title_download.replace(" ", "+")
+    if formlib_download_pdf.is_valid():
+        title_download_pdf=formlib_download_pdf.cleaned_data['title_download_search']
+        print("1. title_download_pdf", title_download_pdf)
+        context["title_download_pdf"] = title_download_pdf
+        title_docer_pdf = title_download_pdf.replace(" ", "+")
         context["title_read_last_chance"] = f"https://docer.pl/show/?q={title_docer_pdf}&ext=pdf" 
-        results = search_libgen.search_title(title_download)
+        results = search_libgen.search_title(title_download_pdf)
 
         if results:
-            items_to_download = results
-            print("items_to_download =", items_to_download)
             try:
+                items_to_download = results
                 pdf_links = [search_libgen.resolve_download_links(item_to_download) for item_to_download in items_to_download if item_to_download["Ext."] == "pdf"] 
                 if len(pdf_links) > 0:
 
@@ -272,73 +268,80 @@ def download_book(request):
                     context["pdf_links_id"] = pdf_links_id
 
                     if len(pdf_links) >= 2:
-                        download_links_pdf_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                        print("download_links_pdf_1a =", download_links_pdf_1a)
-                        context["download_links_1a"] = download_links_pdf_1a
-                        context["extension_1a"] = "pdf"
-                        download_links_pdf_2a = pdf_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                        context["download_links_2a"] = download_links_pdf_2a
-                        context["extension_2a"] = "pdf"
-                        print("download_links_pdf_2a =", download_links_pdf_2a)
+                        download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                        print("download_links_1a =", download_links_1a)
+                        context["download_links_1a"] = download_links_1a
+                        download_links_2a = pdf_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                        context["download_links_2a"] = download_links_2a
+                        print("download_links_2a =", download_links_2a)
 
                         return Response(context, template_name='download_book.html',)
 
                     elif len(pdf_links) == 1:
                         download_links_1a = pdf_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
                         context["download_links_1a"] = download_links_1a
-                        context["extension_1a"] = "pdf"
+
                         return Response(context, template_name='download_book.html',)
 
                 elif len(pdf_links) == 0:
-                    try:
-                        # items_to_download = results
-                        else_links = [search_libgen.resolve_download_links(item_to_download) for item_to_download in items_to_download] 
+                    context["message_read_download"] = "This book is probably not available for download in pdf, below is the last chance for those who persevere"
+                    # print("2. title_download", title_download)
+                    # title_slugify = slugify(title_download).replace(" ", "+").replace(" ", "-")
+                    if request.method == "GET":
+                        formlib_download_else = BookDownload(request.GET)
+                        if formlib_download_else.is_valid():
+                            title_download_else=formlib_download_else.cleaned_data['title_download_search']
+                            print("1. title_download_else", title_download_else)
+                            context["title_download_else"] = title_download_else
+                            # title_docer_pdf = title_download_else.replace(" ", "+")
+                            # context["title_read_last_chance"] = f"https://docer.pl/show/?q={title_docer_pdf}&ext=pdf" 
+                            results = search_libgen.search_title(title_download_else)
 
-                        if len(else_links) > 0:
-                            print("else_links", else_links)
-                            context["pdf_links"] = else_links
-                            context["len_pdf_links"] = len(else_links)
-                    
-                            # else_links_id = [[else_links.index(else_link), else_link] for else_link in else_links]
-                            # context["else_links_id"] = else_links_id
-                            extentions = [val['Ext.'] for val in items_to_download]
-                            if len(else_links) >= 2:
+                            if results:
+                                try:
+                                    items_to_download = results
+                                    else_links = [search_libgen.resolve_download_links(item_to_download) for item_to_download in items_to_download] 
+                                    if else_links:
 
-                                download_links_else_1a = else_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                                print("download_links_else_1a =", download_links_else_1a)
-                                context["download_links_1a"] = download_links_else_1a
-                                context["extention_1a"] = extentions[0]
+                                        print("else_links", else_links)
+                                        context["else_links"] = else_links
+                                        context["len_else_links"] = len(else_links)
 
-                                download_links_else_2a = else_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                                context["download_links_2a"] = download_links_else_2a
-                                context["extention_2a"] = extentions[1]
-                                
-                                print("else download_links_2a =", download_links_else_2a)
-                                context["message_read_download_not_pdf"] = "This book is probably not available for download in pdf, press buttons below to download in differt format."
+                                        if len(else_links) >= 2:
+                                            download_links_1a = else_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                                            print("download_links_1a =", download_links_1a)
+                                            context["download_links_1a"] = download_links_1a
+                                            download_links_2a = else_links[1]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                                            context["download_links_2a"] = download_links_2a
+                                            print("download_links_2a =", download_links_2a)
+
+                                            return Response(context, template_name='download_book.html',)
+
+                                        elif len(else_links) == 1:
+                                            download_links_1a = else_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
+                                            context["download_links_1a"] = download_links_1a
+
+                                            return Response(context, template_name='download_book.html',)
+
+                                        elif len(else_links) == 0:
+                                            context["message_read_download_else"] = "This book is probably not available for download, below is the last chance for those who persevere"
+                                            # print("2. title_download", title_download)
+                                            # title_slugify = slugify(title_download).replace(" ", "+").replace(" ", "-")
+
+                                            return Response(context, template_name='download_book.html',)
+
+                                except Exception as e:
+                                    context["message_read_download_else"] = f"This book is probably not available for download, reason: {e}"
+                                    # print("3. title_download", title_download)
+                                    return Response(context, template_name='download_book.html',)
+
+                            else:
+                                # print("4. title_download", title_download)
+                                context["message_read_download_else"] = "This book is probably not available for download, below is the last chance for those who persevere."
                                 return Response(context, template_name='download_book.html',)
-
-                            elif len(else_links) == 1:
-                                download_links_else_1a = else_links[0]["GET"].replace("get.php", "https://libgen.pm/get.php")
-                                context["download_links_1a"] = download_links_else_1a
-                                context["extention_1a"] = extentions[0]
-                                print("download_links_else_1a =", download_links_else_1a)
-                                context["message_read_download_not_pdf"] = "This book is probably not available for download in pdf, press button below to download in other format."
-                                return Response(context, template_name='download_book.html',)
-
-                            elif len(else_links) == 0:
-                                context["message_read_download"] = "This book is probably not available for download, below is the last chance for those who persevere"
-                                # print("2. title_download", title_download)
-                                # title_slugify = slugify(title_download).replace(" ", "+").replace(" ", "-")
-                                return Response(context, template_name='download_book.html',)
-
-                    except Exception as e:
-                        print(f'Exception as e else_links, reason: {e}')
-                        context["message_read_download"] = "This book is probably not available for download"
-                        # print("3. title_download", title_download)
-                        return Response(context, template_name='download_book.html',)
 
             except Exception as e:
-                context["message_read_download"] = "This book is probably not available for download in pdf, or any other format."
+                context["message_read_download"] = f"This book is probably not available for download in pdf, reason: {e}"
                 # print("3. title_download", title_download)
                 return Response(context, template_name='download_book.html',)
 
@@ -347,5 +350,11 @@ def download_book(request):
             context["message_read_download"] = "This book is probably not available for download in pdf, below is the last chance for those who persevere."
             return Response(context, template_name='download_book.html',)
 
-    context["search_title_download"] = BookDownload()
+
+
+
+
+
+    # context["formlib_download_else"] = formlib_download_else
+    context["title_download_search"] = BookDownloadElse()
     return Response(context, template_name='download_book.html', )

@@ -1,0 +1,264 @@
+{% load bootstrap4 %}
+{% load static %}
+
+{% block page %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script>
+/*  window.onload = function() {
+   let msg2 = {
+    'text': 'some text',
+  //  'inputRecaptcha_value': inputRecaptcha.value,
+}
+  let options2 = {
+    method: 'POST',
+    headers: { 'Accept': 'application/json, text/plain, * / *',
+          'Content-Type': 'application/json',
+          "X-CSRFToken": csrftoken },
+    body: JSON.stringify(msg2)
+  }
+  
+  fetch("{% url 'booksmart:allrecords' %}", options2)
+  
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }
+}  */
+</script>
+
+
+<div id="glass_id_main" class="glass_class_main"> 
+<style>
+  button {
+    font-variant: small-caps;
+}
+</style>
+{% block content_1 %}   
+
+
+{% include 'snippets-mainsite/jumbotron.html' %}
+{% include 'snippets-mainsite/marquee.html' %}
+
+{% include 'snippets-mainsite/top_cards_main.html' %}
+
+{% endblock content_1 %}
+
+
+{% block content_2 %} 
+
+{% endblock content_2 %}
+
+{% block content_3 %} 
+
+<script type="text/javascript"> 
+  $(document).ready(function(){
+    $(".btn_container_list").click(function(){
+        $(this).next("*").slideToggle(1500);
+    });
+    //
+    $(".bs_input_message").click(function(){
+      $(".bs_input_message").remove();  
+    });
+    //
+});
+  </script>
+
+
+  <div class="mycontainer" id="cont_main_1">
+    <div class="myrow" id="row_main_1">
+    <div class="mycolumn" id= "col_main_1">
+    
+      <div>
+        <p class="verification" id="" style='margin-bottom: 0px;'> VERYFICATION </p>
+        {% if request.user.is_authenticated %}
+        <p class="verification_span" style="margin-bottom:-5px;"> Hello, {{request.user.username}}</p>
+        <p class="verification_span" style='line-height: 1.2; color:rgba(0, 0, 200,  0.9);  margin-bottom:5px;'>
+        
+            <a href="{% url 'accounts:account' %}" target='_blank'>update account</a> |
+            <a href="{% url 'accounts:password-update' %}" target='_blank'>update password</a> |
+            <a href="{% url 'accounts:logout-view' %}">logout</a> 
+        </p>
+    
+        {% elif not request.user.is_authenticated %}
+        <span class="verification_span" style="animation: anime_red_text"> Hello, you must be logged in <br> to use this app </span>
+          <br>
+          <span class="verification_span" style="line-height: 1.2; color: rgba(0, 0, 200,  0.9);">
+        <a href="{% url 'accounts:register' %}" target='_blank'>Register</a> | 
+        <a href="{% url 'accounts:login' %}" target='_blank'>Login</a>
+      </span>
+        {% endif %}
+      </div>  
+  
+      <div>
+  {% if messages %}
+  <ul class="messages"> <div style="color: red; font-weight: bold"  class="class_text_info">
+    <div class="bs_input_message" >
+    <p type="button" id="close_msg1" class="class_close" > ✖ </p> 
+    <br> <p class="messages_p" >
+    
+    {% for message in messages %}
+     
+        {% autoescape off %} {{ message }} {% endautoescape %} <br>
+    {% endfor %}</p>
+  </div>
+  </div>
+  </ul>
+  {% endif %}
+  
+  {% if messages and message.tags == 'info' %}
+  <div id="bs_input_message" class="alert alert-dismissible fade show" style="min-height: 60px;">
+    <button type="button" class="class_close" data-dismiss="alert" style="float:right; background: transparent; border: none; outline: none;">✖</button>
+    <p  class="class_text_info_message">
+  {{ message }}</p> </div> 
+  {% endif %}
+  
+  </div> 
+  
+  </div>
+    </div>
+  </div>
+
+<script>
+	const infs = document.getElementsByClassName('class_text_info');
+	
+	for (const inf of infs) {
+	  inf.addEventListener('click', (event) => {
+		event.target.remove();
+	  });
+	}
+	
+	</script>
+
+{% if messages %}
+{% include 'snippets-mainsite/modal_message_mainpage.html' %}
+{% endif %}
+<br>
+
+    <div class="mycontainer" id="cont_main_2">
+      <div class="myrow" id="row_main_2">
+  <div class="column-collapse" id= "col_main_2">
+
+    <div type="button" class="btn_container_list" id="tooltip_mainsite_lof" >
+      LIST OF FUNCTIONS <span id="tooltiptext_mainsite_lof">SEARCH BOOKS AND AUTHORS BY DETAILS <br> PRESS TO EXPAND OR UNEXPAND PANEL</span></div>
+      
+    <div id="list_options" class="collapseble" style="display:none; padding-top: 26px;">
+
+    <div style=''>
+      <p class="h4_class">LIST OF BOOKS AVALIABLE IN THIS DATABASE</p>
+
+      <a href="{% url 'booksmart:allrecords' %}" target="_blank">
+        <button class="btn btn-outline-danger btn-lg text-primary" style="z-index: 16; width:150px; padding-top: 8px; padding-bottom: 6px; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold;font-family: Helvetica;" id='tooltip_mainsite_b'> BOOKS <span id="tooltiptext_mainsite_b">LIST OF BOOKS IN DATABASE THIS APP</span></button>
+    </a>
+    </div>
+    <hr>
+
+    <div>
+      <p class="h4_class">LIST OF AUTHORS AVALIABLE IN THIS DATABASE</p>
+      <a href="{% url 'booksmart:allauthors' %}" target="_blank">
+        <button class="btn btn-outline-primary btn-lg text-danger" style="width:150px; padding-top: 8px; padding-bottom: 6px; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold;font-family: Helvetica;" id='tooltip_mainsite_loa'> AUTHORS <span id="tooltiptext_mainsite_loa">LIST OF AUTHORS IN DATABASE THIS APP</span></button>
+      </a>
+    </div>
+    <hr>
+  
+    <div>
+      <p class="h4_class">FIND BOOK IN GOOGLE BOOKS AND INFO ABOUT AUTHOR IN WIKIDATA </p>
+      <a href="{% url 'booksearch:gbsearch_book' %}" target="_blank">
+        <button class="btn btn-outline-danger btn-lg text-primary" style="padding-top: 8px; padding-bottom: 6px; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold; font-family: Helvetica;" id='tooltip_mainsite_fba'> Find Books & Authors <span id="tooltiptext_mainsite_fba">USE IT TO FIND BOOKS FROM GOOGLEBOOKS AND AUTHORS FORM WIKIDATA</span></button>
+      </a>
+    </div>
+    <hr>
+
+  <!--  <div>
+      <p class="h4_class">FIND THE NEEDED BOOK IN THIS DATABASE</p>
+      <a href="{% url 'booksmart:records-post' %}" target="_blank">
+        <button class="btn btn-outline-primary btn-lg text-danger" style="min-width:150px; padding:auto; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold;font-family: Helvetica;" id='tooltip_mainsite_fb'> Find Book <span id="tooltiptext_mainsite_fb">USE IT TO FIND BOOKS AND AUTHOURS IN DATABASE THIS APP</span></button>
+      </a>
+    </div>
+    <hr> -->
+
+    <div>
+      <p class="h4_class">ADD NEW BOOK OR NEW AUTHOR TO DATABASE</p>
+     
+      <a href="{% url 'booksmart:newbook' %}" target="_blank">
+        <button class="btn btn-outline-danger btn-lg text-primary" style="min-width:150px; padding-top: 8px; padding-bottom: 6px; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold;font-family: Helvetica;" id='tooltip_mainsite_ab'>Add Book<span id="tooltiptext_mainsite_ab">USE IT TO ADD A BOOK BY YOURSELF, ALTHOUGH IT IS EFFORTIVE AND LESS CONVENIENT THAN THE ABOVE FUNCTION </span></button>
+      </a>
+      <a href="{% url 'booksmart:newauthor' %}" target="_blank">
+        <button class="btn btn-outline-danger btn-lg text-primary" style="min-width:150px; padding-top: 8px; padding-bottom: 6px; margin: 0px 10px 0px 10px; border: 5px solid; box-shadow: 0px 0px 5px 5px rgba(120, 120, 120, 0.4); font-size: 18px; font-weight: bold;font-family: Helvetica;" id='tooltip_mainsite_aa'>Add Author<span id="tooltiptext_mainsite_aa">USE IT TO ADD AN AUTHOR BY YOURSELF, ALTHOUGH IT IS EFFORTIVE AND LESS CONVENIENT THAN THE ABOVE FUNCTION </span></button>
+      </a>
+    
+    </div>
+    <hr> 
+       
+    <div style='margin-top: 26px;'>
+      <p class="font-effect-shadow-multiple" id="list_options_p_1" style="margin: 0px auto 0px auto;"><a href="{% url 'booksmart:pdf_reader' %}" target='_blank'>PDF READER</a></p>
+      <p class="font-effect-shadow-multiple" id="list_options_p_2" style="margin: 10px auto 0px auto;"><a href="/api/" target='_blank'>BOOKSMART API</a></p>
+  </div>
+
+  </div>   
+</div>
+</div>
+</div>
+ 
+{% endblock content_3 %}
+
+{% block content_4 %}
+  
+{% if request.user.is_authenticated %}
+<div class="mycontainer" id="cont_main_3">
+  <div class="myrow" id="row_main_3">
+  <div class="column-collapse" id= "col_main_3">
+
+    <div class="btn_container_list" id="tooltip_mainsite_lob" >
+      LIST OF YOUR BOOKS <span id="tooltiptext_mainsite_lob">IF YOU ADDED ANY BOOKS THIS IS LIST OF THEM PRESS TO EXPAND OR UNEXPAND PANEL</span></div>
+    
+    <div id="list_books" class="collapseble" style="display:none">
+    
+    <div style="margin-bottom: 14px;">
+    <p class="h3_class_bold" style="color: rgba(0, 120, 240, 0.9);">Hello, {{ request.user.username }}</p>
+    {% for book in books_user %}
+    <p style="margin-bottom: 2px;"><a href="booksmart-app/read_book/{{book.id}}"  class="h5_class" > {{ book.title }} - {{ book.author}} </a></p>
+    {% endfor %}
+    </div>  
+  
+
+    
+  </div>
+</div>
+</div>
+
+</div>
+
+<script>
+  if (document.getElementById("msg_mainpage")) {
+  var msg_main = document.getElementById("msg_mainpage");
+  msg_main.onclick = function(){
+    msg_main.style.display = "none";
+    };}
+  </script>
+  
+{% endif %}
+<br>
+{% endblock content_4 %}
+   
+{% block content_5 %}
+{% include 'snippets-mainsite/modal_message_mainpage_mail.html' %} 
+
+{% endblock content_5 %}
+
+</div>
+
+
+      {% endblock page %}
+

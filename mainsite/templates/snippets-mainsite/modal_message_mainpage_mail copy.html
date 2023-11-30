@@ -465,8 +465,8 @@ min-height: 80px;
     <div class="modal_link">MODAL LINK</div><br> -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>  
        
-    
        <div class="mymodal_messages_back_mail" id="my_modal_messages_main_mail">  
+      
         <!-- Modal content -->
         <div class="mycontainer_messages_mail" id="modal_cont_messages_mail">
           <div class="myrow_messages_mail" >
@@ -478,15 +478,13 @@ min-height: 80px;
           </div>
 
           <div class="modal_body_messages_mail" id="modal_body_messages_main_mail">
-           
-          
-            <iframe  id="iframe_mail" ></iframe>;
-           
-         <!-- <div style="font-size: 24px; text-align: center; margin: 20px; animation: anime_red_text 2s infinite;" >"reCAPTCHA VALIDATION FAILED"</div> -->
-            
-           
+         
+         <iframe  id="iframe_mail" src="{% url 'accounts:email_sender_modal'%}"></iframe>
+  
         </div> 
   
+    
+
         <div class="modal_footer_messages_mail" id="modal_footer_messages_mail">
           <div id="myBtn_messages_mail" type="button"  class="close_mb_mail" >CLOSE</div>
       </div>
@@ -494,19 +492,19 @@ min-height: 80px;
       </div>
     </div>
   </div>
+    
 </div>
-
-     {% csrf_token %}
-<!--<div> -->
+     
+<div>
        <div id="g_recaptcha_mail" class="g-recaptcha" style="" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26"
        data-callback="captchaVerified_mm" data-expired-callback="captchaExpired_mm" data-error-callback="captchaError_mm" data-tabindex=4>
         </div>
-  <!--    <input type="text" name="recaptcha_token" id="inputRecaptcha" required value="" readonly style="display: none;"> 
-      </div> -->
+      <input type="text" name="recaptcha_token" id="inputRecaptcha" required value="" readonly style="display: none;">
+      </div>
   
     
 
-   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>       
 <script>
 
 var btn_modal_mail = document.getElementById("myBtn_mail_sender");
@@ -516,8 +514,9 @@ var recaptcha_mail = document.getElementById("g_recaptcha_mail");
   var mymodal_cont_mail = document.getElementById("modal_cont_messages_mail");
   var span1_mail = document.getElementById("close_m_message_main_mail");
   var span2_mail = document.getElementById("myBtn_messages_mail"); 
-var iframe_mail = document.getElementById("iframe_mail");
- 
+
+  var inputRecaptcha = document.getElementById("inputRecaptcha"); 
+  var my_captcha_form = document.getElementById("my_captcha_form");
 
 
 btn_modal_mail.onclick = function() {  
@@ -544,18 +543,17 @@ btn_modal_mail.onclick = function() {
 }   
 
 
-function captchaExpired_mm() {
- /* let recaptcha_response = "";
+/*function captchaExpired_mm() {
+  let recaptcha_response = "";
   let recaptcha_value = JSON.stringify({
     tag: recaptcha_response,
-  }) */
-//  inputRecaptcha.value = "";
-}  
+  })
+}  */
 
 function captchaVerified_mm(response_mm) {
   
   // let recaptcha_response = response_mm;
-  // inputRecaptcha.value = response_mm
+  inputRecaptcha.value = response_mm
   // let inputRecaptcha_value = inputRecaptcha.value
 
   let msg = {
@@ -563,69 +561,34 @@ function captchaVerified_mm(response_mm) {
   //  'inputRecaptcha_value': inputRecaptcha.value,
 }
 
-let csrftoken = getCookie('csrftoken');
-
 let options = {
   method: 'POST',
-  headers: { 'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json',
-        "X-CSRFToken": csrftoken },
+  headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify(msg)
 }
 
 fetch('', options)
 .then(response => response.json())
-.then(data => { 
-  recaptcha_status = data['status'];
- 
-  alert("reCAPTCHA validation " + recaptcha_status);
-  // alert(recaptcha_status);
-  // sessionStorage.setItem("recaptcha_status", recaptcha_status);
-  
-  if (recaptcha_status === 'SUCCESS') {
-
+.then(response => { 
+  let data = response['status'];
+  alert("reCAPTCHA validation " data);
+  if (data === 'SUCCESS') {
     recaptcha_mail.style.animation = "opacityanime_down 1.4s 1";
-    setTimeout(()=> {
-    iframe_mail.setAttribute("src", "{% url 'accounts:email_sender_modal' %}");
-    }, 200);
-
     setTimeout(()=> {
       recaptcha_mail.style.display = "none";
         }, 1200);
-    
-    setTimeout(()=> {
+         
     mymodal_mail.style.display = "block";
     mymodal_mail.style.animation = "modalfadein 1s 1";
     mymodal_cont_mail.style.display = "block"; 
     mymodal_cont_mail.style.animation = "zoom 2s 1 ease-in";
-    }, 400);
-
   } else {
     alert("reCAPTCHA IS NOT CORRECT");
-  } 
-})  
-
-function getCookie(name) {
-  var cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-      var cookies = document.cookie.split(';');
-      for (var i = 0; i < cookies.length; i++) {
-          var cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
-      }
   }
-  return cookieValue;
-}
- 
+
+})
 
 
-/*  mymodal_mail.style.display = "block";
-    mymodal_mail.style.animation = "modalfadein 1s 1";
-    mymodal_cont_mail.style.display = "block"; 
-    mymodal_cont_mail.style.animation = "zoom 2s 1 ease-in"; */
 // if (recaptch_status === "success") {}
   /* recaptcha_value = JSON.stringify({
     tag: recaptcha_response,
@@ -660,13 +623,14 @@ function getCookie(name) {
    },
   }) */
 
+
+
 }
   
 
  
 function captchaError_mm() {
-//  inputRecaptcha.value = "";
- /* let recaptcha_response = "";
+  let recaptcha_response = "";
   let recaptcha_value = JSON.stringify({
     tag: recaptcha_response,
   })
@@ -675,7 +639,7 @@ function captchaError_mm() {
   setTimeout(()=> {
     recaptcha_mail.style.display = "none";
       }
-      , 800);*/ 
+      , 800);
 
 
 }  

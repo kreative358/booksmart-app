@@ -1,0 +1,61 @@
+<style>
+
+    /* #inputUsername {
+        font-size: 16px;
+        font-weight: bold;
+        color: darkblue;
+        padding:auto;
+    } */
+    
+    #input-recaptcha-l input[type=text] {
+        font-size: 16px;
+        font-weight: bold;
+        color: darkblue;
+        background: rgba(220, 220, 230, 0.6);
+       
+    }
+    
+    #input-recaptcha-l input[type=text]:focus, 
+    #input-recaptcha-l input[type=text]:active,
+    #input-recaptcha-l input[type=text]:valid {
+        background: rgba(220, 220, 230, 0.8);
+        color: darkblue;
+    }
+    
+    
+    #input-recaptcha-l input:-webkit-autofill,
+    #input-recaptcha-l input:-webkit-autofill:hover,
+    #input-recaptcha-l input:-webkit-autofill:focus,
+    #input-recaptcha-l input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: blue;
+    -webkit-animation: autofill 0s forwards;
+    outline: none;
+    border:none;
+    }
+    
+    
+    #invalid_feedback_id_l,
+    #valid_feedback_id_l {
+      font-size: 14px;
+        
+    }
+    
+    #invalid_feedback_id_l {
+      color: red;
+      display: block;
+    }
+    
+    #valid_feedback_id_l {
+      color: green;
+      display: none;
+    } 
+    </style>
+
+	<div class="form-group" id="input-recaptcha-l" style="position: relative; margin: 0px auto 0px auto; padding-left: 7.5%; padding-top: 0px;">
+	<!--<label class="label_serializer" id="id_label_inputRecaptcha" for="inputRecaptcha"> -->
+    <input type="text" name="recaptcha_token" id="inputRecaptcha_l"  class="form-control" required value="" readonly style="display: none;">	
+    <div class="valid_feedback" id="valid_feedback_id_l"  style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;"> reCAPTCHA is filled out. </div>
+    <div class="invalid_feedback" id="invalid_feedback_id_l" style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;" > Please fill out reCAPTCHA </div> 
+</div>
+	

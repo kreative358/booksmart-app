@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 # req = search_request.SearchRequest("[QUERY]", search_type="[title]")
 
 
-class SearchRequestGS:
+class SearchRequestPM:
 
     # col_names = [
     #     "ID Time add Title Series",
@@ -59,11 +59,13 @@ class SearchRequestGS:
         query_parsed = "%20".join(self.query.split(" "))
         if self.search_type.lower() == "title":
             search_url = (
-                f"https://libgen.gs/index.php?req={query_parsed}&column=title"
+                # f"https://libgen.gs/index.php?req={query_parsed}&column=title"
+                f"https://libgen.pm/index.php?req={query_parsed}&column=title"
             )
         elif self.search_type.lower() == "author":
             search_url = (
-                f"https://libgen.gs/index.php?req={query_parsed}&column=author"
+                #f"https://libgen.gs/index.php?req={query_parsed}&column=author"
+                f"https://libgen.pm/index.php?req={query_parsed}&column=author"
             )
         search_page = requests.get(search_url)
         return search_page

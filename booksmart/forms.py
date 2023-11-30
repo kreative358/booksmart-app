@@ -165,6 +165,9 @@ class LibrarySearch(forms.Form):
 
 class BookDownload(forms.Form):
     title_download_search = forms.CharField(widget=forms.HiddenInput(attrs={}))
+
+# class BookDownloadElse(forms.Form):
+#     title_download_search_not_pdf = forms.CharField(widget=forms.HiddenInput(attrs={}))
     
 
 class BookChange(forms.Form):

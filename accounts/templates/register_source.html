@@ -25,6 +25,11 @@
 
 <style type="text/css">
 
+@keyframes anime_red_text {
+  50% {
+    color: rgba(240, 20, 20, 0.9);}
+  }  
+
 .container_accounts {
 	position: relative;
 	z-index :12;
@@ -146,6 +151,15 @@
   color: rgba(0, 0, 209, 0.9); 
   font-size: 22px; 
   font-weight:bold;
+}
+
+.msg_info_text,
+.errors_text {
+	font-size: 24px; 
+	font-weight: bold;
+	font-family: Times;
+	line-height: 1.2;
+	color: rgba(20, 20, 200, 0.9);
 }
 
 #bs_input_account_first {
@@ -347,18 +361,18 @@ margin-left: -240px;
       align-items: center;
     }
 
-    #invalid_feedback_id,
-    #valid_feedback_id {
+    #invalid_feedback_id_s,
+    #valid_feedback_id_s {
       font-size: 14px;
       
     }
     
-    #invalid_feedback_id {
+    #invalid_feedback_id_s {
       color: red;
       display: block;
     }
     
-    #valid_feedback_id {
+    #valid_feedback_id_s {
       color: green;
       display: none;
     }
@@ -374,9 +388,14 @@ margin-left: -240px;
         width: 100px;
         font-size: 18px;
       }
+
+      .msg_info_text,
+      .errors_text {
+        font-size: 18px;
+      }
     }
 
-    #g_recaptcha_id > div {
+    #g_recaptcha_signin_id > div {
       position: relative;
       margin: 0px auto 0px auto;
     }
@@ -484,13 +503,14 @@ margin-left: -240px;
         
         <div class="form-group" style="margin: 0px; padding:10px 0px 10px 0px;">
     
-          <div id="g_recaptcha_id" class="g-recaptcha" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-callback="captchaVerified" data-expired-callback="captchaExpired" data-error-callback="captchaError"> 
+          <div id="g_recaptcha_signin_id" class="g-recaptcha" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-callback="captchaVerified_s" data-expired-callback="captchaExpired_s" data-error-callback="captchaError_s"> 
           </div> 
 
-          <div style="postion: relative; margin: 0px auto 0px auto;">	
+          <!-- <div class="valid_feedback" id="valid_feedback_id"  style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;"> reCAPTCHA is filled out. </div>
+          <div class="invalid_feedback" id="invalid_feedback_id" style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;" > Please fill out reCAPTCHA </div> -->
+        	<div style="postion: relative; margin: 0px auto 0px auto;">	
             {% render_field serializer.recaptcha_token style=style %} 
           </div>
-        <!---->
       </div>
     </div>
    
@@ -502,10 +522,10 @@ margin-left: -240px;
          
        <div id="bs_input_accounts_register_e2" class="class_text_info" >
               
-              {% for error in errors %}
-              <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
-              {% autoescape off %} {{ error }} {% endautoescape %}
-              </p>
+          {% for error in errors %}
+          <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
+            <span class="errors_text" style="animation: anime_red_text 2s infinite;">{% autoescape off %} {{ error }} {% endautoescape %}</span>
+          </p>
         <!--   </div> -->
         
           {% endfor %}
@@ -529,7 +549,7 @@ margin-left: -240px;
               {% for msg_info in msgs_info %}
           
               <p style="color: rgba(220, 20, 20, 0.8); font-weight: bold" class="class_text_info">
-              {% autoescape off %} {{ msg_info }} {% endautoescape %}
+                <span class="msg_info_text" style="animation: anime_red_text 2s infinite;">{% autoescape off %} {{ msg_info }} {% endautoescape %}</span>
               </p>
            
           {% endfor %}
@@ -579,25 +599,26 @@ infos.addEventListener('click', (event) => {
 
 
 <script>
-  var invalid_feedback_id = document.getElementById("invalid_feedback_id");
-  var valid_feedback_id = document.getElementById("valid_feedback_id");
-  function captchaVerified(response) {
-    document.getElementById("inputRecaptcha").value = response;
+  var invalid_feedback_id_s = document.getElementById("invalid_feedback_id_s");
+  var valid_feedback_id_s = document.getElementById("valid_feedback_id_s");
+  var inputRecaptcha_s = document.getElementById("inputRecaptcha_s")
 
-    invalid_feedback_id.style.display = "none";
-    valid_feedback_id.style.display = "block";
+  function captchaVerified_s(response_s) {
+    inputRecaptcha_s.value = response_s;
+    invalid_feedback_id_s.style.display = "none";
+    valid_feedback_id_s.style.display = "block";
     }
 
-    function captchaExpired() {
-      document.getElementById("input_recaptcha").value = "";
-      invalid_feedback_id.style.display = "block";
-      valid_feedback_id.style.display = "none";
+    function captchaExpired_s() {
+      inputRecaptcha_s.value = "";
+      invalid_feedback_id_s.style.display = "block";
+      valid_feedback_id_s.style.display = "none";
     }
 
-    function captchaError() {
-      document.getElementById("input_recaptcha").value = "";
-      invalid_feedback_id.style.display = "block";
-      valid_feedback_id.style.display = "none";
+    function captchaError_s() {
+      nputRecaptcha_s.value = "";
+      invalid_feedback_id_s.style.display = "block";
+      valid_feedback_id_s.style.display = "none";
     }    
   </script>
   

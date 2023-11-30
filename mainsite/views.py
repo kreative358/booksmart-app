@@ -17,6 +17,7 @@ from booksmart.api.serializers import BooksSerializer, AuthorsSerializer
 from rest_framework.settings import api_settings
 from rest_framework.decorators import api_view
 import os, requests, json, re, datetime, requests.api
+import urllib
 from rest_framework import filters 
 from rest_framework.filters import SearchFilter, OrderingFilter
 # from django_filters.rest_framework import DjangoFilterBackend
@@ -194,6 +195,7 @@ recapitcha_value = ""
 @renderer_classes([TemplateHTMLRenderer])
 def index_home(request):
     """View function for home page of site."""
+    context ={}
     r_user = request.user
     current_url_name = request.path
     print("1. current_url_name =", current_url_name)
@@ -209,27 +211,69 @@ def index_home(request):
 
     context["test_word"] = "test-word"
 
-    context['recapitcha_value_back'] = ""
-    index_home.recaptcha_token  = ""
+    # context['mail_sender'] = ""
+    index_home.recaptcha_status = ""
+
+    # if request.method == 'POST': 
+    #     data_recaptcha = json.loads(request.body.decode("utf-8"))
+    #     if data_recaptcha:
+            
+    #         print("data_rcecaptcha =", data_recaptcha)
+    #     else:
+    #         print("no data_recaptcha")
+
+#   route("/verify_grecaptcha", methods=["POST"])
 
     if request.method == 'POST':
-        # form_recaptcha_mail = RechaptchaMailForm(request.POST)
-        # recapitcha_token = request.POST.get('recapitcha_value', None)
-       
-        data_recaptcha = json.loads(request.body.decode("utf-8"))
-        if data_recaptcha:
-        # if form_recaptcha_mail.is_valid():
-            # Do something with the form data
-            # recaptcha_token = form_recaptcha_mail.cleaned_data["recaptcha_mail_token"]
-            print("data_recapitcha['tag'][:20] =", data_recaptcha['tag'][:20])
-            if len(data_recaptcha['tag']) > 200:
-                index_home.recaptcha_token = data_recaptcha['tag']
-            # return JsonResponse({'status': 'success'})
-            else:
-                index_home.recaptcha_token = ""
-
+        print("request.method == 'POST'")
+        # data_recaptcha = json.loads(request.data.decode("utf-8"))
+        # data_recaptcha = json.loads(request.data)
+        data_recaptcha = request.data
+        # data_recaptcha = json.loads(request.body)
+        recaptcha_text = data_recaptcha['response_mm']
+        # print(recaptcha_text)
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        RECAPTCHA_SECRET_KEY = '6Le3IP4nAAAAAH5J3uPYy4BPPEsS55k0RwCaYxeY'
+        params = {
+            'secret': RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_text
+        }
+    
+        verify_rs = requests.get(url, params=params, verify=True)
+        # result = json.load(response)
+        result = verify_rs.json()
+        print('result =', result)
+        # context['mail_sender'] = "ready"
+        if result['success']:
+            print('success')
+            
+            # messages.success(request, 'New comment added with success!')
+            index_home.recaptcha_status = 'SUCCESS'
+            return JsonResponse({'status': 'SUCCESS'})
         else:
-            print("status error")
+            print('error')
+            index_home.recaptcha_status = 'ERROR'
+            # messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+            return JsonResponse({'status': 'ERROR'})
+
+    # if request.method == 'POST':
+    #     # form_recaptcha_mail = RechaptchaMailForm(request.POST)
+    #     # recapitcha_token = request.POST.get('recapitcha_value', None)
+       
+    #     data_recaptcha = json.loads(request.body.decode("utf-8"))
+    #     if data_recaptcha:
+    #     # if form_recaptcha_mail.is_valid():
+    #         # Do something with the form data
+    #         # recaptcha_token = form_recaptcha_mail.cleaned_data["recaptcha_mail_token"]
+    #         print("data_recapitcha['tag'][:20] =", data_recaptcha['tag'][:20])
+    #         if len(data_recaptcha['tag']) > 200:
+    #             index_home.recaptcha_token = data_recaptcha['tag']
+    #         # return JsonResponse({'status': 'success'})
+    #         else:
+    #             index_home.recaptcha_token = ""
+
+    #     else:
+    #         print("status error")
 
     # recapitcha_value = request.GET.get('recapitcha_value', None)
     # if recapitcha_value:
@@ -281,6 +325,7 @@ def index_home(request):
         print('views mainsite, no get_current_user')
     # context_a['CustomAuthToken']= CustomAuthToken
     
+    # context['form_recaptcha_mail'] = RechaptchaMailForm()
     return Response(context, template_name='index_home.html', )
     # return render(request, 'index.html', context)
 

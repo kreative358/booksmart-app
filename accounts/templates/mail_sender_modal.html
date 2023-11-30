@@ -276,8 +276,8 @@ z-index: 12;
     }
 
 .textarea_mail {
-height: 204px; 
-max-height:204px; 
+height: 214px; 
+max-height:214px; 
 width: 96%; 
 position:relative; 
 margin-left: 2%;
@@ -342,6 +342,7 @@ z-index: 12;
 margin-left: auto;
 margin-right: auto;
 text-align: center;
+cursor:pointer;
 /*    margin-right: 10px;   
 float: right;
 margin-top: -34px; */
@@ -537,24 +538,26 @@ z-index: 12;
 
         <input class="input_mail_address"  type="email" name="email-sender" placeholder="your email address" autocomplete="off">
         <input class="input_mail_subject" type="text" name="email-subject" placeholder="your email subject" autocomplete="off">
-        <textarea class="textarea_mail" placeholder="your email subject" name="email-text" autocomplete="off"> </textarea>
+        <textarea class="textarea_mail" id="textarea_mail_id" placeholder="your email content" name="email-text" autocomplete="off">  </textarea>
  
         <a></a>
         <div style="width: 100%; position: relative; justify-content: center; text-align: center;">
-        <button id="button_send_mail_id" class="button_send_mail" type="submit" > SEND </button></div>
+        <button id="button_send_mail_id" class="button_send_mail" type="submit" disabled> SEND </button></div>
     </form>
 </div> 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>  
 
 <script>
 var button_send_mail_id = document.getElementById("button_send_mail_id");
+var textarea_mail_id = document.getElementById("textarea_mail_id");
 
-if (document.getElementById("my_modal_messages_main_mail")) {
-var mymodal_mail = document.getElementById("my_modal_messages_main_mail");
-var mymodal_cont_mail = document.getElementById("modal_cont_messages_mail");
-
-}
+if ('{{recaptcha_status}}' === 'success') {
+    button_send_mail_id.disabled = false;
+} else {
+    textarea_mail_id.style.fontSize = "30px";
+    textarea_mail_id.innerText = "reCAPTCHA NOT CORRECT"
+    button_send_mail_id.disabled = true;
+} 
 </script>
 
 </body>

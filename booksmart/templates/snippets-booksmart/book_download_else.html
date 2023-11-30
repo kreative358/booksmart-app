@@ -1,7 +1,7 @@
 <script>
  
 // window.addEventListener("load", function() {
-  function myFunctionClear_bookd_download() {
+  function myFunctionClear_bookd_download_else() {
     localStorage.clear();
     sessionStorage.clear();
 
@@ -281,102 +281,42 @@ backface-visibility: hidden;
   
     <p id="hidden_please_2" style="display: none;"></p>
           
-        {% if pdf_links %}
-          {% if len_pdf_links >= 2 %}
-          <div class="mycolumn_download"  id="download_column_{{book.id}}">
-            <div class="mycard_download" id="download_card_{{book.id}}">
-
-              <div style="font-size: 22px; color: mediumblue; padding: 10px; max-width: 380px;position: relative; margin: 10px auto 10px auto;"> 
-                <p style="line-height: 1.2;"> Information about book title: </p> 
-                <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ title_download }}" </p> 
-              <p style="line-height: 1; margin-top: 10px;" > {{ message_read_download_not_pdf }} </p>
-              </div>
+        {% if else_links %}
+          {% if len_else_links >= 2 %}
 
          <button id="button_download_1" class="button_downloads" style="cursor: pointer;">
          <span> PRESS TO DOWNLOAD 1 </span><br>
-         <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span><br><span> {{ extention_1a }} </span>
+         <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span>
          </button>
          
          <button id="button_download_2" class="button_downloads" style="cursor: pointer;">
          <span> PRESS TO DOWNLOAD 2 </span><br>
-         <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span><br><span> {{ extention_2a }} </span>
+         <span style="animation: anime_red_text 2s infinite;">"{{ title_download_else }}"</span>
          </button>
 
-         <div class="scene scene--card" id="scene_flip_1a">
-          <div  class="card" >
-          <div class="card__face card__face--front">
-          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
-          </div> 
-          <div class="card__face card__face--back" id="create_input_2c">
-          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-          <input class="created_input" id="created_input_2a" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
-          </div>
-          </div>
-          </div>
-
-        </div>
-      </div>
          
-        {% elif len_pdf_links == 1 %}
-        <div class="mycolumn_download"  id="download_column_{{book.id}}">
-          <div class="mycard_download" id="download_card_{{book.id}}">
-
-            <div style="font-size: 22px; color: mediumblue; padding: 10px; max-width: 380px;position: relative; margin: 10px auto 10px auto;"> 
-              <p style="line-height: 1.2;"> Information about book title: </p> 
-              <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ title_download }}" </p> 
-            <p style="line-height: 1; margin-top: 10px;" > {{ message_read_download_not_pdf }} </p>
-            </div>
+        {% elif len_else_links == 1 %}
 
          <button id="button_download_1" class="button_downloads" style="">
          <span> PRESS TO DOWNLOAD </span><br>
-         <span style="animation: anime_red_text 2s infinite;"> "{{ title_download }}" </span><br><span> {{ extention_1a }} </span>
+         <span style="animation: anime_red_text 2s infinite;"> "{{ title_download_else }}" </span>
          </button>
-
-         <div class="scene scene--card" id="scene_flip_1b">
-          <div  class="card" >
-          <div class="card__face card__face--front">
-          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
-          </div> 
-          <div class="card__face card__face--back" id="create_input_2c">
-          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
-          <input class="created_input" id="created_input_2b" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
-          </div>
-          </div>
-          </div>
-
-        </div>
-      </div>
   
        {% endif %}
   
-          {% elif message_read_download %}
-          <div class="mycolumn_download"  id="download_column_{{book.id}}">
-            <div class="mycard_download" id="download_card_{{book.id}}">
+          {% elif message_read_download_else %}
           
       <div style="font-size: 22px; color: mediumblue; padding: 10px; max-width: 380px;position: relative; margin: 10px auto 10px auto;"> 
       <p style="line-height: 1.2;"> Information about book title: </p> 
-      <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ title_download }}" </p>  
-      <p style="line-height: 1; margin-top: 10px;" > {{ message_read_download }} </p>
+      <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ title_download_else }}" </p>  
+      <p style="line-height: 1; margin-top: 10px;" > {{message_read_download_else}} </p>
       </div>
       
-      
-      <a href="{{ title_read_last_chance }}" target="_blank" style="text-decoration: none;" id="link_to_doc_1">
-     <div  class="button_downloads" id="button_to_doc_1" style="animation: anime_red_text 2s infinite; font-size: 20px; color: mediumblue; line-height: 1.2; padding: 10px;"> PRESS THIS TO TRY TO FIND <br> THIS BOOK ANOTHER WAY </div>
-      </a>
 
     </div>
   </div>
       {% endif %}
 
-     
-        
-          <div class="mycolumn_download" id="mycolumn_docer">
-            <div class="mycard_download" >
-              <a href="{{ title_read_last_chance }}" target="_blank" style="text-decoration: none;" id="link_to_doc_2">
-               <div class="button_downloads" id="button_to_doc_2" style="animation: anime_red_text 2s infinite; font-size: 22px; color: mediumblue; line-height: 1.2; padding: 10px;"> PRESS THIS TO TRY TO FIND <br> THIS BOOK ANOTHER WAY </div>
-            </a>      
-            </div>
-          </div>
 
       
         
@@ -385,7 +325,7 @@ backface-visibility: hidden;
   
   
 <script type="text/javascript">
-  if ("{{pdf_links}}") {
+  if ("{{else_links}}") {
     document.querySelector("#button_download_1").onclick = function() {
         const download_div_1 = document.createElement("div");
         download_iframe_1 = '<iframe class="iframe_download" src="{{ download_links_1a }}" ></iframe><br><div class="download_book_text" > DOWNLOAD BOOK 1 </div>';
@@ -407,64 +347,7 @@ backface-visibility: hidden;
         } 
       }  
     
- if (
-    navigator.userAgent.match(/Android/i) ||
-    navigator.userAgent.match(/iPhone/i)
-  
-  ) { 
-  
-   document.getElementById("link_to_doc_1").style.display = "none";
-
-  }
-  else {
-    document.getElementById("mycolumn_docer").style.display = "none";
-    const cards = document.getElementsByClassName('card');
-    for (let i = 0; i < cards.length; i++) {
-    cards[i].parentElement.style.display = "block"; 
-    cards[i].onclick = function() {
-    cards[i].classList.add('is-flipped')
-    setTimeout(function() { 
-    cards[i].classList.remove('is-flipped'); 
-    }, 10000); 
-    }
-    cards[i].ondblclick = function() {
-    cards[i].classList.remove('is-flipped');
-    }
-    }
-    document.addEventListener("keypress", handleEventDocer);
-  } 
-
-  var mycolumn_docer = document.getElementById("mycolumn_docer");
-  let oTextbox2 = document.getElementById("hidden_please_2");
-  let oInputbox2 = document.getElementById("created_input_2");
-  
-function handleEventDocer(oEvent) {
-  oTextbox2.innerText += oEvent.key;
-  if (oTextbox2.innerText === "please") {
-    mycolumn_docer.style.display = "block";
-    mycolumn_docer.style.animation = "anime_visible 2s";
-
-    setTimeout(function(){ 
-    oTextbox2.innerText = "";
-    oInputbox2.value = "";
-    }, 3000);
-    
-    setTimeout(function(){ 
-      mycolumn_docer.style.animation = "anime_invisible 2s";
-      }, 6000);
-      
-      setTimeout(function(){
-        mycolumn_docer.style.display = "none";}, 
-      7800);
-    }
-      
-    else {
-      setTimeout(function(){ 
-        oTextbox2.innerText = "";
-        oInputbox2.value = "";
-        }, 7000);
-    }
-} 
+ 
 
   </script>
   

@@ -268,23 +268,7 @@
       position: relative;
       margin: 0px auto 0px auto;
       }
-
-#invalid_feedback_id_s,
-#valid_feedback_id_s {
-  font-size: 14px;
-}
-
-#invalid_feedback_id_s {
-  color: red;
-  display: block;
-}
-
-#valid_feedback_id_s {
-  color: green;
-  display: none;
-}
   </style>
-
   <script src="https://www.google.com/recaptcha/api.js" async defer></script> 
 
   <div class="mymodal_Account" id="mymodalSignin">
@@ -374,9 +358,9 @@
             <div id="g_recaptcha_id_sign" class="g-recaptcha" data-sitekey="6Le3IP4nAAAAAD64iV_EcXLuNBBUGo7Rg3KpuX26" style="position: relative; align-items: center; margin: 0px auto 0px auto; justify-content: center;" data-callback="captchaVerified" data-expired-callback="captchaExpired" data-error-callback="captchaError"> 
             </div> 
       
-            <input type="text" name="recaptcha_token" id="inputRecaptcha_s"  class="form-control" required value="" readonly style="display: none;">	
-            <div class="valid_feedback" id="valid_feedback_id_s"  style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;"> reCAPTCHA is filled out. </div>
-            <div class="invalid_feedback" id="invalid_feedback_id_s" style="text-align:center; margin-top: 0px; margin-bottom: 0px; margin-left: -5%;" > Please fill out reCAPTCHA </div> 
+            <div style="postion: relative; margin: 0px auto 0px auto;">	
+              {% render_field serializer.recaptcha_token style=style %} 
+            </div>
           
           </div>
          </div>
@@ -460,7 +444,7 @@
    
 <div class="mymodal_AccountFooter" id="mymodalSigninFooter">
 
-      <button name="registration_f" form="registration_v" type="submit" id="button_signin" class="btn_submit" > SIGN IN </button>
+      <button name="registration_f" form="registration_v" type="submit" id="button_signin" class="btn_submit"  disabled> SIGN IN </button>
 
     
   <button id="close_mbSignin" type="button" class="close_mb_acc" > CLOSE </button> 
@@ -473,161 +457,165 @@
 
 
 
-<script>
-  console.clear();
-  var my_modalSignin = document.getElementById("mymodalSignin");
-  // var my_modalAccount = document.getElementsByClassName("mymodal_Account")[0];
-  var my_modalSigninCont = document.getElementById("mymodalSigninCont");
-  //  my_modalSignintCont = document.getElementsByClassName("container_mymodalAccount")[0];
-  var btnSignin = document.getElementById("btn_signin");
-//var captionText = document.getElementById("caption");
-  
-  
-  btnSignin.onclick = function(){
-    my_modalSignin.style.display = "block";
-    my_modalSignin.style.animation = "modalfadein 1s 1";
-    my_modalSignin.src = this.src;
-      
-    my_modalSigninCont.style.display = "block"; 
-    my_modalSigninCont.style.animation = "zoom 2s 1";
-    my_modalSigninCont.src = this.src;
-    //captionText.innerHTML = this.alt;
-  }
-  
-    //var close_x = document.getElementsByClassName("close_m")[0];
-    var close_xSignin = document.getElementById("close_mSignin");
-    //var close_btn = document.getElementsByClassName("close_mb")[0];  
-    var close_btnSignin = document.getElementById("close_mbSignin");         
-    
-  
-  close_xSignin.onclick = function() {
-    my_modalSigninCont.style.animation = "unzoom 2s 1";
-    my_modalSignin.style.animation = "modalfadeout 1s 1 1s";
-    setTimeout(()=> {
-      my_modalSigninCont.style.display = "none";
-      my_modalSignin.style.display = "none"
-        }
-        , 1900);
-  }
-
-  close_btnSignin.onclick = function() {
-    my_modalSigninCont.style.animation = "animatetopback 2s 1";
-    my_modalSignin.style.animation = "modalfadeout 1s 1 1s";
-    setTimeout(()=> {
-      my_modalSigninCont.style.display = "none";
-      my_modalSignin.style.display = "none"
-        }
-        , 1900);
-  }
-  
-//   window.onclick = function(event) {
-//       if (event.target == my_modalSignin) {
-      
-      //mymodal_cont.style.animation = "unzoomrotate 2s 1";
-  my_modalSignin.onclick = function() {
-      my_modalSigninCont.style.animation = "unzoomrotate 2s 1";
-      my_modalSignin.style.animation = "modalfadeout 1s 1 1s";
-      setTimeout(()=> {
-      my_modalSigninCont.style.display = "none";
-      my_modalSignin.style.display = "none"
-        }
-        , 1900);
-       
-      // mymodal.style.animation = "modalfadeout 1s 1 1s";
-      // setTimeout(function(){ mymodal.style.display = "none"; }, 1900);
-  // mymodal.style.animation = "modalfadein 1s 1 2s";
-
-      // mymodal_cont.style.animation = "zoomrotate 2s 1";
-    }
-  //  }
-
-  var input_pass1 = document.getElementById("inputPassword1");
-  var show_pass1 = document.getElementById("show_pass1");
-  
-  show_pass1.onclick = function() {
-    if (input_pass1.type === "password") {
-      input_pass1.type = "text";
-      show_pass1.value = "HIDE";
-    } else {
-      input_pass1.type = "password";
-      show_pass1.value = "SHOW";
-    }
-  }
-  
-  input_pass1.addEventListener("focus", function() {
-  show_pass1.style.display = "inline";
-  });
-  
-  input_pass1.addEventListener("blur", function() {
-  setTimeout(function(){ show_pass1.style.display = "none"; }, 1000);
-  });
-
-  var input_pass2 = document.getElementById("inputPassword2");
-  var show_pass2 = document.getElementById("show_pass2");
-  
-  show_pass2.onclick = function() {
-    if (input_pass2.type === "password") {
-      input_pass2.type = "text";
-      show_pass2.value = "HIDE";
-    } else {
-      input_pass2.type = "password";
-      show_pass2.value = "SHOW";
-    }
-  }
-  
-  input_pass2.addEventListener("focus", function() {
-  show_pass2.style.display = "inline";
-  });
-  
-  input_pass2.addEventListener("blur", function() {
-  setTimeout(function(){ show_pass2.style.display = "none"; }, 1000);
-  });      
-  </script>
   <script>
-  /*  
-  // https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_form_validation_needs&stacked=h
-  // Disable form submissions if there are invalid fields
-    (function() {
-      'use strict';
-      window.addEventListener('load', function() {
-        // Get the forms we want to add validation styles to
-        var forms = document.getElementsByClassName('was-validated');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
+    console.clear();
+    var my_modalSignin = document.getElementById("mymodalSignin");
+    // var my_modalAccount = document.getElementsByClassName("mymodal_Account")[0];
+    var my_modalSigninCont = document.getElementById("mymodalSigninCont");
+    //  my_modalSignintCont = document.getElementsByClassName("container_mymodalAccount")[0];
+    var btnSignin = document.getElementById("btn_signin");
+  //var captionText = document.getElementById("caption");
+    
+    
+    btnSignin.onclick = function(){
+      my_modalSignin.style.display = "block";
+      my_modalSignin.style.animation = "modalfadein 1s 1";
+      my_modalSignin.src = this.src;
+        
+      my_modalSigninCont.style.display = "block"; 
+      my_modalSigninCont.style.animation = "zoom 2s 1";
+      my_modalSigninCont.src = this.src;
+      //captionText.innerHTML = this.alt;
+    }
+    
+      //var close_x = document.getElementsByClassName("close_m")[0];
+      var close_xSignin = document.getElementById("close_mSignin");
+      //var close_btn = document.getElementsByClassName("close_mb")[0];  
+      var close_btnSignin = document.getElementById("close_mbSignin");         
+      
+    
+      close_xSignin.onclick = function() {
+        my_modalSigninCont.style.animation = "unzoom 2s 1";
+        my_modalSignin.style.animation = "modalfadeout 1s 1 1s";
+        setTimeout(()=> {
+          my_modalSigninCont.style.display = "none";
+          my_modalSignin.style.display = "none"
             }
-            form.classList.add('was-validated');
+            , 1900);
+      }
+    
+      close_btnSignin.onclick = function() {
+        my_modalSigninCont.style.animation = "animatetopback 2s 1";
+        my_modalSignin.style.animation = "modalfadeout 1s 1 1s";
+        setTimeout(()=> {
+          my_modalSigninCont.style.display = "none";
+          my_modalSignin.style.display = "none"
+            }
+            , 1900);
+      }
+      
+     
+ 
+   //   window.onclick = function(event) {
+  //       if (event.target == my_modalSignin) {
+          
+          //mymodal_cont.style.animation = "unzoomrotate 2s 1";
+      my_modalSignin.onclick = function() {
+          my_modalSigninCont.style.animation = "unzoomrotate 2s 1";
+          my_modalSignin.style.animation = "modalfadeout 1s 1 1s";
+          setTimeout(()=> {
+          my_modalSigninCont.style.display = "none";
+          my_modalSignin.style.display = "none"
+            }
+            , 1900);
+          
+          
+          // mymodal.style.animation = "modalfadeout 1s 1 1s";
+          // setTimeout(function(){ mymodal.style.display = "none"; }, 1900);
+      // mymodal.style.animation = "modalfadein 1s 1 2s";
+    
+          // mymodal_cont.style.animation = "zoomrotate 2s 1";
+        }
+      //  }
+
+      var input_pass1 = document.getElementById("inputPassword1");
+      var show_pass1 = document.getElementById("show_pass1");
+      
+      show_pass1.onclick = function() {
+        if (input_pass1.type === "password") {
+          input_pass1.type = "text";
+          show_pass1.value = "HIDE";
+        } else {
+          input_pass1.type = "password";
+          show_pass1.value = "SHOW";
+        }
+      }
+      
+      input_pass1.addEventListener("focus", function() {
+      show_pass1.style.display = "inline";
+      });
+      
+      input_pass1.addEventListener("blur", function() {
+      setTimeout(function(){ show_pass1.style.display = "none"; }, 1000);
+      });
+
+      var input_pass2 = document.getElementById("inputPassword2");
+      var show_pass2 = document.getElementById("show_pass2");
+      
+      show_pass2.onclick = function() {
+        if (input_pass2.type === "password") {
+          input_pass2.type = "text";
+          show_pass2.value = "HIDE";
+        } else {
+          input_pass2.type = "password";
+          show_pass2.value = "SHOW";
+        }
+      }
+      
+      input_pass2.addEventListener("focus", function() {
+      show_pass2.style.display = "inline";
+      });
+      
+      input_pass2.addEventListener("blur", function() {
+      setTimeout(function(){ show_pass2.style.display = "none"; }, 1000);
+      });      
+      </script>
+      <script>
+      /*  
+      // https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_form_validation_needs&stacked=h
+      // Disable form submissions if there are invalid fields
+        (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            // Get the forms we want to add validation styles to
+            var forms = document.getElementsByClassName('was-validated');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
           }, false);
-        });
-      }, false);
-    })(); */
-</script>
-<script>
+        })(); */
+        </script>
+        <script>
 
-  var invalid_feedback_id_s = document.getElementById("invalid_feedback_id_s");
-  var valid_feedback_id_s = document.getElementById("valid_feedback_id_s");
-  var inputRecaptcha_s = document.getElementById("inputRecaptcha_s");
-
-  function captchaVerified(response_s) {
-    inputRecaptcha_s.value = response_s;
-    invalid_feedback_id_s.style.display = "none";
-    valid_feedback_id_s.style.display = "block";
-  
-    }
-  
-  function captchaExpired() {
-    inputRecaptcha_s.value = "";
-    invalid_feedback_id_s.style.display = "block";
-    valid_feedback_id_s.style.display = "none";
-    }
-
-  function captchaError() {
-    document.getElementById("input_recaptcha").value = "";
-    invalid_feedback_id_s.style.display = "block";
-    valid_feedback_id_s.style.display = "none";
-  }
-
-</script>	
+          var invalid_feedback_id = document.getElementById("invalid_feedback_id");
+          var valid_feedback_id = document.getElementById("valid_feedback_id");
+          
+          function captchaVerified(response) {
+            document.getElementById("inputRecaptcha").value = response;
+          
+            invalid_feedback_id.style.display = "none";
+            valid_feedback_id.style.display = "block";
+          
+            }
+          
+            function captchaExpired() {
+              document.getElementById("input_recaptcha").value = "";
+              invalid_feedback_id.style.display = "block";
+              valid_feedback_id.style.display = "none";
+              }
+          
+            function captchaError() {
+              document.getElementById("input_recaptcha").value = "";
+              invalid_feedback_id.style.display = "block";
+              valid_feedback_id.style.display = "none";
+            }
+          
+          
+              </script>	

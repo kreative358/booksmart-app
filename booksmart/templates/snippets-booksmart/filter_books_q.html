@@ -7,8 +7,11 @@
   function myFunctionClearFBQ() {
     localStorage.clear();
     sessionStorage.clear();
-    document.getElementById("form_search_id").reset();
+   // document.getElementById("form_search_id").reset();
+   // document.querySelector("#input_text_search_q").value = "";
   }
+
+  myFunctionClearFBQ();
 /*
 window.addEventListener("load", function() {
 
@@ -192,7 +195,7 @@ max-width: 92%;
     <div class="my_card_filter"id="card_filter">
 
       
-      <form  action="{% url 'booksmart:records-post' %}" method="POST" target="_blank" id="form_search_id">
+      <form  action="{% url 'booksmart:records-post' %}" method="POST" target="_blank" id="form_search_id" autocomplete="off">
            
         {% csrf_token %}
 
@@ -209,6 +212,6 @@ max-width: 92%;
   </div>
 
   <script>
-     // document.querySelector("#input_text_search_q").value = "";
-
+ 
+  document.querySelector("#input_text_search_q").value = "";
   </script>

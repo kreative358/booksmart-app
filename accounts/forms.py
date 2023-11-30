@@ -75,7 +75,9 @@ class RechaptchaForm(forms.Form):
 
 class RechaptchaMailForm(forms.Form):
 	# recaptcha_token = forms.CharField(widget=forms.HiddenInput())
-	recaptcha_mail_token = forms.CharField(widget=forms.Textarea(attrs={'id': 'textarea_recaptcha_mail', 'rows': 4}))
+	recaptcha_mail_token = forms.CharField(required=True, label="", widget=forms.TextInput(attrs={'id': 'recaptcha_mail_token_id', 'style':'display: none'}))
+
+# class CharField(max_length: Optional[Any]=..., min_length: Optional[Any]=..., strip: bool=..., empty_value: Optional[str]=..., required: bool=..., widget: Optional[Union[Widget, Type[Widget]]]=..., label: Optional[Any]=..., initial: Optional[Any]=..., help_text: str=..., error_messages: Optional[Any]=..., show_hidden_initial: bool=..., validators: Sequence[Any]=..., localize: bool=..., disabled: bool=..., label_suffix: Optional[Any]=...)
 
 
 

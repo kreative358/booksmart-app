@@ -21,10 +21,12 @@ from booksmart.models import context_bm, url_img, Book, Author
 import smtplib
 import ssl
 from django.conf import settings
+from django.contrib import messages
 
 
 def mail_sender_modal(request):
     context = {}
+    context["recaptcha_status"] = ""
     smtp_port = 587                 # Standard secure SMTP port
     smtp_server = "smtp.gmail.com"  # Google SMTP Server
     
@@ -38,20 +40,37 @@ def mail_sender_modal(request):
     # simple_email_context = ssl.create_default_context()
 
     html_message = '<div class="mail_footer"><p style="color: darkblue; font-size: 16px; font-weight: bold; margin-bottom: 4px;">mail from TEAM</p><p style="margin-top: 0px;"><a href="https://booksmart-app-bd32a8932ff0.herokuapp.com/booksmartapp/" target="_blank" style="margin-bottom: 20px; font-size: 16px; font-weight: bold; text-decoration: underline; text-decoration-thickness: 2px;">BOOKSMARTAPP</a></p><p style="font-size: 14px; color: darkblue; margin-bottom: 0px;">If you want to contact about a serious job offer, </p><p style="font-size: 14px; color: darkblue; margin-top: 0px;">you can send me an e-mail e.g. via this box.</p></div>'
+    index_home_recaptcha_status = ""
+    
+    from mainsite.views import index_home
+    try:
+        index_home_recaptcha_status = index_home.recaptcha_status
+        print("index_home_recaptcha_status =", index_home_recaptcha_status)
+        if index_home_recaptcha_status == "SUCCESS":
+            print('if index_home_recaptcha_status == "SUCCESS"')
+            context["recaptcha_status"] = "success"
+        elif index_home_recaptcha_status == "ERROR":
+            print('elif index_home_recaptcha_status == "ERROR"')
+            context["recaptcha_status"] = "error"
+        else:
+            print('else context["recaptcha_status"] = "success"')
+            context["recaptcha_status"] = "success"
+    except:
+        print('except context["recaptcha_status"] = "success"')
+        context["recaptcha_status"] = "success"
+
 
     if request.method == "POST":
-        from mainsite.views import index_home
-        if index_home.recaptcha_token != "":
-            print("index_home.recaptcha_token =", index_home.recaptcha_token[:20])
-            if request.POST.get('email-sender', False):
-                message_content['email_sender'] = request.POST['email-sender']
-                print("message_content['email_sender']: ",message_content['email_sender'])
-            if request.POST.get('email-subject', False):
-                message_content['email_subject'] = request.POST['email-subject']
-                print("message_content['email_subject']: ", message_content['email_subject'])
-            if request.POST.get('email-text', False): 
-                message_content['email_text'] = request.POST['email-text']
-                print("message_content['email_text']: ", message_content['email_text'])
+
+        if request.POST.get('email-sender', False):
+            message_content['email_sender'] = request.POST['email-sender']
+            print("message_content['email_sender']: ",message_content['email_sender'])
+        if request.POST.get('email-subject', False):
+            message_content['email_subject'] = request.POST['email-subject']
+            print("message_content['email_subject']: ", message_content['email_subject'])
+        if request.POST.get('email-text', False): 
+            message_content['email_text'] = request.POST['email-text']
+            print("message_content['email_text']: ", message_content['email_text'])
                 
                 
                 # for book in books:
@@ -89,9 +108,6 @@ def mail_sender_modal(request):
             except Exception as e:
                 print("1. ", e)
         
-        else:
-            messages.info(request, "reCAPTCHA doesn't match")
-            return redirect("index")
     
     # return render(request, 'mail_sender_modal.html')
     return render(request, 'mail_sender_modal.html', context)
