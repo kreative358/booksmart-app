@@ -11,18 +11,20 @@ from bs4 import BeautifulSoup
 # req = search_request.SearchRequest("[QUERY]", search_type="[title]")
 
 
-class SearchRequestPM:
+class SearchRequestRS:
 
     col_names = [
-        "ID Time add Title Series",
+        "ID",
         "Author(s)",
+        "Title",
         "Publisher",
         "Year",
-        "Language",
         "Pages",
+        "Language",
         "Size",
-        "Ext.",
-        "Mirror_1",
+        "Extension",
+        "Mirrors",
+        "Edit",
     ]
 
     def __init__(self, query, search_type="title"):
@@ -42,12 +44,12 @@ class SearchRequestPM:
         if self.search_type.lower() == "title":
             search_url = (
                
-                f"https://libgen.pm/index.php?req={query_parsed}&column=title"
+                f"https://libgen.rs/index.php?req={query_parsed}&column=title"
             )
         elif self.search_type.lower() == "author":
             search_url = (
                 
-                f"https://libgen.pm/index.php?req={query_parsed}&column=author"
+                f"https://libgen.rs/index.php?req={query_parsed}&column=author"
             )
         search_page = requests.get(search_url)
         return search_page
@@ -60,7 +62,8 @@ class SearchRequestPM:
         # Libgen results contain 3 tables
         # Table2: Table of data to scrape.
         try:
-            information_table = soup.find_all("table")[1]
+            information_table_1 = soup.find_all("table")[1]
+            information_table_2 = soup.find_all("table")[2]
         except Exception as e:
             print(f"exception: {e}")
 
@@ -109,29 +112,57 @@ class SearchRequestPM:
                     else "".join(td.stripped_strings)
                     for td in row.find_all("td")
                 ]
-                for row in information_table.find_all("tr")[
+                for row in information_table_1.find_all("tr")[
                     1:
                 ]  # Skip row 0 as it is the headings row
             ]
             try:        
-                output_data = [dict(zip(self.col_names, row)) for row in raw_data]
-                # print("raw_data[0][-1] =", raw_data[0][-1])
-               
-                # output_datas["output_data"] = output_data
-                print("\noutput_data =", output_data)
-                # print("\noutput_datas =", output_datas)
-                # if output_data:
-                #     # output_data_dict = {"output_data": output_data}
-                #     # output_datas.append(output_data_dict)
-             
-                # else:
-                #     print("else NO output_data")
-                return output_data
+                output_data_all = [dict(zip(self.col_names, row)) for row in raw_data]
+                if output_data_all:
+                    
+                    if len(output_data_all) < 3:
+                        output_data = output_data_all
+                        print('1. output_data =', output_data)
+                        return output_data
+                    else:
+                        output_data = output_data_all[:2]
+                        print('1. output_data =', output_data)
+                        return output_data
+                else:
+                    try:    
+                        raw_data = [
+                            [
+                                td.a["href"]
+                                if td.find("a")
+                                and td.find("a").has_attr("title")
+                                and td.find("a")["title"] != ""
+                                else "".join(td.stripped_strings)
+                                for td in row.find_all("td")
+                            ]
+                            for row in information_table_2.find_all("tr")[
+                                1:
+                            ]  # Skip row 0 as it is the headings row
+                        ]
+                        try:        
+                            output_data_all = [dict(zip(self.col_names, row)) for row in raw_data]
+                            
+                            if len(output_data_all) < 3:
+                                output_data = output_data_all
+                                print('1. output_data =', output_data)
+                                return output_data
+                            else:
+                                output_data = output_data_all[:2]
+                                print('1. output_data =', output_data)
+                                return output_data
+                        except:
+                            print("2. except NO output_data information_table_1")
+                    except:
+                        print("2. except NO raw_data")
 
             except:
-                print("except NO output_data")
+                print("1. except NO output_data information_table_1")
         except:
-            print("except NO raw_data")
+            print("1. except NO raw_data")
 
         
 

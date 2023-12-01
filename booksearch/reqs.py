@@ -183,7 +183,7 @@ def req_author_id(author, language, book_dict):
         "search" : author,
         }
 
-        r = requests.get(url1,params=params)
+        r = requests.get(url1, params=params)
         datas = r.json()
 
         if datas:

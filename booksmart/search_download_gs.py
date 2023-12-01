@@ -60,12 +60,12 @@ class SearchRequestPM:
         if self.search_type.lower() == "title":
             search_url = (
                 # f"https://libgen.gs/index.php?req={query_parsed}&column=title"
-                f"https://libgen.pm/index.php?req={query_parsed}&column=title"
+                f"https://libgen.rs/index.php?req={query_parsed}&column=title"
             )
         elif self.search_type.lower() == "author":
             search_url = (
                 #f"https://libgen.gs/index.php?req={query_parsed}&column=author"
-                f"https://libgen.pm/index.php?req={query_parsed}&column=author"
+                f"https://libgen.rs/index.php?req={query_parsed}&column=author"
             )
         search_page = requests.get(search_url)
         return search_page

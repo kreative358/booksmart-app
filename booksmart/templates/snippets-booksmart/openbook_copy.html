@@ -1,0 +1,51 @@
+<script>
+//  window.addEventListener("load", function() {
+  function myFunctioClear_openbook() {
+    localStorage.clear();
+    sessionStorage.clear();
+
+/*  let openbook_forms = document.getElementsByClassName("[class^='searching_openlibrary_']");
+  for (let openbook_form of openbook_forms) {
+    openbook_form.reset();
+}  */
+  }
+
+  
+//  });
+  </script>
+
+<script>
+/* window.onbeforeunload = function() {
+      localStorage.clear();
+     if (document.getElementById("searching_ol")) {
+      document.getElementById("searching_ol").reset();
+      // document.getElementById("read_card_o2_{{book.id}}").innerHTML = "";
+    } 
+      } */
+      </script>
+    <!--<div class="searching_openlib_{{book.id}}"> id="register"-->
+    <form method="post" name="login-form" class="iaform login-form" action="https://archive.org/account/login" method="post" target="_blank" id="login_form_id">
+    {% csrf_token %}
+    <input type="hidden" name="login" value="true">
+    <input type="hidden" name="username" value="{{cont.mail}}" class="form-element input-email" required="" id="username">      
+
+    <input type="hidden" name="password" class="form-element input-password"  value="{{cont.pass}}" id="password">
+          
+    <input type="hidden" name="referer" class="login-referer" value="{{cont.link}}" id="redirect">
+                  
+    <button type="submit" name="submit-to-login" value="Log in" class="button_downloads" id="button_ol_{{ book.id }}"> PRESS TO READ <br><span style="animation: anime_red_text 2s infinite;">"{{cont.title}}"</span></button>
+          
+    </form>
+<!--</div>-->
+    <!--title="Log In" -->
+    <script>
+      document.getElementById("login_form_id").autocomplete = "off";
+      document.getElementById("username").autocomplete = "off";
+      document.getElementById("password").autocomplete = "off";
+      document.getElementById("redirect").autocomplete = "off";
+
+    </script>
+  
+
+
+
