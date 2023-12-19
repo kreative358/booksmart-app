@@ -131,7 +131,7 @@ class BooksSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Book # 'book_author'
 
-        fields = ['id', 'title', 'url_book', 'summary', 'author', 'info_author', 'author_url', 'author_c', 'published', 'category', 'language', 'epub', 'isbn', 'embeddable', 'owner_name', 'owner_url'] # 'imageLinks','preview_link', 'url_read' 'author_c__date_of_birth', 'books_author__date_of_death', 
+        fields = ['id', "url_pdf", 'title', 'url_book', 'summary', 'author', 'info_author', 'author_url', 'author_c', 'published', 'category', 'language', 'epub', 'isbn', 'embeddable', 'owner_name', 'owner_url'] # 'imageLinks','preview_link', 'url_read' 'author_c__date_of_birth', 'books_author__date_of_death', 
 
 class CustomBookSerializer(serializers.HyperlinkedModelSerializer):
     url_book = serializers.HyperlinkedIdentityField(
@@ -167,7 +167,12 @@ class AuthorsSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
+class BookPdfUrlSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = Book
+
+        fields = ['id', 'url_pdf']
 
 # class AuthorSerializer(serializers.HyperlinkedModelSerializer):
 #     # owner = serializers.ReadOnlyField(source='owner.username')

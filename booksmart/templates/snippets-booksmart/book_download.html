@@ -19,7 +19,6 @@
   
   /*⊕ ⊖ − ∓ ─  */
 
-    
 .mycolumn_download {  
   position:relative;
   z-index:14;
@@ -368,17 +367,28 @@ backface-visibility: hidden;
   </div>
       {% endif %}
 
+      <div class="mycolumn_download" id="mycolumn_docer_1">
+        <div class="mycard_download" >
+          <form action="{% url 'booksmart:download-book-bot' %}" method="GET" target="_self" id="form_downloadbook_doc" class="show-loading-after-submit">
+          
+              <input type="hidden" id="language_download" name="book_download_bot" value="yes">
+          
+              <button type="submit" class="button_downloads" id='tooltip' style="line-height: 1.2;">
+              IF YOU NEED YOU CAN TRY <br> TO FIND BOOK TITLED <br> "{{ title_download }}" <br> BUT ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.
+            <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span></button>
+            </form>    
+        </div>
+      </div>
      
         
-          <div class="mycolumn_download" id="mycolumn_docer">
+          <div class="mycolumn_download" id="mycolumn_docer_2">
             <div class="mycard_download" >
               <a href="{{ title_read_last_chance }}" target="_blank" style="text-decoration: none;" id="link_to_doc_2">
                <div class="button_downloads" id="button_to_doc_2" style="animation: anime_red_text 2s infinite; font-size: 22px; color: mediumblue; line-height: 1.2; padding: 10px;"> PRESS THIS TO TRY TO FIND <br> THIS BOOK ANOTHER WAY </div>
             </a>      
             </div>
           </div>
-
-      
+ 
         
       <div class="download_object" id="download_object_1" ></div>
       <div class="download_object" id="download_object_2" ></div> 
@@ -417,7 +427,7 @@ backface-visibility: hidden;
 
   }
   else {
-    document.getElementById("mycolumn_docer").style.display = "none";
+    document.getElementById("mycolumn_docer_2").style.display = "none";
     const cards = document.getElementsByClassName('card');
     for (let i = 0; i < cards.length; i++) {
     cards[i].parentElement.style.display = "block"; 
@@ -468,3 +478,4 @@ function handleEventDocer(oEvent) {
 
   </script>
   
+  {% include 'snippets/loading-modal.html' %}

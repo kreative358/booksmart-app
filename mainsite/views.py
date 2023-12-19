@@ -57,6 +57,7 @@ from django_currentuser.middleware import (
     get_current_authenticated_user,
     )
 from django.http import JsonResponse
+# from mainsite.test_docer import *
 # from django.utils.text import slugify
 # try:
 #     txt = "Cześć: .&перевод чего-либо"
@@ -209,6 +210,7 @@ def index_home(request):
     context['num_books'] = num_books
     context['current_url'] = current_url_name
 
+
     context["test_word"] = "test-word"
 
     # context['mail_sender'] = ""
@@ -326,10 +328,17 @@ def index_home(request):
     # context_a['CustomAuthToken']= CustomAuthToken
     
     # context['form_recaptcha_mail'] = RechaptchaMailForm()
+
+    # author_book_docer_full = "Ernest Hemingway"
+    # author_book_docer = author_book_docer_full.split()[-1]
+
+
     return Response(context, template_name='index_home.html', )
     # return render(request, 'index.html', context)
 
-
+book_id=22
+book_title = Book.objects.filter(pk=book_id).values_list("title")[0][0]
+print("book_title =", book_title)
 try:
     books_no = Book.objects.filter(author_c__isnull=True)
     books_no_id = [book_no.id for book_no in books_no]
@@ -453,3 +462,5 @@ def custom_unauthorized_view(request, exception=None):
     context = context_mains
     # return Response(context, template_name='page-400.html', )
     return render(request, "page-401.html", context)
+    
+

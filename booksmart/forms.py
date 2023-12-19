@@ -164,8 +164,14 @@ class LibrarySearch(forms.Form):
     # author_search = forms.CharField(widget=forms.HiddenInput())
 
 class BookDownload(forms.Form):
-    title_download_search = forms.CharField(widget=forms.HiddenInput(attrs={}))
+    # pdf_url_download_search = forms.CharField(widget=forms.HiddenInput(attrs={}))
+    book_id_download_search = forms.CharField(widget=forms.HiddenInput(attrs={}))
+    # author_download_search = forms.CharField(widget=forms.HiddenInput(attrs={}))
+    # title_download_search = forms.CharField(widget=forms.HiddenInput(attrs={}))
+    # language_download_search = forms.CharField(widget=forms.HiddenInput(attrs={}))
 
+class BookDownloadDocer(forms.Form):
+    book_download_bot = forms.CharField(widget=forms.HiddenInput(attrs={}))
 # class BookDownloadElse(forms.Form):
 #     title_download_search_not_pdf = forms.CharField(widget=forms.HiddenInput(attrs={}))
     

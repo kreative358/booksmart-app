@@ -43,6 +43,8 @@ from rest_framework import filters as base_filters
 import datetime
 
 from django.utils.text import slugify
+from booksmart.test_docer import *
+from booksmart.api.serializers import BookPdfUrlSerializer
 
 
 # from booksmart.search_download_gs import SearchRequestGS
@@ -236,18 +238,38 @@ def download_book(request):
     else_links = []
     title_download = ""
     context["title_download"] = ""
+    context["language_download"] = ""
     context["title_read_last_chance"] = ""
     context["download_links_1a"] = ""
     context["download_links_2a"] = ""
     context["title_read_last_chance"] = ""
     context["message_read_download"] = ""
     context["message_read_download_not_pdf"] = ""
-    
+
     if formlib_download.is_valid():
-        title_download=formlib_download.cleaned_data['title_download_search']
-        print("1. title_download", title_download)
+        # pdf_url_download=formlib_download.cleaned_data['pdf_url_download_search']
+        book_id_download = formlib_download.cleaned_data['book_id_download_search']
+        # author_download=formlib_download.cleaned_data['author_download_search']
+        # title_download=formlib_download.cleaned_data['title_download_search']
+        # language_download=formlib_download.cleaned_data['language_download_search']
+        print("1. book_id_download =", book_id_download)
+        author_download = Book.objects.filter(pk=book_id_download).values_list("author")[0][0]
+        title_download = Book.objects.filter(pk=book_id_download).values_list("title")[0][0]
+        language_download = Book.objects.filter(pk=book_id_download).values_list("language")[0][0]
+        # print("1. author_download =", author_download)
+        # print("1. title_download =", title_download)
+        # print("1. language_download =", language_download)
+        # download_book.pdf_url_download_value = pdf_url_download
+        
+        # download_book.author_download_value = author_download
+        # download_book.title_download_value = title_download
+        # download_book.language_download_value = language_download
+
+        download_book.book_id_download_value = book_id_download
+        context["author_download"] = author_download
         context["title_download"] = title_download
-        title_docer_pdf = title_download.replace(" ", "+")
+        context["language_download"] = language_download
+        title_docer_pdf = f'{author_download.split()[-1]}+{title_download.replace(" ", "+")}'
         context["title_read_last_chance"] = f"https://docer.pl/show/?q={title_docer_pdf}&ext=pdf" 
         results = search_libgen.search_title(title_download)
 
@@ -350,3 +372,176 @@ def download_book(request):
 
     context["search_title_download"] = BookDownload()
     return Response(context, template_name='download_book.html', )
+
+# @api_view(['GET', 'POST'])
+# @permission_classes([IsAuthenticatedOrReadOnly])
+# @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+# @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
+# def download_docer_loader(request, *args):
+#     return Response(template_name='download_book_bot.html', )
+
+books_values = []
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
+def download_docer(request, *args):
+    r_user = request.user
+    current_url_name = request.path
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+    author_book_libgen = ""
+    title_download_libgen = ""
+    language_download_libgen = ""
+
+    context = context_main
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    book_values = []
+    context["message_docer"] = ""
+    context["url_pdf_docer"] = ""
+    context["url_pdf_docer_yes"] = ""
+    # # author_book_docer = download_book.author_download_value.split()[-1]
+    # author_book_libgen = download_book.title_download_value.split()[-1]
+    # book_values.append(author_book_libgen)
+    #  # author_book_docer_full = "Oscar Wilde"
+    # print("author_book_docer =", author_book_docer)
+
+    # # title_download_docer = download_book.title_download_value
+    # title_download_libgen = download_book.title_download_value
+    # book_values.append(title_download_docer)
+    # # title_download_docer = "Portret Doriana Graya"
+    # print("title_download_docer =", title_download_docer)
+
+    # language_download_libgen = download_book.language_download_value
+    # book_values.append(language_download_docer)
+    # # language_download_docer = "pl"
+    # print("language_download_docer =", language_download_docer)
+
+    download_bot = BookDownloadDocer(request.GET)
+    if download_bot.is_valid():
+        # form_download_docer=formlib_download.cleaned_data['book_download_bot']
+        # book_docer(author_book_docer, title_download_docer)
+        print("download_book.book_id_download_value =", download_book.book_id_download_value)
+
+        # if download_book.author_download_value == "" or download_book.author_download_value == None:
+        if download_book.book_id_download_value == "" or download_book.book_id_download_value == None:
+            book_id_docer = book_values[-1]
+            # author_book_docer = book_values[-3]
+            url_pdf_docer = Book.objects.filter(pk=book_id_docer).values_list("url_pdf")[0][0]
+            print("1. url_pdf_docer =", url_pdf_docer)
+            if url_pdf_docer == "no pdf link docer":
+                print("1a. url_pdf_docer =", url_pdf_docer)
+                context["url_pdf_docer"] = "no pdf link docer"
+                context["message_docer"] = "NOT possible to download this book"
+
+            elif url_pdf_docer == "no pdf link" or url_pdf_docer == "pdf link unfinished" or url_pdf_docer == "pdf link exist":
+                print("1b. url_pdf_docer =", url_pdf_docer)
+                author_book_docer = Book.objects.filter(pk=book_id_docer).values_list("author")[0][0]
+                print("1. author_book_docer =", author_book_docer)
+                # title_download_docer = book_values[-2]
+                title_book_docer = Book.objects.filter(pk=book_id_docer).values_list("title")[0][0]
+                print("1. title_download_docer =", title_download_docer)
+                # language_download_docer = book_values[-1]
+                language_book_docer = Book.objects.filter(pk=book_id_docer).values_list("language")[0][0]
+                print("1. language_download_docer =", language_download_docer)
+
+                book_scrap(author_book_docer, title_download_docer)
+                pdf_url_download_docer = book_scrap.pdf_url_download_found
+                print("pdf_url_download_docer =", pdf_url_download_docer)
+                pdf_url_before = book_scrap.get_current_url
+                print("pdf_url_before =", pdf_url_before)
+                if pdf_url_download_docer ==  "no pdf link docer":
+                    print("1a. pdf_url_download_docer =", pdf_url_download_docer)
+                    serializer = BookPdfUrlSerializer(data={'url_pdf': pdf_url_download_docer}, partial=True)
+                    serializer.save()
+                    context["url_pdf_docer"] = "no pdf link docer"
+                    context["message_docer"] = "NOT possible to download this book"
+
+                elif pdf_url_download_docer == "pdf link unfinished":
+                    print("1b. pdf_url_download_docer =", pdf_url_download_docer)
+                    serializer = BookPdfUrlSerializer(data={'url_pdf': 'pdf link unfinished'}, partial=True)
+                    serializer.save()
+                    context["url_pdf_docer"] = "pdf link unfinished"
+                    context["message_docer"] = "something went wrong searching unfinished, try later"
+
+                elif pdf_url_download_docer == "pdf link exist":
+                    print("1c. pdf_url_download_docer =", pdf_url_download_docer)
+                    serializer = BookPdfUrlSerializer(data={'url_pdf': 'pdf link exist'}, partial=True)
+                    serializer.save()
+                    context["url_pdf_docer"] = "pdf link exist"
+                    context["message_docer"] = "something went wrong link exist but download ufinished, try later"
+                else:
+                    print("1d. pdf_url_download_docer =", pdf_url_download_docer)
+                    serializer = BookPdfUrlSerializer(data={'url_pdf': pdf_url_download_docer}, partial=True)
+                    serializer.save()
+                    context["url_pdf_docer_yes"] = pdf_url_download_docer
+                    context["message_docer"] = "probably book downloaded, check folder downloads"
+            else:
+                context["url_pdf_docer_yes"] = url_pdf_docer
+                print("url_pdf_docer_yes =", url_pdf_docer)
+
+        else:
+            book_id_libgen = download_book.book_id_download_value
+            print("book_id_libgen =", book_id_libgen)
+            book_values.append(book_id_libgen)
+            url_pdf_docer = Book.objects.filter(pk=book_id_libgen).values_list("url_pdf")[0][0]
+            if url_pdf_docer == "no pdf link docer":
+                context["url_pdf_docer"] = "no pdf link docer"
+                context["message_docer"] = "NOT possible to download this book"
+            elif url_pdf_docer == "no pdf link" or url_pdf_docer == "pdf link unfinished" or url_pdf_docer == "pdf link exist":
+                # author_book_libgen = download_book.author_download_value.split()[-1]
+                author_book_libgen = Book.objects.filter(pk=book_id_libgen).values_list("author")[0][0].split()[-1]
+                # book_values.append(author_book_libgen)
+                # author_book_docer_full = "Oscar Wilde"
+                author_book_docer = author_book_libgen
+                print("2. author_book_docer =", author_book_docer)
+
+                # title_download_libgen = download_book.title_download_value
+                title_download_libgen = Book.objects.filter(pk=book_id_libgen).values_list("title")[0][0]
+                # book_values.append(title_download_libgen)
+                # title_download_docer = "Portret Doriana Graya"
+                title_download_docer = title_download_libgen
+                print("2. title_download_docer =", title_download_docer)
+
+                # language_download_libgen = download_book.language_download_value
+                language_download_libgen = Book.objects.filter(pk=book_id_libgen).values_list("language")[0][0]
+                # book_values.append(language_download_libgen)
+                # language_download_docer = "pl"
+                language_download_docer = language_download_libgen
+                print("2. language_download_docer =", language_download_docer)
+
+                book_scrap(author_book_docer, title_download_docer)
+                print("pdf_url_download_docer =", pdf_url_download_docer)
+                if pdf_url_download_docer ==  "no pdf link docer":
+                    print("")
+                    serializer = BookPdfUrlSerializer(data={'url_pdf': pdf_url_download_docer}, partial=True)
+                    serializer.save()
+                    context["url_pdf_docer"] = "no pdf link docer"
+                    context["message_docer"] = "NOT possible to download this book"
+
+                elif pdf_url_download_docer == "pdf link unfinished":
+                    print("pdf_url_download_docer = pdf link unfinished")
+                    serializer = BookPdfUrlSerializer(data={'url_pdf': 'pdf link unfinished'}, partial=True)
+                    serializer.save()
+                    context["url_pdf_docer"] = "pdf link unfinished"
+                    context["message_docer"] = "something went wrong searching unfinished, try later"
+
+                elif pdf_url_download_docer == "pdf link exist":
+                    print("pdf_url_download_docer = pdf link exist")
+                    serializer = BookPdfUrlSerializer(data={'url_pdf': 'pdf link exist'}, partial=True)
+                    serializer.save()
+                    context["url_pdf_docer"] = "pdf link exist"
+                    context["message_docer"] = "something went wrong link exist but download unfinished, try later"
+                else:
+                    print("pdf_url_download =", pdf_url_download_docer)
+                    serializer = BookPdfUrlSerializer(data={'url_pdf': pdf_url_download_docer}, partial=True)
+                    serializer.save()
+                    context["message_docer"] = "probably book downloaded, check folder downloads"
+            else:
+                context["url_pdf_docer_yes"] = url_pdf_docer
+                print("url_pdf_docer_yes =", url_pdf_docer)
+    # return Response(context, template_name='download_book_doc.html', )
+    # return HttpResponseRedirect(reverse('booksmart:downloadbook'))
+    return Response(context, template_name='download_book_bot.html', )
+

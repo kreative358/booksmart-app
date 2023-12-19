@@ -1,0 +1,321 @@
+
+<style>
+
+#port {
+  position: absolute;
+  top: 50%;
+  margin-top: -20vmin;
+  left: 50%;
+  margin-left: -20vmin;
+  width: 40vmin;
+  height: 40vmin;
+  perspective: 120vmin;
+  -webkit-perspective: 120vmin;
+}
+
+#back,
+#front,
+#left,
+#right,
+#top,
+#bottom {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  font-size: 2rem;
+  background: rgba(0, 0, 20, 0.2);
+  
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+#cube {
+  position: absolute;
+  width: 40vmin;
+  height: 40vmin;
+  top: 0;
+  left: 0;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36vmin;
+  height: 36vmin;
+  border: 4vmin double rgba(0,160,220, 0.6);
+  border-radius: 0%;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  padding: 2vmin;
+  background: rgba(60,160,220, 0.6);
+  background-clip: content-box;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-animation: rotate 6s infinite linear;
+  animation: rotate 6s infinite linear;
+}
+
+.spinner::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20vmin;
+  height: 20vmin;
+  border: 4vmin double rgba(20,0,220, 0.6);
+  border-radius: 50%;
+  border-top-color: transparent;
+  padding: 2vmin;
+  background: rgba(60,160,220, 0.6);
+  background-clip: content-box;
+  -webkit-animation: rotate 3s infinite linear;
+  animation: rotate 3s infinite linear;
+}
+
+.spinner::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2vmin;
+  height: 2vmin;
+  border: 4vmin double rgba(200,10,10, 0.6);
+  border-radius: 50%;
+  border-top-color: transparent;
+  padding: 2vmin;
+  background: rgba(20, 60, 220, 0.6);
+  background-clip: content-box;
+  -webkit-animation: rotateA 1s infinite linear;
+  animation: rotateA 1s infinite linear;
+}
+
+#back {
+  transform: translateZ(-18vmin) rotateY(180deg);
+  -webkit-transform: translateZ(-18vmin) rotateY(180deg);
+}
+
+#front {
+  transform: translateZ(18vmin);
+  -webkit-transform: translateZ(18vmin);
+}
+
+#left {
+  transform: translateX(-18vmin) rotateY(-90deg);
+  -webkit-transform: translateX(-18vmin) rotateY(-90deg);
+}
+
+#right {
+  transform: translateX(18vmin) rotateY(90deg);
+  -webkit-transform: translateX(18vmin) rotateY(90deg);
+}
+
+#top {
+  transform: translateY(-18vmin) rotateX(90deg);
+  -webkit-transform: translateY(-18vmin) rotateX(90deg);
+}
+
+#bottom {
+  transform: translateY(18vmin) rotateX(-90deg);
+  -webkit-transform: translateY(18vmin) rotateX(-90deg);
+}
+
+.spin {
+  -webkit-animation: spin 15s infinite linear;
+  animation: spin 15s infinite linear;
+}
+
+#buttons_line {
+  width: 50%;
+  margin-left: 25%;
+  bottom: 0px;
+  position: absolute;
+  padding: 10px;
+}
+
+.button_downloader {
+	cursor: pointer;
+	background: rgba(0, 0, 30, 0.2);
+	color: rgba(160, 160, 190, 0.6);
+	border: 2px solid rgba(90, 90, 120, 0.6);
+	border-radius: 2px;
+	padding: 4px 6px 4px 6px;
+	margin: 10px;
+	text-transform: uppercase;
+	transition: .25s;
+  display: inline-block;
+}
+
+.button:hover {
+	background: rgba(10, 10, 60, 0.4);
+	color: rgba(200, 200, 220, 0.2);
+	border: 2px solid rgba(100, 100, 120);
+}
+
+.spinX {
+  -webkit-animation: spinX 15s infinite linear;
+  animation: spinX 15s infinite linear;
+}
+
+.spinY {
+  -webkit-animation: spinY 15s infinite linear;
+  animation: spinY 15s infinite linear;
+}
+
+.spinZ {
+  -webkit-animation: spinZ 15s infinite linear;
+  animation: spinZ 15s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+    -webkit-transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+@keyframes spinX {
+  from {
+    transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(360deg);
+    -webkit-transform: rotateX(360deg);
+  }
+}
+
+@keyframes spinY {
+  from {
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+    -webkit-transform: rotateY(360deg);
+  }
+}
+
+@keyframes spinZ {
+  from {
+    transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+    -webkit-transform: rotateZ(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateZ(1rem);
+    -webkit-transform: translate(-50%, -50%) rotate(0deg) translateZ(1rem);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(360deg) translateZ(3rem);
+    -webkit-transform: translate(-50%, -50%) rotate(360deg) translateZ(3rem);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) translateZ(1rem);
+    -webkit-transform: translate(-50%, -50%) rotate(0deg) translateZ(1rem);
+  }
+}
+
+@keyframes rotateB {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateZ(0rem);
+    -webkit-transform: translate(-50%, -50%) rotate(0deg) translateZ(0rem);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(360deg) translateZ(4rem);
+    -webkit-transform: translate(-50%, -50%) rotate(360deg) translateZ(4rem);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) translateZ(0rem);
+    -webkit-transform: translate(-50%, -50%) rotate(0deg) translateZ(0rem);
+  }
+}
+
+@keyframes rotateA {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateZ(0rem);
+    -webkit-transform: translate(-50%, -50%) rotate(0deg) translateZ(0rem);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(360deg) translateZ(5rem);
+    -webkit-transform: translate(-50%, -50%) rotate(360deg) translateZ(5rem);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) translateZ(0rem);
+    -webkit-transform: translate(-50%, -50%) rotate(0deg) translateZ(0rem);
+  }
+}
+</style>
+
+
+
+<div id="port">
+  <div id="cube" class="spin">
+    <div id="back">
+      <div class="spinner"> </div>
+    </div>
+    <div id="front">
+      <div class="spinner"> </div>
+    </div>
+    <div id="left">
+      <div class="spinner"> </div>
+    </div>
+    <div id="right">
+      <div class="spinner"> </div>
+    </div>
+    <div id="top">
+      <div class="spinner"> </div>
+    </div>
+    <div id="bottom">
+      <div class="spinner"> </div>
+    </div>
+  </div>
+</div>
+
+<div id="buttons_line">
+<div class="button_downloader" id="spinX">X</div>
+<div class="button_downloader" id="spinY">Y</div>
+<div class="button_downloader" id="spinZ">Z</div>
+<div class="button_downloader" id="spin">XYZ</div>
+<div class="button_downloader" id="">stop</div>
+</span>
+<script>
+ 
+  var buttons = document.getElementsByClassName('button_downloader');
+  for (i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function() {
+      cube.className = this.id
+    }, false);
+  }
+
+  /*
+  //    document.onreadystatechange = function () {
+        if (document.readyState !== "complete") {
+           // document.querySelector("body").style.display = "block";
+            document.querySelector("#port").style.display = "block";
+            document.querySelector("#text_loaer").style.display = "block";
+
+
+        } else {
+            document.querySelector("#port").style.display = "none";
+            document.querySelector("#text_loader").style.display = "none";
+           // document.querySelector("body").style.visibility = "visible";
+        }
+   // }; 
+*/
+
+</script>

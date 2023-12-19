@@ -301,7 +301,9 @@ display: none;
       <div id="div_form_downloadbook_1a">
       <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank" id="form_downloadbook_1a">
       {{ search_title_download }}
-      <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
+
+      <input type="hidden" id="book_id_download" name="book_id_download_search" value="{{ book.id }}">
+
       <span id="tooltip">
       <button type="submit" class="button_downloads" id='btn_form_downloadbook_1a' >
         IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND</button>
@@ -318,7 +320,12 @@ display: none;
     <div class="mycard_book_reader" id="">
     <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank" id="form_downloadbook_1b">
   {{ search_title_download }}
+
+    <input type="hidden" id="author_download" name="author_download_search" value="{{ book.author }}">
     <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
+
+    <input type="hidden" id="language_download" name="language_download_search" value="{{ book.language }}">
+
     <button type="submit" class="button_downloads" id='tooltip' style="line-height: 1.2;">
     IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.
   <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span></button>

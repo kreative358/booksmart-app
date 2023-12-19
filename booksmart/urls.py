@@ -1,8 +1,8 @@
 from django.urls import path
 
 from booksmart.book_download import (
-
-    download_book
+    download_book,
+    download_docer
 )
 
 from booksmart.infoview import (
@@ -135,6 +135,6 @@ urlpatterns = [
     path('read_page/', read_page, name='readpage'),
     # path('download_book/<int:id>', download_book, name='downloadbook'),
     path('download_book/', download_book, name='downloadbook'),
-
+    path('download_book/download_book_bot/', download_docer, name='download-book-bot'),
 ]
 

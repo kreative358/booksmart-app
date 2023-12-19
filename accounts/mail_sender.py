@@ -24,7 +24,8 @@ from django.conf import settings
 from django.contrib import messages
 
 
-def mail_sender_modal(request):
+# def mail_sender_modal(request):
+def mail_sender_modal(request, *args):
     context = {}
     context["recaptcha_status"] = ""
     smtp_port = 587                 # Standard secure SMTP port

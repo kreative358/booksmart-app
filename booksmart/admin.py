@@ -10,9 +10,9 @@ from accounts.models import Account, MyAccountManager
 class AuthorAdmin(admin.ModelAdmin):
 
     readonly_fields = ['id']
-    list_display = ('id', 'author_name', 'last_name',
-                    'first_name', 'date_of_birth', 'date_of_death', 'wiki_idx', 'owner')
-    fields = ['author_name', 'wiki_idx','first_name', 'last_name', ('date_of_birth', 'date_of_death'), 'author_wiki_link_d', 'author_wiki_link', 'author_wiki_img', 'owner', 'user_num_a']
+    list_display = ['id', 'author_name', 'last_name',
+                    'first_name', 'date_of_birth', 'date_of_death', 'wiki_idx', 'owner']
+    fields = ['author_name', 'wiki_idx','first_name', 'last_name', ('date_of_birth', 'date_of_death'), 'author_wiki_link_d', 'author_wiki_link', 'author_wiki_img', 'owner', 'user_num_a', 'url_pdf']
     search_fields = ['author_name', 'last_name'] 
     list_display_links = ['author_name', ]
 

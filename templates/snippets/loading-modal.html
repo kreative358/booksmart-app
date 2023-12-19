@@ -1,0 +1,185 @@
+
+<style>
+
+    @keyframes opacityanime {
+    from {opacity:1;} 
+    to {opacity:0;}
+    }
+    
+    @keyframes modalfadeout {
+    from {background-color: rgba(20, 100, 200, 0.4);} 
+    to {background-color: rgba(20, 100, 200, 0.0);}
+    }
+    
+    @keyframes modalfadein {
+    from {background-color: rgba(20, 100, 200, 0.0);} 
+    to {background-color: rgba(20, 100, 200, 0.4);}
+    }
+    
+    #loadingModal {
+    position: fixed;
+    display: none;
+    z-index: 77;
+    /*
+    display:none;padding-top: 100px;  Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(20, 100, 200); 
+    background-color: rgba(20, 100, 200, 0.4); 
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    animation: noname;
+    }
+    
+    
+    /* #port {
+    position: fixed;
+    z-index:88;
+    display:block;
+    top: 60px;
+    width: 560px;
+    background-color: rgba(60, 160, 240, 0.4);
+    border-radius: 4px;
+    box-shadow: 
+    0px 0px 10px 10px rgba(160, 170, 180, 0.4),
+    0px 10px 20px 0px rgba(160, 170, 180, 0.4),
+    -6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+    6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+    0px 10px 16px 0px rgba(160, 170, 180, 0.4),
+    0px -6px 16px 0px rgba(160, 170, 180, 0.4);
+    border: 6px solid rgba(60, 160, 240, 0.8);
+    padding: 10px;
+    animation-delay: 2s;
+    animation: noname2;
+    transition: 0.1s;
+    left: 50%;
+    margin-left: -280px;
+    margin-top: 60px;
+    } */
+    
+    .mycontainer_messages_booksmart_uni:hover {
+    background: rgba(60, 160, 240, 0.6);
+      
+      box-shadow: 
+      0px 4px 16px 10px rgba(220, 230, 240, 0.4),
+        0px 0px 30px 290px rgba(220, 230, 240, 0.4) inset;
+    }
+    
+    .mycontainer_messages_booksmart_uni:active {
+    background: rgba(60, 160, 240, 0.6);
+      
+      box-shadow: 
+      0px 4px 16px 10px rgba(230, 240, 250, 0.6),
+        0px 0px 30px 290px rgba(230, 240, 250, 0.6) inset;
+    }
+    
+    @keyframes unzoomrotate {
+      from {transform:scale(1); rotate:360deg;} 
+      to {transform:scale(0); rotate: 0deg;}
+    } 
+    @keyframes zoomrotate {
+      from {transform:scale(0); rotate:0deg;} 
+      to {transform:scale(1); rotate: 360deg;}
+    } 
+    
+    /* Add Animation */
+    @keyframes unzoom {
+      from {transform:scale(1);} 
+      to {transform:scale(0);
+      }
+    }
+    
+    @keyframes zoom {
+      from {transform:scale(0);} 
+      to {transform:scale(1);
+      }
+    }
+    
+    @keyframes animatetopback {
+      from {top: 0px; }
+      to {top:-1000px; }
+    }
+    
+
+  
+    
+  #a_submit_t {
+    animation-name: anime_submit_t;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    }
+    
+  @keyframes anime_submit_t {
+    50% {color: red;}
+      }  
+  
+  @keyframes anime_red_text {
+    50% {color: red;}
+      }  
+  
+  
+  @media screen and (max-width: 640px) {
+
+  
+  }
+  
+  @media screen and (max-width: 480px) {
+  
+    
+  }
+      </style>
+<style>
+    .p_h5 {
+        font-size: 26px;
+        color: rgba(0, 0, 210, 0.8);
+        font-weight: bold;
+        line-height: 26px;
+        text-align: center;
+        margin-top: 60px;
+        }
+</style>
+
+
+
+
+<div id="loadingModal" class="modal_loader" >
+            <p class="p_h5"> Please wait... <br>
+                Your request is processing. This might take a few moments.
+            </p>
+          {% include 'snippets/download_book_bot_modal.html' %}
+       
+      </div>
+
+
+
+<script>
+/*
+function showLoadingModal(){
+    loadingModal = document.getElementById('loadingModal')
+    loadingModal.style.display = 'block';
+}
+
+//For forms: add the class "show-loading-after-submit" to any form you want to show the loader
+var formsToDelay = document.getElementsByClassName('show-loading-after-submit');
+for (var i = 0; i < formsToDelay.length; i++) {
+    formsToDelay[i].addEventListener('submit', showLoadingModal);
+} 
+*/
+
+/*
+//For urls: add the class "show-loading-after-click" to any url (a element) you want to show the loader
+function showLoaderOnUrlClick(url) {
+    showLoadingModal()
+    window.location=url
+}
+
+// Not used 
+function showLoader(){
+    bodyEl = document.getElementsByTagName('body')
+    bodyEl.append("<div><div id='loadingModal' class='modal_loader' style='visibility:visible; opacity: 1; display: none; z-index: 65; position: fixed; min-height:100%; min-width: 100%;'><p class='p_h5'> Please wait... <br> Your request is processing. This might take a few moments. </p> { include 'snippets/download_book_bot_modal.html' } </div></div>");
+} */
+
+</script>
