@@ -65,8 +65,8 @@ try:
     # elif not Book.objects.filter().all():
         context_main['allbooks'] = None
         context_main['num_books'] = 0
-except:
-    # print("booksmart models 335 no Book.objects.all():")
+except Exception as err:
+    print(f"views_apiview: Book.objects.all() except Exception as {err}")
     pass
 
 try:
@@ -81,8 +81,20 @@ try:
     #elif not Author.objects.filter().all():
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
-except:
-    # print("booksmart models 351 no Author.objects.all():")
+except Exception as err:
+    print(f"views_apiview: Author.objects.all(): except Exception as {err}")
+    pass
+
+try:
+    if BackgroundPoster.objects.filter().last():
+        poster = BackgroundPoster.objects.filter().last()
+        context_main['poster_url_1'] = poster.link_poster_1
+        context_main['poster_url_2'] = poster.link_poster_2
+    elif not BackgroundPoster.objects.filter().last():
+        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+except Exception as err:
+    print(f"views_apiview: Author.objects.all(): except Exception as {err}")
     pass
 
 try:
@@ -93,13 +105,13 @@ try:
     elif not BackgroundVideo.objects.filter().last():
         context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
-except:
-    # print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+except Exception as err:
+    print(f"views_apiview: BackgroundVideo.objects.filter().last(): except Exception as {err}")
     pass
 
 try:
     if BackgroundMusic.objects.filter().last():   
-        music = BackgroundVideo.objects.filter().last()
+        music = BackgroundMusic.objects.filter().last()
         context_main['music_url_1'] = music.link_music_1
         context_main['music_type_1'] = music.type_music_1
         context_main['music_url_2'] = music.link_music_2
@@ -109,7 +121,8 @@ try:
         context_main['music_type_1'] = "mp3"
         context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_main['music_type_2'] = "mp3"
-except:
+except Exception as err:
+    print(f"views_apiview: BackgroundMusic.objects.filter().last(): except Exception as {err}")
     context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
     context_main['music_type_1'] = "mp3"
     context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
@@ -120,12 +133,14 @@ except:
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def all_records(request):
-
+    context = {}
     r_user = request.user
     current_url_name = request.path
-
-    last_id = list(Book.objects.values_list('id').order_by('-id')[0])[0]
-    book_add_last = Book.objects.all().order_by('-id') 
+    if Book.objects.count() > 0:
+        last_id = list(Book.objects.values_list('id').order_by('-id')[0])[0]
+        book_add_last = Book.objects.all().order_by('-id') 
+    else:
+        print("NO Books no last book")
 
     # all_books = Book.objects.all().order_by("title")
     all_books = Book.objects.all().order_by('title')
@@ -133,7 +148,7 @@ def all_records(request):
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
 
-    context = context_main
+    context.update(context_main)
     context["last_id"] = last_id
     context["book_add_last"] = book_add_last
     context['allbooks'] = all_books
@@ -142,7 +157,7 @@ def all_records(request):
     context['num_books'] = num_books
     context['current_url'] = current_url_name
 
-    context = context_main
+    # context = context_main
 
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
@@ -316,7 +331,7 @@ def authors_last(request):
 
     context['search_form'] = search_form
     context['search_author'] = author
-    context['form_search'] = form_search
+    # context['form_search'] = form_search
 
     paginator = Paginator(all_authors, 10) 
     page_number = request.GET.get('page')
@@ -665,7 +680,7 @@ def records_view_get(request):
         for val in keywords_fields.values():
             if not val != '' and not val != None:
                 msgs = ["It is necessary to pass any params to search"]
-                contex_get["no_params"] = "no params"
+                context_get["no_params"] = "no params"
                 messages.info(request, "".join(msg for msg in msgs))
                 return Response(context_get, template_name='allrecords.html', )
 
@@ -792,13 +807,16 @@ def records_view_get(request):
                     authors_result_list_book_author = [book.author for book in context_get["books_result_queryset_list_sort"]]
 
                     authors_result_search_book_author = list(set(authors_result_list_book_author))
-
                     # print('authors_result_search_book_author =', authors_result_search_book_author)
 
                     authors_result_found = [Author.objects.filter(author_name__iexact=author_result_search_book_author).last() for author_result_search_book_author in authors_result_search_book_author if Author.objects.filter(author_name__iexact=author_result_search_book_author).last()]
-
                     # print('authors_result_found =', authors_result_found)
+                    
+                    authors_result_list_book_author_surname = [book.surname for book in context_get["books_result_queryset_list_sort"]]
 
+                    authors_result_search_book_author_surname = list(set(authors_result_list_book_author_surname))
+                    
+                    authors_result_found_surname = [Author.objects.filter(last_name__iexact=author_result_search_book_author_surname).last() for author_result_search_book_author_surname in authors_result_search_book_author_surname if Author.objects.filter(author_name__iexact=author_result_search_book_author_surname).last()]
                     if len(authors_result_found) > 0:
 
                         authors_result_found_list = [author_result_found for author_result_found in authors_result_found]
@@ -815,7 +833,10 @@ def records_view_get(request):
 
                     elif len(authors_result_found) == 0:
 
-                        authors_found_by_surname = [Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last() for author_result_search in authors_result_search if Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last()]
+                        # authors_found_by_surname = [Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last() for author_result_search in authors_result_search if Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last()]
+                        
+                        authors_found_by_surname = [Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last() for author_result_search in Author.objects.all() if Author.objects.filter(author_name__icontains=author_result_search.split()[-1]).last()]   
+                        authors_found_by_surname = authors_result_found_surname
 
                         if authors_found_by_surname:
                             authors_found_by_surname_list = [author_found_by_surname for author_found_by_surname in authors_found_by_surname]
@@ -834,9 +855,9 @@ def records_view_get(request):
                             context_get["authors_result_found_list"] = authors_found_by_surname_list
                             print("elif not authors_found_by_surname:")
                             
-                    elif not authors_result_found and not authors_result_search:
+                    elif not authors_result_found and not authors_result_found_surname:
                         print("not authors_result_found and not authors_result_search")
-                        context_get["message"] = f'there are no books or authors in the database, with entered parameters:<br>"{context_post["values"]}"'
+                        context_get["message"] = f'there are no books or authors in the database, with entered parameters:<br>"{context_get["parameters"]}"'
                         msgs = [f'there are no books or authors in the database, with entered parameters:<br>"{context_get["parameters"]}"',]
                         messages.info(request, "".join(msg for msg in msgs))
                         return Response(context_get, template_name='records_get.html', )

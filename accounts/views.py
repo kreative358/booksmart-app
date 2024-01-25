@@ -33,23 +33,110 @@ from django.contrib.auth.models import AnonymousUser
 from accounts.error import *
 from django.contrib.auth.hashers import make_password
 from accounts.forms import RechaptchaForm
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic #, context_bm_m
 
 RECAPTCHA_SECRET_KEY = '6Le3IP4nAAAAAH5J3uPYy4BPPEsS55k0RwCaYxeY'
 url_recaptcha = 'https://www.google.com/recaptcha/api/siteverify'
 
-def get_user(request):
-    r_user=request.user
-    if r_user.is_authenicated:
-        get_id = {}
-        # print('accounts views user.id:', r_user.id)
-        get_id['user_id'] = r_user.id
-        # print("accounts views get_id['user_id']", get_id['user_id'])
-        userid = get_id['user_id']
-        # print('accounts views userid', userid)
-        return userid
+
+context_main = {}
+
+try:
+    if Book.objects.all():
+    # if Book.objects.filter().all():
+        all_books = Book.objects.all()
+        # context_list.append(all_books)
+        num_books = Book.objects.all().count()
+        context_main['allbooks'] = all_books
+        context_main['num_books'] = num_books
+    elif not Book.objects.all():
+    # elif not Book.objects.filter().all():
+        context_main['allbooks'] = None
+        context_main['num_books'] = 0
+except Exception as err:
+    print(f"accounts views: Book.objects.all() except Exception as {err}")
+    pass
+
+try:
+    if Author.objects.all():
+    # if Author.objects.filter().all():
+        all_authors = Author.objects.all()
+        # context_list.append(all_authors)
+        num_authors = Author.objects.all().count()
+        context_main['allauthors'] = all_authors
+        context_main['num_authors'] = num_authors
+    elif not Author.objects.all():
+    #elif not Author.objects.filter().all():
+        context_main['allauthors'] = None
+        context_main['num_authors'] = 0
+except Exception as err:
+    print(f"accounts views: Author.objects.all(): except Exception as {err}")
+    pass
+
+try:
+    if BackgroundPoster.objects.filter().last():
+        poster = BackgroundPoster.objects.filter().last()
+        context_main['poster_url_1'] = poster.link_poster_1
+        context_main['poster_url_2'] = poster.link_poster_2
+    elif not BackgroundPoster.objects.filter().last():
+        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+except Exception as err:
+    print(f"accounts views: Author.objects.all(): except Exception as {err}")
+    pass
+
+try:
+    if BackgroundVideo.objects.filter().last():   
+        video = BackgroundVideo.objects.filter().last()
+        context_main['video_url'] = video.link_video
+        context_main['video_type'] = video.type_video
+    elif not BackgroundVideo.objects.filter().last():
+        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+        context_main['video_type'] = "mp4"
+except Exception as err:
+    print(f"accounts views: BackgroundVideo.objects.filter().last(): except Exception as {err}")
+    pass
+
+try:
+    if BackgroundMusic.objects.filter().last():   
+        music = BackgroundMusic.objects.filter().last()
+        context_main['music_url_1'] = music.link_music_1
+        context_main['music_type_1'] = music.type_music_1
+        context_main['music_url_2'] = music.link_music_2
+        context_main['music_type_2'] = music.type_music_2
+    elif not BackgroundMusic.objects.filter().last(): 
+        context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+        context_main['music_type_1'] = "mp3"
+        context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+        context_main['music_type_2'] = "mp3"
+except Exception as err:
+    print(f"accounts views: BackgroundMusic.objects.filter().last(): except Exception as {err}")
+    context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+    context_main['music_type_1'] = "mp3"
+    context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+    context_main['music_type_2'] = "mp3"
+    
+try:
+    if Book.objects.all():
+        context_serializer_start = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
     else:
-        print('accounts views None')
-        return None
+        print("No Books")
+except Exception as err:
+    print(f"accounts views Exception as {err}")    
+    
+# def get_user(request):
+#     r_user=request.user
+#     if r_user.is_authenicated:
+#         get_id = {}
+#         # print('accounts views user.id:', r_user.id)
+#         get_id['user_id'] = r_user.id
+#         # print("accounts views get_id['user_id']", get_id['user_id'])
+#         userid = get_id['user_id']
+#         # print('accounts views userid', userid)
+#         return userid
+#     else:
+#         print('accounts views None')
+#         return None
 
 
 @api_view(['GET', ])
@@ -61,7 +148,9 @@ def index_auth(request):
 	# return render(request, 'must_authenticate.html', {})
     return Response(context_i_a, template_name='index_auth.html', )
 
-context_serializer_start = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
+context_serializer_start = {}
+    
+
 # from typing import Protocol
 # from django.contrib.auth.decorators import login_required
 # from django.template.loader import render_to_string
@@ -116,10 +205,11 @@ class RegistrationViewBase(APIView):
     serializer_class = RegistrationSerializer
 
     context_serializer = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
-
+    context_serializer = {}
     def get(self, request, *args, **kwargs):
         message_errors = ""
         context_serializer_get = {}
+        context_serializer_get.update(context_main)
         #current_url_name = request.path
         # messages.info(request, "")
         # print("context_bm_rest = ", context_bm_rest)
@@ -287,6 +377,7 @@ class LoginView(GenericAPIView):
         message_errors = []
         recaptcha_error = []
         context_serializer_get = {}
+        context_serializer_get.update(context_main)
         #current_url_name = request.path
         # messages.info(request, "")
         # print("context_bm_rest = ", context_bm_rest)
@@ -494,7 +585,7 @@ class AccauntUpdateView(APIView):
                 context_serializer_post_else['msgs_info'] = msgs
 
                 # return Response({'serializer':serializer, 'user_name': username_val, 'e_mail':email_val, 'pass1':pass1_val, 'msgs_info': msgs, 'style':self.style})
-                return Response(context_serializer_post_if_else,)
+                return Response(context_serializer_post_else,)
 
         else:
             errs = serializer.errors
@@ -593,6 +684,7 @@ class PasswordUpdateView(APIView):
         oldpassword_val = initial_val['oldpassword']
         password1_val = initial_val['password1']
         password2_val = initial_val['password2']
+        email_val = initial_val['email']
         pass_val = 'no_pass'
         if initial_val['current_url']:
             current_url_val = initial_val['current_url']
@@ -737,6 +829,7 @@ class PasswordUpdateViewApi(APIView):
         initial_val = serializer.initial_data
         oldpassword_val = initial_val['oldpassword']
         password_val = initial_val['password']
+        email_val = initial_val['email']
         pass1_val = 'no_pass1'
         if initial_val['current_url']:
             current_url_val = initial_val['current_url']
@@ -745,6 +838,7 @@ class PasswordUpdateViewApi(APIView):
             context_serializer_post['current_url'] = ""
 
         context_serializer_post['oldpassword'] = oldpassword_val
+        context_serializer_post['password'] = password_val
         context_serializer_post['e_mail'] = email_val
         context_serializer_post['pass1'] = pass1_val
 

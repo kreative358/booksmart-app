@@ -107,14 +107,14 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ('pk', 'url', 'username', 'email',)
 
 
-# class AccountsSerializer(serializers.HyperlinkedModelSerializer):
-#     apiauthors = serializers.PrimaryKeyRelatedField(many=True, queryset=Author.objects.all())
-#     apibooks = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
-#     # apiaccounts = serializers.PrimaryKeyRelatedField(many=True, queryset=Accounts.objects.all())
-#     id = serializers.IntegerField(read_only=True)
-#     class Meta:
-#         model = Account
-#         fields = ['url', 'id', 'username', 'email', 'accounts', 'apibooks', 'apiauthors']
+class AccountsSerializer(serializers.HyperlinkedModelSerializer):
+    apiauthors = serializers.PrimaryKeyRelatedField(many=True, queryset=Author.objects.all())
+    apibooks = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
+    # apiaccounts = serializers.PrimaryKeyRelatedField(many=True, queryset=Accounts.objects.all())
+    id = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = Account
+        fields = ['url', 'id', 'username', 'email', 'accounts', 'apibooks', 'apiauthors']
 
 
 # class AccountSerializer(serializers.HyperlinkedModelSerializer):
@@ -408,11 +408,11 @@ class PasswordSerializerApi(serializers.ModelSerializer):
     def validate_password(self, new_password):
         print('password:', new_password)
         try:
-            validate_password(password)
+            validate_password(new_password)
         except ValidationError as exc:
             print('serializers.ValidationError(str(exc)):', serializers.ValidationError(str(exc)))
             raise serializers.ValidationError(str(exc))
-        return password
+        return new_password
 
     # password2 = serializers.CharField(
     #     required=True, 

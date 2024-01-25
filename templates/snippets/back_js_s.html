@@ -49,17 +49,48 @@
    left:0.4vw;
     opacity: 1;
   } */
-  
-  #myVideo_2 {
+
+  #myPoster_1 {
     box-sizing: content-box;
     position: fixed;
-    z-index:0;
+    z-index: 0;
     object-fit: cover;
     width: 100.8vw;
     height: 104vh;
     top: -2vh;
     left:-0.4vw;
-    animation: mymovie 12s 1 forwards;
+    animation: mymovie 12s linear 0s 1 forwards;
+    background-image: url({% static 'background_film_mp4_18s_poster.jpg' %});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+  } 
+
+  #myVideo_1 {
+    box-sizing: content-box;
+    position: fixed;
+    z-index: 1;
+    object-fit: cover;
+    width: 100.8vw;
+    height: 104vh;
+    top: -2vh;
+    left:-0.4vw;
+    animation: mymovie 12s linear 12s 1 forwards;
+    opacity: 0;
+  } 
+  
+  #myVideo_2 {
+    box-sizing: content-box;
+    position: fixed;
+    z-index: 2;
+    object-fit: cover;
+    width: 100.8vw;
+    height: 104vh;
+    top: -2vh;
+    left:-0.4vw;
+    animation: mymovie 12s linear 12s 1 forwards;
+  /*  animation: mymovie 12s 1 forwards; */
     opacity: 0;
   } 
   
@@ -231,12 +262,23 @@ margin: 5px;
 }
 </style>
 
-
-<audio preload loop id="myAudio01">
+<!-- <audio autoplay loop id="myAudio01">
   <source src="{{ music_url_2 }}" type="audio/{{ music_type_2 }}">
   Your browser does not support HTML5 audio.
-</audio>
+</audio> -->
 
+<audio autoplay loop id="myAudio01">
+  <source src="{% static 'piano-lullaby.mp3' %}" type="audio/mp3">
+  Your browser does not support HTML5 audio.
+</audio> 
+
+<div id="myPoster_1">
+</div>
+
+<video autoplay muted loop poster="{% static 'background_film_mp4_18s_poster.jpg' %}" id="myVideo_1">
+  <source src="{% static 'background_film_mp4_18s.mp4' %}" type="video/mp4">
+Your browser does not support HTML5 video.
+</video>
 
   <video autoplay muted loop id="myVideo_2" poster="{{ poster_url_1 }}">
     <source src="{{ video_url }}" type="video/{{ video_type }}">
@@ -245,10 +287,16 @@ margin: 5px;
 
 <!--</div>-->
 
-  <audio preload loop id="myAudio02">
+<!--  <audio preload loop id="myAudio02">
     <source src="{{ music_url_1 }}" type="audio/{{ music_type_1 }}">
     Your browser does not support HTML5 audio.
-  </audio> 
+  </audio> -->
+
+  <audio preload autoplay loop id="myAudio02">
+    <source src="{% static 'ocean-waves.mp3' %}" type="audio/mp3">
+    Your browser does not support HTML5 audio.
+  </audio>
+
 
  <div id="glass_id_mode" class="glass_class_mode">
  
@@ -274,10 +322,11 @@ margin: 5px;
       }  */
 
     var btn_dark_back = document.getElementById("myBtn_dark_back");
+
     btn_dark_back.onclick = function(){
       var leftdiv =  document.getElementById("left_div");
       var rightdiv =  document.getElementById("right_div");
-    var glass_dark_back =  document.getElementById("glass_id_mode");
+      var glass_dark_back =  document.getElementById("glass_id_mode");
        // glass_dark_back.classList.toggle("glass_dark_back");
        glass_dark_back.classList.toggle("dark_mode_back");
        // leftdiv.classList.toggle("dark_mode_door");
@@ -294,103 +343,134 @@ margin: 5px;
     document.getElementById("myAudio02").volume=0.2;
 
     var audio01 = document.getElementById("myAudio01");
+    audio01.paused = true;
+    audio01.volume = 0.2;
+
     var audio02 = document.getElementById("myAudio02");
+    audio02.paused = true;
+    audio02.volume = 0.2;
+
+
     var btna = document.getElementById("myBtna");
 
-    audio01.pause();
-    audio02.pause()
-    
     function myFunctiona() {
-      if (audio01.paused){
-        audio01.play() ;
-        audio02.play() ;
-        btna.innerHTML = "pause audio";
-      } 
-      
-      else if (audio02.paused){
-        audio01.play() ;
-        audio02.play() ;
-        btna.innerHTML = "pause audio";
-      }
-      
-      else {
-        audio01.pause() ;
-        audio02.pause() ;
-        btna.innerHTML = "play audio";
-      }
-    }
+      // alert(audio01.paused"\n"audio02.paused);
+      if (audio01.paused) {
+        audio01.play();
+        audio02.play();
+        btna.innerHTML = "pause audios";
+        } else if (audio01.played) {
+          audio01.pause();
+          audio02.pause();
+          btna.innerHTML = "play audios";
+        }
+         }
  
  //   var audio01m = document.getElementById("myAudio01");
  //   var audio02m = document.getElementById("myAudio02");
     var btnma = document.getElementById("myBtn1a");
     
+    var btnma = document.getElementById("myBtn1a");
+    
     function myFunction1a() {
-      if (audio01.muted) {
-        audio01.muted = false;
-        
+
+      if (audio01.volume > 0 && audio02.volume > 0) {
+        audio01.volume = 0;
+        audio02.volume = 0;
+        btnma.innerHTML = "unmute first";
+      } 
+
+      else if (audio01.volume == 0 && audio02.volume == 0) {
+        audio01.volume = 0.2;
+        audio02.volume = 0;
+        btnma.innerHTML = "unmute second";
+      }  
+
+      else if (audio01.volume > 0 && audio02.volume == 0) {
+        audio01.volume = 0;
+        audio02.volume = 0.2;
         btnma.innerHTML = "unmute both";
       } 
-      else if (audio02.muted) {
       
-        audio02.muted = false;
+      else if (audio01.volume == 0 && audio02.volume > 0) {
+        audio01.volume = 0.2;
+        audio02.volume = 0.2;
         btnma.innerHTML = "mute both";
-      } 
-
-      else if (audio02.muted) {
-      
-        audio02.muted = false;
-        btnma.innerHTML = "unmute 2nd";
-      }
+      }  
 
       else {
-        audio01.muted = true;
-        audio02.muted = true;
-        btnma.innerHTML = "unmute 2nd";
-      }
+      audio01.voulume = 0.2;
+      audio02.voulume = 0;
+      btnma.innerHTML = "mute both";
+    }
     }
   </script>
    <script>
    
     var btnv = document.getElementById("myBtn");
     var btnmv = document.getElementById("myBtn1")
-    var myvideo = document.getElementById("myVideo_2")
+    
+    var myvideo_1 = document.getElementById("myVideo_1")
+    var myvideo_2 = document.getElementById("myVideo_2")
 
 //    var video = document.getElementById("myVideo");
 //    var videom = document.getElementById("myVideo");
-    myvideo.pause();
+    myvideo_1.pause();
+    myvideo_2.pause();
+
+
+    function myFunction() {
+      if (myvideo_1.paused) {
+        myvideo_1.play();
+        btnv.innerHTML = "pause video";
+      }
+      else if(myvideo_2.paused) {
+        myvideo_2.play();
+        btnv.innerHTML = "pause video";
+      }
+         else {
+        myvideo_1.pause();
+        myvideo_2.pause();
+        //btn.innerHTML = "Play" + "<br>" +"Video";
+        btnv.innerHTML = "play video"
+      }
+    }    
+
     
     function myFunction1() {
-      if (myvideo.muted) {
-        myvideo.muted = false;
+      if (myvideo_1.muted || myvideo_2.muted) {
+        myvideo_1.muted = false;
+        myvideo_2.muted = false;
         btnmv.innerHTML = "mute video";
       } else {
-        myvideo.muted = true;
+        myvideo_1.muted = true;
+        myvideo_2.muted = true;
         btnmv.innerHTML = "unmute video";
       }
     }
 
+  var iterations = 1;
+  // document.getElementById('iteration').innerText = iterations;  
+  myvideo_1.addEventListener('ended', function () {  
+    if (myvideo_1.played) {  
+      if (iterations < 5) {       
+          this.currentTime = 0;
+          this.play();
+          iterations ++;   
+          // document.getElementById('iteration').innerText = iterations;
+      } 
+    }     
+  }, false);
 
-    var iterations = 1;
-    // document.getElementById('iteration').innerText = iterations;  
-    myvideo.addEventListener('ended', function () {    
-        if (iterations < 5) {       
-            this.currentTime = 0;
-            this.play();
-            iterations ++;   
-            // document.getElementById('iteration').innerText = iterations;
-        }      
-    }, false);
 
-
-  function myFunction() {
-    if (myvideo.paused) {
-      myvideo.play();
-      //btn.innerHTML = "Pause"+ "<br>" + "Video";
-      btnv.innerHTML = "pause video";
-    } else {
-      myvideo.pause();
-      //btn.innerHTML = "Play" + "<br>" +"Video";
-      btnv.innerHTML = "play video"
-    }
-  }
+  myvideo_2.addEventListener('ended', function () {  
+    if (myvideo_2.played_2) {  
+      if (iterations < 5) {       
+          this.currentTime = 0;
+          this.play();
+          iterations ++;   
+          // document.getElementById('iteration').innerText = iterations;
+      } 
+    }     
+  }, false);
     </script>

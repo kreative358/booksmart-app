@@ -1,13 +1,12 @@
 <script>
  
-// window.addEventListener("load", function() {
-  function myFunctionClear_bookd_download() {
+ window.addEventListener("load", function() {
+  // function myFunctionClear_bookd_download() {
     localStorage.clear();
     sessionStorage.clear();
-
-
-    }
-// });
+  //  }
+ });
+ 
 </script>
 
 <style type="text/css">
@@ -21,7 +20,7 @@
 
 .mycolumn_download {  
   position:relative;
-  z-index:14;
+  z-index: 14;
   justify-content: center;
   align-items: center;
   border: 4px solid rgba(90, 150, 210, 0.2);
@@ -41,7 +40,7 @@
   font-weight: bold;
   padding-top: 2px;
   text-align: center;
-  margin: 60px auto 20px auto;
+  margin: 30px auto 20px auto;
   max-width: 90%;
   width: 490px;
   font-family: Times;
@@ -78,6 +77,20 @@
   margin: auto;
   padding: 10px;
 }
+
+.information_bar {
+  font-size: 22px; 
+  color: mediumblue; 
+  padding: 10px; 
+  max-width: 90%; 
+  position: relative; 
+  margin: 10px auto 16px auto;
+  box-shadow: 
+  0px 0px 2px 4px rgba(200, 20, 10, 0.8) inset,
+  0px 0px 4px 4px rgba(220, 220, 240, 0.6); 
+  border-radius: 2px;
+}
+
 @keyframes anime_red_border {
 25% {
 border-color: red;}
@@ -175,6 +188,7 @@ font-weight: bold;
 background-color: rgba(60, 160, 240, 0.4);
 color: rgba(0, 0, 180, 0.9);
 font-variant: small-caps;
+border-radius: 2px;
 }
 
 .card__face--back {
@@ -285,22 +299,22 @@ backface-visibility: hidden;
           <div class="mycolumn_download"  id="download_column_{{book.id}}">
             <div class="mycard_download" id="download_card_{{book.id}}">
 
-              <div style="font-size: 22px; color: mediumblue; padding: 10px; max-width: 380px;position: relative; margin: 10px auto 10px auto;"> 
-                <p style="line-height: 1.2;"> Information about book title: </p> 
-                <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ title_download }}" </p> 
-              <p style="line-height: 1; margin-top: 10px;" > {{ message_read_download_not_pdf }} </p>
+              <div class="information_bar"> 
+                <p style="line-height: 1.2; margin-bottom: 6px;"> Information about book title: </p> 
+                <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite; margin-bottom: 6px;"> "{{ title_download }}" </p> 
+              <p style="line-height: 1; margin-top: 10px; margin-bottom: 6px;" > {{ message_read_download_not_pdf }} </p>
               </div>
 
          <button id="button_download_1" class="button_downloads" style="cursor: pointer;">
          <span> PRESS TO DOWNLOAD 1 </span><br>
-         <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span><br><span> {{ extention_1a }} </span>
+         <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span><br><span> extension: .{{ extension_1a }} </span>
          </button>
          
          <button id="button_download_2" class="button_downloads" style="cursor: pointer;">
          <span> PRESS TO DOWNLOAD 2 </span><br>
-         <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span><br><span> {{ extention_2a }} </span>
+         <span style="animation: anime_red_text 2s infinite;">"{{ title_download }}"</span><br><span>extension: .{{ extension_2a }} </span>
          </button>
-
+         {% if url_pdf_bot == "" %}
          <div class="scene scene--card" id="scene_flip_1a">
           <div  class="card" >
           <div class="card__face card__face--front">
@@ -312,7 +326,7 @@ backface-visibility: hidden;
           </div>
           </div>
           </div>
-
+       {% endif %}
         </div>
       </div>
          
@@ -320,17 +334,17 @@ backface-visibility: hidden;
         <div class="mycolumn_download"  id="download_column_{{book.id}}">
           <div class="mycard_download" id="download_card_{{book.id}}">
 
-            <div style="font-size: 22px; color: mediumblue; padding: 10px; max-width: 380px;position: relative; margin: 10px auto 10px auto;"> 
-              <p style="line-height: 1.2;"> Information about book title: </p> 
-              <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ title_download }}" </p> 
-            <p style="line-height: 1; margin-top: 10px;" > {{ message_read_download_not_pdf }} </p>
+          <div class="information_bar"> 
+            <p style="line-height: 1.2; margin-bottom: 6px;"> Information about book title: </p> 
+              <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite; margin-bottom: 6px;"> "{{ title_download }}" </p> 
+            <p style="line-height: 1; margin-top: 10px; margin-bottom: 6px;" > {{ message_read_download_not_pdf }} </p>
             </div>
 
          <button id="button_download_1" class="button_downloads" style="">
          <span> PRESS TO DOWNLOAD </span><br>
-         <span style="animation: anime_red_text 2s infinite;"> "{{ title_download }}" </span><br><span> {{ extention_1a }} </span>
+         <span style="animation: anime_red_text 2s infinite;"> "{{ title_download }}" </span><br><span>extension: .{{ extension_1a }} </span>
          </button>
-
+         {% if url_pdf_bot == "" %}
          <div class="scene scene--card" id="scene_flip_1b">
           <div  class="card" >
           <div class="card__face card__face--front">
@@ -342,7 +356,7 @@ backface-visibility: hidden;
           </div>
           </div>
           </div>
-
+          {% endif %}
         </div>
       </div>
   
@@ -352,36 +366,54 @@ backface-visibility: hidden;
           <div class="mycolumn_download"  id="download_column_{{book.id}}">
             <div class="mycard_download" id="download_card_{{book.id}}">
           
-      <div style="font-size: 22px; color: mediumblue; padding: 10px; max-width: 380px;position: relative; margin: 10px auto 10px auto;"> 
-      <p style="line-height: 1.2;"> Information about book title: </p> 
-      <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ title_download }}" </p>  
-      <p style="line-height: 1; margin-top: 10px;" > {{ message_read_download }} </p>
+      <div class="information_bar" > 
+      <p style="line-height: 1.2; margin-bottom: 6px;"> Information about book title: </p> 
+      <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite; margin-bottom: 6px;"> "{{ title_download }}" </p>  
+      <p style="line-height: 1; margin-top: 10px; margin-bottom: 6px;" > {{ message_read_download }} </p>
       </div>
       
-      
+          {% if url_pdf_bot == "" %}
       <a href="{{ title_read_last_chance }}" target="_blank" style="text-decoration: none;" id="link_to_doc_1">
-     <div  class="button_downloads" id="button_to_doc_1" style="animation: anime_red_text 2s infinite; font-size: 20px; color: mediumblue; line-height: 1.2; padding: 10px;"> PRESS THIS TO TRY TO FIND <br> THIS BOOK ANOTHER WAY </div>
+     <div class="button_downloads" id="button_to_doc_1" style="animation: anime_red_text 2s infinite; font-size: 20px; color: mediumblue; line-height: 1.2; padding: 10px;"> PRESS THIS TO TRY TO FIND <br> THIS BOOK ANOTHER WAY </div>
       </a>
-
+      {% endif %}
     </div>
   </div>
       {% endif %}
 
-      <div class="mycolumn_download" id="mycolumn_docer_1">
+
+      {% if url_pdf_bot_yes != "" %}
+
+      <div class="mycolumn_download" id="mycolumn_docer_3">
         <div class="mycard_download" >
+          <button class="button_downloads" id='button_download_3' style="line-height: 1.2;">
+            PRESS TO DOWNLOAD  <br> BOOK TITLED <br> "{{ title_download }}" 
+            <br><span style="overflow-wrap: anywhere;"> url: YES
+          </button>
+        </div>
+      </div>
+
+      {% elif url_pdf_bot_yes == "" %}
+
+      <div class="mycolumn_download" id="mycolumn_docer_1">
+        <div class="mycard_download" id="getBrowserName_id">
           <form action="{% url 'booksmart:download-book-bot' %}" method="GET" target="_self" id="form_downloadbook_doc" class="show-loading-after-submit">
           
-              <input type="hidden" id="language_download" name="book_download_bot" value="yes">
+            <input type="hidden" id="book_id_download" name="book_download_bot" value="{{ book_id }}">
           
+           <!-- <span id='tooltip'> -->
               <button type="submit" class="button_downloads" id='tooltip' style="line-height: 1.2;">
-              IF YOU NEED YOU CAN TRY <br> TO FIND BOOK TITLED <br> "{{ title_download }}" <br> BUT ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.
-            <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span></button>
+              IF YOU NEED YOU CAN TRY <br> TO FIND BOOK TITLED <br> "{{ title_download }}" - id:{{ book_id }} <br> BUT ONLY TO DOWNLOAD <br> PRESS THIS TO TRY TO FIND.
+            <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span>
+          </button>
+    <!--  </span> -->
             </form>    
         </div>
       </div>
+      {% endif %}
      
         
-          <div class="mycolumn_download" id="mycolumn_docer_2">
+          <div class="mycolumn_download" id="mycolumn_docer_2" style="display: none">
             <div class="mycard_download" >
               <a href="{{ title_read_last_chance }}" target="_blank" style="text-decoration: none;" id="link_to_doc_2">
                <div class="button_downloads" id="button_to_doc_2" style="animation: anime_red_text 2s infinite; font-size: 22px; color: mediumblue; line-height: 1.2; padding: 10px;"> PRESS THIS TO TRY TO FIND <br> THIS BOOK ANOTHER WAY </div>
@@ -392,8 +424,9 @@ backface-visibility: hidden;
         
       <div class="download_object" id="download_object_1" ></div>
       <div class="download_object" id="download_object_2" ></div> 
+      <div class="download_object" id="download_object_3" ></div> 
   
-  
+
 <script type="text/javascript">
   if ("{{pdf_links}}") {
     document.querySelector("#button_download_1").onclick = function() {
@@ -415,7 +448,19 @@ backface-visibility: hidden;
         document.querySelector("#download_object_2").style.animation = "anime_pulse 2s 4";
         }, 1000);
         } 
-      }  
+} 
+
+if ("{{url_pdf_bot_yes}}" != "") {
+  document.querySelector("#button_download_3").onclick = function() {
+    let download_div_3 = document.createElement("div");
+    download_iframe_3 = '<iframe class="iframe_download" src="{{ url_pdf_bot_yes }}"></iframe><br><div class="download_book_text">DOWNLOAD BOOK</div>';
+    download_div_3.innerHTML = download_iframe_3;
+    document.querySelector("#download_object_3").appendChild(download_div_3);
+    setTimeout(function(){ 
+    document.querySelector("#download_object_3").style.animation = "anime_pulse 2s 4";
+    }, 1000);
+    } 
+ }  
     
  if (
     navigator.userAgent.match(/Android/i) ||
@@ -477,5 +522,40 @@ function handleEventDocer(oEvent) {
 } 
 
   </script>
-  
+ 
+  <script>
+    let get_browsers = document.querySelectorAll(".get_browsers");
+    
+     function getBrowserName() {
+       let browserInfo = navigator.userAgent;
+       let browser;
+       if (browserInfo.includes('Opera') || browserInfo.includes('Opr')) {
+         browser = 'Opera';
+       } else if (browserInfo.includes('Edg')) {
+        browser = 'Edge';
+       } else if (browserInfo.includes('Chrome')) {
+        browser = 'Chrome';
+       } else if (browserInfo.includes('Safari')) {
+        browser = 'Safari';
+       } else if (browserInfo.includes('Firefox')) {
+        browser = 'Firefox'
+       } else {
+         browser = 'different'
+       }
+        return browser;
+     }
+     
+   for (let get_browser of get_browsers) {   
+     function once() {  
+        let browserName = getBrowserName();
+        if (browserName != "Chrome") {
+       // if (browserName != "Edge") {
+        alert(`Remember that to use this option\nyou must have Chrome browser installed.\n\nYou're seeing this notification\nbecause you're currently using \na ${browserName} browser`);
+        }
+    get_browser.removeEventListener("mouseover", once);
+       };
+    get_browser.addEventListener("mouseover", once);
+    }
+     </script>
+     
   {% include 'snippets/loading-modal.html' %}

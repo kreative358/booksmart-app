@@ -1,8 +1,19 @@
 from django.urls import path
+from django.conf.urls import include, url
+from django.urls import include as pathinclude
+from rest_framework.routers import DefaultRouter
+
+from accounts.api.views import AccountViewSet, UserDetailViewSet, UserViewSet
+# from booksmart.api.views import BooksEditViewSet, AuthorViewSet, BooksFullViewSet
+from booksmart import views
+from django.views.generic import TemplateView as TemplateViewIndex
+from django.views.generic import TemplateView as TemplateViewDemo
+from django.views.generic import TemplateView
 
 from booksmart.book_download import (
     download_book,
-    download_docer
+    download_docer,
+    download_path
 )
 
 from booksmart.infoview import (
@@ -22,6 +33,7 @@ from booksmart.views_records import (
     edit_author,  
     read_book, 
     read_book_ol,
+    read_book_archive
     )
 
 from booksmart.views_apiview import (
@@ -39,19 +51,6 @@ from booksmart.views_apiview import (
     records_view_post,
     records_view_get
     )
-
-from django.conf.urls import include, url
-from django.urls import include as pathinclude
-from django.urls import path
-from rest_framework.routers import DefaultRouter
-
-from accounts.api.views import AccountViewSet, UserDetailViewSet, UserViewSet
-# from booksmart.api.views import BooksEditViewSet, AuthorViewSet, BooksFullViewSet
-from booksmart import views
-from django.views.generic import TemplateView as TemplateViewIndex
-from django.views.generic import TemplateView as TemplateViewDemo
-from django.views.generic import TemplateView
-
 
 
 # router = DefaultRouter()
@@ -122,6 +121,7 @@ urlpatterns = [
     path('read_book/<int:id>', read_book, name = "readbook"),
     
     path('read_book_ol/<int:id>', read_book_ol, name = "readbook-ol"),
+    path('read_book_ar/<int:id>', read_book_archive, name = "readbook-ar"),
 
     path('books/', views.BookListView.as_view(), name='books'),
     path('book/<int:pk>', views.BookDetailView.as_view(), name='book-detail'),
@@ -134,7 +134,9 @@ urlpatterns = [
     path('new_video/', background_video, name='newvideo'),
     path('read_page/', read_page, name='readpage'),
     # path('download_book/<int:id>', download_book, name='downloadbook'),
-    path('download_book/', download_book, name='downloadbook'),
-    path('download_book/download_book_bot/', download_docer, name='download-book-bot'),
+    path('download_book/<int:id>', download_book, name='download-book'),
+    path('download_book/download_book_bot', download_docer, name='download-book-bot'),
+    
+    path('download_path/', download_path, name='download-path'),
 ]
 

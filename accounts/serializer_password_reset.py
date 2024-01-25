@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_decode
 from accounts.models import Account
-
+from rest_framework.validators import UniqueValidator
+from rest_framework.exceptions import ValidationError
 
 class EmailSerializer(serializers.Serializer):
     """

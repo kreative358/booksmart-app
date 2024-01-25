@@ -12,7 +12,7 @@ class AuthorAdmin(admin.ModelAdmin):
     readonly_fields = ['id']
     list_display = ['id', 'author_name', 'last_name',
                     'first_name', 'date_of_birth', 'date_of_death', 'wiki_idx', 'owner']
-    fields = ['author_name', 'wiki_idx','first_name', 'last_name', ('date_of_birth', 'date_of_death'), 'author_wiki_link_d', 'author_wiki_link', 'author_wiki_img', 'owner', 'user_num_a', 'url_pdf']
+    fields = ['author_name', 'wiki_idx','first_name', 'last_name', ('date_of_birth', 'date_of_death'), 'author_wiki_link_d', 'author_wiki_link', 'author_wiki_img', 'owner', 'user_num_a']
     search_fields = ['author_name', 'last_name'] 
     list_display_links = ['author_name', ]
 
@@ -25,7 +25,7 @@ class BookAdmin(admin.ModelAdmin):
      - adds inline addition of book instances in book view (inlines)
     """
     readonly_fields = ['id']
-    fields = ('google_id', 'title', 'author', 'surname', 'author_c', 'published', 'category', 'summary', 'isbn', 'owner', 'user_num_b')
+    fields = ['google_id', 'title', 'author', 'surname', 'author_c', 'published', 'category', 'summary', 'isbn', 'owner', 'user_num_b', 'url_pdf', 'url_pdf_search', "pdf_search_filename", "url_libgen"]
     list_display = ('id','title', 'author', 'surname', 'category', 'epub', 'google_id', 'owner', 'author_c',) # ('EPUB', 'embeddable'),'author_c__author_name, 
     list_per_page = 10
     search_fields = ['google_id', 'title', 'author', 'published', 'category', 'summary', 'isbn', 'created_at']

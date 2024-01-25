@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
-
+from django.shortcuts import render, get_object_or_404, redirect
 from accounts.models import Account
 
 
@@ -68,6 +68,12 @@ class AccountUpdateForm(forms.ModelForm):
 			return email
 		raise forms.ValidationError('Email "%s" is already in use.' % account)
 
+
+class AccountDeleteForm(forms.ModelForm):
+
+	class Meta:
+		model = Account
+		fields = "__all__"
 
 class RechaptchaForm(forms.Form):
 	# recaptcha_token = forms.CharField(widget=forms.HiddenInput())

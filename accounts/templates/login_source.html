@@ -462,7 +462,7 @@ border-radius:2px;
 
 	<button type="button" id="button_back">BACK</button>   </a>
 
-<button  type="submit" id="button_sm" > LOGIN </button>
+<button  type="submit" id="button_sm" disabled> LOGIN </button>
 		  </form>
 
 		</div>
@@ -475,23 +475,27 @@ border-radius:2px;
 var invalid_feedback_id_l = document.getElementById("invalid_feedback_id_l");
 var valid_feedback_id_l = document.getElementById("valid_feedback_id_l");
 var inputRecaptcha_l = document.getElementById("inputRecaptcha_l")
+var button_sm = document.getElementById("button_sm")
 
 function captchaVerified_l(response_l) {
 	inputRecaptcha_l.value = response_l;
 	invalid_feedback_id_l.style.display = "none";
 	valid_feedback_id_l.style.display = "block";
+	button_sm.disabled = false;
 	}
 
 function captchaExpired_l() {
 	inputRecaptcha_l.value = "";
 	invalid_feedback_id_l.style.display = "block";
 	valid_feedback_id_l.style.display = "none";
+	button_sm.disabled = true;
 	}
 
 function captchaError_l() {
 	inputRecaptcha_l.value = "";
 	invalid_feedback_id_l.style.display = "block";
 	valid_feedback_id_l.style.display = "none";
+	button_sm.disabled = true;
 }
 
 

@@ -3,7 +3,7 @@ from booksmart.api.filters import IsOwnerFilterBackend, BookFilter
 from rest_framework.response import Response
 from booksmart.models import Book, Author 
 from accounts.models import Account
-from booksmart.api.serializers import BookToListSerializer, AuthorsSerializer, BooksSerializer, CustomBookSerializer, BookToEditSerializer
+from booksmart.api.serializers import BookToListSerializer, AuthorsSerializer, BooksSerializer, CustomBookSerializer, BookToEditSerializer, BookSerializer
 from rest_framework.settings import api_settings
 from rest_framework.decorators import api_view
 import os, requests, json, re, datetime, requests.api

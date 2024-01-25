@@ -13,6 +13,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 
 from django.contrib import messages
+from rest_framework.authtoken.models import Token
 
 
 def account_view_form(request):

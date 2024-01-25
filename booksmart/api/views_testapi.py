@@ -3,14 +3,14 @@ from booksmart.api.serializers import BookSerializer, AuthorSerializer
 from accounts.api.serializers import AccountsSerializer, AccountSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-import request
+import requests
 
-serializer_account = AccoutkSerializer(account)
+serializer_account = AccountSerializer(Account)
 serializer_account_data = serializer_account.data
-print(repr(serializer))
+print(repr(serializer_account_data))
 
-serializer_current = AccoutskSerializer(Account.objects.all().filter(request.user))
-serializer_current_data = serializer_current_data.data
+serializer_current = AccountsSerializer(Account.objects.all().filter(requests.user))
+serializer_current_data = serializer_current.data
 user_id = serializer_current_data['id']
 print('serializer_user_id:', user_id)
 print(repr(serializer_account_data))

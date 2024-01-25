@@ -6,9 +6,13 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from accounts.model import Account 
+from accounts.models import Account 
 from accounts.serializer_password_reset import EmailSerializer, ResetPasswordSerializer
-
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer, HTMLFormRenderer
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
+from booksmart.models import context_bm as context_bm_rest
+from django.contrib import messages
 
 class SerializerPasswordReset(APIView):
     """
@@ -18,7 +22,8 @@ class SerializerPasswordReset(APIView):
     permission_classes = [AllowAny,]
     template_name="password_reset_new.html"
     style = {'template_pack': 'rest_framework/vertical/'} #
-    serializer_class = serializers.EmailSerializer
+    # serializer_class = serializers.EmailSerializer
+    serializer_class = EmailSerializer
 
     def get(self, request, *args, **kwargs):
         messages.info(request, "")
@@ -71,7 +76,7 @@ class SerializerResetPasswordAPI(generics.GenericAPIView):
     Verify and Reset Password Token View.
     """
 
-    serializer_class = serializers.ResetPasswordSerializer
+    serializer_class = ResetPasswordSerializer
 
     def patch(self, request, *args, **kwargs):
         """

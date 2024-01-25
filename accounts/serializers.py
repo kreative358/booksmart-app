@@ -355,7 +355,7 @@ class PasswordUpdateSerializer(serializers.ModelSerializer):
         except ValidationError as exc:
             print('serializers.ValidationError(str(exc)):', serializers.ValidationError(str(exc)))
             raise serializers.ValidationError(str(exc))
-        return password
+        return password1
     
     password2 = serializers.CharField(
         required=False, 
@@ -415,7 +415,7 @@ class PasswordUpdateSerializerApi(serializers.ModelSerializer):
         except ValidationError as exc:
             print('serializers.ValidationError(str(exc)):', serializers.ValidationError(str(exc)))
             raise serializers.ValidationError(str(exc))
-        return password
+        return password1
     
     password2 = serializers.CharField(
         required=False, 

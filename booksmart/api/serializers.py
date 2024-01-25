@@ -92,7 +92,14 @@ class BookBookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book # 'book_author'
         fields = ['id', 'title', 'url', 'url_book', 'author', 'author_c', 'summary', 'published', 'category', 'language', 'epub', 'isbn',  'embeddable', 'author_seializer',] # 'imageLinks','preview_link', 'preview_link_new', 'selfLink','owner', 'user_num_b', 'author_seializer', ]
+        
 
+class BookTestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = "__all__"
+    
+    
 class BookAuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
@@ -131,7 +138,7 @@ class BooksSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Book # 'book_author'
 
-        fields = ['id', "url_pdf", 'title', 'url_book', 'summary', 'author', 'info_author', 'author_url', 'author_c', 'published', 'category', 'language', 'epub', 'isbn', 'embeddable', 'owner_name', 'owner_url'] # 'imageLinks','preview_link', 'url_read' 'author_c__date_of_birth', 'books_author__date_of_death', 
+        fields = ['id', "url_pdf", "url_pdf_search", "pdf_search_filename", 'title', 'url_book', 'summary', 'author', 'info_author', 'author_url', 'author_c', 'published', 'category', 'language', 'epub', 'isbn', 'embeddable', 'owner_name', 'owner_url'] # 'imageLinks','preview_link', 'url_read' 'author_c__date_of_birth', 'books_author__date_of_death', 
 
 class CustomBookSerializer(serializers.HyperlinkedModelSerializer):
     url_book = serializers.HyperlinkedIdentityField(
@@ -168,11 +175,19 @@ class AuthorsSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class BookPdfUrlSerializer(serializers.ModelSerializer):
-
+    def update(self, instance, validated_data):
+        instance.url_pdf = validated_data.get('url_pdf', instance.url_pdf)
+        instance.url_pdf_search = validated_data.get('url_pdf_search', instance.url_pdf_search)
+        instance.pdf_search_filename = validated_data.get('pdf_search_filename', instance.pdf_search_filename)
+        instance.url_libgen = validated_data.get('url_libgen', instance.url_libgen)
+        instance.save()
+        return instance
     class Meta:
         model = Book
 
-        fields = ['id', 'url_pdf']
+        fields = "__all__"
+        
+
 
 # class AuthorSerializer(serializers.HyperlinkedModelSerializer):
 #     # owner = serializers.ReadOnlyField(source='owner.username')
@@ -185,18 +200,18 @@ class BookPdfUrlSerializer(serializers.ModelSerializer):
         
         
 
-# class BookSerializer(serializers.HyperlinkedModelSerializer):
-#     # owner = serializers.ReadOnlyField(source='owner.username')
-#     # custom_user = serializers.CurrentUserDefault()
-#     # user_num_b = HiddenFields(default=serializers.CurrentUserDefault())
+class BookSerializer(serializers.HyperlinkedModelSerializer):
+    # owner = serializers.ReadOnlyField(source='owner.username')
+    # custom_user = serializers.CurrentUserDefault()
+    # user_num_b = HiddenFields(default=serializers.CurrentUserDefault())
     
-#     user_num_b = serializers.HiddenField(default=1)
-#     published = serializers.DateField(label="Date of published book", style={'input_type': 'date'}) # input_formats="date"
-#     # published = serializers.DateField(format=api_settings.DATE_FORMAT, input_formats=None)
-#     class Meta:
-#         model = Book
-#         fields = ['url', 'title', 'author', 'surname', 'published', 'category', 'user_num_b', 'user_recs_b']
-#         # read_only_fields = ['user_num_b']
+    user_num_b = serializers.HiddenField(default=1)
+    published = serializers.DateField(label="Date of published book", style={'input_type': 'date'}) # input_formats="date"
+    # published = serializers.DateField(format=api_settings.DATE_FORMAT, input_formats=None)
+    class Meta:
+        model = Book
+        fields = ['url', 'title', 'author', 'surname', 'published', 'category', 'user_num_b', 'user_recs_b']
+        # read_only_fields = ['user_num_b']
 
 
 

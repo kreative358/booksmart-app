@@ -140,28 +140,29 @@
   font-size: 32px;
   color: rgba(0, 0, 210, 0.8);
   font-weight: bold;
-  line-height: 32px;
+  line-height: 1;
+  margin: 6px auto 6px auto;
   }
   
   #p_h3 {
     font-size: 32px;
     color: rgba(0, 0, 210, 0.8);
     font-weight: bold;
-    line-height: 32px;
+    line-height: 1;
     }
   
   .p_h5 {
     font-size: 26px;
     color: rgba(0, 0, 210, 0.8);
     font-weight: bold;
-    line-height: 26px;
+    line-height: 1;
     }
   
   #p_h5 {
     font-size: 26px;
     color: rgba(0, 0, 210, 0.8);
     font-weight: bold;
-    line-height: 26px;
+    line-height: 1;
     }
    
 
@@ -173,8 +174,12 @@
 
 <div>
 
-<p class="p_h3" id="a_submit_t"> {{ mmessage_docer }} </p>
-<div style="height: 20px; "> </div>
+<p class="p_h3"> 
+  {% autoescape off %}
+     {{ message_docer }} 
+  {% endautoescape %} 
+</p>
+
 </div>
 
 

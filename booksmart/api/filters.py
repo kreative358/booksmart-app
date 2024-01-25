@@ -74,7 +74,7 @@ def queryset_books(request):
 
 user_b = queryset_books
 
-def filter_books_user(requst, queryset, name, value):   
+def filter_books_user(request, queryset, name, value):   
     books = Book.objects.all()
     for book in books:
         if book.owner != request.user:

@@ -1,7 +1,7 @@
 import os, re, json, time, requests, datetime, random
 from os import environ
-from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo
-from booksmart.forms import BookForm, AuthorForm, SearchRecord, BookChange, ItemsSearchForm, LibrarySearch, BackgroundFormPoster, BackgroundFormVideo
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic
+from booksmart.forms import BookForm, AuthorForm, SearchRecord, BookChange, ItemsSearchForm, LibrarySearch, BackgroundFormPoster, BackgroundFormVideo, UrlPathForm
 from accounts.models import Account
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer, HTMLFormRenderer #, IsOwnerIsAdminOrReadOnly
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny, IsAuthenticatedOrReadOnly
@@ -26,7 +26,8 @@ from rest_framework.authtoken.views import ObtainAuthToken
 
 from django.utils.html import format_html
 from booksmart.read_book import *
-
+from booksmart.reader_archive import read_archive
+from django.http import JsonResponse
 
 context_main = {}
 
@@ -46,8 +47,8 @@ try:
     # elif not Book.objects.filter().all():
         context_main['allbooks'] = None
         context_main['num_books'] = 0
-except:
-    print("booksmart models 335 no Book.objects.all():")
+except Exception as err:
+    print(f"views_records: Book.objects.all() except Exception as {err}")
     pass
 
 try:
@@ -62,8 +63,8 @@ try:
     #elif not Author.objects.filter().all():
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
-except:
-    print("booksmart models 351 no Author.objects.all():")
+except Exception as err:
+    print(f"views_records: Author.objects.all(): except Exception as {err}")
     pass
 
 try:
@@ -74,8 +75,8 @@ try:
     elif not BackgroundPoster.objects.filter().last():
         context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
         context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-except:
-    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+except Exception as err:
+    print(f"views_records: Author.objects.all(): except Exception as {err}")
     pass
 
 try:
@@ -86,13 +87,13 @@ try:
     elif not BackgroundVideo.objects.filter().last():
         context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
-except:
-    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+except Exception as err:
+    print(f"views_records: BackgroundVideo.objects.filter().last(): except Exception as {err}")
     pass
 
 try:
     if BackgroundMusic.objects.filter().last():   
-        music = BackgroundVideo.objects.filter().last()
+        music = BackgroundMusic.objects.filter().last()
         context_main['music_url_1'] = music.link_music_1
         context_main['music_type_1'] = music.type_music_1
         context_main['music_url_2'] = music.link_music_2
@@ -102,7 +103,8 @@ try:
         context_main['music_type_1'] = "mp3"
         context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_main['music_type_2'] = "mp3"
-except:
+except Exception as err:
+    print(f"views_records: BackgroundMusic.objects.filter().last(): except Exception as {err}")
     context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
     context_main['music_type_1'] = "mp3"
     context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
@@ -130,14 +132,17 @@ def read_book(request, id):
 
     context['book'] = book
 
-    keyword_field = {}
+    # keyword_field = {}
 
-    logs = [('booksmart01@hotmail.com', 'Djangoapp01o'), ('booksmart02@hotmail.com', 'Djangoapp02o'), ('booksmart03@hotmail.com', 'Djangoapp03o')]
-    log = random.choice(logs)
-    # print('log', log)
+    # logs = [('booksmart01@hotmail.com', 'Djangoapp01o'), ('booksmart02@hotmail.com', 'Djangoapp02o'), ('booksmart03@hotmail.com', 'Djangoapp03o')]
+    # log = random.choice(logs)
+    # # print('log', log)
 
-    context['mail'] = log[0]
-    context['pass'] = log[1]
+    # context['mail'] = log[0]
+    # context['pass'] = log[1]
+    
+    read_book.book_id = book.id
+    print("read_book.book_id =", read_book.book_id)
     return Response(context, template_name='read_book.html', )
     # return render(request, "read_book.html", context )
 
@@ -151,8 +156,10 @@ def read_book_ol(request, id):
     container = {}
     r_user = request.user
     current_url_name = request.path
-    book = get_object_or_404(Book, pk=id)
-    
+    book_id = current_url_name.split("/")[-1]
+    # book = get_object_or_404(Book, pk=id)
+    book = Book.objects.filter(pk=book_id).first()
+    context['book'] = book
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
 
@@ -161,7 +168,6 @@ def read_book_ol(request, id):
     context['num_authors'] = num_authors
     context['num_books'] = num_books
 
-    context['book'] = book
     keyword_field = {}
 
     logs = [('booksmart01@hotmail.com', 'Djangoapp01o'), ('booksmart02@hotmail.com', 'Djangoapp02o'), ('booksmart03@hotmail.com', 'Djangoapp03o')]
@@ -180,12 +186,14 @@ def read_book_ol(request, id):
         formlib = LibrarySearch(request.POST)
         if formlib.is_valid():
             title_to_search = book.title
+            author_to_find_ol = book.author.split()[-1][:3].lower()
+            print()         
+            print("ol title_to_search =", title_to_search)
             title_to_find = title_to_search.replace(" ","+")
 
-        
-        search_url = f'https://archive.org/advancedsearch.php?q={title_to_find}&fl[]=identifier&rows=50&page=1&output=json'
+        # search_url = f'https://archive.org/advancedsearch.php?q={title_to_find}&fl[]=identifier&rows=50&page=1&output=json'
+        search_url = f'https://archive.org/advancedsearch.php?q=title:{title_to_find}&mediatype:texts&fl[]=identifier&rows=50&page=1&output=json'
         print('search_url =', search_url)
-
         # search_url = f'https://openlibrary.org/search/inside.json?q={title_plus}'
         r = requests.get(url=search_url)
         if r.status_code != 200:
@@ -204,7 +212,7 @@ def read_book_ol(request, id):
         # records = json.loads(data)
         records = data["response"]["docs"]
         ids = [",".join(list(x.values())) for x in records]
-        ids_books = [x for x in ids if "0000" in x]
+        ids_books = [x for x in ids if author_to_find_ol in x]
         
         # container = {}
         # container.clear()
@@ -219,11 +227,13 @@ def read_book_ol(request, id):
                 
                 if len(ids_books) == 1:
                     print('220. ids_books =', ids_books)
+
                     container_one = container
                     # container_one['link'] = f'https://openlibrary.org/borrow/ia/{ids[0]}?ref=ol'
                     container_one['link'] = f'https://archive.org/details/{ids[0]}?view=theater'
                     context['cont'] = container_one
                     print("container_one =",  container_one)
+                    
                     return render(request, "read_book_ol.html", context )
 
                 elif len(ids_books) > 1 and len(ids_books) < 7:
@@ -254,10 +264,12 @@ def read_book_ol(request, id):
                     context['conts'] = containers_many
                     print("containers_many =",  containers_many)
                     # return Response(context, template_name='read_book.html', ) 
+
                     return render(request, "read_book_ol.html", context )
 
             elif len(ids_books)==0:
                 context['message_read'] = 'Sorry, probably no this title to read for free in openlibrary'
+
                 return render(request, "read_book_ol.html", context )
             
         except:    
@@ -273,6 +285,159 @@ def read_book_ol(request, id):
 
     # return Response(context, template_name='read_book_ol.html', )
     return render(request, "read_book_ol.html", context )
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+@authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
+def read_book_archive(request, id):
+    context = {}
+    container_link = {}
+    r_user = request.user
+    current_url_name = request.path
+    archive_title = ""
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.all().count()
+
+    context = context_main
+    # book = get_object_or_404(Book, pk=id)
+    book_id = current_url_name.split("/")[-1]
+    # book = get_object_or_404(Book, pk=id)
+    book = Book.objects.filter(pk=book_id).first()
+    context['book'] = book    
+    context['num_authors'] = num_authors
+    context['num_books'] = num_books
+    # book_title = Book.objects.filter(pk=read_book.book_id).first()
+    book_title = Book.objects.filter(pk=id).first()
+    keyword_field = {}
+
+    ids = []
+    ids.clear()
+    ids_books = []
+    ids_books.clear()
+    context["title"] = book.title
+    archive_title = book.title
+    print('context["title"] =', context["title"])
+    # if request.POST:
+    #     formlib = LibrarySearch(request.POST)
+    #     if formlib.is_valid():
+    #         title_to_search = book.title
+    #         print("ol title_to_search =", title_to_search)
+    #         title_to_find = title_to_search.replace(" ","+")
+    # if request.POST.get("search_title_ar_name", False):
+    #     title_to_search_ar = request.POST["search_title_ar_name"]
+    #     context["title_to_search_ar"] = title_to_search_ar
+    #     print("ar title_to_search_ar =", title_to_search_ar)
+    #     title_to_find_ar = title_to_search_ar.replace(" ","+")
+    context["value_id"] = ""
+    context["values_id"] = []
+    if request.method == "GET":
+        
+        try:   
+            title_to_find_ar = book.title
+            author_to_find_ar = book.author.split()[-1][:3].lower()
+            print()
+            print("title_to_find_ar =", title_to_find_ar)
+            # search_url = f'https://archive.org/advancedsearch.php?q={title_to_find_ar}&fl[]=identifier&rows=50&page=1&output=json'
+            search_url = f'https://archive.org/advancedsearch.php?q=title:{title_to_find_ar}&mediatype:texts&fl[]=identifier&rows=50&page=1&output=json'
+            print('search_url =', search_url)
+
+            # search_url = f'https://openlibrary.org/search/inside.json?q={title_plus}'
+            r = requests.get(url=search_url)
+            if r.status_code != 200:
+                context['message_read_link'] = f'Sorry, probably something went wrong, r.status_code = {r.status_code}'
+                # return Response(context, template_name='read_book.html', )
+                return render(request, "read_book_ar.html", context )
+            
+            elif r.status_code == 200:            
+                links = []
+
+                data = r.json()
+                print(data)
+                # data = r
+                # records = json.loads(data)
+                records = data["response"]["docs"]
+                ids = [",".join(list(x.values())) for x in records]
+                ids_books = [x for x in ids if author_to_find_ar in x and "00" in x]
+                print("1. ids_books =", ids_books)
+                # container['title'] = title_to_search
+
+                # container_link['title'] = book.title
+                if len(ids_books) == 1:
+                    print('1. ids_books =', ids_books)
+                    context["value_id"] = ids_books[0]
+                    
+                elif len(ids_books) > 1 and len(ids_books) < 7:
+                    print('2. ids_books =', ids_books)   
+                    context["values_id"] = ids_books
+                
+                elif len(ids_books) > 1 and len(ids_books) > 6:
+                    ids_books = ids_books[:6]
+                    context["values_id"] = ids_books
+                    print('3. ids_books =', ids_books)
+                    
+                elif len(ids_books) == 0:
+                    context['message_read_link'] = 'Sorry, probably no this title to read for free in openlibrary'
+                    
+                return render(request, "read_book_ar.html", context )    
+        except Exception as e:
+            print(f"1. book_reader_ar Exception: {e}")   
+            context['message_read_link'] = 'Apparently something went wrong, it is impossible to check whether it is possible to borrow this book'  
+            return render(request, "read_book_ar.html", context)  
+         
+    if request.method == 'POST': 
+        context_read_archive = {}
+        context_read_archive["read_archive_return_message"] = ""
+        context_read_archive["read_archive_link_pdf"] = ""
+        try:
+            # if request.POST.get("name_id_archive", False):
+            #     link_id = request.POST["name_id_archive"]
+            #     print("1. link_id =", link_id)
+            # if request.method == 'POST':
+            data_archive_id = request.data
+            link_id = data_archive_id["archive_id"]
+            print("link_id =", link_id)
+            
+            # read_archive(link_id)
+
+            read_archive(link_id, archive_title, context_read_archive)
+            
+            # if read_archive.link_pdf != "" and read_archive.return_message == "":
+            if context_read_archive["read_archive_link_pdf"] != "" and context_read_archive["read_archive_return_message"] == "":
+                print('context_read_archive["read_archive_link_pdf"] =', context_read_archive["read_archive_link_pdf"])
+                # context["link_pdf_archive"] = read_archive.link_pdf
+                context_read_archive["link_pdf_archive"] = context_read_archive["read_archive_link_pdf"]
+                # result_pdf = read_archive.link_pdf
+                result_pdf = context_read_archive["link_pdf_archive"]
+                # return render(request, "read_book_ar.html", context)
+                return JsonResponse({'status_pdf': result_pdf})
+            
+            # elif read_archive.link_pdf == "" and read_archive.return_message != "":
+            elif context_read_archive["read_archive_link_pdf"] == "" and context_read_archive["read_archive_return_message"] != "":
+                print('context_read_archive["read_archive_return_message"] =', context_read_archive["read_archive_return_message"])
+                # result_msg = read_archive.return_message
+                result_msg = context_read_archive["read_archive_return_message"]
+                return JsonResponse({'status_msg': result_msg})
+                # return render(request, "read_book_ar.html", context)
+
+            # links = [f'https://openlibrary.org/borrow/ia/{ids_books[i]}?ref=ol' for i in range(len(ids_books))]
+            # links = [f'https://archive.org/details/{ids_books[i]}?view=theater' for i in range(len(ids_books))]
+            # context['message_read_link'] = read_archive.return_message
+            # context['message_read_link'] = context["read_archive_return_message"]
+            # return render(request, "read_book_ar.html", context)
+
+        except Exception as e:    
+            print(f"2. book_reader_ar Exception: {e}") 
+            try:
+                result_msg = f"something went wrong error: probably alert."
+                return JsonResponse({'status_msg': result_msg})
+            except Exception as e:
+                print(f"435. Exception as {e}")
+                context['message_read_link'] = 'Sorry, probably no this title to read for free in my library'
+                return render(request, "read_book_ar.html", context)
+
+
+    return render(request, "read_book_ar.html", context )
 
 
 @api_view(['GET', 'POST'])

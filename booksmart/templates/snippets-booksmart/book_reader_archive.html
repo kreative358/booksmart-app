@@ -1,0 +1,769 @@
+<script>
+  function myFunctionClear_site() {
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
+</script>
+
+<style type="text/css">
+
+/* 
+⊕ ⊖ − ∓ ─  
+*/
+
+button {
+  border: none;
+  outline: none;
+}
+
+/*⊕ ⊖ − ∓ ─  */
+
+.mycolumn_book_reader {  
+  position:relative;
+  z-index:14;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid rgba(90, 150, 210, 0.2);
+  border-radius: 4px;
+  background: rgba(90, 150, 210, 0.4);
+  box-shadow:-1px -1px 0px 0px rgb(151, 191, 231), 
+  1px 1px 0px 0px rgb(151, 191, 231),
+  -2px 2px 0px 0px rgb(151, 191, 231), 
+  2px 2px 0px 0px rgb(151, 191, 231),
+  0px 2px 4px 3px rgb(110, 170, 210),
+  0px 3px 0px 0px rgb(90, 150, 210), 
+  -1px 6px 6px 0px rgba(80, 140, 200, 0.8), 
+  1px 8px 8px 0px rgb(119, 120, 123), 
+  0px 10px 8px 0px rgb(77, 77, 79), 
+  0px 12px 8px 0px rgb(51, 51, 53);
+  color: white;
+  font-weight: bold;
+  padding-top: 2px;
+  text-align: center;
+  margin:30px auto 40px auto;
+  width: 520px;
+  max-width: 90%;
+  font-family: Times;
+  padding: 10px;
+  left: 12px;
+  display: block;
+    }
+
+.mycolumn_book_reader:hover {
+color: darkblue;
+background-color: rgb(100, 160, 220); 
+background-color: rgba(100, 160, 220, 0.6); 
+-webkit-backdrop-filter: blur(4px);
+backdrop-filter: blur(4px);
+box-shadow: -1px 2px 1px 1px rgba(110, 170, 230, 0.4), 1px -1px 1px 1px rgba(110, 170, 230, 0.4), 0px 4px 0px 0px rgba(47, 128, 208, 0.4), 0px 8px 0px 0px rgba(38, 102, 166, 0.4), -4px 10px 8px 2px rgba(229, 230, 243, 0.4), 4px 0px 8px 2px rgba(219, 220, 233, 0.4),  0px 12px 6px 2px rgba(209, 210, 222, 0.4), 0px 14px 8px 0px rgba(199, 200, 212, 0.4), 0 16px 20px 0 rgba(190, 190, 201, 0.4);
+}
+
+.mycolumn_book_reader:active {
+color: LightSteelBlue;
+background-color: rgb(200, 200, 240); 
+background-color: rgba(200, 200, 240, 0.6); 
+-webkit-backdrop-filter: blur(2px);
+backdrop-filter: blur(2px);
+box-shadow: 
+-3px 4px 4px 2px rgba(29, 130, 243, 0.6), 
+-3px -2px 4px 1px rgba(29, 130, 243, 0.6),
+3px 4px 4px 2px rgba(29, 130, 243, 0.6), 
+3px -2px 4px 1px rgba(29, 130, 243, 0.6),
+}
+
+.mycard_book_reader {
+position: relative;
+background: rgba(90, 150, 210, 0.4);
+margin: auto;
+padding: 10px;
+z-index: 15;
+}
+
+.information_bar {
+  font-size: 22px; 
+  color: mediumblue; 
+  padding: 10px; 
+  max-width: 90%; 
+  position: relative; 
+  margin: 10px auto 16px auto;
+  box-shadow: 
+  0px 0px 2px 4px rgba(200, 20, 10, 0.8) inset,
+  0px 0px 4px 4px rgba(220, 220, 240, 0.6); 
+  border-radius: 2px;
+}
+
+.btn_iframe {
+  text-shadow:
+  0.04em 0.06em 0.04em rgba(60, 80, 100, 0.6);
+  position:relative;
+  background-color: rgba(40, 160, 240, 0.4);
+	border: 2px solid rgba(60, 160, 240, 0.8);
+  /*rgba(10, 80, 240, 0.6);
+  text-shadow: 0px 1px 1px #fff, 0 -1px 1px #000;*/ 
+  color: rgba(160, 170, 180, 0.8); 
+  border-radius:2px;
+  padding-top: 6px;
+  padding-bottom: 5px;
+  font-weight:bold;
+  font-family:Times;
+ 
+  font-size: 14px;  
+}
+
+@keyframes anime_red_border {
+25% {
+border-color: red;}
+}  
+
+
+@keyframes anime_red_text {
+25% {
+color: red;}
+}  
+
+@keyframes anime_visible {
+from {opacity: 0;}
+to {opacity: 0.9;}
+
+}
+
+@keyframes anime_invisible {
+from {opacity: 0.9;}
+to {opacity: 0;}
+}
+
+
+[id^='button_ol_'].focus,
+[id^='button_ol_'].active {
+transform: matrix(0.98, 0, 0, 0.98, 0, 2);
+}
+
+.scene {
+width: 340px;
+height: 110px;
+border: 1px solid transparent;
+position: relative;
+perspective: 600px;
+margin: 10px auto 10px auto; 
+max-width: 90%;
+z-index: 16;
+}
+
+.button_readers,
+.button_downloads,
+.card__face--front,
+.card__face--back {
+box-shadow: 
+0px 0px 2px 4px rgba(10, 20, 220, 0.8) inset,
+0px 0px 4px 4px rgba(220, 220, 240, 0.6); 
+font-size: 18px; 
+font-weight: bold;
+background-color: rgba(60, 160, 240, 0.4);
+color: rgba(0, 0, 180, 0.9);
+font-variant: small-caps;
+position: relative;
+z-index: 18;
+line-height: 1.2;
+}
+
+.card__face--back {
+  padding: 10px;
+}
+
+.card__face--front {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.card {
+width: 100%;
+height: 100%; 
+transition: transform 1s;
+transform-style: preserve-3d;
+cursor: pointer;
+position: relative; 
+background: transparent;
+background-color: transparent;
+z-index: 17;
+}
+
+.card.is-flipped {
+transform: rotateY(180deg);
+}
+
+.button_readers,
+.button_downloads {
+  padding: 10px; 
+  width: 340px;
+  position: relative;
+  margin: 10px auto 10px auto; 
+  max-width: 340px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.card__face {
+position: absolute;
+width: 100%;
+height: 100%; 
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+}
+
+.card__face--back {
+transform: rotateY(180deg);
+height: 100%; 
+width: 100%;
+}
+
+
+.button_readers:hover,
+.button_readers:focus,
+.button_downloads:hover,
+.button_downloads:focus,
+.card__face--front:hover,
+.card__face--front:focus,
+.card__face--back:hover,
+.card__face--back:focus {
+box-shadow: 
+0px 0px 2px 4px rgba(210, 20, 10, 0.8) inset,
+0px 0px 4px 4px rgba(220, 220, 240, 0.8); 
+color: rgba(210, 20, 10, 0.9);
+}
+
+.button_readers:active,
+.button_downloads:active,
+.card__face--front:active,
+.card__face--back:active {
+box-shadow: 
+0px 0px 2px 4px rgba(210, 20, 10, 0.8) inset,
+0px 0px 4px 4px rgba(220, 220, 240, 0.8); 
+color: rgba(210, 20, 10, 0.9);
+transform: matrix(0.98, 0, 0, 0.98, 0, 0);
+}
+
+@media screen and (max-width: 560px) {
+#marque {
+  font-size: 24px;
+}
+
+.mycolumn_book_reader,
+.mycolumn_book_reader_new {
+  max-width: 94%;
+  width: 94%;
+}
+}
+
+@media screen and (max-width: 480px) {
+
+#marque {
+  font-size: 22px;
+}
+
+.mycolumn_book_reader,
+.mycolumn_book_reader_new {
+  max-width: 98%;
+  left: 0px;
+}
+}
+
+.scene {
+  display: none;
+} 
+
+/* #scene_flip_1a,
+#scene_flip_1b,
+#div_form_downloadbook_1a {
+display: none;
+} */
+</style>
+<style>
+
+  @keyframes opacityanime {
+  from {opacity:1;} 
+  to {opacity:0;}
+  }
+  
+  @keyframes modalfadeout {
+  from {background-color: rgba(20, 100, 200, 0.4);} 
+  to {background-color: rgba(20, 100, 200, 0.0);}
+  }
+  
+  @keyframes modalfadein {
+  from {background-color: rgba(20, 100, 200, 0.0);} 
+  to {background-color: rgba(20, 100, 200, 0.4);}
+  }
+  
+  .mymodal_reader_back {
+  position: fixed;
+  display:none;
+  z-index:77;
+  /*
+  display:none;padding-top: 100px;  Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(20, 100, 200); 
+  background-color: rgba(20, 100, 200, 0.4); 
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation:noname;
+  }
+  
+  /* Modal Content */
+  .mycontainer_reader {
+  position: fixed;
+  z-index:88;
+  top: 54px;
+  width: 520px;
+  max-width: 100%;
+  height: 680px;
+  max-height: 100%;
+  background-color: rgba(60, 160, 240, 0.4);
+  border-radius: 4px;
+  box-shadow: 
+  0px 0px 10px 10px rgba(160, 170, 180, 0.4),
+  0px 10px 20px 0px rgba(160, 170, 180, 0.4),
+  -6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+  6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+  0px 10px 16px 0px rgba(160, 170, 180, 0.4),
+  0px -6px 16px 0px rgba(160, 170, 180, 0.4);
+  border: 6px solid rgba(60, 160, 240, 0.8);
+  padding: 2px;
+  animation-delay: 2s;
+  animation: noname2;
+  transition: 0.1s;
+  left: 50%;
+  margin-left: -260px;
+  display: none;
+  resize: both;
+  }
+
+  .mycontainer_reader:hover,
+  .mycontainer_reader:active {
+    box-shadow: 
+    0px 0px 10px 10px rgba(160, 170, 180, 0.4),
+    0px 10px 20px 0px rgba(160, 170, 180, 0.4),
+    -6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+    6px 0px 16px 0px rgba(160, 170, 180, 0.4),
+    0px 10px 16px 0px rgba(160, 170, 180, 0.4),
+    0px -6px 16px 0px rgba(160, 170, 180, 0.4);
+    position: fixed;
+    z-index: 88;
+    top: 60px;
+    width: 520px;
+    max-width: 100%;
+    height: 680px;
+    max-height: 100%;
+    resize: both;
+  }
+  
+  .div_iframe_class {
+
+  }
+  .iframe_pdf_class {
+   width: 100%;
+   height: 94%;
+
+  }
+
+  @keyframes unzoomrotate {
+    from {transform:scale(1); rotate:360deg;} 
+    to {transform:scale(0); rotate: 0deg;}
+  } 
+  @keyframes zoomrotate {
+    from {transform:scale(0); rotate:0deg;} 
+    to {transform:scale(1); rotate: 360deg;}
+  } 
+  
+  /* Add Animation */
+  @keyframes unzoom {
+    from {transform:scale(1);} 
+    to {transform:scale(0);
+    }
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0);} 
+    to {transform:scale(1);
+    }
+  }
+  
+  @keyframes animatetopback {
+    from {top: 0px; }
+    to {top:-1000px; }
+  }
+
+.myrow_reader {
+  background-color: rgb(60, 160, 240); 
+  background-color: rgba(60, 160, 240, 0.0);
+  border: 6px solid rgba(60, 160, 240, 0.8);
+  box-shadow: 
+  0px 0px 4px 4px rgba(160, 170, 180, 0.2);
+  border-radius: 4px;
+  padding: 10px;
+  margin:auto;
+}   
+
+.modal_header_reader {
+  background-color: rgb(60, 160, 240); 
+  background-color: rgba(60, 160, 240, 0.0);
+  border: 6px solid rgba(60, 160, 240, 0.8);
+  box-shadow: 
+  0px 0px 4px 4px rgba(160, 170, 180, 0.2);
+  border-radius: 4px;
+  padding: 10px;
+  margin: auto;
+  }
+
+.close_m {
+color:  rgba(220, 230, 240, 0.6);
+float: right;
+font-size: 24px;
+font-weight: bold;
+cursor: pointer;
+transition: 0.1s;
+font-family: helvetica;
+color: rgba(220, 230, 240, 0.6);
+text-shadow:
+-0.06em 0.06em 0.04em rgba(0, 0, 209, 0.6);
+padding:4px;
+line-height: 22px;
+}
+
+.close_m:hover {
+text-shadow:
+-0.06em 0.06em 0.04em rgba(9, 109, 209, 0.8)
+color:  rgba(230, 240, 250, 0.8);
+}
+
+.close_m:active {
+transform: matrix(0.98, 0, 0, 0.98, 0, -2);
+color: rgba(20, 20, 220, 0.9);
+  text-shadow:
+-0.03em 0.03em 0.02em rgba(220, 230, 240, 0.8);
+}
+
+.close_m:focus {
+border:none;
+outline:none;
+text-decoration: none;
+}    
+
+.close_m_class,
+.close_m_class:hover, {
+  color:  rgba(220, 230, 240, 0.6);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.1s;
+  font-family: helvetica;
+  color: rgba(220, 230, 240, 0.6);
+  text-shadow:
+  -0.06em 0.06em 0.04em rgba(0, 0, 209, 0.6);
+  padding:4px;
+line-height: 22px;
+text-align: right; 
+margin-bottom: -10px;
+  }
+  
+@keyframes anime_submit_t {
+  50% {color: red;}
+    }  
+
+@keyframes anime_red_text {
+  50% {color: red;}
+    } 
+    
+.title_header_modal_booksearch,
+.title_header_modal_booksearch:hover {
+  color: aliceblue;
+  font-size: 22px;
+  text-align: center; 
+  margin: -10px auto 0px auto;
+  padding: 0px;
+  line-height: 0.8;
+}
+
+
+</style>  
+<style>
+ .dialog_iframe_class {
+  position: fixed;
+  z-index: 88;
+  height: 660px;
+  width: 520px;
+  top: 60px;
+  }
+  
+
+  
+  </style>
+
+
+<p id="hidden_please_1" style="display: none;"></p>
+
+      {% if value_id %}
+      <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
+        <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">
+        
+          {% include 'snippets-booksmart/openbook_archive.html' %}
+
+        <div class="scene scene--card" id="scene_flip_1a">
+          <div  class="card" id="card_flip_1a">
+          <div class="card__face card__face--front" >
+          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
+          </div> 
+          <div class="card__face card__face--back" id="create_input">
+          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
+          <input class="created_input" id="created_input_1a" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
+          </div>
+          </div>
+          </div>  
+
+        </div>
+      </div>
+
+
+    {% elif values_id %}
+      <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
+        <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">
+        {% for value_id in values_id %}
+        {% include 'snippets-booksmart/openbook_archive.html' %}
+
+        {% endfor %}
+
+        <div class="scene scene--card" id="scene_flip_1b">
+          <div  class="card" id="card_flip_1b">
+          <div class="card__face card__face--front" >
+          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;">if the previous method <br> did not work properly <br> press this </p>
+          </div> 
+          <div class="card__face card__face--back" id="create_input">
+          <p style="line-height: 1.2; margin-top: 0px; margin-bottom: 0px;"> type the magic word anywhere <br> or type the magic word below </p>
+          <input class="created_input" id="created_input_1b" type="text" placeholder="magic word" pattern="please" maxlength="6" style="width: 200px; position: relative; margin: 10px; text-align: center; text-justify: inter-word;">
+          </div>
+          </div>
+          </div>  
+
+        </div>
+      </div>
+
+
+    {% elif message_read_link != "" %}
+    <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
+    <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">     
+    <div class="information_bar" > 
+    <p style="line-height: 1.2; margin-bottom: 6px;"> Information about book title: </p> 
+
+    <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite; margin-bottom: 6px;"> "{{ book.title }}" </p> 
+    <p style="line-height: 1; margi-top: 10px; margin-bottom: 6px;" > {{message_read_link}} </p> 
+    </div>
+
+    <div id="div_form_downloadbook_1a">
+    <form action="{% url 'booksmart:download-book' book.id %}" method="GET" target="_blank" id="form_downloadbook_1a">
+    {{ search_title_download }}
+
+    <input type="hidden" id="book_id_download" name="book_id_download_search" value="{{ book.id }}">
+
+    <span id="tooltip">
+    <button type="submit" class="button_downloads" id='btn_form_downloadbook_1a' >
+      IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND</button>
+    <span id="tooltiptext" >PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT</span></span>
+    </form>
+  </div>
+
+    </div>
+    </div>
+
+    {% endif %}
+
+
+  <div class="mycolumn_book_reader" id="mycolumn_book_download">
+    <div class="mycard_book_reader" id="">
+    <form action="{% url 'booksmart:download-book' book.id %}" method="GET" target="_blank" id="form_downloadbook_1b">
+  {{ search_title_download }}
+
+  <input type="hidden" id="book_id_download" name="book_id_download_search" value="{{ book.id }}">
+
+    <button type="submit" class="button_downloads" id='tooltip' style="line-height: 1.2;">
+    IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.
+  <span id="tooltiptext" style="z-index:22;">PLEASE REMEMBER THAT THIS FUNCTION IS TESTED AND DOES NOT ALWAYS RETURN THE RIGHT RESULT.</span></button>
+  </form>
+  </div>
+  </div>
+
+
+  <div class="mycontainer_reader" id="mycontainer_reader_id" style="top: 60px;">
+    <div class="mymodal_header_reader" >
+      <button class="btn_iframe" id="btn_iframe_open" onclick="openFullscreen();" style="float:left; margin-top: -12px; display: block;">Fullscreen Mode</button>
+      <button class="btn_iframe" id="btn_iframe_close"  onclick="closeFullscreen();" style="float:left; margin-top: -12px; display: none;">Close Fullscreen</button>
+      <p id="close_m_reader_id" class="close_m_class" style="text-align: right; margin-bottom: -10px; width: 20px;">✖</p>
+      <p style="margin-top: -10px; margin-bottom: 6px;" class="title_header_modal_booksearch">{{ title }}</p>
+    </div>
+  <iframe id="iframe_pdf_id" class="iframe_pdf_class" src=""></iframe>
+</div>
+
+
+
+<script type="text/javascript">
+
+  if (
+  navigator.userAgent.match(/Android/i) ||
+  navigator.userAgent.match(/iPhone/i)
+) { 
+  document.getElementById("div_form_downloadbook_1a").style.display = "none";
+}
+  else {
+    // document.getElementById("div_form_downloadbook_1a").style.display = "block";
+    document.getElementById("mycolumn_book_download").style.display = "none";
+    const cards = document.getElementsByClassName('card');
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].parentElement.style.display = "block";
+      cards[i].onclick = function() {
+      cards[i].classList.add('is-flipped')
+      setTimeout(function() { 
+      cards[i].classList.remove('is-flipped'); 
+      }, 10000); 
+      }
+      cards[i].ondblclick = function() {
+      cards[i].classList.remove('is-flipped');
+      }
+      }
+      document.addEventListener("keypress", handleEventLibgen);   
+}
+ 
+
+var mycolumn_book_download = document.getElementById("mycolumn_book_download");
+let oTextbox1 = document.getElementById("hidden_please_1");
+let oInputbox1 = document.querySelector(".created_input");
+
+
+/* if (
+  navigator.userAgent.match(/Android/i) ||
+  navigator.userAgent.match(/iPhone/i)
+) { 
+  mycolumn_book_download.style.display = "block";
+}
+else {
+  div_form_downloadbook_1a.style.display = "block";
+  scene_flip_1a.style.display = "block";
+  scene_flip_1b.style.display = "block";
+  document.addEventListener("keypress", handleEventLibgen);
+} */
+
+/* if (
+  !navigator.userAgent.match(/Android/i) &&
+  !navigator.userAgent.match(/iPhone/i)
+) { 
+  mycolumn_book_download.display = "none";
+  div_form_downloadbook_1a.style.display = "block";
+  scene_flip_1a.style.display = "block";
+  scene_flip_1b.style.display = "block";
+  document.addEventListener("keypress", handleEventLibgen);
+} */
+  
+  function handleEventLibgen(oEvent) {
+    // oTextbox1.innerText += oEvent.key;
+    oTextbox1.innerText += oEvent.key.toLowerCase();
+    if (oTextbox1.innerText === "please") {
+      mycolumn_book_download.style.display = "block";
+      mycolumn_book_download.style.animation = "anime_visible 2s";
+ 
+      setTimeout(function(){ 
+      oTextbox1.innerText = "";
+      oInputbox1.value = "";
+      }, 3000);
+      
+      setTimeout(function(){ 
+        mycolumn_book_download.style.animation = "anime_invisible 2s";
+        }, 6000);
+        
+        setTimeout(function(){
+        mycolumn_book_download.style.display = "none";}, 
+        7800);
+      }
+        
+      else {
+        setTimeout(function(){ 
+          oTextbox1.innerText = "";
+          oInputbox1.value = "";
+          }, 7000);
+      }
+  } 
+
+
+</script>
+
+<script>
+  let button_readers = document.querySelectorAll(".button_readers");
+  
+   function getBrowserName() {
+     let browserInfo = navigator.userAgent;
+     let browser;
+     if (browserInfo.includes('Opera') || browserInfo.includes('Opr')) {
+       browser = 'Opera';
+     } else if (browserInfo.includes('Edg')) {
+      browser = 'Edge';
+     } else if (browserInfo.includes('Chrome')) {
+      browser = 'Chrome';
+     } else if (browserInfo.includes('Safari')) {
+      browser = 'Safari';
+     } else if (browserInfo.includes('Firefox')) {
+      browser = 'Firefox'
+     } else {
+       browser = 'different'
+     }
+      return browser;
+   }
+   
+ for (let button_reader of button_readers) {   
+   function once() {  
+      let browserName = getBrowserName();
+      if (browserName != "Chrome") {
+     // if (browserName != "Edge") {
+      alert(`Remember that to use this option\nyou must have Chrome browser installed.\n\nYou're seeing this notification\nbecause you're currently using \na ${browserName} browser`);
+      }
+      button_reader.removeEventListener("mouseover", once);
+     };
+     button_reader.addEventListener("mouseover", once);
+  }
+   </script>
+
+   <script>
+    /* Get the element you want displayed in fullscreen */ 
+    //https://archive.org/download/calibre_library_76.105.31.130/The%20Path%20of%20Daggers%20%28The%20Wheel%20-%20Robert%20Jordan_168.pdf
+    var elem = document.getElementById("mycontainer_reader_id");
+    var btn_iframe_open = document.getElementById("btn_iframe_open");
+    var btn_iframe_close = document.getElementById("btn_iframe_close");
+    // var elem = document.getElementById("iframe_pdf_id");
+    /* Function to open fullscreen mode */
+    function openFullscreen() {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+        btn_iframe_open.style.display = "none";
+        btn_iframe_close.style.display = "block";
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
+    }
+    
+    function closeFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        btn_iframe_close.style.display = "none";
+        btn_iframe_open.style.display = "block";
+        
+      } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+      }
+    }
+    </script>

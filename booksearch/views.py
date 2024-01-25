@@ -1,7 +1,7 @@
 import os, requests, json, re, datetime
 from django.shortcuts import render, get_object_or_404, redirect
 from booksearch.forms import BookSearch
-from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo #, context_bm_m
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic #, context_bm_m
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 
@@ -37,8 +37,8 @@ try:
     # elif not Book.objects.filter().all():
         context_main['allbooks'] = None
         context_main['num_books'] = 0
-except:
-    print("booksmart models 335 no Book.objects.all():")
+except Exception as err:
+    print(f"booksearch views: Book.objects.all() except Exception as {err}")
     pass
 
 try:
@@ -53,8 +53,8 @@ try:
     #elif not Author.objects.filter().all():
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
-except:
-    print("booksmart models 351 no Author.objects.all():")
+except Exception as err:
+    print(f"booksearch views: Author.objects.all(): except Exception as {err}")
     pass
 
 try:
@@ -65,8 +65,8 @@ try:
     elif not BackgroundPoster.objects.filter().last():
         context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
         context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-except:
-    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+except Exception as err:
+    print(f"booksearch views: Author.objects.all(): except Exception as {err}")
     pass
 
 try:
@@ -77,13 +77,13 @@ try:
     elif not BackgroundVideo.objects.filter().last():
         context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
-except:
-    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+except Exception as err:
+    print(f"booksearch views: BackgroundVideo.objects.filter().last(): except Exception as {err}")
     pass
 
 try:
     if BackgroundMusic.objects.filter().last():   
-        music = BackgroundVideo.objects.filter().last()
+        music = BackgroundMusic.objects.filter().last()
         context_main['music_url_1'] = music.link_music_1
         context_main['music_type_1'] = music.type_music_1
         context_main['music_url_2'] = music.link_music_2
@@ -93,7 +93,8 @@ try:
         context_main['music_type_1'] = "mp3"
         context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_main['music_type_2'] = "mp3"
-except:
+except Exception as err:
+    print(f"booksearch views: BackgroundMusic.objects.filter().last(): except Exception as {err}")
     context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
     context_main['music_type_1'] = "mp3"
     context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"

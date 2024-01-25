@@ -8,6 +8,8 @@ from rest_framework.authtoken.models import Token
 from django.conf.global_settings import LANGUAGES
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from accounts.models import Account
+from django.db.utils import OperationalError
+from sqlite3 import OperationalError as qlite3_OperationalError
 #import requests
 
 # import uuid
@@ -19,6 +21,7 @@ from accounts.models import Account
 # from rest_framework.reverse import reverse
 from django.urls import reverse
 from django.contrib.auth.models import AnonymousUser
+
 
 from django.db.models.signals import class_prepared
 
@@ -168,8 +171,9 @@ class Language(models.Model):
 
 class Book(models.Model):
     url = models.URLField(blank=True, null=True)
-    url_pdf = models.URLField(blank=True, null=True, default='no pdf link')
-
+    url_pdf = models.CharField(max_length=320, blank=True, null=True, default='')
+    url_pdf_search = models.CharField(max_length=320, blank=True, null=True, default='')
+    pdf_search_filename = models.CharField(max_length=120, blank=True, null=True, default='')
     google_id = models.CharField(max_length=24, default="")
     title = models.CharField(max_length=100)
 
@@ -205,12 +209,12 @@ class Book(models.Model):
     created_at = models.DateTimeField(auto_now_add= True, verbose_name='date add book')
     modified_at = models.DateTimeField(auto_now_add= True, verbose_name='date update book')
     slug = models.SlugField(blank=True, null=True) # unique=True
+    url_libgen = models.CharField(max_length=120, blank=True, null=True, default='')
     ## pełna nazwa klasy w liczbie pojedynczej i mnogiej
     # verbose_name = 'BetterName'
     # owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='apibooks', on_delete=models.SET_NULL, blank=True, null=True) #hidden=True
     # activity_logs = GenericRelation(ActivityLog ,content_type_field='content_type',
     #     object_id_field='object_id', related_query_name='reader')
-
     class Meta:
         ordering = ['title', 'surname']
         # indexes = [ 
@@ -333,8 +337,8 @@ try:
     # elif not Book.objects.filter().all():
         context_bm['allbooks'] = None
         context_bm['num_books'] = 0
-except:
-    print("booksmart models 335 no Book.objects.all():")
+except Exception as err:
+    print(f"booksmart models 335 no Book.objects.all(): except Exception as {err}")
     pass
 
 try:
@@ -349,8 +353,9 @@ try:
     #elif not Author.objects.filter().all():
         context_bm['allauthors'] = None
         context_bm['num_authors'] = 0
-except:
-    print("booksmart models 351 no Author.objects.all():")
+except Exception as err:
+    print(f"booksmart models 351 no Author.objects.all(): Exception as {err}")
+    print("")
     pass
 
 try:
@@ -361,8 +366,8 @@ try:
     elif not BackgroundPoster.objects.filter().last():
         context_bm['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
         context_bm['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-except:
-    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+except Exception as err:
+    print(f"booksmart models 367 no BackgroundPoster.objects.filter().last(): Exception as {err}")
     pass
 
 try:
@@ -374,14 +379,14 @@ try:
         context_bm['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
 
         context_bm['video_type'] = "mp4"
-except:
-    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+except Exception as err:
+    print(f"booksmart models 367 no BackgroundVideo.objects.filter().last(): except Exception as {err}")
     pass
 
 
 try:
     if BackgroundMusic.objects.filter().last():   
-        music = BackgroundVideo.objects.filter().last()
+        music = BackgroundMusic.objects.filter().last()
         context_bm['music_url_1'] = music.link_music_1
         context_bm['music_type_1'] = music.type_music_1
         context_bm['music_url_2'] = music.link_music_2
@@ -391,7 +396,8 @@ try:
         context_bm['music_type_1'] = "mp3"
         context_bm['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_bm['music_type_2'] = "mp3"
-except:
+except Exception as err:
+    print(f"booksmart models 400 BackgroundMusic.objects.filter().last(): except Exception as {err}")    
     context_bm['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
     context_bm['music_type_1'] = "mp3"
     context_bm['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"

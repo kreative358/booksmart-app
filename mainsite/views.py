@@ -10,7 +10,7 @@ from django.contrib import messages
 from rest_framework import viewsets
 
 from rest_framework.response import Response
-from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, url_img_author, url_img # ,context_bm, 
+from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic, url_img_author, url_img # ,context_bm, 
 from accounts.models import Account
 from accounts.forms import RechaptchaMailForm
 from booksmart.api.serializers import BooksSerializer, AuthorsSerializer
@@ -90,8 +90,8 @@ try:
     # elif not Book.objects.filter().all():
         context_main['allbooks'] = None
         context_main['num_books'] = 0
-except:
-    print("booksmart models 335 no Book.objects.all():")
+except Exception as err:
+    print(f"mainsite views: Book.objects.all() except Exception as {err}")
     pass
 
 try:
@@ -106,20 +106,21 @@ try:
     #elif not Author.objects.filter().all():
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
-except:
-    print("booksmart models 351 no Author.objects.all():")
+except Exception as err:
+    print(f"mainsite views: Author.objects.all(): except Exception as {err}")
     pass
 
 try:
     if BackgroundPoster.objects.filter().last():
         poster = BackgroundPoster.objects.filter().last()
-        context_main['poster_url_1'] = poster.link_poster_1
-        context_main['poster_url_2'] = poster.link_poster_2
+        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1FNl36zxhcZBXSbJdFB8V-4eWHoOIVHMl"
+        # context_main['poster_url_1'] = poster.link_poster_1
+        # context_main['poster_url_2'] = poster.link_poster_2
     elif not BackgroundPoster.objects.filter().last():
-        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-except:
-    print("booksmart models 367 no BackgroundPoster.objects.filter().last():")
+        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1FNl36zxhcZBXSbJdFB8V-4eWHoOIVHMl"
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1FNl36zxhcZBXSbJdFB8V-4eWHoOIVHMl"
+except Exception as err:
+    print(f"mainsite views: Author.objects.all(): except Exception as {err}")
     pass
 
 try:
@@ -128,15 +129,15 @@ try:
         context_main['video_url'] = video.link_video
         context_main['video_type'] = video.type_video
     elif not BackgroundVideo.objects.filter().last():
-        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1L52HH0GCbHoYH8ttJICj0P5iwg_sNTqz"
         context_main['video_type'] = "mp4"
-except:
-    print("booksmart models 367 no BackgroundVideo.objects.filter().last():")
+except Exception as err:
+    print(f"mainsite views: BackgroundVideo.objects.filter().last(): except Exception as {err}")
     pass
 
 try:
     if BackgroundMusic.objects.filter().last():   
-        music = BackgroundVideo.objects.filter().last()
+        music = BackgroundMusic.objects.filter().last()
         context_main['music_url_1'] = music.link_music_1
         context_main['music_type_1'] = music.type_music_1
         context_main['music_url_2'] = music.link_music_2
@@ -146,7 +147,8 @@ try:
         context_main['music_type_1'] = "mp3"
         context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_main['music_type_2'] = "mp3"
-except:
+except Exception as err:
+    print(f"mainsite views: BackgroundMusic.objects.filter().last(): except Exception as {err}")
     context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
     context_main['music_type_1'] = "mp3"
     context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
@@ -196,7 +198,10 @@ recapitcha_value = ""
 @renderer_classes([TemplateHTMLRenderer])
 def index_home(request):
     """View function for home page of site."""
-    context ={}
+    # book_test = Book.objects.filter(pk=4).values()[0]
+    # print("book_test =", book_test)
+    
+    context = {}
     r_user = request.user
     current_url_name = request.path
     print("1. current_url_name =", current_url_name)
@@ -336,23 +341,38 @@ def index_home(request):
     return Response(context, template_name='index_home.html', )
     # return render(request, 'index.html', context)
 
-book_id=22
-book_title = Book.objects.filter(pk=book_id).values_list("title")[0][0]
-print("book_title =", book_title)
-try:
-    books_no = Book.objects.filter(author_c__isnull=True)
-    books_no_id = [book_no.id for book_no in books_no]
-    for book_no in books_no:
-        if Author.objects.filter(last_name=book_no.surname):
-            author_class = Author.objects.filter(last_name=book_no.surname).last()    
-            book_no.author_c = author_class
-            book_no.save()
-            # print('yes')
-        elif not Author.objects.filter(last_name=book_no.surname):
+
+# book_id=4
+# book = Book.objects.filter(pk=book_id).first()
+# print()
+# print("book =", book)
+# book_values = Book.objects.filter(pk=book_id).values()[0]
+# print()
+# print("book_values =", book_values)
+# book_values_list = Book.objects.filter(pk=book_id).values_list()[0]
+# print()
+# print("book_values_list =", book_values_list)
+# print()
+# book_title = Book.objects.filter(pk=book_id).values_list("title")[0][0]
+
+# book_id=22
+# book_title = Book.objects.filter(pk=book_id).values_list("title")[0][0]
+# print("book_title =", book_title)
+# try:
+#     books_no = Book.objects.filter(author_c__isnull=True)
+#     books_no_id = [book_no.id for book_no in books_no]
+#     for book_no in books_no:
+#         if Author.objects.filter(last_name=book_no.surname):
+#             author_class = Author.objects.filter(last_name=book_no.surname).last()    
+#             book_no.author_c = author_class
+#             book_no.save()
+#             # print('yes')
+#         elif not Author.objects.filter(last_name=book_no.surname):
             
-            print('no author_c for', book_no.surname)
-except Exception as e:
-    print(f'bookmain exception: {e}')
+#             print('no author_c for', book_no.surname)
+# except Exception as e:
+#     print(f'bookmain exception: {e}')
+
 
 
 @api_view(['GET', 'POST'])
@@ -454,13 +474,54 @@ def custom_permission_denied_view(request, exception=None):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_bad_request_view(request, exception=None):
-    context = context_mains
+    context = context_main
     # return Response(context, template_name='page-400.html', )
     return render(request, "page-400.html", context)
 
 def custom_unauthorized_view(request, exception=None):
-    context = context_mains
+    context = context_main
     # return Response(context, template_name='page-400.html', )
     return render(request, "page-401.html", context)
     
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from booksmart.api.serializers import BookTestSerializer, BookPdfUrlSerializer
+# pdf_url = "https://book_secret_url"
+# pdf_search_url = "https://search_book_secret_url"
+# pdf_filename = "Book secret filename"
+# book_id = 4
+# book_found = Book.objects.filter(pk=book_id).values()[0]
+# book_found = Book.objects.filter(pk=book_id).first()
+# data = { 
+#         "url_pdf": pdf_url,
+#         "url_pdf_search": pdf_search_url,
+#         "pdf_search_filename": pdf_filename
+# }
+# serializer = BookPdfUrlSerializer(book_found, data=data, partial=True)
+# if serializer.is_valid():
+#     serializer.save()
+#     print("serializer.data =", serializer.data)
+
+# book_serializer = BookTestSerializer(data=book_found)
+# serializer = BookTestSerializer(book_serializer, data={'url_pdf': pdf_url, 'url_pdf_search': pdf_search_url, 'pdf_search_filename': pdf_filename}, partial=True)
+# if serializer.is_valid():
+#     serializer.save()
+# serializer_book_found = BookPdfUrlSerializer(book_found, many=True)
+# # serializer = BookTestSerializer(book_found, data={'url_pdf': pdf_url, 'url_pdf_search': pdf_search_url, 'pdf_search_filename': pdf_filename}, many=True)
+# # serializer = BookTestSerializer(serializer_book_found, data={'url_pdf': pdf_url, 'url_pdf_search': pdf_search_url, 'pdf_search_filename': pdf_filename}, many=True, partial=True)
+# # serializer.is_valid()
+# serializer = BookPdfUrlSerializer(serializer_book_found, data={'url_pdf': pdf_url}, partial=True)
+
+# if serializer.is_valid():
+#     serializer.save()
+# # serializer.url_pdf = pdf_url
+# # serializer.url_pdf_search = pdf_search_url
+# # serializer.pdf_search_filename = pdf_filename
+
+# print(serializer_book_found.initial_data)
+
+# book_id = 4
+# book_found = Book.objects.filter(pk=book_id).first()
+# print("book_found.title =", book_found.title)
+
 

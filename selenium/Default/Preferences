@@ -1,0 +1,1 @@
+{"download": {"prompt_for_download": false, "directory_upgrade": true}, "safebrowsing_for_trusted_sources_enabled": false, "safebrowsing": {"enabled": false}, "credentials_enable_service": false, "profile": {"password_manager_enabled": false}, "detach": true, "excludeSwitches": ["enable-automation", "enable-logging"], "useAutomationExtension": false}

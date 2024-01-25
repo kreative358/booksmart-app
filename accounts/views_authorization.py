@@ -1,6 +1,6 @@
 from accounts.models import Account, MyAccountManager
 from django.contrib.auth import login, authenticate, logout
-from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
+from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm, AccountDeleteForm
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 # from .views_v import *
@@ -109,7 +109,7 @@ def a_account_view(request):
     content_a_a = context_a_a['account_form']
     print('\ncontext', context_a_a)
     print('\ncontent_a', content_a_a)
-    return content_a
+    return content_a_a
 
 content_ac = a_account_view
 
@@ -120,7 +120,7 @@ def delete_account(request):
     r_user = request.user
     context_d = context_bm
     if request.method == 'POST':
-        delete_form = AccountrDeleteForm(request.POST, instance=r_user)
+        delete_form = AccountDeleteForm(request.POST, instance=r_user)
         # r_user = request.user
         r_user.delete()
         messages.info(request, 'Your account has been deleted.')
@@ -170,7 +170,7 @@ class AuthenticationFunctions():
         #print("context['registration_form']", context['registration_form'])
         # return context
         # print('content_r', content_r)
-        context_A['registration_form'] =  content_A_r
+        context_A_r['registration_form'] =  content_A_r
         return content_A_r
 
     content_re = a_registration_view
@@ -256,7 +256,7 @@ class AuthenticationFunctions():
         context_d_a = context_bm
         r_user = request.user
         if request.method == 'POST':
-            delete_form = AccountrDeleteForm(request.POST, instance=request.user)
+            delete_form = AccountDeleteForm(request.POST, instance=request.user)
             # r_user = request.user
             r_user.delete()
             messages.info(request, 'Your account has been deleted.')

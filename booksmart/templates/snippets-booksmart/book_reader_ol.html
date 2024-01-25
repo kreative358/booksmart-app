@@ -80,6 +80,19 @@ padding: 10px;
 z-index: 15;
 }
 
+.information_bar {
+  font-size: 22px; 
+  color: mediumblue; 
+  padding: 10px; 
+  max-width: 90%; 
+  position: relative; 
+  margin: 10px auto 16px auto;
+  box-shadow: 
+  0px 0px 2px 4px rgba(200, 20, 10, 0.8) inset,
+  0px 0px 4px 4px rgba(220, 220, 240, 0.6); 
+  border-radius: 2px;
+}
+
 @keyframes anime_red_border {
 25% {
 border-color: red;}
@@ -291,15 +304,15 @@ display: none;
       {% elif message_read != "" %}
       <div class="mycolumn_book_reader"  id="read_column_o2_{{book.id}}">
       <div class="mycard_book_reader" id="read_card_o2_{{book.id}}">     
-      <div style="font-size: 22px; color: mediumblue; padding: 10px; max-width: 380px;position: relative; margin: 10px auto 10px auto;"> 
-      <p style="line-height: 1.2;"> Information about book title: </p> 
+      <div class="information_bar"> 
+      <p style="line-height: 1.2; margin-bottom: 6px;"> Information about book title: </p> 
 
-      <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite;"> "{{ book.title }}" </p> 
-      <p style="line-height: 1; margi-top: 10px;" > {{message_read}} </p> 
+      <p style="line-height: 1;  font-size: 24px; animation: anime_red_text 2s infinite; margin-bottom: 6px;"> "{{ book.title }}" </p> 
+      <p style="line-height: 1; margi-top: 10px; margin-bottom: 6px;" > {{message_read}} </p> 
       </div>
 
       <div id="div_form_downloadbook_1a">
-      <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank" id="form_downloadbook_1a">
+      <form action="{% url 'booksmart:download-book' book.id %}" method="GET" target="_blank" id="form_downloadbook_1a">
       {{ search_title_download }}
 
       <input type="hidden" id="book_id_download" name="book_id_download_search" value="{{ book.id }}">
@@ -316,15 +329,14 @@ display: none;
 
       {% endif %}
 
+
+
   <div class="mycolumn_book_reader" id="mycolumn_book_download">
     <div class="mycard_book_reader" id="">
-    <form action="{% url 'booksmart:downloadbook' %}" method="GET" target="_blank" id="form_downloadbook_1b">
+    <form action="{% url 'booksmart:download-book' book.id %}" method="GET" target="_blank" id="form_downloadbook_1b">
   {{ search_title_download }}
 
-    <input type="hidden" id="author_download" name="author_download_search" value="{{ book.author }}">
-    <input type="hidden" id="title_download" name="title_download_search" value="{{ book.title }}">
-
-    <input type="hidden" id="language_download" name="language_download_search" value="{{ book.language }}">
+  <input type="hidden" id="book_id_download" name="book_id_download_search" value="{{ book.id }}">
 
     <button type="submit" class="button_downloads" id='tooltip' style="line-height: 1.2;">
     IF YOU NEED YOU CAN TRY <br> TO FIND THIS BOOK BUT <br> ONLY TO DOWNLOAD <br> PRESS TO TRY TO FIND.

@@ -342,11 +342,11 @@ STATIC_URL = '/static/'
 #     ]
 
 # Extra places for collectstatic to find static files.
-# STATICFILES_DIRS = [
-#     # '/static',
-#     # BASE_DIR / 'static',
-#     os.path.join(BASE_DIR, 'static'),
-# ]
+STATICFILES_DIRS = [
+    # '/static',
+    # BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
@@ -448,6 +448,11 @@ elif ENVIRONMENT == 'development':
     EMAIL_HOST_PASSWORD = 'ikzliaiijzdvbqlq'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
+    
+    STATIC_URL = 'static/'
+    STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+        ]
 
     # DEFAULT_FROM_EMAIL = 'booksmartapp358@gmail.com'
     # SERVER_EMAIL = 'booksmartapp358@gmail.com'

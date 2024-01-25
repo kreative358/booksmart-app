@@ -13,23 +13,6 @@ from bs4 import BeautifulSoup
 
 class SearchRequestPM:
 
-    # col_names = [
-    #     "ID Time add Title Series",
-    #     "Author(s)",
-    #     "Publisher",
-    #     "Year",
-    #     "Language",
-    #     "Pages",
-    #     "Size",
-    #     "Ext.",
-    #     "Mirror_1",
-    #     "Mirror_2",
-    #     "Mirror_3",
-    #     "Mirror_4",
-    #     "Mirror_5",
-    #     "edit",
-    # ]
-
     col_names = [
         "ID Time add Title Series",
         "Author(s)",
@@ -39,8 +22,7 @@ class SearchRequestPM:
         "Pages",
         "Size",
         "Ext.",
-        "Mirror_1",
-        "Mirror_2"
+        "Mirrors",
     ]
 
     def __init__(self, query, search_type="title"):
@@ -277,7 +259,8 @@ class SearchRequestGS_my:
         query_parsed = "%20".join(self.query.split(" "))
         if self.search_type.lower() == "title":
             search_url = (
-                f"https://libgen.gs/index.php?req={query_parsed}&column=title"
+                # f"https://libgen.gs/index.php?req={query_parsed}&column=title"
+                f"https://libgen.gs/index.php?req={query_parsed}&columns[]=t&objects[]=f&objects[]=e&objects[]=s&objects[]=a&objects[]=p&objects[]=w&topics[]=l&topics[]=f&topics[]=s&res=25&filesuns=all"
             )
         elif self.search_type.lower() == "author":
             search_url = (
