@@ -35,21 +35,21 @@ context_main['no_date'] = datetime.date(3000, 1, 1)
 context_main['url_img_book'] = url_img
 context_main['url_img_author'] = url_img_author
 
-try:
-    if Book.objects.all():
-    # if Book.objects.filter().all():
-        all_books = Book.objects.all()
-        # context_list.append(all_books)
-        num_books = Book.objects.all().count()
-        context_main['allbooks'] = all_books
-        context_main['num_books'] = num_books
-    elif not Book.objects.all():
-    # elif not Book.objects.filter().all():
-        context_main['allbooks'] = None
-        context_main['num_books'] = 0
-except Exception as err:
-    print(f"views_records: Book.objects.all() except Exception as {err}")
-    pass
+# try:
+#     if Book.objects.all():
+#     # if Book.objects.filter().all():
+#         all_books = Book.objects.all()
+#         # context_list.append(all_books)
+#         num_books = Book.objects.all().count()
+#         context_main['allbooks'] = all_books
+#         context_main['num_books'] = num_books
+#     elif not Book.objects.all():
+#     # elif not Book.objects.filter().all():
+#         context_main['allbooks'] = None
+#         context_main['num_books'] = 0
+# except Exception as err:
+#     print(f"views_records: Book.objects.all() except Exception as {err}")
+#     pass
 
 try:
     if Author.objects.all():

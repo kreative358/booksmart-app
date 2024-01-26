@@ -53,21 +53,21 @@ context_main['message'] = ""
 context_main['values'] = ""
 context_main['modal_uni'] = "{% include 'snippets-booksmart/modal_message_booksmart_uni.html' %}"
 
-try:
-    if Book.objects.all():
-    # if Book.objects.filter().all():
-        all_books = Book.objects.all()
-        # context_list.append(all_books)
-        num_books = Book.objects.all().count()
-        context_main['allbooks'] = all_books
-        context_main['num_books'] = num_books
-    elif not Book.objects.all():
-    # elif not Book.objects.filter().all():
-        context_main['allbooks'] = None
-        context_main['num_books'] = 0
-except Exception as err:
-    print(f"views_apiview: Book.objects.all() except Exception as {err}")
-    pass
+# try:
+#     if Book.objects.all():
+#     # if Book.objects.filter().all():
+#         all_books = Book.objects.all()
+#         # context_list.append(all_books)
+#         num_books = Book.objects.all().count()
+#         context_main['allbooks'] = all_books
+#         context_main['num_books'] = num_books
+#     elif not Book.objects.all():
+#     # elif not Book.objects.filter().all():
+#         context_main['allbooks'] = None
+#         context_main['num_books'] = 0
+# except Exception as err:
+#     print(f"views_apiview: Book.objects.all() except Exception as {err}")
+#     pass
 
 try:
     if Author.objects.all():

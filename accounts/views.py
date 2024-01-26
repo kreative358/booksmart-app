@@ -116,13 +116,13 @@ except Exception as err:
     context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
     context_main['music_type_2'] = "mp3"
     
-try:
-    if Book.objects.all():
-        context_serializer_start = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
-    else:
-        print("No Books")
-except Exception as err:
-    print(f"accounts views Exception as {err}")    
+# try:
+#     if Book.objects.all():
+#         context_serializer_start = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
+#     else:
+#         print("No Books")
+# except Exception as err:
+#     print(f"accounts views Exception as {err}")    
     
 # def get_user(request):
 #     r_user=request.user
@@ -204,11 +204,11 @@ class RegistrationViewBase(APIView):
     style = {'template_pack': 'rest_framework/vertical/'} #
     serializer_class = RegistrationSerializer
 
-    try:
-        context_serializer = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
-    except Exception as e:
-        print(f"210. RegistrationViewBase Exception as {e}")        
-        context_serializer = {}
+    # try:
+    #     context_serializer = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
+    # except Exception as e:
+    #     print(f"210. RegistrationViewBase Exception as {e}")        
+    context_serializer = {}
         
     def get(self, request, *args, **kwargs):
         message_errors = ""
