@@ -171,9 +171,6 @@ class Language(models.Model):
 
 class Book(models.Model):
     url = models.URLField(blank=True, null=True)
-    url_pdf = models.CharField(max_length=320, blank=True, null=True, default='')
-    url_pdf_search = models.CharField(max_length=320, blank=True, null=True, default='')
-    pdf_search_filename = models.CharField(max_length=120, blank=True, null=True, default='')
     google_id = models.CharField(max_length=24, default="")
     title = models.CharField(max_length=100)
 
@@ -209,7 +206,10 @@ class Book(models.Model):
     created_at = models.DateTimeField(auto_now_add= True, verbose_name='date add book')
     modified_at = models.DateTimeField(auto_now_add= True, verbose_name='date update book')
     slug = models.SlugField(blank=True, null=True) # unique=True
-    url_libgen = models.CharField(max_length=120, blank=True, null=True, default='')
+    url_pdf = models.CharField(max_length=320, blank=True, null=True, default="")
+    url_pdf_search = models.CharField(max_length=320, blank=True, null=True, default="")
+    pdf_search_filename = models.CharField(max_length=120, blank=True, null=True, default="")
+    url_libgen = models.CharField(max_length=120, blank=True, null=True, default="")
     ## pełna nazwa klasy w liczbie pojedynczej i mnogiej
     # verbose_name = 'BetterName'
     # owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='apibooks', on_delete=models.SET_NULL, blank=True, null=True) #hidden=True
@@ -342,6 +342,8 @@ except Exception as err:
     context_bm['allbooks'] = None
     context_bm['num_books'] = 0    
     
+context_bm['allbooks'] = None
+context_bm['num_books'] = 0 
 
 try:
     if Author.objects.all():

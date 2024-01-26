@@ -1,5 +1,5 @@
 import os, requests, json, re
-from booksmart.models import context_bm as context_bm_rest
+# from booksmart.models import context_bm as context_bm_rest
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, get_user_model
 # from django.contrib.auth.hashers import check_password
@@ -40,22 +40,22 @@ url_recaptcha = 'https://www.google.com/recaptcha/api/siteverify'
 
 
 context_main = {}
-
-try:
-    if Book.objects.all():
-    # if Book.objects.filter().all():
-        all_books = Book.objects.all()
-        # context_list.append(all_books)
-        num_books = Book.objects.all().count()
-        context_main['allbooks'] = all_books
-        context_main['num_books'] = num_books
-    elif not Book.objects.all():
-    # elif not Book.objects.filter().all():
-        context_main['allbooks'] = None
-        context_main['num_books'] = 0
-except Exception as err:
-    print(f"accounts views: Book.objects.all() except Exception as {err}")
-    pass
+context_bm_rest = {}
+# try:
+#     if Book.objects.all():
+#     # if Book.objects.filter().all():
+#         all_books = Book.objects.all()
+#         # context_list.append(all_books)
+#         num_books = Book.objects.all().count()
+#         context_main['allbooks'] = all_books
+#         context_main['num_books'] = num_books
+#     elif not Book.objects.all():
+#     # elif not Book.objects.filter().all():
+#         context_main['allbooks'] = None
+#         context_main['num_books'] = 0
+# except Exception as err:
+#     print(f"accounts views: Book.objects.all() except Exception as {err}")
+#     pass
 
 try:
     if Author.objects.all():
