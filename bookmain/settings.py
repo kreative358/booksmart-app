@@ -5,7 +5,7 @@ import secrets
 from django.conf import settings
 from django.conf.urls.static import static
 import django.conf.global_settings
-from decouple import config
+from decouple import Config
 import django_heroku
 from pathlib import Path
 

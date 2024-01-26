@@ -139,7 +139,7 @@ def html_content_opacity_0(shadow_driver, wait_9, wait_6):
         if element_html:
             print("1. html_content_opacity_0() YES element_html")
             try:
-                shadow_driver.execute_script("arguments[0].style.opacity = '0.1';", element_html)
+                shadow_driver.execute_script("arguments[0].style.opacity = '0';", element_html)
             except JavascriptException:
                 print("1. html_content_opacity_0() JavascriptException opacity")    
                 time.sleep(0.4)
@@ -157,7 +157,7 @@ def html_content_opacity_0(shadow_driver, wait_9, wait_6):
             if element_html:
                 print("2. html_content_opacity_0() YES element_html")
                 try:
-                    shadow_driver.execute_script("arguments[0].style.opacity = '0.1';", element_html)
+                    shadow_driver.execute_script("arguments[0].style.opacity = '0';", element_html)
                 except JavascriptException:
                     print("2. html_content_opacity_0() JavascriptException opacity")    
                     time.sleep(0.4)
@@ -549,6 +549,8 @@ def read_archive(link_id, archive_title, context_read_archive):
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
         chrome_options.add_argument("--disable-infobars")
         chrome_options.add_argument("--disable-notifications")
+        chrome_options.add_argument("--hide-scrollbars")
+        
         # chrome_options.add_argument("--deny-permission-prompts")
         # chrome_options.add_argument("--disable-crash-reporter")
         chrome_options.add_argument("--disable-extensions")

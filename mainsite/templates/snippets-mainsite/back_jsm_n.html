@@ -297,7 +297,7 @@ Your browser does not support HTML5 video.
     <video autoplay muted loop poster="{{ poster_url_1 }}" id="myVideo_2">
       <source src="{{ video_url }}" type="video/{{ video_type }}">
     Your browser does not support HTML5 video.
-  </video>
+  </video> 
 <!-- </div>-->
 
  <!-- <audio preload autoplay loop id="myAudio02">
@@ -305,7 +305,7 @@ Your browser does not support HTML5 video.
     Your browser does not support HTML5 audio.
   </audio> -->
 
-  <audio preload autoplay loop id="myAudio02">
+  <audio autoplay loop id="myAudio02">
     <source src="{% static 'ocean-waves.mp3' %}" type="audio/mp3">
     Your browser does not support HTML5 audio.
   </audio>
@@ -314,7 +314,7 @@ Your browser does not support HTML5 video.
  
 </div> 
   
-     <button type="button" id="myBtn" class="myBtns notranslate" onclick="myFunction()" > play video </button>
+     <button type="button" id="myBtn" class="myBtns notranslate" onclick="myFunction()" > pause video </button>
   
       <button type="button" id="myBtn1" class="myBtns notranslate" onclick="myFunction1()" > mute video </button>
     
@@ -409,18 +409,21 @@ Your browser does not support HTML5 video.
     var btnv = document.getElementById("myBtn");
       var btnmv = document.getElementById("myBtn1")
 
-      var my_video_1 = document.getElementById("myVideo_1")
-      var my_video_2 = document.getElementById("myVideo_2")
+      var myvideo_1 = document.getElementById("myVideo_1")
+      var myvideo_2 = document.getElementById("myVideo_2")
+      myvideo_1.play();
+      myvideo_2.play();      
       
       function myFunction() {
-        if (myvideo_1.paused) {
+        if (myvideo_1.paused || myvideo_2.paused ) {
           myvideo_1.play();
-          btnv.innerHTML = "pause video";
-        }
-        else if(myvideo_2.paused) {
           myvideo_2.play();
           btnv.innerHTML = "pause video";
         }
+        /* else if (myvideo_2.paused) {
+          myvideo_2.play();
+          btnv.innerHTML = "pause video";
+        } */
            else {
           myvideo_1.pause();
           myvideo_2.pause();
@@ -431,20 +434,20 @@ Your browser does not support HTML5 video.
 
       
       function myFunction1() {
-        if (my_video_1.muted || my_video_2.muted) {
-          my_video_1.muted = false;
-          my_video_2.muted = false;
+        if (myvideo_1.muted || my_video_2.muted) {
+          myvideo_1.muted = false;
+          myvideo_2.muted = false;
           btnmv.innerHTML = "mute video";
         } else {
-          my_video_1.muted = true;
-          my_video_2.muted = true;
+          myvideo_1.muted = true;
+          myvideo_2.muted = true;
           btnmv.innerHTML = "unmute video";
         }
       }
 
       var iterations = 1;
       // document.getElementById('iteration').innerText = iterations;  
-      my_video_1.addEventListener('ended', function () {    
+      myvideo_1.addEventListener('ended', function () {    
           if (iterations < 5) {       
               this.currentTime = 0;
               this.play();
@@ -453,7 +456,7 @@ Your browser does not support HTML5 video.
           }      
       }, false);
 
-      my_video_2.addEventListener('ended', function () {    
+      myvideo_2.addEventListener('ended', function () {    
         if (iterations < 5) {       
             this.currentTime = 0;
             this.play();

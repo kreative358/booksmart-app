@@ -302,7 +302,7 @@ Your browser does not support HTML5 video.
  
 </div> 
   
-     <button type="button" id="myBtn" class="myBtns notranslate" onclick="myFunction()" > play video </button>
+     <button type="button" id="myBtn" class="myBtns notranslate" onclick="myFunction()" > pause video </button>
   
       <button type="button" id="myBtn1" class="myBtns notranslate" onclick="myFunction1()" > mute video </button>
     
@@ -332,10 +332,10 @@ Your browser does not support HTML5 video.
        // leftdiv.classList.toggle("dark_mode_door");
        // rightdiv.classList.toggle("dark_mode_door");
 
-      if (btn_dark_main.innerHTML === "dark mode") {
-        btn_dark_main.innerHTML = "light mode";
+      if (btn_dark_back.innerHTML === "dark mode") {
+        btn_dark_back.innerHTML = "light mode";
       } else {
-        btn_dark_main.innerHTML = "dark mode";
+        btn_dark_back.innerHTML = "dark mode";
       }      
     }
 
@@ -343,11 +343,11 @@ Your browser does not support HTML5 video.
     document.getElementById("myAudio02").volume=0.2;
 
     var audio01 = document.getElementById("myAudio01");
-    audio01.paused = true;
+    audio01.pause();
     audio01.volume = 0.2;
 
     var audio02 = document.getElementById("myAudio02");
-    audio02.paused = true;
+    audio02.pause();
     audio02.volume = 0.2;
 
 
@@ -415,19 +415,21 @@ Your browser does not support HTML5 video.
 
 //    var video = document.getElementById("myVideo");
 //    var videom = document.getElementById("myVideo");
-    myvideo_1.pause();
-    myvideo_2.pause();
-
+    // myvideo_1.pause();
+    // myvideo_2.pause();
+    myvideo_1.play();
+    myvideo_2.play();
 
     function myFunction() {
-      if (myvideo_1.paused) {
+      if (myvideo_1.paused || myvideo_2.paused ) {
         myvideo_1.play();
-        btnv.innerHTML = "pause video";
-      }
-      else if(myvideo_2.paused) {
         myvideo_2.play();
         btnv.innerHTML = "pause video";
       }
+      /* else if (myvideo_2.paused) {
+        myvideo_2.play();
+        btnv.innerHTML = "pause video";
+      } */
          else {
         myvideo_1.pause();
         myvideo_2.pause();
@@ -462,7 +464,6 @@ Your browser does not support HTML5 video.
     }     
   }, false);
 
-
   myvideo_2.addEventListener('ended', function () {  
     if (myvideo_2.played_2) {  
       if (iterations < 5) {       
@@ -473,4 +474,5 @@ Your browser does not support HTML5 video.
       } 
     }     
   }, false);
+
     </script>

@@ -16,15 +16,16 @@ import re
 import glob
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.common.exceptions import TimeoutException, NoSuchElementException, NoSuchShadowRootException, ScreenshotException, JavascriptException, MoveTargetOutOfBoundsException, NoSuchDriverException, InvalidSessionIdException, SessionNotCreatedException, NoSuchAttributeException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, NoSuchShadowRootException, ScreenshotException, JavascriptException, MoveTargetOutOfBoundsException, NoSuchDriverException, InvalidSessionIdException, SessionNotCreatedException, NoSuchAttributeException, NoSuchAttributeException
 # from shiftlab_ocr.doc2text.reader import Reader
 from PIL import Image
 from django.conf import settings
-from django.conf.urls.static import static
+from django.conf.urls import static
 # def scrap(request):
 import io
 import urllib.request
-import easyocr
+# import easyocr
+from EasyOCR import easyocr
 from booksmart.models import Book
 from booksmart.api.serializers import BookPdfUrlSerializer
 import signal
@@ -72,7 +73,215 @@ def url_exists(driver_current_url, context_book_scrap_url_exist, book_pdf_bot):
             print(f"2. url_exists serializer.save() Exception as {e}")   
                       
         return context_book_scrap_url_exist
+
+def data_pdf_url(driver, element_link_end, context_book_scrap):
+    try:
+        link_end = element_link_end.get_attribute('data-pdf-url')
+        if link_end:
+            print('1. link_end =', link_end)
+            time.sleep(2.6)
+            try:
+                iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
+                if iframe2_header:
+                    try:
+                        driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
+                    except JavascriptException:
+                        print("1. JavascriptException scrollBy")
+            except NoSuchElementException:
+                print("NoSuchElementException watch_header")
+                
+            time.sleep(2.9)
+            driver.get(link_end)
+            context_book_scrap["link_end"] = "yes link_end"
+    except NoSuchAttributeException:
+        print("2104. NoSuchAttributeException") 
+        time.sleep(3.6)  
+        try:
+            link_end = element_link_end.get_attribute('data-pdf-url')
+            if link_end:
+                print('1. link_end =', link_end)
+                time.sleep(2.6)
+                try:
+                    iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
+                    if iframe2_header:
+                        try:
+                            driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
+                        except JavascriptException:
+                            print("1. JavascriptException scrollBy")
+                except NoSuchElementException:
+                    print("NoSuchElementException watch_header")
+                    
+                time.sleep(2.9)
+                driver.get(link_end)
+                context_book_scrap["link_end"] = "yes link_end"
+        except NoSuchAttributeException:
+            print("1. NoSuchAttributeException") 
+            time.sleep(3.6) 
+
+def btn_cookies(driver, action):
+    try:
+        btn_cookies = driver.find_element(By.XPATH, "//button[@mode='primary']")
+        if btn_cookies:
+            print("YES //button[@mode='primary']")
+            try:
+                action.move_to_element(btn_cookies)
+                time.sleep(0.3)
+                action.click(btn_cookies)
+                action.perform()
+            except MoveTargetOutOfBoundsException:
+                print("MoveTargetOutOfBoundsException dismiss-button")  
+            # driver.set_window_size(800, 600)
+            
+    except NoSuchElementException:
+        print("1. NoSuchElementException btn_cookie")
+        time.sleep(2.2)
+        try:
+            btn_cookies = driver.find_element(By.XPATH, "//button[@mode='primary']")
+            if btn_cookies:
+                print("YES //button[@mode='primary']")
+                try:
+                    driver.execute_script("arguments[0].click();", btn_cookies)
+                except JavascriptException:
+                    print("1. JavascriptException btn_cookies")              
+                
+        except NoSuchElementException:
+            print("1. NoSuchElementException btn_cookie")
+            
+            
+def dismiss_button(driver, action):
+    try:
+        dismiss_button = driver.find_element(By.ID, "dismiss-button")
+        if dismiss_button:
+            try:
+                action.move_to_element(dismiss_button)
+                time.sleep(0.3)
+                action.click(dismiss_button)
+                action.perform()
+            except MoveTargetOutOfBoundsException:
+                print("MoveTargetOutOfBoundsException dismiss-button")
         
+    except NoSuchElementException:
+        print(f"NoSuchElementException dismiss_button")  
+        time.sleep(1.12)
+        try:
+            dismiss_button = driver.find_element(By.ID, "dismiss-button")
+            try:
+                driver.execute_script("arguments[0].click();", dismiss_button)
+            except JavascriptException:
+                print("JavascriptException dismiss-button")
+            
+        except NoSuchElementException:
+            print(f"NoSuchElementException dismiss_button")
+            
+            
+def login_modal(driver, action, log):
+    try:
+        username_input = driver.find_element(By.ID, "user_email")
+        print("1a. username_input")
+        if username_input:
+            action.move_to_element(username_input)
+            action.click(username_input)
+            action.perform()
+            time.sleep(0.3)
+            username_input.send_keys(log[0])
+    except NoSuchElementException:
+        print("1. NoSuchElementException username_input")
+        time.sleep(1.1)
+        btn_cookies(driver, action)
+        time.sleep(1.1) 
+        try:
+            username_input = driver.find_element(By.ID, "user_email")
+            print("1a. username_input")
+            if username_input:
+                action.move_to_element(username_input)
+                action.click(username_input)
+                action.perform()
+                time.sleep(0.3)
+                username_input.send_keys(log[0])
+        except NoSuchElementException:
+            print("1a. NoSuchElementException username_input")                
+                                
+    time.sleep(1.4)
+    try:
+        password_input = driver.find_element(By.ID, "user_password")
+        print("1. password_input")
+        if password_input:
+            action.move_to_element(password_input)
+            time.sleep(0.52)
+            action.click(password_input)
+            action.perform()
+            time.sleep(0.43)
+            password_input.send_keys(log[1])
+            
+    except NoSuchElementException:
+        print("1. NoSuchElementException password_input")
+        time.sleep(1.15)
+        btn_cookies(driver, action) 
+        time.sleep(1.14)
+        try:
+            password_input = driver.find_element(By.ID, "user_password")
+            print("1a. password_input")
+            if password_input:
+                action.move_to_element(password_input)
+                time.sleep(0.56)
+                action.click(password_input)
+                action.perform()
+                time.sleep(0.43)
+                password_input.send_keys(log[1])
+                
+        except NoSuchElementException:
+            print("1a. NoSuchElementException password_input")                
+                                
+    time.sleep(1.33)
+    try:    
+        remember_input = driver.find_element(By.ID, "user_remember")
+        if remember_input.is_selected():
+            
+            print("checkbox is selected")
+        else:
+            print("checkbox is unselected")
+    except NoSuchElementException:
+        print("1. NoSuchElementException remember_input")
+        time.sleep(1.11)
+        btn_cookies(driver, action) 
+        time.sleep(1.61)
+        try:    
+            remember_input = driver.find_element(By.ID, "user_remember")
+            if remember_input.is_selected():
+                
+                print("checkbox is selected")
+            else:
+                print("checkbox is unselected")
+        except NoSuchElementException:
+            print("1a. NoSuchElementException remember_input")                
+                                
+    time.sleep(1.19)                    
+    try:            
+        submit = driver.find_element(By.ID, "login_submit")
+        if submit:
+            action.move_to_element(submit)
+            time.sleep(0.4)
+            action.click(submit)
+            action.perform()
+            time.sleep(1.4)    
+                                
+    except NoSuchElementException:
+        print("1. NoSuchElementException submit")
+        time.sleep(1.1)
+        btn_cookies(driver, action)  
+        time.sleep(1.19)                    
+        try:            
+            submit = driver.find_element(By.ID, "login_submit")
+            if submit:
+                action.move_to_element(submit)
+                time.sleep(0.4)
+                action.click(submit)
+                action.perform()
+                time.sleep(1.4)    
+                                
+        except NoSuchElementException:
+            print("1a. NoSuchElementException submit")
+                                           
 
 def get_pid(driver):
     chromepid = int(driver.service.process.pid)
@@ -255,7 +464,7 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
     except JavascriptException:
         print("JavascriptException Storage.clear")    
         
-    time.sleep(2.2)        
+    time.sleep(3.2)        
     try:
         btn_cookies = driver.find_element(By.XPATH, "//button[@mode='primary']")
         if btn_cookies:
@@ -268,7 +477,7 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
             
     except NoSuchElementException:
         print("1. NoSuchElementException btn_cookie")
-        time.sleep(1.2)
+        time.sleep(2.2)
         try:
             btn_cookies = driver.find_element(By.XPATH, "//button[@mode='primary']")
             if btn_cookies:
@@ -293,50 +502,128 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                 driver.execute_script("arguments[0].click()", btn_login)
             except JavascriptException:
                 print("1. JavascriptException btn_login click")
+                time.sleep(1.1)
+                btn_cookies(driver, action)
+                try:
+                    btn_login = driver.find_element(By.CSS_SELECTOR, '.login_show_btn')
+                    if btn_login:
+                        print("btn_login")
+                        try:
+                            driver.execute_script("arguments[0].click()", btn_login)
+                        except JavascriptException:
+                            print("1a. JavascriptException btn_login click")
+                except NoSuchElementException:
+                    print("1. NoSuchElementException username_input")
 
             time.sleep(1.9)
-            try:
-                username_input = driver.find_element(By.ID, "user_email")
-                print("1a. username_input")
-                if username_input:
-                    print("1b. username_input")
-                    action.move_to_element(username_input)
-                    action.click(username_input)
-                    action.perform()
-                    time.sleep(0.3)
-                    username_input.send_keys(log[0])
+            print("1. login_modal(driver, action, log)")
+            login_modal(driver, action, log)
+            # try:
+            #     username_input = driver.find_element(By.ID, "user_email")
+            #     print("1a. username_input")
+            #     if username_input:
+            #         action.move_to_element(username_input)
+            #         action.click(username_input)
+            #         action.perform()
+            #         time.sleep(0.3)
+            #         username_input.send_keys(log[0])
+            # except NoSuchElementException:
+            #     print("1. NoSuchElementException username_input")
+            #     time.sleep(1.1)
+            #     btn_cookies(driver, action)
+            #     time.sleep(1.1) 
+            #     try:
+            #         username_input = driver.find_element(By.ID, "user_email")
+            #         print("1a. username_input")
+            #         if username_input:
+            #             action.move_to_element(username_input)
+            #             action.click(username_input)
+            #             action.perform()
+            #             time.sleep(0.3)
+            #             username_input.send_keys(log[0])
+            #     except NoSuchElementException:
+            #         print("1a. NoSuchElementException username_input")                
+                                      
+            # time.sleep(1.4)
+            # try:
+            #     password_input = driver.find_element(By.ID, "user_password")
+            #     print("1. password_input")
+            #     if password_input:
+            #         action.move_to_element(password_input)
+            #         time.sleep(0.52)
+            #         action.click(password_input)
+            #         action.perform()
+            #         time.sleep(0.43)
+            #         password_input.send_keys(log[1])
                     
-                time.sleep(1.4)
-
-                password_input = driver.find_element(By.ID, "user_password")
-                if password_input:
-                    action.move_to_element(password_input)
-                    time.sleep(0.5)
-                    action.click(password_input)
-                    action.perform()
-                    time.sleep(0.4)
-                    password_input.send_keys(log[1])
-                    
-                time.sleep(1.2)
-                
-                remember_input = driver.find_element(By.ID, "user_remember")
-                if remember_input.is_selected():
-                    
-                    print("checkbox is selected")
-                else:
-                    print("checkbox is unselected")          
+            # except NoSuchElementException:
+            #     print("1. NoSuchElementException password_input")
+            #     time.sleep(1.15)
+            #     btn_cookies(driver, action) 
+            #     time.sleep(1.14)
+            #     try:
+            #         password_input = driver.find_element(By.ID, "user_password")
+            #         print("1a. password_input")
+            #         if password_input:
+            #             action.move_to_element(password_input)
+            #             time.sleep(0.56)
+            #             action.click(password_input)
+            #             action.perform()
+            #             time.sleep(0.43)
+            #             password_input.send_keys(log[1])
                         
-                submit = driver.find_element(By.ID, "login_submit")
-                if submit:
-                    action.move_to_element(submit)
-                    time.sleep(0.4)
-                    action.click(submit)
-                    action.perform()
-                    time.sleep(1.4)    
+            #     except NoSuchElementException:
+            #         print("1a. NoSuchElementException password_input")                
+                                      
+            # time.sleep(1.33)
+            # try:    
+            #     remember_input = driver.find_element(By.ID, "user_remember")
+            #     if remember_input.is_selected():
+                    
+            #         print("checkbox is selected")
+            #     else:
+            #         print("checkbox is unselected")
+            # except NoSuchElementException:
+            #     print("1. NoSuchElementException remember_input")
+            #     time.sleep(1.11)
+            #     btn_cookies(driver, action) 
+            #     time.sleep(1.61)
+            #     try:    
+            #         remember_input = driver.find_element(By.ID, "user_remember")
+            #         if remember_input.is_selected():
+                        
+            #             print("checkbox is selected")
+            #         else:
+            #             print("checkbox is unselected")
+            #     except NoSuchElementException:
+            #         print("1a. NoSuchElementException remember_input")                
+                                      
+            # time.sleep(1.19)                    
+            # try:            
+            #     submit = driver.find_element(By.ID, "login_submit")
+            #     if submit:
+            #         action.move_to_element(submit)
+            #         time.sleep(0.4)
+            #         action.click(submit)
+            #         action.perform()
+            #         time.sleep(1.4)    
                                         
-            except NoSuchElementException:
-                print("NoSuchElementException login_inputs")
-                time.sleep(2.2)        
+            # except NoSuchElementException:
+            #     print("1. NoSuchElementException submit")
+            #     time.sleep(1.1)
+            #     btn_cookies(driver, action)  
+            #     time.sleep(1.19)                    
+            #     try:            
+            #         submit = driver.find_element(By.ID, "login_submit")
+            #         if submit:
+            #             action.move_to_element(submit)
+            #             time.sleep(0.4)
+            #             action.click(submit)
+            #             action.perform()
+            #             time.sleep(1.4)    
+                                        
+            #     except NoSuchElementException:
+            #         print("1a. NoSuchElementException submit")
 
     except NoSuchElementException:
         print(f"except no such element btn_login")
@@ -344,32 +631,10 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         driver.refresh()
         time.sleep(8.2)
         
-        try:
-            dismiss_button = driver.find_element(By.ID, "dismiss-button")
-            try:
-                action.move_to_element(dismiss_button)
-                time.sleep(0.3)
-                action.click(dismiss_button)
-                action.perform()
-            except MoveTargetOutOfBoundsException:
-                print("MoveTargetOutOfBoundsException dismiss-button")
-            
-        except NoSuchElementException:
-            print(f"NoSuchElementException dismiss_button")
+        dismiss_button(driver, action)
                 
         time.sleep(3.4)
-        try:
-            btn_cookies = driver.find_element(By.XPATH, "//button[@mode='primary']")
-            if btn_cookies:
-                print("YES //button[@mode='primary']")
-                try:
-                    driver.execute_script("arguments[0].click();", btn_cookies)
-                except JavascriptException:
-                    print("1. JavascriptException btn_cookies")     
-                # driver.set_window_size(800, 600)
-                
-        except NoSuchElementException:
-            print("1. NoSuchElementException btn_cookie")
+        btn_cookies(driver, action)
             
         time.sleep(1.2)
 
@@ -382,50 +647,22 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                     driver.execute_script("arguments[0].click()", btn_login)
                 except JavascriptException:
                     print("1. JavascriptException btn_login click")
+                    time.sleep(1.1)
+                    btn_cookies(driver, action)
+                    try:
+                        btn_login = driver.find_element(By.CSS_SELECTOR, '.login_show_btn')
+                        if btn_login:
+                            print("btn_login")
+                            try:
+                                driver.execute_script("arguments[0].click()", btn_login)
+                            except JavascriptException:
+                                print("1a. JavascriptException btn_login click")
+                    except NoSuchElementException:
+                        print("1. NoSuchElementException username_input")
 
-                time.sleep(1.9)
-                try:
-                    username_input = driver.find_element(By.ID, "user_email")
-                    print("1a. username_input")
-                    if username_input:
-                        print("1b. username_input")
-                        action.move_to_element(username_input)
-                        action.click(username_input)
-                        action.perform()
-                        time.sleep(0.3)
-                        username_input.send_keys(log[0])
-                        
-                    time.sleep(1.4)
-
-                    password_input = driver.find_element(By.ID, "user_password")
-                    if password_input:
-                        action.move_to_element(password_input)
-                        time.sleep(0.5)
-                        action.click(password_input)
-                        action.perform()
-                        time.sleep(0.4)
-                        password_input.send_keys(log[1])
-                        
-                    time.sleep(1.2)
-                    
-                    remember_input = driver.find_element(By.ID, "user_remember")
-                    if remember_input.is_selected():
-                        
-                        print("checkbox is selected")
-                    else:
-                        print("checkbox is unselected")          
-                        
-                    submit = driver.find_element(By.ID, "login_submit")
-                    if submit:
-                        action.move_to_element(submit)
-                        time.sleep(0.4)
-                        action.click(submit)
-                        action.perform()
-                        time.sleep(1.4)    
-                                            
-                except NoSuchElementException:
-                    print("NoSuchElementException login_inputs")
-
+                time.sleep(1.35)
+                print("2. login_modal(driver, action, log)")
+                login_modal(driver, action, log)
 
         except NoSuchElementException:
             print("2. NoSuchElementException btn_login")
@@ -488,11 +725,44 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                     screenshot_captcha_1.show()
                     time.sleep(5.4)
                     
-                    result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
-                    time.sleep(7.6)
+                    # result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
+                    # time.sleep(7.6)
                     
-                    captcha_solution_1 = result_recaptcha_1[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                    print("captcha_solution_1 =", captcha_solution_1)
+                    # captcha_solution_1 = result_recaptcha_1[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                    # print("captcha_solution_1 =", captcha_solution_1)
+                    
+                    ###
+                    try:
+                        result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
+                        time.sleep(7.6)
+                        
+                        captcha_solution_1 = result_recaptcha_1[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                        print("captcha_solution_1 =", captcha_solution_1)
+                    except Exception as err:
+                        print(f"506. captcha_solution_1 Exception as {err}")
+                        try:
+                            time.sleep(2.6)
+                            driver.close()
+                            time.sleep(2.2)
+                            driver.quit()
+                            time.sleep(2.2)
+                            book_scrap.pdf_url_download_found = "link pdf unfinished"
+                            try:
+                                book_scrap.pdf_url_download_found = "link pdf unfinished"
+                                context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
+                                pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
+                                serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
+                                if serializer.is_valid():
+                                    serializer.save()
+                            except Exception as e:
+                                print(f"serializer.save() Exception as link pdf unfinished {e}")
+                            return context_book_scrap
+
+                        except NoSuchDriverException:
+                            print("NoSuchDriverException driver.quit")
+                            book_scrap.pdf_url_download_found = "link pdf unfinished"
+                            return context_book_scrap
+                    ###
                     
                     try:
                         action.move_to_element(captcha_input_1)
@@ -551,8 +821,8 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                                 try:
                                     captcha_img_1.screenshot("captcha_img_1.png")
                                     time.sleep(1.4)
-                                    # screenshot_captcha_1 = Image.open("captcha_img_1.png")
-                                    # screenshot_captcha_1.show()
+                                    screenshot_captcha_1 = Image.open("captcha_img_1.png")
+                                    screenshot_captcha_1.show()
                                     time.sleep(5.4)
                                     
                                     result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
@@ -604,8 +874,26 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                                                   
     except NoSuchElementException:
         print(f"except NoSuchElementException captcha_1")
-
         time.sleep(2.1)
+
+    # try:
+    #     captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+    #     if captcha_input_1:
+    #         try:
+    #             time.sleep(2.6)
+    #             driver.close()
+    #             time.sleep(2.2)
+    #             driver.quit()
+    #             time.sleep(2.2)
+    #             return context_book_scrap
+
+    #         except NoSuchDriverException:
+    #             print("NoSuchDriverException driver.quit") 
+    #             return context_book_scrap            
+    # except JavascriptException:
+    #     print(f"477. Exception captcha_input_1")        
+    #     time.sleep(2.1)
+        
     try:    
         # text_contains = f'//a[contains(text(), "{author_book_docer}")]'
         # print("2. text_contains =", text_contains)
@@ -826,15 +1114,46 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                 try:
                     captcha_img_2.screenshot("captcha_img_2.png")
                     time.sleep(1.4)
-                    # screenshot_captcha_2 = Image.open("captcha_img_2.png")
-                    # screenshot_captcha_2.show()
+                    screenshot_captcha_2 = Image.open("captcha_img_2.png")
+                    screenshot_captcha_2.show()
                     time.sleep(5.4)
                     
-                    result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
-                    time.sleep(7.6)
+                    # result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                    # time.sleep(7.6)
                     
-                    captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                    print("captcha_solution_2 =", captcha_solution_2)
+                    # captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                    # print("captcha_solution_2 =", captcha_solution_2)
+                    
+                    ###
+                    try:
+                        result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                        time.sleep(7.6)
+                        
+                        captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                        print("captcha_solution_2 =", captcha_solution_2)   
+                    except Exception as err:
+                        print(f"899. captcha_solution_2 Exception as {err}")
+                        try:
+                            time.sleep(2.6)
+                            driver.close()
+                            time.sleep(2.2)
+                            driver.quit()
+                            time.sleep(2.2)
+                            # try:
+                            #     book_scrap.pdf_url_download_found = "link pdf unfinished"
+                            #     context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
+                            #     pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
+                            #     serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
+                            #     if serializer.is_valid():
+                            #         serializer.save()
+                            # except Exception as e:
+                            #     print(f"serializer.save() Exception as link pdf unfinished {e}")
+                            # return context_book_scrap
+
+                        except NoSuchDriverException:
+                            print("NoSuchDriverException driver.quit")
+                            return context_book_scrap                        
+                        ###
                     
                     try:
                         action.move_to_element(captcha_input_2)
@@ -893,8 +1212,8 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                                 try:
                                     captcha_img_2.screenshot("captcha_img_2.png")
                                     time.sleep(1.4)
-                                    # screenshot_captcha_2 = Image.open("captcha_img_2.png")
-                                    # screenshot_captcha_2.show()
+                                    screenshot_captcha_2 = Image.open("captcha_img_2.png")
+                                    screenshot_captcha_2.show()
                                     time.sleep(5.4)
                                     
                                     result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
@@ -1364,33 +1683,10 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
             print(f"1. except file_exist: Exception as {e}")   
                
     elif context_book_scrap["login_pass"] == "no login pass":          
-            # time.sleep(4.6) 
-        try:
-            dismiss_button = driver.find_element(By.ID, "dismiss-button")
-            try:
-                action.move_to_element(dismiss_button)
-                time.sleep(0.3)
-                action.click(dismiss_button)
-                action.perform()
-            except MoveTargetOutOfBoundsException:
-                print("MoveTargetOutOfBoundsException dismiss-button")
-                try:
-                    dismiss_button = driver.find_element(By.ID, "dismiss-button")
-                    try:
-                        action.move_to_element(dismiss_button)
-                        time.sleep(0.3)
-                        action.click(dismiss_button)
-                        action.perform()
-                    except MoveTargetOutOfBoundsException:
-                        print("MoveTargetOutOfBoundsException dismiss-button")
-                    
-                except NoSuchElementException:
-                    print(f"NoSuchElementException dismiss_button")                
-            
-        except NoSuchElementException:
-            print(f"NoSuchElementException dismiss_button")
+        # time.sleep(4.6) 
+        dismiss_button(driver, action)
                 
-        time.sleep(3.4)            
+        time.sleep(2.42)            
         try:
             div_captcha = driver.find_element(By.CSS_SELECTOR, "#recaptcha-anchor > div.recaptcha-checkbox-border")
             if div_captcha:
@@ -1433,24 +1729,9 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
             element_link_end = driver.find_element(By.ID, "iframe2")
             if element_link_end:
                 element_link_end_outer = element_link_end.get_attribute("outerHTML")
-                print("1382. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                link_end = element_link_end.get_attribute('data-pdf-url')
-                if link_end != None:
-                    print('1385. link_end =', link_end)
-                    time.sleep(2.6)
-                    try:
-                        iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                        if iframe2_header:
-                            try:
-                                driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                            except JavascriptException:
-                                print("1393. JavascriptException scrollBy")
-                    except NoSuchElementException:
-                        print("1395. NoSuchElementException watch_header")
-                        
-                    time.sleep(2.9)
-                    driver.get(link_end)
-                    context_book_scrap["link_end"] = "yes link_end"
+                print("1. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
+                
+                data_pdf_url(driver, element_link_end, context_book_scrap)
                     
         except NoSuchElementException:
             print("1402. NoSuchElementException iframe2")                       
@@ -1460,25 +1741,9 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                 element_link_end = driver.find_element(By.ID, "iframe2")
                 if element_link_end:
                     element_link_end_outer = element_link_end.get_attribute("outerHTML")
-                    print("1409. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                    link_end = element_link_end.get_attribute('data-pdf-url')
-                    
-                    if link_end != None:
-                        print('1413. link_end =', link_end)
-                        time.sleep(2.6)
-                        try:
-                            iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                            if iframe2_header:
-                                try:
-                                    driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                                except JavascriptException:
-                                    print("1. JavascriptException scrollBy")
-                        except NoSuchElementException:
-                            print("NoSuchElementException watch_header")
-                            
-                        time.sleep(2.9)
-                        driver.get(link_end)
-                        context_book_scrap["link_end"] = "yes link_end"
+                    print("1a. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
+
+                    data_pdf_url(driver, element_link_end, context_book_scrap)
 
             except NoSuchElementException:
                 print("1430. NoSuchElementException link_end")
@@ -1690,55 +1955,17 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                     
         elif context_book_scrap["link_end"] == "yes link_end":            
                         
-            try:
-                dismiss_button = driver.find_element(By.ID, "dismiss-button")
-                try:
-                    action.move_to_element(dismiss_button)
-                    time.sleep(0.3)
-                    action.click(dismiss_button)
-                    action.perform()
-                except MoveTargetOutOfBoundsException:
-                    print("MoveTargetOutOfBoundsException dismiss-button")
-                
-            except NoSuchElementException:
-                print(f"NoSuchElementException dismiss_button")  
-                time.sleep(2.1)
-                try:
-                    dismiss_button = driver.find_element(By.ID, "dismiss-button")
-                    try:
-                        action.move_to_element(dismiss_button)
-                        time.sleep(0.3)
-                        action.click(dismiss_button)
-                        action.perform()
-                    except MoveTargetOutOfBoundsException:
-                        print("MoveTargetOutOfBoundsException dismiss-button")
-                    
-                except NoSuchElementException:
-                    print(f"NoSuchElementException dismiss_button") 
+            dismiss_button(driver, action)
                                         
-            time.sleep(2.6)              
+            time.sleep(2.62)              
             try:
                 element_link_end = driver.find_element(By.ID, "iframe2")
                 if element_link_end:
                     element_link_end_outer = element_link_end.get_attribute("outerHTML")
-                    print("2a. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                    link_end = element_link_end.get_attribute('data-pdf-url')
-                    if link_end != None:
-                        print('1. link_end =', link_end)
-                        time.sleep(2.6)
-                        try:
-                            iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                            if iframe2_header:
-                                try:
-                                    driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                                except JavascriptException:
-                                    print("1. JavascriptException scrollBy")
-                        except NoSuchElementException:
-                            print("NoSuchElementException watch_header")
-                            
-                        time.sleep(2.9)
-                        driver.get(link_end)
-                        context_book_scrap["link_end"] = "yes link_end"
+                    print("2. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
+                    
+                    data_pdf_url(driver, element_link_end, context_book_scrap)
+                    
             except NoSuchElementException:
                 print("NoSuchElementException iframe2")                       
 
@@ -1748,24 +1975,8 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                     if element_link_end:
                         element_link_end_outer = element_link_end.get_attribute("outerHTML")
                         print("3. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                        link_end = element_link_end.get_attribute('data-pdf-url')
                         
-                        if link_end != None:
-                            print('1. link_end =', link_end)
-                            time.sleep(2.6)
-                            try:
-                                iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                                if iframe2_header:
-                                    try:
-                                        driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                                    except JavascriptException:
-                                        print("1. JavascriptException scrollBy")
-                            except NoSuchElementException:
-                                print("NoSuchElementException watch_header")
-                                
-                            time.sleep(2.9)
-                            driver.get(link_end)
-                            context_book_scrap["link_end"] = "yes link_end"
+                        data_pdf_url(driver, element_link_end, context_book_scrap)
 
                 except NoSuchElementException:
                     print("1. NoSuchElementException link_end")            
@@ -1979,29 +2190,16 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
             print(f"3. except file_exist: Exception as {e}") 
     
     elif context_book_scrap["link_end"] != "yes link_end" or context_book_scrap["book_in_folder"] != "book in folder": 
+        dismiss_button(driver, action)
+        time.sleep(2.41)      
                 
         try:
             element_link_end = driver.find_element(By.ID, "iframe2")
             if element_link_end:
                 element_link_end_outer = element_link_end.get_attribute("outerHTML")
                 print("4. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                link_end = element_link_end.get_attribute('data-pdf-url')
-                if link_end != None:
-                    print('1. link_end =', link_end)
-                    time.sleep(2.6)
-                    try:
-                        iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                        if iframe2_header:
-                            try:
-                                driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                            except JavascriptException:
-                                print("1. JavascriptException scrollBy")
-                    except NoSuchElementException:
-                        print("NoSuchElementException watch_header")
-                        
-                    time.sleep(2.9)
-                    driver.get(link_end)
-                    context_book_scrap["link_end"] = "yes link_end"
+                
+                data_pdf_url(driver, element_link_end, context_book_scrap)
                     
         except NoSuchElementException:
             print("NoSuchElementException iframe2")                       
@@ -2012,24 +2210,8 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                 if element_link_end:
                     element_link_end_outer = element_link_end.get_attribute("outerHTML")
                     print("5. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                    link_end = element_link_end.get_attribute('data-pdf-url')
-                    
-                    if link_end != None:
-                        print('1. link_end =', link_end)
-                        time.sleep(2.6)
-                        try:
-                            iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                            if iframe2_header:
-                                try:
-                                    driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                                except JavascriptException:
-                                    print("1. JavascriptException scrollBy")
-                        except NoSuchElementException:
-                            print("NoSuchElementException watch_header")
-                            
-                        time.sleep(2.9)
-                        driver.get(link_end)
-                        context_book_scrap["link_end"] = "yes link_end"
+
+                    data_pdf_url(driver, element_link_end, context_book_scrap)
 
             except NoSuchElementException:
                 print("1. NoSuchElementException link_end")
@@ -2420,50 +2602,22 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                 driver.execute_script("arguments[0].click()", btn_login)
             except JavascriptException:
                 print("1. JavascriptException btn_login click")
+                time.sleep(1.1)
+                btn_cookies(driver, action)
+                try:
+                    btn_login = driver.find_element(By.CSS_SELECTOR, '.login_show_btn')
+                    if btn_login:
+                        print("btn_login")
+                        try:
+                            driver.execute_script("arguments[0].click()", btn_login)
+                        except JavascriptException:
+                            print("1a. JavascriptException btn_login click")
+                except NoSuchElementException:
+                    print("1. NoSuchElementException username_input")
 
             time.sleep(1.9)
-            try:
-                username_input = driver.find_element(By.ID, "user_email")
-                print("1a. username_input")
-                if username_input:
-                    print("1b. username_input")
-                    action.move_to_element(username_input)
-                    action.click(username_input)
-                    action.perform()
-                    time.sleep(0.3)
-                    username_input.send_keys(log[0])
-                    
-                time.sleep(1.4)
-
-                password_input = driver.find_element(By.ID, "user_password")
-                if password_input:
-                    action.move_to_element(password_input)
-                    time.sleep(0.5)
-                    action.click(password_input)
-                    action.perform()
-                    time.sleep(0.4)
-                    password_input.send_keys(log[1])
-                    
-                time.sleep(1.2)
-                
-                remember_input = driver.find_element(By.ID, "user_remember")
-                if remember_input.is_selected():
-                    
-                    print("checkbox is selected")
-                else:
-                    print("checkbox is unselected")          
-                        
-                submit = driver.find_element(By.ID, "login_submit")
-                if submit:
-                    action.move_to_element(submit)
-                    time.sleep(0.4)
-                    action.click(submit)
-                    action.perform()
-                    time.sleep(1.4)    
-                                        
-            except NoSuchElementException:
-                print("NoSuchElementException login_inputs")
-                time.sleep(2.2)        
+            print("1. login_modal(driver, action, log)")
+            login_modal(driver, action, log)
 
 
     except NoSuchElementException:
@@ -2472,32 +2626,10 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
         driver.refresh()
         time.sleep(8.2)
         
-        try:
-            dismiss_button = driver.find_element(By.ID, "dismiss-button")
-            try:
-                action.move_to_element(dismiss_button)
-                time.sleep(0.3)
-                action.click(dismiss_button)
-                action.perform()
-            except MoveTargetOutOfBoundsException:
-                print("MoveTargetOutOfBoundsException dismiss-button")
-            
-        except NoSuchElementException:
-            print(f"NoSuchElementException dismiss_button")
+        dismiss_button(driver, action)
                 
         time.sleep(3.4)
-        try:
-            btn_cookies = driver.find_element(By.XPATH, "//button[@mode='primary']")
-            if btn_cookies:
-                print("YES //button[@mode='primary']")
-                try:
-                    driver.execute_script("arguments[0].click();", btn_cookies)
-                except JavascriptException:
-                    print("1. JavascriptException btn_cookies")     
-                # driver.set_window_size(800, 600)
-                
-        except NoSuchElementException:
-            print("1. NoSuchElementException btn_cookie")
+        btn_cookies(driver, action)
             
         time.sleep(1.2)
 
@@ -2510,69 +2642,36 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                     driver.execute_script("arguments[0].click()", btn_login)
                 except JavascriptException:
                     print("1. JavascriptException btn_login click")
+                    time.sleep(1.1)
+                    btn_cookies(driver, action)
+                    try:
+                        btn_login = driver.find_element(By.CSS_SELECTOR, '.login_show_btn')
+                        if btn_login:
+                            print("btn_login")
+                            try:
+                                driver.execute_script("arguments[0].click()", btn_login)
+                            except JavascriptException:
+                                print("1a. JavascriptException btn_login click")
+                    except NoSuchElementException:
+                        print("1. NoSuchElementException username_input")
 
-                time.sleep(1.9)
-                try:
-                    username_input = driver.find_element(By.ID, "user_email")
-                    print("1a. username_input")
-                    if username_input:
-                        print("1b. username_input")
-                        action.move_to_element(username_input)
-                        action.click(username_input)
-                        action.perform()
-                        time.sleep(0.3)
-                        username_input.send_keys(log[0])
-                        
-                    time.sleep(1.4)
-
-                    password_input = driver.find_element(By.ID, "user_password")
-                    if password_input:
-                        action.move_to_element(password_input)
-                        time.sleep(0.5)
-                        action.click(password_input)
-                        action.perform()
-                        time.sleep(0.4)
-                        password_input.send_keys(log[1])
-                        
-                    time.sleep(1.2)
-                    
-                    remember_input = driver.find_element(By.ID, "user_remember")
-                    if remember_input.is_selected():
-                        
-                        print("checkbox is selected")
-                    else:
-                        print("checkbox is unselected")          
-                        
-                    submit = driver.find_element(By.ID, "login_submit")
-                    if submit:
-                        action.move_to_element(submit)
-                        time.sleep(0.4)
-                        action.click(submit)
-                        action.perform()
-                        time.sleep(1.4)    
-                                            
-                except NoSuchElementException:
-                    print("NoSuchElementException login_inputs")
-
+                time.sleep(1.35)
+                print("2. login_modal(driver, action, log)")
+                login_modal(driver, action, log)
 
         except NoSuchElementException:
             print("2. NoSuchElementException btn_login")
 
             context_book_scrap["login_pass"] = "no login pass"              
             try:
-                context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"                
-                # book_scrap.pdf_url_download_found = "link pdf unfinished"
-                # pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
-                
-                book_scrap_ready.pdf_url_download_found = "link pdf unfinished"                
-                pdf_url_download_found_serializer = book_scrap_ready.pdf_url_download_found                
-                
+                book_scrap.pdf_url_download_found = "link pdf unfinished"
+                context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
+                pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
                 serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
                 if serializer.is_valid():
                     serializer.save()
             except Exception as e:
-                print(f"serializer.save() Exception as link pdf unfinished {e}")
-                
+                print(f"serializer.save() Exception as link pdf unfinished {e}")                
                 # time.sleep(1.6)
                 # driver.close()
                 # time.sleep(1.2)
@@ -2629,15 +2728,46 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                 try:
                     captcha_img_2.screenshot("captcha_img_2.png")
                     time.sleep(1.4)
-                    # screenshot_captcha_2 = Image.open("captcha_img_2.png")
-                    # screenshot_captcha_2.show()
+                    screenshot_captcha_2 = Image.open("captcha_img_2.png")
+                    screenshot_captcha_2.show()
                     time.sleep(5.4)
                     
-                    result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
-                    time.sleep(7.6)
+                    # result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                    # time.sleep(7.6)
                     
-                    captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                    print("captcha_solution_2 =", captcha_solution_2)
+                    # captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                    # print("captcha_solution_2 =", captcha_solution_2)
+                    
+                    ###
+                    try:
+                        result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                        time.sleep(7.6)
+                        
+                        captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                        print("captcha_solution_2 =", captcha_solution_2)   
+                    except Exception as err:
+                        print(f"899. captcha_solution_2 Exception as {err}")
+                        try:
+                            time.sleep(2.6)
+                            driver.close()
+                            time.sleep(2.2)
+                            driver.quit()
+                            time.sleep(2.2)                            
+                            # try:
+                            #     book_scrap.pdf_url_download_found = "link pdf unfinished"
+                            #     context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
+                            #     pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
+                            #     serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
+                            #     if serializer.is_valid():
+                            #         serializer.save()
+                            # except Exception as e:
+                            #     print(f"serializer.save() Exception as link pdf unfinished {e}")
+                            # return context_book_scrap
+
+                        except NoSuchDriverException:
+                            print("NoSuchDriverException driver.quit")
+                            return context_book_scrap                        
+                        ###                    
                     
                     try:
                         action.move_to_element(captcha_input_2)
@@ -2696,8 +2826,8 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                                 try:
                                     captcha_img_2.screenshot("captcha_img_2.png")
                                     time.sleep(1.4)
-                                    # screenshot_captcha_2 = Image.open("captcha_img_2.png")
-                                    # screenshot_captcha_2.show()
+                                    screenshot_captcha_2 = Image.open("captcha_img_2.png")
+                                    screenshot_captcha_2.show()
                                     time.sleep(5.4)
                                     
                                     result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
@@ -3212,32 +3342,9 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                
     elif context_book_scrap["login_pass"] == "no login pass":          
             # time.sleep(4.6) 
-        try:
-            dismiss_button = driver.find_element(By.ID, "dismiss-button")
-            try:
-                action.move_to_element(dismiss_button)
-                time.sleep(0.3)
-                action.click(dismiss_button)
-                action.perform()
-            except MoveTargetOutOfBoundsException:
-                print("MoveTargetOutOfBoundsException dismiss-button")
-                try:
-                    dismiss_button = driver.find_element(By.ID, "dismiss-button")
-                    try:
-                        action.move_to_element(dismiss_button)
-                        time.sleep(0.3)
-                        action.click(dismiss_button)
-                        action.perform()
-                    except MoveTargetOutOfBoundsException:
-                        print("MoveTargetOutOfBoundsException dismiss-button")
-                    
-                except NoSuchElementException:
-                    print(f"NoSuchElementException dismiss_button")                
-            
-        except NoSuchElementException:
-            print(f"NoSuchElementException dismiss_button")
+        dismiss_button(driver, action)
                 
-        time.sleep(3.4)            
+        time.sleep(1.49)            
         try:
             div_captcha = driver.find_element(By.CSS_SELECTOR, "#recaptcha-anchor > div.recaptcha-checkbox-border")
             if div_captcha:
@@ -3281,23 +3388,8 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
             if element_link_end:
                 element_link_end_outer = element_link_end.get_attribute("outerHTML")
                 print("6. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                link_end = element_link_end.get_attribute('data-pdf-url')
-                if link_end != None:
-                    print('1. link_end =', link_end)
-                    time.sleep(2.6)
-                    try:
-                        iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                        if iframe2_header:
-                            try:
-                                driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                            except JavascriptException:
-                                print("1. JavascriptException scrollBy")
-                    except NoSuchElementException:
-                        print("NoSuchElementException watch_header")
-                        
-                    time.sleep(2.9)
-                    driver.get(link_end)
-                    context_book_scrap["link_end"] = "yes link_end"
+
+                data_pdf_url(driver, element_link_end, context_book_scrap)
                     
         except NoSuchElementException:
             print("NoSuchElementException iframe2")                       
@@ -3308,24 +3400,7 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                 if element_link_end:
                     element_link_end_outer = element_link_end.get_attribute("outerHTML")
                     print("7. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                    link_end = element_link_end.get_attribute('data-pdf-url')
-                    
-                    if link_end != None:
-                        print('1. link_end =', link_end)
-                        time.sleep(2.6)
-                        try:
-                            iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                            if iframe2_header:
-                                try:
-                                    driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                                except JavascriptException:
-                                    print("1. JavascriptException scrollBy")
-                        except NoSuchElementException:
-                            print("NoSuchElementException watch_header")
-                            
-                        time.sleep(2.9)
-                        driver.get(link_end)
-                        context_book_scrap["link_end"] = "yes link_end"
+                    data_pdf_url(driver, element_link_end, context_book_scrap)
 
             except NoSuchElementException:
                 print("1. NoSuchElementException link_end")
@@ -3555,55 +3630,17 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                     
         elif context_book_scrap["link_end"] == "yes link_end":            
                         
-            try:
-                dismiss_button = driver.find_element(By.ID, "dismiss-button")
-                try:
-                    action.move_to_element(dismiss_button)
-                    time.sleep(0.3)
-                    action.click(dismiss_button)
-                    action.perform()
-                except MoveTargetOutOfBoundsException:
-                    print("MoveTargetOutOfBoundsException dismiss-button")
-                
-            except NoSuchElementException:
-                print(f"NoSuchElementException dismiss_button")  
-                time.sleep(2.1)
-                try:
-                    dismiss_button = driver.find_element(By.ID, "dismiss-button")
-                    try:
-                        action.move_to_element(dismiss_button)
-                        time.sleep(0.3)
-                        action.click(dismiss_button)
-                        action.perform()
-                    except MoveTargetOutOfBoundsException:
-                        print("MoveTargetOutOfBoundsException dismiss-button")
-                    
-                except NoSuchElementException:
-                    print(f"NoSuchElementException dismiss_button") 
+            dismiss_button(driver, action)
                                         
-            time.sleep(2.6)              
+            time.sleep(2.62)              
             try:
                 element_link_end = driver.find_element(By.ID, "iframe2")
                 if element_link_end:
                     element_link_end_outer = element_link_end.get_attribute("outerHTML")
                     print("8. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                    link_end = element_link_end.get_attribute('data-pdf-url')
-                    if link_end != None:
-                        print('1. link_end =', link_end)
-                        time.sleep(2.6)
-                        try:
-                            iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                            if iframe2_header:
-                                try:
-                                    driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                                except JavascriptException:
-                                    print("1. JavascriptException scrollBy")
-                        except NoSuchElementException:
-                            print("NoSuchElementException watch_header")
-                            
-                        time.sleep(2.9)
-                        driver.get(link_end)
-                        context_book_scrap["link_end"] = "yes link_end"
+
+                    data_pdf_url(driver, element_link_end, context_book_scrap)
+  
             except NoSuchElementException:
                 print("NoSuchElementException iframe2")                       
 
@@ -3612,25 +3649,9 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                     element_link_end = driver.find_element(By.ID, "iframe2")
                     if element_link_end:
                         element_link_end_outer = element_link_end.get_attribute("outerHTML")
-                        print("2a. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                        link_end = element_link_end.get_attribute('data-pdf-url')
-                        
-                        if link_end != None:
-                            print('1. link_end =', link_end)
-                            time.sleep(2.6)
-                            try:
-                                iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                                if iframe2_header:
-                                    try:
-                                        driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                                    except JavascriptException:
-                                        print("1. JavascriptException scrollBy")
-                            except NoSuchElementException:
-                                print("NoSuchElementException watch_header")
-                                
-                            time.sleep(2.9)
-                            driver.get(link_end)
-                            context_book_scrap["link_end"] = "yes link_end"
+                        print("8a. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
+
+                        data_pdf_url(driver, element_link_end, context_book_scrap)
 
                 except NoSuchElementException:
                     print("1. NoSuchElementException link_end")            
@@ -3866,24 +3887,9 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
             element_link_end = driver.find_element(By.ID, "iframe2")
             if element_link_end:
                 element_link_end_outer = element_link_end.get_attribute("outerHTML")
-                print("8. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                link_end = element_link_end.get_attribute('data-pdf-url')
-                if link_end != None:
-                    print('1. link_end =', link_end)
-                    time.sleep(2.6)
-                    try:
-                        iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                        if iframe2_header:
-                            try:
-                                driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                            except JavascriptException:
-                                print("1. JavascriptException scrollBy")
-                    except NoSuchElementException:
-                        print("NoSuchElementException watch_header")
-                        
-                    time.sleep(2.9)
-                    driver.get(link_end)
-                    context_book_scrap["link_end"] = "yes link_end"
+                print("9. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
+
+                data_pdf_url(driver, element_link_end, context_book_scrap)
                     
         except NoSuchElementException:
             print("NoSuchElementException iframe2")                       
@@ -3893,25 +3899,9 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                 element_link_end = driver.find_element(By.ID, "iframe2")
                 if element_link_end:
                     element_link_end_outer = element_link_end.get_attribute("outerHTML")
-                    print("9. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
-                    link_end = element_link_end.get_attribute('data-pdf-url')
-                    
-                    if link_end != None:
-                        print('1. link_end =', link_end)
-                        time.sleep(2.6)
-                        try:
-                            iframe2_header = driver.find_element(By.CLASS_NAME, "pdf-pro-meta-border")
-                            if iframe2_header:
-                                try:
-                                    driver.execute_script("return arguments[0].scrollIntoView(true);", iframe2_header)
-                                except JavascriptException:
-                                    print("1. JavascriptException scrollBy")
-                        except NoSuchElementException:
-                            print("NoSuchElementException watch_header")
-                            
-                        time.sleep(2.9)
-                        driver.get(link_end)
-                        context_book_scrap["link_end"] = "yes link_end"
+                    print("9a. element_link_end_outer =", element_link_end_outer[0:element_link_end_outer.find(">") + 1])
+
+                    data_pdf_url(driver, element_link_end, context_book_scrap)
 
             except NoSuchElementException:
                 print("1. NoSuchElementException link_end")

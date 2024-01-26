@@ -246,7 +246,7 @@
   Your browser does not support HTML5 audio.
 </audio> -->
 
-<audio preload autoplay loop id="myAudio01">
+<audio autoplay loop id="myAudio01">
   <source src="{% static 'piano-lullaby.mp3' %}" type="audio/mp3">
   Your browser does not support HTML5 audio.
 </audio> 
@@ -257,13 +257,13 @@
 <video autoplay muted loop poster="{% static 'background_film_mp4_18s_poster.jpg' %}" id="myVideo_1">
   <source src="{% static 'background_film_mp4_18s.mp4' %}" type="video/mp4">
 Your browser does not support HTML5 video.
-</video>
+</video> 
 
 <!-- <div id="background">-->
-    <video autoplay muted loop poster="{{ poster_url_1 }}" id="myVideo_2">
+  <video autoplay muted loop poster="{{ poster_url_1 }}" id="myVideo_2">
       <source src="{{ video_url }}" type="video/{{ video_type }}">
     Your browser does not support HTML5 video.
-  </video>
+  </video> 
 <!-- </div>-->
 
  <!-- <audio preload autoplay loop id="myAudio02">
@@ -271,7 +271,7 @@ Your browser does not support HTML5 video.
     Your browser does not support HTML5 audio.
   </audio> -->
 
-  <audio preload autoplay loop id="myAudio02">
+  <audio autoplay loop id="myAudio02">
     <source src="{% static 'ocean-waves.mp3' %}" type="audio/mp3">
     Your browser does not support HTML5 audio.
   </audio>
@@ -387,17 +387,18 @@ if (audio01.paused) {
       var my_video_2 = document.getElementById("myVideo_2")
       
       function myFunction() {
-        if (myvideo_1.paused) {
-          myvideo_1.play();
+        if (my_video_1.paused || my_video_2.paused ) {
+          my_video_1.play();
+          my_video_2.play();
           btnv.innerHTML = "pause video";
         }
-        else if(myvideo_2.paused) {
-          myvideo_2.play();
+        /* else if (my_video_2.paused) {
+          my_video_2.play();
           btnv.innerHTML = "pause video";
-        }
+        } */
            else {
-          myvideo_1.pause();
-          myvideo_2.pause();
+          my_video_1.pause();
+          my_video_2.pause();
           //btn.innerHTML = "Play" + "<br>" +"Video";
           btnv.innerHTML = "play video"
         }
