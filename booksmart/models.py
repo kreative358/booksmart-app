@@ -339,7 +339,9 @@ try:
         context_bm['num_books'] = 0
 except Exception as err:
     print(f"booksmart models 335 no Book.objects.all(): except Exception as {err}")
-    pass
+    context_bm['allbooks'] = None
+    context_bm['num_books'] = 0    
+    
 
 try:
     if Author.objects.all():
@@ -356,7 +358,8 @@ try:
 except Exception as err:
     print(f"booksmart models 351 no Author.objects.all(): Exception as {err}")
     print("")
-    pass
+    context_bm['allauthors'] = None
+    context_bm['num_authors'] = 0
 
 try:
     if BackgroundPoster.objects.filter().last():
@@ -368,7 +371,8 @@ try:
         context_bm['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
 except Exception as err:
     print(f"booksmart models 367 no BackgroundPoster.objects.filter().last(): Exception as {err}")
-    pass
+    context_bm['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+    context_bm['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
 
 try:
     if BackgroundVideo.objects.filter().last():   
@@ -380,8 +384,9 @@ try:
 
         context_bm['video_type'] = "mp4"
 except Exception as err:
-    print(f"booksmart models 367 no BackgroundVideo.objects.filter().last(): except Exception as {err}")
-    pass
+        context_bm['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+
+        context_bm['video_type'] = "mp4"
 
 
 try:
