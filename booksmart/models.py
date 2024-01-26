@@ -325,25 +325,6 @@ context_bm['no_date'] = datetime.date(3000, 1, 1)
 context_bm['url_img_book'] = url_img
 context_bm['url_img_author'] = url_img_author
 
-# try:
-#     if Book.objects.all():
-#     # if Book.objects.filter().all():
-#         all_books = Book.objects.all()
-#         context_list.append(all_books)
-#         num_books = Book.objects.all().count()
-#         context_bm['allbooks'] = all_books
-#         context_bm['num_books'] = num_books
-#     elif not Book.objects.all():
-#     # elif not Book.objects.filter().all():
-#         context_bm['allbooks'] = None
-#         context_bm['num_books'] = 0
-# except Exception as err:
-#     print(f"booksmart models 335 no Book.objects.all(): except Exception as {err}")
-#     context_bm['allbooks'] = None
-#     context_bm['num_books'] = 0    
-    
-# context_bm['allbooks'] = None
-# context_bm['num_books'] = 0 
 
 try:
     if Author.objects.all():
