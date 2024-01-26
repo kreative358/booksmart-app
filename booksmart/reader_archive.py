@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 # def scrap(request):
 import io
 import urllib.request
-import easyocr
+# import easyocr
 import signal
 from pyshadow.main import Shadow
 import subprocess
