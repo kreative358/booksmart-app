@@ -1,3 +1,3 @@
 web: gunicorn bookmain.wsgi --log-file -
-
-#release: ./manage.py migrate --no-input
+# release: python manage.py migrate
+release: ./manage.py migrate --no-input
