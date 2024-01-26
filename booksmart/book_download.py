@@ -52,7 +52,7 @@ from slugify import slugify as text_slugify
 # from booksmart.search_download_pm import SearchRequestPM, SearchRequestPM_my
 from booksmart.search_download import SearchRequestRS, SearchRequestGS
 from bs4 import BeautifulSoup
-from booksmart.test_docer import *
+from booksmart.test_docer import book_scrap, book_scrap_ready
 # from booksmart.docer_spoofer import *
 
 Languages = {
@@ -749,7 +749,8 @@ books_values = []
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def download_docer(request):
-    # book = get_object_or_404(Book, pk=id)
+    # book = get_object_or_404(Book, pk=id)       
+        
     print("def download_docer")
     r_user = request.user
     current_url_name = request.path
@@ -762,6 +763,13 @@ def download_docer(request):
     context = context_main
     context['num_authors'] = num_authors
     context['num_books'] = num_books
+    try:
+        from booksmart.test_docer import book_scrap, book_scrap_ready
+    except Exception as e:
+        print(f"Exception as {e}")
+        context["message_docer"] = f"This option does not work on server yet"
+        return Response(context, template_name='download_book_bot.html', )     
+    
     book_values_id = []
     context["message_docer"] = ""
     context["url_pdf_docer"] = ""

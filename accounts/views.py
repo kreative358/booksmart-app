@@ -204,8 +204,12 @@ class RegistrationViewBase(APIView):
     style = {'template_pack': 'rest_framework/vertical/'} #
     serializer_class = RegistrationSerializer
 
-    context_serializer = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
-    context_serializer = {}
+    try:
+        context_serializer = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
+    except Exception as e:
+        print(f"210. RegistrationViewBase Exception as {e}")        
+        context_serializer = {}
+        
     def get(self, request, *args, **kwargs):
         message_errors = ""
         context_serializer_get = {}

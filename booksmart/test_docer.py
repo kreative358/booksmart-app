@@ -25,7 +25,6 @@ from django.conf.urls import static
 import io
 import urllib.request
 # import easyocr
-from EasyOCR import easyocr
 from booksmart.models import Book
 from booksmart.api.serializers import BookPdfUrlSerializer
 import signal
@@ -320,10 +319,23 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
     context_book_scrap["show_title_path"] = ""
     context_book_scrap["pdf_search_filename"] = ""
     context_book_scrap["pdf_url_download_found"] = ""
+    
     # reader_easyocr = easyocr.Reader(['en'])
-    lang_list = ['en']
-    gpu = False
-    reader_easyocr = easyocr.Reader(lang_list, gpu)
+    try:
+        from EasyOCR.easyocr.easyocr import Reader
+        if Reader:
+            lang_list = ['en']
+            gpu = False
+    # reader_easyocr = easyocr.Reader(lang_list, gpu)
+            reader_easyocr = Reader(lang_list, gpu)
+            context_book_scrap["reader_easyocr"] = "TRUE"
+    except Exception as e:
+        print(f"Exception as {e}")
+        context_book_scrap["reader_easyocr"] = "FALSE"
+    # lang_list = ['en']
+    # gpu = False
+    # # reader_easyocr = easyocr.Reader(lang_list, gpu)
+    # reader_easyocr = Reader(lang_list, gpu)
     
     try:
         # options = Options()
@@ -331,7 +343,7 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         chrome_options = uc.ChromeOptions()
 
         # chrome_options.headless = False
-        # chrome_options.add_argument('--headless=new')
+        chrome_options.add_argument('--headless=new')
         chrome_options.page_load_strategy = 'none'
         
         # options.page_load_strategy = 'eager'
@@ -707,83 +719,63 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         print(f"book_to_search Exception as {e}")
         
     time.sleep(9.8)
-        
-    try:
-        captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-        while True:
+    if context_book_scrap["reader_easyocr"] == "TRUE":
+        try:
             captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-            if captcha_input_1:
-                print("1. captcha_input_1")
-                time.sleep(4.2)
-                captcha_img_1 = captcha_input_1.find_element(By.XPATH, "preceding-sibling::*[1]")
-                print("captcha_img_1 src =", captcha_img_1.get_attribute("src"))
+            while True:
+                captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+                if captcha_input_1:
+                    print("1. captcha_input_1")
+                    time.sleep(4.2)
+                    captcha_img_1 = captcha_input_1.find_element(By.XPATH, "preceding-sibling::*[1]")
+                    print("captcha_img_1 src =", captcha_img_1.get_attribute("src"))
 
-                try:
-                    captcha_img_1.screenshot("captcha_img_1.png")
-                    time.sleep(1.4)
-                    screenshot_captcha_1 = Image.open("captcha_img_1.png")
-                    screenshot_captcha_1.show()
-                    time.sleep(5.4)
-                    
-                    # result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
-                    # time.sleep(7.6)
-                    
-                    # captcha_solution_1 = result_recaptcha_1[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                    # print("captcha_solution_1 =", captcha_solution_1)
-                    
-                    ###
                     try:
-                        result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
-                        time.sleep(7.6)
+                        captcha_img_1.screenshot("captcha_img_1.png")
+                        time.sleep(1.4)
+                        screenshot_captcha_1 = Image.open("captcha_img_1.png")
+                        screenshot_captcha_1.show()
+                        time.sleep(5.4)
                         
-                        captcha_solution_1 = result_recaptcha_1[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                        print("captcha_solution_1 =", captcha_solution_1)
-                    except Exception as err:
-                        print(f"506. captcha_solution_1 Exception as {err}")
+                        # result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
+                        # time.sleep(7.6)
+                        
+                        # captcha_solution_1 = result_recaptcha_1[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                        # print("captcha_solution_1 =", captcha_solution_1)
+                        
+                        ###
                         try:
-                            time.sleep(2.6)
-                            driver.close()
-                            time.sleep(2.2)
-                            driver.quit()
-                            time.sleep(2.2)
-                            book_scrap.pdf_url_download_found = "link pdf unfinished"
+                            result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
+                            time.sleep(7.6)
+                            
+                            captcha_solution_1 = result_recaptcha_1[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                            print("captcha_solution_1 =", captcha_solution_1)
+                        except Exception as err:
+                            print(f"506. captcha_solution_1 Exception as {err}")
                             try:
+                                time.sleep(2.6)
+                                driver.close()
+                                time.sleep(2.2)
+                                driver.quit()
+                                time.sleep(2.2)
                                 book_scrap.pdf_url_download_found = "link pdf unfinished"
-                                context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
-                                pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
-                                serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
-                                if serializer.is_valid():
-                                    serializer.save()
-                            except Exception as e:
-                                print(f"serializer.save() Exception as link pdf unfinished {e}")
-                            return context_book_scrap
+                                try:
+                                    book_scrap.pdf_url_download_found = "link pdf unfinished"
+                                    context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
+                                    pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
+                                    serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
+                                    if serializer.is_valid():
+                                        serializer.save()
+                                except Exception as e:
+                                    print(f"serializer.save() Exception as link pdf unfinished {e}")
+                                return context_book_scrap
 
-                        except NoSuchDriverException:
-                            print("NoSuchDriverException driver.quit")
-                            book_scrap.pdf_url_download_found = "link pdf unfinished"
-                            return context_book_scrap
-                    ###
-                    
-                    try:
-                        action.move_to_element(captcha_input_1)
-                        time.sleep(0.2)
-                        action.click(captcha_input_1)
-                        action.perform()
-                        time.sleep(0.3)
-                        captcha_input_1.send_keys(captcha_solution_1)
+                            except NoSuchDriverException:
+                                print("NoSuchDriverException driver.quit")
+                                book_scrap.pdf_url_download_found = "link pdf unfinished"
+                                return context_book_scrap
+                        ###
                         
-                        time.sleep(4.3)
-                        captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
-                        time.sleep(0.11)
-                        action.move_to_element(captcha_submit_2)
-                        time.sleep(0.2)
-                        action.click(captcha_submit_2)
-                        action.perform()                 
-                        time.sleep(2.3)
-                        # driver.execute_script("arguments[0].click()", captcha_submit_2)
-                    except MoveTargetOutOfBoundsException:
-                        print("1. MoveTargetOutOfBoundsException captcha_1")
-                        time.sleep(2.3)   
                         try:
                             action.move_to_element(captcha_input_1)
                             time.sleep(0.2)
@@ -799,101 +791,123 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                             time.sleep(0.2)
                             action.click(captcha_submit_2)
                             action.perform()                 
-                            time.sleep(2.3)  
-                            # driver.execute_script("arguments[0].click()", captcha_submit_2)     
+                            time.sleep(2.3)
+                            # driver.execute_script("arguments[0].click()", captcha_submit_2)
                         except MoveTargetOutOfBoundsException:
-                            print("2. MoveTargetOutOfBoundsException captcha_1")
-                            time.sleep(2.4)
-                except ScreenshotException:
-                    print(f"2a. ScreenshotException")
-                    time.sleep(3.7)                      
-                    
-                    try:
-                        captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-                        while True:
-                            captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-                            if captcha_input_1:
-                                print("1. captcha_input_1")
-                                time.sleep(4.2)
-                                captcha_img_1 = captcha_input_1.find_element(By.XPATH, "preceding-sibling::*[1]")
-                                print("captcha_img_1 src =", captcha_img_1.get_attribute("src"))
-
-                                try:
-                                    captcha_img_1.screenshot("captcha_img_1.png")
-                                    time.sleep(1.4)
-                                    screenshot_captcha_1 = Image.open("captcha_img_1.png")
-                                    screenshot_captcha_1.show()
-                                    time.sleep(5.4)
-                                    
-                                    result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
-                                    time.sleep(7.6)
-                                    
-                                    captcha_solution_1 = result_recaptcha_1[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                                    print("captcha_solution_1 =", captcha_solution_1)
-                                    
-                                    try:
-                                        action.move_to_element(captcha_input_1)
-                                        time.sleep(0.2)
-                                        action.click(captcha_input_1)
-                                        action.perform()
-                                        time.sleep(0.3)
-                                        captcha_input_1.send_keys(captcha_solution_1)
-                                        
-                                        time.sleep(4.3)
-                                        captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
-                                        time.sleep(0.11)
-                                        action.move_to_element(captcha_submit_2)
-                                        time.sleep(0.2)
-                                        action.click(captcha_submit_2)
-                                        action.perform()                 
-                                        time.sleep(2.3)  
-                                        # driver.execute_script("arguments[0].click()", captcha_submit_2)
-                                    except MoveTargetOutOfBoundsException:
-                                        print("1. MoveTargetOutOfBoundsException captcha_1")
-                                        time.sleep(2.3)   
-            
-                                except ScreenshotException:
-                                    print(f"2a. ScreenshotException")
-                                    time.sleep(3.7)  
-                                                
-                                else:
-                                    print("1. NO captcha_1")
-                                    continue    
-                                    
-                            continue   
-
-                    except NoSuchElementException:
-                        print("except NoSuchElementException captcha_1")   
-                        continue
+                            print("1. MoveTargetOutOfBoundsException captcha_1")
+                            time.sleep(2.3)   
+                            try:
+                                action.move_to_element(captcha_input_1)
+                                time.sleep(0.2)
+                                action.click(captcha_input_1)
+                                action.perform()
+                                time.sleep(0.3)
+                                captcha_input_1.send_keys(captcha_solution_1)
+                                
+                                time.sleep(4.3)
+                                captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
+                                time.sleep(0.11)
+                                action.move_to_element(captcha_submit_2)
+                                time.sleep(0.2)
+                                action.click(captcha_submit_2)
+                                action.perform()                 
+                                time.sleep(2.3)  
+                                # driver.execute_script("arguments[0].click()", captcha_submit_2)     
+                            except MoveTargetOutOfBoundsException:
+                                print("2. MoveTargetOutOfBoundsException captcha_1")
+                                time.sleep(2.4)
+                    except ScreenshotException:
+                        print(f"2a. ScreenshotException")
+                        time.sleep(3.7)                      
                         
-                else:
-                    print("2. NO captcha_1")
-                    continue             
+                        try:
+                            captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+                            while True:
+                                captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+                                if captcha_input_1:
+                                    print("1. captcha_input_1")
+                                    time.sleep(4.2)
+                                    captcha_img_1 = captcha_input_1.find_element(By.XPATH, "preceding-sibling::*[1]")
+                                    print("captcha_img_1 src =", captcha_img_1.get_attribute("src"))
+
+                                    try:
+                                        captcha_img_1.screenshot("captcha_img_1.png")
+                                        time.sleep(1.4)
+                                        screenshot_captcha_1 = Image.open("captcha_img_1.png")
+                                        screenshot_captcha_1.show()
+                                        time.sleep(5.4)
+                                        
+                                        result_recaptcha_1 = reader_easyocr.readtext("captcha_img_1.png", detail=0, beamWidth=1, batch_size=4)
+                                        time.sleep(7.6)
+                                        
+                                        captcha_solution_1 = result_recaptcha_1[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                                        print("captcha_solution_1 =", captcha_solution_1)
+                                        
+                                        try:
+                                            action.move_to_element(captcha_input_1)
+                                            time.sleep(0.2)
+                                            action.click(captcha_input_1)
+                                            action.perform()
+                                            time.sleep(0.3)
+                                            captcha_input_1.send_keys(captcha_solution_1)
+                                            
+                                            time.sleep(4.3)
+                                            captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
+                                            time.sleep(0.11)
+                                            action.move_to_element(captcha_submit_2)
+                                            time.sleep(0.2)
+                                            action.click(captcha_submit_2)
+                                            action.perform()                 
+                                            time.sleep(2.3)  
+                                            # driver.execute_script("arguments[0].click()", captcha_submit_2)
+                                        except MoveTargetOutOfBoundsException:
+                                            print("1. MoveTargetOutOfBoundsException captcha_1")
+                                            time.sleep(2.3)   
                 
-            continue                      
-                                                  
-    except NoSuchElementException:
-        print(f"except NoSuchElementException captcha_1")
-        time.sleep(2.1)
+                                    except ScreenshotException:
+                                        print(f"2a. ScreenshotException")
+                                        time.sleep(3.7)  
+                                                    
+                                    else:
+                                        print("1. NO captcha_1")
+                                        continue    
+                                        
+                                continue   
 
-    # try:
-    #     captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-    #     if captcha_input_1:
-    #         try:
-    #             time.sleep(2.6)
-    #             driver.close()
-    #             time.sleep(2.2)
-    #             driver.quit()
-    #             time.sleep(2.2)
-    #             return context_book_scrap
+                        except NoSuchElementException:
+                            print("except NoSuchElementException captcha_1")   
+                            continue
+                            
+                    else:
+                        print("2. NO captcha_1")
+                        continue             
+                    
+                continue                      
+                                                    
+        except NoSuchElementException:
+            print(f"except NoSuchElementException captcha_1")
+            time.sleep(2.1)
 
-    #         except NoSuchDriverException:
-    #             print("NoSuchDriverException driver.quit") 
-    #             return context_book_scrap            
-    # except JavascriptException:
-    #     print(f"477. Exception captcha_input_1")        
-    #     time.sleep(2.1)
-        
+    elif context_book_scrap["reader_easyocr"] == "FALSE":
+        try:
+            captcha_input_1 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+            if captcha_input_1:
+                try:
+                    time.sleep(2.6)
+                    driver.close()
+                    time.sleep(2.2)
+                    driver.quit()
+                    time.sleep(2.2)
+                    return context_book_scrap
+
+                except NoSuchDriverException:
+                    print("NoSuchDriverException driver.quit") 
+                    return context_book_scrap            
+        except JavascriptException:
+            print(f"477. Exception captcha_input_1")        
+            time.sleep(2.1)
+            
+    time.sleep(2.16)    
     try:    
         # text_contains = f'//a[contains(text(), "{author_book_docer}")]'
         # print("2. text_contains =", text_contains)
@@ -1100,81 +1114,62 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         print(f"1. url_exists Exception as {e}")    
 
     time.sleep(4.6)      
-   
-    try:
-        captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-        while True:
+
+    if context_book_scrap["reader_easyocr"] == "TRUE":   
+        try:
             captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-            if captcha_input_2:
-                print("1. captcha_input_2")
-                time.sleep(12.2)
-                captcha_img_2 = captcha_input_2.find_element(By.XPATH, "preceding-sibling::*[1]")
-                print("captcha_img_2 src =", captcha_img_2.get_attribute("src"))
+            while True:
+                captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+                if captcha_input_2:
+                    print("1. captcha_input_2")
+                    time.sleep(12.2)
+                    captcha_img_2 = captcha_input_2.find_element(By.XPATH, "preceding-sibling::*[1]")
+                    print("captcha_img_2 src =", captcha_img_2.get_attribute("src"))
 
-                try:
-                    captcha_img_2.screenshot("captcha_img_2.png")
-                    time.sleep(1.4)
-                    screenshot_captcha_2 = Image.open("captcha_img_2.png")
-                    screenshot_captcha_2.show()
-                    time.sleep(5.4)
-                    
-                    # result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
-                    # time.sleep(7.6)
-                    
-                    # captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                    # print("captcha_solution_2 =", captcha_solution_2)
-                    
-                    ###
                     try:
-                        result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
-                        time.sleep(7.6)
+                        captcha_img_2.screenshot("captcha_img_2.png")
+                        time.sleep(1.4)
+                        screenshot_captcha_2 = Image.open("captcha_img_2.png")
+                        screenshot_captcha_2.show()
+                        time.sleep(5.4)
                         
-                        captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                        print("captcha_solution_2 =", captcha_solution_2)   
-                    except Exception as err:
-                        print(f"899. captcha_solution_2 Exception as {err}")
-                        try:
-                            time.sleep(2.6)
-                            driver.close()
-                            time.sleep(2.2)
-                            driver.quit()
-                            time.sleep(2.2)
-                            # try:
-                            #     book_scrap.pdf_url_download_found = "link pdf unfinished"
-                            #     context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
-                            #     pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
-                            #     serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
-                            #     if serializer.is_valid():
-                            #         serializer.save()
-                            # except Exception as e:
-                            #     print(f"serializer.save() Exception as link pdf unfinished {e}")
-                            # return context_book_scrap
-
-                        except NoSuchDriverException:
-                            print("NoSuchDriverException driver.quit")
-                            return context_book_scrap                        
+                        # result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                        # time.sleep(7.6)
+                        
+                        # captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                        # print("captcha_solution_2 =", captcha_solution_2)
+                        
                         ###
-                    
-                    try:
-                        action.move_to_element(captcha_input_2)
-                        time.sleep(0.2)
-                        action.click(captcha_input_2)
-                        action.perform()
-                        time.sleep(0.3)
-                        captcha_input_2.send_keys(captcha_solution_2)
+                        try:
+                            result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                            time.sleep(7.6)
+                            
+                            captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                            print("captcha_solution_2 =", captcha_solution_2)   
+                        except Exception as err:
+                            print(f"899. captcha_solution_2 Exception as {err}")
+                            try:
+                                time.sleep(2.6)
+                                driver.close()
+                                time.sleep(2.2)
+                                driver.quit()
+                                time.sleep(2.2)
+                                # try:
+                                #     book_scrap.pdf_url_download_found = "link pdf unfinished"
+                                #     context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
+                                #     pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
+                                #     serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
+                                #     if serializer.is_valid():
+                                #         serializer.save()
+                                # except Exception as e:
+                                #     print(f"serializer.save() Exception as link pdf unfinished {e}")
+                                return context_book_scrap
+
+                            except NoSuchDriverException:
+                                print("NoSuchDriverException driver.quit")
+                                return context_book_scrap                        
+                            ###
                         
-                        time.sleep(4.3)
-                        captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
-                        time.sleep(0.11)
-                        action.move_to_element(captcha_submit_2)
-                        time.sleep(0.2)
-                        action.click(captcha_submit_2)
-                        action.perform()                 
-                        time.sleep(2.3)  
-                        # driver.execute_script("arguments[0].click()", captcha_submit_2)   
-                    except MoveTargetOutOfBoundsException:
-                        print("1. MoveTargetOutOfBoundsException captcha_2")
-                        time.sleep(2.3)
                         try:
                             action.move_to_element(captcha_input_2)
                             time.sleep(0.2)
@@ -1193,78 +1188,117 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
                             time.sleep(2.3)  
                             # driver.execute_script("arguments[0].click()", captcha_submit_2)   
                         except MoveTargetOutOfBoundsException:
-                            print("2. MoveTargetOutOfBoundsException captcha_2")
-                            time.sleep(2.4)                        
-                except ScreenshotException:
-                    print(f"2a. ScreenshotException")
-                    time.sleep(3.7)                        
-                    
-                    try:
-                        captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-                        while True:
-                            captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-                            if captcha_input_2:
-                                print("1. captcha_input_2")
-                                time.sleep(12.2)
-                                captcha_img_2 = captcha_input_2.find_element(By.XPATH, "preceding-sibling::*[1]")
-                                print("captcha_img_2 src =", captcha_img_2.get_attribute("src"))
-
-                                try:
-                                    captcha_img_2.screenshot("captcha_img_2.png")
-                                    time.sleep(1.4)
-                                    screenshot_captcha_2 = Image.open("captcha_img_2.png")
-                                    screenshot_captcha_2.show()
-                                    time.sleep(5.4)
-                                    
-                                    result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
-                                    time.sleep(7.6)
-                                    
-                                    captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                                    print("captcha_solution_2 =", captcha_solution_2)
-                                    
-                                    try:
-                                        action.move_to_element(captcha_input_2)
-                                        time.sleep(0.2)
-                                        action.click(captcha_input_2)
-                                        action.perform()
-                                        time.sleep(0.3)
-                                        captcha_input_2.send_keys(captcha_solution_2)
-                                        
-                                        time.sleep(4.3)
-                                        captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
-                                        time.sleep(0.11)
-                                        action.move_to_element(captcha_submit_2)
-                                        time.sleep(0.2)
-                                        action.click(captcha_submit_2)
-                                        action.perform()                 
-                                        time.sleep(2.3)  
-                                        # driver.execute_script("arguments[0].click()", captcha_submit_2)   
-                                    except MoveTargetOutOfBoundsException:
-                                        print("1. MoveTargetOutOfBoundsException captcha_2") 
-                                        time.sleep(2.4)  
-                                                                              
-                                except ScreenshotException:
-                                    print(f"2a. ScreenshotException")
-                                    time.sleep(3.7)  
-                                                
-                                else:
-                                    print("1. NO captcha_2")
-                                    continue    
-                                    
-                            continue   
-
-                    except NoSuchElementException:
-                        print("except NoSuchElementException captcha_2")   
-                        continue
+                            print("1. MoveTargetOutOfBoundsException captcha_2")
+                            time.sleep(2.3)
+                            try:
+                                action.move_to_element(captcha_input_2)
+                                time.sleep(0.2)
+                                action.click(captcha_input_2)
+                                action.perform()
+                                time.sleep(0.3)
+                                captcha_input_2.send_keys(captcha_solution_2)
+                                
+                                time.sleep(4.3)
+                                captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
+                                time.sleep(0.11)
+                                action.move_to_element(captcha_submit_2)
+                                time.sleep(0.2)
+                                action.click(captcha_submit_2)
+                                action.perform()                 
+                                time.sleep(2.3)  
+                                # driver.execute_script("arguments[0].click()", captcha_submit_2)   
+                            except MoveTargetOutOfBoundsException:
+                                print("2. MoveTargetOutOfBoundsException captcha_2")
+                                time.sleep(2.4)                        
+                    except ScreenshotException:
+                        print(f"2a. ScreenshotException")
+                        time.sleep(3.7)                        
                         
-                else:
-                    print("2. NO captcha_2")
-                    continue             
-                
-            continue 
-        
-    except NoSuchElementException:
-        print(f"except NoSuchElementException captcha_2")
+                        try:
+                            captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+                            while True:
+                                captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+                                if captcha_input_2:
+                                    print("1. captcha_input_2")
+                                    time.sleep(12.2)
+                                    captcha_img_2 = captcha_input_2.find_element(By.XPATH, "preceding-sibling::*[1]")
+                                    print("captcha_img_2 src =", captcha_img_2.get_attribute("src"))
+
+                                    try:
+                                        captcha_img_2.screenshot("captcha_img_2.png")
+                                        time.sleep(1.4)
+                                        screenshot_captcha_2 = Image.open("captcha_img_2.png")
+                                        screenshot_captcha_2.show()
+                                        time.sleep(5.4)
+                                        
+                                        result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                                        time.sleep(7.6)
+                                        
+                                        captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                                        print("captcha_solution_2 =", captcha_solution_2)
+                                        
+                                        try:
+                                            action.move_to_element(captcha_input_2)
+                                            time.sleep(0.2)
+                                            action.click(captcha_input_2)
+                                            action.perform()
+                                            time.sleep(0.3)
+                                            captcha_input_2.send_keys(captcha_solution_2)
+                                            
+                                            time.sleep(4.3)
+                                            captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
+                                            time.sleep(0.11)
+                                            action.move_to_element(captcha_submit_2)
+                                            time.sleep(0.2)
+                                            action.click(captcha_submit_2)
+                                            action.perform()                 
+                                            time.sleep(2.3)  
+                                            # driver.execute_script("arguments[0].click()", captcha_submit_2)   
+                                        except MoveTargetOutOfBoundsException:
+                                            print("1. MoveTargetOutOfBoundsException captcha_2") 
+                                            time.sleep(2.4)  
+                                                                                
+                                    except ScreenshotException:
+                                        print(f"2a. ScreenshotException")
+                                        time.sleep(3.7)  
+                                                    
+                                    else:
+                                        print("1. NO captcha_2")
+                                        continue    
+                                        
+                                continue   
+
+                        except NoSuchElementException:
+                            print("except NoSuchElementException captcha_2")   
+                            continue
+                            
+                    else:
+                        print("2. NO captcha_2")
+                        continue             
+                    
+                continue 
+            
+        except NoSuchElementException:
+            print(f"except NoSuchElementException captcha_2")
+            
+    elif context_book_scrap["reader_easyocr"] == "FALSE":
+        try:
+            captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+            if captcha_input_2:
+                try:
+                    time.sleep(2.6)
+                    driver.close()
+                    time.sleep(2.2)
+                    driver.quit()
+                    time.sleep(2.2)
+                    return context_book_scrap
+
+                except NoSuchDriverException:
+                    print("NoSuchDriverException driver.quit") 
+                    return context_book_scrap            
+        except JavascriptException:
+            print(f"477. Exception captcha_input_2")        
+            time.sleep(2.1)                 
             
     time.sleep(2.1)
     try:
@@ -2468,14 +2502,27 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
     
     # chrome_options = Options()
     
-    lang_list = ['en']
-    gpu = False
-    reader_easyocr = easyocr.Reader(lang_list, gpu)
-    # reader_easyocr = easyocr.Reader(['en'])
+    try:
+        from EasyOCR.easyocr.easyocr import Reader
+        if Reader:
+            lang_list = ['en']
+            gpu = False
+    # reader_easyocr = easyocr.Reader(lang_list, gpu)
+            reader_easyocr = Reader(lang_list, gpu)
+            context_book_scrap["reader_easyocr"] = "TRUE"
+    except Exception as e:
+        print(f"Exception as {e}")
+        context_book_scrap["reader_easyocr"] = "FALSE"
+    # lang_list = ['en']
+    # gpu = False
+    # # reader_easyocr = easyocr.Reader(lang_list, gpu)
+    # reader_easyocr = Reader(lang_list, gpu)
+    
+    
     chrome_options = uc.ChromeOptions()
 
     chrome_options.page_load_strategy = 'none'
-    # chrome_options.add_argument('--headless=new')
+    chrome_options.add_argument('--headless=new')
     # options.page_load_strategy = 'eager'
     chrome_options.add_argument("--disable-blink-features=AutomationControlled") 
     chrome_options.add_argument("--excludeSwitches=['enable-automation']")
@@ -2714,81 +2761,62 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
         driver.get(url_page_pdf)
     except Exception as e:
         print(f"1639 exception; {e}")
-      
-    try:
-        captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-        while True:
+
+    if context_book_scrap["reader_easyocr"] == "TRUE":      
+        try:
             captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-            if captcha_input_2:
-                print("1. captcha_input_2")
-                time.sleep(12.2)
-                captcha_img_2 = captcha_input_2.find_element(By.XPATH, "preceding-sibling::*[1]")
-                print("captcha_img_2 src =", captcha_img_2.get_attribute("src"))
+            while True:
+                captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+                if captcha_input_2:
+                    print("1. captcha_input_2")
+                    time.sleep(12.2)
+                    captcha_img_2 = captcha_input_2.find_element(By.XPATH, "preceding-sibling::*[1]")
+                    print("captcha_img_2 src =", captcha_img_2.get_attribute("src"))
 
-                try:
-                    captcha_img_2.screenshot("captcha_img_2.png")
-                    time.sleep(1.4)
-                    screenshot_captcha_2 = Image.open("captcha_img_2.png")
-                    screenshot_captcha_2.show()
-                    time.sleep(5.4)
-                    
-                    # result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
-                    # time.sleep(7.6)
-                    
-                    # captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                    # print("captcha_solution_2 =", captcha_solution_2)
-                    
-                    ###
                     try:
-                        result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
-                        time.sleep(7.6)
+                        captcha_img_2.screenshot("captcha_img_2.png")
+                        time.sleep(1.4)
+                        screenshot_captcha_2 = Image.open("captcha_img_2.png")
+                        screenshot_captcha_2.show()
+                        time.sleep(5.4)
                         
-                        captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                        print("captcha_solution_2 =", captcha_solution_2)   
-                    except Exception as err:
-                        print(f"899. captcha_solution_2 Exception as {err}")
+                        # result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                        # time.sleep(7.6)
+                        
+                        # captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                        # print("captcha_solution_2 =", captcha_solution_2)
+                        
+                        ###
                         try:
-                            time.sleep(2.6)
-                            driver.close()
-                            time.sleep(2.2)
-                            driver.quit()
-                            time.sleep(2.2)                            
-                            # try:
-                            #     book_scrap.pdf_url_download_found = "link pdf unfinished"
-                            #     context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
-                            #     pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
-                            #     serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
-                            #     if serializer.is_valid():
-                            #         serializer.save()
-                            # except Exception as e:
-                            #     print(f"serializer.save() Exception as link pdf unfinished {e}")
-                            # return context_book_scrap
+                            result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                            time.sleep(7.6)
+                            
+                            captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                            print("captcha_solution_2 =", captcha_solution_2)   
+                        except Exception as err:
+                            print(f"899. captcha_solution_2 Exception as {err}")
+                            try:
+                                time.sleep(2.6)
+                                driver.close()
+                                time.sleep(2.2)
+                                driver.quit()
+                                time.sleep(2.2)                            
+                                # try:
+                                #     book_scrap.pdf_url_download_found = "link pdf unfinished"
+                                #     context_book_scrap["pdf_url_download_found"] = "link pdf unfinished"
+                                #     pdf_url_download_found_serializer = book_scrap.pdf_url_download_found
+                                #     serializer = BookPdfUrlSerializer(book_pdf_bot, data={'url_pdf': pdf_url_download_found_serializer}, partial=True)
+                                #     if serializer.is_valid():
+                                #         serializer.save()
+                                # except Exception as e:
+                                #     print(f"serializer.save() Exception as link pdf unfinished {e}")
+                                return context_book_scrap
 
-                        except NoSuchDriverException:
-                            print("NoSuchDriverException driver.quit")
-                            return context_book_scrap                        
-                        ###                    
-                    
-                    try:
-                        action.move_to_element(captcha_input_2)
-                        time.sleep(0.2)
-                        action.click(captcha_input_2)
-                        action.perform()
-                        time.sleep(0.3)
-                        captcha_input_2.send_keys(captcha_solution_2)
+                            except NoSuchDriverException:
+                                print("NoSuchDriverException driver.quit")
+                                return context_book_scrap                        
+                            ###                    
                         
-                        time.sleep(4.3)
-                        captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
-                        time.sleep(0.11)
-                        action.move_to_element(captcha_submit_2)
-                        time.sleep(0.2)
-                        action.click(captcha_submit_2)
-                        action.perform()                 
-                        time.sleep(2.3)  
-                        # driver.execute_script("arguments[0].click()", captcha_submit_2)   
-                    except MoveTargetOutOfBoundsException:
-                        print("1. MoveTargetOutOfBoundsException captcha_2")
-                        time.sleep(2.3)
                         try:
                             action.move_to_element(captcha_input_2)
                             time.sleep(0.2)
@@ -2807,79 +2835,117 @@ def book_scrap_ready(context_book_scrap, book_id_book_scrap_ready):
                             time.sleep(2.3)  
                             # driver.execute_script("arguments[0].click()", captcha_submit_2)   
                         except MoveTargetOutOfBoundsException:
-                            print("2. MoveTargetOutOfBoundsException captcha_2")
-                            time.sleep(2.4)                        
-                except ScreenshotException:
-                    print(f"2a. ScreenshotException")
-                    time.sleep(3.7)                        
-                    
-                    try:
-                        captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-                        while True:
-                            captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
-                            if captcha_input_2:
-                                print("1. captcha_input_2")
-                                time.sleep(12.2)
-                                captcha_img_2 = captcha_input_2.find_element(By.XPATH, "preceding-sibling::*[1]")
-                                print("captcha_img_2 src =", captcha_img_2.get_attribute("src"))
-
-                                try:
-                                    captcha_img_2.screenshot("captcha_img_2.png")
-                                    time.sleep(1.4)
-                                    screenshot_captcha_2 = Image.open("captcha_img_2.png")
-                                    screenshot_captcha_2.show()
-                                    time.sleep(5.4)
-                                    
-                                    result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
-                                    time.sleep(7.6)
-                                    
-                                    captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
-                                    print("captcha_solution_2 =", captcha_solution_2)
-                                    
-                                    try:
-                                        action.move_to_element(captcha_input_2)
-                                        time.sleep(0.2)
-                                        action.click(captcha_input_2)
-                                        action.perform()
-                                        time.sleep(0.3)
-                                        captcha_input_2.send_keys(captcha_solution_2)
-                                        
-                                        time.sleep(4.3)
-                                        captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
-                                        time.sleep(0.11)
-                                        action.move_to_element(captcha_submit_2)
-                                        time.sleep(0.2)
-                                        action.click(captcha_submit_2)
-                                        action.perform()                 
-                                        time.sleep(2.3)  
-                                        # driver.execute_script("arguments[0].click()", captcha_submit_2)   
-                                    except MoveTargetOutOfBoundsException:
-                                        print("1. MoveTargetOutOfBoundsException captcha_2") 
-                                        time.sleep(2.4)  
-                                                                              
-                                except ScreenshotException:
-                                    print(f"2a. ScreenshotException")
-                                    time.sleep(3.7)  
-                                                
-                                else:
-                                    print("1. NO captcha_2")
-                                    continue    
-                                    
-                            continue   
-
-                    except NoSuchElementException:
-                        print("except NoSuchElementException captcha_2")   
-                        continue
+                            print("1. MoveTargetOutOfBoundsException captcha_2")
+                            time.sleep(2.3)
+                            try:
+                                action.move_to_element(captcha_input_2)
+                                time.sleep(0.2)
+                                action.click(captcha_input_2)
+                                action.perform()
+                                time.sleep(0.3)
+                                captcha_input_2.send_keys(captcha_solution_2)
+                                
+                                time.sleep(4.3)
+                                captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
+                                time.sleep(0.11)
+                                action.move_to_element(captcha_submit_2)
+                                time.sleep(0.2)
+                                action.click(captcha_submit_2)
+                                action.perform()                 
+                                time.sleep(2.3)  
+                                # driver.execute_script("arguments[0].click()", captcha_submit_2)   
+                            except MoveTargetOutOfBoundsException:
+                                print("2. MoveTargetOutOfBoundsException captcha_2")
+                                time.sleep(2.4)                        
+                    except ScreenshotException:
+                        print(f"2a. ScreenshotException")
+                        time.sleep(3.7)                        
                         
-                else:
-                    print("2. NO captcha_2")
-                    continue             
-                
-            continue 
+                        try:
+                            captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+                            while True:
+                                captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+                                if captcha_input_2:
+                                    print("1. captcha_input_2")
+                                    time.sleep(12.2)
+                                    captcha_img_2 = captcha_input_2.find_element(By.XPATH, "preceding-sibling::*[1]")
+                                    print("captcha_img_2 src =", captcha_img_2.get_attribute("src"))
+
+                                    try:
+                                        captcha_img_2.screenshot("captcha_img_2.png")
+                                        time.sleep(1.4)
+                                        screenshot_captcha_2 = Image.open("captcha_img_2.png")
+                                        screenshot_captcha_2.show()
+                                        time.sleep(5.4)
+                                        
+                                        result_recaptcha_2 = reader_easyocr.readtext("captcha_img_2.png", detail=0, beamWidth=1, batch_size=4)
+                                        time.sleep(7.6)
+                                        
+                                        captcha_solution_2 = result_recaptcha_2[0].replace(" ", "").replace("tt", 'H').replace(")", "j").replace("FF", "A").replace("ff", "A").replace("2", "z").replace("#", "h").replace("0", "O").lower() #.replace("v", "u")
+                                        print("captcha_solution_2 =", captcha_solution_2)
+                                        
+                                        try:
+                                            action.move_to_element(captcha_input_2)
+                                            time.sleep(0.2)
+                                            action.click(captcha_input_2)
+                                            action.perform()
+                                            time.sleep(0.3)
+                                            captcha_input_2.send_keys(captcha_solution_2)
+                                            
+                                            time.sleep(4.3)
+                                            captcha_submit_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.myButton2")
+                                            time.sleep(0.11)
+                                            action.move_to_element(captcha_submit_2)
+                                            time.sleep(0.2)
+                                            action.click(captcha_submit_2)
+                                            action.perform()                 
+                                            time.sleep(2.3)  
+                                            # driver.execute_script("arguments[0].click()", captcha_submit_2)   
+                                        except MoveTargetOutOfBoundsException:
+                                            print("1. MoveTargetOutOfBoundsException captcha_2") 
+                                            time.sleep(2.4)  
+                                                                                
+                                    except ScreenshotException:
+                                        print(f"2a. ScreenshotException")
+                                        time.sleep(3.7)  
+                                                    
+                                    else:
+                                        print("1. NO captcha_2")
+                                        continue    
+                                        
+                                continue   
+
+                        except NoSuchElementException:
+                            print("except NoSuchElementException captcha_2")   
+                            continue
+                            
+                    else:
+                        print("2. NO captcha_2")
+                        continue             
+                    
+                continue
+        except NoSuchElementException:
+            print(f"except NoSuchElementException captcha_2")            
         
-    except NoSuchElementException:
-        print(f"except NoSuchElementException captcha_2")
-            
+    elif context_book_scrap["reader_easyocr"] == "FALSE":
+        try:
+            captcha_input_2 = driver.find_element(By.CSS_SELECTOR, "#eow-title > center > div > form > input.text-class")
+            if captcha_input_2:
+                try:
+                    time.sleep(2.6)
+                    driver.close()
+                    time.sleep(2.2)
+                    driver.quit()
+                    time.sleep(2.2)
+                    return context_book_scrap
+
+                except NoSuchDriverException:
+                    print("NoSuchDriverException driver.quit") 
+                    return context_book_scrap            
+        except JavascriptException:
+            print(f"477. Exception captcha_input_2")        
+            time.sleep(2.1)         
+        
     time.sleep(2.1)
     try:
         driver.execute_script("window.scrollBy(0, 200);")
