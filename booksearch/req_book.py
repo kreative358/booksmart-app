@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from os import environ
 from booksearch.forms import BookSearch
 import os, re, json, time, requests, datetime
-from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic
 from accounts.models import Account
 from booksmart.forms import BookForm, AuthorForm
 from booksearch.reqs import *
@@ -36,21 +36,21 @@ context_main['no_date'] = datetime.date(3000, 1, 1)
 context_main['url_img_book'] = url_img
 context_main['url_img_author'] = url_img_author
 
-try:
-    if Book.objects.all():
-    # if Book.objects.filter().all():
-        all_books = Book.objects.all()
-        # context_list.append(all_books)
-        num_books = Book.objects.all().count()
-        context_main['allbooks'] = all_books
-        context_main['num_books'] = num_books
-    elif not Book.objects.all():
-    # elif not Book.objects.filter().all():
-        context_main['allbooks'] = None
-        context_main['num_books'] = 0
-except:
-    # print("booksmart models 335 no Book.objects.all():")
-    pass
+# try:
+#     if Book.objects.all():
+#     # if Book.objects.filter().all():
+#         all_books = Book.objects.all()
+#         # context_list.append(all_books)
+#         num_books = Book.objects.all().count()
+#         context_main['allbooks'] = all_books
+#         context_main['num_books'] = num_books
+#     elif not Book.objects.all():
+#     # elif not Book.objects.filter().all():
+#         context_main['allbooks'] = None
+#         context_main['num_books'] = 0
+# except:
+#     # print("req_book no Book.objects.all():")
+#     pass
 
 try:
     if Author.objects.all():
@@ -601,7 +601,7 @@ def addx_book(request):
             # return render(request, 'addx_book.html', context)
 
 
-    elif not founded_book:
+    elif not founded_books:
         print('no books[0]')
         context['message'] = 'Sorry, probably threre is no books in google books match that search term'
         return Response(context, template_name='addx_book.html', )

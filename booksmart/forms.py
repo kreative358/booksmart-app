@@ -140,7 +140,8 @@ user_ids = []
 class IdUser(forms.Form):
     user_id = forms.CharField(widget=forms.HiddenInput())
     if user_id:
-        print('IdUser', user_id)
+        # print('IdUser', user_id)
+        print('IdUser')
 
 class AuthorRecords(forms.ModelForm):
     author_c = forms.ModelChoiceField(queryset = Author.objects.all(), label="choose author from list", required=False, widget=forms.Select(attrs={'id':'input_text_authorrecords'}))

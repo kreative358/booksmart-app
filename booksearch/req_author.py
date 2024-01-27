@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from os import environ
 from booksearch.forms import BookSearch, GBAuthor
 import os, re, json, time, requests, datetime
-from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic
 from booksmart.forms import BookForm, AuthorForm
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import IntegrityError
@@ -38,21 +38,21 @@ context_main['no_date_end'] = datetime.date(3000, 1, 1)
 context_main['url_img_book'] = url_img
 context_main['url_img_author'] = url_img_author
 
-try:
-    if Book.objects.all():
-    # if Book.objects.filter().all():
-        all_books = Book.objects.all()
-        # context_list.append(all_books)
-        num_books = Book.objects.all().count()
-        context_main['allbooks'] = all_books
-        context_main['num_books'] = num_books
-    elif not Book.objects.all():
-    # elif not Book.objects.filter().all():
-        context_main['allbooks'] = None
-        context_main['num_books'] = 0
-except:
-    print("booksmart models 335 no Book.objects.all():")
-    pass
+# try:
+#     if Book.objects.all():
+#     # if Book.objects.filter().all():
+#         all_books = Book.objects.all()
+#         # context_list.append(all_books)
+#         num_books = Book.objects.all().count()
+#         context_main['allbooks'] = all_books
+#         context_main['num_books'] = num_books
+#     elif not Book.objects.all():
+#     # elif not Book.objects.filter().all():
+#         context_main['allbooks'] = None
+#         context_main['num_books'] = 0
+# except:
+#     print("req_author no Book.objects.all():")
+#     pass
 
 try:
     if Author.objects.all():
@@ -96,7 +96,7 @@ except:
 
 try:
     if BackgroundMusic.objects.filter().last():   
-        music = BackgroundVideo.objects.filter().last()
+        music = BackgroundMusic.objects.filter().last()
         context_main['music_url_1'] = music.link_music_1
         context_main['music_type_1'] = music.type_music_1
         context_main['music_url_2'] = music.link_music_2

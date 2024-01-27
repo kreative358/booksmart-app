@@ -55,21 +55,21 @@ context_main['no_date'] = datetime.date(3000, 1, 1)
 context_main['url_img_book'] = url_img
 context_main['url_img_author'] = url_img_author
 
-try:
-    if Book.objects.all():
-    # if Book.objects.filter().all():
-        all_books = Book.objects.all()
-        # context_list.append(all_books)
-        num_books = Book.objects.all().count()
-        context_main['allbooks'] = all_books
-        context_main['num_books'] = num_books
-    elif not Book.objects.all():
-    # elif not Book.objects.filter().all():
-        context_main['allbooks'] = None
-        context_main['num_books'] = 0
-except:
-    # print("booksmart models 335 no Book.objects.all():")
-    pass
+# try:
+#     if Book.objects.all():
+#     # if Book.objects.filter().all():
+#         all_books = Book.objects.all()
+#         # context_list.append(all_books)
+#         num_books = Book.objects.all().count()
+#         context_main['allbooks'] = all_books
+#         context_main['num_books'] = num_books
+#     elif not Book.objects.all():
+#     # elif not Book.objects.filter().all():
+#         context_main['allbooks'] = None
+#         context_main['num_books'] = 0
+# except:
+#     # print("book_download_pm no Book.objects.all():")
+#     pass
 
 try:
     if Author.objects.all():
@@ -118,7 +118,7 @@ except:
     context_main['music_type_2'] = "mp3"
 
 MIRROR_SOURCES = ["GET", "Cloudflare", "IPFS.io", "Infura"]
-MIRROR_SOURCE_GET = ["GET"]
+MIRROR_SOURCES_GET = ["GET"]
 
 class LibgenSearchPM:
     def search_title(self, query):
@@ -132,7 +132,7 @@ class LibgenSearchPM:
     def search_title_filtered(self, query, filters, exact_match=True):
         search_request = SearchRequestPM(query, search_type="title")
         results = search_request.aggregate_request_data()
-        filtered_results = filter_results(
+        filtered_results = filter_resultsPM(
             results=results, filters=filters, exact_match=exact_match
         )
         return filtered_results
@@ -140,7 +140,7 @@ class LibgenSearchPM:
     def search_author_filtered(self, query, filters, exact_match=True):
         search_request = SearchRequestPM(query, search_type="author")
         results = search_request.aggregate_request_data()
-        filtered_results = filter_results(
+        filtered_results = filter_resultsPM(
             results=results, filters=filters, exact_match=exact_match
         )
         return filtered_results
@@ -165,7 +165,7 @@ class LibgenSearchPM:
         page = requests.get(mirror_1)
         soup = BeautifulSoup(page.text, "html.parser")
         
-        links = soup.find_all("a", string=MIRROR_SOURCE_GET)
+        links = soup.find_all("a", string=MIRROR_SOURCES_GET)
         download_links = {link.string: link["href"] for link in links}
         
         print(f"\n1. download_links = {download_links}\n")

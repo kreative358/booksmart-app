@@ -404,7 +404,8 @@ def download_book_gs(book_download, context_gs):
     print("0. pdf_links_gs =", pdf_links_gs)
     results_gs_list = []
     context_gs['num_authors'] = num_authors
-    context_gs['num_books'] = num_books    
+    # context_gs['num_books'] = num_books    
+    context_gs['num_books'] = Book.objects.all().count() 
     book_to_download = Book.objects.filter(pk=book_download["id"]).first()
     links_to_download = []
     search_libgen_gs = LibgenSearchGS()

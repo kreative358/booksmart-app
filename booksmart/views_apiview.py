@@ -322,11 +322,13 @@ def authors_last(request):
     # currents.append(current_url_name)
     context = context_main
 
-    context['allbooks'] = all_books
+    # context['allbooks'] = all_books
+    context['allbooks'] = Book.objects.filter().all()
     context['allauthors'] = all_authors
 
     context['num_authors'] = num_authors
-    context['num_books'] = num_books
+    # context['num_books'] = num_books
+    context['num_books'] = Book.objects.all().count()
     context['current_url'] = current_url_name
 
     context['search_form'] = search_form
