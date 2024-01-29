@@ -9,11 +9,12 @@ import os, requests, json, re, datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import resolve
 from django.contrib.auth.models import User
-from booksmart.models import context_bm
+from booksmart.models import context_bm_models
 
-def a_registration_view(request):
+def a_registration_view(request, *args, **kwargs):
     # context = {}
-    context_a_r = context_bm
+    context_bm_models()
+    context_a_r = context_bm_models.context_bm
     if "registration_f" in request.POST:
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -45,8 +46,8 @@ def a_logout_view(request, url="/"):
 content_out = a_logout_view
 
 def a_login_view(request):
-
-    context_a_l = context_bm
+    context_bm_models()
+    context_a_l = context_bm_models.context_bm
     r_user = request.user
     if r_user.is_authenticated:
         return redirect("/")
@@ -75,8 +76,9 @@ content_in = a_login_view
 
 
 def a_account_view(request):
+    context_bm_models()
+    context_a_a = context_bm_models.context_bm    
     r_user = request.user
-    context_a_a = context_bm
     # initial_email = request.user.email
     # initial_user = request.user.username
     if not r_user.is_authenticated:
@@ -117,8 +119,9 @@ def must_authenticate_view(request):
 	return render(request, 'registration/must_authenticate.html', {})
 
 def delete_account(request):
+    context_bm_models()
+    context_a_a = context_bm_models.context_bm    
     r_user = request.user
-    context_d = context_bm
     if request.method == 'POST':
         delete_form = AccountDeleteForm(request.POST, instance=r_user)
         # r_user = request.user
@@ -138,18 +141,23 @@ def delete_account(request):
 #     request.user = user
 #     user_id = user.id
 #     print(f'views_acc line 137 user_id: {user_id}')
-#     return user_id
-context_a = context_bm
 
-context_a['registration_form'] = a_registration_view
-context_a['login_form'] = a_login_view
-context_a['account_form'] = a_account_view
+#     return user_id
+def context_views_authorization():
+    context_bm_models()  
+    context_a = context_bm_models.context_bm
+
+    context_a['registration_form'] = a_registration_view
+    context_a['login_form'] = a_login_view
+    context_a['account_form'] = a_account_view
+    return context_a
 # context_a['user_id'] = request_user_id
 
 class AuthenticationFunctions():
-    context_A = context_bm
-    def a_registration_view(self, request):
-        context_A_r = context_bm
+    # context_A = context_bm_models.context_bm
+    def a_registration_view(self, request, *args, **kwargs):
+        context_bm_models()
+        context_A_r = context_bm_models.context_bm
         if "registration_f" in request.POST:
             form = RegistrationForm(request.POST)
             if form.is_valid():
@@ -175,15 +183,15 @@ class AuthenticationFunctions():
 
     content_re = a_registration_view
 
-    def a_logout_view(request, url="/"):
+    def a_logout_view(request, url="/", *args, **kwargs):
         logout(request)
         return redirect(url)
 
     content_out = a_logout_view
 
     def a_login_view(self, request):
-
-        context_a_l_v = context_bm
+        context_bm_models()
+        context_a_l_v = context_bm_models.context_bm
         r_user = request.user
         if r_user.is_authenticated:
             return redirect("/")
@@ -213,7 +221,8 @@ class AuthenticationFunctions():
         # user = request.user
         # initial_email = request.user.email
         # initial_user = request.user.username
-        context_a_a_v = context_bm
+        context_bm_models()        
+        context_a_a_v = context_bm_models.context_bm
         r_user = request.user
         if not request.user.is_authenticated:
             return redirect("/")
@@ -253,7 +262,8 @@ class AuthenticationFunctions():
         return render(request, 'registration/must_authenticate.html', {})
 
     def delete_account(self, request):
-        context_d_a = context_bm
+        context_bm_models()        
+        context_d_a = context_bm_models.context_bm
         r_user = request.user
         if request.method == 'POST':
             delete_form = AccountDeleteForm(request.POST, instance=request.user)

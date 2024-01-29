@@ -2,7 +2,7 @@ from booksmart.models import Book, Author
 from rest_framework.reverse import reverse
 
 from rest_framework import routers, serializers, viewsets, generics
-from booksmart.models import Book
+
 from booksmart.api.serializer import BookToEditSerializer
 
 class FilterList(generics.ListAPIView):

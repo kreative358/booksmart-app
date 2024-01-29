@@ -1,6 +1,6 @@
 from accounts.models import Account, MyAccountManager
 import os, requests, json, re, datetime, requests.api
-from booksmart.models import context_bm, url_img, Book, Author
+from booksmart.models import context_bm_models, url_img, Book, Author
 from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
@@ -17,7 +17,8 @@ from rest_framework.authtoken.models import Token
 
 
 def account_view_form(request):
-    context = context_bm
+    context_bm_models()
+    context = context_bm_models.context_bm
     r_user = request.user
     if not request.user.is_authenticated:
         return redirect("index")
@@ -58,7 +59,8 @@ def account_view_form(request):
 
 
 def register_view_form(request):
-    context = context_bm
+    context_bm_models()    
+    context = context_bm_models.context_bm
     r_user = request.user
     if request.POST:
         form = RegistrationForm(request.POST)
@@ -103,7 +105,8 @@ def register_view_form(request):
 def A_account_view_form(request):
     # user = request.user
     # initial_email = request.user.email
-    context = context_bm
+    context_bm_models()    
+    context = context_bm_models.context_bm
     r_user = request.user
     # initial_user = request.user.username
     if not request.user.is_authenticated:
@@ -160,7 +163,8 @@ def A_account_view_form(request):
 # @authentication_classes([]) # authentication.TokenAuthentication
 @renderer_classes([TemplateHTMLRenderer])
 def registration_view(request):
-    context = context_bm
+    context_bm_models()    
+    context = context_bm_models.context_bm
     r_user = request.user
     if request.GET:
         form = RegistrationForm()

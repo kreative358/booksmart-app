@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import IntegrityError
-from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo #, context_bm  
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic
 from booksmart.forms import *
 
 from django.db.models import Avg, Max, Min
@@ -66,86 +66,97 @@ Languages = {
     'uk': 'Ukrainian'
 }    
 
-context_main = {}
+def context_book_download():
+    context_main = {}
 
-context_main['no_date'] = datetime.date(3000, 1, 1)
-context_main['url_img_book'] = url_img
-context_main['url_img_author'] = url_img_author
+    context_main['no_date'] = datetime.date(3000, 1, 1)
+    # context_main['no_date_start'] = datetime.date(3000, 1, 1)
+    # context_main['no_date_end'] = datetime.date(3000, 1, 1)
+    context_main['url_img_book'] = url_img
+    context_main['url_img_author'] = url_img_author
 
-# try:
-#     if Book.objects.all():
-#     # if Book.objects.filter().all():
-#         all_books = Book.objects.all()
-#         # context_list.append(all_books)
-#         num_books = Book.objects.all().count()
-#         context_main['allbooks'] = all_books
-#         context_main['num_books'] = num_books
-#     elif not Book.objects.all():
-#     # elif not Book.objects.filter().all():
-#         context_main['allbooks'] = None
-#         context_main['num_books'] = 0
-# except Exception as err:
-#     print(f"book_download: Book.objects.all() except Exception as {err}")
-#     pass
+    try:
+        if Book.objects.all():
+        # if Book.objects.filter().all():
+            all_books = Book.objects.all()
+            # context_list.append(all_books)
+            num_books = Book.objects.all().count()
+            context_main['allbooks'] = all_books
+            context_main['num_books'] = num_books
+        elif not Book.objects.all():
+        # elif not Book.objects.filter().all():
+            context_main['allbooks'] = None
+            context_main['num_books'] = 0
+    except Exception as err:
+        print(f"book_download no Book.objects.all(): except Exception as {err}")
+        context_main['allbooks'] = None
+        context_main['num_books'] = 0
 
-try:
-    if Author.objects.all():
-    # if Author.objects.filter().all():
-        all_authors = Author.objects.all()
-        # context_list.append(all_authors)
-        num_authors = Author.objects.all().count()
-        context_main['allauthors'] = all_authors
-        context_main['num_authors'] = num_authors
-    elif not Author.objects.all():
-    #elif not Author.objects.filter().all():
+    try:
+        if Author.objects.all():
+        # if Author.objects.filter().all():
+            all_authors = Author.objects.all()
+            # context_list.append(all_authors)
+            num_authors = Author.objects.all().count()
+            context_main['allauthors'] = all_authors
+            context_main['num_authors'] = num_authors
+        elif not Author.objects.all():
+        #elif not Author.objects.filter().all():
+            context_main['allauthors'] = None
+            context_main['num_authors'] = 0
+    except Exception as err:
+        print(f"book_download no Author.objects.all(): Exception as {err}")
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
-except Exception as err:
-    print(f"book_download: Author.objects.all(): except Exception as {err}")
-    pass
 
-try:
-    if BackgroundPoster.objects.filter().last():
-        poster = BackgroundPoster.objects.filter().last()
-        context_main['poster_url_1'] = poster.link_poster_1
-        context_main['poster_url_2'] = poster.link_poster_2
-    elif not BackgroundPoster.objects.filter().last():
-        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1FNl36zxhcZBXSbJdFB8V-4eWHoOIVHMl"
-        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1FNl36zxhcZBXSbJdFB8V-4eWHoOIVHMl"
-except Exception as err:
-    print(f"book_download: Author.objects.all(): except Exception as {err}")
-    pass
+    try:
+        if BackgroundPoster.objects.filter().last():
+            poster = BackgroundPoster.objects.filter().last()
+            context_main['poster_url_1'] = poster.link_poster_1
+            context_main['poster_url_2'] = poster.link_poster_2
+        elif not BackgroundPoster.objects.filter().last():
+            context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+            context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+    except Exception as err:
+        print(f"book_download Author.objects.all(): except Exception as {err}")
+        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"      
 
-try:
-    if BackgroundVideo.objects.filter().last():   
-        video = BackgroundVideo.objects.filter().last()
-        context_main['video_url'] = video.link_video
-        context_main['video_type'] = video.type_video
-    elif not BackgroundVideo.objects.filter().last():
-        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1L52HH0GCbHoYH8ttJICj0P5iwg_sNTqz"
+    try:
+        if BackgroundVideo.objects.filter().last():   
+            video = BackgroundVideo.objects.filter().last()
+            context_main['video_url'] = video.link_video
+            context_main['video_type'] = video.type_video
+        elif not BackgroundVideo.objects.filter().last():
+            context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+            context_main['video_type'] = "mp4"
+    except Exception as err:
+        print(f"book_download BackgroundVideo.objects.filter().last(): except Exception as {err}")
+        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
-except Exception as err:
-    print(f"book_download: BackgroundVideo.objects.filter().last(): except Exception as {err}")
-    pass
 
-try:
-    if BackgroundMusic.objects.filter().last():   
-        music = BackgroundMusic.objects.filter().last()
-        context_main['music_url_1'] = music.link_music_1
-        context_main['music_type_1'] = music.type_music_1
-        context_main['music_url_2'] = music.link_music_2
-        context_main['music_type_2'] = music.type_music_2
-    elif not BackgroundMusic.objects.filter().last(): 
+    try:
+        if BackgroundMusic.objects.filter().last():   
+            music = BackgroundMusic.objects.filter().last()
+            context_main['music_url_1'] = music.link_music_1
+            context_main['music_type_1'] = music.type_music_1
+            context_main['music_url_2'] = music.link_music_2
+            context_main['music_type_2'] = music.type_music_2
+        elif not BackgroundMusic.objects.filter().last(): 
+            context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+            context_main['music_type_1'] = "mp3"
+            context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+            context_main['music_type_2'] = "mp3"
+    except Exception as err:
+        print(f"book_download BackgroundMusic.objects.filter().last(): except Exception as {err}")
         context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
         context_main['music_type_1'] = "mp3"
         context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_main['music_type_2'] = "mp3"
-except Exception as err:
-    print(f"book_download: BackgroundMusic.objects.filter().last(): except Exception as {err}")
-    context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-    context_main['music_type_1'] = "mp3"
-    context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-    context_main['music_type_2'] = "mp3"
+        
+    context_book_download.context_main = context_main
+    return context_main
+        
 
 MIRROR_SOURCES = ["GET", "Cloudflare", "IPFS.io", "Infura"]
 MIRROR_SOURCE_GET = ["GET"]
@@ -400,12 +411,13 @@ def filter_results_gs(results_gs, filters, exact_match):
 
 
 def download_book_gs(book_download, context_gs):
+    # context_gs.update(context_book_download.context_main)
     pdf_links_gs = []
     print("0. pdf_links_gs =", pdf_links_gs)
     results_gs_list = []
-    context_gs['num_authors'] = num_authors
-    # context_gs['num_books'] = num_books    
-    context_gs['num_books'] = Book.objects.all().count() 
+    # context_gs['num_authors'] = num_authors
+    # # context_gs['num_books'] = num_books    
+    # context_gs['num_books'] = Book.objects.all().count() 
     book_to_download = Book.objects.filter(pk=book_download["id"]).first()
     links_to_download = []
     search_libgen_gs = LibgenSearchGS()
@@ -558,9 +570,10 @@ def download_book_gs(book_download, context_gs):
 def download_book(request, id):
     current_url_name = request.path
     print()
-    print("current_url_name =", current_url_name)
+    print("download_book current_url_name =", current_url_name)
     print()
-    context = context_main
+    context_book_download()
+    context = context_book_download.context_main
     book_id = current_url_name.split("/")[-1]
     # book = get_object_or_404(Book, pk=book_id)
     book = Book.objects.filter(pk = book_id).first()
@@ -668,9 +681,7 @@ def download_book(request, id):
                 download_book_gs(book_download, context_gs) 
                 context.update(context_gs)
                 print()
-                return Response(context, template_name='download_book.html',)                   
-
-                
+                return Response(context, template_name='download_book.html',)                        
 
     context["search_title_download"] = BookDownload()
 
@@ -702,6 +713,7 @@ def download_path(request):
         return JsonResponse({"error": "Nieprawidłowa metoda żądania."})
     
     return render(request, 'download_path.html', context)
+
     
 def def_book_scrap(pdf_url_download_docer, context, book_to_message):
     pdf_url_download_docer = book_scrap.pdf_url_download_found
@@ -733,6 +745,7 @@ def def_book_scrap(pdf_url_download_docer, context, book_to_message):
         context["message_docer"] = f"probably book {book_to_message} is downloaded, check folder downloads"
     return context
 
+
 def def_book_scrap_ready(pdf_url_download_docer, context, book_to_message):
     if pdf_url_download_docer == "link pdf exist":
         print("pdf_url_download_docer = link pdf exist")
@@ -751,19 +764,20 @@ books_values = []
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def download_docer(request):
     # book = get_object_or_404(Book, pk=id)       
-        
+    context_book_download()    
+    context = context_book_download.context_main    
     print("def download_docer")
     r_user = request.user
     current_url_name = request.path
-    num_books = Book.objects.all().count()
-    num_authors = Author.objects.all().count()
+    # num_books = Book.objects.all().count()
+    # num_authors = Author.objects.all().count()
     author_book_libgen = ""
     title_download_libgen = ""
     language_download_libgen = ""
     book_to_message = ""
-    context = context_main
-    context['num_authors'] = num_authors
-    context['num_books'] = num_books
+
+    # context['num_authors'] = num_authors
+    # context['num_books'] = num_books
     try:
         from booksmart.test_docer import book_scrap, book_scrap_ready
     except Exception as e:

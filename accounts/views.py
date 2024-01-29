@@ -1,5 +1,5 @@
 import os, requests, json, re
-# from booksmart.models import context_bm as context_bm_rest
+# from booksmart.models import context_bm_models
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, get_user_model
 # from django.contrib.auth.hashers import check_password
@@ -33,96 +33,110 @@ from django.contrib.auth.models import AnonymousUser
 from accounts.error import *
 from django.contrib.auth.hashers import make_password
 from accounts.forms import RechaptchaForm
-from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic #, context_bm_m
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic, context_bm_models
 
 RECAPTCHA_SECRET_KEY = '6Le3IP4nAAAAAH5J3uPYy4BPPEsS55k0RwCaYxeY'
 url_recaptcha = 'https://www.google.com/recaptcha/api/siteverify'
 
+# def context_bm_accounts(context_bm_accounts):
+def context_accounts_views():
+    context_main = {}
+    
+    try:
+        if Book.objects.all():
+        # if Book.objects.filter().all():
+            all_books = Book.objects.all()
+            # context_list.append(all_books)
+            num_books = Book.objects.all().count()
+            context_main['allbooks'] = all_books
+            context_main['num_books'] = num_books
+        elif not Book.objects.all():
+        # elif not Book.objects.filter().all():
+            context_main['allbooks'] = None
+            context_main['num_books'] = 0
+    except Exception as err:
+        print(f"accounts views: Book.objects.all() except Exception as {err}")
+        context_main['allbooks'] = None
+        context_main['num_books'] = 0        
 
-context_main = {}
-context_bm_rest = {}
-# try:
-#     if Book.objects.all():
-#     # if Book.objects.filter().all():
-#         all_books = Book.objects.all()
-#         # context_list.append(all_books)
-#         num_books = Book.objects.all().count()
-#         context_main['allbooks'] = all_books
-#         context_main['num_books'] = num_books
-#     elif not Book.objects.all():
-#     # elif not Book.objects.filter().all():
-#         context_main['allbooks'] = None
-#         context_main['num_books'] = 0
-# except Exception as err:
-#     print(f"accounts views: Book.objects.all() except Exception as {err}")
-#     pass
-
-try:
-    if Author.objects.all():
-    # if Author.objects.filter().all():
-        all_authors = Author.objects.all()
-        # context_list.append(all_authors)
-        num_authors = Author.objects.all().count()
-        context_main['allauthors'] = all_authors
-        context_main['num_authors'] = num_authors
-    elif not Author.objects.all():
-    #elif not Author.objects.filter().all():
+    try:
+        if Author.objects.all():
+        # if Author.objects.filter().all():
+            all_authors = Author.objects.all()
+            # context_list.append(all_authors)
+            num_authors = Author.objects.all().count()
+            context_main['allauthors'] = all_authors
+            context_main['num_authors'] = num_authors
+        elif not Author.objects.all():
+        #elif not Author.objects.filter().all():
+            context_main['allauthors'] = None
+            context_main['num_authors'] = 0
+    except Exception as err:
+        print(f"accounts views: Author.objects.all(): except Exception as {err}")
         context_main['allauthors'] = None
-        context_main['num_authors'] = 0
-except Exception as err:
-    print(f"accounts views: Author.objects.all(): except Exception as {err}")
-    pass
+        context_main['num_authors'] = 0        
 
-try:
-    if BackgroundPoster.objects.filter().last():
-        poster = BackgroundPoster.objects.filter().last()
-        context_main['poster_url_1'] = poster.link_poster_1
-        context_main['poster_url_2'] = poster.link_poster_2
-    elif not BackgroundPoster.objects.filter().last():
+    try:
+        if BackgroundPoster.objects.filter().last():
+            poster = BackgroundPoster.objects.filter().last()
+            context_main['poster_url_1'] = poster.link_poster_1
+            context_main['poster_url_2'] = poster.link_poster_2
+        elif not BackgroundPoster.objects.filter().last():
+            context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+            context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+    except Exception as err:
+        print(f"accounts views: Author.objects.all(): except Exception as {err}")
         context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-except Exception as err:
-    print(f"accounts views: Author.objects.all(): except Exception as {err}")
-    pass
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"        
 
-try:
-    if BackgroundVideo.objects.filter().last():   
-        video = BackgroundVideo.objects.filter().last()
-        context_main['video_url'] = video.link_video
-        context_main['video_type'] = video.type_video
-    elif not BackgroundVideo.objects.filter().last():
+    try:
+        if BackgroundVideo.objects.filter().last():   
+            video = BackgroundVideo.objects.filter().last()
+            context_main['video_url'] = video.link_video
+            context_main['video_type'] = video.type_video
+        elif not BackgroundVideo.objects.filter().last():
+            context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+            context_main['video_type'] = "mp4"
+    except Exception as err:
+        print(f"accounts views: BackgroundVideo.objects.filter().last(): except Exception as {err}")
         context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
-except Exception as err:
-    print(f"accounts views: BackgroundVideo.objects.filter().last(): except Exception as {err}")
-    pass
-
-try:
-    if BackgroundMusic.objects.filter().last():   
-        music = BackgroundMusic.objects.filter().last()
-        context_main['music_url_1'] = music.link_music_1
-        context_main['music_type_1'] = music.type_music_1
-        context_main['music_url_2'] = music.link_music_2
-        context_main['music_type_2'] = music.type_music_2
-    elif not BackgroundMusic.objects.filter().last(): 
+        
+    try:
+        if BackgroundMusic.objects.filter().last():   
+            music = BackgroundMusic.objects.filter().last()
+            context_main['music_url_1'] = music.link_music_1
+            context_main['music_type_1'] = music.type_music_1
+            context_main['music_url_2'] = music.link_music_2
+            context_main['music_type_2'] = music.type_music_2
+        elif not BackgroundMusic.objects.filter().last(): 
+            context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+            context_main['music_type_1'] = "mp3"
+            context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+            context_main['music_type_2'] = "mp3"
+    except Exception as err:
+        print(f"accounts views: BackgroundMusic.objects.filter().last(): except Exception as {err}")
         context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
         context_main['music_type_1'] = "mp3"
         context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_main['music_type_2'] = "mp3"
-except Exception as err:
-    print(f"accounts views: BackgroundMusic.objects.filter().last(): except Exception as {err}")
-    context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-    context_main['music_type_1'] = "mp3"
-    context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-    context_main['music_type_2'] = "mp3"
+        
+    context_accounts_views.context_main = context_main.copy()
+    # context_bm_accounts = context_main.copy()
     
-# try:
-#     if Book.objects.all():
-#         context_serializer_start = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
-#     else:
-#         print("No Books")
-# except Exception as err:
-#     print(f"accounts views Exception as {err}")    
+    # context_serializer_start = {
+    #     'num_authors': context_main['num_authors'], 
+    #     'poster_url_1': context_main['poster_url_1'], 
+    #     'poster_url_2': context_main['poster_url_2'], 
+    #     'video_url': context_main['video_url'], 
+    #     'video_type': context_main['video_type'],
+    #     'music_url_1': context_main['music_url_1'], 
+    #     'music_type_1': context_main['music_type_1'], 
+    #     'music_url_2': context_main['music_url_2'], 
+    #     'music_type_2': context_main['music_type_2']
+    #     }    
+    return context_main  
+     
     
 # def get_user(request):
 #     r_user=request.user
@@ -144,11 +158,11 @@ except Exception as err:
 # @authentication_classes([])
 @renderer_classes([TemplateHTMLRenderer])
 def index_auth(request):
-    context_i_a = context_bm_rest
+    context_accounts_views()
+    context_i_a = context_accounts_views.context_main
 	# return render(request, 'must_authenticate.html', {})
     return Response(context_i_a, template_name='index_auth.html', )
 
-context_serializer_start = {}
     
 
 # from typing import Protocol
@@ -207,20 +221,23 @@ class RegistrationViewBase(APIView):
     # try:
     #     context_serializer = {'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
     # except Exception as e:
-    #     print(f"210. RegistrationViewBase Exception as {e}")        
-    context_serializer = {}
+    #     print(f"210. RegistrationViewBase Exception as {e}")   
+    # context_serializer = {}    
+    # context_serializer.update(context_bm_accounts.context_main)
+    # context_serializer = context_accounts_views.context_main
         
     def get(self, request, *args, **kwargs):
         message_errors = ""
-        context_serializer_get = {}
-        context_serializer_get.update(context_main)
+        # context_serializer_get = {}
+        context_accounts_views()
+        context_serializer_get = context_accounts_views.context_main
         #current_url_name = request.path
         # messages.info(request, "")
         # print("context_bm_rest = ", context_bm_rest)
         serializer = self.serializer_class()
 
-        context_serializer_get = self.context_serializer
-        context_serializer_get['serializer']= serializer 
+        # context_serializer_get = self.context_serializer
+        context_serializer_get['serializer'] = serializer 
         context_serializer_get['style'] = self.style 
 
         return Response(context_serializer_get, )
@@ -229,9 +246,10 @@ class RegistrationViewBase(APIView):
         # message_errors = ""
         message_errors = []
         recaptcha_error = []
-
-        context_serializer_post = {}
-        context_serializer_post = self.context_serializer
+        context_accounts_views()
+        # context_serializer_post = {}
+        # context_serializer_post = self.context_serializer
+        context_serializer_post = context_accounts_views.context_main
         context_serializer_post['style'] = self.style
         # messages.info(request, "")
         # datas = request.data.copy()
@@ -328,7 +346,7 @@ class RegistrationViewBase(APIView):
                     return redirect(context_serializer_post['current_url'])
 
                 else:
-                    context_serializer_post_else = {}
+                    # context_serializer_post_else = {}
                     messages.info(request, "<br>".join(msg_error for msg_error in message_errors))
                     # return messages_info
                     
@@ -344,7 +362,7 @@ class RegistrationViewBase(APIView):
                 return redirect(context_serializer_post['current_url'])
                     
             else:
-                context_serializer_post_else = {}
+                # context_serializer_post_else = {}
                 recaptcha_error = ['reCaptcha seems to be NOT ORIGINAL']
                 messages.info(request, recaptcha_error)
 
@@ -354,7 +372,7 @@ class RegistrationViewBase(APIView):
                 
                 return Response(context_serializer_post_else, template_name="login.html")
         
-        context_serializer_Response =  {}
+        # context_serializer_Response =  {}
         # context_serializer_Response = context_serializer_post
         context_serializer_Response = self.context_serializer
         context_serializer_Response['style'] = self.style
@@ -375,19 +393,22 @@ class LoginView(GenericAPIView):
     template_name = "login.html"
     style = {'template_pack': 'rest_framework/vertical/'}
     serializer_class = LoginSerializer
-    context_serializer = context_serializer_start
+    # context_serializer = context_accounts_views.context_main    
+    # context_serializer.update(context_bm_accounts.context_main)
 
     def get(self, request, *args, **kwargs):
         message_errors = []
         recaptcha_error = []
-        context_serializer_get = {}
-        context_serializer_get.update(context_main)
+        # context_serializer_get = {}
+        # context_serializer_get = self.context_serializer
+        context_accounts_views()
+        context_serializer_get = context_accounts_views.context_main
         #current_url_name = request.path
         # messages.info(request, "")
         # print("context_bm_rest = ", context_bm_rest)
         serializer = self.serializer_class()
 
-        context_serializer_get = self.context_serializer
+        # context_serializer_get = self.context_serializer
         context_serializer_get['serializer'] = serializer 
         context_serializer_get['style'] = self.style 
 
@@ -398,8 +419,10 @@ class LoginView(GenericAPIView):
         message_errors = []
         recaptcha_error = []
         
-        context_serializer_post = {}
-        context_serializer_post = self.context_serializer
+        # context_serializer_post = {}
+        # context_serializer_post = self.context_serializer
+        context_accounts_views()
+        context_serializer_post = context_accounts_views.context_main
         context_serializer_post['style'] = self.style
         # messages.info(request, "")
         # recaptcha_login = ""
@@ -482,7 +505,7 @@ class LoginView(GenericAPIView):
                     return redirect(context_serializer_post['current_url'])
                         
                 else:
-                    context_serializer_post_else = {}
+                    # context_serializer_post_else = {}
                     # message_errors = ['MESSAGE:<br>', 'Access denied:<br> wrong username or password']
                     messages.info(request, ''.join(msg_error for msg_error in message_errors))
                     context_serializer_post_else = context_serializer_post
@@ -497,7 +520,7 @@ class LoginView(GenericAPIView):
                 return redirect(context_serializer_post['current_url'])
                     
             else:
-                context_serializer_post_else = {}
+                # context_serializer_post_else = {}
                 messages.info(request, ['reCaptcha seems to be NOT ORIGINAL !?!', ])
 
                 context_serializer_post_else = context_serializer_post
@@ -506,7 +529,7 @@ class LoginView(GenericAPIView):
                 
                 return Response(context_serializer_post_else, template_name="login.html")
 
-        context_serializer_Response =  {}
+        # context_serializer_Response =  {}
         # context_serializer_Response = context_serializer_post
         context_serializer_Response = self.context_serializer
         context_serializer_Response['style'] = self.style
@@ -525,13 +548,16 @@ class AccauntUpdateView(APIView):
     style = {'template_pack': 'rest_framework/vertical/'}
     serializer_class = AccountUpdateSerializer
     # style = { 'placeholder': 'field to enter email', 'autofocus': True, 'size':'36', 'id':'bs_input'}
-    context_serializer = context_serializer_start
+    # context_serializer = context_accounts_views.context_main   
+    # context_serializer.update(context_bm_accounts.context_main)
 
     def get(self, request, *args, **kwargs): #self, request, *args, **kwargs
     # def get(self, request, format=None):   
         # messages.info(request, "") 
-        context_serializer_get = {}
-
+        # context_serializer_get = {}
+        # context_serializer_get = self.context_serializer
+        context_accounts_views()
+        context_serializer_get = context_accounts_views.context_main
         account = request.user
         username_val = account.username
         email_val = account.email
@@ -546,8 +572,10 @@ class AccauntUpdateView(APIView):
 
     def post(self, request, format=None):
         # messages.info(request, "")
-        context_serializer_post = {}
-        context_serializer_post = self.context_serializer
+        # context_serializer_post = {}
+         # context_serializer_post = self.context_serializer
+        context_accounts_views()
+        context_serializer_post = context_accounts_views.context_main
         context_serializer_post['style'] = self.style
 
         account = request.user
@@ -579,7 +607,7 @@ class AccauntUpdateView(APIView):
                 # return redirect(f"booksmart:{initial_val['current_url']}")
                 return redirect(context_serializer_post['current_url'])
             else:
-                context_serializer_post_else = {}
+                # context_serializer_post_else = {}
                 msgs = ['MESSAGE: <br>', 'Profile details updated success<br>', f"username: {username_val},<br>adress email: {email_val}"]
                 messages.info(request, ''.join(msg for msg in msgs))
 
@@ -602,7 +630,7 @@ class AccauntUpdateView(APIView):
                 return redirect(context_serializer_post['current_url'])
 
             else:
-                context_serializer_post_else = {}
+                # context_serializer_post_else = {}
                 messages.info(request, "<br>".join(msg_error for msg_error in message_errors))
 
 
@@ -617,14 +645,13 @@ class AccauntUpdateView(APIView):
                 # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         #return Response(None, status=status.HTTP_202_ACCEPTED)
-        context_serializer_Response =  {}
+        # context_serializer_Response =  {}
         # context_serializer_Response = context_serializer_post
         context_serializer_Response = self.context_serializer
         context_serializer_Response['style'] = self.style
         context_serializer_Response['serializer'] = self.serializer_class
         # context_Response_return['serializer'] = serializer
         return Response(context_serializer_Response,  template_name="account.html")
-
 
 
 @api_view(["GET"])
@@ -661,13 +688,17 @@ class PasswordUpdateView(APIView):
     template_name="password-update.html"
     style = {'template_pack': 'rest_framework/vertical/'}
     serializer_class = PasswordUpdateSerializer
-    context_serializer = context_serializer_start
+    # context_serializer = context_accounts_views.context_main    
+    # context_serializer.update(context_bm_accounts.context_main)
     # permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated]
     def get(self, request, *args, **kwargs): #self, request, *args, **kwargs
     # def get(self, request, format=None):   
-        context_serializer_get = {}
+        # context_serializer_get = {}
         # messages.info(request, "") 
         # user = self.request.user  # !!!
+        # context_serializer_get = self.context_serializer
+        context_accounts_views()
+        context_serializer_get = context_accounts_views.context_main
         account = request.user
         serializer = self.serializer_class(account)
         context_serializer_get = self.context_serializer
@@ -677,8 +708,10 @@ class PasswordUpdateView(APIView):
 
     def post(self, request, format=None):
         # messages.info(request, "")
-        context_serializer_post = {}
-        context_serializer_post = self.context_serializer
+        # context_serializer_post = {}
+        # context_serializer_post = self.context_serializer
+        context_accounts_views()
+        context_serializer_post = context_accounts_views.context_main
         context_serializer_post['style'] = self.style
 
         account = request.user
@@ -717,7 +750,7 @@ class PasswordUpdateView(APIView):
                     return redirect(context_serializer_post['current_url'])
 
                 else:
-                    context_serializer_post_else = {}
+                    # context_serializer_post_else = {}
                     messages.info(request, ' '.join(msg for msg in msgs))
 
                     context_serializer_post_else = context_serializer_post
@@ -753,7 +786,7 @@ class PasswordUpdateView(APIView):
                     return redirect(context_serializer_post['current_url'])
                 # elif initial_val['current_url'] == "":
                 else:
-                    context_serializer_post_else = {}
+                    # context_serializer_post_else = {}
 
                     messages.info(request, ''.join(msg for msg in msgs))
 
@@ -774,7 +807,7 @@ class PasswordUpdateView(APIView):
                 return redirect(context_serializer_post['current_url'])
 
             else:
-                context_serializer_post_else = {}
+                # context_serializer_post_else = {}
 
                 messages.info(request, "<br>".join(msg_error for msg_error in message_errors))
                 
@@ -784,7 +817,7 @@ class PasswordUpdateView(APIView):
 
                 return Response(context_serializer_post_else,  template_name="password-update.html")
 
-        context_serializer_Response =  {}
+        # context_serializer_Response =  {}
         # context_serializer_Response = context_serializer_post
         context_serializer_Response = self.context_serializer
         context_serializer_Response['style'] = self.style
@@ -803,14 +836,17 @@ class PasswordUpdateViewApi(APIView):
     style = {'template_pack': 'rest_framework/vertical/'}
     serializer_class = PasswordUpdateSerializerApi
     # permission_classes = [permissions.IsAdminUser, permissions.IsAuthenticated]
-    context_serializer = context_serializer_start
+    # context_serializer = context_accounts_views.context_main   
+    # context_serializer.update(context_bm_accounts.context_main)
 
     def get(self, request, *args, **kwargs): #self, request, *args, **kwargs
     # def get(self, request, format=None):   
-        context_serializer_get = {}
+        # context_serializer_get = {}
         # messages.info(request, "")
         # user = self.request.user  # !!!
-
+        # context_serializer_get = self.context_serializer
+        context_accounts_views()
+        context_serializer_get = context_accounts_views.context_main
         account = request.user
         serializer = self.serializer_class(account)
         # serializer = self.serializer_class()
@@ -821,10 +857,12 @@ class PasswordUpdateViewApi(APIView):
         return Response(context_serializer_get, )
 
     def post(self, request, format=None):
-        context_serializer_post = {}
+        # context_serializer_post = {}
         # messages.info(request, "")
 
-        context_serializer_post = self.context_serializer
+        # context_serializer_post = self.context_serializer
+        context_accounts_views()
+        context_serializer_post = context_accounts_views.context_main
         context_serializer_post['style'] = self.style
 
         account = request.user
@@ -850,7 +888,7 @@ class PasswordUpdateViewApi(APIView):
             account = serializer.save()
             # user = self.get_object()
             if not account.check_password(serializer.data.get('oldpassword')):
-                context_serializer_post_if = {}
+                # context_serializer_post_if = {}
                 # errs = serializer.errors
                 # message_errors = serializer_errors(errs)
                 # print('register message_errors:', message_errors)
@@ -874,7 +912,7 @@ class PasswordUpdateViewApi(APIView):
 
                 return Response(context_serializer_post_elif, )
         else:
-            context_serializer_post_else = {}
+            # context_serializer_post_else = {}
             errs = serializer.errors
             message_errors = serializer_errors(errs)
             # print('register message_errors:', message_errors)
@@ -886,7 +924,7 @@ class PasswordUpdateViewApi(APIView):
             return Response(context_serializer_post_else,  template_name="password-update-api.html")
 
         # return Response(None, status=status.HTTP_202_ACCEPTED)
-        context_serializer_Response =  {}
+        # context_serializer_Response =  {}
         # context_serializer_Response = context_serializer_post
         context_serializer_Response = self.context_serializer
         context_serializer_Response['style'] = self.style

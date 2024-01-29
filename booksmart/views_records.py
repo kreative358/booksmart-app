@@ -29,86 +29,95 @@ from booksmart.read_book import *
 from booksmart.reader_archive import read_archive
 from django.http import JsonResponse
 
-context_main = {}
 
-context_main['no_date'] = datetime.date(3000, 1, 1)
-context_main['url_img_book'] = url_img
-context_main['url_img_author'] = url_img_author
+def context_views_records():
+    context_main = {}
 
-# try:
-#     if Book.objects.all():
-#     # if Book.objects.filter().all():
-#         all_books = Book.objects.all()
-#         # context_list.append(all_books)
-#         num_books = Book.objects.all().count()
-#         context_main['allbooks'] = all_books
-#         context_main['num_books'] = num_books
-#     elif not Book.objects.all():
-#     # elif not Book.objects.filter().all():
-#         context_main['allbooks'] = None
-#         context_main['num_books'] = 0
-# except Exception as err:
-#     print(f"views_records: Book.objects.all() except Exception as {err}")
-#     pass
+    context_main['no_date'] = datetime.date(3000, 1, 1)
+    context_main['url_img_book'] = url_img
+    context_main['url_img_author'] = url_img_author
 
-try:
-    if Author.objects.all():
-    # if Author.objects.filter().all():
-        all_authors = Author.objects.all()
-        # context_list.append(all_authors)
-        num_authors = Author.objects.all().count()
-        context_main['allauthors'] = all_authors
-        context_main['num_authors'] = num_authors
-    elif not Author.objects.all():
-    #elif not Author.objects.filter().all():
+    try:
+        if Book.objects.all():
+        # if Book.objects.filter().all():
+            all_books = Book.objects.all()
+            # context_list.append(all_books)
+            num_books = Book.objects.all().count()
+            context_main['allbooks'] = all_books
+            context_main['num_books'] = num_books
+        elif not Book.objects.all():
+        # elif not Book.objects.filter().all():
+            context_main['allbooks'] = None
+            context_main['num_books'] = 0
+    except Exception as err:
+        print(f"views_records no Book.objects.all(): except Exception as {err}")
+        context_main['allbooks'] = None
+        context_main['num_books'] = 0
+
+    try:
+        if Author.objects.all():
+        # if Author.objects.filter().all():
+            all_authors = Author.objects.all()
+            # context_list.append(all_authors)
+            num_authors = Author.objects.all().count()
+            context_main['allauthors'] = all_authors
+            context_main['num_authors'] = num_authors
+        elif not Author.objects.all():
+        #elif not Author.objects.filter().all():
+            context_main['allauthors'] = None
+            context_main['num_authors'] = 0
+    except Exception as err:
+        print(f"views_records no Author.objects.all(): Exception as {err}")
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
-except Exception as err:
-    print(f"views_records: Author.objects.all(): except Exception as {err}")
-    pass
 
-try:
-    if BackgroundPoster.objects.filter().last():
-        poster = BackgroundPoster.objects.filter().last()
-        context_main['poster_url_1'] = poster.link_poster_1
-        context_main['poster_url_2'] = poster.link_poster_2
-    elif not BackgroundPoster.objects.filter().last():
+    try:
+        if BackgroundPoster.objects.filter().last():
+            poster = BackgroundPoster.objects.filter().last()
+            context_main['poster_url_1'] = poster.link_poster_1
+            context_main['poster_url_2'] = poster.link_poster_2
+        elif not BackgroundPoster.objects.filter().last():
+            context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+            context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+    except Exception as err:
+        print(f"views_records Author.objects.all(): except Exception as {err}")
         context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-except Exception as err:
-    print(f"views_records: Author.objects.all(): except Exception as {err}")
-    pass
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"      
 
-try:
-    if BackgroundVideo.objects.filter().last():   
-        video = BackgroundVideo.objects.filter().last()
-        context_main['video_url'] = video.link_video
-        context_main['video_type'] = video.type_video
-    elif not BackgroundVideo.objects.filter().last():
+    try:
+        if BackgroundVideo.objects.filter().last():   
+            video = BackgroundVideo.objects.filter().last()
+            context_main['video_url'] = video.link_video
+            context_main['video_type'] = video.type_video
+        elif not BackgroundVideo.objects.filter().last():
+            context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+            context_main['video_type'] = "mp4"
+    except Exception as err:
+        print(f"views_records BackgroundVideo.objects.filter().last(): except Exception as {err}")
         context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
-except Exception as err:
-    print(f"views_records: BackgroundVideo.objects.filter().last(): except Exception as {err}")
-    pass
 
-try:
-    if BackgroundMusic.objects.filter().last():   
-        music = BackgroundMusic.objects.filter().last()
-        context_main['music_url_1'] = music.link_music_1
-        context_main['music_type_1'] = music.type_music_1
-        context_main['music_url_2'] = music.link_music_2
-        context_main['music_type_2'] = music.type_music_2
-    elif not BackgroundMusic.objects.filter().last(): 
+    try:
+        if BackgroundMusic.objects.filter().last():   
+            music = BackgroundMusic.objects.filter().last()
+            context_main['music_url_1'] = music.link_music_1
+            context_main['music_type_1'] = music.type_music_1
+            context_main['music_url_2'] = music.link_music_2
+            context_main['music_type_2'] = music.type_music_2
+        elif not BackgroundMusic.objects.filter().last(): 
+            context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+            context_main['music_type_1'] = "mp3"
+            context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+            context_main['music_type_2'] = "mp3"
+    except Exception as err:
+        print(f"views_records BackgroundMusic.objects.filter().last(): except Exception as {err}")
         context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
         context_main['music_type_1'] = "mp3"
         context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_main['music_type_2'] = "mp3"
-except Exception as err:
-    print(f"views_records: BackgroundMusic.objects.filter().last(): except Exception as {err}")
-    context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-    context_main['music_type_1'] = "mp3"
-    context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-    context_main['music_type_2'] = "mp3"
+        
+    context_views_records.context_main = context_main
+    return context_main
 
 
 @api_view(['GET', 'POST'])
@@ -116,6 +125,10 @@ except Exception as err:
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def read_book(request, id):
+    
+    # context = context_main
+    context_views_records()    
+    context = context_views_records.context_main
 
     formlib = LibrarySearch(request.GET)
     book = get_object_or_404(Book, pk=id)
@@ -124,8 +137,6 @@ def read_book(request, id):
     current_url_name = request.path
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context = context_main
 
     context['num_authors'] = num_authors
     context['num_books'] = num_books    
@@ -152,7 +163,8 @@ def read_book(request, id):
 # @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 # @permission_classes([permissions.IsAuthenticated, ])
 def read_book_ol(request, id):
-    context = {}
+    context_views_records()    
+    context = context_views_records.context_main
     container = {}
     r_user = request.user
     current_url_name = request.path
@@ -162,8 +174,6 @@ def read_book_ol(request, id):
     context['book'] = book
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context = context_main
 
     context['num_authors'] = num_authors
     context['num_books'] = num_books
@@ -291,7 +301,9 @@ def read_book_ol(request, id):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def read_book_archive(request, id):
-    context = {}
+    # context = context_main
+    context_views_records()    
+    context = context_views_records.context_main
     container_link = {}
     r_user = request.user
     current_url_name = request.path
@@ -299,7 +311,6 @@ def read_book_archive(request, id):
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
 
-    context = context_main
     # book = get_object_or_404(Book, pk=id)
     book_id = current_url_name.split("/")[-1]
     # book = get_object_or_404(Book, pk=id)
@@ -445,13 +456,15 @@ def read_book_archive(request, id):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def new_book(request):
+    
+    # context = context_main
+    context_views_records()    
+    context_a = context_views_records.context_main    
     r_user = request.user
     current_url_name = request.path
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context_a = context_main
 
     context_a['num_authors'] = num_authors
     context_a['num_books'] = num_books
@@ -485,6 +498,10 @@ def new_book(request):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def edit_book(request, id):
+    
+    # context = context_main
+    context_views_records()    
+    context_a = context_views_records.context_main    
     r_user = request.user
 
     editbook = get_object_or_404(Book, pk=id)
@@ -493,8 +510,6 @@ def edit_book(request, id):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context_a = context_main
 
     context_a['num_authors'] = num_authors
     context_a['num_books'] = num_books
@@ -535,7 +550,9 @@ def edit_book(request, id):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def delete_book(request, id):
-
+    # context = context_main
+    context_views_records()    
+    context_a = context_views_records.context_main
     r_user = request.user
     book = get_object_or_404(Book, pk=id)
 
@@ -543,8 +560,6 @@ def delete_book(request, id):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context_a = context_main
 
     context_a['num_authors'] = num_authors
     context_a['num_books'] = num_books
@@ -580,6 +595,9 @@ def delete_book(request, id):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def new_author(request):
+    # context = context_main
+    context_views_records()    
+    context = context_views_records.context_main    
 
     r_user = request.user
     current_url_name = request.path
@@ -587,8 +605,6 @@ def new_author(request):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context = context_main
 
     context['num_authors'] = num_authors
     context['num_books'] = num_books
@@ -615,6 +631,9 @@ def new_author(request):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def edit_author(request, id):
+    # context = context_main
+    context_views_records()    
+    context_a = context_views_records.context_main    
 
     r_user = request.user
     current_url_name = request.path
@@ -623,8 +642,6 @@ def edit_author(request, id):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context_a = context_main
 
     context_a['num_authors'] = num_authors
     context_a['num_books'] = num_books
@@ -681,6 +698,9 @@ def edit_author(request, id):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, HTMLFormRenderer])
 def delete_author(request, id):
+    context_views_records()    
+    # context = context_main
+    context_a = context_views_records.context_main        
     r_user = request.user
     current_url_name = request.path    
 
@@ -688,8 +708,6 @@ def delete_author(request, id):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context_a = context_main
 
     context_a['num_authors'] = num_authors
     context_a['num_books'] = num_books
@@ -710,14 +728,15 @@ def delete_author(request, id):
     return Response(context_a, template_name='delete_author.html', )
 
 
-def lr_registration_view(request):  
+def lr_registration_view(request):
+    context_views_records()    
+    # context = context_main
+    context = context_views_records.context_main        
     r_user = request.user
     current_url_name = request.path
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context = context_main
 
     context['num_authors'] = num_authors
     context['num_books'] = num_books
@@ -745,14 +764,15 @@ def lr_registration_view(request):
 
 
 def lr_login_view(request):
+    # context = context_main
+    context_views_records()    
+    context = context_views_records.context_main      
     
     r_user = request.user
     current_url_name = request.path
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context = context_main
 
     context['num_authors'] = num_authors
     context['num_books'] = num_books
@@ -784,13 +804,15 @@ def lr_login_view(request):
     # return HttpResponse("snippets/log_reg.html", context)
 
 def lr_account_view(request):
+    # context = context_main
+    context_views_records()    
+    context = context_views_records.context_main  
+        
     r_user = request.user
     current_url_name = request.path
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context = context_main
 
     context['num_authors'] = num_authors
     context['num_books'] = num_books

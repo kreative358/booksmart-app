@@ -1,6 +1,6 @@
 import os, requests, json, re, datetime, requests.api
 from accounts.models import Account, MyAccountManager
-from booksmart.models import context_bm, url_img, Book, Author
+from booksmart.models import context_bm_models, url_img, Book, Author
 from booksmart.forms import BookForm, AuthorForm, SearchRecord, BooksAuthor, UrlPathForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
@@ -48,13 +48,16 @@ class ObtainAuthTokenView(APIView):
     permission_classes = []
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'login.html'
-
+    # context_serializer = context_bm_models.context_bm
     def get(self, request):
         # serializer = LoginSerializer()
-        context = context_bm   
-        return Response(template_name='login.html')
+        # context = self.context_serializer
+        context_bm_models()
+        context = context_bm_models.context_bm
+        return Response(context, template_name='login.html')
     def post(self, request):
-        context = context_bm
+        context_bm_models()
+        context = context_bm_models.context_bm
 
         email = request.POST.get('username')
         password = request.POST.get('password')
@@ -113,25 +116,27 @@ class ObtainAuthTokenView(APIView):
 
 
 def registration_view(request):
-	context = context_bm
-	if request.POST:
-		form = RegistrationForm(request.POST)
-		if form.is_valid():
-			form.save()
-			email = form.cleaned_data.get('email')
-			raw_password = form.cleaned_data.get('password1')
-			account = authenticate(email=email, password=raw_password)
-			login(request, account)
-			return redirect('/')
-		else:
-			context['registration_form'] = form
+    context_bm_models()    
+    context = context_bm_models.context_bm
+    
+    if request.POST:
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            email = form.cleaned_data.get('email')
+            raw_password = form.cleaned_data.get('password1')
+            account = authenticate(email=email, password=raw_password)
+            login(request, account)
+            return redirect('/')
+        else:
+            context['registration_form'] = form
 
-	else:
-		form = RegistrationForm()
-		context['registration_form'] = form
+    else:
+        form = RegistrationForm()
+        context['registration_form'] = form
     # return HttpResponse(content_a) 
     # return redirect("/", content_a) 
-	return render(request, 'register.html', context)
+    return render(request, 'register.html', context)
 
 
 def logout_view(request):
@@ -139,8 +144,8 @@ def logout_view(request):
 	return redirect('/')
 
 def login_view(request):
-
-    context = context_bm
+    context_bm_models()
+    context = context_bm_models.context_bm
     r_user = request.user
     if r_user.is_authenticated:
         return redirect("index")
@@ -164,13 +169,14 @@ def login_view(request):
     return render(request, 'login.html', context)
 
 def account_view(request):
+    context_bm_models()    
+    context_a = context_bm_models.context_bm    
     r_user = request.user
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
     all_books = Book.objects.all()
     all_authors = Author.objects.all()
     search_form = SearchRecord()
-    context_a = context_bm
     
     context_a['allbooks'] = all_books
     context_a['allauthors'] = all_authors
@@ -239,7 +245,8 @@ def account_view(request):
 def lr_registration_view(request):  
     # c_path = cur_path[1:-1]+".html"
     # print('c_path', c_path)
-    context = context_bm
+    context_bm_models()     
+    context = context_bm_models.context_bm
     r_user = request.user
     if request.POST:
         form = RegistrationForm(request.POST)
@@ -312,13 +319,13 @@ def lr_registration_view(request):
 
 
 def lr_login_view(request):
-    
+    context_bm_models()     
     # print('login currents', currents)
     # cur_path = currents[-1][11:-1]
     # print('login cur_path', cur_path)
     # c_path = cur_path+".html"
     # print('c_path', c_path)
-    context = context_bm
+    context = context_bm_models.context_bm
     r_user = request.user
     form_url = UrlPathForm()
     # print('2', form_url)
@@ -357,7 +364,8 @@ def lr_login_view(request):
     # return HttpResponse("snippets/log_reg.html", context)
 
 def lr_account_view(request):
-    context = context_bm
+    context_bm_models()     
+    context = context_bm_models.context_bm
     r_user = request.user
     if not request.user.is_authenticated:
         return redirect("/")

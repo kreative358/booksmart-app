@@ -72,88 +72,95 @@ import datetime
 
 context_list = []
 
-context_main = {}
+def context_mainsite_views():
+    context_main = {}
 
-context_main['no_date'] = datetime.date(3000, 1, 1)
-context_main['url_img_book'] = url_img
-context_main['url_img_author'] = url_img_author
+    context_main['no_date'] = datetime.date(3000, 1, 1)
+    context_main['url_img_book'] = url_img
+    context_main['url_img_author'] = url_img_author
 
-# try:
-#     if Book.objects.all():
-#     # if Book.objects.filter().all():
-#         all_books = Book.objects.all()
-#         # context_list.append(all_books)
-#         num_books = Book.objects.all().count()
-#         context_main['allbooks'] = all_books
-#         context_main['num_books'] = num_books
-#     elif not Book.objects.all():
-#     # elif not Book.objects.filter().all():
-#         context_main['allbooks'] = None
-#         context_main['num_books'] = 0
-# except Exception as err:
-#     print(f"mainsite views: Book.objects.all() except Exception as {err}")
-#     pass
+    try:
+        if Book.objects.all():
+        # if Book.objects.filter().all():
+            all_books = Book.objects.all()
+            # context_list.append(all_books)
+            num_books = Book.objects.all().count()
+            context_main['allbooks'] = all_books
+            context_main['num_books'] = num_books
+        elif not Book.objects.all():
+        # elif not Book.objects.filter().all():
+            context_main['allbooks'] = None
+            context_main['num_books'] = 0
+    except Exception as err:
+        print(f"mainsite views: Book.objects.all() except Exception as {err}")
+        context_main['allbooks'] = None
+        context_main['num_books'] = 0        
 
-try:
-    if Author.objects.all():
-    # if Author.objects.filter().all():
-        all_authors = Author.objects.all()
-        # context_list.append(all_authors)
-        num_authors = Author.objects.all().count()
-        context_main['allauthors'] = all_authors
-        context_main['num_authors'] = num_authors
-    elif not Author.objects.all():
-    #elif not Author.objects.filter().all():
+    try:
+        if Author.objects.all():
+        # if Author.objects.filter().all():
+            all_authors = Author.objects.all()
+            # context_list.append(all_authors)
+            num_authors = Author.objects.all().count()
+            context_main['allauthors'] = all_authors
+            context_main['num_authors'] = num_authors
+        elif not Author.objects.all():
+        #elif not Author.objects.filter().all():
+            context_main['allauthors'] = None
+            context_main['num_authors'] = 0
+    except Exception as err:
+        print(f"mainsite views: Author.objects.all(): except Exception as {err}")
         context_main['allauthors'] = None
-        context_main['num_authors'] = 0
-except Exception as err:
-    print(f"mainsite views: Author.objects.all(): except Exception as {err}")
-    pass
+        context_main['num_authors'] = 0        
 
-try:
-    if BackgroundPoster.objects.filter().last():
-        poster = BackgroundPoster.objects.filter().last()
-        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1FNl36zxhcZBXSbJdFB8V-4eWHoOIVHMl"
-        # context_main['poster_url_1'] = poster.link_poster_1
-        # context_main['poster_url_2'] = poster.link_poster_2
-    elif not BackgroundPoster.objects.filter().last():
-        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1FNl36zxhcZBXSbJdFB8V-4eWHoOIVHMl"
-        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1FNl36zxhcZBXSbJdFB8V-4eWHoOIVHMl"
-except Exception as err:
-    print(f"mainsite views: Author.objects.all(): except Exception as {err}")
-    pass
+    try:
+        if BackgroundPoster.objects.filter().last():
+            poster = BackgroundPoster.objects.filter().last()
+            context_main['poster_url_1'] = poster.link_poster_1
+            context_main['poster_url_2'] = poster.link_poster_2
+        elif not BackgroundPoster.objects.filter().last():
+            context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+            context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+    except Exception as err:
+        print(f"booksmart views: Author.objects.all(): except Exception as {err}")
+        context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"        
 
-try:
-    if BackgroundVideo.objects.filter().last():   
-        video = BackgroundVideo.objects.filter().last()
-        context_main['video_url'] = video.link_video
-        context_main['video_type'] = video.type_video
-    elif not BackgroundVideo.objects.filter().last():
-        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1L52HH0GCbHoYH8ttJICj0P5iwg_sNTqz"
+    try:
+        if BackgroundVideo.objects.filter().last():   
+            video = BackgroundVideo.objects.filter().last()
+            context_main['video_url'] = video.link_video
+            context_main['video_type'] = video.type_video
+        elif not BackgroundVideo.objects.filter().last():
+            context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+            context_main['video_type'] = "mp4"
+    except Exception as err:
+        print(f"mainsite views: BackgroundVideo.objects.filter().last(): except Exception as {err}")
+        context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
-except Exception as err:
-    print(f"mainsite views: BackgroundVideo.objects.filter().last(): except Exception as {err}")
-    pass
-
-try:
-    if BackgroundMusic.objects.filter().last():   
-        music = BackgroundMusic.objects.filter().last()
-        context_main['music_url_1'] = music.link_music_1
-        context_main['music_type_1'] = music.type_music_1
-        context_main['music_url_2'] = music.link_music_2
-        context_main['music_type_2'] = music.type_music_2
-    elif not BackgroundMusic.objects.filter().last(): 
+        
+    try:
+        if BackgroundMusic.objects.filter().last():   
+            music = BackgroundMusic.objects.filter().last()
+            context_main['music_url_1'] = music.link_music_1
+            context_main['music_type_1'] = music.type_music_1
+            context_main['music_url_2'] = music.link_music_2
+            context_main['music_type_2'] = music.type_music_2
+        elif not BackgroundMusic.objects.filter().last(): 
+            context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+            context_main['music_type_1'] = "mp3"
+            context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+            context_main['music_type_2'] = "mp3"
+    except Exception as err:
+        print(f"mainsite views: BackgroundMusic.objects.filter().last(): except Exception as {err}")
         context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
         context_main['music_type_1'] = "mp3"
         context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_main['music_type_2'] = "mp3"
-except Exception as err:
-    print(f"mainsite views: BackgroundMusic.objects.filter().last(): except Exception as {err}")
-    context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-    context_main['music_type_1'] = "mp3"
-    context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-    context_main['music_type_2'] = "mp3"
-# print(list(set(Book.objects.values_list('author', 'author'))))
+        
+    context_mainsite_views.context_main = context_main
+ 
+    return context_main  # print(list(set(Book.objects.values_list('author', 'author'))))
 
 cont = {}
 user_recs =  [("", "")]
@@ -172,13 +179,14 @@ user_recs =  [("", "")]
 @renderer_classes([TemplateHTMLRenderer])
 def index_home_not(request):
     """View function for home page of site."""
+    context_mainsite_views()    
+    # context = context_main
+    context = context_mainsite_views.context_main
     r_user = request.user
     current_url_name = request.path
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context = context_main
 
     context['num_authors'] = num_authors
     context['num_books'] = num_books
@@ -196,19 +204,20 @@ recapitcha_value = ""
 @permission_classes([])
 # @authentication_classes([]) # TokenAuthentication
 @renderer_classes([TemplateHTMLRenderer])
-def index_home(request):
+def index_home(request, *args, **kwargs):
     """View function for home page of site."""
     # book_test = Book.objects.filter(pk=4).values()[0]
     # print("book_test =", book_test)
-    
-    context = {}
+    # context = context_main context_mainsite_views(context_main)
+    # context_main = {}
+    context_mainsite_views()
+    context = context_mainsite_views.context_main    
     r_user = request.user
     current_url_name = request.path
     print("1. current_url_name =", current_url_name)
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
 
-    context = context_main
     # form_recaptcha_mail = RechaptchaMailForm()
     # context["form_recaptcha_mail"] = form_recaptcha_mail
     context['num_authors'] = num_authors
@@ -446,7 +455,9 @@ def ajax_info_1(request):
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_page_not_found_view(request, exception):
     # return Response(context, template_name='page-500.html', )
-    context = context_main
+    # context = context_main
+    context_mainsite_views()    
+    context = context_mainsite_views.context_main
     # return Response(context, template_name='page-404.html', )
     return render(request, "page-404.html", context)
 
@@ -455,7 +466,9 @@ def custom_page_not_found_view(request, exception):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer,JSONRenderer])
 def custom_error_view(request, exception=None):
-    context = context_main
+    # context = context_main
+    context_mainsite_views()    
+    context = context_mainsite_views.context_main
     # return Response(context, template_name='page-500.html', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     return render(request, "page-500.html", context)
 
@@ -465,7 +478,9 @@ def custom_error_view(request, exception=None):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_permission_denied_view(request, exception=None):
-    context = context_main
+    # context = context_main
+    context_mainsite_views()
+    context = context_mainsite_views.context_main
     # return Response(context, template_name='page-403.html', )
     return render(request, "page-403.html", context)
 
@@ -474,12 +489,16 @@ def custom_permission_denied_view(request, exception=None):
 # # @authentication_classes([]) # TokenAuthentication
 # @renderer_classes([TemplateHTMLRenderer])
 def custom_bad_request_view(request, exception=None):
-    context = context_main
+    # context = context_main
+    context_mainsite_views()    
+    context = context_mainsite_views.context_main
     # return Response(context, template_name='page-400.html', )
     return render(request, "page-400.html", context)
 
 def custom_unauthorized_view(request, exception=None):
-    context = context_main
+    # context = context_main
+    context_mainsite_views()    
+    context = context_mainsite_views.context_main
     # return Response(context, template_name='page-400.html', )
     return render(request, "page-401.html", context)
     

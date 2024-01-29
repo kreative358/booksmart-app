@@ -1,6 +1,6 @@
 from accounts.models import Account, MyAccountManager
 import os, requests, json, re, datetime, requests.api
-from booksmart.models import context_bm, url_img, Book, Author
+from booksmart.models import context_bm_models, url_img, Book, Author
 from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
@@ -16,7 +16,6 @@ from django.contrib import messages
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import send_mail, EmailMessage, get_connection, send_mass_mail, EmailMultiAlternatives
-from booksmart.models import context_bm, url_img, Book, Author
 
 import smtplib
 import ssl

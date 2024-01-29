@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 from django.forms import ModelForm, Form
-from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo #, BackgroundMusic
+from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic
 # from booksmart.models import CurrentUser
 from django.utils.html import format_html
 from django.conf.global_settings import LANGUAGES
@@ -18,11 +18,6 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 import requests
 # from crum import get_current_user
-
-try:
-    from booksmart.models import BackgroundMusic
-except:
-    pass
 
 
 class MyFlatPickrDateStart(forms.DateInput):
@@ -139,9 +134,9 @@ def userid(request):
 user_ids = []
 class IdUser(forms.Form):
     user_id = forms.CharField(widget=forms.HiddenInput())
-    if user_id:
-        # print('IdUser', user_id)
-        print('IdUser')
+    # if user_id:
+    #     # print('IdUser', user_id)
+    #     print('IdUser')
 
 class AuthorRecords(forms.ModelForm):
     author_c = forms.ModelChoiceField(queryset = Author.objects.all(), label="choose author from list", required=False, widget=forms.Select(attrs={'id':'input_text_authorrecords'}))

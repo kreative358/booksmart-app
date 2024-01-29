@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import IntegrityError
-from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo #, context_bm  
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic 
 from booksmart.forms import *
 
 from django.db.models import Avg, Max, Min
@@ -45,95 +45,108 @@ import datetime
 # context_list = []
 context_main = {}
 
-context_main['no_date'] = datetime.date(3000, 1, 1)
-context_main['url_img_book'] = url_img
-context_main['url_img_author'] = url_img_author
-context_main['parameters'] = ""
-context_main['message'] = ""
-context_main['values'] = ""
-context_main['modal_uni'] = "{% include 'snippets-booksmart/modal_message_booksmart_uni.html' %}"
+def context_views_apiview():
+    context_main = {}    
+    context_main['no_date'] = datetime.date(3000, 1, 1)
+    context_main['url_img_book'] = url_img
+    context_main['url_img_author'] = url_img_author
+    context_main['parameters'] = ""
+    context_main['message'] = ""
+    context_main['values'] = ""
+    context_main['modal_uni'] = "{% include 'snippets-booksmart/modal_message_booksmart_uni.html' %}"
 
-# try:
-#     if Book.objects.all():
-#     # if Book.objects.filter().all():
-#         all_books = Book.objects.all()
-#         # context_list.append(all_books)
-#         num_books = Book.objects.all().count()
-#         context_main['allbooks'] = all_books
-#         context_main['num_books'] = num_books
-#     elif not Book.objects.all():
-#     # elif not Book.objects.filter().all():
-#         context_main['allbooks'] = None
-#         context_main['num_books'] = 0
-# except Exception as err:
-#     print(f"views_apiview: Book.objects.all() except Exception as {err}")
-#     pass
+    try:
+        if Book.objects.all():
+        # if Book.objects.filter().all():
+            all_books = Book.objects.all()
+            # context_list.append(all_books)
+            num_books = Book.objects.all().count()
+            context_main['allbooks'] = all_books
+            context_main['num_books'] = num_books
+        elif not Book.objects.all():
+        # elif not Book.objects.filter().all():
+            context_main['allbooks'] = None
+            context_main['num_books'] = 0
+    except Exception as err:
+        print(f"views_apiview no Book.objects.all(): except Exception as {err}")
+        context_main['allbooks'] = None
+        context_main['num_books'] = 0
 
-try:
-    if Author.objects.all():
-    # if Author.objects.filter().all():
-        all_authors = Author.objects.all()
-        # context_list.append(all_authors)
-        num_authors = Author.objects.all().count()
-        context_main['allauthors'] = all_authors
-        context_main['num_authors'] = num_authors
-    elif not Author.objects.all():
-    #elif not Author.objects.filter().all():
+    try:
+        if Author.objects.all():
+        # if Author.objects.filter().all():
+            all_authors = Author.objects.all()
+            # context_list.append(all_authors)
+            num_authors = Author.objects.all().count()
+            context_main['allauthors'] = all_authors
+            context_main['num_authors'] = num_authors
+        elif not Author.objects.all():
+        #elif not Author.objects.filter().all():
+            context_main['allauthors'] = None
+            context_main['num_authors'] = 0
+    except Exception as err:
+        print(f"views_apiview no Author.objects.all(): Exception as {err}")
         context_main['allauthors'] = None
         context_main['num_authors'] = 0
-except Exception as err:
-    print(f"views_apiview: Author.objects.all(): except Exception as {err}")
-    pass
 
-try:
-    if BackgroundPoster.objects.filter().last():
-        poster = BackgroundPoster.objects.filter().last()
-        context_main['poster_url_1'] = poster.link_poster_1
-        context_main['poster_url_2'] = poster.link_poster_2
-    elif not BackgroundPoster.objects.filter().last():
+    try:
+        if BackgroundPoster.objects.filter().last():
+            poster = BackgroundPoster.objects.filter().last()
+            context_main['poster_url_1'] = poster.link_poster_1
+            context_main['poster_url_2'] = poster.link_poster_2
+        elif not BackgroundPoster.objects.filter().last():
+            context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+            context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+    except Exception as err:
+        print(f"views_apiview Author.objects.all(): except Exception as {err}")
         context_main['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
-except Exception as err:
-    print(f"views_apiview: Author.objects.all(): except Exception as {err}")
-    pass
+        context_main['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"      
 
-try:
-    if BackgroundVideo.objects.filter().last():   
-        video = BackgroundVideo.objects.filter().last()
-        context_main['video_url'] = video.link_video
-        context_main['video_type'] = video.type_video
-    elif not BackgroundVideo.objects.filter().last():
+    try:
+        if BackgroundVideo.objects.filter().last():   
+            video = BackgroundVideo.objects.filter().last()
+            context_main['video_url'] = video.link_video
+            context_main['video_type'] = video.type_video
+        elif not BackgroundVideo.objects.filter().last():
+            context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+            context_main['video_type'] = "mp4"
+    except Exception as err:
+        print(f"views_apiview BackgroundVideo.objects.filter().last(): except Exception as {err}")
         context_main['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
         context_main['video_type'] = "mp4"
-except Exception as err:
-    print(f"views_apiview: BackgroundVideo.objects.filter().last(): except Exception as {err}")
-    pass
 
-try:
-    if BackgroundMusic.objects.filter().last():   
-        music = BackgroundMusic.objects.filter().last()
-        context_main['music_url_1'] = music.link_music_1
-        context_main['music_type_1'] = music.type_music_1
-        context_main['music_url_2'] = music.link_music_2
-        context_main['music_type_2'] = music.type_music_2
-    elif not BackgroundMusic.objects.filter().last(): 
+    try:
+        if BackgroundMusic.objects.filter().last():   
+            music = BackgroundMusic.objects.filter().last()
+            context_main['music_url_1'] = music.link_music_1
+            context_main['music_type_1'] = music.type_music_1
+            context_main['music_url_2'] = music.link_music_2
+            context_main['music_type_2'] = music.type_music_2
+        elif not BackgroundMusic.objects.filter().last(): 
+            context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+            context_main['music_type_1'] = "mp3"
+            context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+            context_main['music_type_2'] = "mp3"
+    except Exception as err:
+        print(f"views_apiview BackgroundMusic.objects.filter().last(): except Exception as {err}")
         context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
         context_main['music_type_1'] = "mp3"
         context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
         context_main['music_type_2'] = "mp3"
-except Exception as err:
-    print(f"views_apiview: BackgroundMusic.objects.filter().last(): except Exception as {err}")
-    context_main['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
-    context_main['music_type_1'] = "mp3"
-    context_main['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
-    context_main['music_type_2'] = "mp3"
+        
+    context_views_apiview.context_main = context_main
+    return context_main
+
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def all_records(request):
-    context = {}
+    # context = context_main
+    context_views_apiview()    
+    context = context_views_apiview.context_main
+    
     r_user = request.user
     current_url_name = request.path
     if Book.objects.count() > 0:
@@ -205,6 +218,9 @@ def all_records(request):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def all_authors(request):
+    # context = context_main
+    context_views_apiview()    
+    context = context_views_apiview.context_main    
 
     r_user = request.user
     current_url_name = request.path
@@ -223,7 +239,7 @@ def all_authors(request):
     all_books = Book.objects.all()
     num_books = Book.objects.all().count()
 
-    context = context_main
+
     context["last_id"] = last_id
     context["author_add_last"] = author_add_last
     context['allbooks'] = all_books
@@ -262,6 +278,9 @@ def all_authors(request):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def account_records(request):
+    context_views_apiview()    
+    # context = context_main
+    context_a = context_views_apiview.context_main    
     r_user = request.user
     current_url_name = request.path
 
@@ -270,8 +289,6 @@ def account_records(request):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context_a = context_main
 
     context_a['allbooks'] = all_books
     context_a['allauthors'] = all_authors
@@ -309,6 +326,9 @@ def account_records(request):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def authors_last(request):
+    # context = context_main
+    context_views_apiview()    
+    context = context_views_apiview.context_main    
     r_user = request.user
     current_url_name = request.path
     
@@ -320,14 +340,11 @@ def authors_last(request):
 
     # current_url_name = request.resolver_match.url_name
     # currents.append(current_url_name)
-    context = context_main
 
     # context['allbooks'] = all_books
     context['allbooks'] = Book.objects.filter().all()
     context['allauthors'] = all_authors
 
-    context['num_authors'] = num_authors
-    # context['num_books'] = num_books
     context['num_books'] = Book.objects.all().count()
     context['current_url'] = current_url_name
 
@@ -348,6 +365,10 @@ def authors_last(request):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def all_records_author(request, *arg, **kwargs):
+    
+    # context = context_main
+    context_views_apiview()    
+    context = context_views_apiview.context_main    
     r_user = request.user
     current_url_name = request.path
 
@@ -356,8 +377,6 @@ def all_records_author(request, *arg, **kwargs):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context = context_main
 
     context['allbooks'] = all_books
     context['allauthors'] = all_authors
@@ -391,6 +410,10 @@ def all_records_author(request, *arg, **kwargs):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def all_records_title(request):
+    # context = context_main
+    context_views_apiview()    
+    context_a = context_views_apiview.context_main    
+    
     r_user = request.user
     current_url_name = request.path
 
@@ -399,15 +422,13 @@ def all_records_title(request):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
+    
+    context_a['allbooks'] = all_books
+    context_a['allauthors'] = all_authors
 
-    context = context_main
-
-    context['allbooks'] = all_books
-    context['allauthors'] = all_authors
-
-    context['num_authors'] = num_authors
-    context['num_books'] = num_books
-    context['current_url'] = current_url_name  
+    context_a['num_authors'] = num_authors
+    context_a['num_books'] = num_books
+    context_a['current_url'] = current_url_name  
 
     search_form = SearchRecord()
     form_search = ItemsSearchForm() 
@@ -473,6 +494,9 @@ def all_records_title(request):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def books_author(request):
+    # context = context_main
+    context_views_apiview()    
+    context = context_views_apiview.context_main    
 
     r_user = request.user
     current_url_name = request.path
@@ -482,8 +506,6 @@ def books_author(request):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context = context_main
 
     context['allbooks'] = all_books
     context['allauthors'] = all_authors
@@ -549,6 +571,10 @@ def books_author(request):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([JSONRenderer, TemplateHTMLRenderer, HTMLFormRenderer])
 def records_view_get(request):
+    
+    # context = context_main
+    context_views_apiview()    
+    context_get = context_views_apiview.context_main    
     r_user = request.user
     current_url_name = request.path
     current_url_name_html = current_url_name + ".html"
@@ -558,8 +584,6 @@ def records_view_get(request):
     all_authors = Author.objects.all()
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-
-    context_get = context_main
 
     context_get['allbooks'] = all_books
     context_get['allauthors'] = all_authors
@@ -930,6 +954,10 @@ def records_view_get(request):
 @authentication_classes([TokenAuthentication, SessionAuthentication, BasicAuthentication]) 
 @renderer_classes([JSONRenderer, TemplateHTMLRenderer, HTMLFormRenderer])
 def records_view_post(request):
+    
+    # context = context_main
+    context_views_apiview()    
+    context = context_views_apiview.context_main    
     r_user = request.user
     current_url_name = request.path
 
@@ -938,8 +966,6 @@ def records_view_post(request):
 
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
-    
-    context = context_main
 
     # search_form = SearchRecord()
     # book_sort = BookSort(request.GET)

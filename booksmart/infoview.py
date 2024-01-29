@@ -1,18 +1,17 @@
 from accounts.models import Account
-from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo
+from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic, context_bm_models
 from django.contrib.auth import login, authenticate, logout
 from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm #, UrlPathForm
-from booksmart.forms import PdfReader, BackgroundFormPoster, BackgroundFormVideo #, BackgroundFormMusic
+from booksmart.forms import PdfReader, BackgroundFormPoster, BackgroundFormVideo, BackgroundFormMusic
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from accounts.views import *
-from booksmart.models import context_bm
 import os, requests, json, re, datetime, requests.api
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import resolve, reverse, translate_url
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import *
-from booksmart.models import context_bm
+
 # from internetarchive import configure, download
 
 # download(identifier: str, files: files.File | list[files.File] | None = None, formats: str | list[str] | None = None, glob_pattern: str | None = None, dry_run: bool = False, verbose: bool = False, ignore_existing: bool = False, checksum: bool = False, destdir: str | None = None, no_directory: bool = False, retries: int | None = None, item_index: int | None = None, ignore_errors: bool = False, on_the_fly: bool = False, return_responses: bool = False, no_change_timestamp: bool = False, **get_item_kwargs) → list[requests.Request | requests.Response][source]
@@ -61,26 +60,27 @@ from booksmart.forms import PageForm
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 @permission_classes([permissions.IsAuthenticated, ])
 def read_page(request):
-    context = context_bm
-    r_user = request.user
+	context_bm_models()
+	context = context_bm_models.context_bm
+	r_user = request.user
 
-    if not r_user.is_authenticated:
-        return redirect('index')
+	if not r_user.is_authenticated:
+		return redirect('index')
 
-    if request.GET:
-        page_form = PageForm()
+	if request.GET:
+		page_form = PageForm()
 		
-    if request.POST:
-        page_form = PageForm(request.POST or None, request.FILES or None)
-        if page_form.is_valid():
-            needed_page = page_form.cleaned_data['page_number']
-            book_id = page_form.cleaned_data['book_google_id']
-            book_page_link = f"https://books.google.com/books?id={book_id}&amp;pg=PA{needed_page}&amp;hl=tw&amp;source=gbs_toc_r&amp;output=embed#%257B%257D" 
-            print("book_page_link", book_page_link)
-            context['page_form']=book_page_link
-            return render(request, 'read_page.html', context)
+	if request.POST:
+		page_form = PageForm(request.POST or None, request.FILES or None)
+		if page_form.is_valid():
+			needed_page = page_form.cleaned_data['page_number']
+			book_id = page_form.cleaned_data['book_google_id']
+			book_page_link = f"https://books.google.com/books?id={book_id}&amp;pg=PA{needed_page}&amp;hl=tw&amp;source=gbs_toc_r&amp;output=embed#%257B%257D" 
+			print("book_page_link", book_page_link)
+			context['page_form']=book_page_link
+			return render(request, 'read_page.html', context)
 
-    return render(request, 'read_page.html', context)
+	return render(request, 'read_page.html', context)
 
 # from rest_framework import permissions
 # permissions.IsAdminUser
@@ -89,35 +89,37 @@ def read_page(request):
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 @permission_classes([permissions.IsAdminUser, ])
 def background_poster(request):
-    context = context_bm
-    if request.GET:
-        poster_form = BackgroundFormPoster()
+	context_bm_models()    
+	context = context_bm_models.context_bm
+	if request.GET:
+		poster_form = BackgroundFormPoster()
 		
-    if request.POST:
-        poster_form = BackgroundFormPoster(request.POST or None, request.FILES or None)
-        if poster_form.is_valid():
-            poster = poster_form.save()
-            return redirect('booksmart:allrecords')
+	if request.POST:
+		poster_form = BackgroundFormPoster(request.POST or None, request.FILES or None)
+		if poster_form.is_valid():
+			poster = poster_form.save()
+			return redirect('booksmart:allrecords')
 
-    context['poster'] = poster_form
-    context['new'] = True
-    return render(request, 'new_poster.html', context)
+	context['poster'] = poster_form
+	context['new'] = True
+	return render(request, 'new_poster.html', context)
 
 
 def background_video(request):
-    context = context_bm
-    video_form = BackgroundFormVideo()
+	context_bm_models()       
+	context = context_bm_models.context_bm
+	video_form = BackgroundFormVideo()
 
-    if request.POST:
-        video_form = BackgroundFormVideo(request.POST or None, request.FILES or None)
-        if video_form.is_valid():
-            video_url = video_form.save()
-            return redirect('booksmart:allrecords')
+	if request.POST:
+		video_form = BackgroundFormVideo(request.POST or None, request.FILES or None)
+		if video_form.is_valid():
+			video_url = video_form.save()
+			return redirect('booksmart:allrecords')
 
-    context['video'] = video_form
-    context['new'] = True
+	context['video'] = video_form
+	context['new'] = True
 
-    return render(request, 'new_video.html', context)
+	return render(request, 'new_video.html', context)
 
 # def background_music(request):
 #     context = context_bm
@@ -138,7 +140,8 @@ def background_video(request):
 
 
 def pdf_reader(request):
-	context = context_bm
+	context_bm_models()      
+	context = context_bm_models.context_bm
 
 	# books = Book.objects.all()
 	# authors = Author.objects.all()
@@ -165,17 +168,19 @@ def pdf_reader(request):
 
 					if re.findall("/d/.+?[/]", book_to_read_gd):
 						# if re.findall("/d/.+?[/]", book_to_read)[0][3:6]=='151':
-						x = book_to_read.rfind("/")
+						x = book_to_read_gd.rfind("/")
 						print('x', x)
 						book_link_gd = book_to_read_gd[:x+1] + "preview"
-						print('book_link_gb', book_link_gb)
-						context['book_link'] = book_link
+						print('book_link_gd', book_link_gd)
+						context['book_link'] = book_link_gd
 
 						return render(request, "pdf_reader.html", context)
 
 					elif not re.findall("/d/.+?[/]", book_to_read_gd):
 						context['message'] = f'This is not standard google drive pdf link'
-						context['book_link_gd'] = book_link
+						# context['book_link_gd'] = book_link
+						context['book_link_gd'] = context['book_link']
+						# context['book_link_gd'] = book_to_read_gd
 						return render(request, "pdf_reader.html", context)
 					
 					else:
@@ -188,9 +193,12 @@ def pdf_reader(request):
 
 			if book_to_read_gb != "":
 				try:
-					print('book_link_gb', book_link_gb)
-					context['book_link_gb'] = book_link_gb
-					print('book_link_gb', book_link_gb)					
+					# print('book_link_gb', book_link_gb)
+					# context['book_link_gb'] = book_link_gb
+					# print('book_link_gb', book_link_gb)		
+					print('book_link_gb', book_to_read_gb)
+					context['book_link_gb'] = book_to_read_gb
+					print('book_link_gb', book_to_read_gb)		     			
 					return render(request, "pdf_reader.html", context)
 				except Exception as e:
 					context['message'] = f'Incorrect link, error description: {e}'
@@ -199,7 +207,8 @@ def pdf_reader(request):
 			if book_to_read_dc != "":
 				try:
 					
-					context['book_link_dc'] = f"https://docs.google.com/viewer?url={book_link_dc}&embedded=true"
+					# context['book_link_dc'] = f"https://docs.google.com/viewer?url={book_link_dc}&embedded=true"
+					context['book_link_dc'] = f"https://docs.google.com/viewer?url={context['book_link']}&embedded=true"
 					print(context['book_link_dc'])
 					return render(request, "pdf_reader.html", context)
 				except Exception as e:
@@ -209,9 +218,10 @@ def pdf_reader(request):
 			if book_to_read_sejda != "":
 				try:
 					
-					context['book_link_sejda'] = f'https://www.sejda.com/sign-pdf?files=%5B%7B%22downloadUrl%22%3A%22{book_link_sejda}&%22%7D%5D'
-					
-					context['book_link_sejda'] = f'https://www.sejda.com/sign-pdf?files=[\{"downloadUrl":"{book_link_dc}\"\}]'
+					# context['book_link_sejda'] = f'https://www.sejda.com/sign-pdf?files=%5B%7B%22downloadUrl%22%3A%22{book_link_sejda}&%22%7D%5D'
+					context['book_link_sejda'] = f'https://www.sejda.com/sign-pdf?files=%5B%7B%22downloadUrl%22%3A%22{book_to_read_sejda}&%22%7D%5D'     
+					# book_to_read_sejda
+					# context['book_link_sejda'] = f'https://www.sejda.com/sign-pdf?files=[\{"downloadUrl":"{book_link_dc}\"\}]'
 					print(context['book_link_sejda'])
 					return render(request, "pdf_reader.html", context)
 				except Exception as e:
@@ -231,7 +241,8 @@ def app_users(request):
 	# print("app_users request.resolver_match.url_name", request.resolver_match.url_name)
 	# print("app_users get_current_site:", get_current_site )
 	# print("resolve, reverse, translate_url:", resolve, reverse, translate_url )
-	context = {}
+	context_bm_models() 
+	context = context_bm_models.context_bm  
 	accounts = Account.objects.all()
 	books = Book.objects.all()
 	authors = Author.objects.all()
@@ -246,7 +257,7 @@ def app_users(request):
 	# # epub_ar = download('harrypotterdeath0000rowl_n2u6', verbose=True, formats='EPUB', on_the_fly=True)
 	# except Exception as e:
 	# 	print(f'error with download is: {e}')
-	
+
 	login_name = {"username": "kreative358@hotmail.com"}
 	login_pass = {"password": "Bonum12o"}
 	login_form = {"username": "kreative358@hotmail.com", "password": "Bonum12o"}
@@ -264,7 +275,7 @@ def app_users(request):
 	# page = f'https://ia902307.us.archive.org/BookReader/BookReaderImages.php?zip=/18/items/{identity}/{identity}_jp2.zip&file={identity}_jp2/{identity}_00{i}.jp2&id={identity}crossorigin="anonymous|use-credentials%22"'
 	# print('page', page)
 	# context['page'] = page
-	
+
 	return render(request, "app_users.html", context )
 
 # app_users urlObject 127.0.0.1:8001/booksmart-app/booksmart-app/app_users/
@@ -277,117 +288,117 @@ def must_authenticate_view(request):
 	return render(request, 'registration/must_authenticate.html', {})
 
 
-def search_open(request, parameters):
-	context = context_bm
-	context['message_no_ol'] = ""
-	parameters = f'{title_plus}+{book.surname}'
-	search_url = f'https://openlibrary.org/search/inside.json?q={title_plus}'
-	r = requests.get(url=search_url)
-	if r.status_code != 200:
-		context['message_no_ol'] = f'Sorry, probably something went wrong, r.status_code = {r.status_code}'
-		return Response(context, template_name='read_book.html', )
+# def search_open(request, parameters):
+# 	context = context_bm_models.context_bm
+# 	context['message_no_ol'] = ""
+# 	parameters = f'{title_plus}+{book.surname}'
+# 	search_url = f'https://openlibrary.org/search/inside.json?q={title_plus}'
+# 	r = requests.get(url=search_url)
+# 	if r.status_code != 200:
+# 		context['message_no_ol'] = f'Sorry, probably something went wrong, r.status_code = {r.status_code}'
+# 		return Response(context, template_name='read_book.html', )
 
-	data = r.json()
-	# data = r
-	# records = json.loads(data)
-	records = data
-	links = []
+# 	data = r.json()
+# 	# data = r
+# 	# records = json.loads(data)
+# 	records = data
+# 	links = []
 
-	# url = 'https://openlibrary.org/account/login'
-	# context['searching'] = url
+# 	# url = 'https://openlibrary.org/account/login'
+# 	# context['searching'] = url
 
-	# url = 'https://archive.org/account/login'
-	# url = 'https://openlibrary.org/account/login'
-	# searching = f'{url}'
+# 	# url = 'https://archive.org/account/login'
+# 	# url = 'https://openlibrary.org/account/login'
+# 	# searching = f'{url}'
 	
-	# idents = []
-	# idents_title = []
-	# idents_author = []
-	# titles_jsplit = []
-	# titles_jshort = []
-	# authors_jname = []
-	# authors_jsurname = []
+# 	# idents = []
+# 	# idents_title = []
+# 	# idents_author = []
+# 	# titles_jsplit = []
+# 	# titles_jshort = []
+# 	# authors_jname = []
+# 	# authors_jsurname = []
 	
-	if records['hits']['hits']:
-		recs = records['hits']['hits']
-		print('len(recs)', len(recs))
-		n_records = len(recs)
-		print('titles_short[0]', titles_short[0])
-		for i in range(n_records-1):
-			try:
-				if recs[i]['edition']['ocaid']:
-					ident = recs[i]['edition']['ocaid']
-					idents.append(ident)
-			except Exception as e:
-				print(f"151 {e}, i: {i}")
-			try:
-				if recs[i]['edition']['title']:
-					title_jshort = recs[i]['edition']['title'].lower()
-					print('title_jshort', title_jshort)
-					# print('titles_short[0]', titles_short[0])
-					titles_jshort.append(title_jshort)
-					title_jsplit = recs[i]['edition']['title'].lower().split()
-					titles_jsplit.append(title_jsplit)
+# 	if records['hits']['hits']:
+# 		recs = records['hits']['hits']
+# 		print('len(recs)', len(recs))
+# 		n_records = len(recs)
+# 		print('titles_short[0]', titles_short[0])
+# 		for i in range(n_records-1):
+# 			try:
+# 				if recs[i]['edition']['ocaid']:
+# 					ident = recs[i]['edition']['ocaid']
+# 					idents.append(ident)
+# 			except Exception as e:
+# 				print(f"151 {e}, i: {i}")
+# 			try:
+# 				if recs[i]['edition']['title']:
+# 					title_jshort = recs[i]['edition']['title'].lower()
+# 					print('title_jshort', title_jshort)
+# 					# print('titles_short[0]', titles_short[0])
+# 					titles_jshort.append(title_jshort)
+# 					title_jsplit = recs[i]['edition']['title'].lower().split()
+# 					titles_jsplit.append(title_jsplit)
 
-					if title_jshort==titles_short[0] or set(title_jsplit).issubset(set(titles_split[0])) or set(titles_split[0]).issubset(set(title_jsplit)):
-						idents_title.append(idents[-1])
+# 					if title_jshort==titles_short[0] or set(title_jsplit).issubset(set(titles_split[0])) or set(titles_split[0]).issubset(set(title_jsplit)):
+# 						idents_title.append(idents[-1])
 
-					else:
-						pass
-			except Exception as e:
-				print(f"168 {e}, i: {i}")
-			try:
-				if recs[i]['edition']['authors'][0]['name']:
-					author_jname = recs[i]['edition']['authors'][0]['name']
-					authors_jname.append(author_jname)
-					author_jsurname = str(author_jname.split()[-1])
-					authors_jsurname.append(author_jsurname)
-					if author_jname == author_to_search or author_jsurname == author_surname:
-						idents_author.append(idents[-1])
-					else:
-						print('1. no author')
-						pass
-				else:
-					print('2. no author')
-					pass
-			except Exception as e:
-				print(f"180 {e}, i: {i}")
+# 					else:
+# 						pass
+# 			except Exception as e:
+# 				print(f"168 {e}, i: {i}")
+# 			try:
+# 				if recs[i]['edition']['authors'][0]['name']:
+# 					author_jname = recs[i]['edition']['authors'][0]['name']
+# 					authors_jname.append(author_jname)
+# 					author_jsurname = str(author_jname.split()[-1])
+# 					authors_jsurname.append(author_jsurname)
+# 					if author_jname == author_to_search or author_jsurname == author_surname:
+# 						idents_author.append(idents[-1])
+# 					else:
+# 						print('1. no author')
+# 						pass
+# 				else:
+# 					print('2. no author')
+# 					pass
+# 			except Exception as e:
+# 				print(f"180 {e}, i: {i}")
 
-		# print('idents', idents)
-		# print('idents_title', idents_title)
-		# print('idents_author', idents_author)
+# 		# print('idents', idents)
+# 		# print('idents_title', idents_title)
+# 		# print('idents_author', idents_author)
 		
 
-		if idents and idents_title and idents_author:
-			identities_list_1 = list(set(idents).intersection(set(idents_title).intersection(set(idents_author))))
-			# identities.extend(identities_list_1)
-			if len(identities_list_1) > 0:
-				identities.extend(identities_list_1)
-				print('identities_list_1', identities_list_1)
-			else:
-				print('1. no links')
+# 		if idents and idents_title and idents_author:
+# 			identities_list_1 = list(set(idents).intersection(set(idents_title).intersection(set(idents_author))))
+# 			# identities.extend(identities_list_1)
+# 			if len(identities_list_1) > 0:
+# 				identities.extend(identities_list_1)
+# 				print('identities_list_1', identities_list_1)
+# 			else:
+# 				print('1. no links')
 
 
-		elif idents and idents_title and not idents_author:
-			identities_list_2 = list(set(idents).intersection(set(idents_title)))
-			# identities.extend(identities_list_2)
-			if len(identities_list_2) > 0:
-				identities.extend(identities_list_2)
-				print('identities_list_2', identities_list_2)
-			else:
-				print('2. no links')
+# 		elif idents and idents_title and not idents_author:
+# 			identities_list_2 = list(set(idents).intersection(set(idents_title)))
+# 			# identities.extend(identities_list_2)
+# 			if len(identities_list_2) > 0:
+# 				identities.extend(identities_list_2)
+# 				print('identities_list_2', identities_list_2)
+# 			else:
+# 				print('2. no links')
 
-		elif idents and idents_author and not idents_title:
-			identities_list_3 = list(set(idents).intersection(set(idents_title)))
-			# identities.extend(identities_list_3)
-			if len(identities_list_3) > 0:
-				identities.extend(identities_list_3)
-				print('identities_list_3', identities_list_3)
-			else:
-				print('3. no links')
+# 		elif idents and idents_author and not idents_title:
+# 			identities_list_3 = list(set(idents).intersection(set(idents_title)))
+# 			# identities.extend(identities_list_3)
+# 			if len(identities_list_3) > 0:
+# 				identities.extend(identities_list_3)
+# 				print('identities_list_3', identities_list_3)
+# 			else:
+# 				print('3. no links')
 
-		elif not idents:
-			print('4 no links')
-			context['message_no_ol'] = 'Sorry, probably no free ebook on this title'
-			return Response(context, template_name='read_book.html', )
+# 		elif not idents:
+# 			print('4 no links')
+# 			context['message_no_ol'] = 'Sorry, probably no free ebook on this title'
+# 			return Response(context, template_name='read_book.html', )
 

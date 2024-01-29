@@ -11,7 +11,7 @@ from accounts.serializer_password_reset import EmailSerializer, ResetPasswordSer
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer, StaticHTMLRenderer, HTMLFormRenderer
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-from booksmart.models import context_bm as context_bm_rest
+from booksmart.models import context_bm_models
 from django.contrib import messages
 
 class SerializerPasswordReset(APIView):
@@ -24,12 +24,16 @@ class SerializerPasswordReset(APIView):
     style = {'template_pack': 'rest_framework/vertical/'} #
     # serializer_class = serializers.EmailSerializer
     serializer_class = EmailSerializer
+    # context_serializer = context_bm_models.context_bm
 
     def get(self, request, *args, **kwargs):
+        context_bm_models()
+        context_serializer_get = context_bm_models.context_bm
         messages.info(request, "")
         serializer = self.serializer_class()
         # return Response({'serializer':serializer, 'style':self.style}, )
-        context_serializer_get = {'serializer':serializer, 'style':self.style, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
+        # context_serializer_get = {'serializer':serializer, 'style':self.style, 'num_authors': context_bm_rest['num_authors'], 'poster_url_1': context_bm_rest['poster_url_1'], 'poster_url_2': context_bm_rest['poster_url_2'], 'video_url': context_bm_rest['video_url'], 'video_type': context_bm_rest['video_type'], 'music_url_1': context_bm_rest['music_url_1'], 'music_type_1': context_bm_rest['music_type_1'], 'music_url_2': context_bm_rest['music_url_2'], 'music_type_2': context_bm_rest['music_type_2']}
+        # context_serializer_get = self.context_serializer
 
         return Response(context_serializer_get, )
 

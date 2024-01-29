@@ -1,9 +1,9 @@
 from django.contrib import admin
-from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo #, BackgroundMusic #, Language #, BookInstance
-try:
-    from booksmart.models import BackgroundMusic
-except:
-    pass
+from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic #, Language #, BookInstance
+# try:
+#     from booksmart.models import BackgroundMusic
+# except:
+#     pass
 from accounts.models import Account, MyAccountManager
 
 @admin.register(Author)
