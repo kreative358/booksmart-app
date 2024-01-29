@@ -80,14 +80,14 @@ def context_mainsite_views():
     context_main['url_img_author'] = url_img_author
 
     try:
-        if Book.objects.all():
+        if Book.objects.all().count() > 0:
         # if Book.objects.filter().all():
-            all_books = Book.objects.all()
+            # all_books = Book.objects.all()
             # context_list.append(all_books)
             num_books = Book.objects.all().count()
-            context_main['allbooks'] = all_books
+            # context_main['allbooks'] = all_books
             context_main['num_books'] = num_books
-        elif not Book.objects.all():
+        elif Book.objects.all().count() == 0:
         # elif not Book.objects.filter().all():
             context_main['allbooks'] = None
             context_main['num_books'] = 0
