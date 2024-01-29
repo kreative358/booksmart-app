@@ -152,6 +152,8 @@ def all_records(request):
     if Book.objects.count() > 0:
         last_id = list(Book.objects.values_list('id').order_by('-id')[0])[0]
         book_add_last = Book.objects.all().order_by('-id') 
+        context["last_id"] = last_id
+        context["book_add_last"] = book_add_last
     else:
         print("NO Books no last book")
 
@@ -160,10 +162,8 @@ def all_records(request):
     all_authors = Author.objects.all()
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
+    
 
-    context.update(context_main)
-    context["last_id"] = last_id
-    context["book_add_last"] = book_add_last
     context['allbooks'] = all_books
     context['allauthors'] = all_authors
     context['num_authors'] = num_authors

@@ -389,14 +389,17 @@ class SearchRecord(forms.ModelForm):
     ]
    
     ordering = forms.ChoiceField(label = 'sort by',  required=False, choices = Order, widget=forms.Select(attrs={'id':'input_select_sr_ordering'}))
-    # author_list = forms.ChoiceField()
+    author_list = forms.ChoiceField()
     
-    try:
-        author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")] + sorted(list(set(Book.objects.values_list('author', 'author'))), key = lambda a: a[1].split()[-1]), required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
-    except Exception as err:
-        print(f"booksmart forms author_list Exception as {err}")
-        author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")], required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
-        # pass
+    # try:
+    #     author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")] + sorted(list(set(Book.objects.values_list('author', 'author'))), key = lambda a: a[1].split()[-1]), required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
+    # except Exception as err:
+    #     print(f"1. booksmart forms author_list Exception as {err}")
+    #     try:
+    #         author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")], required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
+    #     except Exception as err:            
+    #         print(f"2. booksmart forms author_list Exception as {err}")
+    #         author_list = forms.ChoiceField()
 
     published__gte = forms.DateField(label='Start date publish', widget=NumberInput(attrs={'type':'date', 'id':'input_date_start', 'placeholder':'mm/dd/yyyy', 'autocomplete':'off', 'maxlength':10, 'size':10, 'pattern':'^(0[1-9]|1[1,2])\/(0[1-9]|[12][0-9]|3[01])\/d{4}$', 'value':''}), required=False, initial="")
 
@@ -484,14 +487,17 @@ class SearchRecordNew(forms.Form):
     owner__username = forms.CharField(
         max_length=50, label='Search by book owner', required=False, widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': 'field to enter part or full owner username', 'autofocus': True, 'id':'bs_input_sp'})) 
 
-    author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "")] + list(set(Book.objects.values_list('author', 'author'))), required=False, widget=forms.Select(attrs={'id':'bs_input_c'}))
-    # author_list = forms.ChoiceField()
-    try:
-        author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "")] + list(set(Book.objects.values_list('author', 'author'))), required=False, widget=forms.Select(attrs={'id':'bs_input_c'}))
-    except:
-        print("booksmart forms 376 no author_list")
-        author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "")], required=False, widget=forms.Select(attrs={'id':'bs_input_c'}))
-        pass
+    author_list = forms.ChoiceField()
+    
+    # try:
+    #     author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")] + sorted(list(set(Book.objects.values_list('author', 'author'))), key = lambda a: a[1].split()[-1]), required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
+    # except Exception as err:
+    #     print(f"1. booksmart forms author_list Exception as {err}")
+    #     try:
+    #         author_list = forms.ChoiceField(label= 'Search by author', choices=  [("", "select author")], required=False, widget=forms.Select(attrs={'id':'input_select_sr_author_list'}))
+    #     except Exception as err:            
+    #         print(f"2. booksmart forms author_list Exception as {err}")
+    #         author_list = forms.ChoiceField()
 
     # user_books = forms.ChoiceField(label= 'Choose from your books', choices= queryset_owner[-1], required=False, widget=forms.Select(attrs={'id':'bs_input_c'}))
 
