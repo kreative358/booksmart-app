@@ -57,6 +57,7 @@ from django_currentuser.middleware import (
     get_current_authenticated_user,
     )
 from django.http import JsonResponse
+from bookmain import settings as my_settings
 # from mainsite.test_docer import *
 # from django.utils.text import slugify
 # try:
@@ -71,6 +72,8 @@ from django.http import JsonResponse
 import datetime
 
 context_list = []
+
+# print("my_settings.STATIC_ROOT =", my_settings.STATIC_ROOT)
 
 def context_mainsite_views():
     context_main = {}

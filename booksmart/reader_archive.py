@@ -21,6 +21,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 # from shiftlab_ocr.doc2text.reader import Reader
 from PIL import Image
 from django.conf import settings
+from bookmain import settings as my_settings
 from django.conf.urls.static import static
 # def scrap(request):
 import io
@@ -29,6 +30,7 @@ import urllib.request
 import signal
 from pyshadow.main import Shadow
 import subprocess
+from fake_useragent import UserAgent
 
 starttime = time.time()
 
@@ -541,6 +543,11 @@ def read_archive(link_id, archive_title, context_read_archive):
 
         chrome_options.page_load_strategy = 'none'
         chrome_options.add_argument('--incognito')
+        
+        ua = UserAgent()
+        # chrome_options.add_argument(f'user-agent={ua.random}')
+        # print("user-agent={ ua.random } =", ua.random)
+        
         chrome_options.add_argument('--disable-infobars')
         chrome_options.add_argument("--silent")
         chrome_options.add_argument("--content-shell-hide-toolbar")
@@ -550,6 +557,7 @@ def read_archive(link_id, archive_title, context_read_archive):
         chrome_options.add_argument("--disable-infobars")
         chrome_options.add_argument("--disable-notifications")
         chrome_options.add_argument("--hide-scrollbars")
+        # chrome_options.add_argument('--disable-gpu')
         
         # chrome_options.add_argument("--deny-permission-prompts")
         # chrome_options.add_argument("--disable-crash-reporter")
@@ -593,15 +601,22 @@ def read_archive(link_id, archive_title, context_read_archive):
             'excludeSwitches': ['enable-automation', 'enable-logging'],
             'androidPackage': 'com.android.chrome',
             # 'profile.managed_default_content_settings.javascript': 2,
-            })          
+            }) 
         
+        chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")         
+        chrome_options.add_argument('--no-first-run --no-service-autorun --password-store=basic')
         # path_extention = os.path.join(settings.STATIC_ROOT, "CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx")
         # chrome_options.add_extension(path_extention)
         
         # extension_file_path = os.path.abspath("booksmart-app\static\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx")
-        extension_file_path = os.path.abspath("static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx")
+        # extension_file_path = os.path.abspath("static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx")
+        # extension_file_path = static('CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx')
+        # print("my_settings.STATIC_ROOT =", my_settings.STATIC_ROOT)
+        extension_file_path = f'{my_settings.STATIC_ROOT}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
         chrome_options.add_extension(extension_file_path)
         
+        # extension_folder_path = f'{my_settings.STATIC_ROOT}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0'
+        # chrome_options.add_argument(f'load-extension={extension_folder_path}')
         # driver = webdriver.Chrome(options=chrome_options, service=ChromeService(ChromeDriverManager().install()), )
         # capa = DesiredCapabilities.CHROME.copy()
         # capa["pageLoadStrategy"] = "none"
@@ -947,8 +962,8 @@ def read_archive(link_id, archive_title, context_read_archive):
         #         print("JavascriptException escape")
         #     time.sleep(10.0 - ((time.time() - starttime) % 10.0))                                      
                         
-        # time.sleep(7200)
-        time.sleep(35) 
+        time.sleep(7200)
+        # time.sleep(35) 
         try:
             time.sleep(2.3)
             shadow_driver.close()
@@ -1401,8 +1416,9 @@ def read_archive(link_id, archive_title, context_read_archive):
     #     except JavascriptException:
     #         print("JavascriptException escape")
     #     time.sleep(10.0 - ((time.time() - starttime) % 10.0)) 
-                
-    time.sleep(35)
+    
+    time.sleep(3500)            
+    # time.sleep(35)
     print("\nFIRST RETURN\n")
     # shadow_driver_current_url_book = shadow_driver._configure_headless
     print("1275 shadow_driver.current_url =", shadow_driver.current_url)
@@ -1684,7 +1700,9 @@ def read_archive(link_id, archive_title, context_read_archive):
         
     # print("\nLAST RETURN\n")
     # time.sleep(2.8)
-    time.sleep(35)
+    
+    time.sleep(3500)
+    # time.sleep(35)
     try:
         return_button = shadow_driver.execute_script('return document.querySelector("#IABookReaderMessageWrapper > ia-book-actions").shadowRoot.querySelector("section > collapsible-action-group").shadowRoot.querySelector("div > section.action-buttons.primary > button.ia-button.danger.initial")')
         if return_button:

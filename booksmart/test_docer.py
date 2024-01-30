@@ -33,7 +33,8 @@ from requests.exceptions import RequestException, ConnectionError
 from urllib3.exceptions import NewConnectionError, ConnectTimeoutError, MaxRetryError
 from selenium.webdriver.remote.command import Command
 import subprocess
-
+from bookmain import settings as my_settings
+# from fake_useragent import UserAgent
 
 def url_exists(driver_current_url, context_book_scrap_url_exist, book_pdf_bot):
     """Check if resource exist?"""
@@ -398,9 +399,10 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         # path_extention = os.path.join(settings.STATIC_ROOT, "CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx")
         # chrome_options.add_extension(path_extention)
         
-        extension_file_path = os.path.abspath("static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx")
-        chrome_options.add_extension(extension_file_path)
-        
+        # extension_file_path = os.path.abspath("static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx")
+        # chrome_options.add_extension(extension_file_path)
+        extension_file_path = f'{my_settings.STATIC_ROOT}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
+        chrome_options.add_extension(extension_file_path)        
         # chrome_options.add_argument(f"--load-extension={path_extention}")
         # D:\virtual_python_39\booksmart-app\static\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_54_0_0\manifest.json
         # chrome_options.add_experimental_option('androidPackage', 'com.android.chrome')
