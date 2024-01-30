@@ -401,8 +401,19 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         
         # extension_file_path = os.path.abspath("static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx")
         # chrome_options.add_extension(extension_file_path)
-        extension_file_path = f'{my_settings.STATIC_ROOT}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
-        chrome_options.add_extension(extension_file_path)        
+        # extension_file_path = f'{my_settings.STATIC_ROOT}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
+        # chrome_options.add_extension(extension_file_path) 
+        try:
+            # extension_file_path = "https://booksmart-app-bd32a8932ff0.herokuapp.com/static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx"
+            extension_file_path = f'{my_settings.STATIC_URL}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
+            chrome_options.add_extension(extension_file_path)
+        except Exception as err:
+            print(f"1. test_docer extension_file_path Exception as {err}")
+            # try:
+                # extension_file_path = "https://booksmart-app-bd32a8932ff0.herokuapp.com/static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx"
+            # except Exception as err:
+            #     print(f"2. test_docer extension_file_path Exception as {err}")
+        # chrome_options.add_extension(extension_file_path)        
         # chrome_options.add_argument(f"--load-extension={path_extention}")
         # D:\virtual_python_39\booksmart-app\static\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_54_0_0\manifest.json
         # chrome_options.add_experimental_option('androidPackage', 'com.android.chrome')
@@ -420,7 +431,7 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         # chrome_options.add_extension(r"D:/virtual_python_39/booksmart-app/static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_54_0_0.crx")
         # chrome_options.add_extension(os.path.join(settings.STATIC_ROOT, "CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_54_0_0.crx"))
 
-        time.sleep(10)
+        time.sleep(6.23)
         # driver = webdriver.Chrome(options=chrome_options, service=ChromeService(ChromeDriverManager().install()), )
         capa = DesiredCapabilities.CHROME.copy()
         capa["pageLoadStrategy"] = "none"

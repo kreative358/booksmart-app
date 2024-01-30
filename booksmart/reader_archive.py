@@ -612,8 +612,17 @@ def read_archive(link_id, archive_title, context_read_archive):
         # extension_file_path = os.path.abspath("static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx")
         # extension_file_path = static('CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx')
         # print("my_settings.STATIC_ROOT =", my_settings.STATIC_ROOT)
-        extension_file_path = f'{my_settings.STATIC_ROOT}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
-        chrome_options.add_extension(extension_file_path)
+        # extension_file_path = f'{my_settings.STATIC_ROOT}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
+        try:
+            # extension_file_path = "https://booksmart-app-bd32a8932ff0.herokuapp.com/static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx"
+            extension_file_path = f'{my_settings.STATIC_URL}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
+            chrome_options.add_extension(extension_file_path)
+        except Exception as err:
+            print(f"1. reader_archive extension_file_path Exception as {err}")
+            # try:
+                # extension_file_path = "https://booksmart-app-bd32a8932ff0.herokuapp.com/static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx"
+            # except Exception as err:
+                # print(f"2. reader_archive extension_file_path Exception as {err}")            
         
         # extension_folder_path = f'{my_settings.STATIC_ROOT}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0'
         # chrome_options.add_argument(f'load-extension={extension_folder_path}')
@@ -646,7 +655,7 @@ def read_archive(link_id, archive_title, context_read_archive):
         context_driver_read_archive["driver_headless"] = shadow_driver
         action = ActionChains(shadow_driver)
         context_driver_read_archive["driver_action_headless"] = action
-        time.sleep(6)
+        time.sleep(6.31)
         print("ALL options shadow_drive add")
         
         # shadow_driver.maximize_window()
