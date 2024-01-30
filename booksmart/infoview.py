@@ -1,5 +1,5 @@
 from accounts.models import Account
-from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic, context_bm_models
+
 from django.contrib.auth import login, authenticate, logout
 from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm #, UrlPathForm
 from booksmart.forms import PdfReader, BackgroundFormPoster, BackgroundFormVideo, BackgroundFormMusic
@@ -11,7 +11,100 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import resolve, reverse, translate_url
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import *
+from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic, url_img, url_img_author#, context_bm_models
+import datetime
 
+def context_bm_models():    
+    print("views_infoview context_bm_models()")
+    context_bm = {}
+    context_list = []
+
+    context_bm['no_date'] = datetime.date(3000, 1, 1)
+    context_bm['url_img_book'] = url_img
+    context_bm['url_img_author'] = url_img_author
+
+    try:
+        if Book.objects.all().count() > 0:
+        # if Book.objects.filter().all():
+            # all_books = Book.objects.all()
+            # context_list.append(all_books)
+            num_books = Book.objects.all().count()
+            # context_bm['allbooks'] = all_books
+            context_bm['num_books'] = num_books
+        elif Book.objects.all().count() == 0:
+        # elif not Book.objects.filter().all():
+            # context_bm['allbooks'] = None
+            context_bm['num_books'] = 0
+    except Exception as err:
+        print(f"booksmart models 335 no Book.objects.all(): except Exception as {err}")
+        context_bm['allbooks'] = None
+        context_bm['num_books'] = 0  
+
+    try:
+        if Author.objects.all().count() > 0:
+        # if Author.objects.filter().all():
+            # all_authors = Author.objects.all()
+            # context_list.append(all_authors)
+            num_authors = Author.objects.all().count()
+            # context_bm['allauthors'] = all_authors
+            context_bm['num_authors'] = num_authors
+        elif Author.objects.all() == 0:
+        #elif not Author.objects.filter().all():
+            # context_bm['allauthors'] = None
+            context_bm['num_authors'] = 0
+    except Exception as err:
+        print(f"booksmart models 351 no Author.objects.all(): Exception as {err}")
+        context_bm['allauthors'] = None
+        context_bm['num_authors'] = 0
+
+    try:
+        if BackgroundPoster.objects.filter().last():
+            poster = BackgroundPoster.objects.filter().last()
+            context_bm['poster_url_1'] = poster.link_poster_1
+            context_bm['poster_url_2'] = poster.link_poster_2
+        elif not BackgroundPoster.objects.filter().last():
+            context_bm['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+            context_bm['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+    except Exception as err:
+        print(f"booksmart models 367 no BackgroundPoster.objects.filter().last(): Exception as {err}")
+        context_bm['poster_url_1'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+        context_bm['poster_url_2'] = "https://drive.google.com/uc?export=download&id=1eFl5af7eimuPVop8W1eAUr4cCmVLn8Kt"
+
+    try:
+        if BackgroundVideo.objects.filter().last():   
+            video = BackgroundVideo.objects.filter().last()
+            context_bm['video_url'] = video.link_video
+            context_bm['video_type'] = video.type_video
+        elif not BackgroundVideo.objects.filter().last():
+            context_bm['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+            context_bm['video_type'] = "mp4"
+    except Exception as err:
+        print(f"booksmart models no BackgroundVideo.objects.filter().last(): Exception as {err}")
+        context_bm['video_url'] = "https://drive.google.com/uc?export=download&id=1iRN8nKryM2FKAltnuOq1Qk8MUM-hrq2U"
+        context_bm['video_type'] = "mp4"
+
+    try:
+        if BackgroundMusic.objects.filter().last():   
+            music = BackgroundMusic.objects.filter().last()
+            context_bm['music_url_1'] = music.link_music_1
+            context_bm['music_type_1'] = music.type_music_1
+            context_bm['music_url_2'] = music.link_music_2
+            context_bm['music_type_2'] = music.type_music_2
+        elif not BackgroundMusic.objects.filter().last(): 
+            context_bm['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+            context_bm['music_type_1'] = "mp3"
+            context_bm['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+            context_bm['music_type_2'] = "mp3"
+    except Exception as err:
+        print(f"booksmart models 400 BackgroundMusic.objects.filter().last(): except Exception as {err}")    
+        context_bm['music_url_1'] = "https://www.orangefreesounds.com/wp-content/uploads/2022/02/Relaxing-white-noise-ocean-waves.mp3"
+        context_bm['music_type_1'] = "mp3"
+        context_bm['music_url_2'] = "https://orangefreesounds.com/wp-content/uploads/2022/05/Piano-lullaby.mp3"
+        context_bm['music_type_2'] = "mp3"
+    
+    context_bm_models.context_bm = context_bm
+    # context_bm = context_bm_models.copy()
+    return context_bm
 # from internetarchive import configure, download
 
 # download(identifier: str, files: files.File | list[files.File] | None = None, formats: str | list[str] | None = None, glob_pattern: str | None = None, dry_run: bool = False, verbose: bool = False, ignore_existing: bool = False, checksum: bool = False, destdir: str | None = None, no_directory: bool = False, retries: int | None = None, item_index: int | None = None, ignore_errors: bool = False, on_the_fly: bool = False, return_responses: bool = False, no_change_timestamp: bool = False, **get_item_kwargs) → list[requests.Request | requests.Response][source]

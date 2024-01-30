@@ -1,6 +1,6 @@
 from accounts.models import Account, MyAccountManager
 import os, requests, json, re, datetime, requests.api
-from booksmart.models import context_bm_models, url_img, Book, Author
+from booksmart.models import url_img, Book, Author #, context_bm_models, 
 from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from django.shortcuts import render, get_object_or_404, redirect
 from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes

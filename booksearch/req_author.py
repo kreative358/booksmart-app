@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from os import environ
 from booksearch.forms import BookSearch, GBAuthor
 import os, re, json, time, requests, datetime
-from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic, context_bm_models
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic #, context_bm_models
 from booksmart.forms import BookForm, AuthorForm
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import IntegrityError

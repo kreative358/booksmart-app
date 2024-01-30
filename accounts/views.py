@@ -33,7 +33,7 @@ from django.contrib.auth.models import AnonymousUser
 from accounts.error import *
 from django.contrib.auth.hashers import make_password
 from accounts.forms import RechaptchaForm
-from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic, context_bm_models
+from booksmart.models import url_img, url_img_author, Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic #, context_bm_models
 
 RECAPTCHA_SECRET_KEY = '6Le3IP4nAAAAAH5J3uPYy4BPPEsS55k0RwCaYxeY'
 url_recaptcha = 'https://www.google.com/recaptcha/api/siteverify'
