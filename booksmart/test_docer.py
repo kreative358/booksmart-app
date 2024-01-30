@@ -403,12 +403,14 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         # chrome_options.add_extension(extension_file_path)
         # extension_file_path = f'{my_settings.STATIC_ROOT}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
         # chrome_options.add_extension(extension_file_path) 
-        try:
-            # extension_file_path = "https://booksmart-app-bd32a8932ff0.herokuapp.com/static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx"
-            extension_file_path = f'{my_settings.STATIC_URL}\CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
-            chrome_options.add_extension(extension_file_path)
-        except Exception as err:
-            print(f"1. test_docer extension_file_path Exception as {err}")
+        # try:
+        #     # extension_file_path = "https://booksmart-app-bd32a8932ff0.herokuapp.com/static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx"
+        #     extension_file_path = f'{my_settings.STATIC_URL}CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx'
+        #     print("extension_file_path =", extension_file_path)
+        #     chrome_options.add_extension(extension_file_path)
+            
+        # except Exception as err:
+        #     print(f"1. test_docer extension_file_path Exception as {err}")
             # try:
                 # extension_file_path = "https://booksmart-app-bd32a8932ff0.herokuapp.com/static/CJPALHDLNBPAFIAMEJDNHCPHJBKEIAGM_1_55_0_0.crx"
             # except Exception as err:
