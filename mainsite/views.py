@@ -316,18 +316,18 @@ def index_home(request, *args, **kwargs):
         # cont['user_id'] = user.id
         context['r_user'] = r_user
         print('r_user.id', r_user.id)
-        if Book.objects.filter(owner__id=r_user.id):
-            global books_user
-            books_user = Book.objects.filter(owner__id=r_user.id)
-            context['books_user'] = books_user
-            for book_user in books_user:
-                user_recs.append((f'"{book_user.title}", "{book_user.author}"'))
+        # if Book.objects.filter(owner__id=r_user.id):
+        #     global books_user
+        #     books_user = Book.objects.filter(owner__id=r_user.id)
+        #     context['books_user'] = books_user
+        #     for book_user in books_user:
+        #         user_recs.append((f'"{book_user.title}", "{book_user.author}"'))
 
-            # user_books = Book.objects.filter(owner__id=user.id).values_list('title', 'author')    
-            # print('user_books', list(user_books))
-            return Response(context, template_name='index_home.html', )
-        elif not Book.objects.filter(owner__id=r_user.id):
-            messages.info(request, "You haven't any own books yet here")
+        #     # user_books = Book.objects.filter(owner__id=user.id).values_list('title', 'author')    
+        #     # print('user_books', list(user_books))
+        #     return Response(context, template_name='index_home.html', )
+        # elif not Book.objects.filter(owner__id=r_user.id):
+        #     messages.info(request, "You haven't any own books yet here")
     elif not r_user.is_authenticated:
         context['r_user'] = "Anonymuous"
         return Response(context, template_name='index_home.html', )
