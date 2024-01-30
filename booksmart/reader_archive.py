@@ -644,9 +644,9 @@ def read_archive(link_id, archive_title, context_read_archive):
         # capabilities.update(chrome_options.to_capabilities())
         # use_subprocess=False
         # service_args = []
-        service = ChromeService(service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
+        # service = ChromeService(service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
         
-        driver = uc.Chrome(service=service, options=chrome_options, desired_capabilities=capabilities, )  
+        driver = uc.Chrome(service=ChromeService(ChromeDriverManager().install(), service_args=['--disable-build-check'], log_output=subprocess.STDOUT), options=chrome_options, desired_capabilities=capabilities, )  
         # driver = uc.Chrome(options=chrome_options, desired_capabilities=capabilities, )    
         # get_chrome_capabilities():  
         driver.execute_script("Object.defineProperty(navigator, 'uc', {get: () => undefined})")
