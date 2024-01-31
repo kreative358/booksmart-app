@@ -32,7 +32,7 @@ from pyshadow.main import Shadow
 import subprocess
 from fake_useragent import UserAgent
 import browsers
-
+from open_webdriver import open_webdriver
 starttime = time.time()
 
 def get_pid(driver):
@@ -526,6 +526,14 @@ def bars_hidden(shadow_driver, action):
                                                          
 
 def read_archive(link_id, archive_title, context_read_archive):
+    with open_webdriver(headless=False) as driver:
+        # All Chromium / web driver dependencies are now installed.
+        driver.get("https://www.google.com")
+        time.sleep(10)
+        assert driver.title == "Google"    
+        print("open_webdriver import open_webdriver =", driver.title)
+        
+    time.sleep(10)    
     context_driver_read_archive = {}
     result_archive = "result_archive"
     context_driver_read_archive["unavailable_button"] = "unknown"
