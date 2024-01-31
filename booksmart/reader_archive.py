@@ -539,7 +539,7 @@ def read_archive(link_id, archive_title, context_read_archive):
     context_read_archive["read_archive_link_pdf"] = ""
     read_archive.link_pdf = ""
     try:
-        chrome_service = ChromeService
+        # chrome_service = ChromeService()
         chrome_options = uc.ChromeOptions()
 
         chrome_options.page_load_strategy = 'none'
@@ -645,20 +645,40 @@ def read_archive(link_id, archive_title, context_read_archive):
         # capabilities.update(chrome_options.to_capabilities())
         # use_subprocess=False
         # service_args = []
-        service = ChromeService(service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
+        chrome_service = ChromeService(service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
         
         # driver = uc.Chrome(service=ChromeService(ChromeDriverManager().install(), executable_path='./chromedriver.exe', service_args=['--disable-build-check'], log_output=subprocess.STDOUT), options=chrome_options, desired_capabilities=capabilities, )  
         # driver = uc.Chrome(options=chrome_options, desired_capabilities=capabilities, )    
-        # get_chrome_capabilities():  
-        browser_path = browsers.get("chrome")["path"]
-        driver = uc.Chrome(servie=service, options=chrome_options, desired_capabilities=capabilities, browser_executable_path=browser_path) 
+        # get_chrome_capabilities():
+        try:  
+            browser_path = browsers.get("chrome")["path"]
+            print("browser_path =", browser_path)
+        except Exception as err:
+            print(f"Exception {browser_path} as {err}")
+            
         time.sleep(2.3)
         try:
-            print('driver.get("http://www.python.org")')
-            driver.get("http://www.python.org")
+            print('1. driver.get("http://www.python.org")')
+            driver = uc.Chrome(service=chrome_service, options=chrome_options, desired_capabilities=capabilities, browser_executable_path=browser_path)
+            try:             
+                driver.get("http://www.python.org")
+            except Exception as err:
+                print(f"1. Exception driver as {err}")
             time.sleep(20)
         except Exception as err:
-            print(f"Exception driver as {err}")
+            print(f"2. Exception driver as {err}")
+            time.sleep(2.1)
+            try:
+                print('2. driver.get("http://www.python.org")')
+                driver = webdriver.Chrome(service=chrome_service, desired_capabilities=capabilities, browser_executable_path=browser_path)
+                try:             
+                    driver.get("http://www.python.org")
+                except Exception as err:
+                    print(f"3. Exception driver as {err}")
+                time.sleep(20)
+            except Exception as err:
+                print(f"4. Exception driver as {err}")            
+            
         time.sleep(10)
         driver.execute_script("Object.defineProperty(navigator, 'uc', {get: () => undefined})")
         
