@@ -652,7 +652,16 @@ def read_archive(link_id, archive_title, context_read_archive):
         # get_chrome_capabilities():  
         browser_path = browsers.get("chrome")["path"]
         driver = uc.Chrome(servie=service, options=chrome_options, desired_capabilities=capabilities, browser_executable_path=browser_path) 
+        time.sleep(2.3)
+        try:
+            print('driver.get("http://www.python.org")')
+            driver.get("http://www.python.org")
+            time.sleep(20)
+        except Exception as err:
+            print(f"Exception driver as {err}")
+        time.sleep(10)
         driver.execute_script("Object.defineProperty(navigator, 'uc', {get: () => undefined})")
+        
         shadow = Shadow(driver)
         context_driver_read_archive["shadow_headless"] = shadow
         shadow_driver = shadow.driver
