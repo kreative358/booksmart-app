@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.remote.webdriver import WebDriver as Remote
+# from selenium.webdriver.remote.webdriver import WebDriver as Remote
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.alert import Alert
@@ -31,6 +31,7 @@ import signal
 from pyshadow.main import Shadow
 import subprocess
 from fake_useragent import UserAgent
+import browsers
 
 starttime = time.time()
 
@@ -644,11 +645,13 @@ def read_archive(link_id, archive_title, context_read_archive):
         # capabilities.update(chrome_options.to_capabilities())
         # use_subprocess=False
         # service_args = []
-        # service = ChromeService(service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
+        service = ChromeService(service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
         
-        driver = uc.Chrome(service=ChromeService(ChromeDriverManager().install(), executable_path='./chromedriver.exe', service_args=['--disable-build-check'], log_output=subprocess.STDOUT), options=chrome_options, desired_capabilities=capabilities, )  
+        # driver = uc.Chrome(service=ChromeService(ChromeDriverManager().install(), executable_path='./chromedriver.exe', service_args=['--disable-build-check'], log_output=subprocess.STDOUT), options=chrome_options, desired_capabilities=capabilities, )  
         # driver = uc.Chrome(options=chrome_options, desired_capabilities=capabilities, )    
         # get_chrome_capabilities():  
+        browser_path = browsers.get("chrome")["path"]
+        driver = uc.Chrome(servie=service, options=chrome_options, desired_capabilities=capabilities, browser_executable_path=browser_path) 
         driver.execute_script("Object.defineProperty(navigator, 'uc', {get: () => undefined})")
         shadow = Shadow(driver)
         context_driver_read_archive["shadow_headless"] = shadow

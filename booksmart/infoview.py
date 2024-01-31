@@ -13,6 +13,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import *
 from booksmart.models import Book, Author, BackgroundPoster, BackgroundVideo, BackgroundMusic, url_img, url_img_author#, context_bm_models
 import datetime
+import browsers
 
 def context_bm_models():    
     print("views_infoview context_bm_models()")
