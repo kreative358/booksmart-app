@@ -49,7 +49,8 @@
     <div class="mycolumn" id= "col_main_1">
     
       <div>
-        <p class="verification" id="" style='margin-bottom: 0px;'> VERYFICATION </p>
+        <p class="verification" id="" style='margin-bottom: 0px;'> VERYFICATION: <br> 
+          browser_path: {{browser_path}} </p>
         {% if request.user.is_authenticated %}
         <p class="verification_span" style="margin-bottom:-5px;"> Hello, {{request.user.username}}</p>
         <p class="verification_span" style='line-height: 1.2; color:rgba(0, 0, 200,  0.9);  margin-bottom:5px;'>
@@ -198,6 +199,11 @@
     {% for book in books_user %}
     <p style="margin-bottom: 2px;"><a href="booksmart-app/read_book/{{book.id}}"  class="h5_class" > {{ book.title }} - {{ book.author}} </a></p>
     {% endfor %}
+    {% autoescape off %}
+    <p style="margin-bottom: 2px;">
+      {{list_elements}}
+    </p>
+    {% endautoescape %} 
     </div>  
   
 

@@ -67,9 +67,15 @@ from bookmain import settings as my_settings
 #     print("txt_to_search: ", txt_to_search)
 # except Exception as e:
 #     print("exception ", e)
-
-
 import datetime
+import browsers
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 context_list = []
 
@@ -220,13 +226,75 @@ def index_home(request, *args, **kwargs):
     print("1. current_url_name =", current_url_name)
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
+    
+    try:
+        browser_path = browsers.get("chrome")["path"]
+        if browser_path:
+            print("browser_path =", browser_path)
+            context['browser_path'] = browser_path
+        elif not browser_path:
+            print("NO browser_path =")    
+            context['browser_path'] = "NO browser_path"
+    except Exception as err:
+        print(f"Exception browser_path as {err}")                 
 
+    list_elements = []
+    try:
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+        browser = webdriver.Chrome(options=chrome_options, service=chrome_service)
+        time.sleep(2)
+        wait = WebDriverWait(browser, 10)
+        browser.get('https://news.ycombinator.com/')
+        time.sleep(2)
+        element_list = wait.until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".title > a"))
+        )
+
+        for element in element_list:
+            try:
+                title, url = element.text, element.get_attribute('href')
+                list_elements.append("<br>".join("Title:", title, "\nURL:", url, end="\n\n"))
+                print("Title:", title, "\nURL:", url, end="\n\n")
+            except Exception as e:
+                print(f"1a.Exception akjasim as {e}")
+        time.sleep(2)
+        browser.quit()        
+    except Exception as e:
+        print(f"1b.Exception akjasim as {e}")
+    time.sleep(6)        
+    try:
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        # chrome_options.add_argument("--headless")
+        
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+        browser = webdriver.Chrome(options=chrome_options, service=chrome_service)
+        time.sleep(2)
+        wait = WebDriverWait(browser, 10)
+        browser.get('https://news.ycombinator.com/')
+        time.sleep(10)
+        element_list = wait.until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".title > a"))
+        )
+
+        browser.quit()        
+    except Exception as err:
+        print(f"2b. Exception akjasim as {err}")        
+        
+    time.sleep(10)        
     # form_recaptcha_mail = RechaptchaMailForm()
     # context["form_recaptcha_mail"] = form_recaptcha_mail
     context['num_authors'] = num_authors
     context['num_books'] = num_books
     context['current_url'] = current_url_name
-
+    context["list_elements"] = list_elements[0]
 
     context["test_word"] = "test-word"
 

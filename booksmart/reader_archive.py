@@ -32,7 +32,7 @@ from pyshadow.main import Shadow
 import subprocess
 from fake_useragent import UserAgent
 import browsers
-from open_webdriver import open_webdriver
+
 starttime = time.time()
 
 def get_pid(driver):
@@ -526,14 +526,6 @@ def bars_hidden(shadow_driver, action):
                                                          
 
 def read_archive(link_id, archive_title, context_read_archive):
-    with open_webdriver(headless=False) as driver:
-        # All Chromium / web driver dependencies are now installed.
-        driver.get("https://www.google.com")
-        time.sleep(10)
-        assert driver.title == "Google"    
-        print("open_webdriver import open_webdriver =", driver.title)
-        
-    time.sleep(10)    
     context_driver_read_archive = {}
     result_archive = "result_archive"
     context_driver_read_archive["unavailable_button"] = "unknown"
@@ -546,32 +538,32 @@ def read_archive(link_id, archive_title, context_read_archive):
     read_archive.return_message = ""
     context_read_archive["read_archive_link_pdf"] = ""
     read_archive.link_pdf = ""
-    browser_path = browsers.get("chrome")["path"]
-    if browser_path:
-        print("browser_path =", browser_path)
-    elif not browser_path:
-        print("NO browser_path =")
-    try:    
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument("--no-sandbox")
-        # chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-gpu")
-        browser = webdriver.Chrome(options=chrome_options, browser_executable_path=browser_path)
-        try:
-            browser.get("https://www.google.com")
-            print("Page title was '{}'".format(browser.title))  
-            time.sleep(10) 
-        except Exception as err:
-            print(f"A. Exception driver as {err}")
-    except (Exception, WebDriverException) as err:
-        print(f"B. Exception driver as {err}")   
-    finally:
-        browser.quit()             
+    # browser_path = browsers.get("chrome")["path"]
+    # if browser_path:
+    #     print("browser_path =", browser_path)
+    # elif not browser_path:
+    #     print("NO browser_path =")
+    # try:    
+    #     chrome_options = webdriver.ChromeOptions()
+    #     chrome_options.add_argument("--no-sandbox")
+    #     # chrome_options.add_argument("--headless")
+    #     chrome_options.add_argument("--disable-gpu")
+    #     browser = webdriver.Chrome(options=chrome_options, browser_executable_path=browser_path)
+    #     try:
+    #         browser.get("https://www.google.com")
+    #         print("Page title was '{}'".format(browser.title))  
+    #         time.sleep(10) 
+    #     except Exception as err:
+    #         print(f"A. Exception driver as {err}")
+    # except (Exception, WebDriverException) as err:
+    #     print(f"B. Exception driver as {err}")   
+    # finally:
+    #     browser.quit()             
     time.sleep(6)     
     try:
         # chrome_service = ChromeService()
         chrome_options = uc.ChromeOptions()
-
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         chrome_options.page_load_strategy = 'none'
         chrome_options.add_argument('--incognito')
         
@@ -675,35 +667,37 @@ def read_archive(link_id, archive_title, context_read_archive):
         # capabilities.update(chrome_options.to_capabilities())
         # use_subprocess=False
         # service_args = []
-        chrome_service = ChromeService(service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
+        chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"), service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
+        driver = uc.Chrome(options=chrome_options, service=chrome_service, desired_capabilities=capabilities)
+        # driver_executable_path = os.environ.get("CHROMEDRIVER_PATH"), browser_executable_path = chrome_options.binary_location
         
         # driver = uc.Chrome(service=ChromeService(ChromeDriverManager().install(), executable_path='./chromedriver.exe', service_args=['--disable-build-check'], log_output=subprocess.STDOUT), options=chrome_options, desired_capabilities=capabilities, )  
         # driver = uc.Chrome(options=chrome_options, desired_capabilities=capabilities, )    
         # get_chrome_capabilities():
 
         time.sleep(2.3)
-        try:
-            print('2. driver.get("http://www.python.org")')
-            driver = webdriver.Chrome(service=chrome_service, desired_capabilities=capabilities, browser_executable_path=browser_path)
-            try:             
-                driver.get("http://www.python.org")
-            except Exception as err:
-                print(f"3. Exception driver as {err}")
-            time.sleep(20)
-        except Exception as err:
-            print(f"4. Exception driver as {err}")
-            time.sleep(2.3)            
-            try:
-                print('1. driver.get("http://www.python.org")')
-                driver = uc.Chrome(service=chrome_service, options=chrome_options, desired_capabilities=capabilities, browser_executable_path=browser_path)
-                try:             
-                    driver.get("http://www.python.org")
-                except Exception as err:
-                    print(f"1. Exception driver as {err}")
-                time.sleep(20)
-            except Exception as err:
-                print(f"2. Exception driver as {err}")
-                time.sleep(2.1)
+        # try:
+        #     print('2. driver.get("http://www.python.org")')
+        #     driver = webdriver.Chrome(service=chrome_service, desired_capabilities=capabilities, browser_executable_path=browser_path)
+        #     try:             
+        #         driver.get("http://www.python.org")
+        #     except Exception as err:
+        #         print(f"3. Exception driver as {err}")
+        #     time.sleep(20)
+        # except Exception as err:
+        #     print(f"4. Exception driver as {err}")
+        #     time.sleep(2.3)            
+        #     try:
+        #         print('1. driver.get("http://www.python.org")')
+        #         driver = uc.Chrome(service=chrome_service, options=chrome_options, desired_capabilities=capabilities, browser_executable_path=browser_path)
+        #         try:             
+        #             driver.get("http://www.python.org")
+        #         except Exception as err:
+        #             print(f"1. Exception driver as {err}")
+        #         time.sleep(20)
+        #     except Exception as err:
+        #         print(f"2. Exception driver as {err}")
+        #         time.sleep(2.1)
     
             
         time.sleep(10)
