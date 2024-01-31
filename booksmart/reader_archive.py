@@ -17,7 +17,7 @@ import re
 import glob
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.common.exceptions import TimeoutException, NoSuchElementException, NoSuchShadowRootException, ScreenshotException, JavascriptException, MoveTargetOutOfBoundsException, NoSuchDriverException, UnexpectedAlertPresentException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, NoSuchShadowRootException, ScreenshotException, JavascriptException, MoveTargetOutOfBoundsException, NoSuchDriverException, UnexpectedAlertPresentException, WebDriverException
 # from shiftlab_ocr.doc2text.reader import Reader
 from PIL import Image
 from django.conf import settings
@@ -538,6 +538,28 @@ def read_archive(link_id, archive_title, context_read_archive):
     read_archive.return_message = ""
     context_read_archive["read_archive_link_pdf"] = ""
     read_archive.link_pdf = ""
+    browser_path = browsers.get("chrome")["path"]
+    if browser_path:
+        print("browser_path =", browser_path)
+    elif not browser_path:
+        print("NO browser_path =")
+    try:    
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--no-sandbox")
+        # chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-gpu")
+        browser = webdriver.Chrome(options=chrome_options, browser_executable_path=browser_path)
+        try:
+            browser.get("https://www.google.com")
+            print("Page title was '{}'".format(browser.title))  
+            time.sleep(10) 
+        except Exception as err:
+            print(f"A. Exception driver as {err}")
+    except (Exception, WebDriverException) as err:
+        print(f"B. Exception driver as {err}")   
+    finally:
+        browser.quit()             
+    time.sleep(6)     
     try:
         # chrome_service = ChromeService()
         chrome_options = uc.ChromeOptions()
@@ -650,44 +672,41 @@ def read_archive(link_id, archive_title, context_read_archive):
         # driver = uc.Chrome(service=ChromeService(ChromeDriverManager().install(), executable_path='./chromedriver.exe', service_args=['--disable-build-check'], log_output=subprocess.STDOUT), options=chrome_options, desired_capabilities=capabilities, )  
         # driver = uc.Chrome(options=chrome_options, desired_capabilities=capabilities, )    
         # get_chrome_capabilities():
-        try:  
-            browser_path = browsers.get("chrome")["path"]
-            print("browser_path =", browser_path)
-        except Exception as err:
-            print(f"Exception {browser_path} as {err}")
-            
+
         time.sleep(2.3)
         try:
-            print('1. driver.get("http://www.python.org")')
-            driver = uc.Chrome(service=chrome_service, options=chrome_options, desired_capabilities=capabilities, browser_executable_path=browser_path)
+            print('2. driver.get("http://www.python.org")')
+            driver = webdriver.Chrome(service=chrome_service, desired_capabilities=capabilities, browser_executable_path=browser_path)
             try:             
                 driver.get("http://www.python.org")
             except Exception as err:
-                print(f"1. Exception driver as {err}")
+                print(f"3. Exception driver as {err}")
             time.sleep(20)
         except Exception as err:
-            print(f"2. Exception driver as {err}")
-            time.sleep(2.1)
+            print(f"4. Exception driver as {err}")
+            time.sleep(2.3)            
             try:
-                print('2. driver.get("http://www.python.org")')
-                driver = webdriver.Chrome(service=chrome_service, desired_capabilities=capabilities, browser_executable_path=browser_path)
+                print('1. driver.get("http://www.python.org")')
+                driver = uc.Chrome(service=chrome_service, options=chrome_options, desired_capabilities=capabilities, browser_executable_path=browser_path)
                 try:             
                     driver.get("http://www.python.org")
                 except Exception as err:
-                    print(f"3. Exception driver as {err}")
+                    print(f"1. Exception driver as {err}")
                 time.sleep(20)
             except Exception as err:
-                print(f"4. Exception driver as {err}")            
+                print(f"2. Exception driver as {err}")
+                time.sleep(2.1)
+    
             
         time.sleep(10)
         driver.execute_script("Object.defineProperty(navigator, 'uc', {get: () => undefined})")
         
         shadow = Shadow(driver)
-        context_driver_read_archive["shadow_headless"] = shadow
+        # context_driver_read_archive["shadow_headless"] = shadow
         shadow_driver = shadow.driver
-        context_driver_read_archive["driver_headless"] = shadow_driver
+        # context_driver_read_archive["driver_headless"] = shadow_driver
         action = ActionChains(shadow_driver)
-        context_driver_read_archive["driver_action_headless"] = action
+        # context_driver_read_archive["driver_action_headless"] = action
         time.sleep(6.31)
         print("ALL options shadow_drive add")
         
