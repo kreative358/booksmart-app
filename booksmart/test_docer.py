@@ -342,6 +342,7 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         # options = Options()
         # options.binary_location = chrome_bin
         chrome_options = uc.ChromeOptions()
+        
         chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         # chrome_options.headless = False
         chrome_options.add_argument('--headless=new')
@@ -439,9 +440,9 @@ def book_scrap(context_book_scrap, book_id_book_scrap):
         capa["pageLoadStrategy"] = "none"
         # global driver
         
-        service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"), service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
+        chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"), service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
         
-        driver = uc.Chrome(service=service, desired_capabilities=capa, options=chrome_options)
+        driver = uc.Chrome(service=chrome_service, desired_capabilities=capa, options=chrome_options)
         book_scrap.run_driver = driver
         context_book_scrap["driver_book_scrap"] = driver
         # driver = uc.Chrome(options=chrome_options)
