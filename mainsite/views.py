@@ -227,16 +227,16 @@ def index_home(request, *args, **kwargs):
     num_books = Book.objects.all().count()
     num_authors = Author.objects.all().count()
     
-    try:
-        browser_path = browsers.get("chrome")["path"]
-        if browser_path:
-            print("browser_path =", browser_path)
-            context['browser_path'] = browser_path
-        elif not browser_path:
-            print("NO browser_path =")    
-            context['browser_path'] = "NO browser_path"
-    except Exception as err:
-        print(f"Exception browser_path as {err}")                 
+    # try:
+    #     browser_path = browsers.get("chrome")["path"]
+    #     if browser_path:
+    #         print("browser_path =", browser_path)
+    #         context['browser_path'] = browser_path
+    #     elif not browser_path:
+    #         print("NO browser_path =")    
+    #         context['browser_path'] = "NO browser_path"
+    # except Exception as err:
+    #     print(f"Exception browser_path as {err}")                 
 
     list_elements = []
     try:
@@ -245,8 +245,8 @@ def index_home(request, *args, **kwargs):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--no-sandbox")
-        chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
-        browser = webdriver.Chrome(options=chrome_options, service=chrome_service)
+        # chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+        browser = webdriver.Chrome(os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options, service=chrome_service)
         time.sleep(2)
         wait = WebDriverWait(browser, 10)
         browser.get('https://news.ycombinator.com/')
@@ -266,27 +266,102 @@ def index_home(request, *args, **kwargs):
         browser.quit()        
     except Exception as e:
         print(f"1b.Exception akjasim as {e}")
-    time.sleep(6)        
+        
+    time.sleep(2)  
     try:
         chrome_options = webdriver.ChromeOptions()
+        chrome_service = webdriver.ChromeService()
         chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        # chrome_options.add_argument("--headless")
-        
+        chrome_options.add_argument("--headless")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--no-sandbox")
-        chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
-        browser = webdriver.Chrome(options=chrome_options, service=chrome_service)
+        # chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+        browser = webdriver.Chrome(os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options, service=chrome_service)
         time.sleep(2)
         wait = WebDriverWait(browser, 10)
-        browser.get('https://news.ycombinator.com/')
-        time.sleep(10)
-        element_list = wait.until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".title > a"))
-        )
+        browser.get('https://python.com/')
+        time.sleep(2)
+        try:
+            browser_title = browser.title
+            if browser_title !="" and browser_title != None:
+                print("browser_path =", browser_title)
+                context['browser_path'] = browser_title
+            else:
+                print("NO browser_title")
+                context['browser_path'] = "NO browser_title"                    
+            time.sleep(2)
+            browser.quit()
+        except Exception as e:
+            print(f"2b.Exception michaelkitas as {e}")                    
+    except Exception as e:
+        print(f"2b.Exception michaelkitas as {e}")    
+        
+    time.sleep(2)  
+    try:
+        chrome_options = webdriver.ChromeOptions()
+        chrome_service = webdriver.ChromeService()
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        # chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        # chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+        browser = webdriver.Chrome(os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options, service=chrome_service)
+        time.sleep(1)
+        browser.get('https://python.com/')
+        time.sleep(20)
+        browser.quit()                
+    except Exception as e:
+        print(f"2b.Exception michaelkitas as {e}")          
+            
+    # try:
+    #     chrome_options = webdriver.ChromeOptions()
+    #     chrome_service = webdriver.ChromeService()
+    #     # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    #     chrome_options.add_argument("--headless")
+    #     chrome_options.add_argument("--disable-dev-shm-usage")
+    #     chrome_options.add_argument("--no-sandbox")
+    #     # chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+    #     browser = webdriver.Chrome(options=chrome_options, service=chrome_service)
+    #     time.sleep(2)
+    #     wait = WebDriverWait(browser, 10)
+    #     browser.get('https://news.ycombinator.com/')
+    #     time.sleep(2)
+    #     element_list = wait.until(
+    #         EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".title > span > a"))
+    #     )
 
-        browser.quit()        
-    except Exception as err:
-        print(f"2b. Exception akjasim as {err}")        
+    #     for element in element_list:
+    #         try:
+    #             title, url = element.text, element.get_attribute('href')
+    #             # list_elements.append("<br>".join("Title:", title, "\nURL:", url, end="\n\n"))
+    #             print("Title:", title, "\nURL:", url, end="\n\n")
+    #         except Exception as e:
+    #             print(f"1a.Exception akjasim as {e}")
+    #     time.sleep(2)
+    #     browser.quit()        
+    # except Exception as e:
+    #     print(f"1b.Exception akjasim as {e}")    
+    time.sleep(2)        
+    # try:
+    #     chrome_options = webdriver.ChromeOptions()
+    #     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    #     # chrome_options.add_argument("--headless")
+        
+    #     chrome_options.add_argument("--disable-dev-shm-usage")
+    #     chrome_options.add_argument("--no-sandbox")
+    #     chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
+    #     browser = webdriver.Chrome(options=chrome_options, service=chrome_service)
+    #     time.sleep(2)
+    #     wait = WebDriverWait(browser, 10)
+    #     browser.get('https://news.ycombinator.com/')
+    #     time.sleep(10)
+    #     element_list = wait.until(
+    #         EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".title > a"))
+    #     )
+
+    #     browser.quit()        
+    # except Exception as err:
+    #     print(f"2b. Exception akjasim as {err}")        
         
     time.sleep(10)        
     # form_recaptcha_mail = RechaptchaMailForm()
@@ -294,10 +369,12 @@ def index_home(request, *args, **kwargs):
     context['num_authors'] = num_authors
     context['num_books'] = num_books
     context['current_url'] = current_url_name
-    context["list_elements"] = list_elements[0]
-
     context["test_word"] = "test-word"
-
+    if len(list_elements) > 0:
+        context["list_elements"] = list_elements[0]
+    else:    
+        context["list_elements"] = "NO title No url"
+         
     # context['mail_sender'] = ""
     index_home.recaptcha_status = ""
 

@@ -667,8 +667,9 @@ def read_archive(link_id, archive_title, context_read_archive):
         # capabilities.update(chrome_options.to_capabilities())
         # use_subprocess=False
         # service_args = []
-        chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"), service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
-        driver = uc.Chrome(options=chrome_options, service=chrome_service, desired_capabilities=capabilities)
+        # chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"), service_args=['--disable-build-check'], log_output=subprocess.STDOUT)
+        chrome_service = ChromeService(service_args=['--disable-build-check'], log_output=subprocess.STDOUT)        
+        driver = uc.Chrome(os.environ.get("GOOGLE_CHROME_BIN"), options=chrome_options, service=chrome_service, desired_capabilities=capabilities)
         # driver_executable_path = os.environ.get("CHROMEDRIVER_PATH"), browser_executable_path = chrome_options.binary_location
         
         # driver = uc.Chrome(service=ChromeService(ChromeDriverManager().install(), executable_path='./chromedriver.exe', service_args=['--disable-build-check'], log_output=subprocess.STDOUT), options=chrome_options, desired_capabilities=capabilities, )  
