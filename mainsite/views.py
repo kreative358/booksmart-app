@@ -240,19 +240,20 @@ def index_home(request, *args, **kwargs):
 
     list_elements = []
     try:
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--no-sandbox")
+        chrome_options_1 = webdriver.ChromeOptions()
+        chrome_service_1 = webdriver.ChromeService()
+        chrome_options_1.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options_1.add_argument("--headless")
+        chrome_options_1.add_argument("--disable-dev-shm-usage")
+        chrome_options_1.add_argument("--no-sandbox")
         # chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
-        browser = webdriver.Chrome(os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options, service=chrome_service)
+        browser_1 = webdriver.Chrome(os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options_1, service=chrome_service_1)
         time.sleep(2)
-        wait = WebDriverWait(browser, 10)
-        browser.get('https://news.ycombinator.com/')
+        wait = WebDriverWait(browser_1, 10)
+        browser_1.get('https://news.ycombinator.com/')
         time.sleep(2)
         element_list = wait.until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".title > a"))
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".title > span > a"))
         )
 
         for element in element_list:
@@ -263,26 +264,25 @@ def index_home(request, *args, **kwargs):
             except Exception as e:
                 print(f"1a.Exception akjasim as {e}")
         time.sleep(2)
-        browser.quit()        
+        browser_1.quit()        
     except Exception as e:
         print(f"1b.Exception akjasim as {e}")
         
     time.sleep(2)  
     try:
-        chrome_options = webdriver.ChromeOptions()
-        chrome_service = webdriver.ChromeService()
-        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--no-sandbox")
+        chrome_options_2 = webdriver.ChromeOptions()
+        chrome_service_2 = webdriver.ChromeService()
+        chrome_options_2.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options_2.add_argument("--headless")
+        chrome_options_2.add_argument("--disable-dev-shm-usage")
+        chrome_options_2.add_argument("--no-sandbox")
         # chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
-        browser = webdriver.Chrome(os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options, service=chrome_service)
+        browser_2 = webdriver.Chrome(os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options_2, service=chrome_service_2)
         time.sleep(2)
-        wait = WebDriverWait(browser, 10)
-        browser.get('https://python.com/')
+        browser_2.get('https://python.com/')
         time.sleep(2)
         try:
-            browser_title = browser.title
+            browser_title = browser_2.title
             if browser_title !="" and browser_title != None:
                 print("browser_path =", browser_title)
                 context['browser_path'] = browser_title
@@ -290,28 +290,28 @@ def index_home(request, *args, **kwargs):
                 print("NO browser_title")
                 context['browser_path'] = "NO browser_title"                    
             time.sleep(2)
-            browser.quit()
+            browser_2.quit()
         except Exception as e:
-            print(f"2b.Exception michaelkitas as {e}")                    
+            print(f"2a.Exception michaelkitas as {e}")                    
     except Exception as e:
         print(f"2b.Exception michaelkitas as {e}")    
         
     time.sleep(2)  
     try:
-        chrome_options = webdriver.ChromeOptions()
-        chrome_service = webdriver.ChromeService()
-        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options_3 = webdriver.ChromeOptions()
+        chrome_service_3 = webdriver.ChromeService()
+        chrome_options_3.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         # chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--no-sandbox")
+        chrome_options_3.add_argument("--disable-dev-shm-usage")
+        chrome_options_3.add_argument("--no-sandbox")
         # chrome_service = ChromeService(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
-        browser = webdriver.Chrome(os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options, service=chrome_service)
+        browser_3 = webdriver.Chrome(os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options_3, service=chrome_service_3)
         time.sleep(1)
-        browser.get('https://python.com/')
+        browser_3.get('https://python.com/')
         time.sleep(20)
-        browser.quit()                
+        browser_3.quit()                
     except Exception as e:
-        print(f"2b.Exception michaelkitas as {e}")          
+        print(f"3a.Exception michaelkitas as {e}")          
             
     # try:
     #     chrome_options = webdriver.ChromeOptions()
