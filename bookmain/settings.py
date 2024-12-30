@@ -419,7 +419,7 @@ if IS_HEROKU_APP and ENVIRONMENT == 'production':
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'booksmartapp358@gmail.com'
     EMAIL_FROM = 'booksmartapp358@gmail.com'
-    EMAIL_HOST_PASSWORD = 'ikzliaiijzdvbqlq'
+    EMAIL_HOST_PASSWORD = '...'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
 
@@ -445,7 +445,7 @@ elif ENVIRONMENT == 'development':
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'booksmartapp358@gmail.com'
     EMAIL_FROM = 'booksmartapp358@gmail.com'
-    EMAIL_HOST_PASSWORD = 'ikzliaiijzdvbqlq'
+    EMAIL_HOST_PASSWORD = '...'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     
